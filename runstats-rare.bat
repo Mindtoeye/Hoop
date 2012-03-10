@@ -1,0 +1,1 @@
+java -classpath INMain.jar INSorterStats -getshowrare yes -inputfile Root/Results/MapReduced-1k.txt -outputpath Root/Results/
