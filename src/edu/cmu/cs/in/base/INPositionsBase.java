@@ -22,10 +22,10 @@ import java.util.Iterator;
 import java.util.Map;
 //import java.util.Set;
 
-import edu.cmu.cs.in.base.INFeatureMatrixBase;
+import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.INFileManager;
 
-public class INPositionsBase extends INFeatureMatrixBase
+public class INPositionsBase extends INBase
 {    			
 	private INFileManager fManager=null;
     private Hashtable<String, Integer> entries=null;

@@ -17,7 +17,7 @@ package edu.cmu.cs.in.hadoop;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapred.lib.MultipleTextOutputFormat;
 
-//import edu.cmu.cs.in.base.INFeatureMatrixBase;
+//import edu.cmu.cs.in.base.INBase;
 
 public class INShardedOutputFormat extends MultipleTextOutputFormat<Text, Text> 
 {
@@ -30,7 +30,7 @@ public class INShardedOutputFormat extends MultipleTextOutputFormat<Text, Text>
     @Override
     protected String generateFileNameForKeyValue(Text key, Text value,String name) 
     {        
-    	//INFeatureMatrixBase.debug ("INShardedOutputFormat","generateFileNameForKeyValue ()");
+    	//INBase.debug ("INShardedOutputFormat","generateFileNameForKeyValue ()");
     	
         INPartitioner partitioner=new INPartitioner ();
         return ("shard-"+partitioner.getPartitionFromKey(key.toString()));

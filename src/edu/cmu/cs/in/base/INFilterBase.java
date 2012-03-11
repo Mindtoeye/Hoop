@@ -14,9 +14,9 @@
 
 package edu.cmu.cs.in.base;
 
-import edu.cmu.cs.in.base.INFeatureMatrixBase;
+import edu.cmu.cs.in.base.INBase;
 
-public class INFilterBase extends INFeatureMatrixBase
+public class INFilterBase extends INBase
 {    		    		
 	private Boolean noMore=false;
 	

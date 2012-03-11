@@ -18,9 +18,9 @@ import java.awt.Color;
 import java.util.HashMap;
 //import java.util.HashSet;
 
-import edu.cmu.cs.in.base.INFeatureMatrixBase;
+import edu.cmu.cs.in.base.INBase;
 
-public class INVisualClass extends INFeatureMatrixBase
+public class INVisualClass extends INBase
 {
 	private String name="";
 	private int classIndex=0;

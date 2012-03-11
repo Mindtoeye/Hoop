@@ -14,12 +14,12 @@
 
 package edu.cmu.cs.in.quickbayes;
 
-import edu.cmu.cs.in.base.INFeatureMatrixBase;
+import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.quickbayes.INQuickBayesArffReader;
 import edu.cmu.cs.in.quickbayes.INQuickBayesCSVWriter;
 import edu.cmu.cs.in.quickbayes.INQuickBayesData;
 
-public class INQuickBayesDriver extends INFeatureMatrixBase
+public class INQuickBayesDriver extends INBase
 {
 	private INQuickBayesArffReader reader=null;
 	private INQuickBayesCSVWriter writer=null;

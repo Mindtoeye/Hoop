@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 import edu.cmu.cs.in.INDataSet;
 import edu.cmu.cs.in.INDocument;
-import edu.cmu.cs.in.base.INFeatureMatrixBase;
+import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.INLink;
 import edu.cmu.cs.in.search.INQueryOperator;
 import edu.cmu.cs.in.hadoop.INPositionEntry;
@@ -31,7 +31,7 @@ import edu.cmu.cs.in.stats.INPerformanceMetrics;
 * structures needed to perform a retrieval and ranking set of steps
 * on a number of input terms and an archive of pre-processed documents.
 */
-public class INTextSearch extends INFeatureMatrixBase
+public class INTextSearch extends INBase
 {    				
     private INQueryOperator operation=null;
     private int topDocs=20;
@@ -69,9 +69,11 @@ public class INTextSearch extends INFeatureMatrixBase
 	/**
 	 *
 	 */
-	public long search (String aQuery)
+	public long search (String aQuery,int aTopDocs)
 	{
 		debug ("search ()");
+		
+		setTopDocs (aTopDocs);
 		
 		INPerformanceMetrics metrics=new INPerformanceMetrics ();
 		metrics.setMarker ("Query ");
@@ -85,7 +87,7 @@ public class INTextSearch extends INFeatureMatrixBase
 				
 		if (result!=null)
 		{
-			createDocumentList (result);
+			rankDocumentList (result);
 		}
 		
 		Long memAfter=Runtime.getRuntime().freeMemory();
@@ -100,8 +102,10 @@ public class INTextSearch extends INFeatureMatrixBase
 	/**
 	 * 
 	 */
-	private INDataSet createDocumentList (INPositionList aList)
+	private INDataSet rankDocumentList (INPositionList aList)
 	{
+		debug ("rankDocumentList ("+aList.getPosEntries().size()+")");
+		
 		INLink.dataSet=new INDataSet ();
 		
 		ArrayList<INPositionEntry> docIDs=aList.getPosEntries();
@@ -116,16 +120,20 @@ public class INTextSearch extends INFeatureMatrixBase
 			INPositionEntry entry=docIDs.get(i);
 			
 			INDocument newDocument=new INDocument ();
-			newDocument.setDocID(entry.getDocID());
+			newDocument.setDocID(String.format("%d",entry.getDocID()));
 			INLink.dataSet.addDocument (newDocument);
 		}
 		
 		return (INLink.dataSet);
 	}
 	/**
-	 *
+	 * Implementation of the merge pseudo code as listed in:
+	 * Manning, C. (2008). Introduction to information retrieval. 
+	 * New York: Cambridge University Press. 
 	 */	
-	private INPositionList mergeLists (String operator,INPositionList aFirst,INPositionList aSecond)
+	private INPositionList mergeLists (String operator,
+									   INPositionList aFirst,
+									   INPositionList aSecond)
 	{
 		debug ("mergeLists ("+operator+")");
 		
@@ -134,12 +142,18 @@ public class INTextSearch extends INFeatureMatrixBase
 		ArrayList<INPositionEntry> posEntriesA=aFirst.getPosEntries();
 		ArrayList<INPositionEntry> posEntriesB=aSecond.getPosEntries();
 		
-		debug ("Checking ...");
+		debug ("Checking ... "+posEntriesA.size()+","+posEntriesB.size());
 		
 		if ((posEntriesA==null) || (posEntriesB==null))
 		{
 			debug ("Internal error: one of the positions lists is null");
 			return (null);
+		}
+		
+		if ((posEntriesA.size()==0) && (posEntriesB.size ()==0))
+		{
+			debug ("Internal error: both lists have length 0");
+			return(null);
 		}
 		
 		if ((posEntriesA.size()==0) && (posEntriesB.size()>0))
@@ -148,8 +162,8 @@ public class INTextSearch extends INFeatureMatrixBase
 
 			for (int i=0;i<posEntriesB.size();i++)
 			{
-				INPositionEntry anEntry=posEntriesB.get(0);
-				merged.addDocument (anEntry.getDocID());
+				INPositionEntry anEntry=posEntriesB.get(i);
+				merged.addDocument (anEntry);
 			}
 			
 			return (merged);
@@ -166,30 +180,56 @@ public class INTextSearch extends INFeatureMatrixBase
 		
 		debug ("Merging ...");
 		
-		int index=0;
+		int indexA=0;
+		int indexB=0;
 		
 		while ((first!=null) && (second!=null))
-		{
-			if (Long.parseLong(first.getDocID())==Long.parseLong(second.getDocID()))
+		{			
+			long firstIndex=first.getDocID();
+			long secondIndex=second.getDocID();
+			
+			//debug ("Comparing "+firstIndex+" at: "+indexA+" to " + secondIndex + " at: " + indexB);
+			
+			if (firstIndex==secondIndex)
 			{
-				merged.addDocument (first.getDocID());
+				//debug ("Found duplicate: " +first.getDocID());
+				merged.addDocument (first); // doesn't matter which one we use
+				indexA++;
+				indexB++;
 			}
-			
-			index++;
-			
-			if (index>(posEntriesA.size()-1))
+			else
+			{
+				if (firstIndex<secondIndex)
+				{
+					//debug ("incrementing first index");
+					indexA++;
+				}
+				else
+				{
+					//debug ("incrementing second index");
+					indexB++;
+				}
+			}
+									
+			if (indexA>(posEntriesA.size()-1))
 			{
 				first=null;
 			}
 			else
-				first=posEntriesA.get(index);
+			{
+				first=posEntriesA.get(indexA);
+				//debug ("Obtained next (A)->"+indexA+" entry: " + first.getDocID());
+			}
 			
-			if (index>(posEntriesB.size()-1))
+			if (indexB>(posEntriesB.size()-1))
 			{
 				second=null;
 			}
 			else			
-				second=posEntriesB.get(index);			
+			{
+				second=posEntriesB.get(indexB);
+				//debug ("Obtained next (B)->"+indexB+" entry: " + second.getDocID());
+			}
 		}
 		
 		return (merged);
@@ -199,13 +239,13 @@ public class INTextSearch extends INFeatureMatrixBase
 	 */
 	private INPositionList merge (INQueryOperator aRoot)
 	{
-		debug ("merge ()");
+		debug ("merge ("+aRoot.getInstanceName()+")");
 		
 		ArrayList<INQueryOperator> operators=aRoot.getOperators();
 		
-		debug ("Merging "+ aRoot.getOperator()+": " + operators.size() + " position lists");
+		debug ("Merging ("+ aRoot.getOperator()+") over: " + operators.size() + " position lists");
 		
-		INPositionList last=aRoot.getPositions();
+		INPositionList last=aRoot.getPositions(); // This is where we want stuff to end up in
 		
 		for (int i=0;i<operators.size();i++)
 		{			
@@ -250,7 +290,19 @@ public class INTextSearch extends INFeatureMatrixBase
 					return;
 				}
 				else
+				{
 					debug ("Position list loaded for: " + op.getInstanceName());
+					
+					/*
+					INPositionList tList=op.getPositions();
+					ArrayList <INPositionEntry>lList=tList.getPosEntries();
+					for (int w=0;w<lList.size();w++)
+					{
+						INPositionEntry pEntry=lList.get(w);
+						debug ("Entry: " + pEntry.getDocID());
+					}
+					*/
+				}
 			}
 			else
 			{
@@ -401,3 +453,4 @@ public class INTextSearch extends INFeatureMatrixBase
 		return (newRoot);
 	}
 }
+

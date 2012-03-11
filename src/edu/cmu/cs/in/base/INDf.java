@@ -16,12 +16,12 @@ package edu.cmu.cs.in.base;
 
 import java.util.ArrayList;
 
-//import edu.cmu.cs.in.base.INFeatureMatrixBase;
+//import edu.cmu.cs.in.base.INBase;
 
 /**
 *
 */
-public class INDf //extends INFeatureMatrixBase
+public class INDf //extends INBase
 {    			
 	private String docID="-1";
 	private int Df=0;

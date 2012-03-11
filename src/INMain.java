@@ -41,7 +41,7 @@ import org.apache.hadoop.mapred.*;
 import org.apache.hadoop.util.*;
 
 import edu.cmu.cs.in.INDataSet;
-import edu.cmu.cs.in.base.INFeatureMatrixBase;
+import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.INFileManager;
 import edu.cmu.cs.in.base.INLink;
 import edu.cmu.cs.in.network.INSocketServerBase;
@@ -70,7 +70,7 @@ public class INMain extends INSocketServerBase
     {
 		setClassName ("INMain");
 		debug ("INMain ()");
-		INFeatureMatrixBase.debug ("INHoop","Running on: "+INHadoopReporter.getMachineName ());
+		INBase.debug ("INHoop","Running on: "+INHadoopReporter.getMachineName ());
     }
     /**
 	 *
@@ -142,7 +142,7 @@ public class INMain extends INSocketServerBase
 	 */    
     private static void dbg (String aMessage)
     {
-    	INFeatureMatrixBase.debug ("INMain",aMessage);
+    	INBase.debug ("INMain",aMessage);
     }
     /**
 	 *

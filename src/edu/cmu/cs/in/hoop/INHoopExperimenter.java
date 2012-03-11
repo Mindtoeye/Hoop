@@ -12,15 +12,6 @@
  * 
  */
 
-/*
-import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
-import javax.swing.*;
-import javax.swing.border.*;
-import javax.swing.tree.*;
-*/
-
 package edu.cmu.cs.in.hoop;
 
 import java.awt.Color;
@@ -39,9 +30,12 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
 //import javax.swing.JTextField;
 import javax.swing.border.Border;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import com.mxgraph.layout.mxCompactTreeLayout;
 import com.mxgraph.swing.mxGraphComponent;
@@ -57,7 +51,7 @@ import edu.cmu.cs.in.stats.INPerformanceMetrics;
 /**
  * 
  */
-public class INHoopExperimenter extends INJInternalFrame implements ActionListener 
+public class INHoopExperimenter extends INJInternalFrame implements ActionListener, ListSelectionListener 
 {  
 	private static final long serialVersionUID = 8387762921834350566L;
 	
@@ -76,9 +70,9 @@ public class INHoopExperimenter extends INJInternalFrame implements ActionListen
     	Box holder = new Box (BoxLayout.Y_AXIS);
     	
 		//Border padding = BorderFactory.createEmptyBorder(2,0,0,0);
+		//Border redborder=BorderFactory.createLineBorder(Color.red);    	
 		Border blackborder=BorderFactory.createLineBorder(Color.black);
-		//Border redborder=BorderFactory.createLineBorder(Color.red);	    	
-		
+	    			
 		Box inputBox = new Box (BoxLayout.X_AXIS);
 		inputBox.setMinimumSize(new Dimension (50,25));
 		inputBox.setPreferredSize(new Dimension (5000,25));
@@ -127,6 +121,7 @@ public class INHoopExperimenter extends INJInternalFrame implements ActionListen
 
 		graph=new mxGraph();		
 		mxGraphComponent graphComponent=new mxGraphComponent(graph);
+		graphComponent.setEnabled(false);
 		graphComponent.setMinimumSize(new Dimension (50,25));
 		graphComponent.setPreferredSize(new Dimension (5000,5000));
 		graphComponent.setMaximumSize(new Dimension (5000,5000));	
@@ -135,7 +130,8 @@ public class INHoopExperimenter extends INJInternalFrame implements ActionListen
 		searchList.setFont(new Font("Dialog", 1, 10));
 		searchList.setMinimumSize(new Dimension (50,25));
 		searchList.setPreferredSize(new Dimension (150,5000));
-		searchList.setMaximumSize(new Dimension (150,5000));		
+		searchList.setMaximumSize(new Dimension (150,5000));
+		searchList.addListSelectionListener(this);
 		
 		JSplitPane centerPane=new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,graphComponent,searchList);
 		centerPane.setResizeWeight(0.5);
@@ -173,6 +169,8 @@ public class INHoopExperimenter extends INJInternalFrame implements ActionListen
 		//String act=event.getActionCommand();
 		JButton button = (JButton)event.getSource();
 		
+		//>---------------------------------------------------------
+		
 		if (button.getText().equals("Load Queries"))
 		{
 			fc = new JFileChooser();
@@ -193,17 +191,33 @@ public class INHoopExperimenter extends INJInternalFrame implements ActionListen
 	        }
 		}
 		
+		//>---------------------------------------------------------
+		
 		if (button.getText().equals("Run"))
 		{
+			if (INLink.posFiles==null)
+			{
+				JOptionPane.showMessageDialog(null, "Warning, no vocabulary loaded!");
+				return;
+			}
+			
+			if (INLink.posFiles.size()==0)
+			{
+				JOptionPane.showMessageDialog(null, "Warning, no vocabulary loaded!");
+				return;
+			}
+			
 			if (queries==null)
 			{
 				queryStats.setText ("Please load an experiment file first");
+				JOptionPane.showMessageDialog(null, "Please load an experiment file first");
 				return;
 			}
 			
 			if (queries.size()==0)
 			{
 				queryStats.setText ("Experiment file has 0 entries");
+				JOptionPane.showMessageDialog(null, "Experiment file has 0 entries");
 				return;
 			}			
 			
@@ -232,26 +246,30 @@ public class INHoopExperimenter extends INJInternalFrame implements ActionListen
 				
 				INTextSearch aSearch=new INTextSearch ();
 				
-				aSearch.search(theQuery);
+				aSearch.search(theQuery,20);
 				
 				if (i==0)
 				{
 					visualize (null,aSearch.getRootQueryOperator());
 				}
 				
-				INLink.searchHistory.add(aSearch);
+				INLink.searchHistory.add (aSearch);
 				
 				StringBuffer formatter=new StringBuffer ();
 				
 				INQueryOperator query=aSearch.getRootQueryOperator ();
 				
-				formatter.append("["+i+"] Time: "+ query.getTimeTaken()+"msec, Memory: " + query.getMemUsed()/1024+"K for: " +"\""+theQuery+"\"");
+				float tt=(float) (query.getTimeTaken()/1000.0);
+				//formatter.append("["+i+"] = "+ String.format("%.2f",tt)+" seconds, Mem: " + query.getMemUsed()/1024+"K for: " +"\""+theQuery+"\"");
+				formatter.append("["+String.format ("%02d",i)+"] = "+ String.format("%.2f",tt)+" seconds, for: " +"\""+theQuery+"\"");
 				
 				mdl.add (i,formatter.toString());
 				searchList.invalidate();
 				searchList.repaint();
 				
 				// Clean it all up!
+				
+				query.reset();
 				
 				Runtime r = Runtime.getRuntime();
 				r.gc();
@@ -260,6 +278,8 @@ public class INHoopExperimenter extends INJInternalFrame implements ActionListen
 			long timeTaken=metrics.getMarkerRaw ();
 			queryStats.setText(metrics.getMetrics(timeTaken));	     			
 		}
+		
+		//>---------------------------------------------------------
 	}
 	/**
 	 * Sets a new root using createRoot.
@@ -317,5 +337,25 @@ public class INHoopExperimenter extends INJInternalFrame implements ActionListen
 		vertTree.setLevelDistance(10);
 		vertTree.setNodeDistance(20);
 		vertTree.execute(graph.getDefaultParent());
+	}
+	/**
+	 *
+	 */	
+	@Override
+	public void valueChanged(ListSelectionEvent event) 
+	{
+		debug ("valueChanged ()");
+		
+		int selectedRow=event.getFirstIndex();
+		
+		if (selectedRow!=-1)
+		{
+			INTextSearch aSearch=INLink.searchHistory.get(selectedRow-1);
+						
+			if (aSearch!=null)
+			{
+				visualize (null,aSearch.getRootQueryOperator());
+			}			
+		}
 	}	
 }

@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-import edu.cmu.cs.in.base.INFeatureMatrixBase;
+import edu.cmu.cs.in.base.INBase;
 
 @SuppressWarnings("serial")
 
@@ -31,7 +31,7 @@ public class INStatsPanel extends JPanel implements INVisualFeatureVisualizer
 	 */
 	private void debug (String aMessage)
 	{
-		INFeatureMatrixBase.debug ("INStatsPanel",aMessage);	
+		INBase.debug ("INStatsPanel",aMessage);	
 	}
 	/**------------------------------------------------------------------------------------
 	 *

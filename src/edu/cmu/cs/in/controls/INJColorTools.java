@@ -16,9 +16,9 @@ package edu.cmu.cs.in.controls;
 
 import java.awt.*;
 
-import edu.cmu.cs.in.base.INFeatureMatrixBase;
+import edu.cmu.cs.in.base.INBase;
 
-public class INJColorTools extends INFeatureMatrixBase
+public class INJColorTools extends INBase
 {
 	/**------------------------------------------------------------------------------------ 
 	 * Parses the specified Color as a string. 

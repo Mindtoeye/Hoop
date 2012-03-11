@@ -18,7 +18,7 @@ import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class INStringTools extends INFeatureMatrixBase
+public class INStringTools extends INBase
 {    				
 	public static LinkedList<String> numbers=null;
 	

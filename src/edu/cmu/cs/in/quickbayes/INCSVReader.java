@@ -16,9 +16,9 @@ package edu.cmu.cs.in.quickbayes;
 
 import java.util.ArrayList;
 
-import edu.cmu.cs.in.base.INFeatureMatrixBase;
+import edu.cmu.cs.in.base.INBase;
 
-public class INCSVReader extends INFeatureMatrixBase 
+public class INCSVReader extends INBase 
 {
 	public INQuickBayesData dataGrid=null;
 	public String mode="TAB"; // TAB,COMMA,DASH

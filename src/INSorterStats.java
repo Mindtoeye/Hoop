@@ -19,13 +19,13 @@ import java.util.Comparator;
 //import java.util.Iterator;
 import java.util.Map;
 
-import edu.cmu.cs.in.base.INFeatureMatrixBase;
+import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.INFileManager;
 import edu.cmu.cs.in.base.INKV;
 import edu.cmu.cs.in.base.INLink;
 import edu.cmu.cs.in.base.INPositionsBase;
 
-public class INSorterStats extends INFeatureMatrixBase
+public class INSorterStats extends INBase
 {    		
 	public static Boolean getTop=false;
 	public static int topEntries=25;
@@ -118,7 +118,7 @@ public class INSorterStats extends INFeatureMatrixBase
 	 */
     private static Boolean parseArgs (String args [])
     {
-    	INFeatureMatrixBase.debug ("INSorterStats","parseArgs ()");
+    	INBase.debug ("INSorterStats","parseArgs ()");
     	
     	if (args.length<3)
     	{    		
@@ -170,7 +170,7 @@ public class INSorterStats extends INFeatureMatrixBase
 	 */
     public static void main(String args[]) throws Exception
 	{
-    	INFeatureMatrixBase.debug ("INSorterStats","main ()");
+    	INBase.debug ("INSorterStats","main ()");
     	
     	if (parseArgs (args)==false)
     	{
@@ -182,14 +182,14 @@ public class INSorterStats extends INFeatureMatrixBase
         long heapSize = Runtime.getRuntime().totalMemory();
  
         //Print the jvm heap size.
-        INFeatureMatrixBase.debug ("INSorterStats","Heap Size = " + heapSize);    	
+        INBase.debug ("INSorterStats","Heap Size = " + heapSize);    	
     	
     	@SuppressWarnings("unused")
 		INLink link = new INLink(); // run the INLink constructor; We need this to have a global settings registry
     	
     	parseArgs (args);
         
-        INFeatureMatrixBase.debug ("INSorterStats","Starting system ...");
+        INBase.debug ("INSorterStats","Starting system ...");
         
         INFileManager fManager=new INFileManager ();
         ArrayList<String> lines=fManager.loadLines(INLink.datapath);
@@ -206,7 +206,7 @@ public class INSorterStats extends INFeatureMatrixBase
             for (int i=0;i<results.size();i++)
             {
             	INKV kv=results.get(i);
-            	INFeatureMatrixBase.debug ("INSorterStats","Key: " + kv.getKeyString()+", value: " + kv.getValue()); 
+            	INBase.debug ("INSorterStats","Key: " + kv.getKeyString()+", value: " + kv.getValue()); 
             }        	
         }
                 
@@ -223,7 +223,7 @@ public class INSorterStats extends INFeatureMatrixBase
         			INKV kv=results.get(i);
         			if (kv.getKeyString().equals (target.toLowerCase())==true)
         			{
-        				INFeatureMatrixBase.debug ("INSorterStats","Value for " + target + " is: " + kv.getValue ());
+        				INBase.debug ("INSorterStats","Value for " + target + " is: " + kv.getValue ());
         			}
         		}
         	}	
@@ -237,7 +237,7 @@ public class INSorterStats extends INFeatureMatrixBase
         		Integer val=srch;
         		String retr=val.toString();
         		
-        		INFeatureMatrixBase.debug ("INSorterStats","Retrieving entries with frequency: " + retr);
+        		INBase.debug ("INSorterStats","Retrieving entries with frequency: " + retr);
         		
         		fManager.saveContents(INLink.outputpath+"/rare-"+(t+1)+".txt",fPositions.getValuesFormatted (retr));
         	}

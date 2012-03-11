@@ -14,12 +14,12 @@
 
 package edu.cmu.cs.in.base;
 
-//import edu.cmu.cs.in.base.INFeatureMatrixBase;
+//import edu.cmu.cs.in.base.INBase;
 
 /**
 *
 */
-public class INKV //extends INFeatureMatrixBase
+public class INKV //extends INBase
 {    			
 	private int key=-1;
 	private String keyString="";

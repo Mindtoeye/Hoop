@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.Border;
 
-import edu.cmu.cs.in.base.INFeatureMatrixBase;
+import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.controls.INVisualFeatureVisualizer;
 
 public class INJFeatureList extends JPanel implements ActionListener, MouseListener
@@ -60,7 +60,7 @@ public class INJFeatureList extends JPanel implements ActionListener, MouseListe
 	 */
 	private void debug (String aMessage)
 	{
-		INFeatureMatrixBase.debug ("INJFeatureList",aMessage);	
+		INBase.debug ("INJFeatureList",aMessage);	
 	}	
 	/**
 	 *

@@ -27,7 +27,7 @@ import edu.cmu.cs.in.controls.INVisualRuleFeature;
 import edu.cmu.cs.in.controls.INVisualSentence;
 import edu.cmu.cs.in.controls.INVisualSentinetFeature;
 
-public class INDataCollection extends INFeatureMatrixBase 
+public class INDataCollection extends INBase 
 {	
 	//public DocumentList context=null;
 	//public List<INSegment> segments=null;

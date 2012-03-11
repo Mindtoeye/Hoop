@@ -25,7 +25,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedList;
 
-import edu.cmu.cs.in.base.INFeatureMatrixBase;
+import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.INStringTools;
 
 /*
@@ -60,7 +60,7 @@ import org.apache.hadoop.mapred.*;
  * @author vvelsen
  *
  */
-public class INWholeFileRecordReader extends INFeatureMatrixBase implements RecordReader<LongWritable, Text> 
+public class INWholeFileRecordReader extends INBase implements RecordReader<LongWritable, Text> 
 {
 	private LongWritable key = null;
 	private Text value = null;

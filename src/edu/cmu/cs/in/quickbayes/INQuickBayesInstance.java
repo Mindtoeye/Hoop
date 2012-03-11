@@ -13,9 +13,9 @@
  */
 package edu.cmu.cs.in.quickbayes;
 
-import edu.cmu.cs.in.base.INFeatureMatrixBase;
+import edu.cmu.cs.in.base.INBase;
 
-public class INQuickBayesInstance extends INFeatureMatrixBase
+public class INQuickBayesInstance extends INBase
 {
 	public String instanceName="undefined";
 	public int countClassifier=0;	

@@ -21,20 +21,20 @@ import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 import javax.swing.UIManager;
 
-import edu.cmu.cs.in.base.INFeatureMatrixBase;
+import edu.cmu.cs.in.base.INBase;
   
 class INJCheckListItem extends JCheckBox implements ListCellRenderer 
 {
 	private static final long serialVersionUID = 1L;
 	
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
 	private void debug (String aMessage)
 	{
-		INFeatureMatrixBase.debug ("INJCheckListItem",aMessage);	
+		INBase.debug ("INJCheckListItem",aMessage);	
 	}		
-	/**------------------------------------------------------------------------------------
+	/**
 	 * 
 	 */	
 	public INJCheckListItem () 
@@ -44,7 +44,7 @@ class INJCheckListItem extends JCheckBox implements ListCellRenderer
 		
 		debug ("INJCheckList ()");
 	}
-	/**------------------------------------------------------------------------------------
+	/**
 	 * 
 	 */
 	public Component getListCellRendererComponent  (JList listBox, 
@@ -66,6 +66,5 @@ class INJCheckListItem extends JCheckBox implements ListCellRenderer
 		setForeground(listBox.getForeground());
 		setText (obj.toString());
 		return this;
-	}
-	//-------------------------------------------------------------------------------------	
+	}	
 }

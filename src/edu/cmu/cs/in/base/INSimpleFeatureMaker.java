@@ -17,7 +17,7 @@ package edu.cmu.cs.in.base;
 import java.util.ArrayList;
 import java.util.List;
 
-public class INSimpleFeatureMaker extends INFeatureMatrixBase implements INFeatureMaker
+public class INSimpleFeatureMaker extends INBase implements INFeatureMaker
 {	
 	/**
 	 *

@@ -33,7 +33,7 @@ import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import edu.cmu.cs.in.base.INDataCollection;
-import edu.cmu.cs.in.base.INFeatureMatrixBase;
+import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.INFileManager;
 //import edu.cmu.cs.in.quickbayes.INQuickBayesAttribute;
 import edu.cmu.cs.in.quickbayes.INQuickBayesData;
@@ -69,7 +69,7 @@ public class INSentinetPanel extends JPanel implements ActionListener
 	 */
 	private void debug (String aMessage)
 	{
-		INFeatureMatrixBase.debug ("INSentinetPanel",aMessage);	
+		INBase.debug ("INSentinetPanel",aMessage);	
 	}
 	/**------------------------------------------------------------------------------------
 	 *

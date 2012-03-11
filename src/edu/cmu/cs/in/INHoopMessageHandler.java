@@ -23,7 +23,7 @@ import javax.swing.ListModel;
 
 import org.w3c.dom.Element;
 
-import edu.cmu.cs.in.base.INFeatureMatrixBase;
+import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.INLink;
 import edu.cmu.cs.in.controls.INGridNodeVisualizer;
 import edu.cmu.cs.in.controls.INJFeatureList;
@@ -36,7 +36,7 @@ import edu.cmu.cs.in.network.INMessageHandler;
 /**
 *
 */
-public class INHoopMessageHandler extends INFeatureMatrixBase implements INMessageHandler
+public class INHoopMessageHandler extends INBase implements INMessageHandler
 {    	
 	private INStatistics stats=null;
 	private INScatterPlot plotter=null;

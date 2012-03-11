@@ -28,7 +28,7 @@ import org.apache.hadoop.io.*;
 import org.apache.hadoop.mapred.*;
 
 import edu.cmu.cs.in.INDocumentParser;
-//import edu.cmu.cs.in.base.INFeatureMatrixBase;
+//import edu.cmu.cs.in.base.INBase;
 
 /** 
  * @author vvelsen

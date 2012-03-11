@@ -175,7 +175,7 @@ public class INInvertedListReducer extends INHadoopReporter implements Reducer<T
 							 Iterator<Text> values,
 							 OutputCollector<Text, Text> output) throws IOException, InterruptedException 
 	{
-		//INFeatureMatrixBase.debug ("INInvertedListReducer","reduce ()");		
+		//INBase.debug ("INInvertedListReducer","reduce ()");		
 				
 		StringBuffer tester=new StringBuffer ();		
 		Long count = (long) 0;
@@ -202,7 +202,7 @@ public class INInvertedListReducer extends INHadoopReporter implements Reducer<T
 							Iterator<Text> values,
 							OutputCollector<Text, Text>	output) throws IOException, InterruptedException 
 	{
-		//INFeatureMatrixBase.debug ("INInvertedListReducer","reduce ()");		
+		//INBase.debug ("INInvertedListReducer","reduce ()");		
 		
 		StringBuffer tester=new StringBuffer ();		
 		Long count = (long) 0;
