@@ -1,4 +1,4 @@
-Hoop: a text mining and exploration workbench in Java. Primaly
+Hoop: a text mining and exploration workbench in Java. Primarily
 designed for narrative event extraction and text-based event
 forecasting, the workbench is a generic text and language
 machine learning sandbox that can be adopted to a wide variety
