@@ -170,8 +170,15 @@ public class INQueryOperator extends INBase
 	public void reset ()
 	{
 		debug ("reset ()");		
-		//operators=new ArrayList<INQueryOperator> (); 
+		//operators=new ArrayList<INQueryOperator> ();
+			
 		positions=new INPositionList ();
+		
+		for (int i=0;i<operators.size();i++)
+		{
+			INQueryOperator op=operators.get(i);
+			op.reset();
+		}
 	}
 	/**
 	 *

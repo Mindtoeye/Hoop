@@ -47,6 +47,7 @@ import edu.cmu.cs.in.controls.base.INJInternalFrame;
 //import edu.cmu.cs.in.controls.INVisualFeature;
 import edu.cmu.cs.in.search.INTextSearch;
 import edu.cmu.cs.in.stats.INPerformanceMetrics;
+import edu.cmu.cs.in.stats.INTrecEval;
 
 /**
  * 
@@ -61,8 +62,6 @@ public class INHoopExperimenter extends INJInternalFrame implements ActionListen
 	private mxGraph graph=null;	
 	private JList searchList=null;
 	
-	private ArrayList <String> queries=null;
-
 	public INHoopExperimenter ()  
     {
     	super("Experimenter", true, true, true, true);
@@ -183,9 +182,9 @@ public class INHoopExperimenter extends INJInternalFrame implements ActionListen
 	        		
 	        	debug ("Loading: " + file.getPath() + " ...");
 	        		
-	        	queries=INLink.fManager.loadLines(file.getPath());
+	        	INLink.queries=INLink.fManager.loadLines(file.getPath());
 	        		
-	        	queryStats.setText("Loaded " + queries.size() + " runnable queries");
+	        	queryStats.setText("Loaded " + INLink.queries.size() + " runnable queries");
 	        		
 	        	filePath.setText(file.getPath());
 	        }
@@ -207,14 +206,14 @@ public class INHoopExperimenter extends INJInternalFrame implements ActionListen
 				return;
 			}
 			
-			if (queries==null)
+			if (INLink.queries==null)
 			{
 				queryStats.setText ("Please load an experiment file first");
 				JOptionPane.showMessageDialog(null, "Please load an experiment file first");
 				return;
 			}
 			
-			if (queries.size()==0)
+			if (INLink.queries.size()==0)
 			{
 				queryStats.setText ("Experiment file has 0 entries");
 				JOptionPane.showMessageDialog(null, "Experiment file has 0 entries");
@@ -231,9 +230,9 @@ public class INHoopExperimenter extends INJInternalFrame implements ActionListen
 			
 			searchList.setModel (mdl);
 									
-			for (int i=0;i<queries.size();i++)
+			for (int i=0;i<INLink.queries.size();i++)
 			{
-				String aQuery=queries.get(i);
+				String aQuery=INLink.queries.get(i);
 				
 				String [] preProcess=aQuery.split("\\:");
 				
@@ -245,6 +244,7 @@ public class INHoopExperimenter extends INJInternalFrame implements ActionListen
 				debug ("Running query: " + theQuery);
 				
 				INTextSearch aSearch=new INTextSearch ();
+				aSearch.setInstanceName(preProcess [0]);
 				
 				aSearch.search(theQuery,20);
 				
@@ -276,7 +276,9 @@ public class INHoopExperimenter extends INJInternalFrame implements ActionListen
 			}
 								
 			long timeTaken=metrics.getMarkerRaw ();
-			queryStats.setText(metrics.getMetrics(timeTaken));	     			
+			queryStats.setText(metrics.getMetrics(timeTaken));
+			
+			INLink.experimentNr++;			
 		}
 		
 		//>---------------------------------------------------------

@@ -30,7 +30,8 @@ import edu.cmu.cs.in.base.INWikipediaFilter;
 public class INDocument extends INBase
 {	
 	private String docID="-1";
-	private double rank=1.0;
+	private long rank=1;
+	private double score=1.0;
 	private INPorterStemmer stemmer=null;
 	private INFileManager fManager=null;	
 	private List<String> tokens=null;
@@ -67,17 +68,31 @@ public class INDocument extends INBase
     /**
 	 *
 	 */	
-	public double getRank() 
+	public long getRank() 
 	{
 		return rank;
 	}
     /**
 	 *
 	 */	
-	public void setRank(double rank) 
+	public void setRank(long rank) 
 	{
 		this.rank = rank;
-	}    
+	}
+	/**
+	 *
+	 */	
+	public void setScore(double score) 
+	{
+		this.score = score;
+	}
+	/**
+	 *
+	 */	
+	public double getScore() 
+	{
+		return score;
+	}	
 	/**
 	 *
 	 */    
