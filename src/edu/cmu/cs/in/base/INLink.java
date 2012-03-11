@@ -67,6 +67,7 @@ public class INLink extends INBase
 	public static String [] stops={"a","an","and","are","as","at","for","i","if","in","is","it","of","on","so","that","the","to"};
 	public static String [] garbage={"*","?","!",".","'","#","-","_",":",",","|","\"","(",")","^",";"};
 	
+	public static String vocabularyPath="./";
 	public static ArrayList <String> posFiles=null;	
 	public static ArrayList <INPerformanceMetrics> metrics=null;
 	public static ArrayList <INJInternalFrame> windows=null;

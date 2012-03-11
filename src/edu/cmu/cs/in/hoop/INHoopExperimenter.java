@@ -246,7 +246,7 @@ public class INHoopExperimenter extends INJInternalFrame implements ActionListen
 				
 				INTextSearch aSearch=new INTextSearch ();
 				
-				aSearch.search(theQuery);
+				aSearch.search(theQuery,20);
 				
 				if (i==0)
 				{

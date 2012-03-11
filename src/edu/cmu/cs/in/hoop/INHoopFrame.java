@@ -230,7 +230,7 @@ public class INHoopFrame extends INJFrame implements ActionListener
     		public void actionPerformed(ActionEvent e) 
     		{
     	    	JInternalFrame viewer = new INHoopDocumentViewer();
-    	    	desktop.add (viewer, HELPLAYER);
+    	    	desktop.add (viewer, DOCLAYER);
     	    	try 
     	    	{ 
     	    		viewer.setVisible(true);
@@ -250,7 +250,7 @@ public class INHoopFrame extends INJFrame implements ActionListener
     		public void actionPerformed(ActionEvent e) 
     		{
     	    	JInternalFrame viewer=new INHoopDocumentList();
-    	    	desktop.add (viewer, HELPLAYER);
+    	    	desktop.add (viewer, DOCLAYER);
     	    	try 
     	    	{ 
     	    		viewer.setVisible(true);
@@ -708,6 +708,8 @@ public class INHoopFrame extends INJFrame implements ActionListener
 	        	if (n==0)
 	        	{          	
 	        		File file = fc.getSelectedFile();
+	        		
+	        		INLink.vocabularyPath=file.getPath ();
 	        		
 	        		ArrayList<String> tempFiles=INLink.fManager.listFiles (file.getPath());
 	        	   	

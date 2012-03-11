@@ -151,11 +151,11 @@ class INHoopDocumentListRenderer extends INJPanel implements ListCellRenderer, A
 		
 		if (hasFocus)
 		{
-			this.setBorder (BorderFactory.createTitledBorder(selectedBorder,aDoc.getDocID()));
+			this.setBorder (BorderFactory.createTitledBorder(border,aDoc.getDocID()));
 		}
 		else
 		{
-			this.setBorder (BorderFactory.createTitledBorder(border,aDoc.getDocID()));
+			this.setBorder (BorderFactory.createTitledBorder(selectedBorder,aDoc.getDocID()));			
 		}		
 	}
 	/**

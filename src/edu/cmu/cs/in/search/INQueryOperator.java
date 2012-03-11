@@ -268,7 +268,9 @@ public class INQueryOperator extends INBase
 			String fileName=INLink.posFiles.get(i);
 			if (fileName.indexOf(this.getInstanceName())!=-1)
 			{
-				String invListURL="Root/DataSet/InvertedLists/"+this.getInstanceName()+".inv";
+				String invListURL=INLink.vocabularyPath+"/"+this.getInstanceName()+".inv";
+				
+				debug ("Loading: " + invListURL);
 						
 				if (INLink.fManager.doesFileExist (invListURL)==false)
 				{

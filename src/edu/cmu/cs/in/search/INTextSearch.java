@@ -69,9 +69,11 @@ public class INTextSearch extends INBase
 	/**
 	 *
 	 */
-	public long search (String aQuery)
+	public long search (String aQuery,int aTopDocs)
 	{
 		debug ("search ()");
+		
+		setTopDocs (aTopDocs);
 		
 		INPerformanceMetrics metrics=new INPerformanceMetrics ();
 		metrics.setMarker ("Query ");
@@ -118,7 +120,7 @@ public class INTextSearch extends INBase
 			INPositionEntry entry=docIDs.get(i);
 			
 			INDocument newDocument=new INDocument ();
-			newDocument.setDocID(String.format("%ld",entry.getDocID()));
+			newDocument.setDocID(String.format("%d",entry.getDocID()));
 			INLink.dataSet.addDocument (newDocument);
 		}
 		

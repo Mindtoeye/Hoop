@@ -67,9 +67,8 @@ public class INHoopSearch extends INJInternalFrame implements ActionListener, Ke
 	private JTextField inputField=null;
 	private JLabel queryStats=null;	
 	private mxGraph graph=null;
-    //private int queryNr=1;    
-    //private INTextSearch aSearch=null;
 	private JComboBox rankType=null;
+	private JTextField topDocsInput=null;
     
 	/**
 	 *
@@ -143,6 +142,18 @@ public class INHoopSearch extends INJInternalFrame implements ActionListener, Ke
 		rankType.setFont(new Font("Dialog", 1, 10));
 		rankType.addItemListener(this);
 		
+		JLabel l1=new JLabel ();
+		l1.setFont(new Font("Dialog", 1, 10));
+		l1.setText("Show only top ");
+		
+		topDocsInput=new JTextField ();
+		topDocsInput.setText("20");
+		topDocsInput.setFont(new Font("Dialog", 1, 10));
+		
+		JLabel l2=new JLabel ();
+		l2.setFont(new Font("Dialog", 1, 10));
+		l2.setText(" documents");
+		
 		JSeparator verLine=new JSeparator ();
 		verLine.setOrientation(SwingConstants.VERTICAL);		
 
@@ -171,6 +182,11 @@ public class INHoopSearch extends INJInternalFrame implements ActionListener, Ke
 		k3Input.setFont(new Font("Dialog", 1, 10));
 		
 		confPanel.add(rankType);
+		
+		confPanel.add(l1);
+		confPanel.add(topDocsInput);
+		confPanel.add(l2);
+		
 		confPanel.add(verLine);
 		
 		confPanel.add(k1Label);
@@ -182,6 +198,11 @@ public class INHoopSearch extends INJInternalFrame implements ActionListener, Ke
 		confPanel.add(k3Input);		
 		
 		rankType.setBounds (2+insets.left,2+insets.top,200,20);
+		
+		l1.setBounds (2+insets.left,2+insets.top+30,75,20);
+		topDocsInput.setBounds (2+insets.left+80,2+insets.top+30,30,20);
+		l2.setBounds (2+insets.left+110,2+insets.top+30,200,20);
+		
 		verLine.setBounds (208+insets.left,insets.top,10,70);
 		
 		k1Label.setBounds (208+insets.left+6,insets.top,30,20);		
@@ -302,7 +323,6 @@ public class INHoopSearch extends INJInternalFrame implements ActionListener, Ke
 	public void keyReleased(KeyEvent arg0) 
 	{
 		// TODO Auto-generated method stub
-		
 	}
 	/**
 	 *
@@ -310,8 +330,7 @@ public class INHoopSearch extends INJInternalFrame implements ActionListener, Ke
 	@Override
 	public void keyTyped(KeyEvent arg0) 
 	{
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
 	}	
 	/**
 	 *
@@ -335,17 +354,25 @@ public class INHoopSearch extends INJInternalFrame implements ActionListener, Ke
 		if (inputField.getText().isEmpty()==true)
 		{
 			debug ("Please enter a query");
+			JOptionPane.showMessageDialog(null, "Please enter a query");
 			return;
 		}
 		
+		if (topDocsInput.getText().isEmpty()==true)
+		{
+			debug ("Please enter how many documents should be retrieved");
+			JOptionPane.showMessageDialog (null,"Please enter how many documents should be retrieved");
+			return;			
+		}
+		
 		INTextSearch aSearch=new INTextSearch ();
-		aSearch.search (inputField.getText().toLowerCase());
+		aSearch.search (inputField.getText().toLowerCase(),Integer.parseInt(topDocsInput.getText()));
 		
 		StringBuffer formatter=new StringBuffer ();
 		
 		INQueryOperator query=aSearch.getRootQueryOperator ();
 		
-		formatter.append("Time taken: "+ String.format(".2f",query.getTimeTaken())+", for: " +"\""+inputField.getText().toLowerCase()+"\"");
+		formatter.append("Time taken: "+ String.format(".2f seconds",(float) (query.getTimeTaken()/1000))+", for: " +"\""+inputField.getText().toLowerCase()+"\"");
 		
 		queryStats.setText(formatter.toString());
 		
