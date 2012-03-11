@@ -41,6 +41,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
@@ -318,6 +319,18 @@ public class INHoopSearch extends INJInternalFrame implements ActionListener, Ke
 	private void search ()
 	{
 		debug ("search ()");
+		
+		if (INLink.posFiles==null)
+		{
+			JOptionPane.showMessageDialog(null, "Warning, no vocabulary loaded!");
+			return;
+		}
+		
+		if (INLink.posFiles.size()==0)
+		{
+			JOptionPane.showMessageDialog(null, "Warning, no vocabulary loaded!");
+			return;
+		}
 		
 		if (inputField.getText().isEmpty()==true)
 		{

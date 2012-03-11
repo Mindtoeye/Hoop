@@ -63,6 +63,7 @@ public class INHoopFrame extends INJFrame implements ActionListener
 	private INScatterPlot plotter=null;
 	private INJFeatureList jobList=null;     
 	private INJFeatureList stopList=null;
+	private INJFeatureList positionList=null;
 	private	INHoopStatusBar statusbar=null;
 		
 	/**
@@ -86,7 +87,6 @@ public class INHoopFrame extends INJFrame implements ActionListener
 	    else 
 	    	debug ("Unable to load image ("+imgURL+") icon from jar");
 	    
-	    /*
 	    java.net.URL linkURL=getClass().getResource("assets/images/link.jpg");
 	    if (linkURL!=null) 
 	    {
@@ -94,9 +94,6 @@ public class INHoopFrame extends INJFrame implements ActionListener
 	    } 
 	    else 
 	    	debug ("Unable to load image ("+linkURL+") icon from jar");
-	    */
-	    
-	    INLink.linkIcon=new ImageIcon("/assets/images/link.jpg","Link");
 	    
 	    java.net.URL unlinkURL=getClass().getResource("assets/images/broken.jpg");
 	    if (unlinkURL!=null) 
@@ -408,11 +405,12 @@ public class INHoopFrame extends INJFrame implements ActionListener
 		centerBox.setMinimumSize(new Dimension (50,25));
 		centerBox.setPreferredSize(new Dimension (5000,5000));
 		centerBox.setMaximumSize(new Dimension (5000,5000));		
+
+		// Stop words ...
 		
 		stopList=new INJFeatureList ();
 		stopList.setLabel("Selected Stop Words");
 		stopList.setMinimumSize(new Dimension (50,5000));
-		//stopList.setPreferredSize(new Dimension (5000,150));
 		stopList.setMaximumSize(new Dimension (5000,5000));
 		
 		JButton loadStops=new JButton ();
@@ -431,18 +429,52 @@ public class INHoopFrame extends INJFrame implements ActionListener
 		stopBox.add(loadStops);
 		stopBox.add(stopList);
 		
+		// Job list ...
+		
 		jobList=new INJFeatureList ();
 		jobList.setLabel("Selected Jobs");
 		jobList.setMinimumSize(new Dimension (150,60));
 		jobList.setPreferredSize(new Dimension (150,150));
 		jobList.setMaximumSize(new Dimension (5000,150));		
 		
+		// Vocabulary/Dictionary
+		
+		// Stop words ...
+		
+		positionList=new INJFeatureList ();
+		positionList.setLabel("Vocabulary");
+		positionList.setMinimumSize(new Dimension (50,5000));
+		positionList.setMaximumSize(new Dimension (5000,5000));
+		
+		JButton loadVocabulary=new JButton ();
+		loadVocabulary.setText("Load Vocabulary");
+		loadVocabulary.setFont(new Font("Dialog", 1, 10));
+		loadVocabulary.setMinimumSize(new Dimension (100,25));
+		loadVocabulary.setPreferredSize(new Dimension (5000,25));
+		loadVocabulary.setMaximumSize(new Dimension (5000,25));
+		loadVocabulary.addActionListener(this);				
+		
+		Box vocabularyBox = new Box (BoxLayout.Y_AXIS);
+		vocabularyBox.setMinimumSize(new Dimension (50,50));
+		vocabularyBox.setPreferredSize(new Dimension (150,5000));
+		vocabularyBox.setMaximumSize(new Dimension (150,5000));
+		
+		vocabularyBox.add(loadVocabulary);
+		vocabularyBox.add(positionList);
+		
+		// Add it all together ...
+		
 		JTabbedPane leftTabs = new JTabbedPane();
 		leftTabs.setFont(new Font("Dialog", 1, 10));
+
 		stopBox.setBorder(padding);
 		leftTabs.addTab("Stop Words",null,stopBox,"List of stop words");
+		
+		vocabularyBox.setBorder(padding);
+		leftTabs.addTab("Vocabulary",null,vocabularyBox,"Global vocabulary or term dictionary");		
+
 		jobList.setBorder(padding);
-		leftTabs.addTab("Job List",null,jobList,"List of currently running jobs");
+		leftTabs.addTab("Hadoop Jobs",null,jobList,"List of currently running jobs");
 										
 		JTabbedPane centerTabs = new JTabbedPane();
 		centerTabs.setFont(new Font("Dialog", 1, 10));		
@@ -454,7 +486,7 @@ public class INHoopFrame extends INJFrame implements ActionListener
 				
 		JSplitPane centerPane=new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,leftTabs,centerTabs);
 		centerPane.setResizeWeight(0.5);
-		centerPane.setDividerLocation(150);
+		centerPane.setDividerLocation(250);
 		centerPane.setOneTouchExpandable(true);
 		centerPane.setContinuousLayout(true);
 		
@@ -633,32 +665,9 @@ public class INHoopFrame extends INJFrame implements ActionListener
     {
     	debug ("prepData");
    	
-    	int i=0;
-   	
-		//stopWords=new ArrayList ();
-				
-		stopList.modelFromArray (INLink.stops);
-   	
-		ArrayList<String> tempFiles=INLink.fManager.listFiles ("Root/DataSet/InvertedLists/");
-   	
-		if (tempFiles==null)
-		{
-			debug ("Error no position list files found!");
-			return;
-		}
-		else
-			debug ("Found " + tempFiles.size() + " candidates");
-   	
-		for (i=0;i<tempFiles.size();i++)
-		{
-			String test=tempFiles.get(i);
-			if (test.indexOf(".inv")!=-1)
-			{	
-				INLink.posFiles.add(test);
-			}
-		}
-   	
-		debug ("Found " + INLink.posFiles.size() + " position list files");
+    	// Load the hardcoded minimal list of stop words
+		stopList.modelFromArray (INLink.stops);   	
+		stopList.selectAll();
     }    
 	/**
 	 *
@@ -668,15 +677,73 @@ public class INHoopFrame extends INJFrame implements ActionListener
 	{
 		debug ("actionPerformed ("+event.getActionCommand()+")");
 		
+		int returnVal=0;
+		
 		String act=event.getActionCommand();
 		JButton button = (JButton)event.getSource();
+		
+		//>---------------------------------------------------------
+
+		if (button.getText().equals("Load Vocabulary"))
+		{
+			debug ("Loading/Replacing term dictionary ...");
+			
+			fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+	        returnVal=fc.showOpenDialog (this);
+
+	        if (returnVal==JFileChooser.APPROVE_OPTION) 
+	        {
+	        	Object[] options = {"Yes",
+	        	                    "No",
+	        	                    "Cancel"};
+	        	int n = JOptionPane.showOptionDialog(this,
+	        	    "Loading a saved set will override any existing selections, do you want to continue?",
+	        	    "IN Info Panel",
+	        	    JOptionPane.YES_NO_CANCEL_OPTION,
+	        	    JOptionPane.QUESTION_MESSAGE,
+	        	    null,
+	        	    options,
+	        	    options[2]);
+	        	
+	        	if (n==0)
+	        	{          	
+	        		File file = fc.getSelectedFile();
+	        		
+	        		ArrayList<String> tempFiles=INLink.fManager.listFiles (file.getPath());
+	        	   	
+	        		if (tempFiles==null)
+	        		{
+	        			debug ("Error no position list files found!");
+	        			return;
+	        		}
+	        		else
+	        			debug ("Found " + tempFiles.size() + " candidates");
+	           	
+	        		for (int i=0;i<tempFiles.size();i++)
+	        		{
+	        			String test=tempFiles.get(i);
+	        			if (test.indexOf(".inv")!=-1)
+	        			{	
+	        				INLink.posFiles.add(test);
+	        			}
+	        		}
+	        		
+	        		positionList.modelFromArrayList (INLink.posFiles);   	
+	        		positionList.selectAll();
+	           	
+	        		debug ("Found " + INLink.posFiles.size() + " position list files");
+	        	}
+	        }						
+		}
+		
+		//>---------------------------------------------------------
 				
 		if (button.getText().equals("Load Stopwords"))
 		{
 			debug ("Command " + act + " on loadStops");
 
 			//fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-	        int returnVal=fc.showOpenDialog (this);
+	        returnVal=fc.showOpenDialog (this);
 
 	        if (returnVal==JFileChooser.APPROVE_OPTION) 
 	        {
@@ -711,5 +778,7 @@ public class INHoopFrame extends INJFrame implements ActionListener
 	        	}
 	        }			
 		}			
+		
+		//>---------------------------------------------------------
 	}  
 }
