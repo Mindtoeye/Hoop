@@ -31,6 +31,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -57,16 +59,16 @@ import edu.cmu.cs.in.search.INTextSearch;
 /**
  * 
  */
-public class INHoopSearch extends INJInternalFrame implements ActionListener, ItemListener
+public class INHoopSearch extends INJInternalFrame implements ActionListener, KeyListener, ItemListener
 {  
 	private static final long serialVersionUID = 8387762921834350566L;
 
 	private JTextField inputField=null;
 	private JLabel queryStats=null;	
 	private mxGraph graph=null;
-	private JComboBox rankType=null;
     //private int queryNr=1;    
     //private INTextSearch aSearch=null;
+	private JComboBox rankType=null;
     
 	/**
 	 *
@@ -94,6 +96,7 @@ public class INHoopSearch extends INJInternalFrame implements ActionListener, It
 		inputField.setMinimumSize(new Dimension (50,25));
 		inputField.setPreferredSize(new Dimension (5000,25));
 		inputField.setMaximumSize(new Dimension (5000,25));		
+		inputField.addKeyListener(this);
 		
 		JButton search=new JButton ();
 		search.setDefaultCapable(true);
@@ -113,13 +116,13 @@ public class INHoopSearch extends INJInternalFrame implements ActionListener, It
 		queryStats.setOpaque(true);
 		queryStats.setForeground(Color.black);
 		queryStats.setBackground(new Color (252,246,194));
-
+		
 		Box topStatsBox = new Box (BoxLayout.X_AXIS);
 		topStatsBox.setMinimumSize(new Dimension (50,25));
 		topStatsBox.setPreferredSize(new Dimension (5000,25));
 		topStatsBox.setMaximumSize(new Dimension (5000,25));
 		
-		topStatsBox.add (queryStats);				
+		topStatsBox.add (queryStats);
 		
 		// New configuration box to set search parameters
 		
@@ -188,8 +191,8 @@ public class INHoopSearch extends INJInternalFrame implements ActionListener, It
 		bInput.setBounds (208+insets.left+6+35,insets.top+25,50,20);
 		k3Input.setBounds (208+insets.left+6+35,insets.top+50,50,20);
 				
-		// Business as usual ...
-		
+		// Business as usual ...		
+
 		graph=new mxGraph();		
 		mxGraphComponent graphComponent = new mxGraphComponent(graph);
 		graphComponent.setEnabled(false);
@@ -214,40 +217,12 @@ public class INHoopSearch extends INJInternalFrame implements ActionListener, It
 	{
 		debug ("actionPerformed ("+event.getActionCommand()+")");
 		
-		String act=event.getActionCommand();
-		JButton button = (JButton)event.getSource();
+		//String act=event.getActionCommand();
+		JButton button = (JButton) event.getSource();
 		
 		if (button.getText().equals("Search"))
 		{
-			debug ("Command " + act + " on allButton");
-			if (inputField.getText().isEmpty()==true)
-			{
-				debug ("Please enter a query");
-				return;
-			}
-			
-			INTextSearch aSearch=new INTextSearch ();
-			aSearch.search (inputField.getText().toLowerCase());
-			
-			StringBuffer formatter=new StringBuffer ();
-			
-			INQueryOperator query=aSearch.getRootQueryOperator ();
-									
-			formatter.append("Time taken: "+ query.getTimeTaken()+", Memory used: " + query.getMemUsed()+" for: " +"\""+inputField.getText().toLowerCase()+"\"");
-			
-			queryStats.setText(formatter.toString());
-			
-			// Show document list ...
-			
-			INLink.updateAllWindows ();
-			
-			// Then show some visuals ...
-			
-			visualize (null,aSearch.getRootQueryOperator());
-			
-			// Once we have all the information we need, we should toss the intermediate
-			// data otherwise we can't hold that many query results.
-			query.reset(); 
+			search ();
 		}			
 	}  
 	/**
@@ -263,7 +238,7 @@ public class INHoopSearch extends INJInternalFrame implements ActionListener, It
 	 */
 	private void visualizeQuery (Object aParent,INQueryOperator aQuery)
 	{
-		debug ("visualizeQuery ("+aQuery.getInstanceName()+")");
+		debug ("visualizeQuery ()");
 												
 		Object parent=graph.getDefaultParent();
 		
@@ -273,8 +248,6 @@ public class INHoopSearch extends INJInternalFrame implements ActionListener, It
 			root=graph.insertVertex (parent, null,aQuery.getInstanceName(),20,20,80,30);
 				
 		ArrayList<INQueryOperator> operators=aQuery.getOperators();
-		
-		debug ("Visualizing " + operators.size () + " sub queries ...");
 		
 		for (int i=0;i<operators.size();i++)
 		{
@@ -313,6 +286,72 @@ public class INHoopSearch extends INJInternalFrame implements ActionListener, It
 	 *
 	 */	
 	@Override
+	public void keyPressed(KeyEvent event) 
+	{
+	    int key = event.getKeyCode();  
+        if (key == KeyEvent.VK_ENTER)
+        {
+        	search ();
+        }  		
+	}
+	/**
+	 *
+	 */	
+	@Override
+	public void keyReleased(KeyEvent arg0) 
+	{
+		// TODO Auto-generated method stub
+		
+	}
+	/**
+	 *
+	 */	
+	@Override
+	public void keyTyped(KeyEvent arg0) 
+	{
+		// TODO Auto-generated method stub
+		
+	}	
+	/**
+	 *
+	 */		
+	private void search ()
+	{
+		debug ("search ()");
+		
+		if (inputField.getText().isEmpty()==true)
+		{
+			debug ("Please enter a query");
+			return;
+		}
+		
+		INTextSearch aSearch=new INTextSearch ();
+		aSearch.search (inputField.getText().toLowerCase());
+		
+		StringBuffer formatter=new StringBuffer ();
+		
+		INQueryOperator query=aSearch.getRootQueryOperator ();
+		
+		formatter.append("Time taken: "+ String.format(".2f",query.getTimeTaken())+", for: " +"\""+inputField.getText().toLowerCase()+"\"");
+		
+		queryStats.setText(formatter.toString());
+		
+		// Show document list ...
+		
+		INLink.updateAllWindows ();
+		
+		// Then show some visuals ...
+		
+		visualize (null,aSearch.getRootQueryOperator());		
+		
+		// Once we have all the information we need, we should toss the intermediate
+		// data otherwise we can't hold that many query results.
+		query.reset(); 
+	}
+	/**
+	 *
+	 */	
+	@Override
 	public void itemStateChanged(ItemEvent e) 
 	{
 		if(e.getSource()==rankType) 
@@ -337,5 +376,5 @@ public class INHoopSearch extends INJInternalFrame implements ActionListener, It
 
 			}		
 		}	
-	}	   	
+	}	   		
 }

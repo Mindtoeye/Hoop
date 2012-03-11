@@ -48,9 +48,9 @@ public class INHoopDocumentList extends INJInternalFrame
 		
 	   	Box holder = new Box (BoxLayout.Y_AXIS);
 	   	
-	   	docList=new JList ();
-	   	
-		//docList.setCellRenderer (new INJCheckListItem ());
+	   	docList=new JList ();	   	
+		docList.setCellRenderer (new INHoopDocumentListRenderer ());
+		
 	    JScrollPane docScrollList = new JScrollPane (docList);	   
 
 	    holder.add (docScrollList);
@@ -79,9 +79,8 @@ public class INHoopDocumentList extends INJInternalFrame
 		
 		for (int i=0;i<docs.size();i++)
 		{
-			INDocument doc=docs.get(i);
-						
-			mdl.addElement(doc.getDocID());
+			INDocument doc=docs.get(i);						
+			mdl.addElement(doc);
 		}
 		
 		docList.setModel (mdl);		

@@ -32,7 +32,7 @@ import org.xml.sax.SAXParseException;
 /**
  * 
  */
-public class INXMLBase extends INFeatureMatrixBase
+public class INXMLBase extends INBase
 {			
 	/**
 	*

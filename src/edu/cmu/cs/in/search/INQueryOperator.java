@@ -16,7 +16,7 @@ package edu.cmu.cs.in.search;
 
 import java.util.ArrayList;
 
-import edu.cmu.cs.in.base.INFeatureMatrixBase;
+import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.INLink;
 import edu.cmu.cs.in.hadoop.INPositionEntry;
 import edu.cmu.cs.in.hadoop.INPositionList;
@@ -24,7 +24,7 @@ import edu.cmu.cs.in.hadoop.INPositionList;
 /**
 *
 */
-public class INQueryOperator extends INFeatureMatrixBase
+public class INQueryOperator extends INBase
 {    			
 	private String operator="#and"; // nice default, one of #sum,#and,#or,#near
 	private Boolean isTerm=false;
@@ -60,7 +60,7 @@ public class INQueryOperator extends INFeatureMatrixBase
 		debug ("INQueryOperator ()");		
 		operators=new ArrayList<INQueryOperator> ();
 		positions=new INPositionList ();
-	}
+	}	
 	/**
 	 * 
 	 */	
@@ -169,7 +169,8 @@ public class INQueryOperator extends INFeatureMatrixBase
 	 */
 	public void reset ()
 	{
-		operators=new ArrayList<INQueryOperator> ();
+		debug ("reset ()");		
+		//operators=new ArrayList<INQueryOperator> (); 
 		positions=new INPositionList ();
 	}
 	/**
@@ -285,6 +286,7 @@ public class INQueryOperator extends INFeatureMatrixBase
 				}
 				else
 				{
+					debug ("Calling positions load and processing simultaneously ...");
 					processPositions (invListURL);
 				}
 			}
@@ -331,7 +333,10 @@ public class INQueryOperator extends INFeatureMatrixBase
 			for (int j=0;j<entries.length;j++)
 			{				
 				if (j==0)
-					newEntry.setDocID(entries [j]);
+				{
+					String formatter=entries [j];
+					newEntry.setDocID(Long.parseLong(formatter));
+				}
 				
 				if (j==1)
 					newEntry.setTf(Long.parseLong(entries [j]));
@@ -367,6 +372,8 @@ public class INQueryOperator extends INFeatureMatrixBase
 		
 		while (aLine!=null)
 		{			
+			//debug (aLine);
+			
 			if (index==0)
 			{
 				String [] split=aLine.split("\\s+");
@@ -380,11 +387,11 @@ public class INQueryOperator extends INFeatureMatrixBase
 				positions.setFreq(Long.parseLong(split [2]));
 				positions.setN(Long.parseLong(split [3]));
 			}	
-				
-			ArrayList<INPositionEntry> posList=positions.getPosEntries (); // At this point an empty list
-		
+						
 			if (index>0)
-			{			
+			{	
+				ArrayList<INPositionEntry> posList=positions.getPosEntries ();
+				
 				String [] entries=aLine.split("\\s+");
 			
 				INPositionEntry newEntry=new INPositionEntry ();
@@ -392,7 +399,10 @@ public class INQueryOperator extends INFeatureMatrixBase
 				for (int j=0;j<entries.length;j++)
 				{				
 					if (j==0)
-						newEntry.setDocID(entries [j]);
+					{
+						String formatter=entries [j];
+						newEntry.setDocID(Long.parseLong(formatter));
+					}
 				
 					if (j==1)
 						newEntry.setTf(Long.parseLong(entries [j]));
@@ -409,6 +419,8 @@ public class INQueryOperator extends INFeatureMatrixBase
 						}	
 					}
 				}
+				
+				//debug ("Entry: "+newEntry.getDocID()+" docLen: " + newEntry.getDocLen()+" tf: " + newEntry.getTf());
 			
 				posList.add(newEntry);
 			}
@@ -416,5 +428,8 @@ public class INQueryOperator extends INFeatureMatrixBase
 			aLine=INLink.fManager.readALine(invListURL);
 			index++;
 		}
+		
+		ArrayList<INPositionEntry> checkList=positions.getPosEntries ();
+		debug ("Loaded " + checkList.size()+" entries, for: " + this.getInstanceName());
 	}
 }

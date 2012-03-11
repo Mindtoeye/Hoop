@@ -20,7 +20,7 @@ import java.util.UUID;
 
 import org.apache.hadoop.mapred.JobConf;
 
-import edu.cmu.cs.in.base.INFeatureMatrixBase;
+import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.INLink;
 import edu.cmu.cs.in.stats.INPerformanceMetrics;
 import edu.cmu.cs.in.network.INStreamedSocket;
@@ -28,7 +28,7 @@ import edu.cmu.cs.in.network.INStreamedSocket;
 /**
 *
 */
-public class INHadoopReporter extends INFeatureMatrixBase
+public class INHadoopReporter extends INBase
 {    						
 	private INStreamedSocket socket=null;	
 	private String guid="";
@@ -115,7 +115,7 @@ public class INHadoopReporter extends INFeatureMatrixBase
     	}
     	catch (Exception e)
     	{
-    		INFeatureMatrixBase.debug ("INHoop","Exception caught ="+e.getMessage());
+    		INBase.debug ("INHoop","Exception caught ="+e.getMessage());
     	}    	
     	
     	return ("undefined");

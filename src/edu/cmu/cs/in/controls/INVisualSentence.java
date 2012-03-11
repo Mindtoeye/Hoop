@@ -45,9 +45,9 @@ import java.util.List;
 import java.util.ListIterator;
 
 import edu.cmu.cs.in.base.INFeatureMakerBase;
-import edu.cmu.cs.in.base.INFeatureMatrixBase;
+import edu.cmu.cs.in.base.INBase;
 
-public class INVisualSentence extends INFeatureMatrixBase
+public class INVisualSentence extends INBase
 {    		    
 	public String text="";
 	private INVisualClass classification=null;	

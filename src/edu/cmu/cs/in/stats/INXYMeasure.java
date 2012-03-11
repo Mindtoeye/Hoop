@@ -14,9 +14,9 @@
 
 package edu.cmu.cs.in.stats;
 
-import edu.cmu.cs.in.base.INFeatureMatrixBase;
+import edu.cmu.cs.in.base.INBase;
 
-public class INXYMeasure extends INFeatureMatrixBase
+public class INXYMeasure extends INBase
 {    						
 	private long xValue=0;
 	private long yValue=0;

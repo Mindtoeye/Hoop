@@ -30,7 +30,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import edu.cmu.cs.in.base.INFeatureMatrixBase;
+import edu.cmu.cs.in.base.INBase;
 
 @SuppressWarnings("serial")
 
@@ -44,7 +44,7 @@ public class INSentenceWall extends JPanel implements INVisualFeatureVisualizer
 	 */
 	private void debug (String aMessage)
 	{
-		INFeatureMatrixBase.debug ("INSentenceWall",aMessage);	
+		INBase.debug ("INSentenceWall",aMessage);	
 	}
 	/**------------------------------------------------------------------------------------
 	 *

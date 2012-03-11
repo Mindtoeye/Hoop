@@ -14,9 +14,9 @@
 
 package edu.cmu.cs.in.stats;
 
-import edu.cmu.cs.in.base.INFeatureMatrixBase;
+import edu.cmu.cs.in.base.INBase;
 
-public class INStatisticsMeasure extends INFeatureMatrixBase
+public class INStatisticsMeasure extends INBase
 {    			
 	private float N=0;
 	private float value=0;

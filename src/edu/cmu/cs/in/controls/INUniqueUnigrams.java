@@ -40,7 +40,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import edu.cmu.cs.in.base.INDataCollection;
-import edu.cmu.cs.in.base.INFeatureMatrixBase;
+import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.INFileManager;
 
 @SuppressWarnings("serial")
@@ -67,7 +67,7 @@ public class INUniqueUnigrams extends JPanel implements ActionListener
 	 */
 	private void debug (String aMessage)
 	{
-		INFeatureMatrixBase.debug ("INUniqueUnigrams",aMessage);	
+		INBase.debug ("INUniqueUnigrams",aMessage);	
 	}
 	/**------------------------------------------------------------------------------------
 	 *

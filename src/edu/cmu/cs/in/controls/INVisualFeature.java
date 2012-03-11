@@ -23,9 +23,9 @@ import org.w3c.dom.Node;
 //import org.w3c.dom.NodeList;
 
 import edu.cmu.cs.in.base.INDataCollection;
-import edu.cmu.cs.in.base.INFeatureMatrixBase;
+import edu.cmu.cs.in.base.INBase;
 
-public class INVisualFeature extends INFeatureMatrixBase implements INVisualFeatureBase
+public class INVisualFeature extends INBase implements INVisualFeatureBase
 {
 	public String text="";
 	public String classification="";

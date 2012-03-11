@@ -20,14 +20,17 @@ import java.io.File;
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.Border;
+//import javax.swing.plaf.metal.MetalTabbedPaneUI;
 
 import org.apache.hadoop.util.VersionInfo;
 
 import edu.cmu.cs.in.INHoopMessageHandler;
 import edu.cmu.cs.in.base.INFileManager;
 import edu.cmu.cs.in.base.INLink;
-import edu.cmu.cs.in.controls.INGridNodeVisualizer;
+//import edu.cmu.cs.in.controls.INEclipseTabbedPaneUI;
+//import edu.cmu.cs.in.controls.INGridNodeVisualizer;
 import edu.cmu.cs.in.controls.INJFeatureList;
+//import edu.cmu.cs.in.controls.INTabbedPaneUI;
 import edu.cmu.cs.in.controls.base.INJFrame;
 import edu.cmu.cs.in.controls.INScatterPlot;
 import edu.cmu.cs.in.network.INSocketServerBase;
@@ -81,7 +84,27 @@ public class INHoopFrame extends INJFrame implements ActionListener
 	        INLink.icon=new ImageIcon(imgURL,"Machine");
 	    } 
 	    else 
-	    	debug ("Unable to load image icon from jar");		
+	    	debug ("Unable to load image ("+imgURL+") icon from jar");
+	    
+	    /*
+	    java.net.URL linkURL=getClass().getResource("assets/images/link.jpg");
+	    if (linkURL!=null) 
+	    {
+	        INLink.linkIcon=new ImageIcon(linkURL,"Link");
+	    } 
+	    else 
+	    	debug ("Unable to load image ("+linkURL+") icon from jar");
+	    */
+	    
+	    INLink.linkIcon=new ImageIcon("/assets/images/link.jpg","Link");
+	    
+	    java.net.URL unlinkURL=getClass().getResource("assets/images/broken.jpg");
+	    if (unlinkURL!=null) 
+	    {
+	        INLink.unlinkIcon=new ImageIcon(unlinkURL,"Unlink");
+	    } 
+	    else 
+	    	debug ("Unable to load image ("+unlinkURL+") icon from jar");	
 		
 		INLink.fManager=new INFileManager ();
 		fc = new JFileChooser();
@@ -422,9 +445,7 @@ public class INHoopFrame extends INJFrame implements ActionListener
 		leftTabs.addTab("Job List",null,jobList,"List of currently running jobs");
 										
 		JTabbedPane centerTabs = new JTabbedPane();
-		centerTabs.setFont(new Font("Dialog", 1, 10));
-		//centerTabs.setOpaque(true);
-		//centerTabs.setBackground(Color.green);
+		centerTabs.setFont(new Font("Dialog", 1, 10));		
 
 		desktop=new JDesktopPane();
 		desktop.setBackground(new Color (120,120,120));
@@ -476,7 +497,13 @@ public class INHoopFrame extends INJFrame implements ActionListener
 		controlBox.setBorder(padding);
 		tabbedPane.addTab("Console",null,controlBox,"Raw data and console output");
 		rawStats.setBorder(padding);
-		tabbedPane.addTab("Raw Statistics",null,rawStats,"Raw statistical data");		
+		tabbedPane.addTab("Raw Statistics",null,rawStats,"Raw statistical data");
+		
+		// Add test controls to console tab bar
+		
+		//tabbedPane.setUI(new INEclipseTabbedPaneUI ());
+		
+		// Finally add your vanilla default standard status bar ...
 						
 		statusbar=new INHoopStatusBar ();
 		statusbar.setBorder(blackborder);

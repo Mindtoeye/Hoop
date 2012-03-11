@@ -18,7 +18,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.InternalFrameListener;
 
-import edu.cmu.cs.in.base.INFeatureMatrixBase;
+import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.INLink;
 
 /** 
@@ -28,7 +28,7 @@ import edu.cmu.cs.in.base.INLink;
 public class INJInternalFrame extends JInternalFrame implements InternalFrameListener
 {
 	private static final long serialVersionUID = -2840625729169060134L;
-	private String className="INFeatureMatrixBase";
+	private String className="INBase";
 	private String instanceName="Undefined";
 	
 	/**
@@ -144,7 +144,7 @@ public class INJInternalFrame extends JInternalFrame implements InternalFrameLis
 	 */
 	protected void debug (String aMessage)
 	{
-		INFeatureMatrixBase.debug(getClassName(),aMessage);
+		INBase.debug(getClassName(),aMessage);
 	}
 	/**
 	 *

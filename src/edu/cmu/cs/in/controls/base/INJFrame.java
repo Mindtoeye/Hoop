@@ -17,7 +17,7 @@ package edu.cmu.cs.in.controls.base;
 import java.awt.GraphicsConfiguration;
 import javax.swing.JFrame;
 
-import edu.cmu.cs.in.base.INFeatureMatrixBase;
+import edu.cmu.cs.in.base.INBase;
 
 /** 
  * @author vvelsen
@@ -27,7 +27,7 @@ public class INJFrame extends JFrame
 {
 
 	private static final long serialVersionUID = 7391090164244209176L;
-	private String className="INFeatureMatrixBase";	
+	private String className="INBase";	
 	
 	/**
 	 * Constructs a new frame that is initially invisible.
@@ -83,6 +83,6 @@ public class INJFrame extends JFrame
 	 */
 	protected void debug (String aMessage)
 	{
-		INFeatureMatrixBase.debug(getClassName(),aMessage);
+		INBase.debug(getClassName(),aMessage);
 	}
 }

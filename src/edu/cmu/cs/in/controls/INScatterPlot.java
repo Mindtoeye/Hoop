@@ -29,7 +29,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-import edu.cmu.cs.in.base.INFeatureMatrixBase;
+import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.stats.INPerformanceMetrics;
 
 public class INScatterPlot extends JPanel
@@ -67,7 +67,7 @@ public class INScatterPlot extends JPanel
 	 */
 	private void debug (String aMessage)
 	{
-		INFeatureMatrixBase.debug ("INScatterPlot",aMessage);	
+		INBase.debug ("INScatterPlot",aMessage);	
 	}
 	/**
 	 *

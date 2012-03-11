@@ -21,7 +21,7 @@ import java.util.List;
 /**
 *
 */
-public class INFeatureMakerBase extends INFeatureMatrixBase implements INFeatureMaker
+public class INFeatureMakerBase extends INBase implements INFeatureMaker
 {	
 	private String [] splitter=null;
 	

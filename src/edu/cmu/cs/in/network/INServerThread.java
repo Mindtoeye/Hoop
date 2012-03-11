@@ -17,7 +17,7 @@ package edu.cmu.cs.in.network;
 import java.net.*;
 import java.io.*;
 
-import edu.cmu.cs.in.base.INFeatureMatrixBase;
+import edu.cmu.cs.in.base.INBase;
 
 /**
 *
@@ -52,7 +52,7 @@ public class INServerThread extends Thread
 	 */
 	private void debug (String aMessage)
 	{
-		INFeatureMatrixBase.debug ("INServerThread",aMessage);
+		INBase.debug ("INServerThread",aMessage);
 	}
 	/**
 	 *

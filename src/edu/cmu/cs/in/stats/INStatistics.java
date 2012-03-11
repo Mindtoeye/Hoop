@@ -16,11 +16,11 @@ package edu.cmu.cs.in.stats;
 
 import java.util.ArrayList;
 
-import edu.cmu.cs.in.base.INFeatureMatrixBase;
+import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.INLink;
 import edu.cmu.cs.in.stats.INPerformanceMetrics;
 
-public class INStatistics extends INFeatureMatrixBase
+public class INStatistics extends INBase
 {    			
 	private ArrayList <INStatisticsMeasure> measures=null;
 	

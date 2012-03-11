@@ -70,7 +70,7 @@ public class INWordCountReducer extends INHadoopReporter implements Reducer<Text
 			OutputCollector<Text, IntWritable> 
 			output, Reporter reporter) throws IOException 
 	{
-		//INFeatureMatrixBase.debug ("INReducer","reduce ()");		
+		//INBase.debug ("INReducer","reduce ()");		
 		
 		int sum = 0;
 			

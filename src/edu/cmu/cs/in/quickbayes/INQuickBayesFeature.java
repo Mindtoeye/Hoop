@@ -16,9 +16,9 @@ package edu.cmu.cs.in.quickbayes;
 
 import java.util.ArrayList;
 
-import edu.cmu.cs.in.base.INFeatureMatrixBase;
+import edu.cmu.cs.in.base.INBase;
 
-public class INQuickBayesFeature extends INFeatureMatrixBase
+public class INQuickBayesFeature extends INBase
 {
 	public boolean majorityAttribute		=false;
 	public String featureName				="undefined";

@@ -18,7 +18,7 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
 //import edu.cmu.cs.in.INFeatureMatrixPane;
-import edu.cmu.cs.in.base.INFeatureMatrixBase;
+import edu.cmu.cs.in.base.INBase;
 
 public class INVisualDriver extends ComponentAdapter 
 {
@@ -30,7 +30,7 @@ public class INVisualDriver extends ComponentAdapter
 	 */
 	private void debug (String aMessage)
 	{
-		INFeatureMatrixBase.debug ("INVisualDriver",aMessage);	
+		INBase.debug ("INVisualDriver",aMessage);	
 	}	
 	/**------------------------------------------------------------------------------------
 	 *

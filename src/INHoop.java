@@ -15,7 +15,7 @@
 import java.awt.*;
 import javax.swing.*;
 
-import edu.cmu.cs.in.base.INFeatureMatrixBase;
+import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.INLink;
 import edu.cmu.cs.in.hoop.INHoopFrame;
 
@@ -25,6 +25,8 @@ import edu.cmu.cs.in.hoop.INHoopFrame;
  */
 public class INHoop 
 {
+	public static JFrame frame=null;
+	
 	/**
 	 *
 	 */	
@@ -33,7 +35,7 @@ public class INHoop
     	@SuppressWarnings("unused")
 		INLink link = new INLink(); // run the INLink constructor; We need this to have a global settings registry    	    	
    	
-    	INFeatureMatrixBase.debug ("INQueryTest","main ()");
+    	INBase.debug ("INQueryTest","main ()");
     	
         UIManager.put ("swing.boldMetal", Boolean.FALSE);
         JDialog.setDefaultLookAndFeelDecorated (true);
@@ -49,27 +51,36 @@ public class INHoop
 		} 
         catch (ClassNotFoundException e1) 
         {
-        	INFeatureMatrixBase.debug ("INQueryTest","UIManager: setLookAndFeel, ClassNotFoundException");
+        	INBase.debug ("INQueryTest","UIManager: setLookAndFeel, ClassNotFoundException");
 			return;
 		} 
         catch (InstantiationException e1) 
         {
-        	INFeatureMatrixBase.debug ("INQueryTest","UIManager: setLookAndFeel, InstantiationException");
+        	INBase.debug ("INQueryTest","UIManager: setLookAndFeel, InstantiationException");
 			return;
 		} 
         catch (IllegalAccessException e1) 
         {
-        	INFeatureMatrixBase.debug ("INQueryTest","UIManager: setLookAndFeel, IllegalAccessException");
+        	INBase.debug ("INQueryTest","UIManager: setLookAndFeel, IllegalAccessException");
 			return;
 		} 
         catch (UnsupportedLookAndFeelException e1) 
         {
-        	INFeatureMatrixBase.debug ("INQueryTest","UIManager: setLookAndFeel, UnsupportedLookAndFeelException");
+        	INBase.debug ("INQueryTest","UIManager: setLookAndFeel, UnsupportedLookAndFeelException");
 			return;
 		}           
         
-        JFrame frame = new INHoopFrame ();
+        frame=new INHoopFrame ();
         frame.setResizable(true);
-        frame.setVisible(true);
+        
+        SwingUtilities.invokeLater (new Runnable() 
+        {
+            public void run() 
+            {
+            	// Implemented this part according to Swing coding standards. More information
+            	// can be found at: http://java.sun.com/developer/technicalArticles/javase/swingworker/
+            	frame.setVisible(true);
+            }
+         });        
     }
 }

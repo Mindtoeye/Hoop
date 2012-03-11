@@ -29,12 +29,12 @@ import java.net.Socket;
 import java.net.SocketAddress;
 import java.net.UnknownHostException;
 
-import edu.cmu.cs.in.base.INFeatureMatrixBase;
+import edu.cmu.cs.in.base.INBase;
 
 /**
  * 
  */
-public class INStreamedSocket extends INFeatureMatrixBase
+public class INStreamedSocket extends INBase
 {
 	private String data="";
 	private PrintWriter outWriter=null;

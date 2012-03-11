@@ -24,7 +24,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
-public class INFileManager extends INFeatureMatrixBase
+public class INFileManager extends INBase
 {
 	private ArrayList<String> files=null;	
 	private String URI="";

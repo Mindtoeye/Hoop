@@ -20,7 +20,7 @@ import java.awt.LayoutManager;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import edu.cmu.cs.in.base.INFeatureMatrixBase;
+import edu.cmu.cs.in.base.INBase;
 
 /** 
  * @author vvelsen
@@ -29,7 +29,7 @@ import edu.cmu.cs.in.base.INFeatureMatrixBase;
 public class INJPanel extends JPanel 
 {
 	private static final long serialVersionUID = -6522707440476438254L;
-	private String className="INFeatureMatrixBase";	
+	private String className="INBase";	
 	
 	/**
 	 * Creates a new JPanel with a double buffer and a flow layout.
@@ -85,6 +85,6 @@ public class INJPanel extends JPanel
 	 */
 	protected void debug (String aMessage)
 	{
-		INFeatureMatrixBase.debug(getClassName(),aMessage);
+		INBase.debug(getClassName(),aMessage);
 	}
 }

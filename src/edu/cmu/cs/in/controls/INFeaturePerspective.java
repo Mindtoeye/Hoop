@@ -16,9 +16,9 @@ package edu.cmu.cs.in.controls;
 
 import java.util.ArrayList;
 
-import edu.cmu.cs.in.base.INFeatureMatrixBase;
+import edu.cmu.cs.in.base.INBase;
 
-public class INFeaturePerspective  extends INFeatureMatrixBase
+public class INFeaturePerspective  extends INBase
 {		
 	private ArrayList <INVisualFeature> features=null;
 	private String perspectiveName="";

@@ -22,7 +22,7 @@ import java.text.*;
 import java.util.ArrayList;
 import java.awt.font.*;
 
-import edu.cmu.cs.in.base.INFeatureMatrixBase;
+import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.controls.INVisualFeature;
 import edu.cmu.cs.in.controls.INVisualSentence;
 
@@ -39,7 +39,7 @@ public class INJColorTextPanel extends JPanel implements ListCellRenderer
 	 */
 	private void debug (String aMessage)
 	{
-		INFeatureMatrixBase.debug ("INFeatureMatrixPane",aMessage);	
+		INBase.debug ("INFeatureMatrixPane",aMessage);	
 	}	
 	/**------------------------------------------------------------------------------------
 	 *

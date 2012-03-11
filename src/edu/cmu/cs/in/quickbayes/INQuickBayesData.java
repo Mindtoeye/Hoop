@@ -17,11 +17,11 @@ package edu.cmu.cs.in.quickbayes;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
-import edu.cmu.cs.in.base.INFeatureMatrixBase;
+import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.quickbayes.INQuickBayesAttribute;
 import edu.cmu.cs.in.quickbayes.INQuickBayesFeature;
 
-public class INQuickBayesData extends INFeatureMatrixBase
+public class INQuickBayesData extends INBase
 {
 	public ArrayList<INQuickBayesFeature>	features=null;
 	public ArrayList<ArrayList>data=null;

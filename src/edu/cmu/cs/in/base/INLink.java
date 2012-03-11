@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 
 import edu.cmu.cs.in.INDataSet;
-import edu.cmu.cs.in.base.INFeatureMatrixBase;
+import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.controls.base.INJInternalFrame;
 import edu.cmu.cs.in.hoop.INHoopConsoleInterface;
 import edu.cmu.cs.in.search.INTextSearch;
@@ -31,7 +31,7 @@ import edu.cmu.cs.in.stats.INPerformanceMetrics;
 /**
 *
 */
-public class INLink extends INFeatureMatrixBase
+public class INLink extends INBase
 {    		    	
 	public static boolean useHadoop=false;
 	public static boolean casefold=true;
@@ -61,6 +61,8 @@ public class INLink extends INFeatureMatrixBase
 	public static int monitorPort=8082;
 	
 	public static ImageIcon icon=null; // This should ideally be an array of icons, available as standard resources	
+	public static ImageIcon linkIcon=null; // This should ideally be an array of icons, available as standard resources
+	public static ImageIcon unlinkIcon=null; // This should ideally be an array of icons, available as standard resources
 	
 	public static String [] stops={"a","an","and","are","as","at","for","i","if","in","is","it","of","on","so","that","the","to"};
 	public static String [] garbage={"*","?","!",".","'","#","-","_",":",",","|","\"","(",")","^",";"};

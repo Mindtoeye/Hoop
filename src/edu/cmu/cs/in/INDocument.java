@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.cmu.cs.in.base.INFileManager;
-import edu.cmu.cs.in.base.INFeatureMatrixBase;
+import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.INLink;
 import edu.cmu.cs.in.base.INPorterStemmer;
 import edu.cmu.cs.in.base.INSimpleFeatureMaker;
@@ -27,13 +27,15 @@ import edu.cmu.cs.in.base.INWikipediaFilter;
 /**
 *
 */
-public class INDocument extends INFeatureMatrixBase
+public class INDocument extends INBase
 {	
 	private String docID="-1";
+	private double rank=1.0;
 	private INPorterStemmer stemmer=null;
 	private INFileManager fManager=null;	
 	private List<String> tokens=null;
 	private Boolean includePositions=false;
+	private String summary="empty";
 	
 	/**
 	 *
@@ -48,6 +50,34 @@ public class INDocument extends INFeatureMatrixBase
 		
 		tokens=new ArrayList<String>();
     }
+    /**
+	 *
+	 */    
+	public String getSummary() 
+	{
+		return summary;
+	}
+    /**
+	 *
+	 */	
+	public void setSummary(String summary) 
+	{
+		this.summary = summary;
+	}    
+    /**
+	 *
+	 */	
+	public double getRank() 
+	{
+		return rank;
+	}
+    /**
+	 *
+	 */	
+	public void setRank(double rank) 
+	{
+		this.rank = rank;
+	}    
 	/**
 	 *
 	 */    

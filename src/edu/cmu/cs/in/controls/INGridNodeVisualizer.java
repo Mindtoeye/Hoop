@@ -27,7 +27,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-import edu.cmu.cs.in.base.INFeatureMatrixBase;
+import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.INLink;
 
 public class INGridNodeVisualizer extends JPanel
@@ -62,7 +62,7 @@ public class INGridNodeVisualizer extends JPanel
 	 */
 	private void debug (String aMessage)
 	{
-		INFeatureMatrixBase.debug ("INGridNodeVisualizer",aMessage);	
+		INBase.debug ("INGridNodeVisualizer",aMessage);	
 	}
 	/**
 	 *

@@ -14,9 +14,9 @@
 
 package edu.cmu.cs.in.controls;
 
-import edu.cmu.cs.in.base.INFeatureMatrixBase;
+import edu.cmu.cs.in.base.INBase;
 
-public class INGridNode extends INFeatureMatrixBase
+public class INGridNode extends INBase
 {
 	private int mapperCount=0;
 	private int reducerCount=0;

@@ -14,9 +14,9 @@
 
 package edu.cmu.cs.in.base;
 
-//import edu.cmu.cs.in.base.INFeatureMatrixBase;
+//import edu.cmu.cs.in.base.INBase;
 
-public class INToken //extends INFeatureMatrixBase
+public class INToken //extends INBase
 {    
 	private String value;
 	private Integer position;

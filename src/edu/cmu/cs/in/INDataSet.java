@@ -16,11 +16,11 @@ package edu.cmu.cs.in;
 
 import java.util.ArrayList;
 
-import edu.cmu.cs.in.base.INFeatureMatrixBase;
+import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.INFileManager;
 import edu.cmu.cs.in.INDocumentParser;
 
-public class INDataSet extends INFeatureMatrixBase
+public class INDataSet extends INBase
 {
 	private INFileManager fManager=null;
 	private ArrayList<INDocument> documents=null;

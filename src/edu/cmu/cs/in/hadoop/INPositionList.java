@@ -16,9 +16,9 @@ package edu.cmu.cs.in.hadoop;
 
 import java.util.ArrayList;
 
-import edu.cmu.cs.in.base.INFeatureMatrixBase;
+import edu.cmu.cs.in.base.INBase;
 
-public class INPositionList extends INFeatureMatrixBase
+public class INPositionList extends INBase
 {    		    					
 	private String stemmTerm=""; 
 	private String collTerm="";
@@ -38,10 +38,17 @@ public class INPositionList extends INFeatureMatrixBase
 	/**
 	 *
 	 */
+    public void addDocument (INPositionEntry aDoc)
+    {
+    	posEntries.add(aDoc);
+    }    
+	/**
+	 *
+	 */
     public void addDocument (String aDocID)
     {
     	INPositionEntry newEntry=new INPositionEntry ();
-    	newEntry.setDocID(aDocID);
+    	newEntry.setDocID(Long.parseLong(aDocID));
     	posEntries.add(newEntry);
     }
 	/**

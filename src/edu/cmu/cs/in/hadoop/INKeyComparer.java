@@ -17,12 +17,12 @@ package edu.cmu.cs.in.hadoop;
 import org.apache.hadoop.io.RawComparator;
 import org.apache.hadoop.io.Text;
 
-import edu.cmu.cs.in.base.INFeatureMatrixBase;
+import edu.cmu.cs.in.base.INBase;
 
 /**
 * Future class to work with the partitioner
 */
-public class INKeyComparer extends INFeatureMatrixBase implements RawComparator<Text> 
+public class INKeyComparer extends INBase implements RawComparator<Text> 
 {
 	/**
 	 *

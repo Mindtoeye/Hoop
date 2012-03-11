@@ -16,9 +16,9 @@ package edu.cmu.cs.in.quickbayes;
 
 import java.io.*;
 
-import edu.cmu.cs.in.base.INFeatureMatrixBase;
+import edu.cmu.cs.in.base.INBase;
 
-public class INQuickBayesFileBase extends INFeatureMatrixBase
+public class INQuickBayesFileBase extends INBase
 {  
 private String filePath="undefined";
 

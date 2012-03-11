@@ -12,15 +12,6 @@
  * 
  */
 
-/*
-import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
-import javax.swing.*;
-import javax.swing.border.*;
-import javax.swing.tree.*;
-*/
-
 package edu.cmu.cs.in.hoop;
 
 import java.awt.Color;
@@ -127,6 +118,7 @@ public class INHoopExperimenter extends INJInternalFrame implements ActionListen
 
 		graph=new mxGraph();		
 		mxGraphComponent graphComponent=new mxGraphComponent(graph);
+		graphComponent.setEnabled(false);
 		graphComponent.setMinimumSize(new Dimension (50,25));
 		graphComponent.setPreferredSize(new Dimension (5000,5000));
 		graphComponent.setMaximumSize(new Dimension (5000,5000));	
@@ -245,13 +237,17 @@ public class INHoopExperimenter extends INJInternalFrame implements ActionListen
 				
 				INQueryOperator query=aSearch.getRootQueryOperator ();
 				
-				formatter.append("["+i+"] Time: "+ query.getTimeTaken()+"msec, Memory: " + query.getMemUsed()/1024+"K for: " +"\""+theQuery+"\"");
+				float tt=(float) (query.getTimeTaken()/1000.0);
+				//formatter.append("["+i+"] = "+ String.format("%.2f",tt)+" seconds, Mem: " + query.getMemUsed()/1024+"K for: " +"\""+theQuery+"\"");
+				formatter.append("["+String.format ("%02d",i)+"] = "+ String.format("%.2f",tt)+" seconds, for: " +"\""+theQuery+"\"");
 				
 				mdl.add (i,formatter.toString());
 				searchList.invalidate();
 				searchList.repaint();
 				
 				// Clean it all up!
+				
+				query.reset();
 				
 				Runtime r = Runtime.getRuntime();
 				r.gc();

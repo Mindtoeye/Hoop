@@ -16,11 +16,11 @@ package edu.cmu.cs.in.hadoop;
 
 import java.util.ArrayList;
 
-//import edu.cmu.cs.in.base.INFeatureMatrixBase;
+//import edu.cmu.cs.in.base.INBase;
 
-public class INPositionEntry //extends INFeatureMatrixBase
+public class INPositionEntry //extends INBase
 {
-	private String docID=""; 
+	private long docID=-1; 
 	private long tf=1; 
 	private long docLen=1; 
 	private ArrayList<Long> posList=null;
@@ -38,14 +38,14 @@ public class INPositionEntry //extends INFeatureMatrixBase
 	/**
 	 *
 	 */
-	public void setDocID(String docID) 
+	public void setDocID(long docID) 
 	{
 		this.docID = docID;
 	}
 	/**
 	 *
 	 */
-	public String getDocID() 
+	public long getDocID() 
 	{
 		return docID;
 	}
