@@ -32,6 +32,7 @@ import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 
 import edu.cmu.cs.in.INDocument;
+import edu.cmu.cs.in.INLemurDocument;
 import edu.cmu.cs.in.base.INLink;
 import edu.cmu.cs.in.controls.base.INJPanel;
   
@@ -171,6 +172,10 @@ class INHoopDocumentListRenderer extends INJPanel implements ListCellRenderer, A
 		if (button==linker)
 		{
 			debug ("Loading document ...");
+			
+			INLemurDocument loader=new INLemurDocument ();
+			loader.setDocID(aDoc.getDocID());
+			loader.loadDocument();
 		}
 	}	
 }
