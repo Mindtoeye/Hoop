@@ -350,7 +350,7 @@ public class INHoopExperimenter extends INJInternalFrame implements ActionListen
 		
 		if (selectedRow!=-1)
 		{
-			INTextSearch aSearch=INLink.searchHistory.get(selectedRow);
+			INTextSearch aSearch=INLink.searchHistory.get(selectedRow-1);
 						
 			if (aSearch!=null)
 			{

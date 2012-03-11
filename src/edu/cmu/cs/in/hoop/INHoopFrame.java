@@ -520,16 +520,30 @@ public class INHoopFrame extends INJFrame implements ActionListener
 		rawStats.setFont(new Font("Dialog", 1, 10));
 		rawStats.setMinimumSize(new Dimension (50,60));
 		rawStats.setPreferredSize(new Dimension (5000,60));
-		rawStats.setMaximumSize(new Dimension (5000,60));		
+		rawStats.setMaximumSize(new Dimension (5000,60));
+		
+		JTextArea trecOutput=new JTextArea ();
+		trecOutput.setBorder(blackborder);
+		trecOutput.setEditable (false);
+		trecOutput.setFont(new Font("Dialog", 1, 10));
+		trecOutput.setMinimumSize(new Dimension (50,60));
+		trecOutput.setPreferredSize(new Dimension (5000,60));
+		trecOutput.setMaximumSize(new Dimension (5000,60));
 		
 		JTabbedPane tabbedPane = new JTabbedPane();
 		tabbedPane.setFont(new Font("Dialog", 1, 10));
+		
 		statsBox.setBorder(padding);
 		tabbedPane.addTab("Plots & Graphs",null,statsBox,"Visual representations of statistics");
+		
 		controlBox.setBorder(padding);
 		tabbedPane.addTab("Console",null,controlBox,"Raw data and console output");
+		
 		rawStats.setBorder(padding);
 		tabbedPane.addTab("Raw Statistics",null,rawStats,"Raw statistical data");
+		
+		trecOutput.setBorder(padding);
+		tabbedPane.addTab("TrecEval",null,trecOutput,"Output to TrecEval format");
 		
 		// Add test controls to console tab bar
 		
