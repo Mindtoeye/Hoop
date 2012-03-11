@@ -2,14 +2,13 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre6"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/Hadoop"/>
-	<classpathentry kind="lib" path="/Hadoop/lib/commons-cli-1.2.jar"/>
-	<classpathentry kind="lib" path="/Hadoop/lib/commons-logging-1.1.1.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/jgraphx"/>
-	<classpathentry kind="lib" path="/jgraphx/lib/jgraphx.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/Cobra"/>
-	<classpathentry kind="lib" path="/Cobra/lib/cobra.jar"/>
-	<classpathentry kind="lib" path="/Cobra/lib/js.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/org.eclipse.swt"/>
+	<classpathentry kind="lib" path="lib/cobra.jar"/>
+	<classpathentry kind="lib" path="lib/jgraphx.jar"/>
+	<classpathentry kind="lib" path="lib/weka.jar"/>
+	<classpathentry kind="lib" path="lib/commons-cli-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/hadoop-ant-1.0.0.jar"/>
+	<classpathentry kind="lib" path="lib/hadoop-core-1.0.0.jar"/>
+	<classpathentry kind="lib" path="lib/hadoop-tools-1.0.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
