@@ -78,30 +78,8 @@ public class INHoopFrame extends INJFrame implements ActionListener
         final int inset = 50;
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         setBounds (inset,inset,screenSize.width-inset*2, screenSize.height-inset*2);
-
-	    java.net.URL imgURL=getClass().getResource("assets/images/machine.png");
-	    if (imgURL!=null) 
-	    {
-	        INLink.icon=new ImageIcon(imgURL,"Machine");
-	    } 
-	    else 
-	    	debug ("Unable to load image ("+imgURL+") icon from jar");
 	    
-	    java.net.URL linkURL=getClass().getResource("assets/images/link.jpg");
-	    if (linkURL!=null) 
-	    {
-	        INLink.linkIcon=new ImageIcon(linkURL,"Link");
-	    } 
-	    else 
-	    	debug ("Unable to load image ("+linkURL+") icon from jar");
-	    
-	    java.net.URL unlinkURL=getClass().getResource("assets/images/broken.jpg");
-	    if (unlinkURL!=null) 
-	    {
-	        INLink.unlinkIcon=new ImageIcon(unlinkURL,"Unlink");
-	    } 
-	    else 
-	    	debug ("Unable to load image ("+unlinkURL+") icon from jar");	
+	    loadImageIcons ();
 		
 		INLink.fManager=new INFileManager ();
 		INLink.posFiles=new ArrayList<String> ();
@@ -117,6 +95,56 @@ public class INHoopFrame extends INJFrame implements ActionListener
         		quit();
         	}
         });                             
+    }
+	/**
+	 *
+	 */    
+    private void loadImageIcons ()
+    {
+    	debug ("loadImageIcons ()");
+    	
+    	java.net.URL imgURL=null;
+    	String loadPath="";
+    
+	    imgURL=getClass().getResource("/assets/images/machine.png");
+	    if (imgURL!=null) 
+	    {
+	        INLink.icon=new ImageIcon(imgURL,"Machine");
+	    } 
+	    else 
+	    	debug ("Unable to load image ("+imgURL+") icon from jar");
+	    
+	    java.net.URL linkURL=getClass().getResource("/assets/images/link.jpg");
+	    if (linkURL!=null) 
+	    {
+	        INLink.linkIcon=new ImageIcon(linkURL,"Link");
+	    } 
+	    else 
+	    	debug ("Unable to load image ("+linkURL+") icon from jar");
+	    
+	    java.net.URL unlinkURL=getClass().getResource("/assets/images/broken.jpg");
+	    if (unlinkURL!=null) 
+	    {
+	        INLink.unlinkIcon=new ImageIcon(unlinkURL,"Unlink");
+	    } 
+	    else 
+	    	debug ("Unable to load image ("+unlinkURL+") icon from jar");	    	
+    	
+    	INLink.imageIcons=new ImageIcon [INLink.imgURLs.length];
+    	
+    	for (int i=0;i<INLink.imgURLs.length;i++)
+    	{
+    		loadPath="/assets/images/"+INLink.imgURLs [i];
+    	    imgURL=getClass().getResource(loadPath);
+
+    	    if (imgURL!=null) 
+    	    {
+    	    	INLink.imageIcons [i]=new ImageIcon(imgURL,INLink.imgURLs [i]);
+    	    	debug ("Loaded: " + loadPath);
+    	    } 
+    	    else 
+    	    	debug ("Unable to load image ("+loadPath+") icon from jar");    		
+    	}
     }
 	/**
 	 *
@@ -328,7 +356,6 @@ public class INHoopFrame extends INJFrame implements ActionListener
 
         JRadioButtonMenuItem live = new JRadioButtonMenuItem("Live");
         JRadioButtonMenuItem outline = new JRadioButtonMenuItem("Outline");
-
         JRadioButtonMenuItem slow = new JRadioButtonMenuItem("Old and Slow");
 
         ButtonGroup group = new ButtonGroup();

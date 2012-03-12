@@ -16,6 +16,9 @@ package edu.cmu.cs.in.hoop;
 
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -32,13 +35,22 @@ import edu.cmu.cs.in.controls.base.INJPanel;
  * @author vvelsen
  *
  */
-public class INHoopConsole extends INJPanel implements INHoopConsoleInterface
+public class INHoopConsole extends INJPanel implements INHoopConsoleInterface, ActionListener
 {	
 	private static final long serialVersionUID = 7326548847413008855L;
 
 	private JTextArea console=null;
 	private int consoleSize=200; // Only show 200 lines
 	private INFixedSizeQueue <String>consoleData=null;
+	
+	private JButton clearButton=null;
+	private JButton saveButton=null;	
+	private JTextField maxLines=null;
+	private JButton setButton=null;
+	private JButton inButton=null;
+	private JButton outButton=null;	
+	
+	private int fontSize=8;
 	
 	/**
 	 * 
@@ -52,34 +64,61 @@ public class INHoopConsole extends INJPanel implements INHoopConsoleInterface
 		
 		setLayout(new BoxLayout (this,BoxLayout.Y_AXIS));
 				
-		JButton clearButton=new JButton ();
-		clearButton.setText("Clear");
+		clearButton=new JButton ();
+		clearButton.setIcon(INLink.imageIcons [8]);
+		clearButton.setMargin(new Insets(1, 1, 1, 1));
+		//clearButton.setText("Clear");
 		clearButton.setFont(new Font("Courier",1,8));
-		clearButton.setPreferredSize(new Dimension (100,25));
+		clearButton.setPreferredSize(new Dimension (16,16));
+		clearButton.addActionListener(this);
 		
-		JButton saveButton=new JButton ();	
-		saveButton.setText("Save ...");
+		saveButton=new JButton ();	
+		saveButton.setIcon(INLink.imageIcons [19]);
+		saveButton.setMargin(new Insets(1, 1, 1, 1));
+		//saveButton.setText("Save ...");
 		saveButton.setFont(new Font("Courier",1,8));
-		saveButton.setPreferredSize(new Dimension (100,25));
+		saveButton.setPreferredSize(new Dimension (16,16));
+		saveButton.addActionListener(this);
 		
-		JTextField maxLines=new JTextField ();
+		maxLines=new JTextField ();
 		maxLines.setText(String.format("%d",consoleSize));
-		maxLines.setFont(new Font("Courier",1,8));
-		maxLines.setPreferredSize(new Dimension (100,25));
-		maxLines.setMaximumSize(new Dimension (100,25));		
+		maxLines.setFont(new Font("Courier",1,fontSize));
+		maxLines.setPreferredSize(new Dimension (40,25));
+		maxLines.setMaximumSize(new Dimension (40,25));
 		
-		JButton setButton=new JButton ();
-		setButton.setText("Set");
+		setButton=new JButton ();
+		//setButton.setText("Set");
+		setButton.setIcon(INLink.imageIcons [22]);
+		setButton.setMargin(new Insets(1, 1, 1, 1));
 		setButton.setFont(new Font("Courier",1,8));
-		setButton.setPreferredSize(new Dimension (70,25));		
+		setButton.setPreferredSize(new Dimension (16,16));
+		setButton.addActionListener(this);
+		
+		inButton=new JButton ();
+		//setButton.setText("Set");
+		inButton.setIcon(INLink.imageIcons [72]);
+		inButton.setMargin(new Insets(1, 1, 1, 1));
+		inButton.setFont(new Font("Courier",1,8));
+		inButton.setPreferredSize(new Dimension (16,16));
+		inButton.addActionListener(this);
+		
+		outButton=new JButton ();
+		//setButton.setText("Set");
+		outButton.setIcon(INLink.imageIcons [73]);
+		outButton.setMargin(new Insets(1, 1, 1, 1));
+		outButton.setFont(new Font("Courier",1,8));
+		outButton.setPreferredSize(new Dimension (16,16));
+		outButton.addActionListener(this);
 		
 		Box controlBox = new Box (BoxLayout.Y_AXIS);
 		controlBox.add(clearButton);
 		controlBox.add(saveButton);
 		controlBox.add(maxLines);
 		controlBox.add(setButton);
-		controlBox.setMinimumSize(new Dimension (100,150));
-		controlBox.setPreferredSize(new Dimension (100,150));
+		controlBox.add(inButton);
+		controlBox.add(outButton);
+		controlBox.setMinimumSize(new Dimension (24,150));
+		controlBox.setPreferredSize(new Dimension (24,150));
 		
 		console=new JTextArea ();
 		console.setEditable (false);
@@ -137,5 +176,51 @@ public class INHoopConsole extends INJPanel implements INHoopConsoleInterface
 			// Scroll to bottom
 			console.setCaretPosition(console.getDocument().getLength());
 		}	
+	}
+	/**
+	 * 
+	 */	
+	@Override
+	public void actionPerformed(ActionEvent event) 
+	{
+		debug ("actionPerformed ()");
+		
+		String act=event.getActionCommand();
+		JButton button = (JButton)event.getSource();		
+
+		if (button==clearButton)
+		{
+			console.setText("");
+		}
+		
+		if (button==saveButton)
+		{
+			
+		}		
+		
+		if (button==setButton)
+		{
+			
+		}
+		
+		if (button==inButton)
+		{
+			fontSize++;
+			
+			if (fontSize>23)
+				fontSize=23;
+			
+			console.setFont(new Font("Courier",1,fontSize));
+		}
+		
+		if (button==outButton)
+		{
+			fontSize--;
+			
+			if (fontSize<1)
+				fontSize=1;
+			
+			console.setFont(new Font("Courier",1,fontSize));			
+		}							
 	}
 }

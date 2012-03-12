@@ -261,7 +261,7 @@ public class INHoopExperimenter extends INJInternalFrame implements ActionListen
 				
 				float tt=(float) (query.getTimeTaken()/1000.0);
 				//formatter.append("["+i+"] = "+ String.format("%.2f",tt)+" seconds, Mem: " + query.getMemUsed()/1024+"K for: " +"\""+theQuery+"\"");
-				formatter.append("["+String.format ("%02d",i)+"] = "+ String.format("%.2f",tt)+" seconds, for: " +"\""+theQuery+"\"");
+				formatter.append("["+String.format ("%02d",i)+"] = "+ String.format("%.2f",tt)+"s,: " +"\""+theQuery+"\"");
 				
 				mdl.add (i,formatter.toString());
 				searchList.invalidate();
@@ -357,6 +357,10 @@ public class INHoopExperimenter extends INJInternalFrame implements ActionListen
 			if (aSearch!=null)
 			{
 				visualize (null,aSearch.getRootQueryOperator());
+				
+				INLink.dataSet=aSearch.getDataSet();
+				
+				INLink.updateAllWindows ();
 			}			
 		}
 	}	

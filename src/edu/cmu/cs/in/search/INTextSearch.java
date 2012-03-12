@@ -36,7 +36,7 @@ public class INTextSearch extends INBase
 {    				
     private INQueryOperator operation=null;
     private int topDocs=20;
-    //private INPositionList merged=null;
+    private INDataSet localDataSet=null;
     
 	/**
 	 *
@@ -44,8 +44,16 @@ public class INTextSearch extends INBase
     public INTextSearch () 
     {
 		setClassName ("INTextSearch");
-		debug ("INTextSearch ()");		
-    }    
+		debug ("INTextSearch ()");
+		localDataSet=new INDataSet ();
+    }  
+    /**
+     * 
+     */    
+    public INDataSet getDataSet ()
+    {
+    	return (localDataSet);
+    }
     /**
      * 
      */
@@ -127,10 +135,12 @@ public class INTextSearch extends INBase
 			Random testScoreGenerator = new Random();			
 			newDocument.setScore(testScoreGenerator.nextFloat());
 			
-			INLink.dataSet.addDocument (newDocument);
+			localDataSet.addDocument (newDocument);						
 		}
 		
-		return (INLink.dataSet);
+		INLink.dataSet=localDataSet;
+		
+		return (localDataSet);
 	}
 	/**
 	 * Implementation of the merge pseudo code as listed in:
