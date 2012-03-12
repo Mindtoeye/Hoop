@@ -21,7 +21,7 @@ public class INHoopSearchThread extends SwingWorker<Integer, Integer>
         protected Integer doInBackground() throws Exception
         {
                 // Do a time-consuming task.
-                Thread.sleep(1000);
+                Thread.sleep (1000);
                 return 42;
         }
 

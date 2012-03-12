@@ -15,6 +15,7 @@
 package edu.cmu.cs.in.search;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import edu.cmu.cs.in.INDataSet;
 import edu.cmu.cs.in.INDocument;
@@ -121,6 +122,11 @@ public class INTextSearch extends INBase
 			
 			INDocument newDocument=new INDocument ();
 			newDocument.setDocID(String.format("%d",entry.getDocID()));
+			newDocument.setRank(i);
+			
+			Random testScoreGenerator = new Random();			
+			newDocument.setScore(testScoreGenerator.nextFloat());
+			
 			INLink.dataSet.addDocument (newDocument);
 		}
 		

@@ -74,6 +74,8 @@ public class INLink extends INBase
 	public static ArrayList <INTextSearch> searchHistory=null;
 	public static INFileManager fManager=null;	
 	public static INDataSet dataSet=null;
+	public static ArrayList <String> queries=null;
+	public static int experimentNr=0;
 	
 	public static String whitespace_chars   =  ""       /* dummy empty string for homogeneity */
 											+ "\\u0009" // CHARACTER TABULATION

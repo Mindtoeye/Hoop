@@ -73,13 +73,21 @@ public class INBase
 	}
 	/**
 	 *
+	 */
+	public static String generateFileTimestamp ()
+	{
+		SimpleDateFormat dfStatic=new SimpleDateFormat ("HH-mm-ss-SSS");
+		return (dfStatic.format(new Date()));
+	}
+	/**
+	 *
 	 */		
 	public static void debug(String aClass,String s) 
 	{
-		SimpleDateFormat dfStatic=new SimpleDateFormat ("HH:mm:ss.SSS");
+		
 		StringBuffer buffer=new StringBuffer ();
 					
-		buffer.append(String.format ("[%s] [%d] <"+aClass+"> %s\n", dfStatic.format(new Date()), ++INFeatureMatrixLink.debugLine, s));
+		buffer.append(String.format ("[%s] [%d] <"+aClass+"> %s\n", generateFileTimestamp (), ++INFeatureMatrixLink.debugLine, s));
 
 		System.out.print (buffer.toString());
 		
@@ -95,7 +103,7 @@ public class INBase
 	{
 		StringBuffer buffer=new StringBuffer ();
 
-		buffer.append (String.format ("[%s] [%d] <"+className+"> %s\n", df.format(new Date()), ++INFeatureMatrixLink.debugLine, s));
+		buffer.append (String.format ("[%s] [%d] <"+className+"> %s\n", generateFileTimestamp (), ++INFeatureMatrixLink.debugLine, s));
 
 		System.out.print (buffer.toString());
 		

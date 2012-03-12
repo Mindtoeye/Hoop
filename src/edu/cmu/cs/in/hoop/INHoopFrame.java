@@ -104,9 +104,9 @@ public class INHoopFrame extends INJFrame implements ActionListener
 	    	debug ("Unable to load image ("+unlinkURL+") icon from jar");	
 		
 		INLink.fManager=new INFileManager ();
+		INLink.posFiles=new ArrayList<String> ();
 		fc = new JFileChooser();
-		INLink.posFiles=new ArrayList<String> ();        
-        
+                
         buildContent();
         buildMenus();
         
@@ -278,6 +278,7 @@ public class INHoopFrame extends INJFrame implements ActionListener
     	JMenuItem searchItem = new JMenuItem("Search");
     	JMenuItem clusterItem = new JMenuItem("Cluster Manager");
     	JMenuItem experimentItem = new JMenuItem("Experimenter");
+    	JMenuItem reporterItem = new JMenuItem("Reporter");
 
     	searchItem.addActionListener(new ActionListener() 
     	{
@@ -301,11 +302,20 @@ public class INHoopFrame extends INJFrame implements ActionListener
     		{
     			showExperimentWindow();
     		}
+    	});
+    	
+    	reporterItem.addActionListener(new ActionListener() 
+    	{
+    		public void actionPerformed(ActionEvent e) 
+    		{
+    			showReporterWindow();
+    		}
     	});    	
 
     	tools.add (searchItem);
     	tools.add (clusterItem);
     	tools.add (experimentItem);
+    	tools.add (reporterItem);
     	
     	return (tools);
     }    
@@ -671,7 +681,27 @@ public class INHoopFrame extends INJFrame implements ActionListener
     	{
    		
     	}
-    }    
+    }
+	/**
+	 *
+	 */	
+    public void showReporterWindow () 
+    {
+    	debug ("showReporterWindow ()");
+ 	
+    	INHoopReporter doc=new INHoopReporter();
+    	desktop.add (doc,DOCLAYER);
+   	  	
+    	try 
+    	{ 
+    		doc.setVisible(true);
+    		doc.setSelected(true); 
+    	} 
+    	catch (java.beans.PropertyVetoException e2) 
+    	{
+  		
+    	}
+   }    
     /**
 	 *
 	 */    
