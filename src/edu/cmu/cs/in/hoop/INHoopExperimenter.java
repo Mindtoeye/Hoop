@@ -47,7 +47,7 @@ import edu.cmu.cs.in.controls.base.INJInternalFrame;
 //import edu.cmu.cs.in.controls.INVisualFeature;
 import edu.cmu.cs.in.search.INTextSearch;
 import edu.cmu.cs.in.stats.INPerformanceMetrics;
-import edu.cmu.cs.in.stats.INTrecEval;
+//import edu.cmu.cs.in.stats.INTrecEval;
 
 /**
  * 
@@ -352,7 +352,7 @@ public class INHoopExperimenter extends INJInternalFrame implements ActionListen
 		
 		if (selectedRow!=-1)
 		{
-			INTextSearch aSearch=INLink.searchHistory.get(selectedRow-1);
+			INTextSearch aSearch=INLink.searchHistory.get(selectedRow);
 						
 			if (aSearch!=null)
 			{

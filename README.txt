@@ -1,14 +1,21 @@
-Hoop: a text mining and exploration workbench in Java. Primarily
-designed for narrative event extraction and text-based event
+Hoop: a text mining and language exploration workbench in Java. 
+Primarily designed for event extraction and text-based event
 forecasting, the workbench is a generic text and language
 machine learning sandbox that can be adopted to a wide variety
-of tasks.
-
-INFO! Please do not use the provided IDE for major investments
-in environment development since the project will be moved to
-use the Eclipse Workbench architecture in the near future.
+of tasks. Hoop is a collection of modules (hoops) each of which 
+can take linguistic input from one, process it and pass it onto
+another. Combining those modules or hoops allows you to create
+complex analysis systems.
 
 Author: Martin van Velsen <vvelsen@cs.cmu.edu>,<vvelsen@gmail.com> 
+
+Notice!
+
+Currently the toolkit is being migrated to the Eclipse Workbench
+and although all the core module code will stay the same and will migrate,
+the integrated environment support will most likely drastically change.
+
+History
 
 Initially written as a set of support code for graduate classes
 and smaller narrative projects, the code is slowly growing to
@@ -26,14 +33,8 @@ source base are:
 
 Used Packages:
 
-- Corba, for webpage rendering
-	From the Readme:
-		Please see http://html.xamjwg.org/cobra.jsp for
-		additional information on this toolkit.
-
-		See the LICENSE.txt file for Cobra licensing
-		and the COBRA-ACK.txt file for licensing 
-		information on Cobra dependencies.		
+- Cobra, for webpage rendering
+	http://lobobrowser.org/cobra.jsp
 
 - JGraph, to render the query trees
 	http://www.jgraph.com/jgraph.html
