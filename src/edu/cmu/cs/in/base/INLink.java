@@ -64,86 +64,128 @@ public class INLink extends INBase
 	public static ImageIcon linkIcon=null; // This should ideally be an array of icons, available as standard resources
 	public static ImageIcon unlinkIcon=null; // This should ideally be an array of icons, available as standard resources
 	
-	public static String [] stops={"a","an","and","are","as","at","for","i","if","in","is","it","of","on","so","that","the","to"};
-	public static String [] garbage={"*","?","!",".","'","#","-","_",":",",","|","\"","(",")","^",";"};
+	public static String [] stops={
+									"a",
+									"an",
+									"and",
+									"are",
+									"as",
+									"at",
+									"for",
+									"i",
+									"if",
+									"in",
+									"is",
+									"it",
+									"of",
+									"on",
+									"so",
+									"that",
+									"the",
+									"to"
+								  };
+	public static String [] garbage={
+									 "*",
+									 "?",
+									 "!",
+									 ".",
+									 "'",
+									 "#",
+									 "-",
+									 "_",
+									 ":",
+									 ",",
+									 "|",
+									 "\"",
+									 "(",
+									 ")",
+									 "^",
+									 ";"};
 	public static ImageIcon [] imageIcons=null;
-	public static String [] imgURLs={"broken.jpg",
-									 "close.png",
-									 "gtk-about.png",
-		 							 "gtk-add.png",
-		 							 "gtk-apply.png",
-		 							 "gtk-bold.png",
-									 "gtk-cancel.png",
-		 							 "gtk-cdrom.png",
-		 							 "gtk-clear.png",
-		 							 "gtk-close.png",
-									 "gtk-convert.png",
-		 							 "gtk-copy.png",
-		 							 "gtk-cut.png",
-		 							 "gtk-delete.png",
-		 							 "gtk-edit.png",
-		 							 "gtk-execute.png",
-		 							 "gtk-file.png",
-		 							 "gtk-find-and-replace.png",
-		 							 "gtk-find.png",
-		 							 "gtk-floppy.png",
-		 							 "gtk-go-back-ltr.png",
-		 							 "gtk-go-down.png",
-		 							 "gtk-go-forward-ltr.png",
-		 							 "gtk-go-up.png",
-		 							 "gtk-goto-bottom.png",
-		 							 "gtk-goto-first-ltr.png",
-		 							 "gtk-goto-last-ltr.png",
-		 							 "gtk-goto-top.png",
-		 							 "gtk-harddisk.png",
-		 							 "gtk-help.png",
-		 							 "gtk-home.png",
-		 							 "gtk-indent-ltr.png",
-		 							 "gtk-index.png",
-		 							 "gtk-info.png",
-		 							 "gtk-italic.png",
-		 							 "gtk-jump-to-ltr.png",
-		 							 "gtk-justify-center.png",
-		 							 "gtk-justify-fill.png",
-		 							 "gtk-justify-left.png",
-		 							 "gtk-justify-right.png",
-		 							 "gtk-network.png",
-		 							 "gtk-new.png",
-		 							 "gtk-no.png",
-		 							 "gtk-ok.png",
-		 							 "gtk-open.png",
-		 							 "gtk-paste.png",
-		 							 "gtk-preferences.png",
-		 							 "gtk-print-preview.png",
-		 							 "gtk-print.png",
-		 							 "gtk-properties.png",
-		 							 "gtk-quit.png",
-		 							 "gtk-redo-ltr.png",
-		 							 "gtk-refresh.png",
-		 							 "gtk-remove.png",
-		 							 "gtk-revert-to-saved-ltr.png",
-		 							 "gtk-save-as.png",
-		 							 "gtk-save.png",
-		 							 "gtk-select-all.png",
-		 							 "gtk-select-color.png",
-		 							 "gtk-select-font.png",
-		 							 "gtk-sort-ascending.png",
-		 							 "gtk-sort-descending.png",
-		 							 "gtk-spell-check.png",
-		 							 "gtk-stop.png",
-		 							 "gtk-strikethrough.png",
-									 "gtk-undelete-ltr.png",
-		 							 "gtk-underline.png",
-		 							 "gtk-undo-ltr.png",
-		 							 "gtk-unindent-ltr.png",
-		 							 "gtk-yes.png",
-		 							 "gtk-zoom-100.png",
-		 							 "gtk-zoom-fit.png",
-		 							 "gtk-zoom-in.png",
-		 							 "gtk-zoom-out.png",
-		 							 "link.jpg",
-		 							 "machine.png",
-		 							 "wiki-links.jpg"};
+	public static String [] imgURLs={
+									 "broken.jpg",// 01
+									 "close.png",// 02
+									 "gtk-about.png",// 03
+		 							 "gtk-add.png",// 04
+		 							 "gtk-apply.png",// 05
+		 							 "gtk-bold.png",// 06
+									 "gtk-cancel.png",// 07
+		 							 "gtk-cdrom.png",// 08
+		 							 "gtk-clear.png",// 09
+		 							 "gtk-close.png",// 10
+									 "gtk-convert.png",// 11
+		 							 "gtk-copy.png",// 12
+		 							 "gtk-cut.png",// 13
+		 							 "gtk-delete.png",// 14
+		 							 "gtk-edit.png",// 15
+		 							 "gtk-execute.png",// 16
+		 							 "gtk-file.png",// 17
+		 							 "gtk-find-and-replace.png",// 18
+		 							 "gtk-find.png",// 19
+		 							 "gtk-floppy.png",// 20
+		 							 "gtk-go-back-ltr.png",// 21
+		 							 "gtk-go-down.png",// 22
+		 							 "gtk-go-forward-ltr.png",// 23
+		 							 "gtk-go-up.png",// 24
+		 							 "gtk-goto-bottom.png",// 25
+		 							 "gtk-goto-first-ltr.png",// 26
+		 							 "gtk-goto-last-ltr.png",// 27
+		 							 "gtk-goto-top.png",// 28
+		 							 "gtk-harddisk.png",// 29
+		 							 "gtk-help.png",// 30
+		 							 "gtk-home.png",// 31
+		 							 "gtk-indent-ltr.png",// 32
+		 							 "gtk-index.png",// 33
+		 							 "gtk-info.png",// 34
+		 							 "gtk-italic.png",// 35
+		 							 "gtk-jump-to-ltr.png",// 36
+		 							 "gtk-justify-center.png",// 37
+		 							 "gtk-justify-fill.png",// 38
+		 							 "gtk-justify-left.png",// 39
+		 							 "gtk-justify-right.png",// 40
+		 							 "gtk-network.png",// 41
+		 							 "gtk-new.png",// 42
+		 							 "gtk-no.png",// 43
+		 							 "gtk-ok.png",// 44
+		 							 "gtk-open.png",// 45
+		 							 "gtk-paste.png",// 46
+		 							 "gtk-preferences.png",// 47
+		 							 "gtk-print-preview.png",// 48
+		 							 "gtk-print.png",// 49
+		 							 "gtk-properties.png",// 50
+		 							 "gtk-quit.png",// 51
+		 							 "gtk-redo-ltr.png",// 52
+		 							 "gtk-refresh.png",// 53
+		 							 "gtk-remove.png",// 54
+		 							 "gtk-revert-to-saved-ltr.png",// 55
+		 							 "gtk-save-as.png",// 56
+		 							 "gtk-save.png",// 57
+		 							 "gtk-select-all.png",// 58
+		 							 "gtk-select-color.png",// 59
+		 							 "gtk-select-font.png",// 60
+		 							 "gtk-sort-ascending.png",// 61
+		 							 "gtk-sort-descending.png",// 62
+		 							 "gtk-spell-check.png",// 63
+		 							 "gtk-stop.png",// 64
+		 							 "gtk-strikethrough.png",// 65
+									 "gtk-undelete-ltr.png",// 66
+		 							 "gtk-underline.png",// 67
+		 							 "gtk-undo-ltr.png",// 68
+		 							 "gtk-unindent-ltr.png",// 69
+		 							 "gtk-yes.png",// 70
+		 							 "gtk-zoom-100.png",// 71
+		 							 "gtk-zoom-fit.png",// 72
+		 							 "gtk-zoom-in.png",// 73
+		 							 "gtk-zoom-out.png",// 74
+		 							 "link.jpg",// 75
+		 							 "machine.png",// 76
+		 							 "wiki-links.jpg",// 77
+		 							 "hoop-load.png",// 78
+		 							 "hoop-save.png",// 79
+		 							 "hoop-to-kv.png",// 80
+		 							 "hoop-to-list.png",// 81
+		 							 "hoop-to-table.png"// 82
+		 							 };
 	
 	public static String vocabularyPath="./";
 	public static ArrayList <String> posFiles=null;	

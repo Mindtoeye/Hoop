@@ -65,6 +65,7 @@ public class INHoopFrame extends INJFrame implements ActionListener
 	private INJFeatureList stopList=null;
 	private INJFeatureList positionList=null;
 	private	INHoopStatusBar statusbar=null;
+	private	INHoopEditor hoopEditor=null;	
 		
 	/**
 	 *
@@ -307,6 +308,7 @@ public class INHoopFrame extends INJFrame implements ActionListener
     	JMenuItem clusterItem = new JMenuItem("Cluster Manager");
     	JMenuItem experimentItem = new JMenuItem("Experimenter");
     	JMenuItem reporterItem = new JMenuItem("Reporter");
+    	JMenuItem hoopEditorItem = new JMenuItem("Hoop Editor");    	
 
     	searchItem.addActionListener(new ActionListener() 
     	{
@@ -339,11 +341,20 @@ public class INHoopFrame extends INJFrame implements ActionListener
     			showReporterWindow();
     		}
     	});    	
+    	
+    	hoopEditorItem.addActionListener(new ActionListener() 
+    	{
+    		public void actionPerformed(ActionEvent e) 
+    		{
+    			showHoopEditor();
+    		}
+    	});     	
 
     	tools.add (searchItem);
     	tools.add (clusterItem);
     	tools.add (experimentItem);
     	tools.add (reporterItem);
+    	tools.add (hoopEditorItem);
     	
     	return (tools);
     }    
@@ -711,6 +722,26 @@ public class INHoopFrame extends INJFrame implements ActionListener
     }
 	/**
 	 *
+	 */	    
+    public void showHoopEditor ()
+    {
+    	debug ("showHoopEditor ()");
+    	     	
+    	INHoopEditor doc=new INHoopEditor();
+    	desktop.add (doc,DOCLAYER);
+   	  	
+    	try 
+    	{ 
+    		doc.setVisible(true);
+    		doc.setSelected(true); 
+    	} 
+    	catch (java.beans.PropertyVetoException e2) 
+    	{
+  		
+    	}    	
+    }
+	/**
+	 *
 	 */	
     public void showReporterWindow () 
     {
@@ -728,7 +759,7 @@ public class INHoopFrame extends INJFrame implements ActionListener
     	{
   		
     	}
-   }    
+    }    
     /**
 	 *
 	 */    

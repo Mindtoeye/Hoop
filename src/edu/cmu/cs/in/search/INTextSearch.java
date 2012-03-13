@@ -414,20 +414,39 @@ public class INTextSearch extends INBase
 		return (i);
 	}	
 	/**
+	 * 
+	 */
+	private String preProcess (String aQuery)
+	{
+		debug ("preProcess ()");
+		
+		String formatted=aQuery.toLowerCase();
+		
+		// Allow for easier tokenization
+		formatted=formatted.replaceAll("\\("," ( ");
+		
+		// Allow for easier tokenization
+		formatted=formatted.replaceAll("\\)"," ) ");
+		
+		// We will treat hypenated terms as phrases with a
+		// nearness of 1 and then let the rest of the
+		// algorithm take care of it
+		formatted=formatted.replaceAll("\\-","/1 ");
+		
+		return (formatted);
+	}
+	/**
 	 * Example: #OR (#AND (viva la vida) coldplay)  
 	 */
 	private INQueryOperator buildQuery (String aQuery)
 	{
 		debug ("buildQuery ("+aQuery+")");
+
+		String processed=preProcess (aQuery);
 		
-		String lowerEverything=aQuery.toLowerCase();
+		debug ("Reformatted: " + processed);
 		
-		lowerEverything=lowerEverything.replaceAll("\\("," ( "); // Allow for easy tokenization
-		lowerEverything=lowerEverything.replaceAll("\\)"," ) "); // Allow for easy tokenization
-		
-		debug ("Reformatted: " + lowerEverything);
-		
-		String [] raw=lowerEverything.split("\\s+");
+		String [] raw=processed.split("\\s+");
 		
 		String [] split=removeStops (raw);
 

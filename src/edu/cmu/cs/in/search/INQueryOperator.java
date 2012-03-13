@@ -28,6 +28,7 @@ public class INQueryOperator extends INBase
 {    			
 	private String operator="#and"; // nice default, one of #sum,#and,#or,#near
 	private Boolean isTerm=false;
+	private Boolean isStop=false;
 	private ArrayList <INQueryOperator> operators=null;
 	private INPositionList positions=null;
 	private Boolean valid=true;
@@ -60,6 +61,20 @@ public class INQueryOperator extends INBase
 		debug ("INQueryOperator ()");		
 		operators=new ArrayList<INQueryOperator> ();
 		positions=new INPositionList ();
+	}	
+    /**
+	 *
+	 */	
+	public void setIsStop(Boolean isStop) 
+	{
+		this.isStop = isStop;
+	}
+   /**
+	 *
+	 */
+	public Boolean getIsStop() 
+	{
+		return isStop;
 	}	
 	/**
 	 * 

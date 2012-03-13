@@ -72,6 +72,11 @@ gtk-zoom-100.png
 gtk-zoom-fit.png
 gtk-zoom-in.png
 gtk-zoom-out.png
+hoop-load.png
+hoop-save.png
+hoop-to-kv.png
+hoop-to-list.png
+hoop-to-table.png
 imagelist.txt
 link.jpg
 listimages.bat
