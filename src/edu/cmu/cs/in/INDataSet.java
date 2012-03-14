@@ -18,11 +18,12 @@ import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.INFileManager;
+import edu.cmu.cs.in.base.INLink;
 import edu.cmu.cs.in.INDocumentParser;
 
 public class INDataSet extends INBase
 {
-	private INFileManager fManager=null;
+	//private INFileManager fManager=null;
 	private ArrayList<INDocument> documents=null;
 	
 	/**
@@ -32,8 +33,11 @@ public class INDataSet extends INBase
     {
 		setClassName ("INDataSet");
 		debug ("INDataSet ()");		
+				
+		//fManager=new INFileManager ();
+		if (INLink.fManager==null)
+			INLink.fManager=new INFileManager ();
 		
-		fManager=new INFileManager ();
 		setDocuments(new ArrayList<INDocument> ());
     }
 	/**
@@ -64,7 +68,7 @@ public class INDataSet extends INBase
     {
     	debug ("loadDocuments ("+aPath+")");
     	
-    	ArrayList<String> files=fManager.listFiles (aPath);
+    	ArrayList<String> files=INLink.fManager.listFiles (aPath);
     	
     	if (files.size()==0)
     	{

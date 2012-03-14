@@ -23,25 +23,26 @@ import javax.swing.tree.*;
 
 package edu.cmu.cs.in.hoop;
 
-import java.awt.Color;
+//import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 
-import javax.swing.BorderFactory;
+//import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
+//import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.border.Border;
+//import javax.swing.border.Border;
 
-import edu.cmu.cs.in.base.INLink;
+//import edu.cmu.cs.in.base.INLink;
 import edu.cmu.cs.in.controls.base.INJInternalFrame;
 import edu.cmu.cs.in.stats.INTrecEval;
 
@@ -54,6 +55,7 @@ public class INHoopReporter extends INJInternalFrame implements ActionListener
 	private JTextField inputPath=null;
 	private JTextArea console=null;
 	private JFileChooser fc=null;
+	private JCheckBox collate=null;
 	
 	public INHoopReporter() 
     {
@@ -80,6 +82,14 @@ public class INHoopReporter extends INJInternalFrame implements ActionListener
 		inputPath.setMaximumSize(new Dimension (5000,25));		
 		//inputPath.addKeyListener(this);
 		
+		collate=new JCheckBox ();
+		collate.setText("Collate");
+		collate.setSelected(true);
+		collate.setFont(new Font("Dialog", 1, 10));
+		collate.setMinimumSize(new Dimension (75,25));
+		collate.setPreferredSize(new Dimension (75,25));
+		collate.setMaximumSize(new Dimension (75,25));
+		
 		JButton search=new JButton ();
 		//search.setDefaultCapable(true);
 		search.setText("Output ...");
@@ -99,6 +109,7 @@ public class INHoopReporter extends INJInternalFrame implements ActionListener
 		report.addActionListener(this);		
     	  				
 		inputBox.add (inputPath);
+		inputBox.add (collate);
 		inputBox.add (search);
 		inputBox.add (report);
 		
@@ -130,7 +141,7 @@ public class INHoopReporter extends INJInternalFrame implements ActionListener
 		
 		if (button.getText().equals("Report"))
 		{
-			INTrecEval evaluator=new INTrecEval ();
+			INTrecEval evaluator=new INTrecEval (collate.isSelected());
 			evaluator.setOutputPath(inputPath.getText());
 			console.setText(evaluator.flushData());
 		}

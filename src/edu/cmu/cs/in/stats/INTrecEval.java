@@ -28,14 +28,17 @@ public class INTrecEval extends INStatsBase
 {    	
 	private String outputPath=".";
 	private String report="";
+	private Boolean collate=true;
 	
 	/**
 	 *
 	 */
-    public INTrecEval () 
+    public INTrecEval (Boolean aCollate) 
     {
 		setClassName ("INTrecEval");
-		debug ("INTrecEval ()");						
+		debug ("INTrecEval ()");		
+		
+		collate=aCollate;
     }    
     /**
      * 
@@ -56,7 +59,30 @@ public class INTrecEval extends INStatsBase
 	 */
 	public String flushData ()
 	{
-		debug ("flushData ()");
+		if (collate==true)
+		{
+			return (flushDataCollated ());
+		}
+	
+		
+		return (flushDataRegular ());
+	}
+	/**
+	 * 
+	 */
+	public static double Round(double Rval, int Rpl) 
+	{
+		double p = (double)Math.pow(10,Rpl);
+		Rval = Rval * p;
+		double tmp = Math.round(Rval);
+		return (double)tmp/p;
+	}	
+	/**
+	 * 
+	 */
+	public String flushDataRegular ()
+	{
+		debug ("flushDataRegular ()");
 	
 		if (INLink.searchHistory==null)
 		{
@@ -134,4 +160,86 @@ public class INTrecEval extends INStatsBase
 				
 		return (overview.toString());
 	}
+	/**
+	 * 
+	 */
+	public String flushDataCollated ()
+	{
+		debug ("flushDataCollated ()");
+	
+		if (INLink.searchHistory==null)
+		{
+			debug ("Error: no searches completed yet");
+			return (report);
+		}
+		
+		if (INLink.fManager==null)
+		{
+			debug ("Error: no file manager available");
+			return (report);
+		}
+		
+		if (outputPath.isEmpty()==true)
+		{
+			debug ("Error: no output path specified");
+			return (report);
+		}
+				
+		StringBuffer overview=new StringBuffer ();		
+		StringBuffer formatted=new StringBuffer ();
+		
+		formatted.append("QueryID");
+		formatted.append("\t");
+		formatted.append("Q0");
+		formatted.append("\t");
+		formatted.append("DocID");
+		formatted.append("\t");
+		formatted.append("Rank");
+		formatted.append("\t");
+		formatted.append("Score");
+		formatted.append("\t");
+		formatted.append("RunID");
+		formatted.append("\n");
+		
+		for (int i=0;i<INLink.searchHistory.size();i++)
+		{
+			INTextSearch aSearch=INLink.searchHistory.get(i);			
+			//INQueryOperator query=aSearch.getRootQueryOperator();
+			INDataSet docs=INLink.dataSet;
+											
+			if (docs!=null)
+			{
+				ArrayList<INDocument> docList=docs.getDocuments();
+				
+				overview.append("Report ("+i+") generated for " + docList.size() + " documents\n");
+				
+				if (docList!=null)
+				{										
+					for (int j=0;j<docList.size();j++)
+					{
+						INDocument aDoc=docList.get(j);
+						
+						formatted.append(aSearch.getInstanceName());
+						formatted.append("\t");
+						formatted.append("Q0");
+						formatted.append("\t");
+						formatted.append(aDoc.getDocID());
+						formatted.append("\t");
+						formatted.append(aDoc.getRank()+1); // trec_eval starts at 1
+						formatted.append("\t");
+						formatted.append(String.format("%.2f",aDoc.getScore()));
+						formatted.append("\t");
+						formatted.append("run-"+i);
+						formatted.append("\n");
+					}										
+				}	
+			}
+			else
+				debug ("Internal error: query object is null");
+		}
+		
+		INLink.fManager.saveContents(outputPath+"/"+"TrecEval-Log-Exp"+INLink.experimentNr+"-"+INBase.generateFileTimestamp ()+".txt", formatted.toString());
+				
+		return (overview.toString());
+	}	
 }

@@ -154,7 +154,7 @@ public class INHoopExperimenter extends INJInternalFrame implements ActionListen
 		holder.add (centerBox);
     	
 		setContentPane (holder);
-		setSize (325,200);
+		setSize (425,300);
 		setLocation (75,75);
     }
 	/**

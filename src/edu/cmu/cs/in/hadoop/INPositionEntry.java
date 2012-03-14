@@ -38,7 +38,7 @@ public class INPositionEntry /*extends INBase*/ implements Comparable
 		posList=new ArrayList<Long> ();
 		
 		Random testScoreGenerator = new Random();	
-		setEvaluation(testScoreGenerator.nextFloat());		
+		setEvaluation((float) (testScoreGenerator.nextFloat()-0.010441));		
     }
 	/**
 	 *
