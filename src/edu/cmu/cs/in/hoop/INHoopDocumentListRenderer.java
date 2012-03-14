@@ -126,7 +126,7 @@ class INHoopDocumentListRenderer extends INJPanel implements ListCellRenderer, A
 
 		aDoc=(INDocument) obj;
 		
-		docLabel.setText("docID: "+aDoc.getDocID()+", Rank: "+aDoc.getRank());
+		docLabel.setText("Rank: "+(aDoc.getRank()+1)+" Evaluation: " + aDoc.getScore());
 		
 		/*
 		if(hasFocus)

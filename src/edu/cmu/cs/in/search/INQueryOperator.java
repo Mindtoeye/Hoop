@@ -27,6 +27,7 @@ import edu.cmu.cs.in.hadoop.INPositionList;
 public class INQueryOperator extends INBase
 {    			
 	private String operator="#and"; // nice default, one of #sum,#and,#or,#near
+	private int distance=1; // in case the operator is something like #near/1
 	private Boolean isTerm=false;
 	private Boolean isStop=false;
 	private ArrayList <INQueryOperator> operators=null;
@@ -271,6 +272,20 @@ public class INQueryOperator extends INBase
 	public void setValid(Boolean valid) 
 	{
 		this.valid = valid;
+	}
+    /**
+	 *
+	 */	
+	public int getDistance() 
+	{
+		return distance;
+	}
+    /**
+	 *
+	 */	
+	public void setDistance(int distance) 
+	{
+		this.distance = distance;
 	}	
     /**
 	 *
@@ -285,10 +300,13 @@ public class INQueryOperator extends INBase
 			return (false);
 		}
 		
+		Boolean found=false;
+		
 		for (int i=0;i<INLink.posFiles.size ();i++)
 		{
 			String fileName=INLink.posFiles.get(i);
-			if (fileName.indexOf(this.getInstanceName())!=-1)
+			//if (fileName.indexOf(this.getInstanceName())!=-1)
+			if (fileName.equals(this.getInstanceName())==true)
 			{
 				String invListURL=INLink.vocabularyPath+"/"+this.getInstanceName()+".inv";
 				
@@ -298,25 +316,33 @@ public class INQueryOperator extends INBase
 				{
 					debug ("File does not exist");
 					setValid (false);
-					return (false);
-				}
-				
-				if (fastLoad==false)
-				{
-					ArrayList<String> lines=INLink.fManager.loadLines(invListURL);
-					debug ("Loaded");
-					processPositions (lines);
-					lines=null; // Need to get rid of memory!!
 				}
 				else
-				{
-					debug ("Calling positions load and processing simultaneously ...");
-					processPositions (invListURL);
-				}
+				{				
+					found=true;
+				
+					if (fastLoad==false)
+					{
+						ArrayList<String> lines=INLink.fManager.loadLines(invListURL);
+						debug ("Loaded");
+						processPositions (lines);
+						lines=null; // Need to get rid of memory!!
+					}
+					else
+					{
+						debug ("Calling positions load and processing simultaneously ...");
+						processPositions (invListURL);
+					}
+				}	
 			}
 		}
 		
-		return (true);
+		if (found==false)
+		{
+			debug ("Error: positions list most likely not found in vocabulary");
+		}
+		
+		return (found);
 	}	
     /**
 	 *

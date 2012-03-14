@@ -15,7 +15,7 @@
 package edu.cmu.cs.in.search;
 
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.Collections;
 
 import edu.cmu.cs.in.INDataSet;
 import edu.cmu.cs.in.INDocument;
@@ -35,7 +35,7 @@ import edu.cmu.cs.in.stats.INPerformanceMetrics;
 public class INTextSearch extends INBase
 {    				
     private INQueryOperator operation=null;
-    private int topDocs=20;
+    private int topDocs=100; // As per homework request
     private INDataSet localDataSet=null;
     
 	/**
@@ -111,6 +111,7 @@ public class INTextSearch extends INBase
 	/**
 	 * 
 	 */
+	@SuppressWarnings("unchecked")
 	private INDataSet rankDocumentList (INPositionList aList)
 	{
 		debug ("rankDocumentList ("+aList.getPosEntries().size()+")");
@@ -118,6 +119,15 @@ public class INTextSearch extends INBase
 		INLink.dataSet=new INDataSet ();
 		
 		ArrayList<INPositionEntry> docIDs=aList.getPosEntries();
+		
+		// First we use a sort to re-order the positions
+		// list into a ranked list ...
+				
+		Collections.sort(docIDs);
+				
+		// Then from that sorted list we take the top Y documents
+		// as indicated by the user or default settings. For the
+		// homework this was set to the top 100 documents
 		
 		int count=topDocs;
 		
@@ -130,10 +140,8 @@ public class INTextSearch extends INBase
 			
 			INDocument newDocument=new INDocument ();
 			newDocument.setDocID(String.format("%d",entry.getDocID()));
-			newDocument.setRank(i);
-			
-			Random testScoreGenerator = new Random();			
-			newDocument.setScore(testScoreGenerator.nextFloat());
+			newDocument.setRank(i);				
+			newDocument.setScore(entry.getEvaluation());
 			
 			localDataSet.addDocument (newDocument);						
 		}
@@ -266,8 +274,18 @@ public class INTextSearch extends INBase
 		for (int i=0;i<operators.size();i++)
 		{			
 			INQueryOperator op=(INQueryOperator) operators.get(i);
-		
-			last=mergeLists (op.getInstanceName(),last,op.getPositions());
+					
+			if (op.getPositions().getPosEntries().size()!=0)
+			{			
+				last=mergeLists (op.getInstanceName(),
+								 last,
+								 op.getPositions());
+			}
+			else
+			{
+				debug ("Positions list has no entries, skipping for merge ...");
+				last=op.getPositions();
+			}
 			
 			if (last==null)
 			{
@@ -303,7 +321,7 @@ public class INTextSearch extends INBase
 				if (op.loadPositionList ()==false)
 				{
 					debug ("Query aborted, no position list for: " + op.getInstanceName());
-					return;
+					//return;
 				}
 				else
 				{
@@ -353,7 +371,12 @@ public class INTextSearch extends INBase
 	    return (stringed);
 	}
 	/**
-	 * 
+	 * Here we have a choice of how to deal with things
+	 * like stop words. Currently any term indicated to
+	 * be a stop word is simply removed but we could
+	 * also tag a term as a stop word so we can track
+	 * at a different level if it should be removed or
+	 * not.
 	 */
 	private String [] removeStops (String [] aList)
 	{
@@ -365,9 +388,7 @@ public class INTextSearch extends INBase
 		String [] changer=aList;
 		
 		for (int i=0;i<INLink.stops.length;i++)
-		{
-			//debug ("Checking: " + INLink.stops [i]);
-			
+		{			
 			String stopWord=INLink.stops [i];
 			changer=removeElements (changer,stopWord);
 		}
@@ -377,7 +398,7 @@ public class INTextSearch extends INBase
 	/**
 	 * Example: #OR (#AND (viva la vida) coldplay)  
 	 */
-	private int buildSubQuery (INQueryOperator aRoot,String [] list,int anIndex)
+	private int buildSubQuery (INQueryOperator aRoot,ArrayList <String> list,int anIndex)
 	{
 		debug ("buildSubQuery ("+aRoot.getInstanceName()+")");
 				
@@ -385,9 +406,9 @@ public class INTextSearch extends INBase
 		
 		INQueryOperator newRoot=aRoot;
 		
-		for (i=anIndex;i<list.length;i++)
+		for (i=anIndex;i<list.size ();i++)
 		{
-			String token=list [i];
+			String token=list.get (i);
 			
 			debug ("Token: " + token);
 			
@@ -414,7 +435,10 @@ public class INTextSearch extends INBase
 		return (i);
 	}	
 	/**
-	 * 
+	 * We probably get most of the parsing speed out of this
+	 * small routine. It takes a string and expands parenthesis
+	 * by adding whitespaces around them. That way the tokenizer
+	 * doesn't need any exceptions and can work linearly.
 	 */
 	private String preProcess (String aQuery)
 	{
@@ -422,18 +446,51 @@ public class INTextSearch extends INBase
 		
 		String formatted=aQuery.toLowerCase();
 		
-		// Allow for easier tokenization
 		formatted=formatted.replaceAll("\\("," ( ");
 		
-		// Allow for easier tokenization
 		formatted=formatted.replaceAll("\\)"," ) ");
-		
-		// We will treat hypenated terms as phrases with a
-		// nearness of 1 and then let the rest of the
-		// algorithm take care of it
-		formatted=formatted.replaceAll("\\-","/1 ");
-		
+				
 		return (formatted);
+	}
+	/**
+	 * In order to do queries on hyphenated strings we
+	 * transform the compound term into its own #near/1
+	 * sub search. This code should also be able to
+	 * handle multiple hypenations within one compound
+	 * term
+	 */
+	private ArrayList <String> queryExpand (String [] input)
+	{
+		ArrayList <String> expanded=new ArrayList<String> ();
+		
+		for (int i=0;i<input.length;i++)
+		{
+			String token=input [i];
+			
+			if (token.indexOf('-')!=-1)
+			{
+				String [] splitter=token.split("\\-");
+				expanded.add ("#near/1");
+				
+				expanded.add("(");
+				
+				for (int j=0;j<splitter.length;j++)
+				{
+					expanded.add(splitter [j]);
+				}
+				
+				expanded.add (")");
+			}
+			else
+			{
+				// Add as is ...
+				
+				expanded.add(token);
+			}
+			
+		}	
+		
+		return (expanded);
 	}
 	/**
 	 * Example: #OR (#AND (viva la vida) coldplay)  
@@ -448,11 +505,13 @@ public class INTextSearch extends INBase
 		
 		String [] raw=processed.split("\\s+");
 		
-		String [] split=removeStops (raw);
+		String [] stopped=removeStops (raw);
 
-		for (int t=0;t<split.length;t++)
+		ArrayList <String> split=queryExpand (stopped);
+		
+		for (int t=0;t<split.size ();t++)
 		{
-			debug ("Query item: " + split [t]);
+			debug ("Query item: " + split.get (t));
 		}
 		
 		operation=new INQueryOperator ();
@@ -460,9 +519,9 @@ public class INTextSearch extends INBase
 		
 		INQueryOperator newRoot=operation;
 		
-		for (int i=0;i<split.length;i++)
+		for (int i=0;i<split.size ();i++)
 		{
-			String token=split [i];
+			String token=split.get(i);
 			
 			debug ("Token: " + token);
 			

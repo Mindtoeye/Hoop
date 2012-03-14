@@ -828,7 +828,8 @@ public class INHoopFrame extends INJFrame implements ActionListener
 	        			String test=tempFiles.get(i);
 	        			if (test.indexOf(".inv")!=-1)
 	        			{	
-	        				INLink.posFiles.add(test);
+	        				String [] splitter=test.split("\\.");
+	        				INLink.posFiles.add(splitter [0]);
 	        			}
 	        		}
 	        		

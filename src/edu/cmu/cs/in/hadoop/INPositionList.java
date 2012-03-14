@@ -32,7 +32,7 @@ public class INPositionList extends INBase
     public INPositionList () 
     {
 		setClassName ("INPositionList");
-		debug ("INPositionList ()");		
+		//debug ("INPositionList ()");		
 		posEntries=new ArrayList<INPositionEntry> ();
     }
 	/**

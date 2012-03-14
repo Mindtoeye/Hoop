@@ -15,14 +15,16 @@
 package edu.cmu.cs.in.hadoop;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 //import edu.cmu.cs.in.base.INBase;
 
-public class INPositionEntry //extends INBase
+public class INPositionEntry /*extends INBase*/ implements Comparable
 {
 	private long docID=-1; 
 	private long tf=1; 
 	private long docLen=1; 
+	private float evaluation=(float) 0.0;
 	private ArrayList<Long> posList=null;
 	
 	/**
@@ -34,6 +36,9 @@ public class INPositionEntry //extends INBase
 		//debug ("INPositionEntry ()");		
 		
 		posList=new ArrayList<Long> ();
+		
+		Random testScoreGenerator = new Random();	
+		setEvaluation(testScoreGenerator.nextFloat());		
     }
 	/**
 	 *
@@ -90,5 +95,33 @@ public class INPositionEntry //extends INBase
 	public ArrayList<Long> getPosList() 
 	{
 		return posList;
+	}
+	/**
+	 *
+	 */	
+	public float getEvaluation() 
+	{
+		return evaluation;
+	}
+	/**
+	 *
+	 */	
+	public void setEvaluation(float evaluation) 
+	{
+		this.evaluation = evaluation;
+	}
+	/**
+	 *
+	 */	
+	@Override
+	public int compareTo(Object obj) 
+	{
+		//System.out.println ("compareTo ()");
+		
+		INPositionEntry target=(INPositionEntry) obj;
+		if (target.evaluation>this.evaluation)
+			return (1);
+		
+		return 0;
 	}    
 }
