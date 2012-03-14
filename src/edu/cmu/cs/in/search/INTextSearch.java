@@ -17,25 +17,31 @@ package edu.cmu.cs.in.search;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import edu.cmu.cs.in.INDataSet;
-import edu.cmu.cs.in.INDocument;
+import edu.cmu.cs.in.search.INDataSet;
+import edu.cmu.cs.in.search.INDocument;
 import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.INLink;
 import edu.cmu.cs.in.search.INQueryOperator;
-import edu.cmu.cs.in.hadoop.INPositionEntry;
-import edu.cmu.cs.in.hadoop.INPositionList;
+import edu.cmu.cs.in.search.INPositionEntry;
+import edu.cmu.cs.in.search.INPositionList;
 import edu.cmu.cs.in.stats.INPerformanceMetrics;
 
 /**
-* For your reading and puzzlement pleasure you will find a term query
-* full text search class. In essence this class manages the various
-* structures needed to perform a retrieval and ranking set of steps
-* on a number of input terms and an archive of pre-processed documents.
+* Here you will find a term query full text search class. In 
+* essence this class manages the various structures needed to 
+* perform a retrieval and ranking set of steps on a number
+* of input terms and an archive of pre-processed documents.
 */
 public class INTextSearch extends INBase
 {    				
     private INQueryOperator operation=null;
-    private int topDocs=100; // As per homework request
+
+    // As per homework request the amount of documents to be retrieved
+    private int topDocs=100;
+    
+    // This is where the resulting dataset/document set will end up
+    // When this is all filled up it will be assigned to INLink.dataSet
+    // so that other objects can use the set
     private INDataSet localDataSet=null;
     
 	/**
@@ -76,7 +82,8 @@ public class INTextSearch extends INBase
 		return topDocs;
 	}	    
 	/**
-	 *
+	 * The entry point for our search. It only takes a string and the
+	 * desired number of retrieved documents	 
 	 */
 	public long search (String aQuery,int aTopDocs)
 	{
@@ -84,20 +91,39 @@ public class INTextSearch extends INBase
 		
 		setTopDocs (aTopDocs);
 		
+		// First set a marker so that we can see how long it all took
+		
 		INPerformanceMetrics metrics=new INPerformanceMetrics ();
 		metrics.setMarker ("Query ");
 		INLink.metrics.add(metrics);
 		
+		// Also measure memory, might be useful
+		
 		Long memBefore=Runtime.getRuntime().freeMemory();
+
+		// Now first we build an internal representation of the query
+		// including any hierarchy and preprocessing.
 		
 		buildQuery (aQuery);				
+		
+		// Next is when we traverse the internal structuer depth-first
+		// with some minor optimizations
+		
 		searchQuery (operation);
+		
+		// Finally we merge everything and activate/run any operators
+		
 		INPositionList result=merge (operation);
-				
+						
+		// We then rank and sort the final list of documents and
+		// prepare them to be sent to INTrecEval
+		
 		if (result!=null)
 		{
 			rankDocumentList (result);
 		}
+		
+		// Now let's see how we did by retrieving our markers
 		
 		Long memAfter=Runtime.getRuntime().freeMemory();
 				

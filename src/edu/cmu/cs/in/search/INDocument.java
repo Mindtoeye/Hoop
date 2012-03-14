@@ -12,7 +12,7 @@
  * 
  */
 
-package edu.cmu.cs.in;
+package edu.cmu.cs.in.search;
 
 import java.util.ArrayList;
 import java.util.List;

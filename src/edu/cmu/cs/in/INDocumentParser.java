@@ -14,17 +14,7 @@
 
 package edu.cmu.cs.in;
 
-/*
-import java.util.ArrayList;
-import java.util.List;
-
-import edu.cmu.cs.in.base.INFileManager;
-import edu.cmu.cs.in.base.INBase;
-import edu.cmu.cs.in.base.INLink;
-import edu.cmu.cs.in.base.INPorterStemmer;
-import edu.cmu.cs.in.base.INSimpleFeatureMaker;
-import edu.cmu.cs.in.base.INWikipediaFilter;
-*/
+import edu.cmu.cs.in.search.INDocument;
 
 /**
 *

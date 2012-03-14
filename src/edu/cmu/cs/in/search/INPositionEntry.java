@@ -12,7 +12,7 @@
  * 
  */
 
-package edu.cmu.cs.in.hadoop;
+package edu.cmu.cs.in.search;
 
 import java.util.ArrayList;
 import java.util.Random;

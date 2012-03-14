@@ -40,7 +40,7 @@ import org.apache.hadoop.io.*;
 import org.apache.hadoop.mapred.*;
 import org.apache.hadoop.util.*;
 
-import edu.cmu.cs.in.INDataSet;
+import edu.cmu.cs.in.search.INDataSet;
 import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.INFileManager;
 import edu.cmu.cs.in.base.INLink;

@@ -12,18 +12,23 @@
  * 
  */
 
-package edu.cmu.cs.in;
+package edu.cmu.cs.in.search;
 
 import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.INFileManager;
 import edu.cmu.cs.in.base.INLink;
-import edu.cmu.cs.in.INDocumentParser;
 
+/** 
+ * @author vvelsen
+ *
+ * There's not much to this class, it holds a list of documents
+ * (INDocument) so that we can easily retrieve them
+ *
+ */
 public class INDataSet extends INBase
 {
-	//private INFileManager fManager=null;
 	private ArrayList<INDocument> documents=null;
 	
 	/**
@@ -34,7 +39,10 @@ public class INDataSet extends INBase
 		setClassName ("INDataSet");
 		debug ("INDataSet ()");		
 				
-		//fManager=new INFileManager ();
+		// For fast and easy access we re-use the file manager from
+		// the registry. Makes a huge difference when you're doing
+		// loops since it's a costly object to create
+		
 		if (INLink.fManager==null)
 			INLink.fManager=new INFileManager ();
 		
@@ -88,6 +96,11 @@ public class INDataSet extends INBase
     		{
     			INDocument loader=new INDocument ();
     			loader.setInstanceName(entry);
+    			
+    			// Keep in mind here that we load an entire document all at
+    			// once. This is a remnant from how the hadoop code worked,
+    			// however the position lists are retrieved much faster
+    			
     			loader.loadDocument (aPath+"/"+entry);
     			documents.add(loader);
     		}
@@ -96,7 +109,7 @@ public class INDataSet extends INBase
     	return (true);
     }
 	/**
-	 *
+	 * Nice to have debug method to see what was loaded
 	 */
     public void printStats ()
     {

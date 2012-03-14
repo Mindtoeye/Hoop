@@ -18,8 +18,8 @@ import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.INLink;
-import edu.cmu.cs.in.hadoop.INPositionEntry;
-import edu.cmu.cs.in.hadoop.INPositionList;
+import edu.cmu.cs.in.search.INPositionEntry;
+import edu.cmu.cs.in.search.INPositionList;
 
 /**
 *

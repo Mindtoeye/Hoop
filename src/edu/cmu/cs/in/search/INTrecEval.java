@@ -12,18 +12,23 @@
  * 
  */
 
-package edu.cmu.cs.in.stats;
+package edu.cmu.cs.in.search;
 
 import java.util.ArrayList;
 
-import edu.cmu.cs.in.INDataSet;
-import edu.cmu.cs.in.INDocument;
+import edu.cmu.cs.in.search.INDataSet;
+import edu.cmu.cs.in.search.INDocument;
 import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.INLink;
-import edu.cmu.cs.in.search.INQueryOperator;
 import edu.cmu.cs.in.search.INTextSearch;
 import edu.cmu.cs.in.stats.INStatsBase;
 
+/** 
+ * @author vvelsen
+ *
+ * A simply class that takes a set of documents as found in the registry object
+ * INLink.dataset and dumps out a file that can be uploaded to trec_eval
+ */
 public class INTrecEval extends INStatsBase
 {    	
 	private String outputPath=".";
@@ -145,7 +150,7 @@ public class INTrecEval extends INStatsBase
 						formatted.append("\t");
 						formatted.append(aDoc.getRank()+1); // trec_eval starts at 1
 						formatted.append("\t");
-						formatted.append(aDoc.getScore());
+						formatted.append(String.format("%.2f",aDoc.getScore()));
 						formatted.append("\t");
 						formatted.append("run-"+j);
 						formatted.append("\n");

@@ -22,7 +22,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 
-import edu.cmu.cs.in.INDocument;
+import edu.cmu.cs.in.search.INDocument;
 import edu.cmu.cs.in.base.INLink;
 import edu.cmu.cs.in.controls.INVisualFeature;
 import edu.cmu.cs.in.controls.base.INJInternalFrame;

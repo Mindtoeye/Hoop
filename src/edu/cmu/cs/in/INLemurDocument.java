@@ -22,6 +22,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
+import edu.cmu.cs.in.search.INDocument;
+
 /**
 *
 */
