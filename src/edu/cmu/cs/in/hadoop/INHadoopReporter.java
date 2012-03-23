@@ -15,7 +15,6 @@
 package edu.cmu.cs.in.hadoop;
 
 import java.net.InetAddress;
-import java.util.Random;
 import java.util.UUID;
 
 import org.apache.hadoop.mapred.JobConf;
@@ -23,12 +22,13 @@ import org.apache.hadoop.mapred.JobConf;
 import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.INLink;
 import edu.cmu.cs.in.stats.INPerformanceMetrics;
+import edu.cmu.cs.in.network.INMessageReceiver;
 import edu.cmu.cs.in.network.INStreamedSocket;
 
 /**
 *
 */
-public class INHadoopReporter extends INBase
+public class INHadoopReporter extends INBase implements INMessageReceiver
 {    						
 	private INStreamedSocket socket=null;	
 	private String guid="";
@@ -142,9 +142,15 @@ public class INHadoopReporter extends INBase
     	marker.setMarker(hadoopClass);
 
     	if (job!=null)
-    		socket.sendAndKeepOpen(INLink.monitorHost,INLink.monitorPort,"<?xml version=\"1.0\" encoding=\"utf-8\"?><register class=\""+hadoopClass+"\" job=\""+job.getJobName()+"\" node=\""+INHadoopReporter.getMachineName()+"\" guid=\""+guid+"\" time=\""+marker.getInPoint ()+"\" />");
+    		socket.sendAndKeepOpen(INLink.monitorHost,
+    							   INLink.monitorPort,
+    							   "<?xml version=\"1.0\" encoding=\"utf-8\"?><register class=\""+hadoopClass+"\" job=\""+job.getJobName()+"\" node=\""+INHadoopReporter.getMachineName()+"\" guid=\""+guid+"\" time=\""+marker.getInPoint ()+"\" />",
+    							   this);
     	else
-    		socket.sendAndKeepOpen(INLink.monitorHost,INLink.monitorPort,"<?xml version=\"1.0\" encoding=\"utf-8\"?><register class=\""+hadoopClass+"\" job=\"UndefinedJob\" node=\""+INHadoopReporter.getMachineName()+"\" guid=\""+guid+"\" time=\""+marker.getInPoint ()+"\" />");
+    		socket.sendAndKeepOpen(INLink.monitorHost,
+    							   INLink.monitorPort,
+    							   "<?xml version=\"1.0\" encoding=\"utf-8\"?><register class=\""+hadoopClass+"\" job=\"UndefinedJob\" node=\""+INHadoopReporter.getMachineName()+"\" guid=\""+guid+"\" time=\""+marker.getInPoint ()+"\" />",
+    							   this);
     }    
 	/**
 	 *
@@ -155,12 +161,36 @@ public class INHadoopReporter extends INBase
     		return;
    	
     	if (job!=null)
-    		socket.sendAndKeepOpen(INLink.monitorHost,INLink.monitorPort,"<?xml version=\"1.0\" encoding=\"utf-8\"?><unregister class=\""+hadoopClass+"\" job=\""+job.getJobName()+"\" node=\""+INHadoopReporter.getMachineName()+"\" guid=\""+guid+"\" time=\""+marker.getOutPoint()+"\" />");
+    		socket.sendAndKeepOpen(INLink.monitorHost,
+    							   INLink.monitorPort,
+    							   "<?xml version=\"1.0\" encoding=\"utf-8\"?><unregister class=\""+hadoopClass+"\" job=\""+job.getJobName()+"\" node=\""+INHadoopReporter.getMachineName()+"\" guid=\""+guid+"\" time=\""+marker.getOutPoint()+"\" />",
+    							   this);
     	else
-    		socket.sendAndKeepOpen(INLink.monitorHost,INLink.monitorPort,"<?xml version=\"1.0\" encoding=\"utf-8\"?><unregister class=\""+hadoopClass+"\" job=\"UndefinedJob\" node=\""+INHadoopReporter.getMachineName()+"\" guid=\""+guid+"\" time=\""+marker.getOutPoint()+"\" />");
+    		socket.sendAndKeepOpen(INLink.monitorHost,
+    							   INLink.monitorPort,
+    							   "<?xml version=\"1.0\" encoding=\"utf-8\"?><unregister class=\""+hadoopClass+"\" job=\"UndefinedJob\" node=\""+INHadoopReporter.getMachineName()+"\" guid=\""+guid+"\" time=\""+marker.getOutPoint()+"\" />",
+    							   this);
     	
     	cachedMachineName="undefined"; // Horrible horrible hack
     	
 		socket.close();
-    }    
+    }  
+	/**
+	 *
+	 */    
+	@Override
+	public void handleIncomingData(String data) 
+	{
+		debug ("handleIncomingData ()");
+		
+	}
+	/**
+	 *
+	 */	
+	@Override
+	public void handleConnectionClosed() 
+	{
+		debug ("handleConnectionClosed ()");
+		
+	}    
 }

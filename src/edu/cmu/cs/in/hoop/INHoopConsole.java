@@ -29,13 +29,13 @@ import javax.swing.JTextField;
 
 import edu.cmu.cs.in.base.INFixedSizeQueue;
 import edu.cmu.cs.in.base.INLink;
-import edu.cmu.cs.in.controls.base.INJPanel;
+import edu.cmu.cs.in.controls.base.INJInternalFrame;
 
 /** 
  * @author vvelsen
  *
  */
-public class INHoopConsole extends INJPanel implements INHoopConsoleInterface, ActionListener
+public class INHoopConsole extends INJInternalFrame implements INHoopConsoleInterface, ActionListener
 {	
 	private static final long serialVersionUID = 7326548847413008855L;
 
@@ -57,6 +57,8 @@ public class INHoopConsole extends INJPanel implements INHoopConsoleInterface, A
 	 */	
 	public INHoopConsole()
 	{
+		super("Console", true, true, true, true);
+		
 		setClassName ("INHoopConsole");
 		debug ("INHoopConsole ()");
 		
@@ -134,11 +136,15 @@ public class INHoopConsole extends INJPanel implements INHoopConsoleInterface, A
 		mainBox.add(controlBox);
 		mainBox.add(consoleContainer);
 		
-		this.add(mainBox);
+		//this.add(mainBox);
 		
 		// We should be ready for action now
 		
 		INLink.console=this;
+		
+		setContentPane (mainBox);
+		setSize (425,300);
+		setLocation (75,75);
 	}
 	/**
 	 * 
@@ -223,4 +229,13 @@ public class INHoopConsole extends INJPanel implements INHoopConsoleInterface, A
 			console.setFont(new Font("Courier",1,fontSize));			
 		}							
 	}
+	/**
+	 * 
+	 */
+	protected void processClose ()
+	{
+		debug ("processClose ()");
+		
+		INLink.console=this;
+	}	
 }

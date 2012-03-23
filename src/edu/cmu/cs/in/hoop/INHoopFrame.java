@@ -16,25 +16,30 @@ package edu.cmu.cs.in.hoop;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.Border;
-//import javax.swing.plaf.metal.MetalTabbedPaneUI;
 
 import org.apache.hadoop.util.VersionInfo;
 
 import edu.cmu.cs.in.INHoopMessageHandler;
 import edu.cmu.cs.in.base.INFileManager;
 import edu.cmu.cs.in.base.INLink;
-//import edu.cmu.cs.in.controls.INEclipseTabbedPaneUI;
-//import edu.cmu.cs.in.controls.INGridNodeVisualizer;
-import edu.cmu.cs.in.controls.INJFeatureList;
-//import edu.cmu.cs.in.controls.INTabbedPaneUI;
+//import edu.cmu.cs.in.controls.INJFeatureList;
 import edu.cmu.cs.in.controls.base.INJFrame;
 import edu.cmu.cs.in.controls.INScatterPlot;
 import edu.cmu.cs.in.network.INSocketServerBase;
 import edu.cmu.cs.in.stats.INStatistics;
+
+import java.awt.Container;
+//import java.util.Arrays;
+//import java.util.List;
+//import javax.swing.JButton;
+import org.jdesktop.swingx.MultiSplitLayout;
+//import org.jdesktop.swingx.MultiSplitLayout.Leaf;
+//import org.jdesktop.swingx.MultiSplitLayout.Divider;
+//import org.jdesktop.swingx.MultiSplitLayout.Split;
+import org.jdesktop.swingx.MultiSplitPane;
 
 /** 
  * @author vvelsen
@@ -54,18 +59,22 @@ public class INHoopFrame extends INJFrame implements ActionListener
     static final Integer HELPLAYER = new Integer(7);
 
     static final String ABOUTMSG = "Hoop is an interactive text exploration tool written with the express\n purpose of understanding narrative structures in written form.";
-	
-    private JFileChooser fc=null;
-    
+	    
 	private INSocketServerBase server=null;
 	private INHoopMessageHandler handler=null;
 	private INStatistics stats=null;
-	private INScatterPlot plotter=null;
-	private INJFeatureList jobList=null;     
-	private INJFeatureList stopList=null;
-	private INJFeatureList positionList=null;
+	private INScatterPlot plotter=null; 		
+	private INHoopJobList jobListWindow=null;
+	private INHoopStopWordEditor stopListEditor=null;
+	private INHoopVocabularyEditor vocabularyEditor=null;	
 	private	INHoopStatusBar statusbar=null;
 	private	INHoopEditor hoopEditor=null;	
+	private INHoopConsole console=null;
+	
+	private INHoopTabDraggable left=null;
+	private INHoopTabDraggable right=null;
+	private INHoopTabDraggable center=null;
+	private INHoopTabDraggable bottom=null;
 		
 	/**
 	 *
@@ -76,15 +85,14 @@ public class INHoopFrame extends INJFrame implements ActionListener
         
 		this.setTitle ("Hoop");
                 
-        final int inset = 50;
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        final int inset=50;
+        Dimension screenSize=Toolkit.getDefaultToolkit().getScreenSize();
         setBounds (inset,inset,screenSize.width-inset*2, screenSize.height-inset*2);
 	    
 	    loadImageIcons ();
 		
 		INLink.fManager=new INFileManager ();
 		INLink.posFiles=new ArrayList<String> ();
-		fc = new JFileChooser();
                 
         buildContent();
         buildMenus();
@@ -292,8 +300,29 @@ public class INHoopFrame extends INJFrame implements ActionListener
     		}
     	});    	
     	
+    	JMenuItem consoleItem=new JMenuItem("Console Output");    	
+    	
+    	consoleItem.addActionListener(new ActionListener() 
+    	{
+    		public void actionPerformed(ActionEvent e) 
+    		{
+    	    	console=new INHoopConsole();
+    	    	desktop.add (console, DOCLAYER);
+    	    	try 
+    	    	{ 
+    	    		console.setVisible(true);
+    	    		console.setSelected(true); 
+    	    	} 
+    	    	catch (java.beans.PropertyVetoException e2) 
+    	    	{
+    	    		
+    	    	}
+    		}
+    	});    	    	
+    	
     	views.add (documentItem);
     	views.add (documentListItem);
+    	views.add (consoleItem);
     	
     	return (views);
     }
@@ -309,6 +338,9 @@ public class INHoopFrame extends INJFrame implements ActionListener
     	JMenuItem experimentItem = new JMenuItem("Experimenter");
     	JMenuItem reporterItem = new JMenuItem("Reporter");
     	JMenuItem hoopEditorItem = new JMenuItem("Hoop Editor");    	
+    	JMenuItem jobListItem = new JMenuItem("Hadoop Jobs");
+    	JMenuItem stopWordItem = new JMenuItem("Stopword Editor");
+    	JMenuItem vocabularyItem = new JMenuItem("Vocabulary Editor");
 
     	searchItem.addActionListener(new ActionListener() 
     	{
@@ -349,12 +381,39 @@ public class INHoopFrame extends INJFrame implements ActionListener
     			showHoopEditor();
     		}
     	});     	
+    	
+    	jobListItem.addActionListener(new ActionListener() 
+    	{
+    		public void actionPerformed(ActionEvent e) 
+    		{
+    			showJobList();
+    		}
+    	});    	
+    	
+    	stopWordItem.addActionListener(new ActionListener() 
+    	{
+    		public void actionPerformed(ActionEvent e) 
+    		{
+    			showStopWordEditor();
+    		}
+    	});     	    	
 
+    	vocabularyItem.addActionListener(new ActionListener() 
+    	{
+    		public void actionPerformed(ActionEvent e) 
+    		{
+    			showVocabularyEditor();
+    		}
+    	});      	
+    	
     	tools.add (searchItem);
     	tools.add (clusterItem);
     	tools.add (experimentItem);
     	tools.add (reporterItem);
     	tools.add (hoopEditorItem);
+    	tools.add (jobListItem);
+    	tools.add (stopWordItem);
+    	tools.add (vocabularyItem);
     	
     	return (tools);
     }    
@@ -453,82 +512,17 @@ public class INHoopFrame extends INJFrame implements ActionListener
 		centerBox.setMinimumSize(new Dimension (50,25));
 		centerBox.setPreferredSize(new Dimension (5000,5000));
 		centerBox.setMaximumSize(new Dimension (5000,5000));		
-
-		// Stop words ...
-		
-		stopList=new INJFeatureList ();
-		stopList.setLabel("Selected Stop Words");
-		stopList.setMinimumSize(new Dimension (50,5000));
-		stopList.setMaximumSize(new Dimension (5000,5000));
-		
-		JButton loadStops=new JButton ();
-		loadStops.setText("Load Stopwords");
-		loadStops.setFont(new Font("Dialog", 1, 10));
-		loadStops.setMinimumSize(new Dimension (100,25));
-		loadStops.setPreferredSize(new Dimension (5000,25));
-		loadStops.setMaximumSize(new Dimension (5000,25));
-		loadStops.addActionListener(this);				
-		
-		Box stopBox = new Box (BoxLayout.Y_AXIS);
-		stopBox.setMinimumSize(new Dimension (50,50));
-		stopBox.setPreferredSize(new Dimension (150,5000));
-		stopBox.setMaximumSize(new Dimension (150,5000));
-		
-		stopBox.add(loadStops);
-		stopBox.add(stopList);
-		
-		// Job list ...
-		
-		jobList=new INJFeatureList ();
-		jobList.setLabel("Selected Jobs");
-		jobList.setMinimumSize(new Dimension (150,60));
-		jobList.setPreferredSize(new Dimension (150,150));
-		jobList.setMaximumSize(new Dimension (5000,150));		
-		
-		// Vocabulary/Dictionary
-		
-		// Stop words ...
-		
-		positionList=new INJFeatureList ();
-		positionList.setLabel("Vocabulary");
-		positionList.setMinimumSize(new Dimension (50,5000));
-		positionList.setMaximumSize(new Dimension (5000,5000));
-		
-		JButton loadVocabulary=new JButton ();
-		loadVocabulary.setText("Load Vocabulary");
-		loadVocabulary.setFont(new Font("Dialog", 1, 10));
-		loadVocabulary.setMinimumSize(new Dimension (100,25));
-		loadVocabulary.setPreferredSize(new Dimension (5000,25));
-		loadVocabulary.setMaximumSize(new Dimension (5000,25));
-		loadVocabulary.addActionListener(this);				
-		
-		Box vocabularyBox = new Box (BoxLayout.Y_AXIS);
-		vocabularyBox.setMinimumSize(new Dimension (50,50));
-		vocabularyBox.setPreferredSize(new Dimension (150,5000));
-		vocabularyBox.setMaximumSize(new Dimension (150,5000));
-		
-		vocabularyBox.add(loadVocabulary);
-		vocabularyBox.add(positionList);
-		
+						
 		// Add it all together ...
 		
 		JTabbedPane leftTabs = new JTabbedPane();
 		leftTabs.setFont(new Font("Dialog", 1, 10));
-
-		stopBox.setBorder(padding);
-		leftTabs.addTab("Stop Words",null,stopBox,"List of stop words");
-		
-		vocabularyBox.setBorder(padding);
-		leftTabs.addTab("Vocabulary",null,vocabularyBox,"Global vocabulary or term dictionary");		
-
-		jobList.setBorder(padding);
-		leftTabs.addTab("Hadoop Jobs",null,jobList,"List of currently running jobs");
 										
 		JTabbedPane centerTabs = new JTabbedPane();
 		centerTabs.setFont(new Font("Dialog", 1, 10));		
 
 		desktop=new JDesktopPane();
-		desktop.setBackground(new Color (120,120,120));
+		desktop.setBackground(new Color (160,160,160));
 		
 		centerTabs.addTab("Desktop",null,desktop,"Temp desktop");
 				
@@ -552,16 +546,9 @@ public class INHoopFrame extends INJFrame implements ActionListener
 		statsBox.setMinimumSize(new Dimension (20,110));
 		statsBox.setPreferredSize(new Dimension (5000,110));
 		statsBox.setMaximumSize(new Dimension (5000,110));	
-		
-		Box controlBox = new Box (BoxLayout.X_AXIS);
-		//controlBox.setBorder(redborder);					
-		controlBox.setMinimumSize(new Dimension (20,110));
-		controlBox.setPreferredSize(new Dimension (5000,110));
-		controlBox.setMaximumSize(new Dimension (5000,110));	
-		
+				
 		statsBox.add (plotter);						
-		controlBox.add (new INHoopConsole ());
-		
+				
 		JTextArea rawStats=new JTextArea ();
 		rawStats.setBorder(blackborder);
 		rawStats.setEditable (false);
@@ -569,49 +556,49 @@ public class INHoopFrame extends INJFrame implements ActionListener
 		rawStats.setMinimumSize(new Dimension (50,60));
 		rawStats.setPreferredSize(new Dimension (5000,60));
 		rawStats.setMaximumSize(new Dimension (5000,60));
-		
-		JTextArea trecOutput=new JTextArea ();
-		trecOutput.setBorder(blackborder);
-		trecOutput.setEditable (false);
-		trecOutput.setFont(new Font("Dialog", 1, 10));
-		trecOutput.setMinimumSize(new Dimension (50,60));
-		trecOutput.setPreferredSize(new Dimension (5000,60));
-		trecOutput.setMaximumSize(new Dimension (5000,60));
-		
+				
 		JTabbedPane tabbedPane = new JTabbedPane();
 		tabbedPane.setFont(new Font("Dialog", 1, 10));
 		
 		statsBox.setBorder(padding);
 		tabbedPane.addTab("Plots & Graphs",null,statsBox,"Visual representations of statistics");
-		
-		controlBox.setBorder(padding);
-		tabbedPane.addTab("Console",null,controlBox,"Raw data and console output");
-		
+				
 		rawStats.setBorder(padding);
 		tabbedPane.addTab("Raw Statistics",null,rawStats,"Raw statistical data");
-		
-		trecOutput.setBorder(padding);
-		tabbedPane.addTab("TrecEval",null,trecOutput,"Output to TrecEval format");
-		
-		// Add test controls to console tab bar
-		
-		//tabbedPane.setUI(new INEclipseTabbedPaneUI ());
-		
+				
 		// Finally add your vanilla default standard status bar ...
 						
 		statusbar=new INHoopStatusBar ();
 		statusbar.setBorder(blackborder);
-		statusbar.setMinimumSize(new Dimension (50,25));
-		statusbar.setPreferredSize(new Dimension (5000,25));
-		statusbar.setMaximumSize(new Dimension (5000,25));		
+		statusbar.setMinimumSize(new Dimension (50,22));
+		statusbar.setPreferredSize(new Dimension (5000,22));
+		statusbar.setMaximumSize(new Dimension (5000,22));		
 		
-		getContentPane ().add (centerBox);
-		getContentPane ().add (tabbedPane);
-		getContentPane ().add (statusbar);
+		//getContentPane ().add (centerBox);
+		//getContentPane ().add (tabbedPane);
 		
-		prepData ();
+		left=new INHoopTabDraggable ();		
+		right=new INHoopTabDraggable ();		
+		center=new INHoopTabDraggable ();		
+		bottom=new INHoopTabDraggable ();
 		
-		handler=new INHoopMessageHandler (stats,plotter,rawStats,null,jobList);
+        String layoutDef = "(ROW weight=1.0 (LEAF name=left weight=0.2) (COLUMN weight=0.6 (LEAF name=middle weight=0.8) (LEAF name=bottom weight=0.2)) (LEAF name=right weight=0.2))";
+        MultiSplitLayout.Node modelRoot = MultiSplitLayout.parseModel(layoutDef);
+
+        MultiSplitPane multiSplitPane = new MultiSplitPane();
+        multiSplitPane.setDividerSize(5);
+        multiSplitPane.getMultiSplitLayout().setModel(modelRoot);
+       	multiSplitPane.add(left, "left");
+       	multiSplitPane.add(right, "right");
+        multiSplitPane.add(center, "middle");
+        multiSplitPane.add(bottom, "bottom");
+
+       	Container cp = this.getContentPane();
+       	cp.add(multiSplitPane, BorderLayout.CENTER);
+       	
+       	getContentPane ().add (statusbar);
+				
+		handler=new INHoopMessageHandler (stats,plotter,rawStats,null);
 		
 		server=new INSocketServerBase ();
 		server.setLocalPort (INLink.monitorPort);
@@ -620,6 +607,27 @@ public class INHoopFrame extends INJFrame implements ActionListener
 		server.runServer ();
 		
 		debug ("Ready for input");        
+		
+		addView ("Package Explorer",new JPanel (),left);
+		addView ("Navigator",new JPanel (),left);
+		
+		addView ("Search",new JPanel (),bottom);
+		
+		addView ("Problems",new JPanel (),right);		
+		addView ("Console",new JPanel (),right);
+    }
+	/**
+	 *
+	 */
+    private void addView (String aTitle,JPanel aContent,JTabbedPane aPane)
+    {
+    	debug ("addView ("+aTitle+")");
+    	
+    	aPane.addTab(aTitle,INLink.imageIcons [5],aContent,"New Panel");
+    	int index=aPane.indexOfComponent (aContent);
+    	INHoopTabPane pane=new INHoopTabPane (aPane);
+    	aPane.setTabComponentAt(index,pane);
+    	pane.update();
     }
 	/**
 	 *
@@ -719,27 +727,87 @@ public class INHoopFrame extends INJFrame implements ActionListener
     	{
    		
     	}
-    }
+    }    
 	/**
 	 *
 	 */	    
-    public void showHoopEditor ()
+    public void showJobList ()
     {
-    	debug ("showHoopEditor ()");
+    	debug ("showJobList ()");
     	     	
-    	INHoopEditor doc=new INHoopEditor();
-    	desktop.add (doc,DOCLAYER);
+    	jobListWindow=new INHoopJobList();
+    	desktop.add (jobListWindow,DOCLAYER);
    	  	
     	try 
     	{ 
-    		doc.setVisible(true);
-    		doc.setSelected(true); 
+    		jobListWindow.setVisible(true);
+    		jobListWindow.setSelected(true); 
     	} 
     	catch (java.beans.PropertyVetoException e2) 
     	{
   		
     	}    	
     }
+	/**
+	 *
+	 */	    
+    public void showStopWordEditor ()
+    {
+    	debug ("showStopWordEditor ()");
+   	     	
+    	stopListEditor=new INHoopStopWordEditor();
+    	desktop.add (stopListEditor,DOCLAYER);
+  	  	
+    	try 
+    	{ 
+    		stopListEditor.setVisible(true);
+    		stopListEditor.setSelected(true); 
+    	} 
+    	catch (java.beans.PropertyVetoException e2) 
+    	{
+
+    	}    	
+    }
+	/**
+	 *
+	 */	    
+    public void showVocabularyEditor ()
+    {	
+   		debug ("showVocabularyEditor ()");
+  	     	
+   		vocabularyEditor=new INHoopVocabularyEditor();
+   		desktop.add (vocabularyEditor,DOCLAYER);
+ 	  	
+   		try 
+   		{ 
+   			vocabularyEditor.setVisible(true);
+   			vocabularyEditor.setSelected(true); 
+   		} 
+   		catch (java.beans.PropertyVetoException e2) 
+   		{
+   			
+   		}    	
+    }    
+	/**
+	 *
+	 */	    
+    public void showHoopEditor ()
+    {
+    	debug ("showHoopEditor ()");
+  	     	
+    	hoopEditor=new INHoopEditor();
+    	desktop.add (hoopEditor,DOCLAYER);
+ 	  	
+    	try 
+    	{ 
+    		hoopEditor.setVisible(true);
+    		hoopEditor.setSelected(true); 
+    	} 
+    	catch (java.beans.PropertyVetoException e2) 
+    	{
+		
+    	}    	
+    }   
 	/**
 	 *
 	 */	
@@ -759,131 +827,13 @@ public class INHoopFrame extends INJFrame implements ActionListener
     	{
   		
     	}
-    }    
-    /**
-	 *
-	 */    
-    private void prepData ()
-    {
-    	debug ("prepData");
-   	
-    	// Load the hardcoded minimal list of stop words
-		stopList.modelFromArray (INLink.stops);   	
-		stopList.selectAll();
-    }    
+    }      
 	/**
 	 *
 	 */	
 	@Override
 	public void actionPerformed (ActionEvent event) 
 	{
-		debug ("actionPerformed ("+event.getActionCommand()+")");
-		
-		int returnVal=0;
-		
-		String act=event.getActionCommand();
-		JButton button = (JButton)event.getSource();
-		
-		//>---------------------------------------------------------
-
-		if (button.getText().equals("Load Vocabulary"))
-		{
-			debug ("Loading/Replacing term dictionary ...");
-			
-			fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-	        returnVal=fc.showOpenDialog (this);
-
-	        if (returnVal==JFileChooser.APPROVE_OPTION) 
-	        {
-	        	Object[] options = {"Yes",
-	        	                    "No",
-	        	                    "Cancel"};
-	        	int n = JOptionPane.showOptionDialog(this,
-	        	    "Loading a saved set will override any existing selections, do you want to continue?",
-	        	    "IN Info Panel",
-	        	    JOptionPane.YES_NO_CANCEL_OPTION,
-	        	    JOptionPane.QUESTION_MESSAGE,
-	        	    null,
-	        	    options,
-	        	    options[2]);
-	        	
-	        	if (n==0)
-	        	{          	
-	        		File file = fc.getSelectedFile();
-	        		
-	        		INLink.vocabularyPath=file.getPath ();
-	        		
-	        		ArrayList<String> tempFiles=INLink.fManager.listFiles (file.getPath());
-	        	   	
-	        		if (tempFiles==null)
-	        		{
-	        			debug ("Error no position list files found!");
-	        			return;
-	        		}
-	        		else
-	        			debug ("Found " + tempFiles.size() + " candidates");
-	           	
-	        		for (int i=0;i<tempFiles.size();i++)
-	        		{
-	        			String test=tempFiles.get(i);
-	        			if (test.indexOf(".inv")!=-1)
-	        			{	
-	        				String [] splitter=test.split("\\.");
-	        				INLink.posFiles.add(splitter [0]);
-	        			}
-	        		}
-	        		
-	        		positionList.modelFromArrayList (INLink.posFiles);   	
-	        		positionList.selectAll();
-	           	
-	        		debug ("Found " + INLink.posFiles.size() + " position list files");
-	        	}
-	        }						
-		}
-		
-		//>---------------------------------------------------------
-				
-		if (button.getText().equals("Load Stopwords"))
-		{
-			debug ("Command " + act + " on loadStops");
-
-			//fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-	        returnVal=fc.showOpenDialog (this);
-
-	        if (returnVal==JFileChooser.APPROVE_OPTION) 
-	        {
-	        	Object[] options = {"Yes",
-	        	                    "No",
-	        	                    "Cancel"};
-	        	int n = JOptionPane.showOptionDialog(this,
-	        	    "Loading a saved set will override any existing selections, do you want to continue?",
-	        	    "IN Info Panel",
-	        	    JOptionPane.YES_NO_CANCEL_OPTION,
-	        	    JOptionPane.QUESTION_MESSAGE,
-	        	    null,
-	        	    options,
-	        	    options[2]);
-	        	
-	        	if (n==0)
-	        	{          	
-	        		File file = fc.getSelectedFile();
-	        		
-	        		debug ("Loading: " + file.getPath() + " ...");
-	        		
-	        		ArrayList <String> newStops=INLink.fManager.loadLines(file.getPath());
-	        		
-	        		stopList.modelFromArrayList (newStops);
-	        		
-	        		INLink.stops=new String [newStops.size()];
-	        		
-	        		for (int t=0;t<newStops.size();t++)
-	        		{
-	        			INLink.stops [t]=newStops.get(t);
-	        		}
-	        	}
-	        }			
-		}			
-		
-		//>---------------------------------------------------------
+		debug("actionPerformed ()");
 	}  
 }

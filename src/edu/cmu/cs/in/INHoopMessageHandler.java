@@ -17,9 +17,9 @@ package edu.cmu.cs.in;
 import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
-import javax.swing.JList;
+//import javax.swing.JList;
 import javax.swing.JTextArea;
-import javax.swing.ListModel;
+//import javax.swing.ListModel;
 
 import org.w3c.dom.Element;
 
@@ -52,8 +52,7 @@ public class INHoopMessageHandler extends INBase implements INMessageHandler
 	public INHoopMessageHandler (INStatistics aStats,
 								 INScatterPlot aPlotter,
 								 JTextArea aStatsPanel,
-								 INGridNodeVisualizer aGrid,
-								 INJFeatureList aJobList)
+								 INGridNodeVisualizer aGrid)
 	{  
     	setClassName ("INHoopMessageHandler");
     	debug ("INHoopMessageHandler ()");
@@ -62,9 +61,9 @@ public class INHoopMessageHandler extends INBase implements INMessageHandler
     	plotter=aPlotter;
     	rawStats=aStatsPanel;
     	clusterGrid=aGrid;
-    	jobList=aJobList;
+    	//jobList=aJobList;
     	listModel = new DefaultListModel();
-    	aJobList.setModel(listModel);
+    	//aJobList.setModel(listModel);
     	jobs=new ArrayList ();
 	}	
 	/**

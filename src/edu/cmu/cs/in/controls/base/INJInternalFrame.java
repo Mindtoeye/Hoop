@@ -177,7 +177,8 @@ public class INJInternalFrame extends JInternalFrame implements InternalFrameLis
 	public void internalFrameClosing(InternalFrameEvent arg0) 
 	{
 		debug ("internalFrameClosing ()");
-		INLink.removeWindow(this);		
+		processClose ();
+		INLink.removeWindow(this);
 	}
 	/**
 	 *
@@ -210,5 +211,13 @@ public class INJInternalFrame extends JInternalFrame implements InternalFrameLis
 	public void internalFrameOpened(InternalFrameEvent arg0) 
 	{
 		debug ("internalFrameOpened ()");		
+	}
+	/**
+	 * 
+	 */
+	protected void processClose ()
+	{
+		debug ("processClose ()");
+		// handle in child window!
 	}
 }
