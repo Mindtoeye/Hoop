@@ -59,6 +59,7 @@ public class INHoopTabPane extends INJPanel
 {
 	private static final long serialVersionUID = 1L;
 	private final JTabbedPane pane;
+	private JButton icon = null;
 	private JButton button = null;
 
     /** 
@@ -82,6 +83,12 @@ public class INHoopTabPane extends INJPanel
         
         	setOpaque (false);
         
+        	icon=new JButton ();
+        	icon.setOpaque (false);
+        	icon.setBorder (null);
+
+        	add (icon);
+        	
         	//	make JLabel read titles from JTabbedPane
         	JLabel label = new JLabel() 
         	{
@@ -92,24 +99,24 @@ public class INHoopTabPane extends INJPanel
         		 */			
         		public String getText() 
         		{
-        			debug ("getText ()");
+        			//debug ("getText ()");
         			
         			int i = pane.indexOfTabComponent (INHoopTabPane.this);
         			if (i != -1) 
         			{
-        				debug ("Title at index: " + i + " is: " + pane.getTitleAt(i));
+        				//debug ("Title at index: " + i + " is: " + pane.getTitleAt(i));
         				return pane.getTitleAt(i);
         			}
-        			else
-        				debug ("Unable to find tab index");
+        			//else
+        				//debug ("Unable to find tab index");
                 
         			return null;
         		}
         	};
                 
         	add(label);
-        	//add more space between the label and the button
-        	label.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 5));
+        	//add more space between the label, the icon and the button
+        	label.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
         	//tab button
         	button=new TabButton();
                 
@@ -125,15 +132,21 @@ public class INHoopTabPane extends INJPanel
     {
     	debug ("update ()");
     	
-    	if (button!=null)
+    	if (icon!=null)
     	{
     		int j=pane.indexOfTabComponent (INHoopTabPane.this);
     		if (j!=-1)
     		{
     			debug ("Setting icon for tab at index: "+ j);
     			Icon tabIcon=pane.getIconAt(j);
-    			button.setIcon(tabIcon);
-    			button.setHorizontalTextPosition(SwingConstants.RIGHT);
+    			if (tabIcon!=null)
+    			{
+    				//button.setHorizontalTextPosition(SwingConstants.RIGHT);
+    				//icon.setHorizontalTextPosition(JButton.RIGHT); 
+    				icon.setIcon(tabIcon);    				
+    			}
+    			else
+    				debug ("Error tab does not have an icon");
     		}        
     		else
     			debug ("Unable to find tab index");

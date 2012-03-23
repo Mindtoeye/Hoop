@@ -53,6 +53,10 @@ public class INHoopFrame extends INJFrame implements ActionListener
     JDesktopPane desktop;
     JInternalFrame toolPalette;
     JCheckBoxMenuItem showToolPaletteMenuItem;
+    
+    static final private String PREVIOUS = "previous";
+    static final private String UP = "up";
+    static final private String NEXT = "next";
 
     static final Integer DOCLAYER = new Integer(5);
     static final Integer TOOLLAYER = new Integer(6);
@@ -577,6 +581,11 @@ public class INHoopFrame extends INJFrame implements ActionListener
 		//getContentPane ().add (centerBox);
 		//getContentPane ().add (tabbedPane);
 		
+		JToolBar toolBar = new JToolBar("Still draggable");
+        addButtons(toolBar);
+        
+        getContentPane ().add (toolBar);
+		
 		left=new INHoopTabDraggable ();		
 		right=new INHoopTabDraggable ();		
 		center=new INHoopTabDraggable ();		
@@ -616,6 +625,49 @@ public class INHoopFrame extends INJFrame implements ActionListener
 		addView ("Problems",new JPanel (),right);		
 		addView ("Console",new JPanel (),right);
     }
+	/**
+	 *
+	 */    
+    protected void addButtons(JToolBar toolBar) 
+    {
+        JButton button = null;
+
+        //first button
+        button = makeNavigationButton("Back24", PREVIOUS,
+                                      "Back to previous something-or-other",
+                                      "Previous");
+        toolBar.add(button);
+
+        //second button
+        button = makeNavigationButton("Up24", UP,
+                                      "Up to something-or-other",
+                                      "Up");
+        toolBar.add(button);
+
+        //third button
+        button = makeNavigationButton("Forward24", NEXT,
+                                      "Forward to something-or-other",
+                                      "Next");
+        toolBar.add (button);
+    }  
+	/**
+	 *
+	 */    
+    protected JButton makeNavigationButton(String imageName,
+    									   String actionCommand,
+    									   String toolTipText,
+    									   String altText) 
+    {
+    	//Create and initialize the button.
+    	JButton button = new JButton();
+    	button.setActionCommand(actionCommand);
+    	button.setToolTipText(toolTipText);
+    	button.addActionListener(this);
+    	button.setIcon(INLink.imageIcons [5]);
+    	button.setText(altText);
+
+    	return button;
+    }    
 	/**
 	 *
 	 */
