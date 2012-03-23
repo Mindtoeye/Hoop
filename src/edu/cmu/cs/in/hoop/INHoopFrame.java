@@ -583,6 +583,9 @@ public class INHoopFrame extends INJFrame implements ActionListener
 		
 		JToolBar toolBar = new JToolBar("Still draggable");
         addButtons(toolBar);
+        toolBar.setMinimumSize(new Dimension (50,24));
+        toolBar.setPreferredSize(new Dimension (5000,24));
+        toolBar.setMaximumSize(new Dimension (5000,24));	
         
         getContentPane ().add (toolBar);
 		
@@ -633,19 +636,22 @@ public class INHoopFrame extends INJFrame implements ActionListener
         JButton button = null;
 
         //first button
-        button = makeNavigationButton("Back24", PREVIOUS,
+        button = makeNavigationButton("Back24", 
+        							  PREVIOUS,
                                       "Back to previous something-or-other",
                                       "Previous");
         toolBar.add(button);
 
         //second button
-        button = makeNavigationButton("Up24", UP,
+        button = makeNavigationButton("Up24", 
+        							  UP,
                                       "Up to something-or-other",
                                       "Up");
         toolBar.add(button);
 
         //third button
-        button = makeNavigationButton("Forward24", NEXT,
+        button = makeNavigationButton("Forward24", 
+        							  NEXT,
                                       "Forward to something-or-other",
                                       "Next");
         toolBar.add (button);
@@ -660,11 +666,14 @@ public class INHoopFrame extends INJFrame implements ActionListener
     {
     	//Create and initialize the button.
     	JButton button = new JButton();
+    	button.setBorder (null);
+    	button.setMinimumSize(new Dimension (26,22));
+    	button.setPreferredSize(new Dimension (50,22));
     	button.setActionCommand(actionCommand);
     	button.setToolTipText(toolTipText);
     	button.addActionListener(this);
-    	button.setIcon(INLink.imageIcons [5]);
-    	button.setText(altText);
+    	button.setIcon(INLink.imageIcons [16]);
+    	//button.setText(altText);
 
     	return button;
     }    
