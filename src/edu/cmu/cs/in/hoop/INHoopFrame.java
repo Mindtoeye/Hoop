@@ -587,7 +587,19 @@ public class INHoopFrame extends INJFrame implements ActionListener
         toolBar.setPreferredSize(new Dimension (5000,24));
         toolBar.setMaximumSize(new Dimension (5000,24));	
         
+        JSeparator sep1=new JSeparator(SwingConstants.HORIZONTAL);
+        sep1.setMinimumSize(new Dimension (50,5));
+        sep1.setMaximumSize(new Dimension (5000,5));
+        
+        getContentPane ().add(sep1);
+        
         getContentPane ().add (toolBar);
+        
+        JSeparator sep2=new JSeparator(SwingConstants.HORIZONTAL);
+        sep2.setMinimumSize(new Dimension (50,5));
+        sep2.setMaximumSize(new Dimension (5000,5));
+
+        getContentPane ().add(sep2);
 		
 		left=new INHoopTabDraggable ();		
 		right=new INHoopTabDraggable ();		
@@ -639,22 +651,56 @@ public class INHoopFrame extends INJFrame implements ActionListener
         button = makeNavigationButton("Back24", 
         							  PREVIOUS,
                                       "Back to previous something-or-other",
-                                      "Previous");
+                                      "Previous",
+                                      INLink.imageIcons [44]);        
+        
+        toolBar.add(button);
+        
+        //first button
+        button = makeNavigationButton("Back24", 
+        							  PREVIOUS,
+                                      "Back to previous something-or-other",
+                                      "Previous",
+                                      INLink.imageIcons [16]);
         toolBar.add(button);
 
         //second button
         button = makeNavigationButton("Up24", 
         							  UP,
                                       "Up to something-or-other",
-                                      "Up");
+                                      "Up",
+                                      INLink.imageIcons [55]);
         toolBar.add(button);
 
         //third button
         button = makeNavigationButton("Forward24", 
         							  NEXT,
                                       "Forward to something-or-other",
-                                      "Next");
+                                      "Next",
+                                      INLink.imageIcons [56]);
         toolBar.add (button);
+        
+        JSeparator sep=new JSeparator(SwingConstants.VERTICAL);
+        sep.setMinimumSize(new Dimension (5,5));
+        sep.setMaximumSize(new Dimension (5,50));
+        
+        toolBar.add(sep);
+        
+        //third button
+        button = makeNavigationButton("Forward24", 
+        							  NEXT,
+                                      "Forward to something-or-other",
+                                      "Next",
+                                      INLink.imageIcons [2]);
+        toolBar.add (button);
+        
+        //third button
+        button = makeNavigationButton("Forward24", 
+        							  NEXT,
+                                      "Forward to something-or-other",
+                                      "Next",
+                                      INLink.imageIcons [69]);
+        toolBar.add (button);        
     }  
 	/**
 	 *
@@ -662,7 +708,8 @@ public class INHoopFrame extends INJFrame implements ActionListener
     protected JButton makeNavigationButton(String imageName,
     									   String actionCommand,
     									   String toolTipText,
-    									   String altText) 
+    									   String altText,
+    									   ImageIcon icon) 
     {
     	//Create and initialize the button.
     	JButton button = new JButton();
@@ -672,7 +719,8 @@ public class INHoopFrame extends INJFrame implements ActionListener
     	button.setActionCommand(actionCommand);
     	button.setToolTipText(toolTipText);
     	button.addActionListener(this);
-    	button.setIcon(INLink.imageIcons [16]);
+    	button.setIcon(icon);
+    	button.setBorder(BorderFactory.createEmptyBorder(2,2,2,2));
     	//button.setText(altText);
 
     	return button;
