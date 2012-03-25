@@ -163,15 +163,17 @@ public class INHoopFrame extends INJFrame implements ActionListener
         JMenu file = buildFileMenu();
         JMenu edit = buildEditMenu();
         JMenu views = buildViewsMenu();
+        JMenu run = buildRunMenu();
         JMenu tools = buildToolsMenu();
-        JMenu speed = buildSpeedMenu();
+        //JMenu speed = buildSpeedMenu();
         JMenu help = buildHelpMenu();
         
         menuBar.add(file);
         menuBar.add(edit);
         menuBar.add(tools);
+        menuBar.add(run);
         menuBar.add(views);
-        menuBar.add(speed);
+        //menuBar.add(speed);
         menuBar.add(help);
         
         setJMenuBar(menuBar);	
@@ -255,7 +257,7 @@ public class INHoopFrame extends INJFrame implements ActionListener
 	 */	
     protected JMenu buildViewsMenu() 
     {
-    	JMenu views = new JMenu("Views");
+    	JMenu views = new JMenu("Window");
 
     	JMenuItem documentItem = new JMenuItem("Document Viewer");
 
@@ -320,6 +322,8 @@ public class INHoopFrame extends INJFrame implements ActionListener
     	views.add (documentItem);
     	views.add (documentListItem);
     	views.add (consoleItem);
+    	views.add(new JSeparator());
+    	views.add (buildSpeedMenu());
     	
     	return (views);
     }
@@ -494,6 +498,36 @@ public class INHoopFrame extends INJFrame implements ActionListener
 
         return help;
     }
+	/**
+	 *
+	 */	
+    protected JMenu buildRunMenu() 
+    {
+    	JMenu runMenu = new JMenu("Run");
+    	JMenuItem runItem = new JMenuItem("Run");
+    	JMenuItem debugItem = new JMenuItem("Debug");
+
+    	runItem.addActionListener(new ActionListener() 
+    	{
+    		public void actionPerformed(ActionEvent e) 
+    		{
+    			debug ("Run ...");
+    		}
+    	});
+
+    	debugItem.addActionListener(new ActionListener() 
+    	{
+    		public void actionPerformed(ActionEvent e) 
+    		{
+    			debug ("Debug ...");
+    		}
+    	});
+
+       runMenu.add(runItem);
+       runMenu.add(debugItem);
+
+       return runMenu;
+   }    
 	/**
 	 *
 	 */	
