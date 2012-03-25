@@ -17,29 +17,22 @@ package edu.cmu.cs.in.hoop;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.awt.Container;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 
+import org.jdesktop.swingx.MultiSplitLayout;
+import org.jdesktop.swingx.MultiSplitPane;
 import org.apache.hadoop.util.VersionInfo;
 
 import edu.cmu.cs.in.INHoopMessageHandler;
 import edu.cmu.cs.in.base.INFileManager;
 import edu.cmu.cs.in.base.INLink;
-//import edu.cmu.cs.in.controls.INJFeatureList;
 import edu.cmu.cs.in.controls.base.INJFrame;
 import edu.cmu.cs.in.controls.INScatterPlot;
 import edu.cmu.cs.in.network.INSocketServerBase;
 import edu.cmu.cs.in.stats.INStatistics;
-
-import java.awt.Container;
-//import java.util.Arrays;
-//import java.util.List;
-//import javax.swing.JButton;
-import org.jdesktop.swingx.MultiSplitLayout;
-//import org.jdesktop.swingx.MultiSplitLayout.Leaf;
-//import org.jdesktop.swingx.MultiSplitLayout.Divider;
-//import org.jdesktop.swingx.MultiSplitLayout.Split;
-import org.jdesktop.swingx.MultiSplitPane;
 
 /** 
  * @author vvelsen
