@@ -1,19 +1,18 @@
 /** 
  * Author: Martin van Velsen <vvelsen@cs.cmu.edu>
  * 
- * This source set uses code written for other various graduate 
- * courses and is part of a larger research effort in the field of
- * interactive narrative (IN). Courses that have contribute
- * to this source base are:
- * 
- * 	05-834 Applied Machine Learning
- *  11-719 Computational Models of Discourse Analysis
- *  11-741 Information Retrieval
- *  
- * http://java-swing-tips.blogspot.com/2008/04/drag-and-drop-tabs-in-jtabbedpane.html
- * originally written by Terai Atsuhiro.
- * so that tabs can be transfered from one pane to another.
- * eed3si9n.
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Lesser General Public License as 
+ *  published by the Free Software Foundation, either version 3 of the 
+ *  License, or (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  */
 
