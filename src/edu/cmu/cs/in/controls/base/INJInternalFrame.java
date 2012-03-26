@@ -39,7 +39,7 @@ public class INJInternalFrame extends JInternalFrame implements InternalFrameLis
 		setClassName ("INJInternalFrame");
 		debug ("INJInternalFrame ()");
 		
-		INLink.addWindow(this);
+		//INLink.addWindow(this);
 		this.addInternalFrameListener(this);
 	}
 	/**
@@ -52,7 +52,7 @@ public class INJInternalFrame extends JInternalFrame implements InternalFrameLis
 		setClassName ("INJInternalFrame");
 		debug ("INJInternalFrame ()");
 		
-		INLink.addWindow(this);
+		//INLink.addWindow(this);
 		this.addInternalFrameListener(this);		
 	}
 	/**
@@ -66,7 +66,7 @@ public class INJInternalFrame extends JInternalFrame implements InternalFrameLis
 		setClassName ("INJInternalFrame");
 		debug ("INJInternalFrame ()");
 
-		INLink.addWindow(this);
+		//INLink.addWindow(this);
 		this.addInternalFrameListener(this);		
 	}	
 	/**
@@ -80,7 +80,7 @@ public class INJInternalFrame extends JInternalFrame implements InternalFrameLis
 		setClassName ("INJInternalFrame");
 		debug ("INJInternalFrame ()");
 		
-		INLink.addWindow(this);
+		//INLink.addWindow(this);
 		this.addInternalFrameListener(this);		
 	}
 	/**
@@ -94,7 +94,7 @@ public class INJInternalFrame extends JInternalFrame implements InternalFrameLis
 		setClassName ("INJInternalFrame");
 		debug ("INJInternalFrame ()");
 		
-		INLink.addWindow(this);
+		//INLink.addWindow(this);
 		this.addInternalFrameListener(this);		
 	}	
 	/**
@@ -108,7 +108,7 @@ public class INJInternalFrame extends JInternalFrame implements InternalFrameLis
 		setClassName ("INJInternalFrame");
 		debug ("INJInternalFrame ()");
 		
-		INLink.addWindow(this);
+		//INLink.addWindow(this);
 		this.addInternalFrameListener(this);		
 	}
 	/**
@@ -178,7 +178,7 @@ public class INJInternalFrame extends JInternalFrame implements InternalFrameLis
 	{
 		debug ("internalFrameClosing ()");
 		processClose ();
-		INLink.removeWindow(this);
+		//INLink.removeWindow(this);
 	}
 	/**
 	 *

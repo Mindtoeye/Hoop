@@ -43,13 +43,14 @@ import javax.swing.JTextField;
 //import javax.swing.border.Border;
 
 //import edu.cmu.cs.in.base.INLink;
+import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 import edu.cmu.cs.in.controls.base.INJInternalFrame;
 import edu.cmu.cs.in.search.INTrecEval;
 
 /**
  * 
  */
-public class INHoopReporter extends INJInternalFrame implements ActionListener 
+public class INHoopReporter extends INEmbeddedJPanel implements ActionListener 
 {  
 	private static final long serialVersionUID = -1;
 	private JTextField inputPath=null;
@@ -59,7 +60,7 @@ public class INHoopReporter extends INJInternalFrame implements ActionListener
 	
 	public INHoopReporter() 
     {
-    	super("Report Generator", true, true, true, true);
+    	//super("Report Generator", true, true, true, true);
     	
     	fc = new JFileChooser();
 
@@ -123,8 +124,8 @@ public class INHoopReporter extends INJInternalFrame implements ActionListener
 		holder.add(console);
 		
 		setContentPane (holder);
-		setSize (325,200);
-		setLocation (75,75);
+		//setSize (325,200);
+		//setLocation (75,75);
     }
 	/**
 	 * 

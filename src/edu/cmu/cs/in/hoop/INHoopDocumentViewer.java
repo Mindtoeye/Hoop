@@ -33,12 +33,13 @@ import org.lobobrowser.html.*;
 import org.w3c.dom.*;
 
 import edu.cmu.cs.in.controls.INGridNodeVisualizer;
+import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 import edu.cmu.cs.in.controls.base.INJInternalFrame;
 
 /**
  * 
  */
-public class INHoopDocumentViewer extends INJInternalFrame 
+public class INHoopDocumentViewer extends INEmbeddedJPanel
 {  
 	private static final long serialVersionUID = 8387762921834350566L;
 	
@@ -46,7 +47,7 @@ public class INHoopDocumentViewer extends INJInternalFrame
 
 	public INHoopDocumentViewer() 
     {
-    	super("Document Viewer", true, true, true, true);
+    	//super("Document Viewer", true, true, true, true);
     	
     	panel=new HtmlPanel ();
 
@@ -62,8 +63,8 @@ public class INHoopDocumentViewer extends INJInternalFrame
 */    	    	
    	
 		setContentPane (panel);
-		setSize (450,400);
-		setLocation (75,75);
+		//setSize (450,400);
+		//setLocation (75,75);
 		
 		try 
 		{

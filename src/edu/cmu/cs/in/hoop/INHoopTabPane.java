@@ -45,15 +45,16 @@ package edu.cmu.cs.in.hoop;
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicButtonUI;
 
+import edu.cmu.cs.in.base.INLink;
+import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 import edu.cmu.cs.in.controls.base.INJPanel;
 
 import java.awt.*;
 import java.awt.event.*;
 
 /**
- * Component to be used as tabComponent;
- * Contains a JLabel to show the text and 
- * a JButton to close the tab it belongs to 
+ * Component to be used as tabComponent. Contains a JLabel to show the text and 
+ * a JButton to close the tab it belongs to. 
  */ 
 public class INHoopTabPane extends INJPanel 
 {
@@ -191,6 +192,11 @@ public class INHoopTabPane extends INJPanel
             
             if (i != -1) 
             {
+            	INEmbeddedJPanel aContent=(INEmbeddedJPanel) pane.getComponentAt(i);
+            	if (aContent!=null)
+            	{
+            		INLink.removeWindow(aContent);
+            	}
                 pane.remove(i);
             }
         }

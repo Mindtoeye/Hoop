@@ -19,12 +19,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import edu.cmu.cs.in.controls.INJFeatureList;
-import edu.cmu.cs.in.controls.base.INJInternalFrame;
+import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
+//import edu.cmu.cs.in.controls.base.INJInternalFrame;
 
 /**
  * 
  */
-public class INHoopJobList extends INJInternalFrame implements ActionListener
+public class INHoopJobList extends INEmbeddedJPanel implements ActionListener
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -35,7 +36,7 @@ public class INHoopJobList extends INJInternalFrame implements ActionListener
 	 */
 	public INHoopJobList ()  
     {
-    	super("Hadoop Job List", true, true, true, true);
+    	//super("Hadoop Job List", true, true, true, true);
     	
 		setClassName ("INHoopJobList");
 		debug ("INHoopJobList ()");    	

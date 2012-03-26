@@ -29,12 +29,13 @@ import javax.swing.JOptionPane;
 
 import edu.cmu.cs.in.base.INLink;
 import edu.cmu.cs.in.controls.INJFeatureList;
-import edu.cmu.cs.in.controls.base.INJInternalFrame;
+import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
+//import edu.cmu.cs.in.controls.base.INJInternalFrame;
 
 /**
  * 
  */
-public class INHoopVocabularyEditor extends INJInternalFrame implements ActionListener
+public class INHoopVocabularyEditor extends INEmbeddedJPanel implements ActionListener
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -46,7 +47,7 @@ public class INHoopVocabularyEditor extends INJInternalFrame implements ActionLi
 	 */
 	public INHoopVocabularyEditor ()  
     {
-    	super("Vocabulary Editor", true, true, true, true);
+    	//super("Vocabulary Editor", true, true, true, true);
     	
 		positionList=new INJFeatureList ();
 		positionList.setLabel("Vocabulary");
@@ -70,8 +71,8 @@ public class INHoopVocabularyEditor extends INJInternalFrame implements ActionLi
 		vocabularyBox.add(positionList);
 		
 		setContentPane (vocabularyBox);
-		setSize (425,300);
-		setLocation (75,75);		    	
+		//setSize (425,300);
+		//setLocation (75,75);		    	
     }
 	/**
 	 * 

@@ -29,12 +29,13 @@ import javax.swing.JOptionPane;
 
 import edu.cmu.cs.in.base.INLink;
 import edu.cmu.cs.in.controls.INJFeatureList;
-import edu.cmu.cs.in.controls.base.INJInternalFrame;
+import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
+//import edu.cmu.cs.in.controls.base.INJInternalFrame;
 
 /**
  * 
  */
-public class INHoopStopWordEditor extends INJInternalFrame implements ActionListener
+public class INHoopStopWordEditor extends INEmbeddedJPanel implements ActionListener
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -46,7 +47,7 @@ public class INHoopStopWordEditor extends INJInternalFrame implements ActionList
 	 */
 	public INHoopStopWordEditor ()  
     {
-    	super("StopWord Editor", true, true, true, true);
+    	//super("StopWord Editor", true, true, true, true);
     	
 		setClassName ("INHoopEditor");
 		debug ("INHoopEditor ()");    	
@@ -73,8 +74,8 @@ public class INHoopStopWordEditor extends INJInternalFrame implements ActionList
 		stopBox.add(stopList);		
 		
 		setContentPane (stopBox);
-		setSize (425,300);
-		setLocation (75,75);
+		//setSize (425,300);
+		//setLocation (75,75);
 		
 		loadData ();
     }

@@ -54,13 +54,14 @@ import com.mxgraph.view.mxGraph;
 
 import edu.cmu.cs.in.search.INQueryOperator;
 import edu.cmu.cs.in.base.INLink;
-import edu.cmu.cs.in.controls.base.INJInternalFrame;
+import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
+//import edu.cmu.cs.in.controls.base.INJInternalFrame;
 import edu.cmu.cs.in.search.INTextSearch;
 
 /**
  * 
  */
-public class INHoopSearch extends INJInternalFrame implements ActionListener, KeyListener, ItemListener
+public class INHoopSearch extends INEmbeddedJPanel implements ActionListener, KeyListener, ItemListener
 {  
 	private static final long serialVersionUID = 8387762921834350566L;
 
@@ -75,7 +76,7 @@ public class INHoopSearch extends INJInternalFrame implements ActionListener, Ke
 	 */		
 	public INHoopSearch() 
     {
-    	super("Search", true, true, true, true);
+    	//super("Search", true, true, true, true);
     	
 		setClassName ("INHoopSearch");
 		debug ("INHoopSearch ()");    	
@@ -228,8 +229,8 @@ public class INHoopSearch extends INJInternalFrame implements ActionListener, Ke
 		holder.add (graphComponent);
     	
 		setContentPane (holder);
-		setSize (425,300);
-		setLocation (75,75);
+		//setSize (425,300);
+		//setLocation (75,75);
     }
 	/**
 	 *

@@ -23,7 +23,8 @@ import javax.swing.ImageIcon;
 
 import edu.cmu.cs.in.search.INDataSet;
 import edu.cmu.cs.in.base.INBase;
-import edu.cmu.cs.in.controls.base.INJInternalFrame;
+import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
+//import edu.cmu.cs.in.controls.base.INJInternalFrame;
 import edu.cmu.cs.in.hoop.INHoopConsoleInterface;
 import edu.cmu.cs.in.search.INTextSearch;
 import edu.cmu.cs.in.stats.INPerformanceMetrics;
@@ -190,7 +191,7 @@ public class INLink extends INBase
 	public static String vocabularyPath="./";
 	public static ArrayList <String> posFiles=null;	
 	public static ArrayList <INPerformanceMetrics> metrics=null;
-	public static ArrayList <INJInternalFrame> windows=null;
+	public static ArrayList <INEmbeddedJPanel> windows=null;
 	public static ArrayList <INTextSearch> searchHistory=null;
 	public static INFileManager fManager=null;	
 	public static INDataSet dataSet=null;
@@ -246,7 +247,7 @@ public class INLink extends INBase
 		//Matcher matcher = whitespace.matcher ("test");
 				
 		metrics=new ArrayList<INPerformanceMetrics> ();
-		windows=new ArrayList<INJInternalFrame>();
+		windows=new ArrayList<INEmbeddedJPanel>();
 		searchHistory=new ArrayList<INTextSearch>();
 		
 		fManager=new INFileManager ();
@@ -256,7 +257,7 @@ public class INLink extends INBase
 	/**
 	 *
 	 */
-    public static void addWindow (INJInternalFrame aWindow)
+    public static void addWindow (INEmbeddedJPanel aWindow)
     {
     	if (windows!=null)
     		windows.add(aWindow);
@@ -264,19 +265,22 @@ public class INLink extends INBase
 	/**
 	 *
 	 */
-    public static void removeWindow (INJInternalFrame aWindow)
+    public static void removeWindow (INEmbeddedJPanel aWindow)
     {
     	if (windows!=null)
+    	{
+    		aWindow.close();
     		windows.remove(aWindow);
+    	}
     }
 	/**
 	 *
 	 */
-    public static INJInternalFrame getWindow (String aTitle)
+    public static INEmbeddedJPanel getWindow (String aTitle)
     {
     	for (int i=0;i<windows.size();i++)
     	{
-    		INJInternalFrame aWindow=windows.get(i);
+    		INEmbeddedJPanel aWindow=windows.get(i);
     		if (aWindow.getInstanceName().toLowerCase().equals(aTitle.toLowerCase())==true)
     		{
     			return (aWindow);
@@ -292,7 +296,7 @@ public class INLink extends INBase
     {
    		for (int i=0;i<windows.size();i++)
    		{
-   			INJInternalFrame aWindow=windows.get(i);
+   			INEmbeddedJPanel aWindow=windows.get(i);
    			if (aWindow.getInstanceName().toLowerCase().equals(aTitle.toLowerCase())==true)
    			{
    				aWindow.updateContents ();
@@ -306,7 +310,7 @@ public class INLink extends INBase
     {
  		for (int i=0;i<windows.size();i++)
  		{
- 			INJInternalFrame aWindow=windows.get(i);
+ 			INEmbeddedJPanel aWindow=windows.get(i);
  			aWindow.updateContents ();
  		}   
     }   

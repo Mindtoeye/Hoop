@@ -43,6 +43,7 @@ import com.mxgraph.view.mxGraph;
 
 import edu.cmu.cs.in.base.INLink;
 import edu.cmu.cs.in.search.INQueryOperator;
+import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 import edu.cmu.cs.in.controls.base.INJInternalFrame;
 //import edu.cmu.cs.in.controls.INVisualFeature;
 import edu.cmu.cs.in.search.INTextSearch;
@@ -52,7 +53,7 @@ import edu.cmu.cs.in.stats.INPerformanceMetrics;
 /**
  * 
  */
-public class INHoopExperimenter extends INJInternalFrame implements ActionListener, ListSelectionListener 
+public class INHoopExperimenter extends INEmbeddedJPanel implements ActionListener, ListSelectionListener 
 {  
 	private static final long serialVersionUID = 8387762921834350566L;
 	
@@ -64,7 +65,7 @@ public class INHoopExperimenter extends INJInternalFrame implements ActionListen
 	
 	public INHoopExperimenter ()  
     {
-    	super("Experimenter", true, true, true, true);
+    	//super("Experimenter", true, true, true, true);
 
     	Box holder = new Box (BoxLayout.Y_AXIS);
     	
@@ -154,8 +155,8 @@ public class INHoopExperimenter extends INJInternalFrame implements ActionListen
 		holder.add (centerBox);
     	
 		setContentPane (holder);
-		setSize (425,300);
-		setLocation (75,75);
+		//setSize (425,300);
+		//setLocation (75,75);
     }
 	/**
 	 *

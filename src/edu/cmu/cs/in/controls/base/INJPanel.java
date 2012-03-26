@@ -14,10 +14,10 @@
 
 package edu.cmu.cs.in.controls.base;
 
-import java.awt.GraphicsConfiguration;
+//import java.awt.GraphicsConfiguration;
 import java.awt.LayoutManager;
 
-import javax.swing.JFrame;
+//import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import edu.cmu.cs.in.base.INBase;
@@ -30,6 +30,7 @@ public class INJPanel extends JPanel
 {
 	private static final long serialVersionUID = -6522707440476438254L;
 	private String className="INBase";	
+	private String instanceName="Undefined";
 	
 	/**
 	 * Creates a new JPanel with a double buffer and a flow layout.
@@ -80,6 +81,20 @@ public class INJPanel extends JPanel
 	{
 		return (className);
 	}	
+	/**
+	 *
+	 */	
+	public String getInstanceName() 
+	{
+		return instanceName;
+	}
+	/**
+	 *
+	 */	
+	public void setInstanceName(String instanceName) 
+	{
+		this.instanceName = instanceName;
+	}		
 	/**
 	 * 
 	 */

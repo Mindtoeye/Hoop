@@ -24,21 +24,21 @@ import javax.swing.tree.*;
 package edu.cmu.cs.in.hoop;
 
 import edu.cmu.cs.in.controls.INGridNodeVisualizer;
-import edu.cmu.cs.in.controls.base.INJInternalFrame;
+import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 
 /**
  * 
  */
-public class INHoopCluster extends INJInternalFrame 
+public class INHoopCluster extends INEmbeddedJPanel 
 {  
 	private static final long serialVersionUID = 8387762921834350566L;
 
+	/**
+	 * 
+	 */
 	public INHoopCluster() 
     {
-    	super("Cluster Manager", true, true, true, true);
-
 		setContentPane (new INGridNodeVisualizer ());
-		setSize (325,200);
-		setLocation (75,75);
+		
     }
 }

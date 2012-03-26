@@ -33,13 +33,14 @@ import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.view.mxGraph;
 
 import edu.cmu.cs.in.base.INLink;
-import edu.cmu.cs.in.controls.base.INJInternalFrame;
+import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
+//import edu.cmu.cs.in.controls.base.INJInternalFrame;
 
 /** 
  * @author vvelsen
  *
  */
-public class INHoopEditor extends INJInternalFrame implements ActionListener
+public class INHoopEditor extends INEmbeddedJPanel implements ActionListener
 {	
 	private static final long serialVersionUID = -1;
 	
@@ -56,7 +57,7 @@ public class INHoopEditor extends INJInternalFrame implements ActionListener
 	 */	
 	public INHoopEditor()
 	{
-		super("Hoop Editor", true, true, true, true);
+		//super("Hoop Editor", true, true, true, true);
 		
 		setClassName ("INHoopEditor");
 		debug ("INHoopEditor ()");
@@ -132,8 +133,8 @@ public class INHoopEditor extends INJInternalFrame implements ActionListener
 		mainBox.add(consoleContainer);
 				
 		setContentPane (mainBox);
-		setSize (425,300);
-		setLocation (75,75);		
+		//setSize (425,300);
+		//setLocation (75,75);		
 	}
 	/**
 	 * 

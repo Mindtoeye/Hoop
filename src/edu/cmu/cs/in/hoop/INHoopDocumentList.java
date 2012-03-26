@@ -24,14 +24,15 @@ import javax.swing.JScrollPane;
 
 import edu.cmu.cs.in.search.INDocument;
 import edu.cmu.cs.in.base.INLink;
-import edu.cmu.cs.in.controls.INVisualFeature;
-import edu.cmu.cs.in.controls.base.INJInternalFrame;
+//import edu.cmu.cs.in.controls.INVisualFeature;
+import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
+//import edu.cmu.cs.in.controls.base.INJInternalFrame;
 
 /** 
  * @author vvelsen
  *
  */
-public class INHoopDocumentList extends INJInternalFrame
+public class INHoopDocumentList extends INEmbeddedJPanel
 {	
 	private static final long serialVersionUID = 2319368351656283482L;
 	private JList docList=null;
@@ -41,7 +42,7 @@ public class INHoopDocumentList extends INJInternalFrame
 	 */	
 	public INHoopDocumentList()
 	{
-    	super("Document Set Viewer", true, true, true, true);
+    	//super("Document Set Viewer", true, true, true, true);
 		
 		setClassName ("INHoopDocumentList");
 		debug ("INHoopDocumentList ()");
@@ -56,8 +57,8 @@ public class INHoopDocumentList extends INJInternalFrame
 	    holder.add (docScrollList);
 	   	
 		setContentPane (holder);
-		setSize (325,200);
-		setLocation (75,75);	   	
+		//setSize (325,200);
+		//setLocation (75,75);	   	
 		
 		updateContents(); // Just in case we already have something
 	}

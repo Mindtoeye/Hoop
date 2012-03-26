@@ -9,17 +9,15 @@
  * 	05-834 Applied Machine Learning
  *  11-719 Computational Models of Discourse Analysis
  *  11-741 Information Retrieval
- * 
- */
-
-package edu.cmu.cs.in.hoop;
-
-/** Modified INHoopTabDraggable.java
+ *  
  * http://java-swing-tips.blogspot.com/2008/04/drag-and-drop-tabs-in-jtabbedpane.html
  * originally written by Terai Atsuhiro.
  * so that tabs can be transfered from one pane to another.
  * eed3si9n.
+ * 
  */
+
+package edu.cmu.cs.in.hoop;
 
 import java.awt.*;
 import java.awt.datatransfer.*;
