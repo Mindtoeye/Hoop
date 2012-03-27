@@ -16,7 +16,7 @@
  * 
  */
 
-package edu.cmu.cs.in.quickbayes;
+package edu.cmu.cs.in.ml.quickbayes;
 
 import java.util.ArrayList;
 
@@ -28,7 +28,9 @@ public class INQuickBayesFeature extends INBase
 	public String featureName				="undefined";
 	public ArrayList <INQuickBayesAttribute> instances=null;
 	
-	//--------------------------------------------------------------------------------- 
+	/**
+	 *  
+	 */
 	public INQuickBayesFeature () 
 	{
 		setClassName ("INQuickBayesFeature");
@@ -36,7 +38,9 @@ public class INQuickBayesFeature extends INBase
 		
 		instances=new ArrayList<INQuickBayesAttribute> ();
 	}
-	//---------------------------------------------------------------------------------
+	/**
+	 *  
+	 */	
 	public INQuickBayesAttribute findAttribute (String an_instance)
 	{
 		for (int i=0;i<instances.size();i++)
@@ -54,7 +58,9 @@ public class INQuickBayesFeature extends INBase
 		//debug ("Inst: " + an_instance + " not found");
 		return (null);
 	}	
-	//---------------------------------------------------------------------------------
+	/**
+	 *  
+	 */
 	public boolean addAttribute (String an_instance)
 	{
 		INQuickBayesAttribute tester=findAttribute (an_instance);
@@ -73,6 +79,5 @@ public class INQuickBayesFeature extends INBase
 		instances.add(tester);
 		
 		return (true);
-	}
-	//---------------------------------------------------------------------------------	
+	}		
 }

@@ -16,12 +16,12 @@
  * 
  */
 
-package edu.cmu.cs.in.quickbayes;
+package edu.cmu.cs.in.ml.quickbayes;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-import edu.cmu.cs.in.quickbayes.INQuickBayesFileBase;
+import edu.cmu.cs.in.ml.quickbayes.INQuickBayesFileBase;
 
 public class INQuickBayesArffReader extends INQuickBayesFileBase
 {

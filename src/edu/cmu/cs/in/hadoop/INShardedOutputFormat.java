@@ -36,7 +36,8 @@ public class INShardedOutputFormat extends MultipleTextOutputFormat<Text, Text>
     {        
     	//INBase.debug ("INShardedOutputFormat","generateFileNameForKeyValue ()");
     	
-        INPartitioner partitioner=new INPartitioner ();
-        return ("shard-"+partitioner.getPartitionFromKey(key.toString()));
+        //INPartitioner partitioner=new INPartitioner ();
+        //return ("shard-"+partitioner.getPartitionFromKey(key.toString()));
+        return (key.toString());
     }
 }

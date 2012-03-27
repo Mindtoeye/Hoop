@@ -48,7 +48,7 @@ import javax.swing.JTextField;
 
 //import edu.cmu.cs.in.base.INLink;
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
-import edu.cmu.cs.in.controls.base.INJInternalFrame;
+//import edu.cmu.cs.in.controls.base.INJInternalFrame;
 import edu.cmu.cs.in.search.INTrecEval;
 
 /**

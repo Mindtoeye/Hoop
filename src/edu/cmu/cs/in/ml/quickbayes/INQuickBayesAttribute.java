@@ -15,21 +15,25 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-package edu.cmu.cs.in.quickbayes;
+
+package edu.cmu.cs.in.ml.quickbayes;
 
 import edu.cmu.cs.in.base.INBase;
 
-public class INQuickBayesInstance extends INBase
+public class INQuickBayesAttribute extends INBase
 {
 	public String instanceName="undefined";
-	public int countClassifier=0;	
-	public int instanceCount  =0;
-			
+
+	public boolean majorityAttribute=false;
+	
+	public int countClassifier   =0;	
+	public int instanceCount     =0;
+					
 	//--------------------------------------------------------------------------------- 
-	public INQuickBayesInstance () 
+	public INQuickBayesAttribute () 
 	{
-		setClassName ("INQuickBayesInstance");
-		debug ("INQuickBayesInstance ()");		
+		setClassName ("INQuickBayesAttribute");
+		debug ("INQuickBayesAttribute ()");		
 	}
 	//---------------------------------------------------------------------------------
 	public String getLikelihoodString ()
@@ -39,7 +43,7 @@ public class INQuickBayesInstance extends INBase
 		if (instanceCount==0)
 			return ("0");
 		
-		likelihood.append(countClassifier);
+		likelihood.append(countClassifier);	
 		likelihood.append ("/");
 		likelihood.append(instanceCount);
 		
@@ -51,7 +55,30 @@ public class INQuickBayesInstance extends INBase
 		if (instanceCount==0)
 			return (0);
 		
-		return ((float) countClassifier / (float) instanceCount);
-	}	
+		 return ((float) countClassifier / (float) instanceCount);
+	}			
+	//---------------------------------------------------------------------------------
+	public String getLikelihoodStringInv ()
+	{
+		StringBuffer likelihood=new StringBuffer ();
+		
+		if (instanceCount==0)
+			return ("0");
+		
+		likelihood.append(instanceCount-countClassifier);	
+		
+		likelihood.append ("/");
+		likelihood.append(instanceCount);
+		
+		return (likelihood.toString());
+	}
+	//---------------------------------------------------------------------------------
+	public float getLikelihoodInv ()
+	{		
+		if (instanceCount==0)
+			return (0);
+				
+		return (((float) (instanceCount-countClassifier)) / ((float) instanceCount));
+	}			
 	//---------------------------------------------------------------------------------	
 }

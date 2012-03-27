@@ -16,15 +16,17 @@
  * 
  */
 
-package edu.cmu.cs.in.quickbayes;
+package edu.cmu.cs.in.ml.quickbayes;
 
 import java.util.ArrayList;
 
-import edu.cmu.cs.in.quickbayes.INQuickBayesFileBase;
+import edu.cmu.cs.in.ml.quickbayes.INQuickBayesFileBase;
 
 public class INQuickBayesCSVWriter extends INQuickBayesFileBase 
 {
-	//--------------------------------------------------------------------------------- 
+	/**
+	 * 
+	 */
 	public INQuickBayesCSVWriter () 
 	{
 		super ();
@@ -32,7 +34,9 @@ public class INQuickBayesCSVWriter extends INQuickBayesFileBase
 		setClassName ("INQuickBayesCSVWriter");
 		debug ("INQuickBayesCSVWriter ()");		
 	}
-	//---------------------------------------------------------------------------------
+	/**
+	 * 
+	 */
 	public void processOutput (String a_file,INQuickBayesData data)
 	{
 	 StringBuffer formatted=new StringBuffer ();
@@ -65,5 +69,4 @@ public class INQuickBayesCSVWriter extends INQuickBayesFileBase
 	 
 	 saveAs (a_file,formatted);
 	}
-	//---------------------------------------------------------------------------------
 }

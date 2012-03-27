@@ -16,12 +16,12 @@
  * 
  */
 
-package edu.cmu.cs.in.quickbayes;
+package edu.cmu.cs.in.ml.quickbayes;
 
 import edu.cmu.cs.in.base.INBase;
-import edu.cmu.cs.in.quickbayes.INQuickBayesArffReader;
-import edu.cmu.cs.in.quickbayes.INQuickBayesCSVWriter;
-import edu.cmu.cs.in.quickbayes.INQuickBayesData;
+import edu.cmu.cs.in.ml.quickbayes.INQuickBayesArffReader;
+import edu.cmu.cs.in.ml.quickbayes.INQuickBayesCSVWriter;
+import edu.cmu.cs.in.ml.quickbayes.INQuickBayesData;
 
 public class INQuickBayesDriver extends INBase
 {

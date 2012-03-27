@@ -40,9 +40,9 @@ import edu.cmu.cs.in.base.INDataCollection;
 import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.INFileManager;
 //import edu.cmu.cs.in.quickbayes.INQuickBayesAttribute;
-import edu.cmu.cs.in.quickbayes.INQuickBayesData;
+import edu.cmu.cs.in.ml.quickbayes.INQuickBayesData;
 //import edu.cmu.cs.in.quickbayes.INQuickBayesFeature;
-import edu.cmu.cs.in.quickbayes.INSentinetReader;
+import edu.cmu.cs.in.ml.quickbayes.INSentinetReader;
 
 @SuppressWarnings("serial")
 

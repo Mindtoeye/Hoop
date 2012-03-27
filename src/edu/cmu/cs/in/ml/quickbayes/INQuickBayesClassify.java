@@ -16,21 +16,23 @@
  * 
  */
 
-package edu.cmu.cs.in.quickbayes;
+package edu.cmu.cs.in.ml.quickbayes;
 
-//import edu.cmu.cs.in.base.INBase;
+import edu.cmu.cs.in.base.INBase;
 
-public class INQuickBayesCSVReader extends INCSVReader 
-{	
-	/**------------------------------------------------------------------------------------
-	 *
-	 */ 
-	public INQuickBayesCSVReader () 
+public class INQuickBayesClassify extends INBase
+{
+	public String featureName="undefined";
+	public String attributeName="undefined";
+	
+	public float value=0;
+	public String valueString="-1/-1";
+	
+	//--------------------------------------------------------------------------------- 
+	public INQuickBayesClassify () 
 	{
-		super ();
-		
-		setClassName ("INQuickBayesCSVReader");
-		debug ("INQuickBayesCSVReader ()"); 		
+		setClassName ("INQuickBayesClassify");
+		debug ("INQuickBayesClassify ()");   
 	}
-	//---------------------------------------------------------------------------------
+	//---------------------------------------------------------------------------------	
 }

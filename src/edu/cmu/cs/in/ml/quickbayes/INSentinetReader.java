@@ -15,7 +15,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-package edu.cmu.cs.in.quickbayes;
+
+package edu.cmu.cs.in.ml.quickbayes;
 
 import java.util.ArrayList;
 import java.util.regex.Pattern;
@@ -29,7 +30,7 @@ public class INSentinetReader extends INCSVReader
 	
 	private StringBuffer dumpCollector=null;
 	
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */ 
 	public INSentinetReader (INDataCollection aSet) 
@@ -41,14 +42,14 @@ public class INSentinetReader extends INCSVReader
 		
 		dataSet=aSet;
 	}
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
 	public void assignData (INDataCollection aSet)
 	{
 		dataSet=aSet;
 	}
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */	
     public boolean isInteger (String input)  
@@ -63,7 +64,7 @@ public class INSentinetReader extends INCSVReader
           return false;  
        }  
     }  	
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
 	public void addInstanceStringTab (String entries[],int rowCounter)
@@ -132,7 +133,7 @@ public class INSentinetReader extends INCSVReader
 			}			
 		}			
 	}	
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
 	public void addInstanceString (String a_row,int rowCounter)
@@ -153,7 +154,7 @@ public class INSentinetReader extends INCSVReader
 		
 		dataGrid.data.add(row);
 	}	
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
 	public boolean processInputTab (String a_file,INQuickBayesData a_grid)
@@ -196,5 +197,4 @@ public class INSentinetReader extends INCSVReader
 		
 		return (true);
 	}		
-	//---------------------------------------------------------------------------------
 }

@@ -16,7 +16,7 @@
  * 
  */
 
-package edu.cmu.cs.in.quickbayes;
+package edu.cmu.cs.in.ml.quickbayes;
 
 import java.util.ArrayList;
 

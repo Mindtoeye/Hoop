@@ -16,14 +16,14 @@
  * 
  */
 
-package edu.cmu.cs.in.quickbayes;
+package edu.cmu.cs.in.ml.quickbayes;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.INBase;
-import edu.cmu.cs.in.quickbayes.INQuickBayesAttribute;
-import edu.cmu.cs.in.quickbayes.INQuickBayesFeature;
+import edu.cmu.cs.in.ml.quickbayes.INQuickBayesAttribute;
+import edu.cmu.cs.in.ml.quickbayes.INQuickBayesFeature;
 
 public class INQuickBayesData extends INBase
 {

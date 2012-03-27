@@ -43,14 +43,14 @@ public class INHoopFrame extends INHoopMultiViewFrame implements ActionListener
     static final private String NEXT = "next";
 	    
 	private INSocketServerBase server=null;
-	private INHoopMessageHandler handler=null;
-	private INStatistics stats=null;
-	private INScatterPlot plotter=null; 		
-	private INHoopJobList jobListWindow=null;
-	private INHoopStopWordEditor stopListEditor=null;
-	private INHoopVocabularyEditor vocabularyEditor=null;	
-	private	INHoopStatusBar statusbar=null;
-	private	INHoopEditor hoopEditor=null;	
+	//private INHoopMessageHandler handler=null;
+	//private INStatistics stats=null;
+	//private INScatterPlot plotter=null; 		
+	//private INHoopJobList jobListWindow=null;
+	//private INHoopStopWordEditor stopListEditor=null;
+	//private INHoopVocabularyEditor vocabularyEditor=null;	
+	//private	INHoopStatusBar statusbar=null;
+	//private	INHoopEditor hoopEditor=null;	
 	private INHoopConsole console=null;
 			
 	/**
