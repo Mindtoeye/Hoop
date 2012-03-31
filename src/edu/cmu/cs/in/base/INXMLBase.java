@@ -62,7 +62,7 @@ public class INXMLBase extends INBase
 	/**
 	*
 	*/	
-    public Document loadXMLFromString (String xml)
+    private Document loadXMLFromString (String xml)
     {
     	debug ("loadXMLFromString ()");
     	
@@ -117,7 +117,20 @@ public class INXMLBase extends INBase
 		}
         
         return result;
-    }			
+    }		
+	/**
+	*
+	*/	
+    public Element fromXMLString (String xml)
+    {
+    	debug ("fromXMLString ()");
+    
+    	Document parsed=loadXMLFromString (xml);
+    	if (parsed==null)
+    		return (null);
+    	
+    	return (parsed.getDocumentElement());
+    }
 	/**
 	*
 	*/	

@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import org.w3c.dom.Document;
+//import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import edu.cmu.cs.in.base.INLink;
@@ -241,14 +241,12 @@ public class INSocketServerBase extends INHadoopReporter  implements Runnable
 		
 		INXMLBase helper=new INXMLBase ();
 				
-		Document document=helper.loadXMLFromString (input);		
-		
-		if (document!=null)
-		{
-			Element root=document.getDocumentElement();
+		Element root=helper.fromXMLString (input);
 		  
+		if (root!=null)
 			fromXML (ID,root);
-		}	
+		else
+			debug ("Error, unable to parse incoming data as XML");
 	}
 	/**
 	 * 

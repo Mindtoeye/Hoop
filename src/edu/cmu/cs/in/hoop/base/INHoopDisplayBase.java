@@ -36,12 +36,25 @@ public class INHoopDisplayBase extends INHoopBase
 		debug ("INHoopDisplayBase ()");
 		hoopCategory="display";
     }
-
-	public void setViewer(INHoopConsole viewer) {
+	/**
+	 *
+	 */
+	public void setViewer(INHoopConsole viewer) 
+	{
 		this.viewer = viewer;
 	}
-
-	public INHoopConsole getViewer() {
+	/**
+	 *
+	 */
+	public INHoopConsole getViewer() 
+	{
 		return viewer;
 	}
+	/**
+	 *
+	 */
+	public Boolean runHoop ()
+	{
+		return (true);
+	}	
 }

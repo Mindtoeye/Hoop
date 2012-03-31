@@ -48,4 +48,11 @@ public class INHoopLoadBase extends INHoopBase
 	{
 		return content;
 	}
+	/**
+	 *
+	 */
+	public Boolean runHoop ()
+	{
+		return (true);
+	}	
 }

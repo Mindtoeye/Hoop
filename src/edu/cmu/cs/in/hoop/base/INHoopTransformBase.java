@@ -32,4 +32,11 @@ public class INHoopTransformBase extends INHoopBase
 		debug ("INHoopTransformBase ()");
 		hoopCategory="transform";
     }
+	/**
+	 *
+	 */
+	public Boolean runHoop ()
+	{
+		return (true);
+	}    
 }

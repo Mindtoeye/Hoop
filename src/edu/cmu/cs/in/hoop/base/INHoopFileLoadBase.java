@@ -18,21 +18,28 @@
 
 package edu.cmu.cs.in.hoop.base;
 
+import edu.cmu.cs.in.base.INFileManager;
+
 /**
 * 
 */
-public class INHoopSaveBase extends INHoopBase
+public class INHoopFileLoadBase extends INHoopBase
 {    				
 	private String content=null;
+	private INFileManager fManager=null;
+	
+	private String inputStreamPath=null;
 	
 	/**
 	 *
 	 */
-    public INHoopSaveBase () 
+    public INHoopFileLoadBase () 
     {
-		setClassName ("INHoopSaveBase");
-		debug ("INHoopSaveBase ()");
-		hoopCategory="save";
+		setClassName ("INHoopFileLoadBase");
+		debug ("INHoopFileLoadBase ()");
+		
+		hoopCategory="load";
+		fManager=new INFileManager ();
     }
 	/**
 	 *
@@ -47,12 +54,28 @@ public class INHoopSaveBase extends INHoopBase
 	public String getContent() 
 	{
 		return content;
-	}    
+	}
 	/**
 	 *
 	 */
 	public Boolean runHoop ()
 	{
+		setContent (fManager.loadContents(inputStreamPath));
+		
 		return (true);
+	}
+	/**
+	 *
+	 */	
+	public void setInputStreamPath(String inputStreamPath) 
+	{
+		this.inputStreamPath = inputStreamPath;
+	}
+	/**
+	 *
+	 */	
+	public String getInputStreamPath() 
+	{
+		return inputStreamPath;
 	}	
 }
