@@ -25,13 +25,14 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
-
-//import edu.cmu.hcii.ctat.INBase;
 
 /**
  * 
@@ -154,4 +155,76 @@ public class INXMLBase extends INBase
 				
 		return (buffer.toString());
 	}
+	/**
+	*	
+	*/  
+	public void showNodeType (Node a_node)
+	{
+		if (a_node==null)
+		{
+			debug ("Error: provided node is null");
+			return;
+		}
+	  
+		switch (a_node.getNodeType ())
+		{
+			case Node.ATTRIBUTE_NODE:         
+										debug ("Node type: The node is an Attr.");
+	                                    break;  
+			case Node.CDATA_SECTION_NODE: 
+	                                     debug ("Node type: The node is a CDATASection.");
+	                                     break;  
+			case Node.COMMENT_NODE:           
+	                                     debug ("Node type: The node is a Comment.");
+	                                     break;  
+			case Node.DOCUMENT_FRAGMENT_NODE: 
+	                                     debug ("Node type: The node is a DocumentFragment.");
+	                                     break;  
+			case Node.DOCUMENT_NODE: 
+	                                     debug ("Node type: The node is a Document.");
+	                                     break;  
+			case Node.DOCUMENT_TYPE_NODE: 
+	                                     debug ("Node type: The node is a DocumentType.");
+	                                     break;  
+			case Node.ELEMENT_NODE: 
+	                                     debug ("Node type: The node is an Element.");
+	                                     break;  
+			case Node.ENTITY_NODE: 
+	                                     debug ("Node type: The node is an Entity.");
+	                                     break;  
+			case Node.ENTITY_REFERENCE_NODE: 
+	                                     debug ("Node type: The node is an EntityReference.");
+	                                     break;  
+			case Node.NOTATION_NODE: 
+	                                     debug ("Node type: The node is a Notation.");
+	                                     break;  
+			case Node.PROCESSING_INSTRUCTION_NODE: 
+	                                     debug ("Node type: The node is a ProcessingInstruction.");
+	                                     break;  
+			case Node.TEXT_NODE:                   
+	                                     debug ("Node type: The node is a Text node.");
+	                                     break;   
+		}
+	} 		
+	/**
+	*	
+	*/	    
+    protected String getAttributeValue (Node aNode,String anAttribute)
+    {    	
+        NamedNodeMap attrs = aNode.getAttributes();
+        
+        for(int i = 0 ; i<attrs.getLength() ; i++) 
+        {
+          Attr attribute = (Attr)attrs.item(i);
+          
+          //System.out.println(indent+ " " + attribute.getName()+" = "+attribute.getValue());
+          
+          if (attribute.getName().toLowerCase().equals(anAttribute.toLowerCase())==true)
+          {
+        	  return (attribute.getValue());
+          }
+        }    	
+    	
+    	return ("");
+    }	
 }

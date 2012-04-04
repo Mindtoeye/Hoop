@@ -20,7 +20,7 @@ package edu.cmu.cs.in.hoop.base;
 
 import java.util.ArrayList;
 
-import edu.cmu.cs.in.base.INXMLBase;
+import edu.cmu.cs.in.hoop.properties.INHoopInspectable;
 
 /**
 * Here we have the basis for all the hoops. It manages incoming and
@@ -28,7 +28,7 @@ import edu.cmu.cs.in.base.INXMLBase;
 * though the API allows more than one incoming hoops, we currently
 * restrict the functionality to only one.
 */
-public class INHoopBase extends INXMLBase
+public class INHoopBase extends INHoopInspectable
 {    			
 	private ArrayList <INHoopBase> inHoops=null;
 	private ArrayList <INHoopBase> outHoops=null;

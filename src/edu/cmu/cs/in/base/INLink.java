@@ -189,7 +189,9 @@ public class INLink extends INBase
 		 							 "hoop-save.png",// 79
 		 							 "hoop-to-kv.png",// 80
 		 							 "hoop-to-list.png",// 81
-		 							 "hoop-to-table.png"// 82
+		 							 "hoop-to-table.png",// 82
+		 							 "arrow-up.png",// 83
+		 							 "arrow-down.png"// 84		 							 
 		 							 };
 	
 	public static String vocabularyPath="./";

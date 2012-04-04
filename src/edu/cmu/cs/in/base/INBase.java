@@ -18,6 +18,7 @@
 
 package edu.cmu.cs.in.base;
 
+//import java.io.PrintStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,8 +30,15 @@ public class INBase
 	private SimpleDateFormat df;	
 	private String instanceName="Undefined";
 	private String className="INBase";
+	private String classType="Unknown"; // Used for serialization and should be a basetype
 	
 	private ArrayList<INFilterBase> filters=null;
+	
+	/** The output stream for {@link #debug(String)}. Default value {@link System#out}. */
+	//public static PrintStream outStream = System.out;
+
+	/** The error output stream. Default value {@link System#err}. */
+	//public static PrintStream errStream = System.err;	
 	
 	/**
 	 *
@@ -54,6 +62,20 @@ public class INBase
 	{
 		return (className);
 	}
+	/**
+	 *
+	 */
+   public void setClassType (String aName)
+   {
+   	classType=aName;
+   }
+	/**
+	 *
+	 */
+   public String getClassType ()
+   {
+   	return (classType);
+   } 	
 	/**
 	 *
 	 */    
@@ -140,5 +162,26 @@ public class INBase
 	{
 		this.instanceName = instanceName;
 	}
+	/**
+	*	
+	*/		
+	protected String getClassOpen ()
+	{
+		return ("<"+getClassType ()+">");
+	}
+	/**
+	*	
+	*/		
+	protected String getClassOpen (String aName)
+	{
+		return ("<"+getClassType ()+" name=\""+aName+"\">");
+	}	
+	/**
+	*	
+	*/		
+	protected String getClassClose ()
+	{
+		return ("</"+getClassType ()+">");
+	}	
 }
 

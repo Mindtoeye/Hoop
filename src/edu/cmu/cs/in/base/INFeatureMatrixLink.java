@@ -23,7 +23,7 @@ import edu.cmu.cs.in.base.INLink;
 public class INFeatureMatrixLink extends INLink
 {    		    
 	public static int debugLine=0;
-	public static String className="CTATLink";
+	public static String className="INHoopLink";
 			
 	/**------------------------------------------------------------------------------------
 	 *

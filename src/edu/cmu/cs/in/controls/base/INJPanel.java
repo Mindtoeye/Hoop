@@ -19,9 +19,15 @@
 package edu.cmu.cs.in.controls.base;
 
 //import java.awt.GraphicsConfiguration;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.LayoutManager;
+import java.net.URL;
 
 //import javax.swing.JFrame;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import edu.cmu.cs.in.base.INBase;
@@ -35,6 +41,8 @@ public class INJPanel extends JPanel
 	private static final long serialVersionUID = -6522707440476438254L;
 	private String className="INBase";	
 	private String instanceName="Undefined";
+	
+    protected ImageIcon defaultIcon=null;	
 	
 	/**
 	 * Creates a new JPanel with a double buffer and a flow layout.
@@ -106,4 +114,47 @@ public class INJPanel extends JPanel
 	{
 		INBase.debug(getClassName(),aMessage);
 	}
+	/** 
+	 * Returns an ImageIcon, or null if the path was invalid. 
+	 */
+	protected ImageIcon createImageIcon (String aFile,String description) 
+	{				
+		debug ("createImageIcon ("+aFile+")");
+		
+		ClassLoader loader=getClass ().getClassLoader();
+		if (loader==null)
+		{
+			debug ("Error: no class loader object available");
+			return (defaultIcon);
+		}
+		
+		URL resource=loader.getResource("pact/CommWidgets/"+aFile);
+		if (resource==null)
+		{
+			debug ("Error: unable to find image resource in jar file");
+			return (defaultIcon);
+		}			
+		
+		return (new ImageIcon (resource,description));
+	}
+	/**
+	 * 
+	 */	
+	public Box addInHorizontalLayout (Component comp,int maxX,int maxY) 
+	{
+		Box dynamicBox=new Box (BoxLayout.X_AXIS);
+		dynamicBox.setMinimumSize(new Dimension (20,20));
+		dynamicBox.setMaximumSize(new Dimension (maxX,maxY));
+		dynamicBox.add(comp);
+		return (dynamicBox);
+	}
+	/**
+	 * 
+	 */	
+	public Box addInVerticalLayout (Component comp) 
+	{
+		Box dynamicBox=new Box (BoxLayout.Y_AXIS);
+		dynamicBox.add(comp);
+		return (dynamicBox);
+	}		
 }

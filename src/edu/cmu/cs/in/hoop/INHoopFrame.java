@@ -25,6 +25,7 @@ import javax.swing.*;
 import edu.cmu.cs.in.INHoopMessageHandler;
 import edu.cmu.cs.in.base.INLink;
 import edu.cmu.cs.in.controls.INScatterPlot;
+import edu.cmu.cs.in.hoop.properties.INHoopPropertyPanel;
 import edu.cmu.cs.in.network.INSocketServerBase;
 import edu.cmu.cs.in.stats.INStatistics;
 
@@ -52,6 +53,7 @@ public class INHoopFrame extends INHoopMultiViewFrame implements ActionListener
 	//private	INHoopStatusBar statusbar=null;
 	//private	INHoopEditor hoopEditor=null;	
 	private INHoopConsole console=null;
+	private INHoopPropertyPanel propPanel=null;
 			
 	/**
 	 *
@@ -197,12 +199,25 @@ public class INHoopFrame extends INHoopMultiViewFrame implements ActionListener
     	    	
     	    	addView ("Console",console,bottom);    	    	
     		}
-    	});    	    	
+    	});    	    
+    	
+    	JMenuItem propertiesItem=new JMenuItem("Properties");    	
+    	
+    	propertiesItem.addActionListener(new ActionListener() 
+    	{
+    		public void actionPerformed(ActionEvent e) 
+    		{
+    	    	propPanel=new INHoopPropertyPanel();
+    	    	
+    	    	addView ("Properties",propPanel,right);    	    	
+    		}
+    	});      	
     	
     	views.add (documentItem);
     	views.add (documentListItem);
     	views.add (consoleItem);
-    	views.add(new JSeparator());
+    	views.add (new JSeparator());
+    	views.add (propertiesItem);
     	
     	return (views);
     }
