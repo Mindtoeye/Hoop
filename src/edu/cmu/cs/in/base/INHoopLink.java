@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 
 import edu.cmu.cs.in.search.INDataSet;
-import edu.cmu.cs.in.base.INBase;
+//import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 //import edu.cmu.cs.in.controls.base.INJInternalFrame;
 import edu.cmu.cs.in.hoop.INHoopConsoleInterface;
@@ -36,22 +36,13 @@ import edu.cmu.cs.in.stats.INPerformanceMetrics;
 /**
 *
 */
-public class INLink extends INBase
-{    		    	
-	public static int debugLine=0;
-	
-	public static boolean useHadoop=false;
-	public static boolean casefold=true;
-	public static boolean stopwords=true;	
-	public static boolean stemming=true;
-	public static boolean cleanoutput=false;
-	public static boolean dbglocal=false;
-	public static int minstemsize=4;
-	
+public class INHoopLink extends INLangLink
+{    		    		
 	public static INHoopConsoleInterface console=null;
 	
-	public static boolean postonly=false;
+	//public static boolean postonly=false;
 	
+	/*
 	public static String shardtype="alphabetical"; // One of: docid|alphabetical|docsize
 	public static long splitsize=10;
 	public static int nrshards=1;
@@ -62,15 +53,18 @@ public class INLink extends INBase
 	
 	public static String datapath=".";
 	public static String outputpath=".";
+	*/
 	
+	/*
 	public static String monitorHost="extlogin.opencloud";
 	//public static String monitorHost="augustus.pslc.cs.cmu.edu";
 	public static int monitorPort=8082;
+	*/
 	
-	/*
 	public static ImageIcon icon=null; // This should ideally be an array of icons, available as standard resources	
 	public static ImageIcon linkIcon=null; // This should ideally be an array of icons, available as standard resources
 	public static ImageIcon unlinkIcon=null; // This should ideally be an array of icons, available as standard resources
+	
 	public static ImageIcon [] imageIcons=null;
 	public static String [] imgURLs={
 									 "broken.jpg",// 01
@@ -158,39 +152,92 @@ public class INLink extends INBase
 		 							 "arrow-up.png",// 83
 		 							 "arrow-down.png"// 84		 							 
 		 							 };
-	*/		 							 
 	
-	//public static String vocabularyPath="./";
-	//public static ArrayList <String> posFiles=null;	
-	//public static ArrayList <INPerformanceMetrics> metrics=null;
-	//public static ArrayList <INEmbeddedJPanel> windows=null;
-	//public static ArrayList <INTextSearch> searchHistory=null;
+	public static String vocabularyPath="./";
+	public static ArrayList <String> posFiles=null;	
+	public static ArrayList <INPerformanceMetrics> metrics=null;
+	public static ArrayList <INEmbeddedJPanel> windows=null;
+	public static ArrayList <INTextSearch> searchHistory=null;
+	public static ArrayList <String>jobs=null;
 	public static INFileManager fManager=null;	
-	//public static INDataSet dataSet=null;
-	//public static ArrayList <String> queries=null;
-	//public static int experimentNr=0;
+	public static INDataSet dataSet=null;
+	public static ArrayList <String> queries=null;
+	public static int experimentNr=0;
 		
-	public static String crossDomainPolicy = "<?xml version=\"1.0\"?>\n" +
-	"<!DOCTYPE cross-domain-policy SYSTEM \"http://www.macromedia.com/xml/dtds/cross-domain-policy.dtd\">\n" + 
-	"<cross-domain-policy>\n" + 
-	"<allow-access-from domain=\"*\" to-ports=\"*\" />\n" +
-	"</cross-domain-policy>\0";	
-	
 	/**
 	 *
 	 */
-    public INLink () 
+    public INHoopLink () 
     {
-		setClassName ("INLink");
-		debug ("INLink ()");
+		setClassName ("INHoopLink");
+		debug ("INHoopLink ()");
 		
 		//whitespace=Pattern.compile("["  + whitespace_chars + "]");
 		//Matcher matcher = whitespace.matcher ("test");
 				
-		//metrics=new ArrayList<INPerformanceMetrics> ();
-		//windows=new ArrayList<INEmbeddedJPanel>();
-		//searchHistory=new ArrayList<INTextSearch>();
-		
-		fManager=new INFileManager ();		
-    }      
+		metrics=new ArrayList<INPerformanceMetrics> ();
+		windows=new ArrayList<INEmbeddedJPanel>();
+		searchHistory=new ArrayList<INTextSearch>();		
+		jobs=new ArrayList<String> ();
+    }  
+	/**
+	 *
+	 */
+    public static void addWindow (INEmbeddedJPanel aWindow)
+    {
+    	if (windows!=null)
+    		windows.add(aWindow);
+    }
+	/**
+	 *
+	 */
+    public static void removeWindow (INEmbeddedJPanel aWindow)
+    {
+    	if (windows!=null)
+    	{
+    		aWindow.close();
+    		windows.remove(aWindow);
+    	}
+    }
+	/**
+	 *
+	 */
+    public static INEmbeddedJPanel getWindow (String aTitle)
+    {
+    	for (int i=0;i<windows.size();i++)
+    	{
+    		INEmbeddedJPanel aWindow=windows.get(i);
+    		if (aWindow.getInstanceName().toLowerCase().equals(aTitle.toLowerCase())==true)
+    		{
+    			return (aWindow);
+    		}
+    	}
+    	
+    	return (null);
+    }
+	/**
+	 *
+	 */
+    public static void updateWindows (String aTitle)
+    {
+   		for (int i=0;i<windows.size();i++)
+   		{
+   			INEmbeddedJPanel aWindow=windows.get(i);
+   			if (aWindow.getInstanceName().toLowerCase().equals(aTitle.toLowerCase())==true)
+   			{
+   				aWindow.updateContents ();
+   			}
+   		}   
+    }
+	/**
+	 *
+	 */
+    public static void updateAllWindows ()
+    {
+ 		for (int i=0;i<windows.size();i++)
+ 		{
+ 			INEmbeddedJPanel aWindow=windows.get(i);
+ 			aWindow.updateContents ();
+ 		}   
+    }       
 }

@@ -23,7 +23,7 @@ import java.util.List;
 
 import edu.cmu.cs.in.base.INFileManager;
 import edu.cmu.cs.in.base.INBase;
-import edu.cmu.cs.in.base.INLink;
+import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.base.INPorterStemmer;
 import edu.cmu.cs.in.base.INSimpleFeatureMaker;
 import edu.cmu.cs.in.base.INWikipediaFilter;
@@ -158,11 +158,11 @@ public class INDocument extends INBase
 	 */
     public Boolean isStopWord (String test)
     {
-		for (int j=0;j<INLink.stops.length;j++)
+		for (int j=0;j<INHoopLink.stops.length;j++)
 		{
 			// We should already be in lowercase for this to work!!
 			
-			if (test.equals(INLink.stops [j])==true)
+			if (test.equals(INHoopLink.stops [j])==true)
 			{
 				return (true);
 			}
@@ -175,11 +175,11 @@ public class INDocument extends INBase
 	 */
     public Boolean isGarbage (String test)
     {
-    	for (int j=0;j<INLink.garbage.length;j++)
+    	for (int j=0;j<INHoopLink.garbage.length;j++)
 		{
 			// We should already be in lowercase for this to work!!
 			
-			if (test.equals(INLink.garbage [j])==true)
+			if (test.equals(INHoopLink.garbage [j])==true)
 			{
 				return (true);
 			}
@@ -267,15 +267,15 @@ public class INDocument extends INBase
    		{
    			String token=rawTokens.get(i);
 
-   	    	if (INLink.stopwords==true)
+   	    	if (INHoopLink.stopwords==true)
    	    	{
    	    		if ((isStopWord (token)==true) || (isGarbage (token)==true))
    	    			removed++;
    	    		else
    	    		{
-   	    			if (INLink.stemming==true)
+   	    			if (INHoopLink.stemming==true)
    	    			{
-   	    				if (token.length()>INLink.minstemsize)
+   	    				if (token.length()>INHoopLink.minstemsize)
    	    				{
    	    					if (includePositions==true)
    	    						tokens.add (stemmer.stem(token)+":"+position);
@@ -327,7 +327,7 @@ public class INDocument extends INBase
 		
 		//debug ("Document: " + formatted.toString());
 		
-		if (INLink.cleanoutput==true)
+		if (INHoopLink.cleanoutput==true)
 		{
 			fManager.saveContents (fManager.stripExtension (fManager.getURI())+"-cleaned.txt",formatted.toString());
 		}

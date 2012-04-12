@@ -57,7 +57,7 @@ import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.view.mxGraph;
 
 import edu.cmu.cs.in.search.INQueryOperator;
-import edu.cmu.cs.in.base.INLink;
+import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 //import edu.cmu.cs.in.controls.base.INJInternalFrame;
 import edu.cmu.cs.in.search.INTextSearch;
@@ -344,13 +344,13 @@ public class INHoopSearch extends INEmbeddedJPanel implements ActionListener, Ke
 	{
 		debug ("search ()");
 		
-		if (INLink.posFiles==null)
+		if (INHoopLink.posFiles==null)
 		{
 			JOptionPane.showMessageDialog(null, "Warning, no vocabulary loaded!");
 			return;
 		}
 		
-		if (INLink.posFiles.size()==0)
+		if (INHoopLink.posFiles.size()==0)
 		{
 			JOptionPane.showMessageDialog(null, "Warning, no vocabulary loaded!");
 			return;
@@ -383,7 +383,7 @@ public class INHoopSearch extends INEmbeddedJPanel implements ActionListener, Ke
 		
 		// Show document list ...
 		
-		INLink.updateAllWindows ();
+		INHoopLink.updateAllWindows ();
 		
 		// Then show some visuals ...
 		

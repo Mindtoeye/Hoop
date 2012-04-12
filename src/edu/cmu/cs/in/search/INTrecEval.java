@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import edu.cmu.cs.in.search.INDataSet;
 import edu.cmu.cs.in.search.INDocument;
 import edu.cmu.cs.in.base.INBase;
-import edu.cmu.cs.in.base.INLink;
+import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.search.INTextSearch;
 import edu.cmu.cs.in.stats.INStatsBase;
 
@@ -31,7 +31,7 @@ import edu.cmu.cs.in.stats.INStatsBase;
  * @author vvelsen
  *
  * A simply class that takes a set of documents as found in the registry object
- * INLink.dataset and dumps out a file that can be uploaded to trec_eval
+ * INHoopLink.dataset and dumps out a file that can be uploaded to trec_eval
  */
 public class INTrecEval extends INStatsBase
 {    	
@@ -93,13 +93,13 @@ public class INTrecEval extends INStatsBase
 	{
 		debug ("flushDataRegular ()");
 	
-		if (INLink.searchHistory==null)
+		if (INHoopLink.searchHistory==null)
 		{
 			debug ("Error: no searches completed yet");
 			return (report);
 		}
 		
-		if (INLink.fManager==null)
+		if (INHoopLink.fManager==null)
 		{
 			debug ("Error: no file manager available");
 			return (report);
@@ -113,11 +113,11 @@ public class INTrecEval extends INStatsBase
 				
 		StringBuffer overview=new StringBuffer ();
 		
-		for (int i=0;i<INLink.searchHistory.size();i++)
+		for (int i=0;i<INHoopLink.searchHistory.size();i++)
 		{
-			INTextSearch aSearch=INLink.searchHistory.get(i);			
+			INTextSearch aSearch=INHoopLink.searchHistory.get(i);			
 			//INQueryOperator query=aSearch.getRootQueryOperator();
-			INDataSet docs=INLink.dataSet;
+			INDataSet docs=INHoopLink.dataSet;
 											
 			if (docs!=null)
 			{
@@ -160,7 +160,7 @@ public class INTrecEval extends INStatsBase
 						formatted.append("\n");
 					}
 					
-					INLink.fManager.saveContents(outputPath+"/"+"TrecEval-Log-Exp"+INLink.experimentNr+"-Query"+i+"-"+INBase.generateFileTimestamp ()+".txt", formatted.toString());
+					INHoopLink.fManager.saveContents(outputPath+"/"+"TrecEval-Log-Exp"+INHoopLink.experimentNr+"-Query"+i+"-"+INBase.generateFileTimestamp ()+".txt", formatted.toString());
 				}	
 			}
 			else
@@ -176,13 +176,13 @@ public class INTrecEval extends INStatsBase
 	{
 		debug ("flushDataCollated ()");
 	
-		if (INLink.searchHistory==null)
+		if (INHoopLink.searchHistory==null)
 		{
 			debug ("Error: no searches completed yet");
 			return (report);
 		}
 		
-		if (INLink.fManager==null)
+		if (INHoopLink.fManager==null)
 		{
 			debug ("Error: no file manager available");
 			return (report);
@@ -210,11 +210,11 @@ public class INTrecEval extends INStatsBase
 		formatted.append("RunID");
 		formatted.append("\n");
 		
-		for (int i=0;i<INLink.searchHistory.size();i++)
+		for (int i=0;i<INHoopLink.searchHistory.size();i++)
 		{
-			INTextSearch aSearch=INLink.searchHistory.get(i);			
+			INTextSearch aSearch=INHoopLink.searchHistory.get(i);			
 			//INQueryOperator query=aSearch.getRootQueryOperator();
-			INDataSet docs=INLink.dataSet;
+			INDataSet docs=INHoopLink.dataSet;
 											
 			if (docs!=null)
 			{
@@ -247,7 +247,7 @@ public class INTrecEval extends INStatsBase
 				debug ("Internal error: query object is null");
 		}
 		
-		INLink.fManager.saveContents(outputPath+"/"+"TrecEval-Log-Exp"+INLink.experimentNr+"-"+INBase.generateFileTimestamp ()+".txt", formatted.toString());
+		INHoopLink.fManager.saveContents(outputPath+"/"+"TrecEval-Log-Exp"+INHoopLink.experimentNr+"-"+INBase.generateFileTimestamp ()+".txt", formatted.toString());
 				
 		return (overview.toString());
 	}	

@@ -27,7 +27,7 @@ import javax.swing.JList;
 import javax.swing.JScrollPane;
 
 import edu.cmu.cs.in.search.INDocument;
-import edu.cmu.cs.in.base.INLink;
+import edu.cmu.cs.in.base.INHoopLink;
 //import edu.cmu.cs.in.controls.INVisualFeature;
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 //import edu.cmu.cs.in.controls.base.INJInternalFrame;
@@ -73,12 +73,12 @@ public class INHoopDocumentList extends INEmbeddedJPanel
 	{
 		debug ("updateContents ()");
 
-		if (INLink.dataSet==null)
+		if (INHoopLink.dataSet==null)
 		{
 			return;
 		}
 		
-		ArrayList<INDocument> docs=INLink.dataSet.getDocuments();		
+		ArrayList<INDocument> docs=INHoopLink.dataSet.getDocuments();		
 		
 		DefaultListModel mdl=new DefaultListModel ();
 		

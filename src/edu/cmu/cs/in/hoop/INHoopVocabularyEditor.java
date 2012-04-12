@@ -31,7 +31,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
-import edu.cmu.cs.in.base.INLink;
+import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.controls.INJFeatureList;
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 //import edu.cmu.cs.in.controls.base.INJInternalFrame;
@@ -117,9 +117,9 @@ public class INHoopVocabularyEditor extends INEmbeddedJPanel implements ActionLi
 	        	{          	
 	        		File file = fc.getSelectedFile();
 	        		
-	        		INLink.vocabularyPath=file.getPath ();
+	        		INHoopLink.vocabularyPath=file.getPath ();
 	        		
-	        		ArrayList<String> tempFiles=INLink.fManager.listFiles (file.getPath());
+	        		ArrayList<String> tempFiles=INHoopLink.fManager.listFiles (file.getPath());
 	        	   	
 	        		if (tempFiles==null)
 	        		{
@@ -135,14 +135,14 @@ public class INHoopVocabularyEditor extends INEmbeddedJPanel implements ActionLi
 	        			if (test.indexOf(".inv")!=-1)
 	        			{	
 	        				String [] splitter=test.split("\\.");
-	        				INLink.posFiles.add(splitter [0]);
+	        				INHoopLink.posFiles.add(splitter [0]);
 	        			}
 	        		}
 	        		
-	        		positionList.modelFromArrayList (INLink.posFiles);   	
+	        		positionList.modelFromArrayList (INHoopLink.posFiles);   	
 	        		positionList.selectAll();
 	           	
-	        		debug ("Found " + INLink.posFiles.size() + " position list files");
+	        		debug ("Found " + INHoopLink.posFiles.size() + " position list files");
 	        	}
 	        }						
 		}		

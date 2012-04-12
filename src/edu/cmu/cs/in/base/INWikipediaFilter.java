@@ -124,13 +124,13 @@ public class INWikipediaFilter extends INFilterBase
     	
     	again=true;    	
     		    	
-    	for (int i=0;i<INLink.garbage.length;i++)
+    	for (int i=0;i<INHoopLink.garbage.length;i++)
     	{
     		again=true;
     	
     		while (again==true)
     		{
-    			again=cleanCharacter (manipulator,INLink.garbage [i]);
+    			again=cleanCharacter (manipulator,INHoopLink.garbage [i]);
     		}
     	}	
     	    	

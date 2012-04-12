@@ -141,7 +141,7 @@ public class INSimpleFeatureMaker extends INBase implements INFeatureMaker
 		
 			for (int i = 0; i < split.length; i++)
 			{
-				if (INLink.casefold==true)
+				if (INHoopLink.casefold==true)
 					out.add(split [i].toLowerCase());
 				else
 					out.add(split [i]);
@@ -186,7 +186,7 @@ public class INSimpleFeatureMaker extends INBase implements INFeatureMaker
 		
 			for(int i = 0; i < split.length; i++)
 			{
-				if (INLink.casefold==true)
+				if (INHoopLink.casefold==true)
 					oldTokens.add(split [i].toLowerCase());
 				else
 					oldTokens.add(split [i]);
@@ -228,7 +228,7 @@ public class INSimpleFeatureMaker extends INBase implements INFeatureMaker
 			
 			if(toAdd.length() > 1)
 			{
-				if (INLink.casefold==true)
+				if (INHoopLink.casefold==true)
 					out.add(toAdd.toLowerCase());
 				else
 					out.add(toAdd);

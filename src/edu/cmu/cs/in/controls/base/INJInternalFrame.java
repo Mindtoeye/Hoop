@@ -23,7 +23,7 @@ import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.InternalFrameListener;
 
 import edu.cmu.cs.in.base.INBase;
-import edu.cmu.cs.in.base.INLink;
+import edu.cmu.cs.in.base.INHoopLink;
 
 /** 
  * @author vvelsen
@@ -43,7 +43,7 @@ public class INJInternalFrame extends JInternalFrame implements InternalFrameLis
 		setClassName ("INJInternalFrame");
 		debug ("INJInternalFrame ()");
 		
-		//INLink.addWindow(this);
+		//INHoopLink.addWindow(this);
 		this.addInternalFrameListener(this);
 	}
 	/**
@@ -56,7 +56,7 @@ public class INJInternalFrame extends JInternalFrame implements InternalFrameLis
 		setClassName ("INJInternalFrame");
 		debug ("INJInternalFrame ()");
 		
-		//INLink.addWindow(this);
+		//INHoopLink.addWindow(this);
 		this.addInternalFrameListener(this);		
 	}
 	/**
@@ -70,7 +70,7 @@ public class INJInternalFrame extends JInternalFrame implements InternalFrameLis
 		setClassName ("INJInternalFrame");
 		debug ("INJInternalFrame ()");
 
-		//INLink.addWindow(this);
+		//INHoopLink.addWindow(this);
 		this.addInternalFrameListener(this);		
 	}	
 	/**
@@ -84,7 +84,7 @@ public class INJInternalFrame extends JInternalFrame implements InternalFrameLis
 		setClassName ("INJInternalFrame");
 		debug ("INJInternalFrame ()");
 		
-		//INLink.addWindow(this);
+		//INHoopLink.addWindow(this);
 		this.addInternalFrameListener(this);		
 	}
 	/**
@@ -98,7 +98,7 @@ public class INJInternalFrame extends JInternalFrame implements InternalFrameLis
 		setClassName ("INJInternalFrame");
 		debug ("INJInternalFrame ()");
 		
-		//INLink.addWindow(this);
+		//INHoopLink.addWindow(this);
 		this.addInternalFrameListener(this);		
 	}	
 	/**
@@ -112,7 +112,7 @@ public class INJInternalFrame extends JInternalFrame implements InternalFrameLis
 		setClassName ("INJInternalFrame");
 		debug ("INJInternalFrame ()");
 		
-		//INLink.addWindow(this);
+		//INHoopLink.addWindow(this);
 		this.addInternalFrameListener(this);		
 	}
 	/**
@@ -182,7 +182,7 @@ public class INJInternalFrame extends JInternalFrame implements InternalFrameLis
 	{
 		debug ("internalFrameClosing ()");
 		processClose ();
-		//INLink.removeWindow(this);
+		//INHoopLink.removeWindow(this);
 	}
 	/**
 	 *

@@ -32,7 +32,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import edu.cmu.cs.in.base.INFixedSizeQueue;
-import edu.cmu.cs.in.base.INLink;
+import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 //import edu.cmu.cs.in.controls.base.INJInternalFrame;
 
@@ -72,7 +72,7 @@ public class INHoopConsole extends INEmbeddedJPanel implements INHoopConsoleInte
 		setLayout(new BoxLayout (this,BoxLayout.Y_AXIS));
 				
 		clearButton=new JButton ();
-		clearButton.setIcon(INLink.imageIcons [8]);
+		clearButton.setIcon(INHoopLink.imageIcons [8]);
 		clearButton.setMargin(new Insets(1, 1, 1, 1));
 		//clearButton.setText("Clear");
 		clearButton.setFont(new Font("Courier",1,8));
@@ -80,7 +80,7 @@ public class INHoopConsole extends INEmbeddedJPanel implements INHoopConsoleInte
 		clearButton.addActionListener(this);
 		
 		saveButton=new JButton ();	
-		saveButton.setIcon(INLink.imageIcons [19]);
+		saveButton.setIcon(INHoopLink.imageIcons [19]);
 		saveButton.setMargin(new Insets(1, 1, 1, 1));
 		//saveButton.setText("Save ...");
 		saveButton.setFont(new Font("Courier",1,8));
@@ -95,7 +95,7 @@ public class INHoopConsole extends INEmbeddedJPanel implements INHoopConsoleInte
 		
 		setButton=new JButton ();
 		//setButton.setText("Set");
-		setButton.setIcon(INLink.imageIcons [22]);
+		setButton.setIcon(INHoopLink.imageIcons [22]);
 		setButton.setMargin(new Insets(1, 1, 1, 1));
 		setButton.setFont(new Font("Courier",1,8));
 		setButton.setPreferredSize(new Dimension (16,16));
@@ -103,7 +103,7 @@ public class INHoopConsole extends INEmbeddedJPanel implements INHoopConsoleInte
 		
 		inButton=new JButton ();
 		//setButton.setText("Set");
-		inButton.setIcon(INLink.imageIcons [72]);
+		inButton.setIcon(INHoopLink.imageIcons [72]);
 		inButton.setMargin(new Insets(1, 1, 1, 1));
 		inButton.setFont(new Font("Courier",1,8));
 		inButton.setPreferredSize(new Dimension (16,16));
@@ -111,7 +111,7 @@ public class INHoopConsole extends INEmbeddedJPanel implements INHoopConsoleInte
 		
 		outButton=new JButton ();
 		//setButton.setText("Set");
-		outButton.setIcon(INLink.imageIcons [73]);
+		outButton.setIcon(INHoopLink.imageIcons [73]);
 		outButton.setMargin(new Insets(1, 1, 1, 1));
 		outButton.setFont(new Font("Courier",1,8));
 		outButton.setPreferredSize(new Dimension (16,16));
@@ -145,7 +145,7 @@ public class INHoopConsole extends INEmbeddedJPanel implements INHoopConsoleInte
 		
 		// We should be ready for action now
 		
-		INLink.console=this;
+		INHoopLink.console=this;
 		
 		setContentPane (mainBox);
 		//setSize (425,300);
@@ -241,6 +241,6 @@ public class INHoopConsole extends INEmbeddedJPanel implements INHoopConsoleInte
 	{
 		debug ("processClose ()");
 		
-		INLink.console=this;
+		INHoopLink.console=this;
 	}	
 }

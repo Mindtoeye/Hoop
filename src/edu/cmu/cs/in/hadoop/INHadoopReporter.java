@@ -24,6 +24,7 @@ import java.util.UUID;
 import org.apache.hadoop.mapred.JobConf;
 
 import edu.cmu.cs.in.base.INBase;
+import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.base.INLink;
 import edu.cmu.cs.in.stats.INPerformanceMetrics;
 import edu.cmu.cs.in.network.INMessageReceiver;
@@ -146,13 +147,13 @@ public class INHadoopReporter extends INBase implements INMessageReceiver
     	marker.setMarker(hadoopClass);
 
     	if (job!=null)
-    		socket.sendAndKeepOpen(INLink.monitorHost,
-    							   INLink.monitorPort,
+    		socket.sendAndKeepOpen(INHoopLink.monitorHost,
+    							   INHoopLink.monitorPort,
     							   "<?xml version=\"1.0\" encoding=\"utf-8\"?><register class=\""+hadoopClass+"\" job=\""+job.getJobName()+"\" node=\""+INHadoopReporter.getMachineName()+"\" guid=\""+guid+"\" time=\""+marker.getInPoint ()+"\" />",
     							   this);
     	else
-    		socket.sendAndKeepOpen(INLink.monitorHost,
-    							   INLink.monitorPort,
+    		socket.sendAndKeepOpen(INHoopLink.monitorHost,
+    							   INHoopLink.monitorPort,
     							   "<?xml version=\"1.0\" encoding=\"utf-8\"?><register class=\""+hadoopClass+"\" job=\"UndefinedJob\" node=\""+INHadoopReporter.getMachineName()+"\" guid=\""+guid+"\" time=\""+marker.getInPoint ()+"\" />",
     							   this);
     }    
@@ -165,13 +166,13 @@ public class INHadoopReporter extends INBase implements INMessageReceiver
     		return;
    	
     	if (job!=null)
-    		socket.sendAndKeepOpen(INLink.monitorHost,
-    							   INLink.monitorPort,
+    		socket.sendAndKeepOpen(INHoopLink.monitorHost,
+    							   INHoopLink.monitorPort,
     							   "<?xml version=\"1.0\" encoding=\"utf-8\"?><unregister class=\""+hadoopClass+"\" job=\""+job.getJobName()+"\" node=\""+INHadoopReporter.getMachineName()+"\" guid=\""+guid+"\" time=\""+marker.getOutPoint()+"\" />",
     							   this);
     	else
-    		socket.sendAndKeepOpen(INLink.monitorHost,
-    							   INLink.monitorPort,
+    		socket.sendAndKeepOpen(INHoopLink.monitorHost,
+    							   INHoopLink.monitorPort,
     							   "<?xml version=\"1.0\" encoding=\"utf-8\"?><unregister class=\""+hadoopClass+"\" job=\"UndefinedJob\" node=\""+INHadoopReporter.getMachineName()+"\" guid=\""+guid+"\" time=\""+marker.getOutPoint()+"\" />",
     							   this);
     	

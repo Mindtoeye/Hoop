@@ -52,6 +52,7 @@ import javax.swing.table.TableColumn;
 
 //import edu.cmu.old_pact.dormin.trace;
 //import edu.cmu.pact.BehaviorRecorder.Controller.BR_Controller;
+import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.base.INLink;
 import edu.cmu.cs.in.controls.base.INJPanel;
 //import edu.cmu.cs.in.controls.base.INJPanel;
@@ -106,8 +107,8 @@ public class INHoopInspectablePanel extends INJPanel implements ActionListener, 
     	
 		//close=new ImageIcon(getClass().getClassLoader().getResource("pact/CommWidgets/close.png"));
 		//open=new ImageIcon(getClass().getClassLoader().getResource("pact/CommWidgets/open.png"));
-    	close=INLink.imageIcons [82];
-    	open=INLink.imageIcons [83];
+    	close=INHoopLink.imageIcons [82];
+    	open=INHoopLink.imageIcons [83];
 		
 		this.setLayout (new BoxLayout (this,BoxLayout.X_AXIS));		
 		this.setBorder(BorderFactory.createRaisedBevelBorder());

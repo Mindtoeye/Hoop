@@ -21,7 +21,7 @@ package edu.cmu.cs.in.stats;
 import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.INBase;
-import edu.cmu.cs.in.base.INLink;
+import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.stats.INPerformanceMetrics;
 
 public class INStatistics extends INBase
@@ -74,15 +74,15 @@ public class INStatistics extends INBase
     {
     	debug ("calcStatistics ();");
    
-    	if (INLink.metrics==null)
+    	if (INHoopLink.metrics==null)
     	{
     		debug ("Error: no metrics data available");
     		return;
     	}
     	
-    	for (int i=0;i<INLink.metrics.size();i++)
+    	for (int i=0;i<INHoopLink.metrics.size();i++)
     	{    		
-    		INPerformanceMetrics entry=INLink.metrics.get(i);
+    		INPerformanceMetrics entry=INHoopLink.metrics.get(i);
     		
     		if (entry.isOpen()==false)
     		{

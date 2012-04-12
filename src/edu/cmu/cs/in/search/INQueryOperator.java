@@ -21,7 +21,7 @@ package edu.cmu.cs.in.search;
 import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.INBase;
-import edu.cmu.cs.in.base.INLink;
+import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.search.INPositionEntry;
 import edu.cmu.cs.in.search.INPositionList;
 
@@ -298,7 +298,7 @@ public class INQueryOperator extends INBase
 	{
 		debug ("loadPositionsList ("+this.getInstanceName()+")");
 		
-		if (INLink.posFiles==null)
+		if (INHoopLink.posFiles==null)
 		{
 			debug ("Error: no position lists available");
 			return (false);
@@ -306,17 +306,17 @@ public class INQueryOperator extends INBase
 		
 		Boolean found=false;
 		
-		for (int i=0;i<INLink.posFiles.size ();i++)
+		for (int i=0;i<INHoopLink.posFiles.size ();i++)
 		{
-			String fileName=INLink.posFiles.get(i);
+			String fileName=INHoopLink.posFiles.get(i);
 			//if (fileName.indexOf(this.getInstanceName())!=-1)
 			if (fileName.equals(this.getInstanceName())==true)
 			{
-				String invListURL=INLink.vocabularyPath+"/"+this.getInstanceName()+".inv";
+				String invListURL=INHoopLink.vocabularyPath+"/"+this.getInstanceName()+".inv";
 				
 				debug ("Loading: " + invListURL);
 						
-				if (INLink.fManager.doesFileExist (invListURL)==false)
+				if (INHoopLink.fManager.doesFileExist (invListURL)==false)
 				{
 					debug ("File does not exist");
 					setValid (false);
@@ -327,7 +327,7 @@ public class INQueryOperator extends INBase
 				
 					if (fastLoad==false)
 					{
-						ArrayList<String> lines=INLink.fManager.loadLines(invListURL);
+						ArrayList<String> lines=INHoopLink.fManager.loadLines(invListURL);
 						debug ("Loaded");
 						processPositions (lines);
 						lines=null; // Need to get rid of memory!!
@@ -420,7 +420,7 @@ public class INQueryOperator extends INBase
 	{
 		debug ("processPositions (String)");
 		
-		String aLine=INLink.fManager.readALine(invListURL);
+		String aLine=INHoopLink.fManager.readALine(invListURL);
 
 		int index=0;
 		
@@ -479,7 +479,7 @@ public class INQueryOperator extends INBase
 				posList.add(newEntry);
 			}
 			
-			aLine=INLink.fManager.readALine(invListURL);
+			aLine=INHoopLink.fManager.readALine(invListURL);
 			index++;
 		}
 		

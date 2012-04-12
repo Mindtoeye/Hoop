@@ -37,6 +37,7 @@ import javax.swing.border.EtchedBorder;
 
 import edu.cmu.cs.in.search.INDocument;
 import edu.cmu.cs.in.INLemurDocument;
+import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.base.INLink;
 import edu.cmu.cs.in.controls.base.INJPanel;
   
@@ -83,7 +84,7 @@ class INHoopDocumentListRenderer extends INJPanel implements ListCellRenderer, A
 		docLabel.setMaximumSize(new Dimension (5000,60));
 		
 		linker=new JButton ();
-		linker.setIcon (INLink.linkIcon);
+		linker.setIcon (INHoopLink.linkIcon);
 		linker.setFont(new Font("Dialog", 1, 10));
 		linker.setMinimumSize (new Dimension (17,17));
 		linker.setPreferredSize (new Dimension (17,17));

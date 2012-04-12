@@ -20,6 +20,7 @@ import java.awt.*;
 import javax.swing.*;
 
 import edu.cmu.cs.in.base.INBase;
+import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.base.INLink;
 import edu.cmu.cs.in.hoop.INHoopFrame;
 
@@ -36,8 +37,9 @@ public class INHoop
 	 */	
     public static void main( String[] args ) 
     {
+    	// run the INHoopLink constructor; We need this to have a global settings registry
     	@SuppressWarnings("unused")
-		INLink link = new INLink(); // run the INLink constructor; We need this to have a global settings registry    	    	
+		INHoopLink link = new INHoopLink();     	    	
    	
     	INBase.debug ("INQueryTest","main ()");
     	

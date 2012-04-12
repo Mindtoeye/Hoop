@@ -34,6 +34,7 @@ package edu.cmu.cs.in.hoop;
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicButtonUI;
 
+import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.base.INLink;
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 import edu.cmu.cs.in.controls.base.INJPanel;
@@ -184,7 +185,7 @@ public class INHoopTabPane extends INJPanel
             	INEmbeddedJPanel aContent=(INEmbeddedJPanel) pane.getComponentAt(i);
             	if (aContent!=null)
             	{
-            		INLink.removeWindow(aContent);
+            		INHoopLink.removeWindow(aContent);
             	}
                 pane.remove(i);
             }

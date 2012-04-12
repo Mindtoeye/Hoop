@@ -26,6 +26,7 @@ import org.apache.hadoop.io.*;
 import org.apache.hadoop.mapred.*;
 
 import edu.cmu.cs.in.base.INDf;
+import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.base.INLink;
 import edu.cmu.cs.in.stats.INPerformanceMetrics;
 import edu.cmu.cs.in.base.INToken;
@@ -134,11 +135,11 @@ public class INInvertedListReducer extends INHadoopReporter implements Reducer<T
 			return;
 		}
 		
-		if (INLink.metrics!=null)
+		if (INHoopLink.metrics!=null)
 		{
 			reducerMarker=new INPerformanceMetrics ();
 			reducerMarker.setMarker("Reducer");
-			INLink.metrics.add(reducerMarker);
+			INHoopLink.metrics.add(reducerMarker);
 		}
 		
 		/**

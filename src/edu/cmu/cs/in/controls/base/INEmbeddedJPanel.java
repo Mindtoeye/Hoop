@@ -26,7 +26,7 @@ import javax.swing.BorderFactory;
 //import javax.swing.BoxLayout;
 import javax.swing.border.Border;
 
-import edu.cmu.cs.in.base.INLink;
+import edu.cmu.cs.in.base.INHoopLink;
 
 /** 
  * @author vvelsen
@@ -63,7 +63,7 @@ public class INEmbeddedJPanel extends INJPanel
 	public void close ()
 	{
 		handleCloseEvent ();
-		INLink.removeWindow(this);
+		INHoopLink.removeWindow(this);
 	}
 	/**
 	 * 

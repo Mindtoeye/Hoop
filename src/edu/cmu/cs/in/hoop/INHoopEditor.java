@@ -36,7 +36,7 @@ import javax.swing.border.Border;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.view.mxGraph;
 
-import edu.cmu.cs.in.base.INLink;
+import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 //import edu.cmu.cs.in.controls.base.INJInternalFrame;
 
@@ -67,7 +67,7 @@ public class INHoopEditor extends INEmbeddedJPanel implements ActionListener
 		debug ("INHoopEditor ()");
 								
 		addLoadHoop=new JButton ();
-		addLoadHoop.setIcon(INLink.imageIcons [77]);
+		addLoadHoop.setIcon(INHoopLink.imageIcons [77]);
 		addLoadHoop.setMargin(new Insets(1, 1, 1, 1));		
 		addLoadHoop.setFont(new Font("Courier",1,8));
 		addLoadHoop.setMinimumSize(new Dimension (16,16));
@@ -75,7 +75,7 @@ public class INHoopEditor extends INEmbeddedJPanel implements ActionListener
 		addLoadHoop.addActionListener(this);
 		
 		addSaveHoop=new JButton ();
-		addSaveHoop.setIcon(INLink.imageIcons [78]);
+		addSaveHoop.setIcon(INHoopLink.imageIcons [78]);
 		addSaveHoop.setMargin(new Insets(1, 1, 1, 1));		
 		addSaveHoop.setFont(new Font("Courier",1,8));
 		addSaveHoop.setMinimumSize(new Dimension (16,16));
@@ -83,7 +83,7 @@ public class INHoopEditor extends INEmbeddedJPanel implements ActionListener
 		addSaveHoop.addActionListener(this);
 		
 		addToKVHoop=new JButton ();
-		addToKVHoop.setIcon(INLink.imageIcons [79]);
+		addToKVHoop.setIcon(INHoopLink.imageIcons [79]);
 		addToKVHoop.setMargin(new Insets(1, 1, 1, 1));		
 		addToKVHoop.setFont(new Font("Courier",1,8));
 		addToKVHoop.setMinimumSize(new Dimension (16,16));
@@ -91,7 +91,7 @@ public class INHoopEditor extends INEmbeddedJPanel implements ActionListener
 		addToKVHoop.addActionListener(this);
 		
 		addToListHoop=new JButton ();
-		addToListHoop.setIcon(INLink.imageIcons [80]);
+		addToListHoop.setIcon(INHoopLink.imageIcons [80]);
 		addToListHoop.setMargin(new Insets(1, 1, 1, 1));		
 		addToListHoop.setFont(new Font("Courier",1,8));
 		addToListHoop.setMinimumSize(new Dimension (16,16));
@@ -99,7 +99,7 @@ public class INHoopEditor extends INEmbeddedJPanel implements ActionListener
 		addToListHoop.addActionListener(this);
 		
 		addToTableHoop=new JButton ();
-		addToTableHoop.setIcon(INLink.imageIcons [81]);
+		addToTableHoop.setIcon(INHoopLink.imageIcons [81]);
 		addToTableHoop.setMargin(new Insets(1, 1, 1, 1));		
 		addToTableHoop.setFont(new Font("Courier",1,8));
 		addToTableHoop.setMinimumSize(new Dimension (16,16));

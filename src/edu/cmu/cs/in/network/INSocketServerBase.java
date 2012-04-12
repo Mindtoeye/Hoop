@@ -43,33 +43,33 @@ public class INSocketServerBase extends INHadoopReporter  implements Runnable
 
 	/**
 	*
-	*/	
+	*/
 	public INSocketServerBase ()
-	{  
+	{
     	setClassName ("INSocketServerBase");
     	debug ("INSocketServerBase ()");    	
 	}
 	/**
 	*
-	*/	
+	*/
 	public void setMessageHandler(INMessageHandler aHandler) 
 	{
 		messageHandler=aHandler;
-	}		
+	}	
 	/**
 	*
 	*/	
 	public INMessageHandler getMessageHandler() 
 	{
 		return messageHandler;
-	}	
+	}
 	/**
 	*
 	*/	
 	public void setLocalPort (int localPort) 
 	{
 		this.localPort = localPort;
-	}		
+	}
 	/**
 	*
 	*/	
@@ -84,7 +84,7 @@ public class INSocketServerBase extends INHadoopReporter  implements Runnable
 	{
 		debug ("runServer ()");
 		
-		setLocalPort (getLocalPort());
+		//setLocalPort (getLocalPort()); // ??? what the hell is this?
 
 		try	     
 		{  
@@ -126,7 +126,7 @@ public class INSocketServerBase extends INHadoopReporter  implements Runnable
 	/**
 	*
 	*/	   
-	public void start()  
+	public void start()
 	{ 
 		debug ("start ()");
 		

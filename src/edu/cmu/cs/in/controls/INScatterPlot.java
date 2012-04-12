@@ -30,13 +30,15 @@ import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 //import javax.swing.JLabel;
-import javax.swing.JPanel;
+//import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-import edu.cmu.cs.in.base.INBase;
+//import edu.cmu.cs.in.base.INBase;
+import edu.cmu.cs.in.base.INHoopLink;
+import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 import edu.cmu.cs.in.stats.INPerformanceMetrics;
 
-public class INScatterPlot extends JPanel
+public class INScatterPlot extends INEmbeddedJPanel
 {		
 	private static final long serialVersionUID = 316985892467849872L;
 	
@@ -61,17 +63,11 @@ public class INScatterPlot extends JPanel
 	 */
 	public INScatterPlot () 
 	{
+		setClassName ("INScatterPlot");
 		debug ("INScatterPlot ()");
 		
 		Border border=BorderFactory.createLineBorder(Color.red);
 		this.setBorder(border);		
-	}
-	/**
-	 *
-	 */
-	private void debug (String aMessage)
-	{
-		INBase.debug ("INScatterPlot",aMessage);	
 	}
 	/**
 	 *
@@ -240,5 +236,15 @@ public class INScatterPlot extends JPanel
     	
     	busy=false;
     }
+	/**
+	 *
+	 */	
+	public void updateContents() 
+	{
+		debug ("updateContents ()");
+		
+		//this.updateUI();
+		this.setData(INHoopLink.metrics);
+	}	    
 }
 

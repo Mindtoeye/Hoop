@@ -32,7 +32,9 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 import edu.cmu.cs.in.base.INBase;
-import edu.cmu.cs.in.base.INLink;
+import edu.cmu.cs.in.base.INHoopLink;
+//import edu.cmu.cs.in.base.INLink;
+//import edu.cmu.cs.in.network.INStreamedSocket;
 
 public class INGridNodeVisualizer extends JPanel
 {	
@@ -48,7 +50,7 @@ public class INGridNodeVisualizer extends JPanel
     private int paddingY=14;
 	
 	private ArrayList<INGridNode> nodes=null;
-	
+		
 	/**
 	 *
 	 */
@@ -58,7 +60,7 @@ public class INGridNodeVisualizer extends JPanel
 		
 		Border border=BorderFactory.createLineBorder(Color.black);
 		this.setBorder(border);
-		
+						
 		nodes=new ArrayList<INGridNode> ();
 	}
 	/**
@@ -66,11 +68,11 @@ public class INGridNodeVisualizer extends JPanel
 	 */
 	private void debug (String aMessage)
 	{
-		INBase.debug ("INGridNodeVisualizer",aMessage);	
+		INBase.debug ("INGridNodeVisualizer",aMessage);
 	}
 	/**
 	 *
-	 */	
+	 */
 	public void setNrColumns(int nrColumns) 
 	{
 		this.nrColumns = nrColumns;
@@ -222,8 +224,8 @@ public class INGridNodeVisualizer extends JPanel
         	
     		g.fill3DRect (xPos,yPos,nodeWidth,nodeHeight,true);
     		
-    		if (INLink.icon!=null)
-    			INLink.icon.paintIcon (this,g,xPos+2,yPos+2);
+    		if (INHoopLink.icon!=null)
+    			INHoopLink.icon.paintIcon (this,g,xPos+2,yPos+2);
 
     		g2.setColor (Color.black);
     		

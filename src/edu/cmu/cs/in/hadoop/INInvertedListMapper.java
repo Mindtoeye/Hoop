@@ -25,7 +25,7 @@ import org.apache.hadoop.io.*;
 import org.apache.hadoop.mapred.*;
 
 import edu.cmu.cs.in.INDocumentParser;
-import edu.cmu.cs.in.base.INLink;
+import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.stats.INPerformanceMetrics;
 import edu.cmu.cs.in.base.INToken;
 
@@ -83,11 +83,11 @@ public class INInvertedListMapper extends INHadoopReporter implements Mapper <Lo
 	{
 		debug ("map ()");
 				
-		if (INLink.metrics!=null)
+		if (INHoopLink.metrics!=null)
 		{
 			mapperMarker=new INPerformanceMetrics ();
 			mapperMarker.setMarker("Mapper");
-			INLink.metrics.add(mapperMarker);
+			INHoopLink.metrics.add(mapperMarker);
 		}
 		
 		if (value==null)

@@ -37,12 +37,27 @@ public class INHoopCluster extends INEmbeddedJPanel
 {  
 	private static final long serialVersionUID = 8387762921834350566L;
 
+	private INGridNodeVisualizer driver=null;
+	
 	/**
 	 * 
 	 */
 	public INHoopCluster() 
     {
-		setContentPane (new INGridNodeVisualizer ());
-		
+		driver=new INGridNodeVisualizer ();
+		setContentPane (driver);
     }
+	/**
+	 *
+	 */	
+	public void updateContents() 
+	{
+		debug ("updateContents ()");
+		
+		if (driver!=null)
+		{			
+			// This should result in a paint operation
+			driver.updateUI();
+		}	
+	}		
 }

@@ -32,12 +32,14 @@ import org.apache.hadoop.util.VersionInfo;
 
 //import edu.cmu.cs.in.INHoopMessageHandler;
 import edu.cmu.cs.in.base.INFileManager;
-import edu.cmu.cs.in.base.INLink;
+import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 import edu.cmu.cs.in.controls.base.INJFrame;
 //import edu.cmu.cs.in.controls.INScatterPlot;
 //import edu.cmu.cs.in.network.INSocketServerBase;
 //import edu.cmu.cs.in.stats.INStatistics;
+import edu.cmu.cs.in.network.INMessageReceiver;
+import edu.cmu.cs.in.network.INStreamedSocket;
 
 /** 
  * @author vvelsen
@@ -57,7 +59,7 @@ public class INHoopMultiViewFrame extends INJFrame implements ActionListener
     private JMenuBar menuBar=null;
 	private JToolBar toolBar=null;
 	private INHoopStatusBar statusBar=null;
-	
+		
 	/**
 	 *
 	 */	
@@ -73,8 +75,8 @@ public class INHoopMultiViewFrame extends INJFrame implements ActionListener
 	    
 	    loadImageIcons ();
 		
-		INLink.fManager=new INFileManager ();
-		INLink.posFiles=new ArrayList<String> ();
+		INHoopLink.fManager=new INFileManager ();
+		INHoopLink.posFiles=new ArrayList<String> ();
                         
         this.addWindowListener(new WindowAdapter() 
         {
@@ -91,7 +93,7 @@ public class INHoopMultiViewFrame extends INJFrame implements ActionListener
 	 */	
     public void showAboutBox() 
     {
-       JOptionPane.showMessageDialog(this, ABOUTMSG+"\n\nHoop version "+INHoopVersion.version+" (compiled on Hadoop "+VersionInfo.getVersion()+", running on port "+INLink.monitorPort+")");
+       JOptionPane.showMessageDialog(this, ABOUTMSG+"\n\nHoop version "+INHoopVersion.version+" (compiled on Hadoop "+VersionInfo.getVersion()+", running on port "+INHoopLink.monitorPort+")");
     }
     /**
      * 
@@ -127,7 +129,7 @@ public class INHoopMultiViewFrame extends INJFrame implements ActionListener
 	    imgURL=getClass().getResource("/assets/images/machine.png");
 	    if (imgURL!=null) 
 	    {
-	        INLink.icon=new ImageIcon(imgURL,"Machine");
+	        INHoopLink.icon=new ImageIcon(imgURL,"Machine");
 	    } 
 	    else 
 	    	debug ("Unable to load image ("+imgURL+") icon from jar");
@@ -135,7 +137,7 @@ public class INHoopMultiViewFrame extends INJFrame implements ActionListener
 	    java.net.URL linkURL=getClass().getResource("/assets/images/link.jpg");
 	    if (linkURL!=null) 
 	    {
-	        INLink.linkIcon=new ImageIcon(linkURL,"Link");
+	        INHoopLink.linkIcon=new ImageIcon(linkURL,"Link");
 	    } 
 	    else 
 	    	debug ("Unable to load image ("+linkURL+") icon from jar");
@@ -143,21 +145,21 @@ public class INHoopMultiViewFrame extends INJFrame implements ActionListener
 	    java.net.URL unlinkURL=getClass().getResource("/assets/images/broken.jpg");
 	    if (unlinkURL!=null) 
 	    {
-	        INLink.unlinkIcon=new ImageIcon(unlinkURL,"Unlink");
+	        INHoopLink.unlinkIcon=new ImageIcon(unlinkURL,"Unlink");
 	    } 
 	    else 
 	    	debug ("Unable to load image ("+unlinkURL+") icon from jar");	    	
     	
-    	INLink.imageIcons=new ImageIcon [INLink.imgURLs.length];
+    	INHoopLink.imageIcons=new ImageIcon [INHoopLink.imgURLs.length];
     	
-    	for (int i=0;i<INLink.imgURLs.length;i++)
+    	for (int i=0;i<INHoopLink.imgURLs.length;i++)
     	{
-    		loadPath="/assets/images/"+INLink.imgURLs [i];
+    		loadPath="/assets/images/"+INHoopLink.imgURLs [i];
     	    imgURL=getClass().getResource(loadPath);
 
     	    if (imgURL!=null) 
     	    {
-    	    	INLink.imageIcons [i]=new ImageIcon(imgURL,INLink.imgURLs [i]);
+    	    	INHoopLink.imageIcons [i]=new ImageIcon(imgURL,INHoopLink.imgURLs [i]);
     	    	debug ("Loaded: " + loadPath);
     	    } 
     	    else 
@@ -177,45 +179,7 @@ public class INHoopMultiViewFrame extends INJFrame implements ActionListener
 																								
         menuBar = new JMenuBar ();
         setJMenuBar(menuBar);
-		
-		// Add a plotter ...
-
-		/*
-		plotter=new INScatterPlot ();
-		plotter.setMinimumSize(new Dimension (200,150));
-		plotter.setPreferredSize(new Dimension (5000,150));
-		plotter.setMaximumSize(new Dimension (5000,150));		
-		
-		Box statsBox = new Box (BoxLayout.X_AXIS);
-		//statsBox.setBorder(redborder);					
-		statsBox.setMinimumSize(new Dimension (20,110));
-		statsBox.setPreferredSize(new Dimension (5000,110));
-		statsBox.setMaximumSize(new Dimension (5000,110));	
-				
-		statsBox.add (plotter);
-		*/						
-				
-		/*
-		JTextArea rawStats=new JTextArea ();
-		rawStats.setBorder(blackborder);
-		rawStats.setEditable (false);
-		rawStats.setFont(new Font("Dialog", 1, 10));
-		rawStats.setMinimumSize(new Dimension (50,60));
-		rawStats.setPreferredSize(new Dimension (5000,60));
-		rawStats.setMaximumSize(new Dimension (5000,60));
-		*/
-			
-		/*
-		JTabbedPane tabbedPane = new JTabbedPane();
-		tabbedPane.setFont(new Font("Dialog", 1, 10));
-		
-		statsBox.setBorder(padding);
-		tabbedPane.addTab("Plots & Graphs",null,statsBox,"Visual representations of statistics");
-				
-		rawStats.setBorder(padding);
-		tabbedPane.addTab("Raw Statistics",null,rawStats,"Raw statistical data");
-		*/
-				
+						
 		// Finally add your vanilla default standard status bar ...
 						
 		statusBar=new INHoopStatusBar ();
@@ -223,10 +187,7 @@ public class INHoopMultiViewFrame extends INJFrame implements ActionListener
 		statusBar.setMinimumSize(new Dimension (50,22));
 		statusBar.setPreferredSize(new Dimension (5000,22));
 		statusBar.setMaximumSize(new Dimension (5000,22));		
-		
-		//getContentPane ().add (centerBox);
-		//getContentPane ().add (tabbedPane);
-		
+				
 		toolBar = new JToolBar("Still draggable");
         //addButtons(toolBar);
         toolBar.setMinimumSize(new Dimension (50,24));
@@ -267,28 +228,8 @@ public class INHoopMultiViewFrame extends INJFrame implements ActionListener
        	cp.add(multiSplitPane, BorderLayout.CENTER);
        	
        	getContentPane ().add (statusBar);
-				
-       	/*
-		handler=new INHoopMessageHandler (stats,plotter,rawStats,null);
-		
-		server=new INSocketServerBase ();
-		server.setLocalPort (INLink.monitorPort);
-		server.setMessageHandler (handler);
-				
-		server.runServer ();
-		*/
-		
-		debug ("Ready for input");        
-		
-		/*
-		addView ("Package Explorer",new JPanel (),left);
-		addView ("Navigator",new JPanel (),left);
-		
-		addView ("Search",new JPanel (),bottom);
-		
-		addView ("Problems",new JPanel (),right);		
-		addView ("Console",new JPanel (),right);
-		*/    	
+       									
+		debug ("Ready for input");        		 	
     }
 	/**
 	 *
@@ -322,16 +263,16 @@ public class INHoopMultiViewFrame extends INJFrame implements ActionListener
     {
     	debug ("addView ("+aTitle+",INEmbeddedJPanel,JTabbedPane)");
     	
-    	if (INLink.getWindow(aTitle)!=null)
+    	if (INHoopLink.getWindow(aTitle)!=null)
     	{
     		debug ("We already have such a window, aborting");
     		return;
     	}
     	
     	aContent.setInstanceName(aTitle);
-    	INLink.addWindow(aContent);
+    	INHoopLink.addWindow(aContent);
     	
-    	aPane.addTab(aTitle,INLink.imageIcons [5],aContent,"New Panel");
+    	aPane.addTab(aTitle,INHoopLink.imageIcons [5],aContent,"New Panel");
     	int index=aPane.indexOfComponent (aContent);
     	INHoopTabPane pane=new INHoopTabPane (aPane);
     	aPane.setTabComponentAt(index,pane);
@@ -376,5 +317,5 @@ public class INHoopMultiViewFrame extends INJFrame implements ActionListener
 	public void actionPerformed (ActionEvent event) 
 	{
 		debug("actionPerformed ()");
-	}  
+	}
 }

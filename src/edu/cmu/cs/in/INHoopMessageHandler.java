@@ -28,11 +28,12 @@ import javax.swing.JTextArea;
 import org.w3c.dom.Element;
 
 import edu.cmu.cs.in.base.INBase;
-import edu.cmu.cs.in.base.INLink;
+import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.controls.INGridNodeVisualizer;
 import edu.cmu.cs.in.controls.INJFeatureList;
 import edu.cmu.cs.in.controls.INScatterPlot;
 import edu.cmu.cs.in.controls.INVisualFeature;
+import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 import edu.cmu.cs.in.stats.INPerformanceMetrics;
 import edu.cmu.cs.in.stats.INStatistics;
 import edu.cmu.cs.in.network.INMessageHandler;
@@ -43,32 +44,30 @@ import edu.cmu.cs.in.network.INMessageHandler;
 public class INHoopMessageHandler extends INBase implements INMessageHandler
 {    	
 	private INStatistics stats=null;
-	private INScatterPlot plotter=null;
+	//private INScatterPlot plotter=null;
 	private JTextArea rawStats=null;
-	private INGridNodeVisualizer clusterGrid=null;
-	private INJFeatureList jobList=null;
+	//private INGridNodeVisualizer clusterGrid=null;
+	//private INJFeatureList jobList=null;
 	private DefaultListModel listModel=null;
-	private ArrayList <String>jobs=null;
+	//private ArrayList <String>jobs=null;
 	
 	/**
 	*
 	*/	
 	public INHoopMessageHandler (INStatistics aStats,
-								 INScatterPlot aPlotter,
-								 JTextArea aStatsPanel,
-								 INGridNodeVisualizer aGrid)
+								 JTextArea aStatsPanel)
 	{  
     	setClassName ("INHoopMessageHandler");
     	debug ("INHoopMessageHandler ()");
     	
     	stats=aStats;
-    	plotter=aPlotter;
+    	//plotter=aPlotter;
     	rawStats=aStatsPanel;
-    	clusterGrid=aGrid;
+    	//clusterGrid=aGrid;
     	//jobList=aJobList;
     	listModel = new DefaultListModel();
     	//aJobList.setModel(listModel);
-    	jobs=new ArrayList ();
+    	//jobs=new ArrayList ();
 	}	
 	/**
 	 *
@@ -86,9 +85,9 @@ public class INHoopMessageHandler extends INBase implements INMessageHandler
 	 */
     private INPerformanceMetrics findPerformanceMetric (String guid)
     {
-    	for (int i=0;i<INLink.metrics.size();i++)
+    	for (int i=0;i<INHoopLink.metrics.size();i++)
     	{
-    		INPerformanceMetrics check=INLink.metrics.get(i);
+    		INPerformanceMetrics check=INHoopLink.metrics.get(i);
     		if (check.getGuid().equals(guid)==true)
     		{
     			return (check);
@@ -104,24 +103,27 @@ public class INHoopMessageHandler extends INBase implements INMessageHandler
     {
     	if (aJob.isEmpty()==true)
     		return;
-    	
-    	if (jobList==null)
-    		return;
-    	
-    	for (int i=0;i<jobs.size();i++)
+    	    	
+    	for (int i=0;i<INHoopLink.jobs.size();i++)
     	{
-    		String job=jobs.get(i);
+    		String job=INHoopLink.jobs.get(i);
     		if (job.equals(aJob)==true)
     			return; // Already know about this one
     	}
     	
-    	jobs.add(aJob);
+    	INHoopLink.jobs.add(aJob);
     	    	
     	INVisualFeature feature=new INVisualFeature ();
     	feature.setInstanceName(aJob);
     	feature.setText(aJob);
     	listModel.addElement (feature);
-    	jobList.invalidate();
+    	
+		INEmbeddedJPanel win=INHoopLink.getWindow ("Hadoop Jobs");
+		if (win!=null)
+		{
+			win.updateContents();
+	    	//jobList.invalidate();
+		}    	
     }
 	/**
 	 *
@@ -133,14 +135,14 @@ public class INHoopMessageHandler extends INBase implements INMessageHandler
     	String hadoopID="";
     	String hadoopGUID="";
     	String hadoopNode="";
-    	Long   time=(long) 0;
+    	Long time=(long) 0;
     	
 		if (root.getNodeName().equals("register")==true)
 		{			
 			debug ("Processing register messsage ...");
 			
 			addJob (root.getAttribute("job"));
-			
+						
 			hadoopID=root.getAttribute("class");
 			hadoopGUID=root.getAttribute("guid");
 			hadoopNode=root.getAttribute("node");			
@@ -163,8 +165,14 @@ public class INHoopMessageHandler extends INBase implements INMessageHandler
 					clusterGrid.incNodeReducer (hadoopNode);
 			}
 			*/
+									
+			INHoopLink.metrics.add(measure);
 			
-			INLink.metrics.add(measure);
+			INEmbeddedJPanel win=INHoopLink.getWindow ("Cluster");
+			if (win!=null)
+			{
+				win.updateContents();
+			}
 		}
 		
 		if (root.getNodeName().equals("unregister")==true)
@@ -208,10 +216,24 @@ public class INHoopMessageHandler extends INBase implements INMessageHandler
 					rawStats.append(results);
 				}
 			}
+			
+			INEmbeddedJPanel win=INHoopLink.getWindow ("Cluster");
+			if (win!=null)
+			{
+				win.updateContents();
+			}			
 		}
 		
+		/*
 		if (plotter!=null)
-			plotter.setData(INLink.metrics);
+			plotter.setData(INHoopLink.metrics);
+		*/
+
+		INEmbeddedJPanel plotwin=INHoopLink.getWindow ("Plotter");
+		if (plotwin!=null)
+		{
+			plotwin.updateContents();
+		}			
 		
 		if (hadoopID.toLowerCase().equals("main")==false)
 		{
@@ -219,7 +241,7 @@ public class INHoopMessageHandler extends INBase implements INMessageHandler
 			{
 				StringBuffer formatter=new StringBuffer ();
 				formatter.append("Status: Running\n");
-				formatter.append("Nr. Measures: " + INLink.metrics.size()+"\n");
+				formatter.append("Nr. Measures: " + INHoopLink.metrics.size()+"\n");
 				rawStats.setText (formatter.toString());
 			}
 		}	

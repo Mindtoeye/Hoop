@@ -113,13 +113,13 @@ public class INBase
 		
 		StringBuffer buffer=new StringBuffer ();
 					
-		buffer.append(String.format ("[%s] [%d] <"+aClass+"> %s\n", generateFileTimestamp (), ++INFeatureMatrixLink.debugLine, s));
+		buffer.append(String.format ("[%s] [%d] <"+aClass+"> %s\n", generateFileTimestamp (), ++INHoopLink.debugLine, s));
 
 		System.out.print (buffer.toString());
 		
-		if (INLink.console!=null)
+		if (INHoopLink.console!=null)
 		{
-			INLink.console.appendString (buffer.toString ());		
+			INHoopLink.console.appendString (buffer.toString ());		
 		}
 	}    
 	/**
@@ -129,13 +129,13 @@ public class INBase
 	{
 		StringBuffer buffer=new StringBuffer ();
 
-		buffer.append (String.format ("[%s] [%d] <"+className+"> %s\n", generateFileTimestamp (), ++INFeatureMatrixLink.debugLine, s));
+		buffer.append (String.format ("[%s] [%d] <"+className+"> %s\n", generateFileTimestamp (), ++INHoopLink.debugLine, s));
 
 		System.out.print (buffer.toString());
 		
-		if (INLink.console!=null)
+		if (INHoopLink.console!=null)
 		{
-			INLink.console.appendString (buffer.toString ());
+			INHoopLink.console.appendString (buffer.toString ());
 		}
 	}  
 	/**

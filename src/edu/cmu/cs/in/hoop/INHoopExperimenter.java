@@ -45,7 +45,7 @@ import com.mxgraph.layout.mxCompactTreeLayout;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.view.mxGraph;
 
-import edu.cmu.cs.in.base.INLink;
+import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.search.INQueryOperator;
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 import edu.cmu.cs.in.controls.base.INJInternalFrame;
@@ -187,9 +187,9 @@ public class INHoopExperimenter extends INEmbeddedJPanel implements ActionListen
 	        		
 	        	debug ("Loading: " + file.getPath() + " ...");
 	        		
-	        	INLink.queries=INLink.fManager.loadLines(file.getPath());
+	        	INHoopLink.queries=INHoopLink.fManager.loadLines(file.getPath());
 	        		
-	        	queryStats.setText("Loaded " + INLink.queries.size() + " runnable queries");
+	        	queryStats.setText("Loaded " + INHoopLink.queries.size() + " runnable queries");
 	        		
 	        	filePath.setText(file.getPath());
 	        }
@@ -199,26 +199,26 @@ public class INHoopExperimenter extends INEmbeddedJPanel implements ActionListen
 		
 		if (button.getText().equals("Run"))
 		{
-			if (INLink.posFiles==null)
+			if (INHoopLink.posFiles==null)
 			{
 				JOptionPane.showMessageDialog(null, "Warning, no vocabulary loaded!");
 				return;
 			}
 			
-			if (INLink.posFiles.size()==0)
+			if (INHoopLink.posFiles.size()==0)
 			{
 				JOptionPane.showMessageDialog(null, "Warning, no vocabulary loaded!");
 				return;
 			}
 			
-			if (INLink.queries==null)
+			if (INHoopLink.queries==null)
 			{
 				queryStats.setText ("Please load an experiment file first");
 				JOptionPane.showMessageDialog(null, "Please load an experiment file first");
 				return;
 			}
 			
-			if (INLink.queries.size()==0)
+			if (INHoopLink.queries.size()==0)
 			{
 				queryStats.setText ("Experiment file has 0 entries");
 				JOptionPane.showMessageDialog(null, "Experiment file has 0 entries");
@@ -229,15 +229,15 @@ public class INHoopExperimenter extends INEmbeddedJPanel implements ActionListen
 			
 			INPerformanceMetrics metrics=new INPerformanceMetrics ();
 			metrics.setMarker ("Query Experiment");
-			INLink.metrics.add(metrics);
+			INHoopLink.metrics.add(metrics);
 			
 			DefaultListModel mdl=new DefaultListModel ();
 			
 			searchList.setModel (mdl);
 									
-			for (int i=0;i<INLink.queries.size();i++)
+			for (int i=0;i<INHoopLink.queries.size();i++)
 			{
-				String aQuery=INLink.queries.get(i);
+				String aQuery=INHoopLink.queries.get(i);
 				
 				String [] preProcess=aQuery.split("\\:");
 				
@@ -258,7 +258,7 @@ public class INHoopExperimenter extends INEmbeddedJPanel implements ActionListen
 					visualize (null,aSearch.getRootQueryOperator());
 				}
 				
-				INLink.searchHistory.add (aSearch);
+				INHoopLink.searchHistory.add (aSearch);
 				
 				StringBuffer formatter=new StringBuffer ();
 				
@@ -283,7 +283,7 @@ public class INHoopExperimenter extends INEmbeddedJPanel implements ActionListen
 			long timeTaken=metrics.getMarkerRaw ();
 			queryStats.setText(metrics.getMetrics(timeTaken));
 			
-			INLink.experimentNr++;			
+			INHoopLink.experimentNr++;			
 		}
 		
 		//>---------------------------------------------------------
@@ -357,15 +357,15 @@ public class INHoopExperimenter extends INEmbeddedJPanel implements ActionListen
 		
 		if (selectedRow!=-1)
 		{
-			INTextSearch aSearch=INLink.searchHistory.get(selectedRow);
+			INTextSearch aSearch=INHoopLink.searchHistory.get(selectedRow);
 						
 			if (aSearch!=null)
 			{
 				visualize (null,aSearch.getRootQueryOperator());
 				
-				INLink.dataSet=aSearch.getDataSet();
+				INHoopLink.dataSet=aSearch.getDataSet();
 				
-				INLink.updateAllWindows ();
+				INHoopLink.updateAllWindows ();
 			}			
 		}
 	}	

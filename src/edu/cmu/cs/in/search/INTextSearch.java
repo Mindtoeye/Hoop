@@ -24,7 +24,7 @@ import java.util.Collections;
 import edu.cmu.cs.in.search.INDataSet;
 import edu.cmu.cs.in.search.INDocument;
 import edu.cmu.cs.in.base.INBase;
-import edu.cmu.cs.in.base.INLink;
+import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.search.INQueryOperator;
 import edu.cmu.cs.in.search.INPositionEntry;
 import edu.cmu.cs.in.search.INPositionList;
@@ -44,7 +44,7 @@ public class INTextSearch extends INBase
     private int topDocs=100;
     
     // This is where the resulting dataset/document set will end up
-    // When this is all filled up it will be assigned to INLink.dataSet
+    // When this is all filled up it will be assigned to INHoopLink.dataSet
     // so that other objects can use the set
     private INDataSet localDataSet=null;
     
@@ -99,7 +99,7 @@ public class INTextSearch extends INBase
 		
 		INPerformanceMetrics metrics=new INPerformanceMetrics ();
 		metrics.setMarker ("Query ");
-		INLink.metrics.add(metrics);
+		INHoopLink.metrics.add(metrics);
 		
 		// Also measure memory, might be useful
 		
@@ -146,7 +146,7 @@ public class INTextSearch extends INBase
 	{
 		debug ("rankDocumentList ("+aList.getPosEntries().size()+")");
 		
-		INLink.dataSet=new INDataSet ();
+		INHoopLink.dataSet=new INDataSet ();
 		
 		ArrayList<INPositionEntry> docIDs=aList.getPosEntries();
 		
@@ -176,7 +176,7 @@ public class INTextSearch extends INBase
 			localDataSet.addDocument (newDocument);						
 		}
 		
-		INLink.dataSet=localDataSet;
+		INHoopLink.dataSet=localDataSet;
 		
 		return (localDataSet);
 	}
@@ -412,14 +412,14 @@ public class INTextSearch extends INBase
 	{
 		debug ("removeStops ()");
 		
-		if (INLink.stops==null)
+		if (INHoopLink.stops==null)
 			return (aList);
 		
 		String [] changer=aList;
 		
-		for (int i=0;i<INLink.stops.length;i++)
+		for (int i=0;i<INHoopLink.stops.length;i++)
 		{			
-			String stopWord=INLink.stops [i];
+			String stopWord=INHoopLink.stops [i];
 			changer=removeElements (changer,stopWord);
 		}
 		

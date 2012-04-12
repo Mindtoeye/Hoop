@@ -31,7 +31,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
-import edu.cmu.cs.in.base.INLink;
+import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.controls.INJFeatureList;
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 //import edu.cmu.cs.in.controls.base.INJInternalFrame;
@@ -90,7 +90,7 @@ public class INHoopStopWordEditor extends INEmbeddedJPanel implements ActionList
 	{
 		debug ("loadData ()");
 		
-		stopList.modelFromArray (INLink.stops);   	
+		stopList.modelFromArray (INHoopLink.stops);   	
 		stopList.selectAll();		
 	}
 	/**
@@ -136,15 +136,15 @@ public class INHoopStopWordEditor extends INEmbeddedJPanel implements ActionList
 	        		
 	        		debug ("Loading: " + file.getPath() + " ...");
 	        		
-	        		ArrayList <String> newStops=INLink.fManager.loadLines(file.getPath());
+	        		ArrayList <String> newStops=INHoopLink.fManager.loadLines(file.getPath());
 	        		
 	        		stopList.modelFromArrayList (newStops);
 	        		
-	        		INLink.stops=new String [newStops.size()];
+	        		INHoopLink.stops=new String [newStops.size()];
 	        		
 	        		for (int t=0;t<newStops.size();t++)
 	        		{
-	        			INLink.stops [t]=newStops.get(t);
+	        			INHoopLink.stops [t]=newStops.get(t);
 	        		}
 	        	}
 	        }			

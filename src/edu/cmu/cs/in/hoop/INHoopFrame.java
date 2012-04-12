@@ -22,18 +22,21 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-import edu.cmu.cs.in.INHoopMessageHandler;
-import edu.cmu.cs.in.base.INLink;
+//import edu.cmu.cs.in.INHoopMessageHandler;
+import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.controls.INScatterPlot;
+//import edu.cmu.cs.in.controls.INScatterPlot;
 import edu.cmu.cs.in.hoop.properties.INHoopPropertyPanel;
-import edu.cmu.cs.in.network.INSocketServerBase;
-import edu.cmu.cs.in.stats.INStatistics;
+//import edu.cmu.cs.in.network.INSocketServerBase;
+//import edu.cmu.cs.in.stats.INStatistics;
+import edu.cmu.cs.in.network.INMessageReceiver;
+import edu.cmu.cs.in.network.INStreamedSocket;
 
 /** 
  * @author vvelsen
  *
  */
-public class INHoopFrame extends INHoopMultiViewFrame implements ActionListener
+public class INHoopFrame extends INHoopMultiViewFrame implements ActionListener, INMessageReceiver
 {
 	private static final long serialVersionUID = 2788834485599638868L;
 	
@@ -43,17 +46,18 @@ public class INHoopFrame extends INHoopMultiViewFrame implements ActionListener
     static final private String UP = "up";
     static final private String NEXT = "next";
 	    
-	private INSocketServerBase server=null;
+	//private INSocketServerBase server=null;
 	//private INHoopMessageHandler handler=null;
-	//private INStatistics stats=null;
-	//private INScatterPlot plotter=null; 		
+	//private INStatistics stats=null; 		
 	//private INHoopJobList jobListWindow=null;
 	//private INHoopStopWordEditor stopListEditor=null;
 	//private INHoopVocabularyEditor vocabularyEditor=null;	
 	//private	INHoopStatusBar statusbar=null;
-	//private	INHoopEditor hoopEditor=null;	
+	//private	INHoopEditor hoopEditor=null;
+    private INScatterPlot plotter=null;
 	private INHoopConsole console=null;
 	private INHoopPropertyPanel propPanel=null;
+	private INStreamedSocket brokerConnection=null;
 			
 	/**
 	 *
@@ -65,6 +69,9 @@ public class INHoopFrame extends INHoopMultiViewFrame implements ActionListener
         //buildContent();
         buildMenus();       
         addButtons (this.getToolBar());
+        
+       	brokerConnection=new INStreamedSocket ();
+       	brokerConnection.sendAndKeepOpen("127.0.0.1",8080,"<register client=\"ui\" />",this);
     }
 	/**
 	 *
@@ -199,7 +206,19 @@ public class INHoopFrame extends INHoopMultiViewFrame implements ActionListener
     	    	
     	    	addView ("Console",console,bottom);    	    	
     		}
-    	});    	    
+    	});    
+    	
+    	JMenuItem plotterItem=new JMenuItem("Main Data Plotter");    	
+    	
+    	plotterItem.addActionListener(new ActionListener() 
+    	{
+    		public void actionPerformed(ActionEvent e) 
+    		{
+    	    	plotter=new INScatterPlot ();
+    	    	
+    	    	addView ("Plotter",plotter,bottom);    	    	
+    		}
+    	});        	
     	
     	JMenuItem propertiesItem=new JMenuItem("Properties");    	
     	
@@ -384,7 +403,7 @@ public class INHoopFrame extends INHoopMultiViewFrame implements ActionListener
         							  PREVIOUS,
                                       "Back to previous something-or-other",
                                       "Previous",
-                                      INLink.imageIcons [44]);        
+                                      INHoopLink.imageIcons [44]);        
         
         toolBar.add(button);
         
@@ -393,7 +412,7 @@ public class INHoopFrame extends INHoopMultiViewFrame implements ActionListener
         							  PREVIOUS,
                                       "Back to previous something-or-other",
                                       "Previous",
-                                      INLink.imageIcons [16]);
+                                      INHoopLink.imageIcons [16]);
         toolBar.add(button);
 
         //second button
@@ -401,7 +420,7 @@ public class INHoopFrame extends INHoopMultiViewFrame implements ActionListener
         							  UP,
                                       "Up to something-or-other",
                                       "Up",
-                                      INLink.imageIcons [55]);
+                                      INHoopLink.imageIcons [55]);
         toolBar.add(button);
 
         //third button
@@ -409,7 +428,7 @@ public class INHoopFrame extends INHoopMultiViewFrame implements ActionListener
         							  NEXT,
                                       "Forward to something-or-other",
                                       "Next",
-                                      INLink.imageIcons [56]);
+                                      INHoopLink.imageIcons [56]);
         toolBar.add (button);
         
         JSeparator sep=new JSeparator(SwingConstants.VERTICAL);
@@ -423,7 +442,7 @@ public class INHoopFrame extends INHoopMultiViewFrame implements ActionListener
         							  NEXT,
                                       "Forward to something-or-other",
                                       "Next",
-                                      INLink.imageIcons [2]);
+                                      INHoopLink.imageIcons [2]);
         toolBar.add (button);
         
         //third button
@@ -431,7 +450,7 @@ public class INHoopFrame extends INHoopMultiViewFrame implements ActionListener
         							  NEXT,
                                       "Forward to something-or-other",
                                       "Next",
-                                      INLink.imageIcons [69]);
+                                      INHoopLink.imageIcons [69]);
         toolBar.add (button);        
     }     
 	/**
@@ -460,5 +479,23 @@ public class INHoopFrame extends INHoopMultiViewFrame implements ActionListener
     {
         //MetalworksPrefs dialog = new MetalworksPrefs(this);
         //dialog.show();
-    }  
+    }
+	/**
+	 *
+	 */	
+	@Override
+	public void handleIncomingData(String data) 
+	{
+		// TODO Auto-generated method stub
+		
+	}
+	/**
+	 *
+	 */	
+	@Override
+	public void handleConnectionClosed() 
+	{
+		// TODO Auto-generated method stub
+		
+	}      
 }

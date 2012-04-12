@@ -47,6 +47,7 @@ import org.apache.hadoop.util.*;
 import edu.cmu.cs.in.search.INDataSet;
 import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.INFileManager;
+import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.base.INLink;
 import edu.cmu.cs.in.network.INSocketServerBase;
 import edu.cmu.cs.in.stats.INPerformanceMetrics;
@@ -61,7 +62,8 @@ import edu.cmu.cs.in.hadoop.INWholeFileInputFormat;
 
 import edu.cmu.cs.in.hadoop.INPartitioner;
 
-public class INMain extends INSocketServerBase
+//public class INHoopRemoteTask extends INSocketServerBase
+public class INHoopRemoteTask extends INHadoopReporter
 {	
 	public static final String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss";
 	private INDataSet data=null;
@@ -70,10 +72,10 @@ public class INMain extends INSocketServerBase
 	/**
 	 *
 	 */
-    public INMain () 
+    public INHoopRemoteTask () 
     {
-		setClassName ("INMain");
-		debug ("INMain ()");
+		setClassName ("INHoopRemoteTask");
+		debug ("INHoopRemoteTask ()");
 		INBase.debug ("INHoop","Running on: "+INHadoopReporter.getMachineName ());
     }
     /**
@@ -100,7 +102,7 @@ public class INMain extends INSocketServerBase
     	System.out.println (" 2) Running the MapReduce task on hadoop");
     	System.out.println (" 3) Post processing/analyzing hadoop output");
     	System.out.println (" ");    	
-    	System.out.println ("Usage 1): -classpath INMain.jar INMain <options>");
+    	System.out.println ("Usage 1): -classpath INHoopRemoteTask.jar INHoopRemoteTask <options>");
     	System.out.println (" <options>:");
     	System.out.println ("	-task wordcount|invert");
     	System.out.println ("	-splitsize <nr> (Default: 10)"); // 10, 10K or 60K    	
@@ -114,9 +116,9 @@ public class INMain extends INSocketServerBase
     	System.out.println ("	-outputpath <path>");
     	System.out.println ("	-monitorhost <ip|hostname>");    	
     	System.out.println ("Example:");    	
-    	System.out.println (" java -classpath INMain.jar INMain -cleanoutput yes -datapath /Root/DataSet/Wiki-10 -outputpath Root/Results/");    	
+    	System.out.println (" java -classpath INHoopRemoteTask.jar INHoopRemoteTask -cleanoutput yes -datapath /Root/DataSet/Wiki-10 -outputpath Root/Results/");    	
     	System.out.println (" ");    	
-    	System.out.println ("Usage 2): -classpath INMain.jar INMain -hadoop <options>");
+    	System.out.println ("Usage 2): -classpath INHoopRemoteTask.jar INHoopRemoteTask -hadoop <options>");
     	System.out.println (" <options>:");
     	System.out.println ("	-splitsize <nr> (Default: 10)"); // 10, 10K or 60K    	
     	System.out.println ("	-shards <nr> (Default: 1)");    	
@@ -129,9 +131,9 @@ public class INMain extends INSocketServerBase
     	System.out.println ("	-outputpath <path>");    	
     	System.out.println ("	-monitorhost <ip|hostname>");    	
     	System.out.println ("Example:");    	
-    	System.out.println (" java -classpath INMain.jar INMain -datapath /user/hduser/Wiki-10 -outputpath /user/hduser/output");    	
+    	System.out.println (" java -classpath INHoopRemoteTask.jar INHoopRemoteTask -datapath /user/hduser/Wiki-10 -outputpath /user/hduser/output");    	
     	System.out.println (" ");
-    	System.out.println ("Usage 3): -classpath INMain.jar INSorterStats <options>");
+    	System.out.println ("Usage 3): -classpath INHoopRemoteTask.jar INSorterStats <options>");
     	System.out.println (" <options>:");
     	System.out.println ("   -inputfile <path-to-file");
     	System.out.println ("	-gettop yes/no (Default: no) Shows the top 25 frequencies for the selected input");    	
@@ -139,14 +141,14 @@ public class INMain extends INSocketServerBase
     	System.out.println ("	-getshowrare yes/no (Default: no) For the frequencies 1,2,3,4,5 create output files using the output path and list the terms for each");    	
     	System.out.println (" ");    	
     	System.out.println ("Example:");    	
-    	System.out.println (" java -classpath INMain.jar INSorterStats -getshowrare yes -inputfile Root/Results/MapReduced-60k.txt -outputpath Root/Results/");
+    	System.out.println (" java -classpath INHoopRemoteTask.jar INSorterStats -getshowrare yes -inputfile Root/Results/MapReduced-60k.txt -outputpath Root/Results/");
     }
     /**
 	 *
 	 */    
     private static void dbg (String aMessage)
     {
-    	INBase.debug ("INMain",aMessage);
+    	INBase.debug ("INHoopRemoteTask",aMessage);
     }
     /**
 	 *
@@ -382,7 +384,7 @@ public class INMain extends INSocketServerBase
 		
 		try 
 		{
-			in=INMain.hdfs.open (inFile);
+			in=INHoopRemoteTask.hdfs.open (inFile);
 			
 			BufferedReader reader=new BufferedReader(new InputStreamReader(in));
 			
@@ -445,7 +447,7 @@ public class INMain extends INSocketServerBase
     	
     		try 
     		{
-    			in=INMain.hdfs.open (inFile);
+    			in=INHoopRemoteTask.hdfs.open (inFile);
     			
     			BufferedReader reader=new BufferedReader(new InputStreamReader(in));
     			
@@ -456,7 +458,7 @@ public class INMain extends INSocketServerBase
     			int partition=0;
     			
     			outFile=new Path (output+"/partition-"+partition+"-00000.txt");    					
-				out=INMain.hdfs.create (outFile);
+				out=INHoopRemoteTask.hdfs.create (outFile);
     			
 				if (out!=null)
 				{
@@ -475,7 +477,7 @@ public class INMain extends INSocketServerBase
 							partition++;
     					
 							outFile=new Path (output+"/partition-"+partition+"-00000.txt");    					
-							out=INMain.hdfs.create (outFile);
+							out=INHoopRemoteTask.hdfs.create (outFile);
     					
 							split++;
 							count=0;
@@ -579,7 +581,7 @@ public class INMain extends INSocketServerBase
     	
     	INPerformanceMetrics metrics=new INPerformanceMetrics ();
     	metrics.setMarker ("main");
-    	INLink.metrics.add(metrics);
+    	INHoopLink.metrics.add(metrics);
     	    	
     	if (parseArgs (args)==false)
     	{
@@ -601,7 +603,7 @@ public class INMain extends INSocketServerBase
         
         dbg ("Starting system ...");
         
-        INMain driver=new INMain ();
+        INHoopRemoteTask driver=new INHoopRemoteTask ();
         
         if (INLink.useHadoop==false)
         {
@@ -621,7 +623,7 @@ public class INMain extends INSocketServerBase
         	
         	// Now we're feeling much better
         	
-        	INMain.hdfs=FileSystem.get (conf);
+        	INHoopRemoteTask.hdfs=FileSystem.get (conf);
         	
         	if (INLink.dbglocal==true)
         	{
@@ -631,7 +633,7 @@ public class INMain extends INSocketServerBase
         	else
         		dbg ("Disabling local debugging");
                  
-        	JobConf job=new JobConf (conf,INMain.class);
+        	JobConf job=new JobConf (conf,INHoopRemoteTask.class);
         	
         	job.setJobName(driver.getClassName());
         	
@@ -640,7 +642,7 @@ public class INMain extends INSocketServerBase
         	@SuppressWarnings("unused")
         	String[] otherArgs=new GenericOptionsParser(conf, args).getRemainingArgs();
         	        	
-        	job.setJarByClass (INMain.class);
+        	job.setJarByClass (INHoopRemoteTask.class);
         	                 	        	                     	
         	if (INLink.task.equals("invert")==true)
         	{
