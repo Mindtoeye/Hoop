@@ -18,7 +18,10 @@
 
 package edu.cmu.cs.in.controls.base;
 
+import java.awt.Dimension;
 import java.awt.GraphicsConfiguration;
+import java.awt.Toolkit;
+
 import javax.swing.JFrame;
 
 import edu.cmu.cs.in.base.INBase;
@@ -89,4 +92,23 @@ public class INJFrame extends JFrame
 	{
 		INBase.debug(getClassName(),aMessage);
 	}
+	/**
+	 * 
+	 */
+	private void centerWindow (JFrame aWindow)
+	{
+		debug ("centerWindow ()");
+		
+		// Get the size of the screen
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		 
+		// Determine the new location of the window
+		int w = aWindow.getSize().width;
+		int h = aWindow.getSize().height;
+		int x = (dim.width-w)/2;
+		int y = (dim.height-h)/2;
+		 
+		// Move the window
+		aWindow.setLocation(x, y);		
+	}	
 }
