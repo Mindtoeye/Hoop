@@ -25,7 +25,7 @@ import org.apache.hadoop.mapred.JobConf;
 
 import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.INHoopLink;
-import edu.cmu.cs.in.base.INLink;
+//import edu.cmu.cs.in.base.INLink;
 import edu.cmu.cs.in.stats.INPerformanceMetrics;
 import edu.cmu.cs.in.network.INMessageReceiver;
 import edu.cmu.cs.in.network.INStreamedSocket;

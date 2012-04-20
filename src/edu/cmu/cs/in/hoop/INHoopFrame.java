@@ -230,11 +230,24 @@ public class INHoopFrame extends INHoopMultiViewFrame implements ActionListener,
     	    	
     	    	addView ("Properties",propPanel,right);    	    	
     		}
-    	});      	
+    	});
+    	
+    	JMenuItem statsItem=new JMenuItem("Statistics");    	
+    	
+    	propertiesItem.addActionListener(new ActionListener() 
+    	{
+    		public void actionPerformed(ActionEvent e) 
+    		{
+    	    	INHoopStatistics statsPanel=new INHoopStatistics ();
+    	    	
+    	    	addView ("Statistics",statsPanel,bottom);    	    	
+    		}
+    	});    	
     	
     	views.add (documentItem);
     	views.add (documentListItem);
     	views.add (consoleItem);
+    	views.add (statsItem);
     	views.add (new JSeparator());
     	views.add (propertiesItem);
     	

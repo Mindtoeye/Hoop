@@ -26,7 +26,9 @@ import org.apache.hadoop.io.*;
 import org.apache.hadoop.mapred.*;
 import org.apache.hadoop.util.*;
 */
+import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 
 import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.INLink;
@@ -99,6 +101,26 @@ public class INHoopHadoopBroker extends INSocketServerBase
 	 {
 		 debug ("fromXML ()");
 	  	  
+		 //"<register class" or <unregister class
+		 
+		 if ((root.getNodeName().equals("register")==true) || (root.getNodeName().equals("unregister")==true))
+		 {
+			 debug ("Processing register or unregister message ...");
+			 NamedNodeMap attrs = root.getAttributes();
+	        
+			 for(int i = 0 ; i<attrs.getLength() ; i++) 
+			 {
+				 Attr attribute = (Attr)attrs.item(i);
+	          	          
+				 if (attribute.getName().toLowerCase().equals("class")==true)
+				 {
+					 // send on, don't even look at it
+					 debug ("Detected a register or unregister message from a hadoop reporter, sending on to monitor ...");
+	        	  
+					 return (true); 
+				 }
+			 }
+		 }  
 		 
 		 return (true);
 	 }    

@@ -18,24 +18,25 @@
 
 package edu.cmu.cs.in;
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
 //import javax.swing.JList;
-import javax.swing.JTextArea;
+//import javax.swing.JTextArea;
 //import javax.swing.ListModel;
 
 import org.w3c.dom.Element;
 
 import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.INHoopLink;
-import edu.cmu.cs.in.controls.INGridNodeVisualizer;
-import edu.cmu.cs.in.controls.INJFeatureList;
-import edu.cmu.cs.in.controls.INScatterPlot;
+//import edu.cmu.cs.in.controls.INGridNodeVisualizer;
+//import edu.cmu.cs.in.controls.INJFeatureList;
+//import edu.cmu.cs.in.controls.INScatterPlot;
 import edu.cmu.cs.in.controls.INVisualFeature;
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
+import edu.cmu.cs.in.hoop.INHoopStatistics;
 import edu.cmu.cs.in.stats.INPerformanceMetrics;
-import edu.cmu.cs.in.stats.INStatistics;
+//import edu.cmu.cs.in.stats.INStatistics;
 import edu.cmu.cs.in.network.INMessageHandler;
 
 /**
@@ -43,9 +44,9 @@ import edu.cmu.cs.in.network.INMessageHandler;
 */
 public class INHoopMessageHandler extends INBase implements INMessageHandler
 {    	
-	private INStatistics stats=null;
+	//private INStatistics stats=null;
 	//private INScatterPlot plotter=null;
-	private JTextArea rawStats=null;
+	//private JTextArea rawStats=null;
 	//private INGridNodeVisualizer clusterGrid=null;
 	//private INJFeatureList jobList=null;
 	private DefaultListModel listModel=null;
@@ -54,28 +55,20 @@ public class INHoopMessageHandler extends INBase implements INMessageHandler
 	/**
 	*
 	*/	
-	public INHoopMessageHandler (INStatistics aStats,
-								 JTextArea aStatsPanel)
+	public INHoopMessageHandler ()
 	{  
     	setClassName ("INHoopMessageHandler");
     	debug ("INHoopMessageHandler ()");
     	
-    	stats=aStats;
+    	//stats=aStats;
     	//plotter=aPlotter;
-    	rawStats=aStatsPanel;
+    	//rawStats=aStatsPanel;
     	//clusterGrid=aGrid;
     	//jobList=aJobList;
     	listModel = new DefaultListModel();
     	//aJobList.setModel(listModel);
     	//jobs=new ArrayList ();
-	}	
-	/**
-	 *
-	 */
-    public void handleIncomingData (int ID,String data)
-    {
-    	debug ("Received: ["+ID+"] " + data);
-    }      
+	}	     
 	/**
 	 * Here is another case where it would be much better to use a
 	 * hash table, but for clarity purposes we use an arraylist for
@@ -125,6 +118,13 @@ public class INHoopMessageHandler extends INBase implements INMessageHandler
 	    	//jobList.invalidate();
 		}    	
     }
+	/**
+	 *
+	 */
+    public void handleIncomingData (int ID,String data)
+    {
+    	debug ("Received: ["+ID+"] " + data);
+    }     
 	/**
 	 *
 	 */
@@ -206,15 +206,25 @@ public class INHoopMessageHandler extends INBase implements INMessageHandler
 			if (hadoopID.toLowerCase().equals("main")==true)
 			{
 				debug ("Received unregister of Main task, calculating statistics ...");
-				stats.calcStatistics();
-				String results=stats.printStatistics();
+				INHoopLink.stats.calcStatistics();
+				String results=INHoopLink.stats.printStatistics();
 				debug (results);
 				
+				INHoopStatistics statsPanel=(INHoopStatistics) INHoopLink.getWindow ("Statistics");
+				
+				if (statsPanel!=null)
+				{
+					statsPanel.appendString ("Status: Done\n");
+					statsPanel.appendString(results);
+				}
+				
+				/*
 				if (rawStats!=null)
 				{
 					rawStats.setText("Status: Done\n");
 					rawStats.append(results);
 				}
+				*/
 			}
 			
 			INEmbeddedJPanel win=INHoopLink.getWindow ("Cluster");
@@ -237,6 +247,19 @@ public class INHoopMessageHandler extends INBase implements INMessageHandler
 		
 		if (hadoopID.toLowerCase().equals("main")==false)
 		{
+
+			INHoopStatistics statsPanel=(INHoopStatistics) INHoopLink.getWindow ("Statistics");
+			
+			if (statsPanel!=null)
+			{
+				StringBuffer formatter=new StringBuffer ();
+				formatter.append("Status: Running\n");
+				formatter.append("Nr. Measures: " + INHoopLink.metrics.size()+"\n");
+				
+				statsPanel.appendString (formatter.toString());
+			}
+			
+			/*
 			if (rawStats!=null)
 			{
 				StringBuffer formatter=new StringBuffer ();
@@ -244,6 +267,7 @@ public class INHoopMessageHandler extends INBase implements INMessageHandler
 				formatter.append("Nr. Measures: " + INHoopLink.metrics.size()+"\n");
 				rawStats.setText (formatter.toString());
 			}
+			*/
 		}	
     }
 }

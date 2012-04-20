@@ -32,6 +32,7 @@ import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 import edu.cmu.cs.in.hoop.INHoopConsoleInterface;
 import edu.cmu.cs.in.search.INTextSearch;
 import edu.cmu.cs.in.stats.INPerformanceMetrics;
+import edu.cmu.cs.in.stats.INStatistics;
 
 /**
 *
@@ -60,6 +61,8 @@ public class INHoopLink extends INLangLink
 	//public static String monitorHost="augustus.pslc.cs.cmu.edu";
 	public static int monitorPort=8082;
 	*/
+	
+	public static INStatistics stats=null;
 	
 	public static ImageIcon icon=null; // This should ideally be an array of icons, available as standard resources	
 	public static ImageIcon linkIcon=null; // This should ideally be an array of icons, available as standard resources
@@ -175,6 +178,7 @@ public class INHoopLink extends INLangLink
 		//whitespace=Pattern.compile("["  + whitespace_chars + "]");
 		//Matcher matcher = whitespace.matcher ("test");
 				
+		stats=new INStatistics ();
 		metrics=new ArrayList<INPerformanceMetrics> ();
 		windows=new ArrayList<INEmbeddedJPanel>();
 		searchHistory=new ArrayList<INTextSearch>();		
