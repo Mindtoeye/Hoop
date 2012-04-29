@@ -350,19 +350,19 @@ public class INJFeatureList extends JPanel implements ActionListener, MouseListe
 			selectAll ();
 		}
 		
-		if (button.getText()=="None")
+		if (button.getText().equals("None")==true)
 		{
 			debug ("Command " + act + " on noneButton");
 			selectNone ();
 		}
 		
-		if (button.getText()=="Inverse")
+		if (button.getText().equals ("Inverse")==true)
 		{
 			debug ("Command " + act + " on inverseButton");
 			selectInverse ();
 		}
 		
-		if (button.getText()=="Selected")
+		if (button.getText().equals("Selected")==true)
 		{
 			debug ("Command " + act + " on selectedButton");
 			selectSelected ();
