@@ -87,19 +87,17 @@ public class INHoopSearch extends INEmbeddedJPanel implements ActionListener, Ke
 
     	Box holder = new Box (BoxLayout.Y_AXIS);
     	    	
-		//Border padding = BorderFactory.createEmptyBorder(2,0,0,0);
 		Border blackborder=BorderFactory.createLineBorder(Color.black);
-		//Border redborder=BorderFactory.createLineBorder(Color.red);	    	
-		
+			
 		Box inputBox = new Box (BoxLayout.X_AXIS);
 		inputBox.setMinimumSize(new Dimension (50,25));
-		inputBox.setPreferredSize(new Dimension (5000,25));
+		//inputBox.setPreferredSize(new Dimension (5000,25));
 		inputBox.setMaximumSize(new Dimension (5000,25));		
 		
 		inputField=new JTextField ();
 		inputField.setFont(new Font("Dialog", 1, 10));
 		inputField.setMinimumSize(new Dimension (50,25));
-		inputField.setPreferredSize(new Dimension (5000,25));
+		//inputField.setPreferredSize(new Dimension (5000,25));
 		inputField.setMaximumSize(new Dimension (5000,25));		
 		inputField.addKeyListener(this);
 		
@@ -115,8 +113,8 @@ public class INHoopSearch extends INEmbeddedJPanel implements ActionListener, Ke
 		queryStats=new JLabel ();
 		queryStats.setBorder(blackborder);
 		queryStats.setFont(new Font("Dialog", 1, 10));
-		queryStats.setMinimumSize(new Dimension (5000,25));
-		queryStats.setPreferredSize(new Dimension (5000,25));
+		queryStats.setMinimumSize(new Dimension (100,25));
+		//queryStats.setPreferredSize(new Dimension (5000,25));
 		queryStats.setMaximumSize(new Dimension (5000,25));
 		queryStats.setOpaque(true);
 		queryStats.setForeground(Color.black);
@@ -124,7 +122,7 @@ public class INHoopSearch extends INEmbeddedJPanel implements ActionListener, Ke
 		
 		Box topStatsBox = new Box (BoxLayout.X_AXIS);
 		topStatsBox.setMinimumSize(new Dimension (50,25));
-		topStatsBox.setPreferredSize(new Dimension (5000,25));
+		//topStatsBox.setPreferredSize(new Dimension (5000,25));
 		topStatsBox.setMaximumSize(new Dimension (5000,25));
 		
 		topStatsBox.add (queryStats);
@@ -135,8 +133,8 @@ public class INHoopSearch extends INEmbeddedJPanel implements ActionListener, Ke
 		confPanel.setLayout(null);
 		confPanel.setFont(new Font("Dialog", 1, 10));
 		confPanel.setBorder(BorderFactory.createTitledBorder("Search Parameters"));
-		confPanel.setMinimumSize(new Dimension (5000,100));
-		confPanel.setPreferredSize(new Dimension (5000,100));
+		confPanel.setMinimumSize(new Dimension (100,100));
+		confPanel.setPreferredSize(new Dimension (100,100));
 		confPanel.setMaximumSize(new Dimension (5000,100));		
 		
 		Insets insets = confPanel.getInsets();

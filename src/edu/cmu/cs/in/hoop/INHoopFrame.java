@@ -39,21 +39,11 @@ import edu.cmu.cs.in.network.INStreamedSocket;
 public class INHoopFrame extends INHoopMultiViewFrame implements ActionListener, INMessageReceiver
 {
 	private static final long serialVersionUID = 2788834485599638868L;
-	
-    //JCheckBoxMenuItem showToolPaletteMenuItem;
-    
+	    
     static final private String PREVIOUS = "previous";
     static final private String UP = "up";
     static final private String NEXT = "next";
 	    
-	//private INSocketServerBase server=null;
-	//private INHoopMessageHandler handler=null;
-	//private INStatistics stats=null; 		
-	//private INHoopJobList jobListWindow=null;
-	//private INHoopStopWordEditor stopListEditor=null;
-	//private INHoopVocabularyEditor vocabularyEditor=null;	
-	//private	INHoopStatusBar statusbar=null;
-	//private	INHoopEditor hoopEditor=null;
     private INScatterPlot plotter=null;
 	private INHoopConsole console=null;
 	private INHoopPropertyPanel propPanel=null;
@@ -65,8 +55,7 @@ public class INHoopFrame extends INHoopMultiViewFrame implements ActionListener,
     public INHoopFrame() 
     {                
     	debug ("INHoopFrame ()");
-    	
-        //buildContent();
+    	    
         buildMenus();       
         addButtons (this.getToolBar());
         
@@ -234,7 +223,7 @@ public class INHoopFrame extends INHoopMultiViewFrame implements ActionListener,
     	
     	JMenuItem statsItem=new JMenuItem("Statistics");    	
     	
-    	propertiesItem.addActionListener(new ActionListener() 
+    	statsItem.addActionListener(new ActionListener() 
     	{
     		public void actionPerformed(ActionEvent e) 
     		{
@@ -242,8 +231,8 @@ public class INHoopFrame extends INHoopMultiViewFrame implements ActionListener,
     	    	
     	    	addView ("Statistics",statsPanel,bottom);    	    	
     		}
-    	});    	
-    	
+    	});
+    	    	
     	views.add (documentItem);
     	views.add (documentListItem);
     	views.add (consoleItem);
@@ -268,6 +257,7 @@ public class INHoopFrame extends INHoopMultiViewFrame implements ActionListener,
     	JMenuItem jobListItem = new JMenuItem("Hadoop Jobs");
     	JMenuItem stopWordItem = new JMenuItem("Stopword Editor");
     	JMenuItem vocabularyItem = new JMenuItem("Vocabulary Editor");
+    	JMenuItem opSpaceItem = new JMenuItem("Narrative Opportunity Space Visualizer");
 
     	searchItem.addActionListener(new ActionListener() 
     	{
@@ -333,6 +323,14 @@ public class INHoopFrame extends INHoopMultiViewFrame implements ActionListener,
     		}
     	});      	
     	
+    	opSpaceItem.addActionListener(new ActionListener() 
+    	{
+    		public void actionPerformed(ActionEvent e) 
+    		{
+    			addView ("Opportunity Space",new INHoopOpportunitySpace (),center);
+    		}
+    	});    	
+    	
     	tools.add (searchItem);
     	tools.add (clusterItem);
     	tools.add (experimentItem);
@@ -341,6 +339,7 @@ public class INHoopFrame extends INHoopMultiViewFrame implements ActionListener,
     	tools.add (jobListItem);
     	tools.add (stopWordItem);
     	tools.add (vocabularyItem);
+    	tools.add (opSpaceItem);
     	
     	return (tools);
     }    

@@ -1,7 +1,7 @@
 Hoop: a text mining and language exploration workbench in Java. 
 Primarily designed for event extraction and text-based event
 forecasting, the workbench is a generic text and language
-machine learning sandbox that can be adopted to a wide variety
+machine learning sandbox that can be adapted to a wide variety
 of tasks. Hoop is a collection of modules (hoops) each of which 
 can take linguistic input from one, process it and pass it onto
 another. Combining those modules or hoops allows you to create
