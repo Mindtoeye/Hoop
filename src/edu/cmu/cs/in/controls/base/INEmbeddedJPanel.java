@@ -63,7 +63,7 @@ public class INEmbeddedJPanel extends INJPanel
 	public void close ()
 	{
 		handleCloseEvent ();
-		INHoopLink.removeWindow(this);
+		INHoopLink.removeWindowInternal (this);
 	}
 	/**
 	 * 

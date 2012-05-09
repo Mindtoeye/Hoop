@@ -1,0 +1,1 @@
+java -cp INHoopRemoteTask.jar INHoopHadoopBroker -port 8080

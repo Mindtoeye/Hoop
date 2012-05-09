@@ -27,6 +27,8 @@ import org.apache.hadoop.mapred.*;
 import org.apache.hadoop.util.*;
 */
 
+import java.util.ArrayList;
+
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -34,13 +36,16 @@ import org.w3c.dom.NamedNodeMap;
 import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.INLink;
 import edu.cmu.cs.in.network.INSocketServerBase;
+import edu.cmu.cs.in.network.INHoopMonitorConnection;
 import edu.cmu.cs.in.hadoop.INHadoopReporter;
 
 public class INHoopHadoopBroker extends INSocketServerBase
 {	
 	public static final String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss";
 	//public static FileSystem hdfs=null;
-       	
+       
+	private ArrayList <INHoopMonitorConnection> monitorList=null;
+	
 	/**
 	 *
 	 */
@@ -49,6 +54,8 @@ public class INHoopHadoopBroker extends INSocketServerBase
 		setClassName ("INHoopHadoopBroker");
 		debug ("INHoopHadoopBroker ()");
 		INBase.debug ("INHoop","Running on: "+INHadoopReporter.getMachineName ());
+		
+		monitorList=new ArrayList<INHoopMonitorConnection> ();
     }
     /**
 	 *
@@ -98,7 +105,64 @@ public class INHoopHadoopBroker extends INSocketServerBase
 	/**
 	 * 
 	 */
-	 public Boolean fromXML (int ID,Element root)
+    private INHoopMonitorConnection findMonitor (int ID)
+    {
+    	debug ("findMonitor ("+ID+")");
+
+    	for (int i=0;i<monitorList.size();i++)
+    	{
+    		INHoopMonitorConnection test=monitorList.get(i);
+    		if (test.getID ()==ID)
+    			return (test);
+    	}
+    	
+    	return (null);
+    }
+	/**
+	 * 
+	 */
+    private void addMonitor (int ID)
+    {
+    	debug ("addMonitor ()");
+    	
+    	INHoopMonitorConnection test=findMonitor (ID);
+    	if (test==null)
+    	{
+    		test=new INHoopMonitorConnection ();
+    		test.setID(ID);
+    		monitorList.add(test);
+    	}
+    }
+	/**
+	 * 
+	 */
+    private void removeMonitor (int ID)
+    {
+    	debug ("removeMonitor ()");
+    	
+    	INHoopMonitorConnection test=findMonitor (ID);
+    	if (test!=null)
+    	{
+    		monitorList.remove(test);
+    	}
+    }
+	/**
+	 * 
+	 */
+    private void sendAllMonitors (String rawXML)
+    {
+    	debug ("sendAllMonitors ()");
+    	
+    	for (int i=0;i<monitorList.size();i++)
+    	{
+    		INHoopMonitorConnection test=monitorList.get(i);
+    		sendClient (test.getID(),rawXML);
+    	}    	
+    }
+	/**
+	 * 
+	 */
+	 public Boolean fromXML (int ID,Element root,String rawXML)
 	 {
 		 debug ("fromXML ()");
 	  	  
@@ -117,8 +181,22 @@ public class INHoopHadoopBroker extends INSocketServerBase
 				 {
 					 // send on, don't even look at it
 					 debug ("Detected a register or unregister message from a hadoop reporter, sending on to monitor ...");
-	        	  
+	        	  					 					 
+					 sendAllMonitors (rawXML);
+					 
 					 return (true); 
+				 }
+				 
+				 if (attribute.getName().toLowerCase().equals("type")==true)
+				 {
+					 if (attribute.getValue().toLowerCase().equals("monitor")==true)
+					 {
+						 if (root.getNodeName().equals("register")==true)							 
+							 addMonitor (ID);
+						 
+						 if (root.getNodeName().equals("unregister")==true)							 
+							 removeMonitor (ID);						 
+					 }	 
 				 }
 			 }
 		 }  

@@ -193,13 +193,6 @@ public class INSocketServerBase extends INHadoopReporter  implements Runnable
 		clients [findClient(ID)].send("<?xml version=\"1.0\" encoding=\"UTF-8\"?>"+message);
 	}
 	/**
-	 * 
-	 */
-	public void sendAllMonitors (String aMessage)
-	{
-		// to be implemented in child class, called by INServiceChecker
-	}
-	/**
 	*
 	*/	   
 	public synchronized void handle(int ID, String input)
@@ -244,14 +237,14 @@ public class INSocketServerBase extends INHadoopReporter  implements Runnable
 		Element root=helper.fromXMLString (input);
 		  
 		if (root!=null)
-			fromXML (ID,root);
+			fromXML (ID,root,input);
 		else
 			debug ("Error, unable to parse incoming data as XML");
 	}
 	/**
 	 * 
 	 */
-	 public Boolean fromXML (int ID,Element root)
+	 public Boolean fromXML (int ID,Element root,String rawXML)
 	 {
 		 debug ("fromXML ()");
 	  	  

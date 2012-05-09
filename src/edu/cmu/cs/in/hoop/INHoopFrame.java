@@ -47,7 +47,7 @@ public class INHoopFrame extends INHoopMultiViewFrame implements ActionListener,
     private INScatterPlot plotter=null;
 	private INHoopConsole console=null;
 	private INHoopPropertyPanel propPanel=null;
-	private INStreamedSocket brokerConnection=null;
+	//private INStreamedSocket brokerConnection=null;
 			
 	/**
 	 *
@@ -59,8 +59,8 @@ public class INHoopFrame extends INHoopMultiViewFrame implements ActionListener,
         buildMenus();       
         addButtons (this.getToolBar());
         
-       	brokerConnection=new INStreamedSocket ();
-       	brokerConnection.sendAndKeepOpen("127.0.0.1",8080,"<register client=\"ui\" />",this);
+       	//brokerConnection=new INStreamedSocket ();
+       	//brokerConnection.sendAndKeepOpen("127.0.0.1",8080,"<register client=\"ui\" />",this);
     }
 	/**
 	 *

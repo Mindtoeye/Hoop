@@ -25,6 +25,7 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
+import edu.cmu.cs.in.network.INStreamedSocket;
 import edu.cmu.cs.in.search.INDataSet;
 //import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
@@ -166,6 +167,8 @@ public class INHoopLink extends INLangLink
 	public static INDataSet dataSet=null;
 	public static ArrayList <String> queries=null;
 	public static int experimentNr=0;
+	
+	public static INStreamedSocket brokerConnection=null;
 		
 	/**
 	 *
@@ -192,6 +195,16 @@ public class INHoopLink extends INLangLink
     	if (windows!=null)
     		windows.add(aWindow);
     }
+	/**
+	 *
+	 */
+   public static void removeWindowInternal (INEmbeddedJPanel aWindow)
+   {
+   		if (windows!=null)
+   		{
+   			windows.remove(aWindow);
+   		}
+   }    
 	/**
 	 *
 	 */

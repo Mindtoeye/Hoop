@@ -30,6 +30,7 @@ package edu.cmu.cs.in.hoop;
 //import java.awt.BorderLayout;
 //import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -37,11 +38,12 @@ import java.awt.event.ActionListener;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import org.w3c.dom.Attr;
+//import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
+//import org.w3c.dom.NamedNodeMap;
 //import javax.swing.border.Border;
 
 import edu.cmu.cs.in.INHoopMessageHandler;
@@ -49,7 +51,7 @@ import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.base.INXMLBase;
 import edu.cmu.cs.in.controls.INGridNodeVisualizer;
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
-import edu.cmu.cs.in.hadoop.INHadoopReporter;
+//import edu.cmu.cs.in.hadoop.INHadoopReporter;
 import edu.cmu.cs.in.network.INMessageReceiver;
 import edu.cmu.cs.in.network.INStreamedSocket;
 
@@ -64,10 +66,10 @@ public class INHoopCluster extends INEmbeddedJPanel implements ActionListener, I
 	private JTextField portInput=null;
     private JButton connectButton=null;
 	private INGridNodeVisualizer driver=null;
-	private INStreamedSocket socket=null;
+	//private INStreamedSocket socket=null;
 	private INXMLBase xmlHelper=null;
 	private INHoopMessageHandler handler=null;
-	
+		
 	/**
 	 * 
 	 */
@@ -80,27 +82,47 @@ public class INHoopCluster extends INEmbeddedJPanel implements ActionListener, I
 		this.setLayout(new BoxLayout (this,BoxLayout.Y_AXIS));				
 		
 		Box controlBox = new Box (BoxLayout.X_AXIS);
+		controlBox.setMinimumSize(new Dimension (30,20));
+		//controlBox.setPreferredSize(new Dimension (100,20));
+		controlBox.setMaximumSize(new Dimension (300,20));
 		
 		hostInput=new JTextField ();
+		hostInput.setText ("172.19.159.76");
+		hostInput.setFont(new Font("Dialog", 1, 10));
 		hostInput.setMinimumSize(new Dimension (30,20));
-		hostInput.setMaximumSize(new Dimension (5000,20));
+		hostInput.setPreferredSize(new Dimension (100,20));
 		
 		portInput=new JTextField ();
+		portInput.setText("8080");
+		portInput.setFont(new Font("Dialog", 1, 10));
 		portInput.setMinimumSize(new Dimension (30,20));
-		portInput.setMaximumSize(new Dimension (5000,20));
+		portInput.setPreferredSize(new Dimension (100,20));
 		
 		connectButton=new JButton ();
 		connectButton.setText("Connect");
-		connectButton.setMinimumSize(new Dimension (30,20));
-		connectButton.setMaximumSize(new Dimension (30,20));
+		connectButton.setFont(new Font("Dialog", 1, 10));
+		connectButton.setMinimumSize(new Dimension (60,20));
+		connectButton.setPreferredSize(new Dimension (60,20));
 		connectButton.addActionListener(this);
+		
+		JLabel padding=new JLabel ();
+		padding.setMinimumSize(new Dimension (30,20));
+		padding.setMaximumSize(new Dimension (30,20));
+		//padding.setPreferredSize(new Dimension (300,20));		
+		
+		driver.setMinimumSize(new Dimension (100,200));
+		driver.setPreferredSize(new Dimension (100,200));
 		
 		controlBox.add(hostInput);
 		controlBox.add(portInput);
 		controlBox.add(connectButton);
+		controlBox.add(padding);
 		
 		this.add(controlBox);
-		this.add(driver);		
+		this.add(driver);
+		
+       	//INHoopLink.brokerConnection=new INStreamedSocket ();
+		//brokerConnection.sendAndKeepOpen("127.0.0.1",8080,"<register client=\"ui\" />",this);
     }
 	/**
 	 *
@@ -129,19 +151,25 @@ public class INHoopCluster extends INEmbeddedJPanel implements ActionListener, I
 		if (button.getText()=="Connect")
 		{
 			debug ("Connect ...");
+						
+			if (INHoopLink.brokerConnection==null)
+			{
+				INHoopLink.brokerConnection=new INStreamedSocket ();
 			
-		    if (socket==null)
-		    	socket=new INStreamedSocket ();
-		    
-    		socket.sendAndKeepOpen(hostInput.getText(),Integer.parseInt(portInput.getText()),"<?xml version=\"1.0\" encoding=\"utf-8\"?><register type=\"monitor\" />",this);		    
+				INHoopLink.brokerConnection.sendAndKeepOpen(hostInput.getText(),Integer.parseInt(portInput.getText()),"<?xml version=\"1.0\" encoding=\"utf-8\"?><register type=\"monitor\" />",this);
+			}	
 		}
 		
 		if (button.getText()=="Disconnect")
 		{
 			debug ("Disconnect ...");
 
-	    	if (socket==null)
-	    		socket=new INStreamedSocket ();			
+			if (INHoopLink.brokerConnection!=null)
+			{
+				INHoopLink.brokerConnection.sendAndKeepOpen(hostInput.getText(),Integer.parseInt(portInput.getText()),"<?xml version=\"1.0\" encoding=\"utf-8\"?><unregister type=\"monitor\" />",this);
+				INHoopLink.brokerConnection.close();
+				INHoopLink.brokerConnection=null;
+			}							
 		}		
 	}
 	/**
