@@ -58,8 +58,10 @@ public class INGridNodeVisualizer extends JPanel
 	{
 		debug ("INGridNodeVisualizer ()");
 		
-		Border border=BorderFactory.createLineBorder(Color.black);
-		this.setBorder(border);
+		//Border border=BorderFactory.createLineBorder(Color.black);
+		//this.setBorder(border);
+		
+		this.setBorder(BorderFactory.createLoweredBevelBorder());
 						
 		nodes=new ArrayList<INGridNode> ();
 	}
@@ -201,12 +203,14 @@ public class INGridNodeVisualizer extends JPanel
 	 *
 	 */	
     public void paint(Graphics g) 
-    {        
+    {   
+    	super.paint(g); // This renders the border
+    	
 		Graphics2D g2=(Graphics2D)g;
 		
-    	g.clearRect(0, 0,this.getWidth(),this.getHeight());
+    	g.clearRect(2,2,this.getWidth()-4,this.getHeight()-4);
 		g.setColor (new Color (200,200,200));
-		g.fillRect(0,0,this.getWidth(),this.getHeight());
+		g.fillRect(2,2,this.getWidth()-4,this.getHeight()-4);
 		
 		FontRenderContext frc=g2.getFontRenderContext();
 		Font f = new Font("Dialog",1,10);

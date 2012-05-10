@@ -29,12 +29,14 @@ package edu.cmu.cs.in.hoop;
 
 //import java.awt.BorderLayout;
 //import java.awt.Color;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 //import javax.swing.BorderFactory;
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -76,47 +78,43 @@ public class INHoopCluster extends INEmbeddedJPanel implements ActionListener, I
 	public INHoopCluster() 
     {
 		driver=new INGridNodeVisualizer ();
+		//driver.setBorder(BorderFactory.createLoweredBevelBorder());
+		
 		xmlHelper=new INXMLBase ();
 		handler=new INHoopMessageHandler ();
 		
 		this.setLayout(new BoxLayout (this,BoxLayout.Y_AXIS));				
 		
-		Box controlBox = new Box (BoxLayout.X_AXIS);
-		controlBox.setMinimumSize(new Dimension (30,20));
-		//controlBox.setPreferredSize(new Dimension (100,20));
-		controlBox.setMaximumSize(new Dimension (300,20));
+		Box controlBox=Box.createHorizontalBox();
 		
 		hostInput=new JTextField ();
 		hostInput.setText ("172.19.159.76");
 		hostInput.setFont(new Font("Dialog", 1, 10));
-		hostInput.setMinimumSize(new Dimension (30,20));
-		hostInput.setPreferredSize(new Dimension (100,20));
+		hostInput.setMinimumSize(new Dimension (90,20));
+		hostInput.setPreferredSize(new Dimension (90,20));
+		hostInput.setMaximumSize(new Dimension (90,20));
 		
 		portInput=new JTextField ();
 		portInput.setText("8080");
 		portInput.setFont(new Font("Dialog", 1, 10));
-		portInput.setMinimumSize(new Dimension (30,20));
-		portInput.setPreferredSize(new Dimension (100,20));
+		portInput.setMinimumSize(new Dimension (60,20));
+		portInput.setPreferredSize(new Dimension (60,20));
+		portInput.setMaximumSize(new Dimension (60,20));
 		
 		connectButton=new JButton ();
 		connectButton.setText("Connect");
 		connectButton.setFont(new Font("Dialog", 1, 10));
-		connectButton.setMinimumSize(new Dimension (60,20));
-		connectButton.setPreferredSize(new Dimension (60,20));
+		connectButton.setMinimumSize(new Dimension (75,20));
+		connectButton.setPreferredSize(new Dimension (75,20));
+		connectButton.setMaximumSize(new Dimension (75,20));
 		connectButton.addActionListener(this);
-		
-		JLabel padding=new JLabel ();
-		padding.setMinimumSize(new Dimension (30,20));
-		padding.setMaximumSize(new Dimension (30,20));
-		//padding.setPreferredSize(new Dimension (300,20));		
-		
+						
 		driver.setMinimumSize(new Dimension (100,200));
-		driver.setPreferredSize(new Dimension (100,200));
 		
 		controlBox.add(hostInput);
 		controlBox.add(portInput);
 		controlBox.add(connectButton);
-		controlBox.add(padding);
+		controlBox.add(Box.createHorizontalGlue());
 		
 		this.add(controlBox);
 		this.add(driver);
@@ -180,6 +178,8 @@ public class INHoopCluster extends INEmbeddedJPanel implements ActionListener, I
 	{
 		debug ("handleIncomingData ()");
 		
+		connectButton.setText("Disconnect");
+		
 		Element root=xmlHelper.fromXMLString(data);
 	
 		handler.handleIncomingXML(-1,root);
@@ -191,6 +191,6 @@ public class INHoopCluster extends INEmbeddedJPanel implements ActionListener, I
 	public void handleConnectionClosed() 
 	{
 		debug ("handleConnectionClosed ()");
-		
+		connectButton.setText("Connect");
 	}		
 }
