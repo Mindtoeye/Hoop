@@ -29,18 +29,18 @@ package edu.cmu.cs.in.hoop;
 
 //import java.awt.BorderLayout;
 //import java.awt.Color;
-import java.awt.Color;
+//import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 //import javax.swing.BorderFactory;
-import javax.swing.BorderFactory;
+//import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JLabel;
+//import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 //import org.w3c.dom.Attr;

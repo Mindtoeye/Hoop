@@ -66,8 +66,10 @@ public class INScatterPlot extends INEmbeddedJPanel
 		setClassName ("INScatterPlot");
 		debug ("INScatterPlot ()");
 		
-		Border border=BorderFactory.createLineBorder(Color.red);
-		this.setBorder(border);		
+		//Border border=BorderFactory.createLineBorder(Color.red);
+		//this.setBorder(border);
+		
+		this.setBorder(BorderFactory.createLoweredBevelBorder());
 	}
 	/**
 	 *
@@ -158,7 +160,16 @@ public class INScatterPlot extends INEmbeddedJPanel
 	 *
 	 */	
     public void paint(Graphics g) 
-    {            	
+    {   
+    	super.paint(g);
+    	
+    	g.clearRect(2, 2,this.getWidth()-4,this.getHeight()-4);
+    	
+    	//debug ("paint ("+data.size()+")");
+    	    	
+    	int width=this.getWidth();
+    	int height=this.getHeight();    	
+    	
     	if (data==null)
     		return;
     	    	    
@@ -171,14 +182,7 @@ public class INScatterPlot extends INEmbeddedJPanel
     		return;
     	
     	prepData ();
-    	
-    	g.clearRect(0, 0,this.getWidth(),this.getHeight());
     	    	
-    	//debug ("paint ("+data.size()+")");
-    	    	
-    	int width=this.getWidth();
-    	int height=this.getHeight();    	
-    	
     	float winWidth=width-windowLeft-windowRight;
     	float xDensity=(winWidth/((float) visualN));
     	float xProgress=0;

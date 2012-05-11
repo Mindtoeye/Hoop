@@ -62,6 +62,20 @@ public class INHoopHadoopBroker extends INSocketServerBase
     }
     /**
 	 *
+	 */    
+	public Boolean getShowConfig() 
+	{
+		return showConfig;
+	}
+    /**
+	 *
+	 */	
+	public void setShowConfig(Boolean showConfig) 
+	{
+		this.showConfig = showConfig;
+	}    
+    /**
+	 *
 	 */
     private static void usage ()
     {
@@ -99,7 +113,7 @@ public class INHoopHadoopBroker extends INSocketServerBase
         	
         	if (args [i].compareTo("-showconfig")==0)
         	{
-        		this.showConfig=true;
+        		this.setShowConfig(true);
         		
         		INNetworkTools nTools=new INNetworkTools ();
         		nTools.showAddresses();
