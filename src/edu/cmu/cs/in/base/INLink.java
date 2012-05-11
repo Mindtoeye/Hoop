@@ -63,9 +63,9 @@ public class INLink extends INBase
 	public static String datapath=".";
 	public static String outputpath=".";
 	
-	public static String monitorHost="extlogin.opencloud";
+	public static String monitorHost="10.0.0.245";
 	//public static String monitorHost="augustus.pslc.cs.cmu.edu";
-	public static int monitorPort=8082;
+	public static int monitorPort=8080;
 	
 	/*
 	public static ImageIcon icon=null; // This should ideally be an array of icons, available as standard resources	

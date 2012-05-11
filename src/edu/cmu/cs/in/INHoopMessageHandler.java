@@ -32,8 +32,10 @@ import edu.cmu.cs.in.base.INHoopLink;
 //import edu.cmu.cs.in.controls.INGridNodeVisualizer;
 //import edu.cmu.cs.in.controls.INJFeatureList;
 //import edu.cmu.cs.in.controls.INScatterPlot;
+import edu.cmu.cs.in.controls.INScatterPlot;
 import edu.cmu.cs.in.controls.INVisualFeature;
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
+import edu.cmu.cs.in.hoop.INHoopCluster;
 import edu.cmu.cs.in.hoop.INHoopStatistics;
 import edu.cmu.cs.in.stats.INPerformanceMetrics;
 //import edu.cmu.cs.in.stats.INStatistics;
@@ -154,24 +156,21 @@ public class INHoopMessageHandler extends INBase implements INMessageHandler
 			measure.setInPoint(time);
 			
 			debug ("Adding: " + measure.getLabel()+" at: " + time);
-			
-			/*
-			if (clusterGrid!=null)
-			{
-				if (hadoopID.equals("Mapper")==true)
-					clusterGrid.incNodeMapper (hadoopNode);
-				
-				if (hadoopID.equals("Reducer")==true)
-					clusterGrid.incNodeReducer (hadoopNode);
-			}
-			*/
-									
+											
 			INHoopLink.metrics.add(measure);
 			
 			INEmbeddedJPanel win=INHoopLink.getWindow ("Cluster");
 			if (win!=null)
 			{
-				win.updateContents();
+				INHoopCluster cluster=(INHoopCluster) win;
+				
+				if (hadoopID.equals("Mapper")==true)
+					cluster.getDriver().incNodeMapper (hadoopNode);
+				
+				if (hadoopID.equals("Reducer")==true)
+					cluster.getDriver().incNodeReducer (hadoopNode);
+				
+				//win.updateContents();
 			}
 		}
 		
@@ -191,16 +190,19 @@ public class INHoopMessageHandler extends INBase implements INMessageHandler
 				
 				update.setOutPoint(time);
 				
-				/*
-				if (clusterGrid!=null)
+				INEmbeddedJPanel win=INHoopLink.getWindow ("Cluster");
+				if (win!=null)
 				{
+					INHoopCluster cluster=(INHoopCluster) win;
+					
 					if (hadoopID.equals("Mapper")==true)
-						clusterGrid.decNodeMapper (hadoopNode);
+						cluster.getDriver().decNodeMapper (hadoopNode);
 					
 					if (hadoopID.equals("Reducer")==true)
-						clusterGrid.decNodeReducer (hadoopNode);
-				}
-				*/				
+						cluster.getDriver().decNodeReducer (hadoopNode);
+					
+					//win.updateContents();
+				}				
 			}
 			
 			if (hadoopID.toLowerCase().equals("main")==true)
@@ -216,15 +218,7 @@ public class INHoopMessageHandler extends INBase implements INMessageHandler
 				{
 					statsPanel.appendString ("Status: Done\n");
 					statsPanel.appendString(results);
-				}
-				
-				/*
-				if (rawStats!=null)
-				{
-					rawStats.setText("Status: Done\n");
-					rawStats.append(results);
-				}
-				*/
+				}			
 			}
 			
 			INEmbeddedJPanel win=INHoopLink.getWindow ("Cluster");
@@ -234,10 +228,10 @@ public class INHoopMessageHandler extends INBase implements INMessageHandler
 			}			
 		}
 		
-		/*
+		INScatterPlot plotter=(INScatterPlot) INHoopLink.getWindow ("Main Data Plotter");
+		
 		if (plotter!=null)
 			plotter.setData(INHoopLink.metrics);
-		*/
 
 		INEmbeddedJPanel plotwin=INHoopLink.getWindow ("Plotter");
 		if (plotwin!=null)
@@ -257,17 +251,7 @@ public class INHoopMessageHandler extends INBase implements INMessageHandler
 				formatter.append("Nr. Measures: " + INHoopLink.metrics.size()+"\n");
 				
 				statsPanel.appendString (formatter.toString());
-			}
-			
-			/*
-			if (rawStats!=null)
-			{
-				StringBuffer formatter=new StringBuffer ();
-				formatter.append("Status: Running\n");
-				formatter.append("Nr. Measures: " + INHoopLink.metrics.size()+"\n");
-				rawStats.setText (formatter.toString());
-			}
-			*/
+			}		
 		}	
     }
 }

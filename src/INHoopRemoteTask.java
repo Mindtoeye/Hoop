@@ -563,7 +563,7 @@ public class INHoopRemoteTask extends INHadoopReporter
 	{
     	// run the INLink constructor; We need this to have a global settings registry    	
     	@SuppressWarnings("unused")
-		INLink link = new INLink(); 
+    	INHoopLink link = new INHoopLink(); 
     	
     	dbg ("main ()");
     	

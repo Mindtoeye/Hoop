@@ -123,6 +123,13 @@ public class INHoopCluster extends INEmbeddedJPanel implements ActionListener, I
 		//brokerConnection.sendAndKeepOpen("127.0.0.1",8080,"<register client=\"ui\" />",this);
     }
 	/**
+	 * 
+	 */
+	public INGridNodeVisualizer getDriver ()
+	{
+		return (driver);
+	}
+	/**
 	 *
 	 */	
 	public void updateContents() 
@@ -177,6 +184,8 @@ public class INHoopCluster extends INEmbeddedJPanel implements ActionListener, I
 	public void handleIncomingData(String data) 
 	{
 		debug ("handleIncomingData ()");
+		
+		debug (data);
 		
 		connectButton.setText("Disconnect");
 		

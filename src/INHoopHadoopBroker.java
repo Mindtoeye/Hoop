@@ -35,6 +35,7 @@ import org.w3c.dom.NamedNodeMap;
 
 import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.INLink;
+import edu.cmu.cs.in.network.INNetworkTools;
 import edu.cmu.cs.in.network.INSocketServerBase;
 import edu.cmu.cs.in.network.INHoopMonitorConnection;
 import edu.cmu.cs.in.hadoop.INHadoopReporter;
@@ -45,6 +46,8 @@ public class INHoopHadoopBroker extends INSocketServerBase
 	//public static FileSystem hdfs=null;
        
 	private ArrayList <INHoopMonitorConnection> monitorList=null;
+	
+	private Boolean showConfig=false;
 	
 	/**
 	 *
@@ -76,7 +79,7 @@ public class INHoopHadoopBroker extends INSocketServerBase
     /**
 	 *
 	 */
-    private static Boolean parseArgs (String args [])
+    public Boolean parseArgs (String args [])
     {
     	dbg ("parseArgs ()");
     
@@ -89,15 +92,18 @@ public class INHoopHadoopBroker extends INSocketServerBase
     	
         for (int i = 0; i < args.length; i++)
         {        	
-        	if (args [i].compareTo ("-casefold")==0)
+        	if (args [i].compareTo ("-port")==0)
         	{
-        		if (args [i+1].equals("yes")==true)
-        			INLink.casefold=true;
-        		else
-        			INLink.casefold=false;
-        	}
+        		this.setLocalPort(Integer.parseInt(args [i+1]));
+        	}        	
         	
-     	
+        	if (args [i].compareTo("-showconfig")==0)
+        	{
+        		this.showConfig=true;
+        		
+        		INNetworkTools nTools=new INNetworkTools ();
+        		nTools.showAddresses();
+        	}
         }    	
         
         return (true);
@@ -156,7 +162,7 @@ public class INHoopHadoopBroker extends INSocketServerBase
     	for (int i=0;i<monitorList.size();i++)
     	{
     		INHoopMonitorConnection test=monitorList.get(i);
-    		sendClient (test.getID(),rawXML);
+    		sendClientRaw (test.getID(),rawXML);
     	}    	
     }
 	/**
@@ -211,18 +217,17 @@ public class INHoopHadoopBroker extends INSocketServerBase
     	// run the INLink constructor; We need this to have a global settings registry    	
     	@SuppressWarnings("unused")
 		INLink link = new INLink(); 
-    	
-    	dbg ("main ()");
-    	    	    	    	
-    	if (parseArgs (args)==false)
-    	{
-    		usage ();
-    		return;
-    	}
-    	        
+    	    	    	    	    	    	        
         dbg ("Starting system ...");
         
         INHoopHadoopBroker broker=new INHoopHadoopBroker ();
+        
+    	if (broker.parseArgs (args)==false)
+    	{
+    		usage ();
+    		return;
+    	}        
+        
         broker.runServer ();
 	}
 }

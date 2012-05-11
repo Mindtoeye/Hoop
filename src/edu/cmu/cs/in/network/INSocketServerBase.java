@@ -194,6 +194,21 @@ public class INSocketServerBase extends INHadoopReporter  implements Runnable
 	}
 	/**
 	*
+	*/	
+	public void sendClientRaw (int ID,String message)
+	{
+		debug ("sendClientRaw ("+ID+")");
+		
+		if (findClient(ID)==-1)
+		{
+			debug ("Error: unable to find socket thread with id: " + ID);
+			return;
+		}
+				
+		clients [findClient(ID)].send(message);
+	}	
+	/**
+	*
 	*/	   
 	public synchronized void handle(int ID, String input)
 	{  

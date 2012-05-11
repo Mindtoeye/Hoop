@@ -21,7 +21,7 @@ package edu.cmu.cs.in.hadoop;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapred.lib.MultipleTextOutputFormat;
 
-//import edu.cmu.cs.in.base.INBase;
+import edu.cmu.cs.in.base.INBase;
 
 public class INShardedOutputFormat extends MultipleTextOutputFormat<Text, Text> 
 {
@@ -36,8 +36,10 @@ public class INShardedOutputFormat extends MultipleTextOutputFormat<Text, Text>
     {        
     	//INBase.debug ("INShardedOutputFormat","generateFileNameForKeyValue ()");
     	
-        //INPartitioner partitioner=new INPartitioner ();
-        //return ("shard-"+partitioner.getPartitionFromKey(key.toString()));
-        return (key.toString());
+        INPartitioner partitioner=new INPartitioner ();
+        return ("shard-"+partitioner.getPartitionFromKey(key.toString()));
+    	
+    	//INBase.debug ("INShardedOutputFormat","Shard name: " + key.toString());    	
+        //return (key.toString());
     }
 }

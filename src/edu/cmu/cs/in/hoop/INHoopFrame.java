@@ -237,6 +237,7 @@ public class INHoopFrame extends INHoopMultiViewFrame implements ActionListener,
     	views.add (documentListItem);
     	views.add (consoleItem);
     	views.add (statsItem);
+    	views.add (plotterItem);
     	views.add (new JSeparator());
     	views.add (propertiesItem);
     	

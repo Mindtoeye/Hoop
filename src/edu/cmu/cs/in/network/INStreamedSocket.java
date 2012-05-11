@@ -49,8 +49,9 @@ public class INStreamedSocket extends INBase implements Runnable
 	*/	
 	public INStreamedSocket ()
 	{  
-		setClassName ("INStreamedSocket");
-		debug ("INStreamedSocket ()");
+    	setClassName ("INStreamedSocket");
+    	debug ("INStreamedSocket ()");
+
 	}
 	
 	/**
@@ -59,20 +60,20 @@ public class INStreamedSocket extends INBase implements Runnable
 	 * Reader return -1 which means there's no more data to
 	 * read. We use the StringWriter class to produce the string.
 	*/	
-   public String convertStreamToString (InputStream is)
-   {
-   	debug ("convertStreamToString ()");
-   	
-       if (is != null) 
-       {
-           Writer writer = new StringWriter();
+    public String convertStreamToString (InputStream is)
+    {
+    	debug ("convertStreamToString ()");
+    	
+        if (is != null) 
+        {
+            Writer writer = new StringWriter();
 
-           char[] buffer = new char[1024];
-           
-           try 
-           {
-               Reader reader=null;
-               
+            char[] buffer = new char[1024];
+            
+            try 
+            {
+                Reader reader=null;
+                
 				try 
 				{
 					reader = new BufferedReader (new InputStreamReader(is, "UTF-8"));
@@ -83,43 +84,43 @@ public class INStreamedSocket extends INBase implements Runnable
 					e.printStackTrace();
 					debug ("UnsupportedEncodingException");
 				}
-               int n;
-               
-               try 
-               {
+                int n;
+                
+                try 
+                {
 					while ((n = reader.read(buffer)) != -1) 
 					{
 					    writer.write (buffer, 0, n);
 					}
 				} 
-               catch (IOException e) 
-               {
+                catch (IOException e) 
+                {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 					debug ("IOException");
 				}
-           } 
-           finally 
-           {
-               try 
-               {
+            } 
+            finally 
+            {
+                try 
+                {
 					is.close();
 				} 
-               catch (IOException e) 
+                catch (IOException e) 
 				{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 					debug ("IOException");
 				}
-           }
-           
-           return writer.toString();
-       } 
-       else 
-       {        
-           return "";
-       }
-   }	
+            }
+            
+            return writer.toString();
+        } 
+        else 
+        {        
+            return "";
+        }
+    }	
 	/**
 	 * 
 	 */
@@ -214,19 +215,35 @@ public class INStreamedSocket extends INBase implements Runnable
 			catch (UnknownHostException e) 
 			{
 				debug ("Unknown host: " + aHost);
+				
 				close ();
+				
+				if (receiver!=null)
+					receiver.handleConnectionClosed();	
+				
 				return (false);
 			} 
 			catch (SecurityException e)
 			{
 				debug ("A security exception occurred while connecting to the remote host");
+				
 				close ();
+				
+				if (receiver!=null)
+					receiver.handleConnectionClosed();	
+				
 				return (false);				
 			}
 			catch  (IOException e) 
 			{
 				debug ("No I/O or connection timeout");
+				
 				close ();
+				
+				if (receiver!=null)
+					receiver.handleConnectionClosed();	
+				
+				return (false);
 			}
 								
 			// Create the thread supplying it with the runnable object
@@ -403,6 +420,7 @@ public class INStreamedSocket extends INBase implements Runnable
 				//e.printStackTrace();
 
 				debug ("Error reading data, most likely connection reset or closed");
+				
 				close ();
 				
 				if (receiver!=null)
@@ -424,7 +442,7 @@ public class INStreamedSocket extends INBase implements Runnable
 					}
 					else
 						receiver.handleIncomingData(data);
-				}
+				}					
 			}			
 			else
 			{
