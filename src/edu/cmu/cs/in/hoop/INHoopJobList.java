@@ -22,7 +22,11 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.DefaultListModel;
+
+import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.controls.INJFeatureList;
+import edu.cmu.cs.in.controls.INVisualFeature;
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 //import edu.cmu.cs.in.controls.base.INJInternalFrame;
 
@@ -34,6 +38,7 @@ public class INHoopJobList extends INEmbeddedJPanel implements ActionListener
 	private static final long serialVersionUID = 1L;
 	
 	private INJFeatureList jobList=null;
+	private DefaultListModel listModel=null;
 	
 	/**
 	 * 
@@ -45,6 +50,8 @@ public class INHoopJobList extends INEmbeddedJPanel implements ActionListener
 		setClassName ("INHoopJobList");
 		debug ("INHoopJobList ()");    	
     	
+		listModel = new DefaultListModel();
+		
 		jobList=new INJFeatureList ();
 		jobList.setLabel("Selected Jobs");
 		jobList.setMinimumSize(new Dimension (150,60));
@@ -62,5 +69,29 @@ public class INHoopJobList extends INEmbeddedJPanel implements ActionListener
 	public void actionPerformed(ActionEvent arg0) 
 	{
 		
-	}  
+	}
+	/**
+	 *
+	 */	
+	public void updateContents() 
+	{
+		debug ("updateContents ()");
+
+		/*
+    	INVisualFeature feature=new INVisualFeature ();
+    	feature.setInstanceName(aJob);
+    	feature.setText(aJob);
+    	listModel.addElement (feature);
+    	*/
+		
+		/*
+    	for (int i=0;i<INHoopLink.jobs.size();i++)
+    	{
+    		String job=INHoopLink.jobs.get(i);
+
+    	}
+    	*/
+		
+		jobList.modelFromArrayList(INHoopLink.jobs);
+	}		
 }

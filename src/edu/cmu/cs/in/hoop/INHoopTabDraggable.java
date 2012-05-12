@@ -26,6 +26,9 @@ import java.awt.event.ActionEvent;
 import java.awt.image.*;
 import javax.swing.*;
 
+import edu.cmu.cs.in.base.INBase;
+import edu.cmu.cs.in.controls.base.INJPanel;
+
 public class INHoopTabDraggable extends JTabbedPane 
 {	
 	private static final long serialVersionUID = 1L;	
@@ -71,12 +74,17 @@ public class INHoopTabDraggable extends JTabbedPane
 	        Point glassPt = e.getLocation();
 	        SwingUtilities.convertPointFromScreen(glassPt, glassPane);
 	        int targetIdx = getTargetTabIndex(glassPt);
+	        
 	        //if(getTabAreaBounds().contains(tabPt) && targetIdx>=0 &&
+	        
 	        if(getTabAreaBounds().contains(glassPt) && targetIdx>=0 &&
-	           targetIdx!=dragTabIndex && targetIdx!=dragTabIndex+1) {
-	          e.getDragSourceContext().setCursor(DragSource.DefaultMoveDrop);
-	          glassPane.setCursor(DragSource.DefaultMoveDrop);
-	        }else{
+	           targetIdx!=dragTabIndex && targetIdx!=dragTabIndex+1) 
+	        {
+	        	e.getDragSourceContext().setCursor(DragSource.DefaultMoveDrop);
+	        	glassPane.setCursor(DragSource.DefaultMoveDrop);
+	        }
+	        else
+	        {
 	          e.getDragSourceContext().setCursor(DragSource.DefaultMoveNoDrop);
 	          glassPane.setCursor(DragSource.DefaultMoveNoDrop);
 	        }
@@ -84,13 +92,15 @@ public class INHoopTabDraggable extends JTabbedPane
 	      
 	      @Override public void dragDropEnd(DragSourceDropEvent e) 
 	      {
-	        lineRect.setRect(0,0,0,0);
-	        dragTabIndex = -1;
-	        glassPane.setVisible(false);
-	        if(hasGhost()) {
-	          glassPane.setVisible(false);
-	          glassPane.setImage(null);
-	        }
+	    	  lineRect.setRect(0,0,0,0);
+	    	  dragTabIndex = -1;
+	    	  glassPane.setVisible(false);
+	    	  
+	    	  if(hasGhost()) 
+	    	  {	    		  
+	    		  glassPane.setVisible(false);
+	    		  glassPane.setImage(null);
+	    	  }
 	      }
 	      
 	      @Override public void dropActionChanged(DragSourceDragEvent e) 
@@ -150,8 +160,23 @@ public class INHoopTabDraggable extends JTabbedPane
 	    new DropTarget(glassPane, DnDConstants.ACTION_COPY_OR_MOVE,new CDropTargetListener(), true);
 	    
 	    new DragSource().createDefaultDragGestureRecognizer(this, DnDConstants.ACTION_COPY_OR_MOVE, dgl);
-	  }
-	
+	}
+	/**
+	  * 
+	  */
+	@Override 
+	public void paintComponent(Graphics g) 
+	{
+		Graphics2D g2 = (Graphics2D) g;
+
+		g2.setColor(new Color (200,200,200));		
+		g2.fillRect (0,0,this.getWidth()-2,this.getHeight()-2);
+		
+		g2.setColor(new Color (0,0,0));		
+		g2.drawRect (0,0,this.getWidth()-2,this.getHeight()-2);
+		
+		//super.paintComponent(g);
+	}
 	/** 
 	 * 
 	 */
@@ -201,8 +226,14 @@ public class INHoopTabDraggable extends JTabbedPane
 		}
 	}	
 
-	  class CDropTargetListener implements DropTargetListener
+	  class CDropTargetListener extends INBase implements DropTargetListener
 	  {
+		  public CDropTargetListener ()
+		  {
+			  setClassName ("CDropTargetListener");
+			  debug ("CDropTargetListener ()");
+		  }
+		  
 		  @Override public void dragEnter(DropTargetDragEvent e) 
 		  {
 			  if (isDragAcceptable(e)) 
@@ -332,11 +363,11 @@ public class INHoopTabDraggable extends JTabbedPane
 			  r.setRect(r.x, r.y+r.height/2, r.width, r.height);
 	    
 		  return   r.contains(tabPt)?getTabCount():-1;
-	  	}
+	  }
 	  
-	  	private void convertTab(int prev, int next) 
-	  	{
-	  		if(next < 0 || prev==next) 
+	  private void convertTab(int prev, int next) 
+	  {
+		  if(next < 0 || prev==next) 
 	  		{
 	  			return;
 	  		}
@@ -384,6 +415,8 @@ public class INHoopTabDraggable extends JTabbedPane
 	  
 	  private void initTargetTopBottomLine(int next) 
 	  {
+		  INBase.debug ("INHoopTabDraggable","initTargetTopBottomLine ()");
+		  
 		  if(next < 0 || dragTabIndex==next || next-dragTabIndex==1) 
 		  {
 			  lineRect.setRect(0,0,0,0);
@@ -399,9 +432,14 @@ public class INHoopTabDraggable extends JTabbedPane
 			  lineRect.setRect(r.x,r.y+r.height-LINEWIDTH/2,r.width,LINEWIDTH);
 		  }
 	  }
-
+	  /** 
+	   * @param c
+	   * @param tabPt
+	   */
 	  private void initGlassPane(Component c, Point tabPt) 
 	  {
+		  INBase.debug ("INHoopTabDraggable","initGlassPane ()");
+		  
 		  getRootPane().setGlassPane(glassPane);
 	    
 		  if(hasGhost()) 
@@ -420,9 +458,13 @@ public class INHoopTabDraggable extends JTabbedPane
 		  glassPane.setPoint(glassPt);
 		  glassPane.setVisible(true);
 	  }
-
+	  /** 
+	   * @return
+	   */
 	  private Rectangle getTabAreaBounds() 
 	  {
+		  //INBase.debug ("INHoopTabDraggable","getTabAreaBounds ()");
+		  
 		  Rectangle tabbedRect = getBounds();
 		  //pointed out by daryl. NullPointerException: i.e. addTab("Tab",null)
 		  //Rectangle compRect   = getSelectedComponent().getBounds();
@@ -458,7 +500,7 @@ public class INHoopTabDraggable extends JTabbedPane
 		  return tabbedRect;
 	  }
 	  
-	  class GhostGlassPane extends JPanel 
+	  class GhostGlassPane extends INJPanel 
 	  {
 		  private static final long serialVersionUID = 1L;		
 		  private final AlphaComposite composite;
@@ -467,25 +509,40 @@ public class INHoopTabDraggable extends JTabbedPane
 		  
 		  public GhostGlassPane() 
 		  {
+			  setClassName ("GhostGlassPane");
+			  debug ("GhostGlassPane ()");
+				
 			  setOpaque(false);
+			  
 			  composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f);
+			  
 			  //http://bugs.sun.com/view_bug.do?bug_id=6700748
 			  //setCursor(null);
 		  }
-		  
+		  /** 
+		   * @param draggingGhost
+		   */
 		  public void setImage(BufferedImage draggingGhost) 
 		  {
+			  debug ("setImage ()");
+			  
 			  this.draggingGhost = draggingGhost;
 		  }
-		  
+		  /** 
+		   * @param location
+		   */
 		  public void setPoint(Point location) 
 		  {
 			  this.location = location;
-		  }
-		  
+		  }		  
+		  /**
+		   * 
+		   */
 		  @Override 
 		  public void paintComponent(Graphics g) 
 		  {
+			  //debug ("paintComponent ()");
+			  			  
 			  Graphics2D g2 = (Graphics2D) g;
 			  g2.setComposite(composite);
 			  

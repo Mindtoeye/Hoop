@@ -35,7 +35,7 @@ import javax.swing.*;
 import javax.swing.plaf.basic.BasicButtonUI;
 
 import edu.cmu.cs.in.base.INHoopLink;
-import edu.cmu.cs.in.base.INLink;
+//import edu.cmu.cs.in.base.INLink;
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 import edu.cmu.cs.in.controls.base.INJPanel;
 
@@ -73,7 +73,7 @@ public class INHoopTabPane extends INJPanel
         	this.pane=pane;
         
         	setOpaque (false);
-        
+        	        
         	icon=new JButton ();
         	icon.setOpaque (false);
         	icon.setBorder (null);
@@ -106,6 +106,7 @@ public class INHoopTabPane extends INJPanel
         	};
                 
         	add(label);
+        	
         	//add more space between the label, the icon and the button
         	label.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
         	//tab button
@@ -126,6 +127,7 @@ public class INHoopTabPane extends INJPanel
     	if (icon!=null)
     	{
     		int j=pane.indexOfTabComponent (INHoopTabPane.this);
+    		
     		if (j!=-1)
     		{
     			debug ("Setting icon for tab at index: "+ j);
@@ -158,14 +160,18 @@ public class INHoopTabPane extends INJPanel
             int size = 17;
             setPreferredSize(new Dimension(size, size));
             setToolTipText("Close this tab");
+            
             //Make the button looks the same for all Laf's
             setUI(new BasicButtonUI());
+            
             //Make it transparent
             setContentAreaFilled(false);
+            
             //No need to be focusable
             setFocusable(false);
             setBorder(BorderFactory.createEtchedBorder());
             setBorderPainted(false);
+            
             //Making nice rollover effect
             //we use the same listener for all buttons
             addMouseListener(buttonMouseListener);
@@ -205,11 +211,13 @@ public class INHoopTabPane extends INJPanel
             super.paintComponent(g);
             
             Graphics2D g2 = (Graphics2D) g.create();
+            
             //shift the image for pressed buttons
             if (getModel().isPressed()) 
             {
                 g2.translate(1, 1);
             }
+            
             g2.setStroke(new BasicStroke(2));
             g2.setColor(Color.BLACK);
             

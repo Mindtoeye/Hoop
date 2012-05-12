@@ -57,10 +57,7 @@ public class INGridNodeVisualizer extends JPanel
 	public INGridNodeVisualizer () 
 	{
 		debug ("INGridNodeVisualizer ()");
-		
-		//Border border=BorderFactory.createLineBorder(Color.black);
-		//this.setBorder(border);
-		
+				
 		this.setBorder(BorderFactory.createLoweredBevelBorder());
 						
 		nodes=new ArrayList<INGridNode> ();

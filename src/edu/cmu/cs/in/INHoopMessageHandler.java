@@ -20,7 +20,7 @@ package edu.cmu.cs.in;
 
 //import java.util.ArrayList;
 
-import javax.swing.DefaultListModel;
+//import javax.swing.DefaultListModel;
 //import javax.swing.JList;
 //import javax.swing.JTextArea;
 //import javax.swing.ListModel;
@@ -33,7 +33,7 @@ import edu.cmu.cs.in.base.INHoopLink;
 //import edu.cmu.cs.in.controls.INJFeatureList;
 //import edu.cmu.cs.in.controls.INScatterPlot;
 import edu.cmu.cs.in.controls.INScatterPlot;
-import edu.cmu.cs.in.controls.INVisualFeature;
+//import edu.cmu.cs.in.controls.INVisualFeature;
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 import edu.cmu.cs.in.hoop.INHoopCluster;
 import edu.cmu.cs.in.hoop.INHoopStatistics;
@@ -51,7 +51,7 @@ public class INHoopMessageHandler extends INBase implements INMessageHandler
 	//private JTextArea rawStats=null;
 	//private INGridNodeVisualizer clusterGrid=null;
 	//private INJFeatureList jobList=null;
-	private DefaultListModel listModel=null;
+	//private DefaultListModel listModel=null;
 	//private ArrayList <String>jobs=null;
 	
 	/**
@@ -60,16 +60,7 @@ public class INHoopMessageHandler extends INBase implements INMessageHandler
 	public INHoopMessageHandler ()
 	{  
     	setClassName ("INHoopMessageHandler");
-    	debug ("INHoopMessageHandler ()");
-    	
-    	//stats=aStats;
-    	//plotter=aPlotter;
-    	//rawStats=aStatsPanel;
-    	//clusterGrid=aGrid;
-    	//jobList=aJobList;
-    	listModel = new DefaultListModel();
-    	//aJobList.setModel(listModel);
-    	//jobs=new ArrayList ();
+    	debug ("INHoopMessageHandler ()");    	
 	}	     
 	/**
 	 * Here is another case where it would be much better to use a
@@ -99,26 +90,23 @@ public class INHoopMessageHandler extends INBase implements INMessageHandler
     	if (aJob.isEmpty()==true)
     		return;
     	    	
+    	Boolean found=false;
+    	
     	for (int i=0;i<INHoopLink.jobs.size();i++)
     	{
     		String job=INHoopLink.jobs.get(i);
     		if (job.equals(aJob)==true)
-    			return; // Already know about this one
+    		{
+    			found=true;
+    		}
     	}
     	
-    	INHoopLink.jobs.add(aJob);
-    	    	
-    	INVisualFeature feature=new INVisualFeature ();
-    	feature.setInstanceName(aJob);
-    	feature.setText(aJob);
-    	listModel.addElement (feature);
-    	
+    	if (found==false)
+    		INHoopLink.jobs.add(aJob);
+    	    	    	
 		INEmbeddedJPanel win=INHoopLink.getWindow ("Hadoop Jobs");
 		if (win!=null)
-		{
-			win.updateContents();
-	    	//jobList.invalidate();
-		}    	
+			win.updateContents();    	
     }
 	/**
 	 *

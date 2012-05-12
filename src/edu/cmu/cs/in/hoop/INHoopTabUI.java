@@ -184,10 +184,10 @@ public class INHoopTabUI extends BasicTabbedPaneUI
     @Override
     protected void paintTabArea(Graphics g, int tabPlacement, int selectedIndex) 
     {
-        g.setColor(Color.WHITE);
+        g.setColor (Color.WHITE);
 
-        g.fillRoundRect(0, 0, tabPane.getWidth(), tabPane.getHeight(), 10, 10);
-        super.paintTabArea(g, tabPlacement, selectedIndex);
+        g.fillRoundRect (0, 0, tabPane.getWidth(), tabPane.getHeight(), 10, 10);
+        super.paintTabArea (g, tabPlacement, selectedIndex);
     }
     /** 
      * 

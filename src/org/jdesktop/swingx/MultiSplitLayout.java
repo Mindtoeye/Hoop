@@ -70,7 +70,8 @@ import javax.swing.UIManager;
  * @see MultiSplitPane
  */
 
-public class MultiSplitLayout implements LayoutManager {
+public class MultiSplitLayout implements LayoutManager 
+{
     private final Map<String, Component> childMap = new HashMap<String, Component>();
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     private Node model;
@@ -83,8 +84,9 @@ public class MultiSplitLayout implements LayoutManager {
      * 
      * #see setModel
      */
-    public MultiSplitLayout() { 
-	this(new Leaf("default"));
+    public MultiSplitLayout() 
+    { 
+    	this(new Leaf("default"));
     }
     
     /**
@@ -92,10 +94,14 @@ public class MultiSplitLayout implements LayoutManager {
      * 
      * #see setModel
      */
-    public MultiSplitLayout(Node model) {
-	this.model = model;
-        this.dividerSize = UIManager.getInt("SplitPane.dividerSize"); 
-	if (this.dividerSize == 0) {
+    public MultiSplitLayout(Node model) 
+    {
+    	this.model = model;
+        this.dividerSize = UIManager.getInt("SplitPane.dividerSize");
+        
+        if (this.dividerSize == 0) 
+        	
+        {
             this.dividerSize = 7;
         }
     }

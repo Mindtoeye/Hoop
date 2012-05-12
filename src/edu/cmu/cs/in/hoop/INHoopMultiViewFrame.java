@@ -179,9 +179,7 @@ public class INHoopMultiViewFrame extends INJFrame implements ActionListener
 																								
         menuBar = new JMenuBar ();
         setJMenuBar(menuBar);
-						
-		// Finally add your vanilla default standard status bar ...
-						
+												
 		statusBar=new INHoopStatusBar ();
 		statusBar.setBorder(blackborder);
 		statusBar.setMinimumSize(new Dimension (50,22));
@@ -195,11 +193,11 @@ public class INHoopMultiViewFrame extends INJFrame implements ActionListener
         toolBar.setMaximumSize(new Dimension (5000,24));	
         
         JSeparator sep1=new JSeparator(SwingConstants.HORIZONTAL);
+        //sep1.setBackground(new Color (150,150,150));		
         sep1.setMinimumSize(new Dimension (50,5));
         sep1.setMaximumSize(new Dimension (5000,5));
         
-        getContentPane ().add(sep1);
-        
+        getContentPane ().add(sep1);        
         getContentPane ().add (toolBar);
         
         JSeparator sep2=new JSeparator(SwingConstants.HORIZONTAL);
@@ -217,6 +215,7 @@ public class INHoopMultiViewFrame extends INJFrame implements ActionListener
         MultiSplitLayout.Node modelRoot = MultiSplitLayout.parseModel(layoutDef);
 
         MultiSplitPane multiSplitPane = new MultiSplitPane();
+        multiSplitPane.setBackground(new Color (180,180,180));		
         multiSplitPane.setDividerSize(5);
         multiSplitPane.getMultiSplitLayout().setModel(modelRoot);
        	multiSplitPane.add(left, "left");

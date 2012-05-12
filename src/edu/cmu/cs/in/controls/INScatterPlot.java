@@ -19,21 +19,14 @@
 package edu.cmu.cs.in.controls;
 
 import java.awt.Color;
-//import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics2D;
-//import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.font.FontRenderContext;
 import java.awt.font.TextLayout;
 import java.util.ArrayList;
-
 import javax.swing.BorderFactory;
-//import javax.swing.JLabel;
-//import javax.swing.JPanel;
-import javax.swing.border.Border;
 
-//import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 import edu.cmu.cs.in.stats.INPerformanceMetrics;
@@ -65,9 +58,6 @@ public class INScatterPlot extends INEmbeddedJPanel
 	{
 		setClassName ("INScatterPlot");
 		debug ("INScatterPlot ()");
-		
-		//Border border=BorderFactory.createLineBorder(Color.red);
-		//this.setBorder(border);
 		
 		this.setBorder(BorderFactory.createLoweredBevelBorder());
 	}
