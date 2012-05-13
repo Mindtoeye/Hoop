@@ -40,6 +40,7 @@ import java.awt.event.ActionListener;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JScrollPane;
 //import javax.swing.JLabel;
 import javax.swing.JTextField;
 
@@ -76,10 +77,7 @@ public class INHoopCluster extends INEmbeddedJPanel implements ActionListener, I
 	 * 
 	 */
 	public INHoopCluster() 
-    {
-		driver=new INGridNodeVisualizer ();
-		//driver.setBorder(BorderFactory.createLoweredBevelBorder());
-		
+    {		
 		xmlHelper=new INXMLBase ();
 		handler=new INHoopMessageHandler ();
 		
@@ -109,7 +107,10 @@ public class INHoopCluster extends INEmbeddedJPanel implements ActionListener, I
 		connectButton.setMaximumSize(new Dimension (75,20));
 		connectButton.addActionListener(this);
 						
+		driver=new INGridNodeVisualizer ();
 		driver.setMinimumSize(new Dimension (100,200));
+		
+		JScrollPane contentScroller=new JScrollPane (driver);
 		
 		controlBox.add(hostInput);
 		controlBox.add(portInput);
@@ -117,7 +118,7 @@ public class INHoopCluster extends INEmbeddedJPanel implements ActionListener, I
 		controlBox.add(Box.createHorizontalGlue());
 		
 		this.add(controlBox);
-		this.add(driver);
+		this.add(contentScroller);
 		
        	//INHoopLink.brokerConnection=new INStreamedSocket ();
 		//brokerConnection.sendAndKeepOpen("127.0.0.1",8080,"<register client=\"ui\" />",this);

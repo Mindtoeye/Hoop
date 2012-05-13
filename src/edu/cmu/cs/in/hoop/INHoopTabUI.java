@@ -43,13 +43,13 @@ import javax.swing.plaf.basic.BasicTabbedPaneUI;
 public class INHoopTabUI extends BasicTabbedPaneUI 
 {
     private static final Insets NO_INSETS = new Insets(0, 0, 0, 0);
-    private ColorSet selectedColorSet;
-    private ColorSet defaultColorSet;
-    private ColorSet hoverColorSet;
     private boolean contentTopBorderDrawn = true;
-    private Color lineColor = new Color(158, 158, 158);
-    private Color dividerColor = new Color(175,175,175);
-    private Insets contentInsets = new Insets(10, 10, 10, 10);
+    private Color lineColor = null;
+    private Color dividerColor = null;
+    private Insets contentInsets = null;
+    private ColorSet selectedColorSet=null;
+    private ColorSet defaultColorSet=null;
+    private ColorSet hoverColorSet=null;    
     private int lastRollOverTab = -1;
 
     /** 
@@ -87,9 +87,14 @@ public class INHoopTabUI extends BasicTabbedPaneUI
         hoverColorSet.bottomGradColor1 = new Color(211, 211, 211);
         hoverColorSet.bottomGradColor2 = new Color(235, 235, 235);
 
-        maxTabHeight = 20;
+        lineColor = new Color(158, 158, 158);
+        dividerColor = new Color(175,175,175);
 
-        setContentInsets(0);
+        contentInsets = new Insets(0,0,0,0); // The area of the actual content area not the top button
+        
+        //maxTabHeight = 20;
+
+        setContentInsets (contentInsets);
     }
     /** 
      * 
@@ -132,7 +137,7 @@ public class INHoopTabUI extends BasicTabbedPaneUI
         tabPane.addMouseMotionListener((MouseMotionListener) l);
 
         tabAreaInsets = NO_INSETS;
-        tabInsets = new Insets(0, 0, 0, 0);
+        tabInsets = new Insets(2,0,0,0);
     }
     /** 
      * 
@@ -165,9 +170,10 @@ public class INHoopTabUI extends BasicTabbedPaneUI
     protected int calculateTabWidth(int tabPlacement, int tabIndex, FontMetrics metrics) 
     {
         int w = super.calculateTabWidth(tabPlacement, tabIndex, metrics);
-        int wid = metrics.charWidth('M');
-        w += wid * 2;
-        return w;
+        //int wid = metrics.charWidth('M');
+        //w += wid * 2;
+        
+        return (w+4); // 2 pixels on either side
     }
     /** 
      * 
@@ -184,9 +190,19 @@ public class INHoopTabUI extends BasicTabbedPaneUI
     @Override
     protected void paintTabArea(Graphics g, int tabPlacement, int selectedIndex) 
     {
+    	/**
         g.setColor (Color.WHITE);
-
         g.fillRoundRect (0, 0, tabPane.getWidth(), tabPane.getHeight(), 10, 10);
+        */
+    	
+		Graphics2D g2 = (Graphics2D) g;
+
+		g2.setColor(new Color (200,200,200));		
+		g2.fillRect (1,1,tabPane.getWidth()-1, tabPane.getHeight()-1);
+		
+		g2.setColor(new Color (0,0,0));		
+		g2.drawRect (1,1,tabPane.getWidth()-1, tabPane.getHeight()-1);    	
+        
         super.paintTabArea (g, tabPlacement, selectedIndex);
     }
     /** 
@@ -202,6 +218,34 @@ public class INHoopTabUI extends BasicTabbedPaneUI
     								   int h, 
     								   boolean isSelected) 
     {
+    	//super.paintTabBackground(g,tabPlacement,tabIndex,x,y,w,h,isSelected);
+    	
+    	Rectangle rect = rects[tabIndex];  
+
+        int xpos = rect.x;
+        int ypos = rect.y;
+        int width = rect.width;
+        int height = rect.width;
+    	
+		Graphics2D g2 = (Graphics2D) g;
+		
+        if (isSelected) 
+        {
+    		g2.setColor(new Color (0,220,220));		
+    		g2.fillRect (xpos,ypos,width, height);
+        } 
+        else if (getRolloverTab() == tabIndex) 
+        {
+    		g2.setColor(new Color (0,220,220));		
+    		g2.fillRect (xpos,ypos,width, height);
+        } 
+        else 
+        {
+    		g2.setColor(new Color (200,200,200));		
+    		g2.fillRect (xpos,ypos,width, height);
+        }		
+		    	
+    	/*
         Graphics2D g2d = (Graphics2D) g;
         ColorSet colorSet;
 
@@ -242,6 +286,7 @@ public class INHoopTabUI extends BasicTabbedPaneUI
             g2d.setColor(lineColor);
             g2d.drawLine(rect.x, 20, rect.x + rect.width - 1, 20);
         }
+        */
     }
     /** 
      * 
@@ -256,8 +301,17 @@ public class INHoopTabUI extends BasicTabbedPaneUI
     							   int h, 
     							   boolean isSelected) 
     {
-        g.setColor(dividerColor);
+    	/*
+        g.setColor (dividerColor);
         g.drawRoundRect(x, y, w, tabPane.getHeight(), 10, 10);
+        */
+    	
+    	Graphics2D g2 = (Graphics2D) g;
+    	
+		g2.setColor(Color.BLACK);		
+		g2.drawLine(x,y+2,x,h);		
+		g2.drawLine(x,y+2,w,y+2);
+		g2.drawLine(x+w,y+2,x+w,h);
     }
     /** 
      * 
@@ -405,7 +459,6 @@ public class INHoopTabUI extends BasicTabbedPaneUI
 
                 Rectangle tabsRect = new Rectangle(0, 0, tabPane.getWidth(), tabPane.getHeight());
                 tabPane.repaint(tabsRect);
-
             }
         }
     }

@@ -206,7 +206,7 @@ public class INGridNodeVisualizer extends JPanel
 		Graphics2D g2=(Graphics2D)g;
 		
     	g.clearRect(2,2,this.getWidth()-4,this.getHeight()-4);
-		g.setColor (new Color (200,200,200));
+		g.setColor (new Color (220,220,220));
 		g.fillRect(2,2,this.getWidth()-4,this.getHeight()-4);
 		
 		FontRenderContext frc=g2.getFontRenderContext();

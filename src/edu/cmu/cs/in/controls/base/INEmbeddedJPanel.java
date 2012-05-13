@@ -45,8 +45,8 @@ public class INEmbeddedJPanel extends INJPanel
 		debug ("INEmbeddedJPanel ()");
 		
 		this.setLayout(new BorderLayout(2,2));
-		Border border=BorderFactory.createLineBorder(Color.black);
-		this.setBorder(border);					
+		//Border border=BorderFactory.createLineBorder(Color.black);
+		//this.setBorder(border);					
 	}
 	/**
 	 * 

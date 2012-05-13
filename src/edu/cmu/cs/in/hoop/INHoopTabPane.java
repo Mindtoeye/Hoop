@@ -63,7 +63,10 @@ public class INHoopTabPane extends INJPanel
         
 		setClassName ("INHoopTabPane");
 		debug ("INHoopTabPane ()");
-        
+			
+		//this.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+		//this.setMargin(new Insets(0,0,0,0));
+		
         if (pane == null) 
         {
             throw new NullPointerException("TabbedPane is null");
@@ -72,11 +75,12 @@ public class INHoopTabPane extends INJPanel
         {        
         	this.pane=pane;
         
-        	setOpaque (false);
-        	        
+        	setOpaque (true);
+        	                	
         	icon=new JButton ();
         	icon.setOpaque (false);
-        	icon.setBorder (null);
+        	icon.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        	
 
         	add (icon);
         	
@@ -89,32 +93,26 @@ public class INHoopTabPane extends INJPanel
         		 * 
         		 */			
         		public String getText() 
-        		{
-        			//debug ("getText ()");
-        			
+        		{        			
         			int i = pane.indexOfTabComponent (INHoopTabPane.this);
         			if (i != -1) 
-        			{
-        				//debug ("Title at index: " + i + " is: " + pane.getTitleAt(i));
+        			{        		
         				return pane.getTitleAt(i);
         			}
-        			//else
-        				//debug ("Unable to find tab index");
                 
         			return null;
         		}
         	};
                 
-        	add(label);
+        	label.setFont(new Font("Dialog", 1, 10));
+        	add (label);
         	
-        	//add more space between the label, the icon and the button
-        	label.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
-        	//tab button
-        	button=new TabButton();
+        	label.setBorder(BorderFactory.createEmptyBorder(0, 1, 0, 1));
+
+        	button=new INTabButton();
+        	button.setBorder(BorderFactory.createEmptyBorder(0, 1, 0, 1));
                 
-        	add(button);
-        	//add more space to the top of the component
-        	setBorder(BorderFactory.createEmptyBorder(2, 0, 0, 0));
+        	add (button);        	
         }	
     }
     /** 
@@ -132,10 +130,9 @@ public class INHoopTabPane extends INJPanel
     		{
     			debug ("Setting icon for tab at index: "+ j);
     			Icon tabIcon=pane.getIconAt(j);
+    			
     			if (tabIcon!=null)
     			{
-    				//button.setHorizontalTextPosition(SwingConstants.RIGHT);
-    				//icon.setHorizontalTextPosition(JButton.RIGHT); 
     				icon.setIcon(tabIcon);    				
     			}
     			else
@@ -148,36 +145,31 @@ public class INHoopTabPane extends INJPanel
     /** 
      * 
      */
-    private class TabButton extends JButton implements ActionListener 
+    private class INTabButton extends JButton implements ActionListener 
     {
 		private static final long serialVersionUID = 1L;
 	
         /**
 		 * 
 		 */		
-		public TabButton() 
+		public INTabButton() 
         {
-            int size = 17;
-            setPreferredSize(new Dimension(size, size));
-            setToolTipText("Close this tab");
+            int size = 25;
             
-            //Make the button looks the same for all Laf's
-            setUI(new BasicButtonUI());
+            this.setPreferredSize(new Dimension(size, size));
+            this.setToolTipText("Close this tab");
+            this.setMargin(new Insets(0,0,0,0));
+            this.setBorder(BorderFactory.createEmptyBorder(0,0, 0, 0));
+
+            this.setUI (new BasicButtonUI());
             
-            //Make it transparent
-            setContentAreaFilled(false);
+            this.setContentAreaFilled(false);
             
-            //No need to be focusable
-            setFocusable(false);
-            setBorder(BorderFactory.createEtchedBorder());
-            setBorderPainted(false);
-            
-            //Making nice rollover effect
-            //we use the same listener for all buttons
-            addMouseListener(buttonMouseListener);
-            setRolloverEnabled(true);
-            //Close the proper tab by clicking the button
-            addActionListener(this);
+            this.setFocusable(false);
+            this.setBorderPainted(false);            
+            this.addMouseListener(buttonMouseListener);
+            this.setRolloverEnabled(true);
+            this.addActionListener(this);
         }
         /** 
          * 
@@ -209,7 +201,7 @@ public class INHoopTabPane extends INJPanel
         protected void paintComponent(Graphics g) 
         {
             super.paintComponent(g);
-            
+                        
             Graphics2D g2 = (Graphics2D) g.create();
             
             //shift the image for pressed buttons
@@ -218,12 +210,12 @@ public class INHoopTabPane extends INJPanel
                 g2.translate(1, 1);
             }
             
-            g2.setStroke(new BasicStroke(2));
-            g2.setColor(Color.BLACK);
+            g2.setStroke (new BasicStroke(2));
+            g2.setColor (Color.BLACK);
             
             if (getModel().isRollover()) 
             {
-                g2.setColor(Color.MAGENTA);
+                g2.setColor (Color.WHITE);
             }
             
             int delta = 6;
@@ -232,7 +224,16 @@ public class INHoopTabPane extends INJPanel
             g2.dispose();
         }
     }
-    
+    /** 
+     * paint the cross
+     */
+    protected void paintComponent(Graphics g) 
+    {
+    	super.paintComponent(g);
+    	
+    	g.setColor(Color.RED);
+    	g.drawRect(0,0,this.getWidth(),this.getHeight());
+    }
     /**
 	 * 
 	 */
