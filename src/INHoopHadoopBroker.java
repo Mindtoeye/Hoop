@@ -151,6 +151,7 @@ public class INHoopHadoopBroker extends INSocketServerBase
     		test=new INHoopMonitorConnection ();
     		test.setID(ID);
     		monitorList.add(test);
+    		sendClient (ID,"<ack type=\"monitor\" re=\"register\" />");
     	}
     }
 	/**

@@ -127,6 +127,12 @@ public class INHoopMessageHandler extends INBase implements INMessageHandler
     	String hadoopNode="";
     	Long time=(long) 0;
     	
+		if (root.getNodeName().equals("ack")==true)
+		{	
+			debug ("Processing acknowledge messsage ...");
+			
+		}
+    	
 		if (root.getNodeName().equals("register")==true)
 		{			
 			debug ("Processing register messsage ...");
@@ -209,11 +215,13 @@ public class INHoopMessageHandler extends INBase implements INMessageHandler
 				}			
 			}
 			
+			/*
 			INEmbeddedJPanel win=INHoopLink.getWindow ("Cluster");
 			if (win!=null)
 			{
 				win.updateContents();
-			}			
+			}
+			*/			
 		}
 		
 		INScatterPlot plotter=(INScatterPlot) INHoopLink.getWindow ("Main Data Plotter");

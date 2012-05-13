@@ -69,7 +69,6 @@ public class INHoopCluster extends INEmbeddedJPanel implements ActionListener, I
 	private JTextField portInput=null;
     private JButton connectButton=null;
 	private INGridNodeVisualizer driver=null;
-	//private INStreamedSocket socket=null;
 	private INXMLBase xmlHelper=null;
 	private INHoopMessageHandler handler=null;
 		
@@ -88,23 +87,23 @@ public class INHoopCluster extends INEmbeddedJPanel implements ActionListener, I
 		hostInput=new JTextField ();
 		hostInput.setText ("172.19.159.76");
 		hostInput.setFont(new Font("Dialog", 1, 10));
-		hostInput.setMinimumSize(new Dimension (90,20));
-		hostInput.setPreferredSize(new Dimension (90,20));
-		hostInput.setMaximumSize(new Dimension (90,20));
+		hostInput.setMinimumSize(new Dimension (120,20));
+		hostInput.setPreferredSize(new Dimension (120,20));
+		hostInput.setMaximumSize(new Dimension (120,20));
 		
 		portInput=new JTextField ();
 		portInput.setText("8080");
 		portInput.setFont(new Font("Dialog", 1, 10));
-		portInput.setMinimumSize(new Dimension (60,20));
-		portInput.setPreferredSize(new Dimension (60,20));
-		portInput.setMaximumSize(new Dimension (60,20));
+		portInput.setMinimumSize(new Dimension (75,20));
+		portInput.setPreferredSize(new Dimension (75,20));
+		portInput.setMaximumSize(new Dimension (75,20));
 		
 		connectButton=new JButton ();
 		connectButton.setText("Connect");
 		connectButton.setFont(new Font("Dialog", 1, 10));
-		connectButton.setMinimumSize(new Dimension (75,20));
-		connectButton.setPreferredSize(new Dimension (75,20));
-		connectButton.setMaximumSize(new Dimension (75,20));
+		connectButton.setMinimumSize(new Dimension (100,20));
+		connectButton.setPreferredSize(new Dimension (100,20));
+		connectButton.setMaximumSize(new Dimension (100,20));
 		connectButton.addActionListener(this);
 						
 		driver=new INGridNodeVisualizer ();
@@ -118,10 +117,7 @@ public class INHoopCluster extends INEmbeddedJPanel implements ActionListener, I
 		controlBox.add(Box.createHorizontalGlue());
 		
 		this.add(controlBox);
-		this.add(contentScroller);
-		
-       	//INHoopLink.brokerConnection=new INStreamedSocket ();
-		//brokerConnection.sendAndKeepOpen("127.0.0.1",8080,"<register client=\"ui\" />",this);
+		this.add(contentScroller);		
     }
 	/**
 	 * 
@@ -172,7 +168,10 @@ public class INHoopCluster extends INEmbeddedJPanel implements ActionListener, I
 
 			if (INHoopLink.brokerConnection!=null)
 			{
-				INHoopLink.brokerConnection.sendAndKeepOpen(hostInput.getText(),Integer.parseInt(portInput.getText()),"<?xml version=\"1.0\" encoding=\"utf-8\"?><unregister type=\"monitor\" />",this);
+				INHoopLink.brokerConnection.sendAndKeepOpen(hostInput.getText(),
+															Integer.parseInt(portInput.getText()),
+															"<?xml version=\"1.0\" encoding=\"utf-8\"?><unregister type=\"monitor\" />",
+															this);
 				INHoopLink.brokerConnection.close();
 				INHoopLink.brokerConnection=null;
 			}							

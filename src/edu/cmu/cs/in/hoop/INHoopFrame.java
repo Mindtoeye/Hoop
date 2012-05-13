@@ -30,7 +30,7 @@ import edu.cmu.cs.in.hoop.properties.INHoopPropertyPanel;
 //import edu.cmu.cs.in.network.INSocketServerBase;
 //import edu.cmu.cs.in.stats.INStatistics;
 import edu.cmu.cs.in.network.INMessageReceiver;
-import edu.cmu.cs.in.network.INStreamedSocket;
+//import edu.cmu.cs.in.network.INStreamedSocket;
 
 /** 
  * @author vvelsen

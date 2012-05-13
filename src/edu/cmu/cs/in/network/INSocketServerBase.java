@@ -32,7 +32,7 @@ import edu.cmu.cs.in.hadoop.INHadoopReporter;
 /**
 *
 */
-public class INSocketServerBase extends INHadoopReporter  implements Runnable
+public class INSocketServerBase extends INHadoopReporter implements Runnable
 {			
 	private INServerThread   clients []=new INServerThread [250]; // MAKE THIS DYNAMIC!!
 	private ServerSocket     server = null;
@@ -210,9 +210,16 @@ public class INSocketServerBase extends INHadoopReporter  implements Runnable
 	/**
 	*
 	*/	   
-	public synchronized void handle(int ID, String input)
+	public synchronized void handle (int ID, String input)
 	{  
 		debug ("handle () <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+		
+		if (input==null)
+		{
+			debug ("Received null string, removing client ...");
+			remove (ID);
+			return;
+		}
 		
 		if (input.isEmpty()==true)
 		{
