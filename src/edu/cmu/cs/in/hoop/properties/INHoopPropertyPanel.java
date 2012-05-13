@@ -22,6 +22,7 @@ import java.awt.Dimension;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JScrollPane;
 
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 
@@ -34,7 +35,9 @@ public class INHoopPropertyPanel extends INEmbeddedJPanel
 	private static final long serialVersionUID = 1L;
 		
     private Box hoopPropertyBox=null;
-    
+    private JScrollPane contentScroller=null;
+    private Box contentBox=null;
+    	
 	/**
 	 * Creates a new JPanel with a double buffer and a flow layout.
 	 */	
@@ -45,11 +48,33 @@ public class INHoopPropertyPanel extends INEmbeddedJPanel
 						
 		hoopPropertyBox=new Box (BoxLayout.Y_AXIS);
 		hoopPropertyBox.setMinimumSize(new Dimension (20,20));
-		hoopPropertyBox.setMaximumSize(new Dimension (5000,5000));
+		hoopPropertyBox.setPreferredSize(new Dimension (200,300));
+                        
+		contentBox=new Box (BoxLayout.Y_AXIS);
+		contentBox.setMinimumSize(new Dimension (20,20));
+		contentBox.setPreferredSize(new Dimension (200,300));
+        		
+        contentScroller=new JScrollPane (contentBox);
+        contentScroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         
-        this.add(hoopPropertyBox);
+        hoopPropertyBox.add (contentScroller);
         
-        hoopPropertyBox.add(new INHoopInspectablePanel ());
+        this.add (hoopPropertyBox);
+        
+		addPropertyPanel (new INHoopInspectablePanel ("First Panel"));
+		addPropertyPanel (new INHoopInspectablePanel ("Second Panel"));
+		addPropertyPanel (new INHoopInspectablePanel ("Third Panel"));
+		
+		//contentBox.add(Box.createVerticalGlue());
+	}
+	/**
+	 * 
+	 */
+	public void addPropertyPanel (INHoopInspectablePanel aPanel)
+	{
+		debug ("addPropertyPanel ()");
+		
+		contentBox.add (aPanel);
 	}
 	/**
 	 * 
