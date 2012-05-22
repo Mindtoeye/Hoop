@@ -25,6 +25,7 @@ import javax.swing.*;
 //import edu.cmu.cs.in.INHoopMessageHandler;
 import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.controls.INScatterPlot;
+import edu.cmu.cs.in.controls.map.INHoopJava3DJPanel;
 //import edu.cmu.cs.in.controls.INScatterPlot;
 import edu.cmu.cs.in.hoop.properties.INHoopPropertyPanel;
 //import edu.cmu.cs.in.network.INSocketServerBase;
@@ -259,6 +260,7 @@ public class INHoopFrame extends INHoopMultiViewFrame implements ActionListener,
     	JMenuItem stopWordItem = new JMenuItem("Stopword Editor");
     	JMenuItem vocabularyItem = new JMenuItem("Vocabulary Editor");
     	JMenuItem opSpaceItem = new JMenuItem("Narrative Opportunity Space Visualizer");
+    	JMenuItem hexMapItem = new JMenuItem("Hexagon Map");
 
     	searchItem.addActionListener(new ActionListener() 
     	{
@@ -330,8 +332,16 @@ public class INHoopFrame extends INHoopMultiViewFrame implements ActionListener,
     		{
     			addView ("Opportunity Space",new INHoopOpportunitySpace (),center);
     		}
-    	});    	
+    	});
     	
+    	hexMapItem.addActionListener(new ActionListener() 
+    	{
+    		public void actionPerformed(ActionEvent e) 
+    		{
+    			addView ("Hexagon Map",new INHoopJava3DJPanel (),center);
+    		}
+    	});
+    	    	    	
     	tools.add (searchItem);
     	tools.add (clusterItem);
     	tools.add (experimentItem);
@@ -341,6 +351,7 @@ public class INHoopFrame extends INHoopMultiViewFrame implements ActionListener,
     	tools.add (stopWordItem);
     	tools.add (vocabularyItem);
     	tools.add (opSpaceItem);
+    	tools.add (hexMapItem);
     	
     	return (tools);
     }    

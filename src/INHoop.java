@@ -37,6 +37,15 @@ public class INHoop
 	 */	
     public static void main( String[] args ) 
     {
+    	/*
+    	 * Tell Swing that we need Popup Menus to be heavyweight. The Java 3D
+    	 * window is a heavyweight window – that is, the window is a native
+    	 * window, and therefore any windows that must overlap it must also be
+    	 * native. Our menu items will be dropped down in front of the
+    	 * Java 3D Canvas3D so they must be created as heavyweight windows.
+    	 */
+    	JPopupMenu.setDefaultLightWeightPopupEnabled (false);
+    	  
     	// run the INHoopLink constructor; We need this to have a global settings registry
     	@SuppressWarnings("unused")
 		INHoopLink link = new INHoopLink();     	    	

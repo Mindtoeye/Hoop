@@ -21,13 +21,13 @@ package edu.cmu.cs.in.hoop;
 import java.awt.Color;
 //import java.awt.Font;
 import java.awt.FontMetrics;
-import java.awt.GradientPaint;
+//import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Insets;
 //import java.awt.LayoutManager;
 import java.awt.Rectangle;
-import java.awt.RenderingHints;
+//import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -43,9 +43,9 @@ import javax.swing.plaf.basic.BasicTabbedPaneUI;
 public class INHoopTabUI extends BasicTabbedPaneUI 
 {
     private static final Insets NO_INSETS = new Insets(0, 0, 0, 0);
-    private boolean contentTopBorderDrawn = true;
-    private Color lineColor = null;
-    private Color dividerColor = null;
+    //private boolean contentTopBorderDrawn = true;
+    //private Color lineColor = null;
+    //private Color dividerColor = null;
     private Insets contentInsets = null;
     private ColorSet selectedColorSet=null;
     private ColorSet defaultColorSet=null;
@@ -87,8 +87,8 @@ public class INHoopTabUI extends BasicTabbedPaneUI
         hoverColorSet.bottomGradColor1 = new Color(211, 211, 211);
         hoverColorSet.bottomGradColor2 = new Color(235, 235, 235);
 
-        lineColor = new Color(158, 158, 158);
-        dividerColor = new Color(175,175,175);
+        //lineColor = new Color(158, 158, 158);
+        //dividerColor = new Color(175,175,175);
 
         contentInsets = new Insets(0,0,0,0); // The area of the actual content area not the top button
         
@@ -99,10 +99,10 @@ public class INHoopTabUI extends BasicTabbedPaneUI
     /** 
      * 
      */
-    public void setContentTopBorderDrawn(boolean b) 
-    {
-        contentTopBorderDrawn = b;
-    }
+    //public void setContentTopBorderDrawn(boolean b) 
+    //{
+    //    contentTopBorderDrawn = b;
+    //}
     /** 
      * 
      */
@@ -200,8 +200,8 @@ public class INHoopTabUI extends BasicTabbedPaneUI
 		g2.setColor(new Color (200,200,200));		
 		g2.fillRect (1,1,tabPane.getWidth()-1, tabPane.getHeight()-1);
 		
-		g2.setColor(new Color (0,0,0));		
-		g2.drawRect (1,1,tabPane.getWidth()-1, tabPane.getHeight()-1);    	
+		g2.setColor(new Color (75,75,75));		
+		g2.drawRect (1,1,tabPane.getWidth()-2, tabPane.getHeight()-2);    	
         
         super.paintTabArea (g, tabPlacement, selectedIndex);
     }
@@ -308,8 +308,8 @@ public class INHoopTabUI extends BasicTabbedPaneUI
     	
     	Graphics2D g2 = (Graphics2D) g;
     	
-		g2.setColor(Color.BLACK);		
-		g2.drawLine(x,y+2,x,h);		
+		g2.setColor(Color.BLACK);
+		g2.drawLine(x,y+2,x,h-2);		
 		g2.drawLine(x,y+2,w,y+2);
 		g2.drawLine(x+w,y+2,x+w,h);
     }
