@@ -29,7 +29,7 @@ import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
+//import javax.swing.border.Border;
 
 import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.INHoopLink;
@@ -214,7 +214,7 @@ public class INGridNodeVisualizer extends JPanel
 					    	
         int xPos=paddingX;
         int yPos=paddingY;                
-        int colCount=0;
+        //int colCount=0;
         
         for (int i=0;i<nodes.size();i++)
         {        	
@@ -257,11 +257,11 @@ public class INGridNodeVisualizer extends JPanel
     		
     		xPos+=(nodeWidth+paddingX);
     		
-    		colCount++;
+    		//colCount++;
     		
     		if ((xPos+(nodeWidth+paddingX)>this.getWidth()))
     		{    	
-    			colCount=0;
+    			//colCount=0;
             	xPos=paddingX;    		
             	yPos+=(nodeHeight+paddingY+2);
     		}	

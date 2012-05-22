@@ -24,6 +24,10 @@ import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -38,13 +42,17 @@ import com.mxgraph.view.mxGraph;
 
 import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
+import edu.cmu.cs.in.hoop.base.INHoopBase;
+import edu.cmu.cs.in.hoop.base.INHoopFileSaveBase;
+import edu.cmu.cs.in.hoop.base.INHoopLoadBase;
 //import edu.cmu.cs.in.controls.base.INJInternalFrame;
+import edu.cmu.cs.in.hoop.base.INHoopTransformBase;
 
 /** 
  * @author vvelsen
  *
  */
-public class INHoopEditor extends INEmbeddedJPanel implements ActionListener
+public class INHoopEditor extends INEmbeddedJPanel implements ActionListener, MouseListener
 {	
 	private static final long serialVersionUID = -1;
 	
@@ -55,6 +63,10 @@ public class INHoopEditor extends INEmbeddedJPanel implements ActionListener
 	private JButton addToKVHoop=null;
 	private JButton addToListHoop=null;
 	private JButton addToTableHoop=null;	
+	
+	private ArrayList <INHoopBase>hoops=null;
+	
+	private mxGraphComponent graphComponent=null;
 		
 	/**
 	 * 
@@ -65,6 +77,8 @@ public class INHoopEditor extends INEmbeddedJPanel implements ActionListener
 		
 		setClassName ("INHoopEditor");
 		debug ("INHoopEditor ()");
+		
+		hoops=new ArrayList<INHoopBase> ();
 								
 		addLoadHoop=new JButton ();
 		addLoadHoop.setIcon(INHoopLink.imageIcons [77]);
@@ -124,7 +138,7 @@ public class INHoopEditor extends INEmbeddedJPanel implements ActionListener
 		controlBox.setPreferredSize(new Dimension (24,150));
 		
 		graph=new mxGraph();		
-		mxGraphComponent graphComponent = new mxGraphComponent(graph);
+		graphComponent = new mxGraphComponent(graph);
 		//graphComponent.setEnabled(false);
 						
 		JScrollPane consoleContainer = new JScrollPane (graphComponent);
@@ -138,7 +152,23 @@ public class INHoopEditor extends INEmbeddedJPanel implements ActionListener
 				
 		setContentPane (mainBox);
 		//setSize (425,300);
-		//setLocation (75,75);		
+		//setLocation (75,75);			
+		
+		graphComponent.getGraphControl().addMouseListener(this);				
+	}
+	/**
+	 * 
+	 */
+	private void addHoop (INHoopBase aHoop)
+	{
+		// Add to internal structure
+		
+		hoops.add(aHoop);
+		
+		// Add to visual graph
+		
+		Object parent=graph.getDefaultParent();		
+		graph.insertVertex (parent,null,aHoop.getHoopCategory(),20,20,80,30);		
 	}
 	/**
 	 * 
@@ -153,37 +183,57 @@ public class INHoopEditor extends INEmbeddedJPanel implements ActionListener
 
 		if (button==addLoadHoop)
 		{
-			Object parent=graph.getDefaultParent();
-					
-			graph.insertVertex (parent, null,"Load",20,20,80,30);			
+			addHoop (new INHoopLoadBase ());			
 		}
 		
 		if (button==addSaveHoop)
 		{
-			Object parent=graph.getDefaultParent();
-			
-			graph.insertVertex (parent, null,"Save",20,20,80,30);			
+			addHoop (new INHoopFileSaveBase ());			
 		}
 		
 		if (button==addToKVHoop)
 		{
-			Object parent=graph.getDefaultParent();
-			
-			graph.insertVertex (parent, null,"To KV",20,20,80,30);			
+			addHoop (new INHoopTransformBase ());			
 		}
 		
 		if (button==addToListHoop)
 		{
-			Object parent=graph.getDefaultParent();
-			
-			graph.insertVertex (parent, null,"To List",20,20,80,30);			
+			//addHoop (new INHoopLoadBase ());			
 		}
 		
 		if (button==addToTableHoop)
 		{
-			Object parent=graph.getDefaultParent();
-			
-			graph.insertVertex (parent, null,"To Table",20,20,80,30);			
+			//addHoop (new INHoopLoadBase ());			
 		}														
 	}
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mousePressed(MouseEvent arg0) 
+	{
+		
+	}
+	@Override	
+	public void mouseReleased(MouseEvent e)
+	{
+		Object cell = graphComponent.getCellAt(e.getX(), e.getY());
+		
+		if (cell != null)
+		{
+			debug ("cell="+graph.getLabel(cell));
+		}
+	}	
 }
