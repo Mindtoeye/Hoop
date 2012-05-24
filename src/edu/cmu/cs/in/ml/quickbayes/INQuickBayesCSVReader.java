@@ -18,7 +18,7 @@
 
 package edu.cmu.cs.in.ml.quickbayes;
 
-//import edu.cmu.cs.in.base.INBase;
+import edu.cmu.cs.in.base.io.INCSVReader;
 
 public class INQuickBayesCSVReader extends INCSVReader 
 {	

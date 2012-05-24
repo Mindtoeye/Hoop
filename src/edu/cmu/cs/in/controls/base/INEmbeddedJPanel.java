@@ -19,12 +19,12 @@
 package edu.cmu.cs.in.controls.base;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
+//import java.awt.Color;
 import java.awt.Component;
 
-import javax.swing.BorderFactory;
+//import javax.swing.BorderFactory;
 //import javax.swing.BoxLayout;
-import javax.swing.border.Border;
+//import javax.swing.border.Border;
 
 import edu.cmu.cs.in.base.INHoopLink;
 
@@ -35,6 +35,8 @@ import edu.cmu.cs.in.base.INHoopLink;
 public class INEmbeddedJPanel extends INJPanel
 {	
 	private static final long serialVersionUID = 1L;
+	
+	private Boolean singleInstance=false;
 		
 	/**
 	 * Creates a new JPanel with a double buffer and a flow layout.
@@ -81,5 +83,19 @@ public class INEmbeddedJPanel extends INJPanel
 	{
 		debug ("updateContents ()");
 		// Implement in child class!!
+	}
+	/**
+	 *
+	 */	
+	public Boolean getSingleInstance() 
+	{
+		return singleInstance;
+	}
+	/**
+	 *
+	 */	
+	public void setSingleInstance(Boolean singleInstance) 
+	{
+		this.singleInstance = singleInstance;
 	}	
 }

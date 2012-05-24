@@ -16,7 +16,7 @@
  * 
  */
 
-package edu.cmu.cs.in.hoop.editor;
+package edu.cmu.cs.in.base.io;
 
 import java.io.File;
 
@@ -27,17 +27,11 @@ import javax.swing.filechooser.FileFilter;
 /**
  * Filter for use in a {@link JFileChooser}.
  */
-public class DefaultFileFilter extends FileFilter
+public class INDefaultFileFilter extends FileFilter
 {
-
-	/**
-	 * Extension of accepted files.
-	 */
+	//Extension of accepted files.
 	protected String ext;
-
-	/**
-	 * Description of accepted files.
-	 */
+	//Description of accepted files.	
 	protected String desc;
 
 	/**
@@ -48,12 +42,11 @@ public class DefaultFileFilter extends FileFilter
 	 * @param description
 	 *            The description of the file format.
 	 */
-	public DefaultFileFilter(String extension, String description)
+	public INDefaultFileFilter (String extension, String description)
 	{
 		ext = extension.toLowerCase();
 		desc = description;
 	}
-
 	/**
 	 * Returns true if <code>file</code> is a directory or ends with
 	 * {@link #ext}.
@@ -66,7 +59,6 @@ public class DefaultFileFilter extends FileFilter
 	{
 		return file.isDirectory() || file.getName().toLowerCase().endsWith(ext);
 	}
-
 	/**
 	 * Returns the description for accepted files.
 	 * 
@@ -76,7 +68,6 @@ public class DefaultFileFilter extends FileFilter
 	{
 		return desc;
 	}
-
 	/**
 	 * Returns the extension for accepted files.
 	 * 
@@ -86,7 +77,6 @@ public class DefaultFileFilter extends FileFilter
 	{
 		return ext;
 	}
-
 	/**
 	 * Sets the extension for accepted files.
 	 * 
@@ -97,7 +87,6 @@ public class DefaultFileFilter extends FileFilter
 	{
 		this.ext = extension;
 	}
-
 	/**
 	 * Utility file filter to accept all image formats supported by image io.
 	 * 
@@ -105,23 +94,17 @@ public class DefaultFileFilter extends FileFilter
 	 */
 	public static class ImageFileFilter extends FileFilter
 	{
-
-		/**
-		 * Holds the accepted file format extensions for images.
-		 */
+		// Holds the accepted file format extensions for images.
 		protected static String[] imageFormats = ImageIO.getReaderFormatNames();
 
-		/**
-		 * Description of the filter.
-		 */
+		// Description of the filter.		
 		protected String desc;
 
 		/**
 		 * Constructs a new file filter for all supported image formats using
 		 * the specified description.
 		 * 
-		 * @param description
-		 *            The description to use for the file filter.
+		 * @param description The description to use for the file filter.
 		 */
 		public ImageFileFilter(String description)
 		{
@@ -132,8 +115,7 @@ public class DefaultFileFilter extends FileFilter
 		 * Returns true if the file is a directory or ends with a known image
 		 * extension.
 		 * 
-		 * @param file
-		 *            The file to be checked.
+		 * @param file The file to be checked.
 		 * @return Returns true if the file is accepted.
 		 */
 		public boolean accept(File file)

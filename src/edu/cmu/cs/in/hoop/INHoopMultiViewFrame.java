@@ -125,31 +125,7 @@ public class INHoopMultiViewFrame extends INJFrame implements ActionListener
     	
     	java.net.URL imgURL=null;
     	String loadPath="";
-    
-	    imgURL=getClass().getResource("/assets/images/machine.png");
-	    if (imgURL!=null) 
-	    {
-	        INHoopLink.icon=new ImageIcon(imgURL,"Machine");
-	    } 
-	    else 
-	    	debug ("Unable to load image ("+imgURL+") icon from jar");
-	    
-	    java.net.URL linkURL=getClass().getResource("/assets/images/link.jpg");
-	    if (linkURL!=null) 
-	    {
-	        INHoopLink.linkIcon=new ImageIcon(linkURL,"Link");
-	    } 
-	    else 
-	    	debug ("Unable to load image ("+linkURL+") icon from jar");
-	    
-	    java.net.URL unlinkURL=getClass().getResource("/assets/images/broken.jpg");
-	    if (unlinkURL!=null) 
-	    {
-	        INHoopLink.unlinkIcon=new ImageIcon(unlinkURL,"Unlink");
-	    } 
-	    else 
-	    	debug ("Unable to load image ("+unlinkURL+") icon from jar");	    	
-    	
+      		        	
     	INHoopLink.imageIcons=new ImageIcon [INHoopLink.imgURLs.length];
     	
     	for (int i=0;i<INHoopLink.imgURLs.length;i++)
@@ -160,11 +136,15 @@ public class INHoopMultiViewFrame extends INJFrame implements ActionListener
     	    if (imgURL!=null) 
     	    {
     	    	INHoopLink.imageIcons [i]=new ImageIcon(imgURL,INHoopLink.imgURLs [i]);
-    	    	debug ("Loaded: " + loadPath);
+    	    	//debug ("Loaded: " + loadPath);
     	    } 
     	    else 
     	    	debug ("Unable to load image ("+loadPath+") icon from jar");    		
     	}
+    	
+    	INHoopLink.icon=INHoopLink.getImageByName("machine.jpg");
+    	INHoopLink.linkIcon=INHoopLink.getImageByName("link.jpg");
+    	INHoopLink.unlinkIcon=INHoopLink.getImageByName("broken.jpg");
     }  
     /**
      * 

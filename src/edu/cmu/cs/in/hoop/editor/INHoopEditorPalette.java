@@ -38,7 +38,6 @@ import java.awt.event.MouseListener;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.TransferHandler;
 
 import com.mxgraph.model.mxCell;
@@ -52,42 +51,30 @@ import com.mxgraph.util.mxPoint;
 import com.mxgraph.util.mxRectangle;
 import com.mxgraph.util.mxEventSource.mxIEventListener;
 
-public class EditorPalette extends JPanel
+import edu.cmu.cs.in.controls.base.INJPanel;
+
+public class INHoopEditorPalette extends INJPanel
 {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 7771113885935187066L;
-
-	/**
-	 * 
-	 */
 	protected JLabel selectedEntry = null;
-
-	/**
-	 * 
-	 */
 	protected mxEventSource eventSource = new mxEventSource(this);
-
-	/**
-	 * 
-	 */
 	protected Color gradientColor = new Color(117, 195, 173);
 
 	/**
 	 * 
 	 */
 	@SuppressWarnings("serial")
-	public EditorPalette()
+	public INHoopEditorPalette ()
 	{
+		setClassName ("INHoopEditorPalette");
+		debug ("INHoopEditorPalette ()");		
+		
 		setBackground(new Color(149, 230, 190));
 		setLayout(new FlowLayout(FlowLayout.LEADING, 5, 5));
 
 		// Clears the current selection when the background is clicked
 		addMouseListener(new MouseListener()
 		{
-
 			/*
 			 * (non-Javadoc)
 			 * @see java.awt.event.MouseListener#mousePressed(java.awt.event.MouseEvent)
@@ -96,39 +83,38 @@ public class EditorPalette extends JPanel
 			{
 				clearSelection();
 			}
-
 			/*
 			 * (non-Javadoc)
 			 * @see java.awt.event.MouseListener#mouseClicked(java.awt.event.MouseEvent)
 			 */
 			public void mouseClicked(MouseEvent e)
 			{
+				
 			}
-
 			/*
 			 * (non-Javadoc)
 			 * @see java.awt.event.MouseListener#mouseEntered(java.awt.event.MouseEvent)
 			 */
 			public void mouseEntered(MouseEvent e)
 			{
+				
 			}
-
 			/*
 			 * (non-Javadoc)
 			 * @see java.awt.event.MouseListener#mouseExited(java.awt.event.MouseEvent)
 			 */
 			public void mouseExited(MouseEvent e)
 			{
+				
 			}
-
 			/*
 			 * (non-Javadoc)
 			 * @see java.awt.event.MouseListener#mouseReleased(java.awt.event.MouseEvent)
 			 */
 			public void mouseReleased(MouseEvent e)
 			{
+				
 			}
-
 		});
 
 		// Shows a nice icon for drag and drop but doesn't import anything
@@ -211,21 +197,17 @@ public class EditorPalette extends JPanel
 			selectedEntry.setOpaque(true);
 		}
 
-		eventSource.fireEvent(new mxEventObject(mxEvent.SELECT, "entry",
-				selectedEntry, "transferable", t, "previous", previous));
+		eventSource.fireEvent(new mxEventObject(mxEvent.SELECT, "entry",selectedEntry, "transferable", t, "previous", previous));
 	}
-
 	/**
 	 * 
 	 */
 	public void setPreferredWidth(int width)
 	{
 		int cols = Math.max(1, width / 55);
-		setPreferredSize(new Dimension(width,
-				(getComponentCount() * 55 / cols) + 30));
+		setPreferredSize(new Dimension(width,(getComponentCount() * 55 / cols) + 30));
 		revalidate();
 	}
-
 	/**
 	 * 
 	 * @param name
@@ -235,8 +217,12 @@ public class EditorPalette extends JPanel
 	 * @param height
 	 * @param value
 	 */
-	public void addEdgeTemplate(final String name, ImageIcon icon,
-			String style, int width, int height, Object value)
+	public void addEdgeTemplate(final String name, 
+								ImageIcon icon,
+								String style, 
+								int width, 
+								int height, 
+								Object value)
 	{
 		mxGeometry geometry = new mxGeometry(0, 0, width, height);
 		geometry.setTerminalPoint(new mxPoint(0, height), true);
@@ -248,7 +234,6 @@ public class EditorPalette extends JPanel
 
 		addTemplate(name, icon, cell);
 	}
-
 	/**
 	 * 
 	 * @param name
@@ -258,27 +243,29 @@ public class EditorPalette extends JPanel
 	 * @param height
 	 * @param value
 	 */
-	public void addTemplate(final String name, ImageIcon icon, String style,
-			int width, int height, Object value)
+	public void addTemplate (final String name,
+							 ImageIcon icon, 
+							 String style,
+							 int width, 
+							 int height, 
+							 Object value)
 	{
-		mxCell cell = new mxCell(value, new mxGeometry(0, 0, width, height),
-				style);
+		mxCell cell = new mxCell(value, new mxGeometry(0, 0, width, height),style);
 		cell.setVertex(true);
 
-		addTemplate(name, icon, cell);
+		addTemplate (name, icon, cell);
 	}
-
 	/**
 	 * 
 	 * @param name
 	 * @param icon
 	 * @param cell
 	 */
-	public void addTemplate(final String name, ImageIcon icon, mxCell cell)
+	public void addTemplate (final String name, ImageIcon icon, mxCell cell)
 	{
 		mxRectangle bounds = (mxGeometry) cell.getGeometry().clone();
-		final mxGraphTransferable t = new mxGraphTransferable(
-				new Object[] { cell }, bounds);
+		
+		final mxGraphTransferable t = new mxGraphTransferable(new Object[] { cell }, bounds);
 
 		// Scales the image if it's too large for the library
 		if (icon != null)
@@ -292,7 +279,7 @@ public class EditorPalette extends JPanel
 
 		final JLabel entry = new JLabel(icon);
 		entry.setPreferredSize(new Dimension(50, 50));
-		entry.setBackground(EditorPalette.this.getBackground().brighter());
+		entry.setBackground(INHoopEditorPalette.this.getBackground().brighter());
 		entry.setFont(new Font(entry.getFont().getFamily(), 0, 10));
 
 		entry.setVerticalTextPosition(JLabel.BOTTOM);

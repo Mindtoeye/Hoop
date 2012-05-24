@@ -88,6 +88,8 @@ import com.mxgraph.util.png.mxPngImageEncoder;
 import com.mxgraph.util.png.mxPngTextDecoder;
 import com.mxgraph.view.mxGraph;
 
+import edu.cmu.cs.in.base.io.INDefaultFileFilter;
+
 /**
  *
  */
@@ -98,19 +100,19 @@ public class EditorActions
 	 * @param e
 	 * @return Returns the graph for the given action event.
 	 */
-	public static final BasicGraphEditor getEditor(ActionEvent e)
+	public static final INHoopBasicGraphEditor getEditor(ActionEvent e)
 	{
 		if (e.getSource() instanceof Component)
 		{
 			Component component = (Component) e.getSource();
 
 			while (component != null
-					&& !(component instanceof BasicGraphEditor))
+					&& !(component instanceof INHoopBasicGraphEditor))
 			{
 				component = component.getParent();
 			}
 
-			return (BasicGraphEditor) component;
+			return (INHoopBasicGraphEditor) component;
 		}
 
 		return null;
@@ -125,7 +127,7 @@ public class EditorActions
 		/**
 		 * 
 		 */
-		public ToggleRulersItem(final BasicGraphEditor editor, String name)
+		public ToggleRulersItem(final INHoopBasicGraphEditor editor, String name)
 		{
 			super(name);
 			setSelected(editor.getGraphComponent().getColumnHeader() != null);
@@ -168,7 +170,7 @@ public class EditorActions
 		/**
 		 * 
 		 */
-		public ToggleGridItem(final BasicGraphEditor editor, String name)
+		public ToggleGridItem(final INHoopBasicGraphEditor editor, String name)
 		{
 			super(name);
 			setSelected(true);
@@ -203,7 +205,7 @@ public class EditorActions
 		/**
 		 * 
 		 */
-		public ToggleOutlineItem(final BasicGraphEditor editor, String name)
+		public ToggleOutlineItem(final INHoopBasicGraphEditor editor, String name)
 		{
 			super(name);
 			setSelected(true);
@@ -261,11 +263,11 @@ public class EditorActions
 		 */
 		public void actionPerformed(ActionEvent e)
 		{
-			BasicGraphEditor editor = getEditor(e);
+			INHoopBasicGraphEditor editor = getEditor(e);
 
 			if (editor != null)
 			{
-				editor.exit();
+				//editor.exit();
 			}
 		}
 	}
@@ -276,19 +278,15 @@ public class EditorActions
 	@SuppressWarnings("serial")
 	public static class StylesheetAction extends AbstractAction
 	{
-		/**
-		 * 
-		 */
 		protected String stylesheet;
 
-		/**
-		 * 
+		/** 
+		 * @param stylesheet
 		 */
 		public StylesheetAction(String stylesheet)
 		{
 			this.stylesheet = stylesheet;
 		}
-
 		/**
 		 * 
 		 */
@@ -296,17 +294,14 @@ public class EditorActions
 		{
 			if (e.getSource() instanceof mxGraphComponent)
 			{
-				mxGraphComponent graphComponent = (mxGraphComponent) e
-						.getSource();
+				mxGraphComponent graphComponent=(mxGraphComponent) e.getSource();
 				mxGraph graph = graphComponent.getGraph();
 				mxCodec codec = new mxCodec();
-				Document doc = mxUtils.loadDocument(EditorActions.class
-						.getResource(stylesheet).toString());
+				Document doc = mxUtils.loadDocument(EditorActions.class.getResource (stylesheet).toString());
 
 				if (doc != null)
 				{
-					codec.decode(doc.getDocumentElement(),
-							graph.getStylesheet());
+					codec.decode(doc.getDocumentElement(),graph.getStylesheet());
 					graph.refresh();
 				}
 			}
@@ -555,7 +550,7 @@ public class EditorActions
 		/**
 		 * Saves XML+PNG format.
 		 */
-		protected void saveXmlPng(BasicGraphEditor editor, String filename,
+		protected void saveXmlPng(INHoopBasicGraphEditor editor, String filename,
 				Color bg) throws IOException
 		{
 			mxGraphComponent graphComponent = editor.getGraphComponent();
@@ -606,17 +601,15 @@ public class EditorActions
 		 */
 		public void actionPerformed(ActionEvent e)
 		{
-			BasicGraphEditor editor = getEditor(e);
+			INHoopBasicGraphEditor editor = getEditor(e);
 
 			if (editor != null)
 			{
 				mxGraphComponent graphComponent = editor.getGraphComponent();
 				mxGraph graph = graphComponent.getGraph();
 				FileFilter selectedFilter = null;
-				DefaultFileFilter xmlPngFilter = new DefaultFileFilter(".png",
-						"PNG+XML " + mxResources.get("file") + " (.png)");
-				FileFilter vmlFileFilter = new DefaultFileFilter(".html",
-						"VML " + mxResources.get("file") + " (.html)");
+				INDefaultFileFilter xmlPngFilter = new INDefaultFileFilter(".png","PNG+XML " + mxResources.get("file") + " (.png)");
+				FileFilter vmlFileFilter = new INDefaultFileFilter(".html",	"VML " + mxResources.get("file") + " (.html)");
 				String filename = null;
 				boolean dialogShown = false;
 
@@ -644,17 +637,11 @@ public class EditorActions
 					fc.addChoosableFileFilter(defaultFilter);
 
 					// Adds special vector graphics formats and HTML
-					fc.addChoosableFileFilter(new DefaultFileFilter(".mxe",
-							"mxGraph Editor " + mxResources.get("file")
-									+ " (.mxe)"));
-					fc.addChoosableFileFilter(new DefaultFileFilter(".txt",
-							"Graph Drawing " + mxResources.get("file")
-									+ " (.txt)"));
-					fc.addChoosableFileFilter(new DefaultFileFilter(".svg",
-							"SVG " + mxResources.get("file") + " (.svg)"));
+					fc.addChoosableFileFilter(new INDefaultFileFilter (".mxe", "mxGraph Editor " + mxResources.get("file")	+ " (.mxe)"));
+					fc.addChoosableFileFilter(new INDefaultFileFilter (".txt",	"Graph Drawing " + mxResources.get("file")	+ " (.txt)"));
+					fc.addChoosableFileFilter(new INDefaultFileFilter(".svg",	"SVG " + mxResources.get("file") + " (.svg)"));
 					fc.addChoosableFileFilter(vmlFileFilter);
-					fc.addChoosableFileFilter(new DefaultFileFilter(".html",
-							"HTML " + mxResources.get("file") + " (.html)"));
+					fc.addChoosableFileFilter(new INDefaultFileFilter(".html", "HTML " + mxResources.get("file") + " (.html)"));
 
 					// Adds a filter for each supported image format
 					Object[] imageFormats = ImageIO.getReaderFormatNames();
@@ -673,14 +660,11 @@ public class EditorActions
 					for (int i = 0; i < imageFormats.length; i++)
 					{
 						String ext = imageFormats[i].toString();
-						fc.addChoosableFileFilter(new DefaultFileFilter("."
-								+ ext, ext.toUpperCase() + " "
-								+ mxResources.get("file") + " (." + ext + ")"));
+						fc.addChoosableFileFilter(new INDefaultFileFilter("."	+ ext, ext.toUpperCase() + " " + mxResources.get("file") + " (." + ext + ")"));
 					}
 
 					// Adds filter that accepts all supported image formats
-					fc.addChoosableFileFilter(new DefaultFileFilter.ImageFileFilter(
-							mxResources.get("allImages")));
+					fc.addChoosableFileFilter(new INDefaultFileFilter.ImageFileFilter(mxResources.get("allImages")));
 					fc.setFileFilter(defaultFilter);
 					int rc = fc.showDialog(null, mxResources.get("save"));
 					dialogShown = true;
@@ -697,9 +681,9 @@ public class EditorActions
 					filename = fc.getSelectedFile().getAbsolutePath();
 					selectedFilter = fc.getFileFilter();
 
-					if (selectedFilter instanceof DefaultFileFilter)
+					if (selectedFilter instanceof INDefaultFileFilter)
 					{
-						String ext = ((DefaultFileFilter) selectedFilter)
+						String ext = ((INDefaultFileFilter) selectedFilter)
 								.getExtension();
 
 						if (!filename.toLowerCase().endsWith(ext))
@@ -1005,7 +989,7 @@ public class EditorActions
 		/**
 		 * 
 		 */
-		public ToggleCreateTargetItem(final BasicGraphEditor editor, String name)
+		public ToggleCreateTargetItem(final INHoopBasicGraphEditor editor, String name)
 		{
 			super(name);
 			setSelected(true);
@@ -1292,7 +1276,7 @@ public class EditorActions
 		 */
 		public void actionPerformed(ActionEvent e)
 		{
-			BasicGraphEditor editor = getEditor(e);
+			INHoopBasicGraphEditor editor = getEditor(e);
 
 			if (editor != null)
 			{
@@ -1442,7 +1426,7 @@ public class EditorActions
 		 */
 		public void actionPerformed(ActionEvent e)
 		{
-			BasicGraphEditor editor = getEditor(e);
+			INHoopBasicGraphEditor editor = getEditor(e);
 
 			if (editor != null)
 			{
@@ -1484,8 +1468,7 @@ public class EditorActions
 		 * @param path The path to the directory the shape exists in
 		 * @return the string name of the shape
 		 */
-		public static String addStencilShape(EditorPalette palette,
-				String nodeXml, String path)
+		public static String addStencilShape(INHoopEditorPalette palette,	String nodeXml, String path)
 		{
 
 			// Some editors place a 3 byte BOM at the start of files
@@ -1518,7 +1501,7 @@ public class EditorActions
 		 */
 		public void actionPerformed(ActionEvent e)
 		{
-			BasicGraphEditor editor = getEditor(e);
+			INHoopBasicGraphEditor editor = getEditor(e);
 
 			if (editor != null)
 			{
@@ -1530,8 +1513,7 @@ public class EditorActions
 				fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 
 				// Adds file filter for Dia shape import
-				fc.addChoosableFileFilter(new DefaultFileFilter(".shape",
-						"Dia Shape " + mxResources.get("file") + " (.shape)"));
+				fc.addChoosableFileFilter(new INDefaultFileFilter(".shape", 	"Dia Shape " + mxResources.get("file") + " (.shape)"));
 
 				int rc = fc.showDialog(null, mxResources.get("importStencil"));
 
@@ -1543,8 +1525,7 @@ public class EditorActions
 					{
 						if (fc.getSelectedFile().isDirectory())
 						{
-							EditorPalette palette = editor.insertPalette(fc
-									.getSelectedFile().getName());
+							INHoopEditorPalette palette = editor.insertPalette(fc.getSelectedFile().getName());
 
 							for (File f : fc.getSelectedFile().listFiles(
 									new FilenameFilter()
@@ -1606,7 +1587,7 @@ public class EditorActions
 		/**
 		 * 
 		 */
-		protected void resetEditor(BasicGraphEditor editor)
+		protected void resetEditor(INHoopBasicGraphEditor editor)
 		{
 			editor.setModified(false);
 			editor.getUndoManager().clear();
@@ -1616,7 +1597,7 @@ public class EditorActions
 		/**
 		 * Reads XML+PNG format.
 		 */
-		protected void openXmlPng(BasicGraphEditor editor, File file)
+		protected void openXmlPng(INHoopBasicGraphEditor editor, File file)
 				throws IOException
 		{
 			Map<String, String> text = mxPngTextDecoder
@@ -1648,7 +1629,7 @@ public class EditorActions
 		 * @throws IOException
 		 *
 		 */
-		protected void openGD(BasicGraphEditor editor, File file,
+		protected void openGD(INHoopBasicGraphEditor editor, File file,
 				mxGdDocument document)
 		{
 			mxGraph graph = editor.getGraphComponent().getGraph();
@@ -1675,7 +1656,7 @@ public class EditorActions
 		 */
 		public void actionPerformed(ActionEvent e)
 		{
-			BasicGraphEditor editor = getEditor(e);
+			INHoopBasicGraphEditor editor = getEditor(e);
 
 			if (editor != null)
 			{
@@ -1693,11 +1674,8 @@ public class EditorActions
 						JFileChooser fc = new JFileChooser(wd);
 
 						// Adds file filter for supported file format
-						DefaultFileFilter defaultFilter = new DefaultFileFilter(
-								".mxe", mxResources.get("allSupportedFormats")
-										+ " (.mxe, .png, .vdx)")
+						INDefaultFileFilter defaultFilter = new INDefaultFileFilter(".mxe", mxResources.get("allSupportedFormats")	+ " (.mxe, .png, .vdx)")
 						{
-
 							public boolean accept(File file)
 							{
 								String lcase = file.getName().toLowerCase();
@@ -1707,24 +1685,17 @@ public class EditorActions
 										|| lcase.endsWith(".vdx");
 							}
 						};
+						
 						fc.addChoosableFileFilter(defaultFilter);
 
-						fc.addChoosableFileFilter(new DefaultFileFilter(".mxe",
-								"mxGraph Editor " + mxResources.get("file")
-										+ " (.mxe)"));
-						fc.addChoosableFileFilter(new DefaultFileFilter(".png",
-								"PNG+XML  " + mxResources.get("file")
-										+ " (.png)"));
+						fc.addChoosableFileFilter(new INDefaultFileFilter(".mxe","mxGraph Editor " + mxResources.get("file")	+ " (.mxe)"));
+						fc.addChoosableFileFilter(new INDefaultFileFilter(".png","PNG+XML  " + mxResources.get("file") + " (.png)"));
 
 						// Adds file filter for VDX import
-						fc.addChoosableFileFilter(new DefaultFileFilter(".vdx",
-								"XML Drawing  " + mxResources.get("file")
-										+ " (.vdx)"));
+						fc.addChoosableFileFilter(new INDefaultFileFilter(".vdx","XML Drawing  " + mxResources.get("file")	+ " (.vdx)"));
 
 						// Adds file filter for GD import
-						fc.addChoosableFileFilter(new DefaultFileFilter(".txt",
-								"Graph Drawing  " + mxResources.get("file")
-										+ " (.txt)"));
+						fc.addChoosableFileFilter(new INDefaultFileFilter(".txt",	"Graph Drawing  " + mxResources.get("file")	+ " (.txt)"));
 
 						fc.setFileFilter(defaultFilter);
 

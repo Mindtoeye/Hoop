@@ -16,11 +16,13 @@
  * 
  */
 
-package edu.cmu.cs.in.ml.quickbayes;
+package edu.cmu.cs.in.base.io;
 
 import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.INBase;
+import edu.cmu.cs.in.ml.quickbayes.INQuickBayesData;
+import edu.cmu.cs.in.ml.quickbayes.INQuickBayesFeature;
 
 public class INCSVReader extends INBase 
 {

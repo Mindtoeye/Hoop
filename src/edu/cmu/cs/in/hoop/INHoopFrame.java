@@ -298,7 +298,8 @@ public class INHoopFrame extends INHoopMultiViewFrame implements ActionListener,
     	{
     		public void actionPerformed(ActionEvent e) 
     		{
-    			addView ("Hoop Editor",new INHoopEditor (),center);
+    			//addView ("Hoop Editor",new INHoopEditor (),center);
+    			addView ("Hoop Editor",new INHoopGraphEditor (),center);
     		}
     	});     	
     	

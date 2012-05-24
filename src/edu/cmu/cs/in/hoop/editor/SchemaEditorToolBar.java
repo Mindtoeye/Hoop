@@ -60,7 +60,7 @@ public class SchemaEditorToolBar extends JToolBar
 	/**
 	 * 
 	 */
-	public SchemaEditorToolBar(final BasicGraphEditor editor, int orientation)
+	public SchemaEditorToolBar(final INHoopBasicGraphEditor editor, int orientation)
 	{
 		super(orientation);
 		setBorder(BorderFactory.createCompoundBorder(BorderFactory
@@ -68,37 +68,37 @@ public class SchemaEditorToolBar extends JToolBar
 		setFloatable(false);
 
 		add(editor.bind("New", new NewAction(),
-				"/com/mxgraph/examples/swing/images/new.gif"));
+				"/assets/images/new.gif"));
 		add(editor.bind("Open", new OpenAction(),
-				"/com/mxgraph/examples/swing/images/open.gif"));
+				"/assets/images/open.gif"));
 		add(editor.bind("Save", new SaveAction(false),
-				"/com/mxgraph/examples/swing/images/save.gif"));
+				"/assets/images/save.gif"));
 
 		addSeparator();
 
 		add(editor.bind("Print", new PrintAction(),
-				"/com/mxgraph/examples/swing/images/print.gif"));
+				"/assets/images/print.gif"));
 
 		addSeparator();
 
 		add(editor.bind("Cut", TransferHandler.getCutAction(),
-				"/com/mxgraph/examples/swing/images/cut.gif"));
+				"/assets/images/cut.gif"));
 		add(editor.bind("Copy", TransferHandler.getCopyAction(),
-				"/com/mxgraph/examples/swing/images/copy.gif"));
+				"/assets/images/copy.gif"));
 		add(editor.bind("Paste", TransferHandler.getPasteAction(),
-				"/com/mxgraph/examples/swing/images/paste.gif"));
+				"/assets/images/paste.gif"));
 
 		addSeparator();
 
 		add(editor.bind("Delete", mxGraphActions.getDeleteAction(),
-				"/com/mxgraph/examples/swing/images/delete.gif"));
+				"/assets/images/delete.gif"));
 
 		addSeparator();
 
 		add(editor.bind("Undo", new HistoryAction(true),
-				"/com/mxgraph/examples/swing/images/undo.gif"));
+				"/assets/images/undo.gif"));
 		add(editor.bind("Redo", new HistoryAction(false),
-				"/com/mxgraph/examples/swing/images/redo.gif"));
+				"/assets/images/redo.gif"));
 
 		addSeparator();
 

@@ -69,7 +69,7 @@ public class EditorToolBar extends JToolBar
 	/**
 	 * 
 	 */
-	public EditorToolBar(final BasicGraphEditor editor, int orientation)
+	public EditorToolBar(final INHoopBasicGraphEditor editor, int orientation)
 	{
 		super(orientation);
 		setBorder(BorderFactory.createCompoundBorder(BorderFactory
@@ -77,37 +77,37 @@ public class EditorToolBar extends JToolBar
 		setFloatable(false);
 
 		add(editor.bind("New", new NewAction(),
-				"/com/mxgraph/examples/swing/images/new.gif"));
+				"/assets/images/new.gif"));
 		add(editor.bind("Open", new OpenAction(),
-				"/com/mxgraph/examples/swing/images/open.gif"));
+				"/assets/images/open.gif"));
 		add(editor.bind("Save", new SaveAction(false),
-				"/com/mxgraph/examples/swing/images/save.gif"));
+				"/assets/images/save.gif"));
 
 		addSeparator();
 
 		add(editor.bind("Print", new PrintAction(),
-				"/com/mxgraph/examples/swing/images/print.gif"));
+				"/assets/images/print.gif"));
 
 		addSeparator();
 
 		add(editor.bind("Cut", TransferHandler.getCutAction(),
-				"/com/mxgraph/examples/swing/images/cut.gif"));
+				"/assets/images/cut.gif"));
 		add(editor.bind("Copy", TransferHandler.getCopyAction(),
-				"/com/mxgraph/examples/swing/images/copy.gif"));
+				"/assets/images/copy.gif"));
 		add(editor.bind("Paste", TransferHandler.getPasteAction(),
-				"/com/mxgraph/examples/swing/images/paste.gif"));
+				"/assets/images/paste.gif"));
 
 		addSeparator();
 
 		add(editor.bind("Delete", mxGraphActions.getDeleteAction(),
-				"/com/mxgraph/examples/swing/images/delete.gif"));
+				"/assets/images/delete.gif"));
 
 		addSeparator();
 
 		add(editor.bind("Undo", new HistoryAction(true),
-				"/com/mxgraph/examples/swing/images/undo.gif"));
+				"/assets/images/undo.gif"));
 		add(editor.bind("Redo", new HistoryAction(false),
-				"/com/mxgraph/examples/swing/images/redo.gif"));
+				"/assets/images/redo.gif"));
 
 		addSeparator();
 
@@ -169,33 +169,33 @@ public class EditorToolBar extends JToolBar
 		addSeparator();
 
 		add(editor.bind("Bold", new FontStyleAction(true),
-				"/com/mxgraph/examples/swing/images/bold.gif"));
+				"/assets/images/bold.gif"));
 		add(editor.bind("Italic", new FontStyleAction(false),
-				"/com/mxgraph/examples/swing/images/italic.gif"));
+				"/assets/images/italic.gif"));
 
 		addSeparator();
 
 		add(editor.bind("Left", new KeyValueAction(mxConstants.STYLE_ALIGN,
 				mxConstants.ALIGN_LEFT),
-				"/com/mxgraph/examples/swing/images/left.gif"));
+				"/assets/images/left.gif"));
 		add(editor.bind("Center", new KeyValueAction(mxConstants.STYLE_ALIGN,
 				mxConstants.ALIGN_CENTER),
-				"/com/mxgraph/examples/swing/images/center.gif"));
+				"/assets/images/center.gif"));
 		add(editor.bind("Right", new KeyValueAction(mxConstants.STYLE_ALIGN,
 				mxConstants.ALIGN_RIGHT),
-				"/com/mxgraph/examples/swing/images/right.gif"));
+				"/assets/images/right.gif"));
 
 		addSeparator();
 
 		add(editor.bind("Font", new ColorAction("Font",
 				mxConstants.STYLE_FONTCOLOR),
-				"/com/mxgraph/examples/swing/images/fontcolor.gif"));
+				"/assets/images/fontcolor.gif"));
 		add(editor.bind("Stroke", new ColorAction("Stroke",
 				mxConstants.STYLE_STROKECOLOR),
-				"/com/mxgraph/examples/swing/images/linecolor.gif"));
+				"/assets/images/linecolor.gif"));
 		add(editor.bind("Fill", new ColorAction("Fill",
 				mxConstants.STYLE_FILLCOLOR),
-				"/com/mxgraph/examples/swing/images/fillcolor.gif"));
+				"/assets/images/fillcolor.gif"));
 
 		addSeparator();
 

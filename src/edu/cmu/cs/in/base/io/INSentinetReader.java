@@ -16,13 +16,14 @@
  * 
  */
 
-package edu.cmu.cs.in.ml.quickbayes;
+package edu.cmu.cs.in.base.io;
 
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 import edu.cmu.cs.in.base.INDataCollection;
 import edu.cmu.cs.in.controls.INVisualSentinetFeature;
+import edu.cmu.cs.in.ml.quickbayes.INQuickBayesData;
 
 public class INSentinetReader extends INCSVReader
 {	
