@@ -30,6 +30,8 @@ import com.mxgraph.view.mxCellState;
 import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxGraphView;
 
+import edu.cmu.cs.in.controls.INHoopJTableRenderer;
+
 public class SchemaGraphComponent extends mxGraphComponent
 {
 
@@ -134,9 +136,9 @@ public class SchemaGraphComponent extends mxGraphComponent
 		{
 			for (int i = 0; i < c.length; i++)
 			{
-				if (c[i] instanceof JTableRenderer)
+				if (c[i] instanceof INHoopJTableRenderer)
 				{
-					JTableRenderer vertex = (JTableRenderer) c[i];
+					INHoopJTableRenderer vertex = (INHoopJTableRenderer) c[i];
 
 					JTable table = vertex.table;
 					JViewport viewport = (JViewport) table.getParent();
@@ -158,7 +160,7 @@ public class SchemaGraphComponent extends mxGraphComponent
 	{
 		if (getGraph().getModel().isVertex(state.getCell()))
 		{
-			return new Component[] { new JTableRenderer(state.getCell(), this) };
+			return new Component[] { new INHoopJTableRenderer(state.getCell(), this) };
 		}
 
 		return null;

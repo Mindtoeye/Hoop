@@ -16,7 +16,7 @@
  * 
  */
 
-package edu.cmu.cs.in.hoop.editor;
+package edu.cmu.cs.in.controls;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -66,63 +66,25 @@ import com.mxgraph.view.mxGraph;
  * @author Administrator
  * 
  */
-public class JTableRenderer extends JComponent
+public class INHoopJTableRenderer extends JComponent
 {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 2106746763664760745L;
-
-	/**
-	 * 
-	 */
 	public static final String IMAGE_PATH = "/assets/images/";
-
-	/**
-	 * 
-	 */
-	protected static JTableRenderer dragSource = null;
-
-	/**
-	 * 
-	 */
+	protected static INHoopJTableRenderer dragSource = null;
 	protected static int sourceRow = 0;
-
-	/**
-	 * 
-	 */
 	protected Object cell;
-
-	/**
-	 * 
-	 */
 	protected mxGraphComponent graphContainer;
-
-	/**
-	 * 
-	 */
 	protected mxGraph graph;
-
-	/**
-	 * 
-	 */
 	public JTable table;
 
-	/**
-	 * 
-	 */
 	@SuppressWarnings("serial")
-	public JTableRenderer(final Object cell,
-			final mxGraphComponent graphContainer)
+	public INHoopJTableRenderer (final Object cell,final mxGraphComponent graphContainer)
 	{
 		this.cell = cell;
 		this.graphContainer = graphContainer;
 		this.graph = graphContainer.getGraph();
 		setLayout(new BorderLayout());
-		setBorder(BorderFactory.createCompoundBorder(ShadowBorder
-				.getSharedInstance(), BorderFactory
-				.createBevelBorder(BevelBorder.RAISED)));
+		setBorder(BorderFactory.createCompoundBorder(INHoopShadowBorder.getSharedInstance(), BorderFactory.createBevelBorder(BevelBorder.RAISED)));
 
 		JPanel title = new JPanel();
 		title.setBackground(new Color(149, 173, 239));
@@ -130,8 +92,7 @@ public class JTableRenderer extends JComponent
 		title.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 1));
 		title.setLayout(new BorderLayout());
 
-		JLabel icon = new JLabel(new ImageIcon(JTableRenderer.class
-				.getResource(IMAGE_PATH + "preferences.gif")));
+		JLabel icon = new JLabel(new ImageIcon(INHoopJTableRenderer.class.getResource(IMAGE_PATH + "preferences.gif")));
 		icon.setBorder(BorderFactory.createEmptyBorder(0, 2, 0, 1));
 		title.add(icon, BorderLayout.WEST);
 
@@ -144,22 +105,16 @@ public class JTableRenderer extends JComponent
 		JPanel toolBar2 = new JPanel();
 		toolBar2.setLayout(new FlowLayout(FlowLayout.LEFT, 1, 2));
 		toolBar2.setOpaque(false);
-		JButton button = new JButton(new AbstractAction("", new ImageIcon(
-				JTableRenderer.class.getResource(IMAGE_PATH + "minimize.gif")))
+		JButton button = new JButton(new AbstractAction("", new ImageIcon(INHoopJTableRenderer.class.getResource(IMAGE_PATH + "minimize.gif")))
 		{
 
 			public void actionPerformed(ActionEvent e)
 			{
-				graph.foldCells(graph.isCellCollapsed(cell), false,
-						new Object[] { cell });
-				((JButton) e.getSource())
-						.setIcon(new ImageIcon(
-								JTableRenderer.class
-										.getResource(IMAGE_PATH
-												+ ((graph.isCellCollapsed(cell)) ? "maximize.gif"
-														: "minimize.gif"))));
+				graph.foldCells(graph.isCellCollapsed(cell),false,new Object[] { cell });
+				((JButton) e.getSource()).setIcon(new ImageIcon(INHoopJTableRenderer.class.getResource(IMAGE_PATH	+ ((graph.isCellCollapsed(cell)) ? "maximize.gif" : "minimize.gif"))));
 			}
 		});
+		
 		button.setPreferredSize(new Dimension(16, 16));
 		button.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 		button.setToolTipText("Collapse/Expand");
@@ -173,7 +128,7 @@ public class JTableRenderer extends JComponent
 		// graph.getStylesheet().getCellStyle(graph.getModel(),
 		// cell);
 		// if (style.getStyleClass() == null) {
-		table = new MyTable();
+		table = new INHoopInternalTable ();
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 
@@ -184,19 +139,15 @@ public class JTableRenderer extends JComponent
 			add(scrollPane, BorderLayout.CENTER);
 		}
 
-		scrollPane.getVerticalScrollBar().addAdjustmentListener(
-				new AdjustmentListener()
-				{
+		scrollPane.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener()
+		{
+			public void adjustmentValueChanged(AdjustmentEvent e)
+			{
+				graphContainer.refresh();
+			}
+		});
 
-					public void adjustmentValueChanged(AdjustmentEvent e)
-					{
-						graphContainer.refresh();
-					}
-
-				});
-
-		label = new JLabel(new ImageIcon(JTableRenderer.class
-				.getResource(IMAGE_PATH + "resize.gif")));
+		label = new JLabel(new ImageIcon(INHoopJTableRenderer.class.getResource(IMAGE_PATH + "resize.gif")));
 		label.setCursor(new Cursor(Cursor.NW_RESIZE_CURSOR));
 
 		JPanel panel = new JPanel();
@@ -211,7 +162,6 @@ public class JTableRenderer extends JComponent
 
 		setMinimumSize(new Dimension(20, 30));
 	}
-
 	/**
 	 * Implements an event redirector for the specified handle index, where 0
 	 * is the top right, and 1-7 are the top center, rop right, middle left,
@@ -289,13 +239,11 @@ public class JTableRenderer extends JComponent
 			// ignore
 		}
 	}
-
 	/**
 	 * 
 	 */
-	public class MyTable extends JTable implements DropTargetListener
+	public class INHoopInternalTable extends JTable implements DropTargetListener
 	{
-
 		/**
 		 * 
 		 */
@@ -306,23 +254,19 @@ public class JTableRenderer extends JComponent
 		String[] colNames = new String[] { "A", "B", "C", "D", "E" };
 
 		@SuppressWarnings("serial")
-		public MyTable()
+		public INHoopInternalTable()
 		{
 			data = new Object[30][5];
+			
 			for (int i = 0; i < 30; i++)
 			{
 				data[i][0] = new Boolean(false);
 				data[i][1] = "Column " + i;
-				data[i][2] = (Math.random() > 0.5) ? new ImageIcon(
-						JTableRenderer.class.getResource(IMAGE_PATH
-								+ "preferences.gif")) : null;
-				data[i][3] = (Math.random() > 0.5) ? new ImageIcon(
-						JTableRenderer.class.getResource(IMAGE_PATH
-								+ "preferences.gif")) : null;
-				data[i][4] = (Math.random() > 0.5) ? new ImageIcon(
-						JTableRenderer.class.getResource(IMAGE_PATH
-								+ "preferences.gif")) : null;
+				data[i][2] = (Math.random() > 0.5) ? new ImageIcon(INHoopJTableRenderer.class.getResource(IMAGE_PATH	+ "preferences.gif")) : null;
+				data[i][3] = (Math.random() > 0.5) ? new ImageIcon(INHoopJTableRenderer.class.getResource(IMAGE_PATH	+ "preferences.gif")) : null;
+				data[i][4] = (Math.random() > 0.5) ? new ImageIcon(INHoopJTableRenderer.class.getResource(IMAGE_PATH	+ "preferences.gif")) : null;
 			}
+			
 			setModel(createModel());
 			setTableHeader(null);
 			setAutoscrolls(true);
@@ -338,7 +282,6 @@ public class JTableRenderer extends JComponent
 
 			setTransferHandler(new TransferHandler()
 			{
-
 				/* (non-Javadoc)
 				 * @see javax.swing.TransferHandler#getSourceActions(javax.swing.JComponent)
 				 */
@@ -356,7 +299,7 @@ public class JTableRenderer extends JComponent
 				protected Transferable createTransferable(JComponent c)
 				{
 					sourceRow = getSelectedRow();
-					dragSource = JTableRenderer.this;
+					dragSource = INHoopJTableRenderer.this;
 					//mxRectangle bounds = new mxRectangle(0, 0, MyTable.this
 					//		.getWidth(), 20);
 					return new mxGraphTransferable(null, null, null);
@@ -404,7 +347,7 @@ public class JTableRenderer extends JComponent
 		{
 			if (!((mxGraphTransferHandler) graphContainer.getTransferHandler())
 					.isLocalDrag()
-					&& JTableRenderer.this != dragSource)
+					&& INHoopJTableRenderer.this != dragSource)
 			{
 				Point p = e.getLocation();
 				int row = rowAtPoint(p);
@@ -437,7 +380,7 @@ public class JTableRenderer extends JComponent
 				int targetRow = rowAtPoint(p);
 
 				Object edge = graph.insertEdge(null, null, null,
-						dragSource.cell, JTableRenderer.this.cell, "sourceRow="
+						dragSource.cell, INHoopJTableRenderer.this.cell, "sourceRow="
 								+ sourceRow + ";targetRow=" + targetRow);
 				graph.setSelectionCell(edge);
 
@@ -450,7 +393,6 @@ public class JTableRenderer extends JComponent
 				e.rejectDrop();
 			}
 		}
-
 		/*
 		 * (non-Javadoc)
 		 * 
@@ -461,7 +403,6 @@ public class JTableRenderer extends JComponent
 			// TODO Auto-generated method stub
 
 		}
-
 		/**
 		 * 
 		 * @return the created table model
@@ -529,13 +470,13 @@ public class JTableRenderer extends JComponent
 	/**
 	 * 
 	 */
-	public static JTableRenderer getVertex(Component component)
+	public static INHoopJTableRenderer getVertex(Component component)
 	{
 		while (component != null)
 		{
-			if (component instanceof JTableRenderer)
+			if (component instanceof INHoopJTableRenderer)
 			{
-				return (JTableRenderer) component;
+				return (INHoopJTableRenderer) component;
 			}
 			component = component.getParent();
 		}

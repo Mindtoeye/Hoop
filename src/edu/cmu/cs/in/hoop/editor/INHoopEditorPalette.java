@@ -51,6 +51,7 @@ import com.mxgraph.util.mxPoint;
 import com.mxgraph.util.mxRectangle;
 import com.mxgraph.util.mxEventSource.mxIEventListener;
 
+import edu.cmu.cs.in.controls.INHoopShadowBorder;
 import edu.cmu.cs.in.controls.base.INJPanel;
 
 public class INHoopEditorPalette extends INJPanel
@@ -193,7 +194,7 @@ public class INHoopEditorPalette extends INJPanel
 
 		if (selectedEntry != null)
 		{
-			selectedEntry.setBorder(ShadowBorder.getSharedInstance());
+			selectedEntry.setBorder(INHoopShadowBorder.getSharedInstance());
 			selectedEntry.setOpaque(true);
 		}
 

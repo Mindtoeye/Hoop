@@ -29,6 +29,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.TransferHandler;
 import javax.swing.UIManager;
 
+import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.hoop.editor.EditorActions.AlignCellsAction;
 import edu.cmu.cs.in.hoop.editor.EditorActions.AutosizeAction;
 import edu.cmu.cs.in.hoop.editor.EditorActions.BackgroundAction;
@@ -73,17 +74,51 @@ import com.mxgraph.util.mxPoint;
 import com.mxgraph.util.mxResources;
 import com.mxgraph.view.mxGraph;
 
-public class EditorMenuBar extends JMenuBar
+/** 
+ * @author Martin van Velsen
+ */
+public class INHoopEditorMenuBar extends JMenuBar
 {
+	private static final long serialVersionUID = -1L;
+	private INHoopBasicGraphEditor editor=null;
 
 	/**
 	 * 
-	 */
-	private static final long serialVersionUID = 4060203894740766714L;
-
-	@SuppressWarnings("serial")
-	public EditorMenuBar(final INHoopBasicGraphEditor editor)
+	 */	
+	public INHoopEditorMenuBar ()
 	{
+		debug ("INHoopEditorMenuBar ()");
+	}
+	/**
+	 * 
+	 */
+	private void debug (String aMessage)
+	{
+		INBase.debug("INHoopEditorMenuBar",aMessage);
+	}
+	/**
+	 * 
+	 */	
+	public void setEditor(INHoopBasicGraphEditor editor) 
+	{
+		this.editor = editor;
+	}
+	/**
+	 * 
+	 */
+	public INHoopBasicGraphEditor getEditor() 
+	{
+		return editor;
+	}	
+	/**
+	 * 
+	 */
+	public void create (INHoopBasicGraphEditor anEditor)
+	{		
+		debug ("create ()");
+		
+		editor=anEditor;
+		
 		final mxGraphComponent graphComponent = editor.getGraphComponent();
 		final mxGraph graph = graphComponent.getGraph();
 		JMenu menu = null;
@@ -449,8 +484,9 @@ public class EditorMenuBar extends JMenuBar
 
 		// Creates the help menu
 		menu = add(new JMenu(mxResources.get("help")));
+		
+		debug ("create () done");
 	}
-
 	/**
 	 * Adds menu items to the given shape menu. This is factored out because
 	 * the shape menu appears in the menubar and also in the popupmenu.

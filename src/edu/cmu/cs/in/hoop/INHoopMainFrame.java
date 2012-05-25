@@ -27,6 +27,7 @@ import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.controls.INScatterPlot;
 import edu.cmu.cs.in.controls.map.INHoopJava3DJPanel;
 //import edu.cmu.cs.in.controls.INScatterPlot;
+import edu.cmu.cs.in.hoop.editor.INHoopEditorToolBar;
 import edu.cmu.cs.in.hoop.properties.INHoopPropertyPanel;
 //import edu.cmu.cs.in.network.INSocketServerBase;
 //import edu.cmu.cs.in.stats.INStatistics;
@@ -37,7 +38,7 @@ import edu.cmu.cs.in.network.INMessageReceiver;
  * @author vvelsen
  *
  */
-public class INHoopFrame extends INHoopMultiViewFrame implements ActionListener, INMessageReceiver
+public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListener, INMessageReceiver
 {
 	private static final long serialVersionUID = 2788834485599638868L;
 	    
@@ -53,9 +54,10 @@ public class INHoopFrame extends INHoopMultiViewFrame implements ActionListener,
 	/**
 	 *
 	 */	
-    public INHoopFrame() 
+    public INHoopMainFrame() 
     {                
-    	debug ("INHoopFrame ()");
+    	setClassName ("INHoopMainFrame");
+    	debug ("INHoopMainFrame ()");
     	    
         buildMenus();       
         addButtons (this.getToolBar());
@@ -299,7 +301,12 @@ public class INHoopFrame extends INHoopMultiViewFrame implements ActionListener,
     		public void actionPerformed(ActionEvent e) 
     		{
     			//addView ("Hoop Editor",new INHoopEditor (),center);
-    			addView ("Hoop Editor",new INHoopGraphEditor (),center);
+    			INHoopGraphEditor editor=new INHoopGraphEditor ();
+    			addView ("Hoop Editor",editor,center);
+    			INHoopLink.menuBar.create(editor);
+    			INHoopLink.toolEditorBar=new INHoopEditorToolBar ();
+    			INHoopLink.toolBoxContainer.add (INHoopLink.toolEditorBar,1);    		
+    			INHoopLink.toolEditorBar.create(editor,JToolBar.HORIZONTAL);
     		}
     	});     	
     	

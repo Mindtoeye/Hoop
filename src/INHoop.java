@@ -22,7 +22,7 @@ import javax.swing.*;
 import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.base.INLink;
-import edu.cmu.cs.in.hoop.INHoopFrame;
+import edu.cmu.cs.in.hoop.INHoopMainFrame;
 
 /** 
  * @author vvelsen
@@ -85,7 +85,7 @@ public class INHoop
 			return;
 		}           
         
-        frame=new INHoopFrame ();
+        frame=new INHoopMainFrame ();
         frame.setResizable(true);
         
         SwingUtilities.invokeLater (new Runnable() 

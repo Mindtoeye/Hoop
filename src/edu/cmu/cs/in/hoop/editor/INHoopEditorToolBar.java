@@ -19,6 +19,7 @@
 package edu.cmu.cs.in.hoop.editor;
 
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -32,6 +33,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
 import javax.swing.TransferHandler;
 
+import edu.cmu.cs.in.base.INBase;
+import edu.cmu.cs.in.hoop.INHoopGraphEditor;
 import edu.cmu.cs.in.hoop.editor.EditorActions.ColorAction;
 import edu.cmu.cs.in.hoop.editor.EditorActions.FontStyleAction;
 import edu.cmu.cs.in.hoop.editor.EditorActions.HistoryAction;
@@ -51,76 +54,78 @@ import com.mxgraph.util.mxEventSource.mxIEventListener;
 import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxGraphView;
 
-public class EditorToolBar extends JToolBar
+/** 
+ * @author Martin van Velsen
+ */
+public class INHoopEditorToolBar extends JToolBar
 {
+	private static final long serialVersionUID = -1L;
+	private boolean ignoreZoomChange = false;
+	private INHoopGraphEditor editor=null;
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -8015443128436394471L;
-
+	public INHoopEditorToolBar()
+	{
+		
+	}
 	/**
 	 * 
-	 * @param frame
+	 */
+	private void debug (String aMessage)
+	{
+		INBase.debug("INHoopEditorToolBar",aMessage);
+	}
+	/** 
+	 * @param editor
 	 * @param orientation
 	 */
-	private boolean ignoreZoomChange = false;
-
-	/**
-	 * 
-	 */
-	public EditorToolBar(final INHoopBasicGraphEditor editor, int orientation)
+	public void create (INHoopGraphEditor anEditor,int orientation)
 	{
-		super(orientation);
-		setBorder(BorderFactory.createCompoundBorder(BorderFactory
-				.createEmptyBorder(3, 3, 3, 3), getBorder()));
-		setFloatable(false);
+		debug ("create ()");
+		
+		super.setOrientation(orientation);
+		
+		editor=anEditor;
+		
+		setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(0,0,0,0), getBorder()));
+		//setFloatable(false);
 
-		add(editor.bind("New", new NewAction(),
-				"/assets/images/new.gif"));
-		add(editor.bind("Open", new OpenAction(),
-				"/assets/images/open.gif"));
-		add(editor.bind("Save", new SaveAction(false),
-				"/assets/images/save.gif"));
-
-		addSeparator();
-
-		add(editor.bind("Print", new PrintAction(),
-				"/assets/images/print.gif"));
+		add(editor.bind("New", new NewAction(),"/assets/images/new.gif"));
+		add(editor.bind("Open", new OpenAction(),"/assets/images/open.gif"));
+		add(editor.bind("Save", new SaveAction(false),"/assets/images/save.gif"));
 
 		addSeparator();
 
-		add(editor.bind("Cut", TransferHandler.getCutAction(),
-				"/assets/images/cut.gif"));
-		add(editor.bind("Copy", TransferHandler.getCopyAction(),
-				"/assets/images/copy.gif"));
-		add(editor.bind("Paste", TransferHandler.getPasteAction(),
-				"/assets/images/paste.gif"));
+		add(editor.bind("Print", new PrintAction(),"/assets/images/print.gif"));
 
 		addSeparator();
 
-		add(editor.bind("Delete", mxGraphActions.getDeleteAction(),
-				"/assets/images/delete.gif"));
+		add(editor.bind("Cut", TransferHandler.getCutAction(),"/assets/images/cut.gif"));
+		add(editor.bind("Copy", TransferHandler.getCopyAction(),"/assets/images/copy.gif"));
+		add(editor.bind("Paste", TransferHandler.getPasteAction(),"/assets/images/paste.gif"));
 
 		addSeparator();
 
-		add(editor.bind("Undo", new HistoryAction(true),
-				"/assets/images/undo.gif"));
-		add(editor.bind("Redo", new HistoryAction(false),
-				"/assets/images/redo.gif"));
+		add(editor.bind("Delete", mxGraphActions.getDeleteAction(),"/assets/images/delete.gif"));
+
+		addSeparator();
+
+		add(editor.bind("Undo", new HistoryAction(true),"/assets/images/undo.gif"));
+		add(editor.bind("Redo", new HistoryAction(false),"/assets/images/redo.gif"));
 
 		addSeparator();
 
 		// Gets the list of available fonts from the local graphics environment
 		// and adds some frequently used fonts at the beginning of the list
-		GraphicsEnvironment env = GraphicsEnvironment
-				.getLocalGraphicsEnvironment();
+		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		List<String> fonts = new ArrayList<String>();
-		fonts.addAll(Arrays.asList(new String[] { "Helvetica", "Verdana",
-				"Times New Roman", "Garamond", "Courier New", "-" }));
+		fonts.addAll(Arrays.asList(new String[] { "Helvetica", "Verdana","Times New Roman", "Garamond", "Courier New", "-" }));
 		fonts.addAll(Arrays.asList(env.getAvailableFontFamilyNames()));
 
 		final JComboBox fontCombo = new JComboBox(fonts.toArray());
+		fontCombo.setFont(new Font("Dialog", 1, 10));
 		fontCombo.setEditable(true);
 		fontCombo.setMinimumSize(new Dimension(120, 0));
 		fontCombo.setPreferredSize(new Dimension(120, 0));
@@ -148,6 +153,7 @@ public class EditorToolBar extends JToolBar
 				"9pt", "10pt", "12pt", "14pt", "18pt", "24pt", "30pt", "36pt",
 				"48pt", "60pt" });
 		sizeCombo.setEditable(true);
+		sizeCombo.setFont(new Font("Dialog", 1, 10));
 		sizeCombo.setMinimumSize(new Dimension(65, 0));
 		sizeCombo.setPreferredSize(new Dimension(65, 0));
 		sizeCombo.setMaximumSize(new Dimension(65, 100));
@@ -168,42 +174,26 @@ public class EditorToolBar extends JToolBar
 
 		addSeparator();
 
-		add(editor.bind("Bold", new FontStyleAction(true),
-				"/assets/images/bold.gif"));
-		add(editor.bind("Italic", new FontStyleAction(false),
-				"/assets/images/italic.gif"));
+		add(editor.bind("Bold", new FontStyleAction(true),"/assets/images/bold.gif"));
+		add(editor.bind("Italic", new FontStyleAction(false),"/assets/images/italic.gif"));
 
 		addSeparator();
 
-		add(editor.bind("Left", new KeyValueAction(mxConstants.STYLE_ALIGN,
-				mxConstants.ALIGN_LEFT),
-				"/assets/images/left.gif"));
-		add(editor.bind("Center", new KeyValueAction(mxConstants.STYLE_ALIGN,
-				mxConstants.ALIGN_CENTER),
-				"/assets/images/center.gif"));
-		add(editor.bind("Right", new KeyValueAction(mxConstants.STYLE_ALIGN,
-				mxConstants.ALIGN_RIGHT),
-				"/assets/images/right.gif"));
+		add(editor.bind("Left", new KeyValueAction(mxConstants.STYLE_ALIGN,mxConstants.ALIGN_LEFT),"/assets/images/left.gif"));
+		add(editor.bind("Center", new KeyValueAction(mxConstants.STYLE_ALIGN,mxConstants.ALIGN_CENTER),"/assets/images/center.gif"));
+		add(editor.bind("Right", new KeyValueAction(mxConstants.STYLE_ALIGN,mxConstants.ALIGN_RIGHT),"/assets/images/right.gif"));
 
 		addSeparator();
 
-		add(editor.bind("Font", new ColorAction("Font",
-				mxConstants.STYLE_FONTCOLOR),
-				"/assets/images/fontcolor.gif"));
-		add(editor.bind("Stroke", new ColorAction("Stroke",
-				mxConstants.STYLE_STROKECOLOR),
-				"/assets/images/linecolor.gif"));
-		add(editor.bind("Fill", new ColorAction("Fill",
-				mxConstants.STYLE_FILLCOLOR),
-				"/assets/images/fillcolor.gif"));
+		add(editor.bind("Font", new ColorAction("Font",mxConstants.STYLE_FONTCOLOR),"/assets/images/fontcolor.gif"));
+		add(editor.bind("Stroke", new ColorAction("Stroke",mxConstants.STYLE_STROKECOLOR),"/assets/images/linecolor.gif"));
+		add(editor.bind("Fill", new ColorAction("Fill",mxConstants.STYLE_FILLCOLOR),"/assets/images/fillcolor.gif"));
 
 		addSeparator();
 
-		final mxGraphView view = editor.getGraphComponent().getGraph()
-				.getView();
-		final JComboBox zoomCombo = new JComboBox(new Object[] { "400%",
-				"200%", "150%", "100%", "75%", "50%", mxResources.get("page"),
-				mxResources.get("width"), mxResources.get("actualSize") });
+		final mxGraphView view = editor.getGraphComponent().getGraph().getView();
+		final JComboBox zoomCombo = new JComboBox(new Object[] { "400%","200%", "150%", "100%", "75%", "50%", mxResources.get("page"),mxResources.get("width"), mxResources.get("actualSize") });
+		zoomCombo.setFont(new Font("Dialog", 1, 10));
 		zoomCombo.setEditable(true);
 		zoomCombo.setMinimumSize(new Dimension(75, 0));
 		zoomCombo.setPreferredSize(new Dimension(75, 0));
@@ -237,8 +227,7 @@ public class EditorToolBar extends JToolBar
 		// Installs the scale tracker to update the value in the combo box
 		// if the zoom is changed from outside the combo box
 		view.getGraph().getView().addListener(mxEvent.SCALE, scaleTracker);
-		view.getGraph().getView().addListener(mxEvent.SCALE_AND_TRANSLATE,
-				scaleTracker);
+		view.getGraph().getView().addListener(mxEvent.SCALE_AND_TRANSLATE,scaleTracker);
 
 		// Invokes once to sync with the actual zoom value
 		scaleTracker.invoke(null, null);
@@ -293,5 +282,7 @@ public class EditorToolBar extends JToolBar
 				}
 			}
 		});
+		
+		debug ("create () done");
 	}
 }

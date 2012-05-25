@@ -199,7 +199,8 @@ public class INHoopBasicGraphEditor extends INEmbeddedJPanel
 		setLayout(new BorderLayout());
 		add(outer, BorderLayout.CENTER);
 		add(statusBar, BorderLayout.SOUTH);
-		installToolBar();
+		
+		//installToolBar();
 
 		// Installs rubberband selection and handling for some special
 		// keystrokes such as F2, Control-C, -V, X, A etc.
@@ -225,10 +226,12 @@ public class INHoopBasicGraphEditor extends INEmbeddedJPanel
 	/**
 	 * 
 	 */
+	/**
 	protected void installToolBar()
 	{
 		add(new EditorToolBar(this, JToolBar.HORIZONTAL), BorderLayout.NORTH);
 	}
+	*/
 	/**
 	 * 
 	 */

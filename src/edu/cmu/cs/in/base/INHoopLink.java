@@ -24,6 +24,9 @@ package edu.cmu.cs.in.base;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
+import javax.swing.JMenuBar;
+import javax.swing.JPanel;
+import javax.swing.JToolBar;
 
 import edu.cmu.cs.in.network.INStreamedSocket;
 import edu.cmu.cs.in.search.INDataSet;
@@ -31,6 +34,8 @@ import edu.cmu.cs.in.search.INDataSet;
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 //import edu.cmu.cs.in.controls.base.INJInternalFrame;
 import edu.cmu.cs.in.hoop.INHoopConsoleInterface;
+import edu.cmu.cs.in.hoop.editor.INHoopEditorMenuBar;
+import edu.cmu.cs.in.hoop.editor.INHoopEditorToolBar;
 import edu.cmu.cs.in.search.INTextSearch;
 import edu.cmu.cs.in.stats.INPerformanceMetrics;
 import edu.cmu.cs.in.stats.INStatistics;
@@ -285,6 +290,15 @@ public class INHoopLink extends INLangLink
 	public static INDataSet dataSet=null;
 	public static ArrayList <String> queries=null;
 	public static int experimentNr=0;
+	
+	// Globally accessible UI elements
+	
+	public static INHoopEditorMenuBar menuBar=null;
+	public static JToolBar toolBar=null;
+	public static INHoopEditorToolBar toolEditorBar=null;
+	public static JPanel toolBoxContainer=null;
+	
+	// Networking access
 	
 	public static INStreamedSocket brokerConnection=null;
 		

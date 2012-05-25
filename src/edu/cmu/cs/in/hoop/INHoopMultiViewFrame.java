@@ -30,16 +30,11 @@ import org.jdesktop.swingx.MultiSplitLayout;
 import org.jdesktop.swingx.MultiSplitPane;
 import org.apache.hadoop.util.VersionInfo;
 
-//import edu.cmu.cs.in.INHoopMessageHandler;
 import edu.cmu.cs.in.base.INFileManager;
 import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 import edu.cmu.cs.in.controls.base.INJFrame;
-//import edu.cmu.cs.in.controls.INScatterPlot;
-//import edu.cmu.cs.in.network.INSocketServerBase;
-//import edu.cmu.cs.in.stats.INStatistics;
-import edu.cmu.cs.in.network.INMessageReceiver;
-import edu.cmu.cs.in.network.INStreamedSocket;
+import edu.cmu.cs.in.hoop.editor.INHoopEditorMenuBar;
 
 /** 
  * @author vvelsen
@@ -56,10 +51,10 @@ public class INHoopMultiViewFrame extends INJFrame implements ActionListener
 	
     static final String ABOUTMSG = "Hoop is an interactive text exploration tool written with the express\n purpose of understanding narrative structures in written form.";
 	
-    private JMenuBar menuBar=null;
-	private JToolBar toolBar=null;
+    //private JMenuBar menuBar=null;
+	//private JToolBar toolBar=null;
 	private INHoopStatusBar statusBar=null;
-		
+			
 	/**
 	 *
 	 */	
@@ -100,14 +95,14 @@ public class INHoopMultiViewFrame extends INJFrame implements ActionListener
      */
     protected JMenuBar getMainMenuBar ()
     {
-    	return (menuBar);
+    	return (INHoopLink.menuBar);
     }
 	/**
 	 *
 	 */
     protected JToolBar getToolBar ()
     {
-    	return (toolBar);
+    	return (INHoopLink.toolBar);
     }
     /**
      * 
@@ -157,28 +152,31 @@ public class INHoopMultiViewFrame extends INJFrame implements ActionListener
 						
 		getContentPane().setLayout(new BoxLayout (getContentPane(),BoxLayout.Y_AXIS));
 																								
-        menuBar = new JMenuBar ();
-        setJMenuBar(menuBar);
-												
+		INHoopLink.menuBar = new INHoopEditorMenuBar ();
+        setJMenuBar(INHoopLink.menuBar);
+                												
 		statusBar=new INHoopStatusBar ();
 		statusBar.setBorder(blackborder);
 		statusBar.setMinimumSize(new Dimension (50,22));
-		statusBar.setPreferredSize(new Dimension (5000,22));
-		statusBar.setMaximumSize(new Dimension (5000,22));		
+		statusBar.setPreferredSize(new Dimension (100,22));
+		//statusBar.setMaximumSize(new Dimension (5000,22));		
 				
-		toolBar = new JToolBar("Still draggable");
-        //addButtons(toolBar);
-        toolBar.setMinimumSize(new Dimension (50,24));
-        toolBar.setPreferredSize(new Dimension (5000,24));
-        toolBar.setMaximumSize(new Dimension (5000,24));	
-        
+		INHoopLink.toolBar=new JToolBar ("Still draggable");
+		INHoopLink.toolBar.setMinimumSize(new Dimension (50,24));
+		INHoopLink.toolBar.setPreferredSize(new Dimension (200,24));
+		
+		INHoopLink.toolBoxContainer=new JPanel ();
+		INHoopLink.toolBoxContainer.setLayout(new BoxLayout (INHoopLink.toolBoxContainer,BoxLayout.X_AXIS));
+		INHoopLink.toolBoxContainer.add(INHoopLink.toolBar);
+		INHoopLink.toolBoxContainer.add (Box.createHorizontalGlue());
+				
         JSeparator sep1=new JSeparator(SwingConstants.HORIZONTAL);
         //sep1.setBackground(new Color (150,150,150));		
         sep1.setMinimumSize(new Dimension (50,5));
-        sep1.setMaximumSize(new Dimension (5000,5));
-        
+        sep1.setMaximumSize(new Dimension (100,5));
+                        
         getContentPane ().add(sep1);        
-        getContentPane ().add (toolBar);
+        getContentPane ().add (INHoopLink.toolBoxContainer);
         
         JSeparator sep2=new JSeparator(SwingConstants.HORIZONTAL);
         sep2.setMinimumSize(new Dimension (50,5));

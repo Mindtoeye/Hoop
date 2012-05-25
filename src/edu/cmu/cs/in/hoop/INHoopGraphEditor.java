@@ -70,13 +70,15 @@ public class INHoopGraphEditor extends INHoopBasicGraphEditor
 		
 		this.setSingleInstance(true);
 	}
-
 	/**
 	 * 
 	 */
 	public INHoopGraphEditor (String appTitle, mxGraphComponent component)
 	{
 		super (appTitle, component);
+		
+		setClassName ("INHoopGraphEditor");
+		debug ("INHoopGraphEditor ()");		
 		
 		final mxGraph graph = graphComponent.getGraph();
 
@@ -151,7 +153,6 @@ public class INHoopGraphEditor extends INHoopBasicGraphEditor
 		symbolsPalette.addTemplate("Terminate",INHoopLink.getImageByName("terminate.png"), "roundImage;image=/assets/images/terminate.png", 80, 80, "Terminate");
 		symbolsPalette.addTemplate("Timer",INHoopLink.getImageByName("timer.png"), "roundImage;image=/assets/images/timer.png",	80, 80, "Timer");
 	}
-
 	/**
 	* 
 	*/
@@ -364,9 +365,17 @@ public class INHoopGraphEditor extends INHoopBasicGraphEditor
 
 			return super.createEdge(parent, id, value, source, target, style);
 		}
-
 	}
-
+	/**
+	 * 
+	 */
+	public void handleCloseEvent ()
+	{
+		debug ("handleCloseEvent ()");
+		
+		INHoopLink.toolBoxContainer.remove(INHoopLink.toolEditorBar);
+		INHoopLink.toolEditorBar=null;
+	}	
 	/**
 	 * 
 	 * @param args

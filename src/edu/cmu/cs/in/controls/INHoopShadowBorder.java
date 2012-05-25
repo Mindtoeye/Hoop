@@ -16,7 +16,7 @@
  * 
  */
 
-package edu.cmu.cs.in.hoop.editor;
+package edu.cmu.cs.in.controls;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -29,32 +29,36 @@ import javax.swing.border.Border;
 /**
  * Border with a drop shadow.
  */
-public class ShadowBorder implements Border, Serializable
+public class INHoopShadowBorder implements Border, Serializable
 {
+	private static final long serialVersionUID = 6854989457150641240L;
+	private Insets insets;
+	public static INHoopShadowBorder sharedInstance = new INHoopShadowBorder();
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 6854989457150641240L;
-
-	private Insets insets;
-
-	public static ShadowBorder sharedInstance = new ShadowBorder();
-
-	private ShadowBorder()
+	private INHoopShadowBorder()
 	{
 		insets = new Insets(0, 0, 2, 2);
 	}
-
+	/**
+	 * 
+	 */
 	public Insets getBorderInsets(Component c)
 	{
 		return insets;
 	}
-
+	/**
+	 * 
+	 */
 	public boolean isBorderOpaque()
 	{
 		return false;
 	}
-
+	/**
+	 * 
+	 */
 	public void paintBorder(Component c, Graphics g, int x, int y, int w, int h)
 	{
 		// choose which colors we want to use
@@ -86,7 +90,9 @@ public class ShadowBorder implements Border, Serializable
 			g.drawLine(w - 1, 2, w - 1, h - 2);
 		}
 	}
-
+	/**
+	 * 
+	 */
 	private static Color average(Color c1, Color c2)
 	{
 		int red = c1.getRed() + (c2.getRed() - c1.getRed()) / 2;
@@ -94,8 +100,10 @@ public class ShadowBorder implements Border, Serializable
 		int blue = c1.getBlue() + (c2.getBlue() - c1.getBlue()) / 2;
 		return new Color(red, green, blue);
 	}
-
-	public static ShadowBorder getSharedInstance()
+	/**
+	 * 
+	 */
+	public static INHoopShadowBorder getSharedInstance()
 	{
 		return sharedInstance;
 	}
