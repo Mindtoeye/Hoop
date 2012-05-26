@@ -199,12 +199,10 @@ public class EditorActions
 	/**
 	 *
 	 */
+	/*
 	@SuppressWarnings("serial")
 	public static class ToggleOutlineItem extends JCheckBoxMenuItem
 	{
-		/**
-		 * 
-		 */
 		public ToggleOutlineItem(final INHoopBasicGraphEditor editor, String name)
 		{
 			super(name);
@@ -212,9 +210,6 @@ public class EditorActions
 
 			addActionListener(new ActionListener()
 			{
-				/**
-				 * 
-				 */
 				public void actionPerformed(ActionEvent e)
 				{
 					final mxGraphOutline outline = editor.getGraphOutline();
@@ -223,10 +218,6 @@ public class EditorActions
 
 					SwingUtilities.invokeLater(new Runnable()
 					{
-						/*
-						 * (non-Javadoc)
-						 * @see java.lang.Runnable#run()
-						 */
 						public void run()
 						{
 							if (outline.getParent() instanceof JSplitPane)
@@ -251,6 +242,7 @@ public class EditorActions
 			});
 		}
 	}
+	*/
 
 	/**
 	 *
@@ -1538,16 +1530,12 @@ public class EditorActions
 										}
 									}))
 							{
-								String nodeXml = mxUtils.readFile(f
-										.getAbsolutePath());
-								addStencilShape(palette, nodeXml, f.getParent()
-										+ File.separator);
+								String nodeXml = mxUtils.readFile(f.getAbsolutePath());
+								addStencilShape(palette, nodeXml, f.getParent()	+ File.separator);
 							}
 
-							JComponent scrollPane = (JComponent) palette
-									.getParent().getParent();
-							editor.getLibraryPane().setSelectedComponent(
-									scrollPane);
+							JComponent scrollPane = (JComponent) palette.getParent().getParent();
+							editor.getLibraryPane().setSelectedComponent(scrollPane);
 
 							// FIXME: Need to update the size of the palette to force a layout
 							// update. Re/in/validate of palette or parent does not work.

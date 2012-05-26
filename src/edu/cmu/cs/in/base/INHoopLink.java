@@ -34,6 +34,7 @@ import edu.cmu.cs.in.search.INDataSet;
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 //import edu.cmu.cs.in.controls.base.INJInternalFrame;
 import edu.cmu.cs.in.hoop.INHoopConsoleInterface;
+import edu.cmu.cs.in.hoop.INHoopStatusBar;
 import edu.cmu.cs.in.hoop.editor.INHoopEditorMenuBar;
 import edu.cmu.cs.in.hoop.editor.INHoopEditorToolBar;
 import edu.cmu.cs.in.search.INTextSearch;
@@ -297,6 +298,7 @@ public class INHoopLink extends INLangLink
 	public static JToolBar toolBar=null;
 	public static INHoopEditorToolBar toolEditorBar=null;
 	public static JPanel toolBoxContainer=null;
+	public static INHoopStatusBar statusBar=null;
 	
 	// Networking access
 	
@@ -412,4 +414,12 @@ public class INHoopLink extends INLangLink
  			aWindow.updateContents ();
  		}   
     }       
+    /**
+     * 
+     */
+    public void setStatus (String aStatus)
+    {
+    	if (statusBar!=null)
+    		statusBar.setStatus(aStatus);
+    }
 }

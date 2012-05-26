@@ -49,6 +49,7 @@ public class INHoopStatusBar extends INJPanel
 	private JTextField memory=null;
 	private JTextField keys=null;
 	private JTextField padding=null;
+	private JTextField memo=null;
 	
 	/**
 	 * 
@@ -78,11 +79,19 @@ public class INHoopStatusBar extends INJPanel
 		padding.setEditable(false);
 		padding.setFont(new Font("Dialog", 1, 10));
 		padding.setMinimumSize(new Dimension (50,23));
-		padding.setPreferredSize(new Dimension (5000,23));
-		padding.setMaximumSize(new Dimension (5000,23));
+		padding.setPreferredSize(new Dimension (100,23));
+		//padding.setMaximumSize(new Dimension (5000,23));
+		
+		memo=new JTextField ();
+		memo.setEditable(false);
+		memo.setFont(new Font("Dialog", 1, 10));
+		memo.setMinimumSize(new Dimension (50,23));
+		memo.setPreferredSize(new Dimension (100,23));
+		//memo.setMaximumSize(new Dimension (5000,23));		
 		
 		this.add(memory);
 		this.add(keys);
+		this.add(memo);
 		this.add(padding);
 		
 		update ();
@@ -109,5 +118,13 @@ public class INHoopStatusBar extends INJPanel
 		keys.setText("N | C | S - I/O");
 		
 		padding.setText(" ");
+	}
+	/**
+	 * 
+	 */
+	public void setStatus (String aMemo)
+	{
+		if (memo!=null)
+			memo.setText(aMemo);
 	}
 }

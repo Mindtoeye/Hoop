@@ -376,27 +376,4 @@ public class INHoopGraphEditor extends INHoopBasicGraphEditor
 		INHoopLink.toolBoxContainer.remove(INHoopLink.toolEditorBar);
 		INHoopLink.toolEditorBar=null;
 	}	
-	/**
-	 * 
-	 * @param args
-	 */
-	/*
-	public static void main(String[] args)
-	{
-		try
-		{
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		}
-		catch (Exception e1)
-		{
-			e1.printStackTrace();
-		}
-
-		mxSwingConstants.SHADOW_COLOR = Color.LIGHT_GRAY;
-		mxConstants.W3C_SHADOWCOLOR = "#D3D3D3";
-		
-		GraphEditor editor = new GraphEditor();
-		editor.createFrame(new EditorMenuBar(editor)).setVisible(true);
-	}
-	*/
 }

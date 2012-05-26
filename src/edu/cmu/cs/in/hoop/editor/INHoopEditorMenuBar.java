@@ -61,7 +61,7 @@ import edu.cmu.cs.in.hoop.editor.EditorActions.ToggleConnectModeAction;
 import edu.cmu.cs.in.hoop.editor.EditorActions.ToggleCreateTargetItem;
 import edu.cmu.cs.in.hoop.editor.EditorActions.ToggleDirtyAction;
 import edu.cmu.cs.in.hoop.editor.EditorActions.ToggleGridItem;
-import edu.cmu.cs.in.hoop.editor.EditorActions.ToggleOutlineItem;
+//import edu.cmu.cs.in.hoop.editor.EditorActions.ToggleOutlineItem;
 import edu.cmu.cs.in.hoop.editor.EditorActions.TogglePropertyItem;
 import edu.cmu.cs.in.hoop.editor.EditorActions.ToggleRulersItem;
 import edu.cmu.cs.in.hoop.editor.EditorActions.WarningAction;
@@ -281,9 +281,9 @@ public class INHoopEditorMenuBar extends JMenuBar
 		// Creates the diagram menu
 		menu = add(new JMenu(mxResources.get("diagram")));
 
-		menu.add(new ToggleOutlineItem(editor, mxResources.get("outline")));
+		//menu.add(new ToggleOutlineItem(editor, mxResources.get("outline")));
 
-		menu.addSeparator();
+		//menu.addSeparator();
 
 		submenu = (JMenu) menu.add(new JMenu(mxResources.get("background")));
 

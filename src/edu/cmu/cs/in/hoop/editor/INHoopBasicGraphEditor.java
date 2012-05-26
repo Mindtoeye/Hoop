@@ -21,7 +21,7 @@ package edu.cmu.cs.in.hoop.editor;
 import java.awt.BorderLayout;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+//import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
@@ -34,19 +34,19 @@ import java.util.List;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
-import javax.swing.BorderFactory;
+//import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JCheckBoxMenuItem;
+//import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenuBar;
+//import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 //import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
+//import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
+//import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
-import javax.swing.JToolBar;
+//import javax.swing.JToolBar;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
@@ -74,17 +74,18 @@ import com.mxgraph.util.mxEventSource.mxIEventListener;
 import com.mxgraph.util.mxUndoableEdit.mxUndoableChange;
 import com.mxgraph.view.mxGraph;
 
+import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 
 public class INHoopBasicGraphEditor extends INEmbeddedJPanel
 {
 	private static final long serialVersionUID = -6561623072112577140L;
 	protected mxGraphComponent graphComponent;
-	protected mxGraphOutline graphOutline;
-	protected JTabbedPane libraryPane;
+	//protected mxGraphOutline graphOutline;
+	//protected JTabbedPane libraryPane;
 	protected mxUndoManager undoManager;
 	protected String appTitle;
-	protected JLabel statusBar;
+	//protected JLabel statusBar;
 	protected File currentFile;
 
 	/// Flag indicating whether the current graph has been modified 
@@ -134,9 +135,6 @@ public class INHoopBasicGraphEditor extends INEmbeddedJPanel
 		setClassName ("INHoopBasicGraphEditor");
 		debug ("INHoopBasicGraphEditor ()");		
 		
-		// Stores and updates the frame title
-		//this.appTitle = appTitle;
-
 		// Stores a reference to the graph and creates the command history
 		graphComponent = component;
 		final mxGraph graph = graphComponent.getGraph();
@@ -165,6 +163,7 @@ public class INHoopBasicGraphEditor extends INEmbeddedJPanel
 		undoManager.addListener(mxEvent.UNDO, undoHandler);
 		undoManager.addListener(mxEvent.REDO, undoHandler);
 
+		/*
 		// Creates the graph outline component
 		graphOutline = new mxGraphOutline(graphComponent);
 
@@ -190,15 +189,18 @@ public class INHoopBasicGraphEditor extends INEmbeddedJPanel
 		outer.setBorder(null);
 
 		// Creates the status bar
-		statusBar = createStatusBar();
+		//statusBar = createStatusBar();
+
+		*/
 
 		// Display some useful information about repaint events
 		installRepaintListener();
 
 		// Puts everything together
 		setLayout(new BorderLayout());
-		add(outer, BorderLayout.CENTER);
-		add(statusBar, BorderLayout.SOUTH);
+		//add(outer, BorderLayout.CENTER);
+		add (graphComponent,BorderLayout.CENTER);
+		//add(statusBar, BorderLayout.SOUTH);
 		
 		//installToolBar();
 
@@ -207,6 +209,17 @@ public class INHoopBasicGraphEditor extends INEmbeddedJPanel
 		installHandlers();
 		installListeners();
 		updateTitle();
+	}
+	/** 
+	 * @return
+	 */
+	public JTabbedPane getLibraryPane ()
+	{
+		INHoopEditorPalletePanel pal=(INHoopEditorPalletePanel) INHoopLink.getWindow("Hoop Palette");
+		if (pal!=null)
+			return (pal.getLibraryPane ());
+			
+		return (null);
 	}
 	/**
 	 * 
@@ -235,6 +248,7 @@ public class INHoopBasicGraphEditor extends INEmbeddedJPanel
 	/**
 	 * 
 	 */
+	/*
 	protected JLabel createStatusBar()
 	{
 		JLabel statusBar = new JLabel(mxResources.get("ready"));
@@ -242,6 +256,7 @@ public class INHoopBasicGraphEditor extends INEmbeddedJPanel
 
 		return statusBar;
 	}
+	*/
 	/**
 	 * 
 	 */
@@ -271,6 +286,12 @@ public class INHoopBasicGraphEditor extends INEmbeddedJPanel
 	 */
 	public INHoopEditorPalette insertPalette(String title)
 	{
+		debug ("insertPalette ("+title+")");
+		
+		JTabbedPane libraryPane=getLibraryPane ();
+		if (libraryPane==null)
+			return (null);
+		
 		final INHoopEditorPalette palette = new INHoopEditorPalette();
 		final JScrollPane scrollPane = new JScrollPane(palette);
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -312,6 +333,7 @@ public class INHoopBasicGraphEditor extends INEmbeddedJPanel
 	/**
 	 * 
 	 */
+	/*
 	protected void showOutlinePopupMenu(MouseEvent e)
 	{
 		Point pt = SwingUtilities.convertPoint(e.getComponent(), e.getPoint(),graphComponent);
@@ -320,9 +342,6 @@ public class INHoopBasicGraphEditor extends INEmbeddedJPanel
 
 		item.addActionListener(new ActionListener()
 		{
-			/**
-			 * 
-			 */
 			public void actionPerformed(ActionEvent e)
 			{
 				graphOutline.setFitPage(!graphOutline.isFitPage());
@@ -335,9 +354,6 @@ public class INHoopBasicGraphEditor extends INEmbeddedJPanel
 
 		item2.addActionListener(new ActionListener()
 		{
-			/**
-			 * 
-			 */
 			public void actionPerformed(ActionEvent e)
 			{
 				graphOutline.setDrawLabels(!graphOutline.isDrawLabels());
@@ -350,9 +366,6 @@ public class INHoopBasicGraphEditor extends INEmbeddedJPanel
 
 		item3.addActionListener(new ActionListener()
 		{
-			/**
-			 * 
-			 */
 			public void actionPerformed(ActionEvent e)
 			{
 				graphOutline.setTripleBuffered(!graphOutline.isTripleBuffered());
@@ -368,6 +381,7 @@ public class INHoopBasicGraphEditor extends INEmbeddedJPanel
 
 		e.consume();
 	}
+	*/
 	/**
 	 * 
 	 */
@@ -409,24 +423,19 @@ public class INHoopBasicGraphEditor extends INEmbeddedJPanel
 		};
 
 		// Handles mouse wheel events in the outline and graph component
+		/*
 		graphOutline.addMouseWheelListener(wheelTracker);
 		graphComponent.addMouseWheelListener(wheelTracker);
 
 		// Installs the popup menu in the outline
 		graphOutline.addMouseListener(new MouseAdapter()
 		{
-			/**
-			 * 
-			 */
 			public void mousePressed(MouseEvent e)
 			{
 				// Handles context menu on the Mac where the trigger is on mousepressed
 				mouseReleased(e);
 			}
 
-			/**
-			 * 
-			 */
 			public void mouseReleased(MouseEvent e)
 			{
 				if (e.isPopupTrigger())
@@ -436,6 +445,7 @@ public class INHoopBasicGraphEditor extends INEmbeddedJPanel
 			}
 
 		});
+		*/
 
 		// Installs the popup menu in the graph component
 		graphComponent.getGraphControl().addMouseListener(new MouseAdapter()
@@ -528,7 +538,6 @@ public class INHoopBasicGraphEditor extends INEmbeddedJPanel
 			updateTitle();
 		}
 	}
-
 	/**
 	 * 
 	 * @return whether or not the current graph has been modified
@@ -537,7 +546,6 @@ public class INHoopBasicGraphEditor extends INEmbeddedJPanel
 	{
 		return modified;
 	}
-
 	/**
 	 * 
 	 */
@@ -545,23 +553,24 @@ public class INHoopBasicGraphEditor extends INEmbeddedJPanel
 	{
 		return graphComponent;
 	}
-
 	/**
 	 * 
 	 */
+	/*
 	public mxGraphOutline getGraphOutline()
 	{
 		return graphOutline;
 	}
-	
+	*/	
 	/**
 	 * 
 	 */
+	/*
 	public JTabbedPane getLibraryPane()
 	{
 		return libraryPane;
 	}
-
+	*/
 	/**
 	 * 
 	 */
@@ -569,7 +578,6 @@ public class INHoopBasicGraphEditor extends INEmbeddedJPanel
 	{
 		return undoManager;
 	}
-
 	/**
 	 * 
 	 * @param name
@@ -606,9 +614,8 @@ public class INHoopBasicGraphEditor extends INEmbeddedJPanel
 	 */
 	public void status(String msg)
 	{
-		statusBar.setText(msg);
+		INHoopLink.statusBar.setStatus(msg);
 	}
-
 	/**
 	 * 
 	 */
@@ -720,17 +727,14 @@ public class INHoopBasicGraphEditor extends INEmbeddedJPanel
 					{
 						long t0 = System.currentTimeMillis();
 						layout.execute(cell);
-						status("Layout: " + (System.currentTimeMillis() - t0)
-								+ " ms");
+						status("Layout: " + (System.currentTimeMillis() - t0) + " ms");
 					}
 					finally
 					{
-						mxMorphing morph = new mxMorphing(graphComponent, 20,
-								1.2, 20);
+						mxMorphing morph = new mxMorphing(graphComponent,20,1.2,20);
 
 						morph.addListener(mxEvent.DONE, new mxIEventListener()
 						{
-
 							public void invoke(Object sender, mxEventObject evt)
 							{
 								graph.getModel().endUpdate();
@@ -740,26 +744,21 @@ public class INHoopBasicGraphEditor extends INEmbeddedJPanel
 
 						morph.startAnimation();
 					}
-
 				}
-
 			};
 		}
 		else
 		{
 			return new AbstractAction(mxResources.get(key))
 			{
-
 				public void actionPerformed(ActionEvent e)
 				{
 					JOptionPane.showMessageDialog(graphComponent,
 							mxResources.get("noLayout"));
 				}
-
 			};
 		}
 	}
-
 	/**
 	 * Creates a layout instance for the given identifier.
 	 */
@@ -863,5 +862,4 @@ public class INHoopBasicGraphEditor extends INEmbeddedJPanel
 
 		return layout;
 	}
-
 }

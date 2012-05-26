@@ -53,7 +53,7 @@ public class INHoopMultiViewFrame extends INJFrame implements ActionListener
 	
     //private JMenuBar menuBar=null;
 	//private JToolBar toolBar=null;
-	private INHoopStatusBar statusBar=null;
+	//private INHoopStatusBar statusBar=null;
 			
 	/**
 	 *
@@ -109,7 +109,7 @@ public class INHoopMultiViewFrame extends INJFrame implements ActionListener
      */
     protected INHoopStatusBar getStatusBar ()
     {
-    	return (statusBar);
+    	return (INHoopLink.statusBar);
     }
 	/**
 	 *
@@ -155,11 +155,11 @@ public class INHoopMultiViewFrame extends INJFrame implements ActionListener
 		INHoopLink.menuBar = new INHoopEditorMenuBar ();
         setJMenuBar(INHoopLink.menuBar);
                 												
-		statusBar=new INHoopStatusBar ();
-		statusBar.setBorder(blackborder);
-		statusBar.setMinimumSize(new Dimension (50,22));
-		statusBar.setPreferredSize(new Dimension (100,22));
-		//statusBar.setMaximumSize(new Dimension (5000,22));		
+		INHoopLink.statusBar=new INHoopStatusBar ();
+		INHoopLink.statusBar.setBorder(blackborder);
+		INHoopLink.statusBar.setMinimumSize(new Dimension (50,22));
+		INHoopLink.statusBar.setPreferredSize(new Dimension (100,22));
+		INHoopLink.statusBar.setMaximumSize(new Dimension (5000,22));		
 				
 		INHoopLink.toolBar=new JToolBar ("Still draggable");
 		INHoopLink.toolBar.setMinimumSize(new Dimension (50,24));
@@ -204,7 +204,7 @@ public class INHoopMultiViewFrame extends INJFrame implements ActionListener
        	Container cp = this.getContentPane();
        	cp.add(multiSplitPane, BorderLayout.CENTER);
        	
-       	getContentPane ().add (statusBar);
+       	getContentPane ().add (INHoopLink.statusBar);
        									
 		debug ("Ready for input");        		 	
     }
