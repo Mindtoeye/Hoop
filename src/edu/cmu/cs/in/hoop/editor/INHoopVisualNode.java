@@ -18,49 +18,60 @@
 
 package edu.cmu.cs.in.hoop.editor;
 
-import com.mxgraph.view.mxCellState;
-
 import javax.swing.BorderFactory;
-import javax.swing.CellRendererPane;
 import javax.swing.JLabel;
 import javax.swing.border.BevelBorder;
 
-import com.mxgraph.swing.mxGraphComponent;
-import com.mxgraph.swing.view.mxInteractiveCanvas;
+import edu.cmu.cs.in.controls.base.INJPanel;
 
 /** 
  * @author Martin van Velsen
  */
-public class INHoopEditorCanvas extends mxInteractiveCanvas
+public class INHoopVisualNode extends INJPanel
 {
-	protected CellRendererPane rendererPane = new CellRendererPane();
-	protected INHoopVisualNode vertexRenderer = new INHoopVisualNode();
-	protected mxGraphComponent graphComponent;
-
-	/** 
-	 * @param graphComponent
-	 */
-	public INHoopEditorCanvas (mxGraphComponent graphComponent)
+	private static final long serialVersionUID = -1L;
+	private String title="Undefined";
+	
+	/**
+	 * Creates a new JPanel with a double buffer and a flow layout.
+	 */	
+	public INHoopVisualNode()
 	{
-		this.graphComponent = graphComponent;
+		setClassName ("INHoopVisualNode");
+		debug ("INHoopVisualNode ()");
+		
+		this.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+		//this.setHorizontalAlignment(JLabel.CENTER);
+		//this.setBackground(graphComponent.getBackground().darker());
+		this.setOpaque(true);		
 	}
 	/** 
-	 * @param state
-	 * @param label
+	 * @param title
 	 */
-	public void drawVertex(mxCellState state, String label)
+	public void setTitle(String title) 
 	{
-		vertexRenderer.setText(label);
-
-		rendererPane.paintComponent (g, 
-									 vertexRenderer,
-									 graphComponent,
-									 (int) state.getX() + translate.x, 
-									 (int) state.getY()
-									 + translate.y, 
-									 (int) state.getWidth(),
-									 (int) state.getHeight(), 
-									 true);
+		this.title = title;
 	}
+	/** 
+	 * 
+	 */
+	public String getTitle() 
+	{
+		return title;
+	}	
+	/** 
+	 * @param title
+	 */	
+	public void setText(String title) 
+	{
+		this.title = title;
+	}
+	/** 
+	 * 
+	 */
+	public String getText() 
+	{
+		return title;
+	}		
 }
 	
