@@ -31,14 +31,14 @@ import com.mxgraph.swing.util.mxGraphActions;
  * @author Administrator
  * 
  */
-public class EditorKeyboardHandler extends mxKeyboardHandler
+public class INHoopEditorKeyboardHandler extends mxKeyboardHandler
 {
 
 	/**
 	 * 
 	 * @param graphComponent
 	 */
-	public EditorKeyboardHandler(mxGraphComponent graphComponent)
+	public INHoopEditorKeyboardHandler(mxGraphComponent graphComponent)
 	{
 		super(graphComponent);
 	}
@@ -75,12 +75,12 @@ public class EditorKeyboardHandler extends mxKeyboardHandler
 	{
 		ActionMap map = super.createActionMap();
 
-		map.put("save", new EditorActions.SaveAction(false));
-		map.put("saveAs", new EditorActions.SaveAction(true));
-		map.put("new", new EditorActions.NewAction());
-		map.put("open", new EditorActions.OpenAction());
-		map.put("undo", new EditorActions.HistoryAction(true));
-		map.put("redo", new EditorActions.HistoryAction(false));
+		map.put("save", new INHoopEditorActions.SaveAction(false));
+		map.put("saveAs", new INHoopEditorActions.SaveAction(true));
+		map.put("new", new INHoopEditorActions.NewAction());
+		map.put("open", new INHoopEditorActions.OpenAction());
+		map.put("undo", new INHoopEditorActions.HistoryAction(true));
+		map.put("redo", new INHoopEditorActions.HistoryAction(false));
 		map.put("selectVertices", mxGraphActions.getSelectVerticesAction());
 		map.put("selectEdges", mxGraphActions.getSelectEdgesAction());
 

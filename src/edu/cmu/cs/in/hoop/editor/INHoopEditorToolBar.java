@@ -35,14 +35,14 @@ import javax.swing.TransferHandler;
 
 import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.hoop.INHoopGraphEditor;
-import edu.cmu.cs.in.hoop.editor.EditorActions.ColorAction;
-import edu.cmu.cs.in.hoop.editor.EditorActions.FontStyleAction;
-import edu.cmu.cs.in.hoop.editor.EditorActions.HistoryAction;
-import edu.cmu.cs.in.hoop.editor.EditorActions.KeyValueAction;
-import edu.cmu.cs.in.hoop.editor.EditorActions.NewAction;
-import edu.cmu.cs.in.hoop.editor.EditorActions.OpenAction;
-import edu.cmu.cs.in.hoop.editor.EditorActions.PrintAction;
-import edu.cmu.cs.in.hoop.editor.EditorActions.SaveAction;
+import edu.cmu.cs.in.hoop.editor.INHoopEditorActions.ColorAction;
+import edu.cmu.cs.in.hoop.editor.INHoopEditorActions.FontStyleAction;
+import edu.cmu.cs.in.hoop.editor.INHoopEditorActions.HistoryAction;
+import edu.cmu.cs.in.hoop.editor.INHoopEditorActions.KeyValueAction;
+import edu.cmu.cs.in.hoop.editor.INHoopEditorActions.NewAction;
+import edu.cmu.cs.in.hoop.editor.INHoopEditorActions.OpenAction;
+import edu.cmu.cs.in.hoop.editor.INHoopEditorActions.PrintAction;
+import edu.cmu.cs.in.hoop.editor.INHoopEditorActions.SaveAction;
 
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.swing.util.mxGraphActions;

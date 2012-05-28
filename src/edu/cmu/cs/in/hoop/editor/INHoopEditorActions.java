@@ -50,8 +50,8 @@ import javax.swing.JComponent;
 import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.JSplitPane;
-import javax.swing.SwingUtilities;
+//import javax.swing.JSplitPane;
+//import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.text.html.HTML;
 import javax.swing.text.html.HTMLDocument;
@@ -72,7 +72,7 @@ import com.mxgraph.model.mxGraphModel;
 import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.shape.mxStencilShape;
 import com.mxgraph.swing.mxGraphComponent;
-import com.mxgraph.swing.mxGraphOutline;
+//import com.mxgraph.swing.mxGraphOutline;
 import com.mxgraph.swing.handler.mxConnectionHandler;
 import com.mxgraph.swing.util.mxGraphActions;
 import com.mxgraph.swing.view.mxCellEditor;
@@ -93,7 +93,7 @@ import edu.cmu.cs.in.base.io.INDefaultFileFilter;
 /**
  *
  */
-public class EditorActions
+public class INHoopEditorActions
 {
 	/**
 	 * 
@@ -106,8 +106,7 @@ public class EditorActions
 		{
 			Component component = (Component) e.getSource();
 
-			while (component != null
-					&& !(component instanceof INHoopBasicGraphEditor))
+			while ((component != null) && (!(component instanceof INHoopBasicGraphEditor)))
 			{
 				component = component.getParent();
 			}
@@ -118,48 +117,6 @@ public class EditorActions
 		return null;
 	}
 
-	/**
-	 *
-	 */
-	@SuppressWarnings("serial")
-	public static class ToggleRulersItem extends JCheckBoxMenuItem
-	{
-		/**
-		 * 
-		 */
-		public ToggleRulersItem(final INHoopBasicGraphEditor editor, String name)
-		{
-			super(name);
-			setSelected(editor.getGraphComponent().getColumnHeader() != null);
-
-			addActionListener(new ActionListener()
-			{
-				/**
-				 * 
-				 */
-				public void actionPerformed(ActionEvent e)
-				{
-					mxGraphComponent graphComponent = editor
-							.getGraphComponent();
-
-					if (graphComponent.getColumnHeader() != null)
-					{
-						graphComponent.setColumnHeader(null);
-						graphComponent.setRowHeader(null);
-					}
-					else
-					{
-						graphComponent.setColumnHeaderView(new EditorRuler(
-								graphComponent,
-								EditorRuler.ORIENTATION_HORIZONTAL));
-						graphComponent.setRowHeaderView(new EditorRuler(
-								graphComponent,
-								EditorRuler.ORIENTATION_VERTICAL));
-					}
-				}
-			});
-		}
-	}
 
 	/**
 	 *
@@ -182,8 +139,7 @@ public class EditorActions
 				 */
 				public void actionPerformed(ActionEvent e)
 				{
-					mxGraphComponent graphComponent = editor
-							.getGraphComponent();
+					mxGraphComponent graphComponent = editor.getGraphComponent();
 					mxGraph graph = graphComponent.getGraph();
 					boolean enabled = !graph.isGridEnabled();
 
@@ -195,75 +151,6 @@ public class EditorActions
 			});
 		}
 	}
-
-	/**
-	 *
-	 */
-	/*
-	@SuppressWarnings("serial")
-	public static class ToggleOutlineItem extends JCheckBoxMenuItem
-	{
-		public ToggleOutlineItem(final INHoopBasicGraphEditor editor, String name)
-		{
-			super(name);
-			setSelected(true);
-
-			addActionListener(new ActionListener()
-			{
-				public void actionPerformed(ActionEvent e)
-				{
-					final mxGraphOutline outline = editor.getGraphOutline();
-					outline.setVisible(!outline.isVisible());
-					outline.revalidate();
-
-					SwingUtilities.invokeLater(new Runnable()
-					{
-						public void run()
-						{
-							if (outline.getParent() instanceof JSplitPane)
-							{
-								if (outline.isVisible())
-								{
-									((JSplitPane) outline.getParent())
-											.setDividerLocation(editor
-													.getHeight() - 300);
-									((JSplitPane) outline.getParent())
-											.setDividerSize(6);
-								}
-								else
-								{
-									((JSplitPane) outline.getParent())
-											.setDividerSize(0);
-								}
-							}
-						}
-					});
-				}
-			});
-		}
-	}
-	*/
-
-	/**
-	 *
-	 */
-	@SuppressWarnings("serial")
-	public static class ExitAction extends AbstractAction
-	{
-		/**
-		 * 
-		 */
-		public void actionPerformed(ActionEvent e)
-		{
-			INHoopBasicGraphEditor editor = getEditor(e);
-
-			if (editor != null)
-			{
-				//editor.exit();
-			}
-		}
-	}
-
 	/**
 	 *
 	 */
@@ -289,7 +176,7 @@ public class EditorActions
 				mxGraphComponent graphComponent=(mxGraphComponent) e.getSource();
 				mxGraph graph = graphComponent.getGraph();
 				mxCodec codec = new mxCodec();
-				Document doc = mxUtils.loadDocument(EditorActions.class.getResource (stylesheet).toString());
+				Document doc = mxUtils.loadDocument(INHoopEditorActions.class.getResource (stylesheet).toString());
 
 				if (doc != null)
 				{

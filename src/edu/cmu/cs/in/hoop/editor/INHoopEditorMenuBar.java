@@ -30,42 +30,42 @@ import javax.swing.TransferHandler;
 import javax.swing.UIManager;
 
 import edu.cmu.cs.in.base.INBase;
-import edu.cmu.cs.in.hoop.editor.EditorActions.AlignCellsAction;
-import edu.cmu.cs.in.hoop.editor.EditorActions.AutosizeAction;
-import edu.cmu.cs.in.hoop.editor.EditorActions.BackgroundAction;
-import edu.cmu.cs.in.hoop.editor.EditorActions.BackgroundImageAction;
-import edu.cmu.cs.in.hoop.editor.EditorActions.ColorAction;
-import edu.cmu.cs.in.hoop.editor.EditorActions.ExitAction;
-import edu.cmu.cs.in.hoop.editor.EditorActions.GridColorAction;
-import edu.cmu.cs.in.hoop.editor.EditorActions.GridStyleAction;
-import edu.cmu.cs.in.hoop.editor.EditorActions.HistoryAction;
-import edu.cmu.cs.in.hoop.editor.EditorActions.ImportAction;
-import edu.cmu.cs.in.hoop.editor.EditorActions.KeyValueAction;
-import edu.cmu.cs.in.hoop.editor.EditorActions.NewAction;
-import edu.cmu.cs.in.hoop.editor.EditorActions.OpenAction;
-import edu.cmu.cs.in.hoop.editor.EditorActions.PageBackgroundAction;
-import edu.cmu.cs.in.hoop.editor.EditorActions.PageSetupAction;
-import edu.cmu.cs.in.hoop.editor.EditorActions.PrintAction;
-import edu.cmu.cs.in.hoop.editor.EditorActions.PromptPropertyAction;
-import edu.cmu.cs.in.hoop.editor.EditorActions.PromptValueAction;
-import edu.cmu.cs.in.hoop.editor.EditorActions.SaveAction;
-import edu.cmu.cs.in.hoop.editor.EditorActions.ScaleAction;
-import edu.cmu.cs.in.hoop.editor.EditorActions.SelectShortestPathAction;
-import edu.cmu.cs.in.hoop.editor.EditorActions.SelectSpanningTreeAction;
-import edu.cmu.cs.in.hoop.editor.EditorActions.SetLabelPositionAction;
-import edu.cmu.cs.in.hoop.editor.EditorActions.SetStyleAction;
-import edu.cmu.cs.in.hoop.editor.EditorActions.StyleAction;
-import edu.cmu.cs.in.hoop.editor.EditorActions.StylesheetAction;
-import edu.cmu.cs.in.hoop.editor.EditorActions.ToggleAction;
-import edu.cmu.cs.in.hoop.editor.EditorActions.ToggleConnectModeAction;
-import edu.cmu.cs.in.hoop.editor.EditorActions.ToggleCreateTargetItem;
-import edu.cmu.cs.in.hoop.editor.EditorActions.ToggleDirtyAction;
-import edu.cmu.cs.in.hoop.editor.EditorActions.ToggleGridItem;
-//import edu.cmu.cs.in.hoop.editor.EditorActions.ToggleOutlineItem;
-import edu.cmu.cs.in.hoop.editor.EditorActions.TogglePropertyItem;
-import edu.cmu.cs.in.hoop.editor.EditorActions.ToggleRulersItem;
-import edu.cmu.cs.in.hoop.editor.EditorActions.WarningAction;
-import edu.cmu.cs.in.hoop.editor.EditorActions.ZoomPolicyAction;
+import edu.cmu.cs.in.hoop.editor.INHoopEditorActions.AlignCellsAction;
+import edu.cmu.cs.in.hoop.editor.INHoopEditorActions.AutosizeAction;
+import edu.cmu.cs.in.hoop.editor.INHoopEditorActions.BackgroundAction;
+import edu.cmu.cs.in.hoop.editor.INHoopEditorActions.BackgroundImageAction;
+import edu.cmu.cs.in.hoop.editor.INHoopEditorActions.ColorAction;
+//import edu.cmu.cs.in.hoop.editor.INHoopEditorActions.ExitAction;
+import edu.cmu.cs.in.hoop.editor.INHoopEditorActions.GridColorAction;
+import edu.cmu.cs.in.hoop.editor.INHoopEditorActions.GridStyleAction;
+import edu.cmu.cs.in.hoop.editor.INHoopEditorActions.HistoryAction;
+import edu.cmu.cs.in.hoop.editor.INHoopEditorActions.ImportAction;
+import edu.cmu.cs.in.hoop.editor.INHoopEditorActions.KeyValueAction;
+import edu.cmu.cs.in.hoop.editor.INHoopEditorActions.NewAction;
+import edu.cmu.cs.in.hoop.editor.INHoopEditorActions.OpenAction;
+import edu.cmu.cs.in.hoop.editor.INHoopEditorActions.PageBackgroundAction;
+import edu.cmu.cs.in.hoop.editor.INHoopEditorActions.PageSetupAction;
+import edu.cmu.cs.in.hoop.editor.INHoopEditorActions.PrintAction;
+import edu.cmu.cs.in.hoop.editor.INHoopEditorActions.PromptPropertyAction;
+import edu.cmu.cs.in.hoop.editor.INHoopEditorActions.PromptValueAction;
+import edu.cmu.cs.in.hoop.editor.INHoopEditorActions.SaveAction;
+import edu.cmu.cs.in.hoop.editor.INHoopEditorActions.ScaleAction;
+import edu.cmu.cs.in.hoop.editor.INHoopEditorActions.SelectShortestPathAction;
+import edu.cmu.cs.in.hoop.editor.INHoopEditorActions.SelectSpanningTreeAction;
+import edu.cmu.cs.in.hoop.editor.INHoopEditorActions.SetLabelPositionAction;
+import edu.cmu.cs.in.hoop.editor.INHoopEditorActions.SetStyleAction;
+import edu.cmu.cs.in.hoop.editor.INHoopEditorActions.StyleAction;
+import edu.cmu.cs.in.hoop.editor.INHoopEditorActions.StylesheetAction;
+import edu.cmu.cs.in.hoop.editor.INHoopEditorActions.ToggleAction;
+import edu.cmu.cs.in.hoop.editor.INHoopEditorActions.ToggleConnectModeAction;
+import edu.cmu.cs.in.hoop.editor.INHoopEditorActions.ToggleCreateTargetItem;
+import edu.cmu.cs.in.hoop.editor.INHoopEditorActions.ToggleDirtyAction;
+import edu.cmu.cs.in.hoop.editor.INHoopEditorActions.ToggleGridItem;
+//import edu.cmu.cs.in.hoop.editor.INHoopEditorActions.ToggleOutlineItem;
+import edu.cmu.cs.in.hoop.editor.INHoopEditorActions.TogglePropertyItem;
+//import edu.cmu.cs.in.hoop.editor.INHoopEditorActions.ToggleRulersItem;
+import edu.cmu.cs.in.hoop.editor.INHoopEditorActions.WarningAction;
+import edu.cmu.cs.in.hoop.editor.INHoopEditorActions.ZoomPolicyAction;
 
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.swing.util.mxGraphActions;
@@ -143,7 +143,7 @@ public class INHoopEditorMenuBar extends JMenuBar
 
 		menu.addSeparator();
 
-		menu.add(editor.bind(mxResources.get("exit"), new ExitAction()));
+		//menu.add(editor.bind(mxResources.get("exit"), new ExitAction()));
 
 		// Creates the edit menu
 		menu = add(new JMenu(mxResources.get("edit")));
@@ -237,7 +237,7 @@ public class INHoopEditorMenuBar extends JMenuBar
 		menu.addSeparator();
 
 		menu.add(new ToggleGridItem(editor, mxResources.get("grid")));
-		menu.add(new ToggleRulersItem(editor, mxResources.get("rulers")));
+		//menu.add(new ToggleRulersItem(editor, mxResources.get("rulers")));
 
 		menu.addSeparator();
 

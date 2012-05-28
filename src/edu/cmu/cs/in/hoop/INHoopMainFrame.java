@@ -27,13 +27,12 @@ import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.controls.INScatterPlot;
 import edu.cmu.cs.in.controls.map.INHoopJava3DJPanel;
 //import edu.cmu.cs.in.controls.INScatterPlot;
-import edu.cmu.cs.in.hoop.editor.INHoopEditorPalletePanel;
+import edu.cmu.cs.in.hoop.editor.INHoopEditorPalettePanel;
 import edu.cmu.cs.in.hoop.editor.INHoopEditorToolBar;
 import edu.cmu.cs.in.hoop.properties.INHoopPropertyPanel;
 //import edu.cmu.cs.in.network.INSocketServerBase;
 //import edu.cmu.cs.in.stats.INStatistics;
 import edu.cmu.cs.in.network.INMessageReceiver;
-//import edu.cmu.cs.in.network.INStreamedSocket;
 
 /** 
  * @author vvelsen
@@ -301,9 +300,9 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     	{
     		public void actionPerformed(ActionEvent e) 
     		{
-    			INHoopEditorPalletePanel pallette=new INHoopEditorPalletePanel ();
+    			INHoopEditorPalettePanel pallette=new INHoopEditorPalettePanel ();
     			addView ("Hoop Palette",pallette,left);
-    			
+    			    			
     			INHoopGraphEditor editor=new INHoopGraphEditor ();
     			addView ("Hoop Editor",editor,center);
     			INHoopLink.menuBar.create(editor);

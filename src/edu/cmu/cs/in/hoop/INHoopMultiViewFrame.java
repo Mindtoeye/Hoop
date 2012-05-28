@@ -253,6 +253,11 @@ public class INHoopMultiViewFrame extends INJFrame implements ActionListener
     	int index=aPane.indexOfComponent (aContent);
     	INHoopTabPane pane=new INHoopTabPane (aPane);
     	aPane.setTabComponentAt(index,pane);
+    	if ((aPane==left) || (aPane==right))
+    	{
+    		left.setPreferredSize(new Dimension (200,this.getHeight()));
+    		aPane.setPreferredSize(new Dimension (200,this.getHeight()));
+    	}	
     	pane.update();
     }
 	/**

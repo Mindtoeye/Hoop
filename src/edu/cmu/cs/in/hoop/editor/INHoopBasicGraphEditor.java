@@ -79,13 +79,10 @@ import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 
 public class INHoopBasicGraphEditor extends INEmbeddedJPanel
 {
-	private static final long serialVersionUID = -6561623072112577140L;
+	private static final long serialVersionUID = -1L;
 	protected mxGraphComponent graphComponent;
-	//protected mxGraphOutline graphOutline;
-	//protected JTabbedPane libraryPane;
 	protected mxUndoManager undoManager;
 	protected String appTitle;
-	//protected JLabel statusBar;
 	protected File currentFile;
 
 	/// Flag indicating whether the current graph has been modified 
@@ -163,46 +160,12 @@ public class INHoopBasicGraphEditor extends INEmbeddedJPanel
 		undoManager.addListener(mxEvent.UNDO, undoHandler);
 		undoManager.addListener(mxEvent.REDO, undoHandler);
 
-		/*
-		// Creates the graph outline component
-		graphOutline = new mxGraphOutline(graphComponent);
-
-		// Creates the library pane that contains the tabs with the palettes
-		libraryPane = new JTabbedPane();
-
-		// Creates the inner split pane that contains the library with the
-		// palettes and the graph outline on the left side of the window
-		JSplitPane inner = new JSplitPane(JSplitPane.VERTICAL_SPLIT,libraryPane, graphOutline);
-		//inner.setDividerLocation(320);
-		inner.setDividerLocation(200);
-		inner.setResizeWeight(1);
-		inner.setDividerSize(6);
-		inner.setBorder(null);
-
-		// Creates the outer split pane that contains the inner split pane and
-		// the graph component on the right side of the window
-		JSplitPane outer = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, inner,graphComponent);
-		outer.setOneTouchExpandable(true);
-		//outer.setDividerLocation(200);
-		outer.setDividerLocation(100);
-		outer.setDividerSize(6);
-		outer.setBorder(null);
-
-		// Creates the status bar
-		//statusBar = createStatusBar();
-
-		*/
-
 		// Display some useful information about repaint events
 		installRepaintListener();
 
 		// Puts everything together
 		setLayout(new BorderLayout());
-		//add(outer, BorderLayout.CENTER);
 		add (graphComponent,BorderLayout.CENTER);
-		//add(statusBar, BorderLayout.SOUTH);
-		
-		//installToolBar();
 
 		// Installs rubberband selection and handling for some special
 		// keystrokes such as F2, Control-C, -V, X, A etc.
@@ -215,7 +178,8 @@ public class INHoopBasicGraphEditor extends INEmbeddedJPanel
 	 */
 	public JTabbedPane getLibraryPane ()
 	{
-		INHoopEditorPalletePanel pal=(INHoopEditorPalletePanel) INHoopLink.getWindow("Hoop Palette");
+		INHoopEditorPalettePanel pal=(INHoopEditorPalettePanel) INHoopLink.getWindow("Hoop Palette");
+		
 		if (pal!=null)
 			return (pal.getLibraryPane ());
 			
@@ -234,29 +198,8 @@ public class INHoopBasicGraphEditor extends INEmbeddedJPanel
 	protected void installHandlers()
 	{
 		rubberband = new mxRubberband(graphComponent);
-		keyboardHandler = new EditorKeyboardHandler(graphComponent);
+		keyboardHandler = new INHoopEditorKeyboardHandler(graphComponent);
 	}
-	/**
-	 * 
-	 */
-	/**
-	protected void installToolBar()
-	{
-		add(new EditorToolBar(this, JToolBar.HORIZONTAL), BorderLayout.NORTH);
-	}
-	*/
-	/**
-	 * 
-	 */
-	/*
-	protected JLabel createStatusBar()
-	{
-		JLabel statusBar = new JLabel(mxResources.get("ready"));
-		statusBar.setBorder(BorderFactory.createEmptyBorder(2, 4, 2, 4));
-
-		return statusBar;
-	}
-	*/
 	/**
 	 * 
 	 */
@@ -296,17 +239,15 @@ public class INHoopBasicGraphEditor extends INEmbeddedJPanel
 		final JScrollPane scrollPane = new JScrollPane(palette);
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		libraryPane.add (title, scrollPane);
+		libraryPane.addTab (title, INHoopLink.getImageByName("gtk-file.png"),scrollPane,title);
+		//palette.setPreferredWidth(150);
 
 		// Updates the widths of the palettes if the container size changes
 		libraryPane.addComponentListener(new ComponentAdapter()
 		{
-			/**
-			 * 
-			 */
 			public void componentResized(ComponentEvent e)
 			{
-				int w = scrollPane.getWidth() - scrollPane.getVerticalScrollBar().getWidth();
+				int w = scrollPane.getWidth()-scrollPane.getVerticalScrollBar().getWidth();
 				palette.setPreferredWidth(w);
 			}
 
@@ -333,63 +274,10 @@ public class INHoopBasicGraphEditor extends INEmbeddedJPanel
 	/**
 	 * 
 	 */
-	/*
-	protected void showOutlinePopupMenu(MouseEvent e)
-	{
-		Point pt = SwingUtilities.convertPoint(e.getComponent(), e.getPoint(),graphComponent);
-		JCheckBoxMenuItem item = new JCheckBoxMenuItem(mxResources.get("magnifyPage"));
-		item.setSelected(graphOutline.isFitPage());
-
-		item.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				graphOutline.setFitPage(!graphOutline.isFitPage());
-				graphOutline.repaint();
-			}
-		});
-
-		JCheckBoxMenuItem item2 = new JCheckBoxMenuItem (mxResources.get("showLabels"));
-		item2.setSelected (graphOutline.isDrawLabels ());
-
-		item2.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				graphOutline.setDrawLabels(!graphOutline.isDrawLabels());
-				graphOutline.repaint();
-			}
-		});
-
-		JCheckBoxMenuItem item3 = new JCheckBoxMenuItem (mxResources.get("buffering"));
-		item3.setSelected (graphOutline.isTripleBuffered());
-
-		item3.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				graphOutline.setTripleBuffered(!graphOutline.isTripleBuffered());
-				graphOutline.repaint();
-			}
-		});
-
-		JPopupMenu menu = new JPopupMenu();
-		menu.add(item);
-		menu.add(item2);
-		menu.add(item3);
-		menu.show(graphComponent, pt.x, pt.y);
-
-		e.consume();
-	}
-	*/
-	/**
-	 * 
-	 */
 	protected void showGraphPopupMenu(MouseEvent e)
 	{
-		Point pt = SwingUtilities.convertPoint(e.getComponent(), e.getPoint(),
-				graphComponent);
-		EditorPopupMenu menu = new EditorPopupMenu(INHoopBasicGraphEditor.this);
+		Point pt = SwingUtilities.convertPoint(e.getComponent(), e.getPoint(),graphComponent);
+		INHoopEditorPopupMenu menu = new INHoopEditorPopupMenu(INHoopBasicGraphEditor.this);
 		menu.show(graphComponent, pt.x, pt.y);
 
 		e.consume();
@@ -450,7 +338,6 @@ public class INHoopBasicGraphEditor extends INEmbeddedJPanel
 		// Installs the popup menu in the graph component
 		graphComponent.getGraphControl().addMouseListener(new MouseAdapter()
 		{
-
 			/**
 			 * 
 			 */
@@ -459,7 +346,6 @@ public class INHoopBasicGraphEditor extends INEmbeddedJPanel
 				// Handles context menu on the Mac where the trigger is on mousepressed
 				mouseReleased(e);
 			}
-
 			/**
 			 * 
 			 */
@@ -470,34 +356,29 @@ public class INHoopBasicGraphEditor extends INEmbeddedJPanel
 					showGraphPopupMenu(e);
 				}
 			}
-
 		});
 
 		// Installs a mouse motion listener to display the mouse location
 		graphComponent.getGraphControl().addMouseMotionListener (new MouseMotionListener()
-				{
-
-					/*
-					 * (non-Javadoc)
-					 * @see java.awt.event.MouseMotionListener#mouseDragged(java.awt.event.MouseEvent)
-					 */
-					public void mouseDragged(MouseEvent e)
-					{
-						mouseLocationChanged(e);
-					}
-
-					/*
-					 * (non-Javadoc)
-					 * @see java.awt.event.MouseMotionListener#mouseMoved(java.awt.event.MouseEvent)
-					 */
-					public void mouseMoved(MouseEvent e)
-					{
-						mouseDragged(e);
-					}
-
-				});
+		{
+			/*
+			 * (non-Javadoc)
+			 * @see java.awt.event.MouseMotionListener#mouseDragged(java.awt.event.MouseEvent)
+			 */
+			public void mouseDragged(MouseEvent e)
+			{
+				mouseLocationChanged(e);
+			}
+			/*
+			 * (non-Javadoc)
+			 * @see java.awt.event.MouseMotionListener#mouseMoved(java.awt.event.MouseEvent)
+			 */
+			public void mouseMoved(MouseEvent e)
+			{
+				mouseDragged(e);
+			}
+		});
 	}
-
 	/**
 	 * 
 	 */
@@ -513,7 +394,6 @@ public class INHoopBasicGraphEditor extends INEmbeddedJPanel
 			updateTitle();
 		}
 	}
-
 	/**
 	 * 
 	 */
@@ -521,7 +401,6 @@ public class INHoopBasicGraphEditor extends INEmbeddedJPanel
 	{
 		return currentFile;
 	}
-
 	/**
 	 * 
 	 * @param modified
@@ -556,24 +435,6 @@ public class INHoopBasicGraphEditor extends INEmbeddedJPanel
 	/**
 	 * 
 	 */
-	/*
-	public mxGraphOutline getGraphOutline()
-	{
-		return graphOutline;
-	}
-	*/	
-	/**
-	 * 
-	 */
-	/*
-	public JTabbedPane getLibraryPane()
-	{
-		return libraryPane;
-	}
-	*/
-	/**
-	 * 
-	 */
 	public mxUndoManager getUndoManager()
 	{
 		return undoManager;
@@ -588,7 +449,6 @@ public class INHoopBasicGraphEditor extends INEmbeddedJPanel
 	{
 		return bind(name, action, null);
 	}
-
 	/**
 	 * 
 	 * @param name
@@ -602,12 +462,10 @@ public class INHoopBasicGraphEditor extends INEmbeddedJPanel
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				action.actionPerformed(new ActionEvent(getGraphComponent(), e
-						.getID(), e.getActionCommand()));
+				action.actionPerformed(new ActionEvent(getGraphComponent(), e.getID(), e.getActionCommand()));
 			}
 		};
 	}
-
 	/**
 	 * 
 	 * @param msg
@@ -640,21 +498,6 @@ public class INHoopBasicGraphEditor extends INEmbeddedJPanel
 	/**
 	 * 
 	 */
-	/*
-	public void exit()
-	{
-		JFrame frame = (JFrame) SwingUtilities.windowForComponent(this);
-
-		if (frame != null)
-		{
-			frame.dispose();
-		}
-	}
-	*/
-
-	/**
-	 * 
-	 */
 	public void setLookAndFeel(String clazz)
 	{
 		JFrame frame = (JFrame) SwingUtilities.windowForComponent(this);
@@ -667,7 +510,7 @@ public class INHoopBasicGraphEditor extends INEmbeddedJPanel
 				SwingUtilities.updateComponentTreeUI(frame);
 
 				// Needs to assign the key bindings again
-				keyboardHandler = new EditorKeyboardHandler(graphComponent);
+				keyboardHandler = new INHoopEditorKeyboardHandler(graphComponent);
 			}
 			catch (Exception e1)
 			{
@@ -675,26 +518,6 @@ public class INHoopBasicGraphEditor extends INEmbeddedJPanel
 			}
 		}
 	}
-
-	/**
-	 * 
-	 */
-	/*
-	public JFrame createFrame(JMenuBar menuBar)
-	{
-		JFrame frame = new JFrame();
-		frame.getContentPane().add(this);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setJMenuBar(menuBar);
-		frame.setSize(870, 640);
-
-		// Updates the frame title
-		updateTitle();
-
-		return frame;
-	}
-	*/
-
 	/**
 	 * Creates an action that executes the specified layout.
 	 * 

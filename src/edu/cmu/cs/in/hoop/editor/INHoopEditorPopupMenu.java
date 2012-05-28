@@ -22,26 +22,23 @@ import javax.swing.JMenu;
 import javax.swing.JPopupMenu;
 import javax.swing.TransferHandler;
 
-import edu.cmu.cs.in.hoop.editor.EditorActions.HistoryAction;
+import edu.cmu.cs.in.hoop.editor.INHoopEditorActions.HistoryAction;
 
 import com.mxgraph.swing.util.mxGraphActions;
 import com.mxgraph.util.mxResources;
 
-public class EditorPopupMenu extends JPopupMenu
+public class INHoopEditorPopupMenu extends JPopupMenu
 {
-
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -3132749140550242191L;
 
-	public EditorPopupMenu(INHoopBasicGraphEditor editor)
+	public INHoopEditorPopupMenu(INHoopBasicGraphEditor editor)
 	{
-		boolean selected = !editor.getGraphComponent().getGraph()
-				.isSelectionEmpty();
+		boolean selected = !editor.getGraphComponent().getGraph().isSelectionEmpty();
 
-		add(editor.bind(mxResources.get("undo"), new HistoryAction(true),
-				"/assets/images/undo.gif"));
+		add(editor.bind(mxResources.get("undo"), new HistoryAction(true),"/assets/images/undo.gif"));
 
 		addSeparator();
 
