@@ -18,10 +18,18 @@
 
 package edu.cmu.cs.in.hoop.editor;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 
+import edu.cmu.cs.in.controls.INHoopShadowBorder;
 import edu.cmu.cs.in.controls.base.INJPanel;
 
 /** 
@@ -31,6 +39,8 @@ public class INHoopVisualNode extends INJPanel
 {
 	private static final long serialVersionUID = -1L;
 	private String title="Undefined";
+	private JLabel titleLabel=null;
+	private JPanel contentArea=null;
 	
 	/**
 	 * Creates a new JPanel with a double buffer and a flow layout.
@@ -40,10 +50,27 @@ public class INHoopVisualNode extends INJPanel
 		setClassName ("INHoopVisualNode");
 		debug ("INHoopVisualNode ()");
 		
-		this.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-		//this.setHorizontalAlignment(JLabel.CENTER);
-		//this.setBackground(graphComponent.getBackground().darker());
-		this.setOpaque(true);		
+		//this.setBorder(INHoopShadowBorder.getSharedInstance());
+		
+		//setLayout(new BorderLayout());
+		setLayout(new BoxLayout (this,BoxLayout.Y_AXIS));
+		setBorder(BorderFactory.createCompoundBorder(INHoopShadowBorder.getSharedInstance(), BorderFactory.createBevelBorder(BevelBorder.RAISED)));
+				
+		this.setBackground(new Color (50,50,50));
+		this.setOpaque(true);
+		
+		titleLabel=new JLabel ();
+		titleLabel.setFont(new Font("Dialog", 1, 10));
+		titleLabel.setMinimumSize(new Dimension (50,24));
+		titleLabel.setPreferredSize(new Dimension (50,24));
+		titleLabel.setForeground(Color.white);
+		titleLabel.setOpaque(false);
+		this.add(titleLabel);
+		
+		contentArea=new JPanel ();
+		contentArea.setBackground(new Color (29,29,29));
+		contentArea.setBorder(BorderFactory.createLoweredBevelBorder());
+		this.add (contentArea);
 	}
 	/** 
 	 * @param title
@@ -51,6 +78,7 @@ public class INHoopVisualNode extends INJPanel
 	public void setTitle(String title) 
 	{
 		this.title = title;
+		titleLabel.setText(title);
 	}
 	/** 
 	 * 
@@ -65,6 +93,7 @@ public class INHoopVisualNode extends INJPanel
 	public void setText(String title) 
 	{
 		this.title = title;
+		titleLabel.setText(title);
 	}
 	/** 
 	 * 

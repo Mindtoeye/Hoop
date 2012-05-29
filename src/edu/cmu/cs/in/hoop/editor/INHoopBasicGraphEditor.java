@@ -205,24 +205,23 @@ public class INHoopBasicGraphEditor extends INEmbeddedJPanel
 	 */
 	protected void installRepaintListener()
 	{
-		graphComponent.getGraph().addListener(mxEvent.REPAINT,
-				new mxIEventListener()
-				{
-					public void invoke(Object source, mxEventObject evt)
-					{
-						String buffer = (graphComponent.getTripleBuffer() != null) ? "" : " (unbuffered)";
-						mxRectangle dirty = (mxRectangle) evt.getProperty("region");
+		graphComponent.getGraph().addListener(mxEvent.REPAINT,new mxIEventListener()
+		{
+			public void invoke(Object source, mxEventObject evt)
+			{
+				String buffer = (graphComponent.getTripleBuffer() != null) ? "" : " (unbuffered)";
+				mxRectangle dirty = (mxRectangle) evt.getProperty("region");
 
-						if (dirty == null)
-						{
-							status("Repaint all" + buffer);
-						}
-						else
-						{
-							status("Repaint: x=" + (int) (dirty.getX()) + " y="	+ (int) (dirty.getY()) + " w=" + (int) (dirty.getWidth()) + " h=" + (int) (dirty.getHeight()) + buffer);
-						}
-					}
-				});
+				if (dirty == null)
+				{
+					status("Repaint all" + buffer);
+				}
+				else
+				{
+					status("Repaint: x=" + (int) (dirty.getX()) + " y="	+ (int) (dirty.getY()) + " w=" + (int) (dirty.getWidth()) + " h=" + (int) (dirty.getHeight()) + buffer);
+				}
+			}
+		});
 	}
 	/**
 	 * 
