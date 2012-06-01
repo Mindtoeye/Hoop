@@ -26,19 +26,18 @@ import java.awt.Font;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
-import javax.swing.tree.DefaultMutableTreeNode;
 
 import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
-import edu.cmu.cs.in.hoop.base.INHoopBase;
 
 /**
  * 
  */
 public class INHoopTreeList extends INEmbeddedJPanel
 {
-	private static final long serialVersionUID = 1L;
-		
+	private static final long serialVersionUID = 1L;		
+	private JTree tree=null;
+	
 	/**
 	 * 
 	 */
@@ -48,20 +47,8 @@ public class INHoopTreeList extends INEmbeddedJPanel
 		debug ("INHoopTreeList ()");    	
 		
 		this.setSingleInstance(true);
-		
-		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root");
-		
-		if (INHoopLink.hoopTemplates!=null)
-		{    	
-			for (int i=0;i<INHoopLink.hoopTemplates.size();i++)
-			{
-				INHoopBase hoopTemplate=INHoopLink.hoopTemplates.get(i);
-				DefaultMutableTreeNode child = new DefaultMutableTreeNode(hoopTemplate.getClassName());
-				root.add(child);
-			}	
-		}	
-		
-		JTree tree = new JTree(root);
+				
+		tree = new JTree(INHoopLink.hoopManager.toTreeModel ());
 		tree.setFont(new Font("Dialog", 1, 10));
 		
 		setContentPane (new JScrollPane(tree));		

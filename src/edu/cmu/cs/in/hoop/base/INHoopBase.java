@@ -35,6 +35,7 @@ public class INHoopBase extends INHoopInspectable
 
 	/// Either one of display,load,save,transform 
 	protected String hoopCategory="none"; 
+	protected String hoopDescription="Undefined";
 	
 	/**
 	 *
@@ -72,6 +73,20 @@ public class INHoopBase extends INHoopInspectable
 	{
 		return hoopCategory;
 	}	
+	/**
+	 *
+	 */	
+	public void setHoopDescription(String hoopDescription) 
+	{
+		this.hoopDescription = hoopDescription;
+	}
+	/**
+	 *
+	 */	
+	public String getHoopDescription() 
+	{
+		return hoopDescription;
+	}		
 	/**
 	 *
 	 */

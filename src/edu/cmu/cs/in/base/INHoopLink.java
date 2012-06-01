@@ -28,6 +28,7 @@ import edu.cmu.cs.in.network.INStreamedSocket;
 import edu.cmu.cs.in.search.INDataSet;
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 import edu.cmu.cs.in.hoop.INHoopConsoleInterface;
+import edu.cmu.cs.in.hoop.INHoopManager;
 import edu.cmu.cs.in.hoop.INHoopStatusBar;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
 import edu.cmu.cs.in.hoop.base.INHoopDisplayBase;
@@ -289,7 +290,7 @@ public class INHoopLink extends INLangLink
 	
 	// Core hoop access
 	
-	public static ArrayList<INHoopBase> hoopTemplates=null;
+	public static INHoopManager hoopManager=null;
 		
 	/**
 	 *
@@ -317,23 +318,9 @@ public class INHoopLink extends INLangLink
 		if (jobs==null)
 			jobs=new ArrayList<String> ();
 		
-		if (hoopTemplates==null)
-			hoopTemplates=new ArrayList<INHoopBase> ();
-		
-		initHoopTemplates ();
+		if (hoopManager==null)
+			hoopManager=new INHoopManager ();		
     }  
-    /**
-     * 
-     */    
-    private void initHoopTemplates ()
-    {
-    	hoopTemplates.add(new INHoopDisplayBase ());
-    	hoopTemplates.add(new INHoopFileLoadBase ());
-    	hoopTemplates.add(new INHoopFileSaveBase ());
-    	hoopTemplates.add(new INHoopLoadBase ());
-    	hoopTemplates.add(new INHoopSaveBase ());
-    	hoopTemplates.add(new INHoopTransformBase ());    	
-    }
     /**
      * 
      */
