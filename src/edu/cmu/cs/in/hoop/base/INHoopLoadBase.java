@@ -32,7 +32,9 @@ public class INHoopLoadBase extends INHoopBase
     {
 		setClassName ("INHoopLoadBase");
 		debug ("INHoopLoadBase ()");
-		hoopCategory="load";
+		setHoopCategory ("load");
+		
+		setHoopDescription ("Abstract Hoop Loader");
     }
 	/**
 	 *
@@ -54,5 +56,12 @@ public class INHoopLoadBase extends INHoopBase
 	public Boolean runHoop ()
 	{
 		return (true);
+	}	
+	/**
+	 * 
+	 */
+	public INHoopBase copy ()
+	{
+		return (new INHoopLoadBase ());
 	}	
 }

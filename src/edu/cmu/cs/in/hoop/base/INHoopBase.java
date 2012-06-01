@@ -34,7 +34,7 @@ public class INHoopBase extends INHoopInspectable
 	private ArrayList <INHoopBase> outHoops=null;
 
 	/// Either one of display,load,save,transform 
-	protected String hoopCategory="none"; 
+	protected StringBuffer hoopCategory=null; 
 	protected String hoopDescription="Undefined";
 	
 	/**
@@ -43,7 +43,12 @@ public class INHoopBase extends INHoopInspectable
     public INHoopBase () 
     {
 		setClassName ("INHoopBase");
-		debug ("INHoopBase ()");						
+		debug ("INHoopBase ()");
+		
+		hoopCategory=new StringBuffer ();
+		hoopCategory.append("root");
+		
+		setHoopDescription ("Abstract Hoop");
     }
 	/**
 	 *
@@ -62,16 +67,16 @@ public class INHoopBase extends INHoopInspectable
 	/**
 	 *
 	 */	
-	public void setHoopCategory(String hoopCategory) 
+	public void setHoopCategory(String aCategory) 
 	{
-		this.hoopCategory = hoopCategory;
+		this.hoopCategory.append("."+aCategory);
 	}
 	/**
 	 *
 	 */	
 	public String getHoopCategory() 
 	{
-		return hoopCategory;
+		return hoopCategory.toString();
 	}	
 	/**
 	 *
@@ -93,5 +98,12 @@ public class INHoopBase extends INHoopInspectable
 	public Boolean runHoop ()
 	{
 		return (true);
+	}
+	/**
+	 * 
+	 */
+	public INHoopBase copy ()
+	{
+		return (new INHoopBase ());
 	}
 }

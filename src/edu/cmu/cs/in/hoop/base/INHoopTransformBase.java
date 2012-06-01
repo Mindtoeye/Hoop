@@ -30,7 +30,10 @@ public class INHoopTransformBase extends INHoopBase
     {
 		setClassName ("INHoopTransformBase");
 		debug ("INHoopTransformBase ()");
-		hoopCategory="transform";
+		
+		setHoopCategory ("transform");
+		
+		setHoopDescription ("Abstract Hoop Transformer");		
     }
 	/**
 	 *
@@ -39,4 +42,11 @@ public class INHoopTransformBase extends INHoopBase
 	{
 		return (true);
 	}    
+	/**
+	 * 
+	 */
+	public INHoopBase copy ()
+	{
+		return (new INHoopTransformBase ());
+	}	
 }

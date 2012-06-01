@@ -22,7 +22,6 @@ import java.util.ArrayList;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
 import edu.cmu.cs.in.hoop.base.INHoopDisplayBase;
 import edu.cmu.cs.in.hoop.base.INHoopFileLoadBase;
@@ -85,6 +84,24 @@ public class INHoopManager extends INHoopBase
     /**
      * 
      */    
+	public INHoopBase instantiate (String aTemplate)
+	{
+		debug ("instantiate ("+aTemplate+")");
+		
+		for (int i=0;i<hoopTemplates.size();i++)
+		{
+			INHoopBase hoopTemplate=hoopTemplates.get(i);
+			
+			if (hoopTemplate.getClassName().toLowerCase().equals(aTemplate.toLowerCase())==true)
+				return (hoopTemplate.copy ());
+			
+		}	
+		
+		return (null);
+	}
+    /**
+     * 
+     */    
     private void initHoopTemplates ()
     {
     	debug ("initHoopTemplates ()");
@@ -110,8 +127,9 @@ public class INHoopManager extends INHoopBase
     			String aCat=hoopCategories.get(j);
     			
 				DefaultMutableTreeNode catNode = new DefaultMutableTreeNode(aCat);
+				catNode.setUserObject(new String (aCat));
 				root.add(catNode);
-    			
+				    			
     			for (int i=0;i<hoopTemplates.size();i++)
     			{
     				INHoopBase hoopTemplate=hoopTemplates.get(i);
@@ -119,6 +137,7 @@ public class INHoopManager extends INHoopBase
     				if (hoopTemplate.getHoopCategory().toLowerCase().equals(aCat.toLowerCase())==true)
     				{
     					DefaultMutableTreeNode templateNode = new DefaultMutableTreeNode(hoopTemplate.getClassName());
+    					templateNode.setUserObject(hoopTemplate);
     					catNode.add(templateNode);
     				}	
     			}

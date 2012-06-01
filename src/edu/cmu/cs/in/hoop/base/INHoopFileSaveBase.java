@@ -38,7 +38,9 @@ public class INHoopFileSaveBase extends INHoopBase
     {
 		setClassName ("INHoopFileSaveBase");
 		debug ("INHoopFileSaveBase ()");
-		hoopCategory="save";
+		setHoopCategory ("save");
+		
+		setHoopDescription ("Save To File");
     }
 	/**
 	 *
@@ -77,4 +79,11 @@ public class INHoopFileSaveBase extends INHoopBase
 		
 		return (true);
 	}
+	/**
+	 * 
+	 */
+	public INHoopBase copy ()
+	{
+		return (new INHoopFileSaveBase ());
+	}	
 }

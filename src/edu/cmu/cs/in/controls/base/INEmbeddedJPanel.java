@@ -22,6 +22,8 @@ import java.awt.BorderLayout;
 //import java.awt.Color;
 import java.awt.Component;
 
+import javax.swing.BorderFactory;
+
 //import javax.swing.BorderFactory;
 //import javax.swing.BoxLayout;
 //import javax.swing.border.Border;
@@ -46,9 +48,8 @@ public class INEmbeddedJPanel extends INJPanel
 		setClassName ("INEmbeddedJPanel");
 		debug ("INEmbeddedJPanel ()");
 		
-		this.setLayout(new BorderLayout(2,2));
-		//Border border=BorderFactory.createLineBorder(Color.black);
-		//this.setBorder(border);					
+		this.setBorder(BorderFactory.createEmptyBorder(4,4,4,4));		
+		this.setLayout(new BorderLayout(2,2));					
 	}
 	/**
 	 * 

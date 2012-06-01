@@ -32,7 +32,10 @@ public class INHoopSaveBase extends INHoopBase
     {
 		setClassName ("INHoopSaveBase");
 		debug ("INHoopSaveBase ()");
-		hoopCategory="save";
+		
+		setHoopCategory ("save");
+		
+		setHoopDescription ("Abstract Hoop Saving");
     }
 	/**
 	 *
@@ -54,5 +57,12 @@ public class INHoopSaveBase extends INHoopBase
 	public Boolean runHoop ()
 	{
 		return (true);
+	}	
+	/**
+	 * 
+	 */
+	public INHoopBase copy ()
+	{
+		return (new INHoopSaveBase ());
 	}	
 }

@@ -34,7 +34,9 @@ public class INHoopDisplayBase extends INHoopBase
     {
 		setClassName ("INHoopDisplayBase");
 		debug ("INHoopDisplayBase ()");
-		hoopCategory="display";
+		setHoopCategory ("display");
+		
+		setHoopDescription ("Shows Hoop Results");
     }
 	/**
 	 *
@@ -56,5 +58,12 @@ public class INHoopDisplayBase extends INHoopBase
 	public Boolean runHoop ()
 	{
 		return (true);
+	}
+	/**
+	 * 
+	 */
+	public INHoopBase copy ()
+	{
+		return (new INHoopDisplayBase ());
 	}	
 }

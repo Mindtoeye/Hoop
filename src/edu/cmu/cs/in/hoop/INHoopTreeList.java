@@ -23,11 +23,17 @@
 package edu.cmu.cs.in.hoop;
 
 import java.awt.Font;
+import java.util.Enumeration;
 
+import javax.swing.BorderFactory;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
+import javax.swing.tree.TreeSelectionModel;
 
 import edu.cmu.cs.in.base.INHoopLink;
+import edu.cmu.cs.in.controls.INJTreeHoopRenderer;
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 
 /**
@@ -50,15 +56,45 @@ public class INHoopTreeList extends INEmbeddedJPanel
 				
 		tree = new JTree(INHoopLink.hoopManager.toTreeModel ());
 		tree.setFont(new Font("Dialog", 1, 10));
+		tree.setCellRenderer (new INJTreeHoopRenderer ());
+		tree.getSelectionModel().setSelectionMode (TreeSelectionModel.SINGLE_TREE_SELECTION);
+		tree.setRootVisible(false);
+		tree.setBorder(BorderFactory.createEmptyBorder(4,4,4,4));
+		tree.putClientProperty("JTree.lineStyle", "Horizontal");
 		
-		setContentPane (new JScrollPane(tree));		
+		JScrollPane scrollPane=new JScrollPane(tree);
+		scrollPane.setBorder(BorderFactory.createEmptyBorder(4,4,4,4));
+		
+		setContentPane (scrollPane);
+		
+		TreeNode root = (TreeNode) tree.getModel().getRoot();
+		expandAll (tree, new TreePath(root));				
     }
 	/**
-	 *
+	 * When this method is called we should assume that we have to
+	 * re-evaluate all existing hoop templates
 	 */	
 	public void updateContents() 
 	{
 		debug ("updateContents ()");
 
-	}		
+	}	
+	/**
+	 *
+	 */	
+	private void expandAll(JTree tree, TreePath parent) 
+	{
+	    TreeNode node = (TreeNode) parent.getLastPathComponent();
+	    if (node.getChildCount() >= 0) 
+	    {
+	      for (Enumeration e = node.children(); e.hasMoreElements();) 
+	      {
+	        TreeNode n = (TreeNode) e.nextElement();
+	        TreePath path = parent.pathByAddingChild(n);
+	        expandAll(tree, path);
+	      }
+	    }
+	    tree.expandPath(parent);
+	    // tree.collapsePath(parent);
+	  }	
 }

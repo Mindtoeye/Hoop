@@ -38,8 +38,10 @@ public class INHoopFileLoadBase extends INHoopBase
 		setClassName ("INHoopFileLoadBase");
 		debug ("INHoopFileLoadBase ()");
 		
-		hoopCategory="load";
+		setHoopCategory ("load");
 		fManager=new INFileManager ();
+		
+		setHoopDescription ("Load From File");
     }
 	/**
 	 *
@@ -77,5 +79,12 @@ public class INHoopFileLoadBase extends INHoopBase
 	public String getInputStreamPath() 
 	{
 		return inputStreamPath;
+	}	
+	/**
+	 * 
+	 */
+	public INHoopBase copy ()
+	{
+		return (new INHoopFileLoadBase ());
 	}	
 }
