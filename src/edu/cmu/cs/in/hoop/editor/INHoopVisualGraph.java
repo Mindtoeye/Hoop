@@ -22,8 +22,6 @@ import java.text.NumberFormat;
 import java.util.Iterator;
 import java.util.List;
 
-import com.mxgraph.canvas.mxICanvas;
-import com.mxgraph.canvas.mxImageCanvas;
 import com.mxgraph.model.mxGeometry;
 import com.mxgraph.util.mxPoint;
 import com.mxgraph.view.mxCellState;
@@ -173,31 +171,4 @@ public class INHoopVisualGraph extends mxGraph
 		}
 		return super.createEdge(parent, id, value, source, target, style);
 	}
-	/**
-	 * 
-	 */
-	/*
-	public void drawState(mxICanvas canvas, mxCellState state,	boolean drawLabel)
-	{
-		String label = (drawLabel) ? state.getLabel() : "";
-
-		// Indirection for wrapped swing canvas inside image canvas (used for creating
-		// the preview image when cells are dragged)
-		if (getModel().isVertex(state.getCell()) && 
-			(canvas instanceof mxImageCanvas) && 
-			((mxImageCanvas) canvas).getGraphicsCanvas() instanceof INHoopEditorCanvas)
-		{
-			((INHoopEditorCanvas) ((mxImageCanvas) canvas).getGraphicsCanvas()).drawVertex(state, label);
-		}
-		// Redirection of drawing vertices in SwingCanvas
-		else if (getModel().isVertex(state.getCell()) && canvas instanceof INHoopEditorCanvas)
-		{
-			((INHoopEditorCanvas) canvas).drawVertex(state, label);
-		}
-		else
-		{
-			super.drawState(canvas, state, drawLabel);
-		}
-	}
-	*/	
 }

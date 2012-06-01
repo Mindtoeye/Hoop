@@ -21,7 +21,6 @@ package edu.cmu.cs.in.hoop.editor;
 import java.awt.BorderLayout;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
-//import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
@@ -34,19 +33,12 @@ import java.util.List;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
-//import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-//import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-//import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
-//import javax.swing.JPanel;
-//import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
-//import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
-//import javax.swing.JToolBar;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
@@ -93,6 +85,7 @@ public class INHoopBasicGraphEditor extends INEmbeddedJPanel
 	/**
 	 * Adds required resources for i18n
 	 */
+	/*
 	static
 	{
 		try
@@ -103,7 +96,8 @@ public class INHoopBasicGraphEditor extends INEmbeddedJPanel
 		{
 			// ignore
 		}
-	}	
+	}
+	*/	
 	/**
 	 * 
 	 */

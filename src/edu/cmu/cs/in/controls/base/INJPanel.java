@@ -23,7 +23,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.LayoutManager;
 import java.awt.Toolkit;
-import java.net.URL;
+//import java.net.URL;
 
 //import javax.swing.JFrame;
 import javax.swing.Box;
@@ -116,29 +116,6 @@ public class INJPanel extends JPanel
 	{
 		INBase.debug(getClassName(),aMessage);
 	}
-	/** 
-	 * Returns an ImageIcon, or null if the path was invalid. 
-	 */
-	protected ImageIcon createImageIcon (String aFile,String description) 
-	{				
-		debug ("createImageIcon ("+aFile+")");
-		
-		ClassLoader loader=getClass ().getClassLoader();
-		if (loader==null)
-		{
-			debug ("Error: no class loader object available");
-			return (defaultIcon);
-		}
-		
-		URL resource=loader.getResource("pact/CommWidgets/"+aFile);
-		if (resource==null)
-		{
-			debug ("Error: unable to find image resource in jar file");
-			return (defaultIcon);
-		}			
-		
-		return (new ImageIcon (resource,description));
-	}
 	/**
 	 * 
 	 */	
@@ -162,7 +139,7 @@ public class INJPanel extends JPanel
 	/**
 	 * 
 	 */
-	private void centerWindow (JPanel aWindow)
+	public void centerWindow (JPanel aWindow)
 	{
 		debug ("centerWindow ()");
 		

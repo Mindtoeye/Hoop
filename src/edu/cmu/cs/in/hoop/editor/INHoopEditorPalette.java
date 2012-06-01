@@ -164,8 +164,7 @@ public class INHoopEditorPalette extends INJPanel
 
 			Graphics2D g2 = (Graphics2D) g;
 
-			g2.setPaint(new GradientPaint(0, 0, getBackground(), getWidth(), 0,
-					gradientColor));
+			g2.setPaint(new GradientPaint(0, 0, getBackground(), getWidth(), 0,	gradientColor));
 			g2.fill(rect);
 		}
 	}
@@ -344,16 +343,13 @@ public class INHoopEditorPalette extends INJPanel
 			 */
 			public void dragGestureRecognized(DragGestureEvent e)
 			{
-				e
-						.startDrag(null, mxSwingConstants.EMPTY_IMAGE, new Point(),
-								t, null);
+				e.startDrag(null, mxSwingConstants.EMPTY_IMAGE, new Point(),t, null);
 			}
 
 		};
 
 		DragSource dragSource = new DragSource();
-		dragSource.createDefaultDragGestureRecognizer(entry,
-				DnDConstants.ACTION_COPY, dragGestureListener);
+		dragSource.createDefaultDragGestureRecognizer(entry,DnDConstants.ACTION_COPY, dragGestureListener);
 
 		add(entry);
 	}

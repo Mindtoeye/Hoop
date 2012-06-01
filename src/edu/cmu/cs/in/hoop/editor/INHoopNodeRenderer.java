@@ -26,14 +26,13 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -45,6 +44,7 @@ import com.mxgraph.view.mxGraph;
 
 import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.controls.INHoopShadowBorder;
+import edu.cmu.cs.in.controls.base.INJComponent;
 
 /**
  *  
@@ -54,7 +54,7 @@ import edu.cmu.cs.in.controls.INHoopShadowBorder;
  * Default index is 7 (bottom right). 
  * 
  */
-public class INHoopNodeRenderer extends JComponent implements MouseListener, MouseMotionListener
+public class INHoopNodeRenderer extends INJComponent implements MouseListener, MouseMotionListener, ActionListener
 {
 	private static final long serialVersionUID = -1L;
 
@@ -76,9 +76,11 @@ public class INHoopNodeRenderer extends JComponent implements MouseListener, Mou
 	/**
 	 * 
 	 */
-	@SuppressWarnings("serial")
 	public INHoopNodeRenderer (final Object cell, final mxGraphComponent graphContainer)
 	{
+		setClassName ("INHoopNodeRenderer");
+		debug ("INHoopNodeRenderer ()");
+		
 		this.cell = cell;
 		this.graphContainer = graphContainer;
 		this.graph = graphContainer.getGraph();
@@ -108,24 +110,14 @@ public class INHoopNodeRenderer extends JComponent implements MouseListener, Mou
 		toolBar.setLayout(new FlowLayout(FlowLayout.LEFT, 1, 2));
 		toolBar.setBackground(new Color(50,50,50));
 		toolBar.setOpaque(true);
-		
-		JButton button = new JButton(new AbstractAction("", INHoopLink.getImageByName("minimize.gif"))
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				graph.foldCells(graph.isCellCollapsed(cell), false,	new Object[] { cell });
 				
-				if (graph.isCellCollapsed(cell))
-					((JButton) e.getSource()).setIcon(INHoopLink.getImageByName("maximize.gif"));
-				else
-					((JButton) e.getSource()).setIcon(INHoopLink.getImageByName("minimize.gif"));
-			}
-		});
-		
+		JButton button=new JButton ();
+		button.setIcon(INHoopLink.getImageByName("minimize.gif"));
 		button.setPreferredSize(new Dimension(16, 16));
 		button.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 		button.setToolTipText("Collapse/Expand");
 		button.setOpaque(false);
+		button.addActionListener(this);
 		toolBar.add(button);
 
 		titleBar.add(toolBar, BorderLayout.EAST);
@@ -153,7 +145,7 @@ public class INHoopNodeRenderer extends JComponent implements MouseListener, Mou
 		setMinimumSize(new Dimension(20, 30));
 		
 		setTitle ("Hoop Node");
-	}
+	} 
 	/**
 	 * 
 	 */
@@ -247,5 +239,23 @@ public class INHoopNodeRenderer extends JComponent implements MouseListener, Mou
 	public void mouseReleased(MouseEvent e) 
 	{
 		graphContainer.getGraphControl().dispatchEvent(SwingUtilities.convertMouseEvent((Component) e.getSource(),e, graphContainer.getGraphControl()));
+	}
+	/**
+	 * 
+	 */
+	@Override
+	public void actionPerformed(ActionEvent e) 
+	{
+		debug ("actionPerformed ()");
+		
+		if (graph!=null)
+		{
+			graph.foldCells (graph.isCellCollapsed(cell), false,	new Object[] { cell });
+		
+			if (graph.isCellCollapsed(cell))
+				((JButton) e.getSource()).setIcon(INHoopLink.getImageByName("maximize.gif"));
+			else
+				((JButton) e.getSource()).setIcon(INHoopLink.getImageByName("minimize.gif"));
+		}	
 	}
 }

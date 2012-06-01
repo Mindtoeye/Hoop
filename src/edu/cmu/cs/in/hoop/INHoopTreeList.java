@@ -14,61 +14,64 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
+ * 	Notes:
+ * 
+ * 	http://www.apl.jhu.edu/~hall/java/Swing-Tutorial/Swing-Tutorial-JTree.html
+ * 
  */
 
-package edu.cmu.cs.in.hoop.editor;
+package edu.cmu.cs.in.hoop;
 
 import java.awt.Font;
-import javax.swing.JTabbedPane;
 
+import javax.swing.JScrollPane;
+import javax.swing.JTree;
+import javax.swing.tree.DefaultMutableTreeNode;
+
+import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
+import edu.cmu.cs.in.hoop.base.INHoopBase;
 
-/** 
- * @author vvelsen
- *
+/**
+ * 
  */
-public class INHoopEditorPalettePanel extends INEmbeddedJPanel
-{	
+public class INHoopTreeList extends INEmbeddedJPanel
+{
 	private static final long serialVersionUID = 1L;
-	private JTabbedPane libraryPane=null;
 		
-	/**
-	 * Creates a new JPanel with a double buffer and a flow layout.
-	 */	
-	public INHoopEditorPalettePanel()
-	{
-		setClassName ("INHoopEditorPalletePanel");
-		debug ("INHoopEditorPalletePanel ()");
-		
-		this.setSingleInstance(true);
-		
-		libraryPane=new JTabbedPane ();
-		libraryPane.setFont(new Font("Dialog", 1, 10));
-		
-		this.add(libraryPane);
-	}
 	/**
 	 * 
 	 */
-	public void handleCloseEvent ()
-	{
-		debug ("handleCloseEvent ()");
+	public INHoopTreeList ()  
+    {    	
+		setClassName ("INHoopTreeList");
+		debug ("INHoopTreeList ()");    	
 		
-		// Process this in child class!!
-	}
+		this.setSingleInstance(true);
+		
+		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root");
+		
+		if (INHoopLink.hoopTemplates!=null)
+		{    	
+			for (int i=0;i<INHoopLink.hoopTemplates.size();i++)
+			{
+				INHoopBase hoopTemplate=INHoopLink.hoopTemplates.get(i);
+				DefaultMutableTreeNode child = new DefaultMutableTreeNode(hoopTemplate.getClassName());
+				root.add(child);
+			}	
+		}	
+		
+		JTree tree = new JTree(root);
+		tree.setFont(new Font("Dialog", 1, 10));
+		
+		setContentPane (new JScrollPane(tree));		
+    }
 	/**
 	 *
 	 */	
 	public void updateContents() 
 	{
 		debug ("updateContents ()");
-		// Implement in child class!!
-	}
-	/** 
-	 * @return
-	 */
-	public JTabbedPane getLibraryPane() 
-	{
-		return libraryPane;
-	}	
+
+	}		
 }

@@ -303,6 +303,9 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     			INHoopEditorPalettePanel pallette=new INHoopEditorPalettePanel ();
     			addView ("Hoop Palette",pallette,left);
     			    			
+    			INHoopTreeList hoopList=new INHoopTreeList ();
+    			addView ("Hoop List",hoopList,left);
+    			
     			INHoopGraphEditor editor=new INHoopGraphEditor ();
     			addView ("Hoop Editor",editor,center);
     			INHoopLink.menuBar.create(editor);

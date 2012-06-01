@@ -22,17 +22,18 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Point;
 
-import org.w3c.dom.Document;
+//import org.w3c.dom.Document;
 
-import com.mxgraph.io.mxCodec;
+//import com.mxgraph.io.mxCodec;
 import com.mxgraph.model.mxICell;
 import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.swing.mxGraphComponent;
-import com.mxgraph.util.mxUtils;
+//import com.mxgraph.util.mxUtils;
 import com.mxgraph.view.mxCellState;
 import com.mxgraph.view.mxGraph;
 
-import edu.cmu.cs.in.hoop.INHoopGraphEditor;
+//import edu.cmu.cs.in.hoop.INHoopGraphEditor;
+import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.hoop.editor.INHoopNodeRenderer;
 
 /**
@@ -46,9 +47,11 @@ public class INHoopVisualGraphComponent extends mxGraphComponent
 	 * 
 	 * @param graph
 	 */
-	public INHoopVisualGraphComponent(mxGraph graph)
-	{
+	public INHoopVisualGraphComponent (mxGraph graph)
+	{		
 		super(graph);
+		
+		debug ("INHoopVisualGraphComponent ()");
 
 		setConnectable(true);
 		
@@ -72,6 +75,13 @@ public class INHoopVisualGraphComponent extends mxGraphComponent
 		getViewport().setBackground(new Color (47,46,47));
 	}
 	/**
+	 * 
+	 */
+	protected void debug (String aMessage)
+	{
+		INBase.debug ("INHoopVisualGraphComponent",aMessage);
+	}
+	/**
 	 * Overrides drop behaviour to set the cell style if the target
 	 * is not a valid drop target and the cells are of the same
 	 * type (eg. both vertices or both edges). 
@@ -82,6 +92,8 @@ public class INHoopVisualGraphComponent extends mxGraphComponent
 								 Object target,
 								 Point location)
 	{
+		debug ("importCells ()");
+		
 		if (target == null && cells.length == 1 && location != null)
 		{
 			target = getCellAt(location.x, location.y);
@@ -97,7 +109,7 @@ public class INHoopVisualGraphComponent extends mxGraphComponent
 					model.setStyle(target, model.getStyle(cells[0]));
 					graph.setSelectionCell(target);
 
-					return null;
+					return (null);
 				}
 			}
 		}
@@ -109,6 +121,8 @@ public class INHoopVisualGraphComponent extends mxGraphComponent
 	 */
 	public Component[] createComponents(mxCellState state)
 	{
+		debug ("createComponents ()");
+		
 		if (getGraph().getModel().isVertex(state.getCell()))
 		{
 			return new Component[] 
@@ -117,6 +131,6 @@ public class INHoopVisualGraphComponent extends mxGraphComponent
 			};
 		}
 
-		return null;
+		return (null);
 	}	
 }

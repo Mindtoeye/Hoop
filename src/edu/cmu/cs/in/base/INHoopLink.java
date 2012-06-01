@@ -18,23 +18,24 @@
 
 package edu.cmu.cs.in.base;
 
-//import java.util.regex.Matcher;
-//import java.util.regex.Pattern;
-
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
-import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
 import edu.cmu.cs.in.network.INStreamedSocket;
 import edu.cmu.cs.in.search.INDataSet;
-//import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
-//import edu.cmu.cs.in.controls.base.INJInternalFrame;
 import edu.cmu.cs.in.hoop.INHoopConsoleInterface;
 import edu.cmu.cs.in.hoop.INHoopStatusBar;
+import edu.cmu.cs.in.hoop.base.INHoopBase;
+import edu.cmu.cs.in.hoop.base.INHoopDisplayBase;
+import edu.cmu.cs.in.hoop.base.INHoopFileLoadBase;
+import edu.cmu.cs.in.hoop.base.INHoopFileSaveBase;
+import edu.cmu.cs.in.hoop.base.INHoopLoadBase;
+import edu.cmu.cs.in.hoop.base.INHoopSaveBase;
+import edu.cmu.cs.in.hoop.base.INHoopTransformBase;
 import edu.cmu.cs.in.hoop.editor.INHoopEditorMenuBar;
 import edu.cmu.cs.in.hoop.editor.INHoopEditorToolBar;
 import edu.cmu.cs.in.search.INTextSearch;
@@ -46,29 +47,7 @@ import edu.cmu.cs.in.stats.INStatistics;
 */
 public class INHoopLink extends INLangLink
 {    		    		
-	public static INHoopConsoleInterface console=null;
-	
-	//public static boolean postonly=false;
-	
-	/*
-	public static String shardtype="alphabetical"; // One of: docid|alphabetical|docsize
-	public static long splitsize=10;
-	public static int nrshards=1;
-	public static int shardcount=0;
-	public static String shardcreate="hdfs";
-	
-	public static String task="none";
-	
-	public static String datapath=".";
-	public static String outputpath=".";
-	*/
-	
-	/*
-	public static String monitorHost="extlogin.opencloud";
-	//public static String monitorHost="augustus.pslc.cs.cmu.edu";
-	public static int monitorPort=8082;
-	*/
-	
+	public static INHoopConsoleInterface console=null;	
 	public static INStatistics stats=null;
 	
 	public static ImageIcon icon=null; // This should ideally be an array of icons, available as standard resources	
@@ -307,6 +286,10 @@ public class INHoopLink extends INLangLink
 	// Networking access
 	
 	public static INStreamedSocket brokerConnection=null;
+	
+	// Core hoop access
+	
+	public static ArrayList<INHoopBase> hoopTemplates=null;
 		
 	/**
 	 *
@@ -333,7 +316,24 @@ public class INHoopLink extends INLangLink
 		
 		if (jobs==null)
 			jobs=new ArrayList<String> ();
+		
+		if (hoopTemplates==null)
+			hoopTemplates=new ArrayList<INHoopBase> ();
+		
+		initHoopTemplates ();
     }  
+    /**
+     * 
+     */    
+    private void initHoopTemplates ()
+    {
+    	hoopTemplates.add(new INHoopDisplayBase ());
+    	hoopTemplates.add(new INHoopFileLoadBase ());
+    	hoopTemplates.add(new INHoopFileSaveBase ());
+    	hoopTemplates.add(new INHoopLoadBase ());
+    	hoopTemplates.add(new INHoopSaveBase ());
+    	hoopTemplates.add(new INHoopTransformBase ());    	
+    }
     /**
      * 
      */
