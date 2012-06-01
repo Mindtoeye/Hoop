@@ -18,15 +18,15 @@
 
 package edu.cmu.cs.in.hoop.editor;
 
-import java.awt.Color;
+//import java.awt.Color;
 import java.awt.Component;
-import java.awt.Point;
+//import java.awt.Point;
 
 //import org.w3c.dom.Document;
 
 //import com.mxgraph.io.mxCodec;
-import com.mxgraph.model.mxICell;
-import com.mxgraph.model.mxIGraphModel;
+//import com.mxgraph.model.mxICell;
+//import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.swing.mxGraphComponent;
 //import com.mxgraph.util.mxUtils;
 import com.mxgraph.view.mxCellState;
@@ -34,7 +34,8 @@ import com.mxgraph.view.mxGraph;
 
 //import edu.cmu.cs.in.hoop.INHoopGraphEditor;
 import edu.cmu.cs.in.base.INBase;
-import edu.cmu.cs.in.hoop.editor.INHoopNodeRenderer;
+import edu.cmu.cs.in.base.INHoopProperties;
+//import edu.cmu.cs.in.hoop.editor.INHoopNodeRenderer;
 
 /**
  * 
@@ -72,7 +73,7 @@ public class INHoopVisualGraphComponent extends mxGraphComponent
 		*/
 
 		getViewport().setOpaque(true);
-		getViewport().setBackground(new Color (47,46,47));
+		getViewport().setBackground(INHoopProperties.graphBackgroundColor);
 	}
 	/**
 	 * 
@@ -86,6 +87,7 @@ public class INHoopVisualGraphComponent extends mxGraphComponent
 	 * is not a valid drop target and the cells are of the same
 	 * type (eg. both vertices or both edges). 
 	 */
+	/*
 	public Object[] importCells (Object[] cells, 
 								 double dx, 
 								 double dy,
@@ -116,6 +118,7 @@ public class INHoopVisualGraphComponent extends mxGraphComponent
 
 		return super.importCells(cells, dx, dy, target, location);
 	}
+	*/
 	/**
 	 * 
 	 */
@@ -127,7 +130,7 @@ public class INHoopVisualGraphComponent extends mxGraphComponent
 		{
 			return new Component[] 
 			{ 
-				new INHoopNodeRenderer(state.getCell(), this) 
+				new INHoopNodePanel (state.getCell(), this) 
 			};
 		}
 

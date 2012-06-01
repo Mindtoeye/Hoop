@@ -22,16 +22,12 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-//import edu.cmu.cs.in.INHoopMessageHandler;
 import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.controls.INScatterPlot;
 import edu.cmu.cs.in.controls.map.INHoopJava3DJPanel;
-//import edu.cmu.cs.in.controls.INScatterPlot;
 import edu.cmu.cs.in.hoop.editor.INHoopEditorPalettePanel;
 import edu.cmu.cs.in.hoop.editor.INHoopEditorToolBar;
 import edu.cmu.cs.in.hoop.properties.INHoopPropertyPanel;
-//import edu.cmu.cs.in.network.INSocketServerBase;
-//import edu.cmu.cs.in.stats.INStatistics;
 import edu.cmu.cs.in.network.INMessageReceiver;
 
 /** 
@@ -40,7 +36,7 @@ import edu.cmu.cs.in.network.INMessageReceiver;
  */
 public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListener, INMessageReceiver
 {
-	private static final long serialVersionUID = 2788834485599638868L;
+	private static final long serialVersionUID = -1L;
 	    
     static final private String PREVIOUS = "previous";
     static final private String UP = "up";
@@ -49,7 +45,6 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     private INScatterPlot plotter=null;
 	private INHoopConsole console=null;
 	private INHoopPropertyPanel propPanel=null;
-	//private INStreamedSocket brokerConnection=null;
 			
 	/**
 	 *
@@ -60,10 +55,7 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     	debug ("INHoopMainFrame ()");
     	    
         buildMenus();       
-        addButtons (this.getToolBar());
-        
-       	//brokerConnection=new INStreamedSocket ();
-       	//brokerConnection.sendAndKeepOpen("127.0.0.1",8080,"<register client=\"ui\" />",this);
+        addButtons (this.getToolBar());        
     }
 	/**
 	 *
@@ -125,7 +117,8 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     	file.add(open);
     	file.addSeparator();
     	file.add(quit);
-    	return file;
+    	
+    	return (file);
     }
 	/**
 	 *
@@ -159,7 +152,8 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     	edit.add(paste);
     	edit.addSeparator();
     	edit.add(prefs);
-    	return edit;
+    	
+    	return (edit);
     }
 	/**
 	 *
@@ -305,6 +299,10 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     			    			
     			INHoopTreeList hoopList=new INHoopTreeList ();
     			addView ("Hoop List",hoopList,left);
+    			
+    	    	propPanel=new INHoopPropertyPanel();
+    	    	
+    	    	addView ("Properties",propPanel,right);    			
     			
     			INHoopGraphEditor editor=new INHoopGraphEditor ();
     			addView ("Hoop Editor",editor,center);

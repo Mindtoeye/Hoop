@@ -38,6 +38,13 @@ public class INJTreeHoopRenderer extends JLabel implements TreeCellRenderer
 	/**
 	 * 
 	 */
+	public INJTreeHoopRenderer ()
+	{
+		this.setOpaque(true);
+	}
+	/**
+	 * 
+	 */
     public Component getTreeCellRendererComponent (JTree tree,
     											   Object value,
     											   boolean isSelected,
@@ -66,9 +73,11 @@ public class INJTreeHoopRenderer extends JLabel implements TreeCellRenderer
     		setText (value.toString());
     	
     	if (isSelected==true)
-    		this.setBackground(new Color (200,200,200));
+    		this.setBackground(new Color (220,220,220));
     	else
     		this.setBackground(new Color (255,255,255));
+    	
+    	setEnabled(tree.isEnabled());
     	
     	return this;
     }

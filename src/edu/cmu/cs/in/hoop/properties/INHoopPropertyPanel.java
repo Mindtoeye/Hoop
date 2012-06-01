@@ -61,9 +61,11 @@ public class INHoopPropertyPanel extends INEmbeddedJPanel
         
         this.add (hoopPropertyBox);
         
+        /*
 		addPropertyPanel (new INHoopInspectablePanel ("First Panel"));
 		addPropertyPanel (new INHoopInspectablePanel ("Second Panel"));
 		addPropertyPanel (new INHoopInspectablePanel ("Third Panel"));
+		*/
 		
 		//contentBox.add(Box.createVerticalGlue());
 	}
@@ -75,6 +77,7 @@ public class INHoopPropertyPanel extends INEmbeddedJPanel
 		debug ("addPropertyPanel ()");
 		
 		contentBox.add (aPanel);
+		this.invalidate();
 	}
 	/**
 	 * 

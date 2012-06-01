@@ -29,6 +29,7 @@ import javax.swing.BorderFactory;
 //import javax.swing.border.Border;
 
 import edu.cmu.cs.in.base.INHoopLink;
+import edu.cmu.cs.in.base.INHoopProperties;
 
 /** 
  * @author vvelsen
@@ -38,7 +39,8 @@ public class INEmbeddedJPanel extends INJPanel
 {	
 	private static final long serialVersionUID = 1L;
 	
-	private Boolean singleInstance=false;
+	/// Most of them are single instances, we'll let selected panels override this
+	private Boolean singleInstance=true; 
 		
 	/**
 	 * Creates a new JPanel with a double buffer and a flow layout.
@@ -48,7 +50,7 @@ public class INEmbeddedJPanel extends INJPanel
 		setClassName ("INEmbeddedJPanel");
 		debug ("INEmbeddedJPanel ()");
 		
-		this.setBorder(BorderFactory.createEmptyBorder(4,4,4,4));		
+		this.setBorder(BorderFactory.createEmptyBorder(INHoopProperties.tabPadding,INHoopProperties.tabPadding,INHoopProperties.tabPadding,INHoopProperties.tabPadding));		
 		this.setLayout(new BorderLayout(2,2));					
 	}
 	/**
@@ -83,6 +85,7 @@ public class INEmbeddedJPanel extends INJPanel
 	public void updateContents() 
 	{
 		debug ("updateContents ()");
+		
 		// Implement in child class!!
 	}
 	/**

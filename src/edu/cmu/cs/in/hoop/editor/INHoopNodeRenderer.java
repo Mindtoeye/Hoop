@@ -25,6 +25,7 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -43,6 +44,7 @@ import com.mxgraph.swing.handler.mxCellHandler;
 import com.mxgraph.view.mxGraph;
 
 import edu.cmu.cs.in.base.INHoopLink;
+import edu.cmu.cs.in.base.INHoopProperties;
 import edu.cmu.cs.in.controls.INHoopShadowBorder;
 import edu.cmu.cs.in.controls.base.INJComponent;
 
@@ -70,9 +72,10 @@ public class INHoopNodeRenderer extends INJComponent implements MouseListener, M
 	private JLabel titleLabel=null;
 	private JPanel toolBar=null;
 	private JPanel bottomPanel=null;
+	private JButton button=null;
 	
 	protected int index=7;
-
+	
 	/**
 	 * 
 	 */
@@ -85,13 +88,13 @@ public class INHoopNodeRenderer extends INJComponent implements MouseListener, M
 		this.graphContainer = graphContainer;
 		this.graph = graphContainer.getGraph();
 		
-		setBackground(new Color (50,50,50));
+		setBackground(INHoopProperties.graphPanelColor);
 		setOpaque(true);
 		setLayout(new BorderLayout());
 		setBorder(BorderFactory.createCompoundBorder(INHoopShadowBorder.getSharedInstance(), BorderFactory.createBevelBorder(BevelBorder.RAISED)));
 
 		titleBar = new JPanel();
-		titleBar.setBackground(new Color(50,50,50));
+		titleBar.setBackground(INHoopProperties.graphPanelColor);
 		titleBar.setOpaque(true);
 		titleBar.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 1));
 		titleBar.setLayout(new BorderLayout());
@@ -108,15 +111,18 @@ public class INHoopNodeRenderer extends INJComponent implements MouseListener, M
 
 		toolBar = new JPanel();
 		toolBar.setLayout(new FlowLayout(FlowLayout.LEFT, 1, 2));
-		toolBar.setBackground(new Color(50,50,50));
+		toolBar.setBackground(INHoopProperties.graphPanelColor);
 		toolBar.setOpaque(true);
 				
-		JButton button=new JButton ();
+		button=new JButton ();
 		button.setIcon(INHoopLink.getImageByName("minimize.gif"));
 		button.setPreferredSize(new Dimension(16, 16));
 		button.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 		button.setToolTipText("Collapse/Expand");
-		button.setOpaque(false);
+		button.setBackground(INHoopProperties.graphPanelColor);
+		button.setOpaque(true);
+        button.setBorder(null);
+        button.setMargin(new Insets (0,0,0,0));
 		button.addActionListener(this);
 		toolBar.add(button);
 
@@ -124,7 +130,7 @@ public class INHoopNodeRenderer extends INJComponent implements MouseListener, M
 		add (titleBar, BorderLayout.NORTH);
 		
 		contentArea=new JPanel ();
-		contentArea.setBackground(new Color (29,29,29));
+		contentArea.setBackground(INHoopProperties.graphPanelContent);
 		contentArea.setBorder(BorderFactory.createLoweredBevelBorder());
 		add (contentArea, BorderLayout.CENTER);
 		
@@ -133,7 +139,7 @@ public class INHoopNodeRenderer extends INJComponent implements MouseListener, M
 
 		bottomPanel=new JPanel();
 		bottomPanel.setLayout(new BorderLayout());
-		bottomPanel.setBackground(new Color(50,50,50));
+		bottomPanel.setBackground(INHoopProperties.graphPanelColor);
 		bottomPanel.setOpaque(true);
 		bottomPanel.add(label, BorderLayout.EAST);
 
