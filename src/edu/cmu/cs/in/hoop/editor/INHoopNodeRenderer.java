@@ -63,7 +63,13 @@ public class INHoopNodeRenderer extends JComponent implements MouseListener, Mou
 	protected mxGraphComponent graphContainer=null;
 	protected mxGraph graph=null;
 	
-	private JPanel contentArea=null;
+	private JPanel contentArea=null;	
+	private JPanel titleBar=null;
+	private JLabel icon=null;
+	private JLabel label=null;
+	private JLabel titleLabel=null;
+	private JPanel toolBar=null;
+	private JPanel bottomPanel=null;
 	
 	protected int index=7;
 
@@ -82,25 +88,26 @@ public class INHoopNodeRenderer extends JComponent implements MouseListener, Mou
 		setLayout(new BorderLayout());
 		setBorder(BorderFactory.createCompoundBorder(INHoopShadowBorder.getSharedInstance(), BorderFactory.createBevelBorder(BevelBorder.RAISED)));
 
-		JPanel title = new JPanel();
-		//title.setBackground(new Color(149, 173, 239));
-		title.setOpaque(false);
-		title.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 1));
-		title.setLayout(new BorderLayout());
+		titleBar = new JPanel();
+		titleBar.setBackground(new Color(50,50,50));
+		titleBar.setOpaque(true);
+		titleBar.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 1));
+		titleBar.setLayout(new BorderLayout());
 
-		JLabel icon = new JLabel(INHoopLink.getImageByName("preferences.gif"));
+		icon = new JLabel(INHoopLink.getImageByName("led-yellow.png"));
 		icon.setBorder(BorderFactory.createEmptyBorder(0, 2, 0, 1));
-		title.add(icon, BorderLayout.WEST);
+		titleBar.add(icon, BorderLayout.WEST);
 
-		JLabel label = new JLabel(String.valueOf(graph.getLabel(cell)));
-		label.setForeground(Color.WHITE);
-		label.setFont(new Font("Dialog", 1, 10));
-		label.setBorder(BorderFactory.createEmptyBorder(0, 1, 0, 2));
-		title.add(label, BorderLayout.CENTER);
+		titleLabel = new JLabel(String.valueOf(graph.getLabel(cell)));
+		titleLabel.setForeground(Color.WHITE);
+		titleLabel.setFont(new Font("Dialog", 1, 10));
+		titleLabel.setBorder(BorderFactory.createEmptyBorder(0, 1, 0, 2));
+		titleBar.add(titleLabel, BorderLayout.CENTER);
 
-		JPanel toolBar2 = new JPanel();
-		toolBar2.setLayout(new FlowLayout(FlowLayout.LEFT, 1, 2));
-		toolBar2.setOpaque(false);
+		toolBar = new JPanel();
+		toolBar.setLayout(new FlowLayout(FlowLayout.LEFT, 1, 2));
+		toolBar.setBackground(new Color(50,50,50));
+		toolBar.setOpaque(true);
 		
 		JButton button = new JButton(new AbstractAction("", INHoopLink.getImageByName("minimize.gif"))
 		{
@@ -119,29 +126,33 @@ public class INHoopNodeRenderer extends JComponent implements MouseListener, Mou
 		button.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 		button.setToolTipText("Collapse/Expand");
 		button.setOpaque(false);
-		toolBar2.add(button);
+		toolBar.add(button);
 
-		title.add(toolBar2, BorderLayout.EAST);
-		add (title, BorderLayout.NORTH);
+		titleBar.add(toolBar, BorderLayout.EAST);
+		add (titleBar, BorderLayout.NORTH);
 		
 		contentArea=new JPanel ();
 		contentArea.setBackground(new Color (29,29,29));
 		contentArea.setBorder(BorderFactory.createLoweredBevelBorder());
 		add (contentArea, BorderLayout.CENTER);
 		
-		label = new JLabel(INHoopLink.getImageByName("resize.gif"));
+		label = new JLabel(INHoopLink.getImageByName("resize.png"));
 		label.setCursor(new Cursor(Cursor.NW_RESIZE_CURSOR));
 
-		JPanel panel=new JPanel();
-		panel.setLayout(new BorderLayout());
-		panel.add(label, BorderLayout.EAST);
+		bottomPanel=new JPanel();
+		bottomPanel.setLayout(new BorderLayout());
+		bottomPanel.setBackground(new Color(50,50,50));
+		bottomPanel.setOpaque(true);
+		bottomPanel.add(label, BorderLayout.EAST);
 
-		add(panel, BorderLayout.SOUTH);
+		add(bottomPanel, BorderLayout.SOUTH);
 		
 		label.addMouseListener(this);
 		label.addMouseMotionListener(this);
 
 		setMinimumSize(new Dimension(20, 30));
+		
+		setTitle ("Hoop Node");
 	}
 	/**
 	 * 
@@ -159,6 +170,13 @@ public class INHoopNodeRenderer extends JComponent implements MouseListener, Mou
 		}
 
 		return null;
+	}
+	/**
+	 * 
+	 */	
+	public void setTitle (String aTitle)
+	{
+		titleLabel.setText(aTitle);
 	}
 	/**
 	 * 

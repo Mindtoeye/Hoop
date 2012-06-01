@@ -278,7 +278,11 @@ public class INHoopLink extends INLangLink
 		 							 "zoom.gif", // 84
 		 							 "zoomactual.gif", // 84
 		 							 "zoomin.gif", // 84
-		 							 "zoomout.gif" // 84 							 
+		 							 "zoomout.gif",// 84
+		 							 "led-green.png",// 84
+		 							 "led-yellow.png",// 84
+		 							 "led-red.png",// 84 							 
+		 							 "resize.png"// 84		 							 
 		 							 };
 	
 	public static String vocabularyPath="./";

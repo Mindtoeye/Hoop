@@ -28,7 +28,6 @@ import com.mxgraph.io.mxCodec;
 import com.mxgraph.model.mxICell;
 import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.swing.mxGraphComponent;
-//import com.mxgraph.swing.view.mxInteractiveCanvas;
 import com.mxgraph.util.mxUtils;
 import com.mxgraph.view.mxCellState;
 import com.mxgraph.view.mxGraph;
@@ -51,22 +50,26 @@ public class INHoopVisualGraphComponent extends mxGraphComponent
 	{
 		super(graph);
 
-		getGraph().setCellsResizable(false);
 		setConnectable(true);
+		
+		getGraph().setCellsResizable(false);
+		getGraph ().setAllowDanglingEdges(false);
 		getGraphHandler().setCloneEnabled(false);
 		getGraphHandler().setImagePreview(false);		
 		
-		setGridVisible(true);
+		setGridVisible(false);
 		setToolTips(true);
 		getConnectionHandler().setCreateTarget(true);
 
 		// Loads the defualt stylesheet from an external file
+		/*
 		mxCodec codec = new mxCodec();
 		Document doc = mxUtils.loadDocument(INHoopGraphEditor.class.getResource("/assets/resources/default-style.xml").toString());
 		codec.decode(doc.getDocumentElement(), graph.getStylesheet());
+		*/
 
 		getViewport().setOpaque(true);
-		getViewport().setBackground(new Color (200,200,200));
+		getViewport().setBackground(new Color (47,46,47));
 	}
 	/**
 	 * Overrides drop behaviour to set the cell style if the target
@@ -101,15 +104,6 @@ public class INHoopVisualGraphComponent extends mxGraphComponent
 
 		return super.importCells(cells, dx, dy, target, location);
 	}
-	/**
-	 * 
-	 */
-	/*
-	public mxInteractiveCanvas createCanvas()
-	{
-		return new INHoopEditorCanvas(this);
-	}
-	*/	
 	/**
 	 * 
 	 */
