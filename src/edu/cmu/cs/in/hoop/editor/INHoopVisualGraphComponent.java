@@ -19,6 +19,7 @@
 package edu.cmu.cs.in.hoop.editor;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Point;
 
 import org.w3c.dom.Document;
@@ -27,11 +28,13 @@ import com.mxgraph.io.mxCodec;
 import com.mxgraph.model.mxICell;
 import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.swing.mxGraphComponent;
-import com.mxgraph.swing.view.mxInteractiveCanvas;
+//import com.mxgraph.swing.view.mxInteractiveCanvas;
 import com.mxgraph.util.mxUtils;
+import com.mxgraph.view.mxCellState;
 import com.mxgraph.view.mxGraph;
 
 import edu.cmu.cs.in.hoop.INHoopGraphEditor;
+import edu.cmu.cs.in.hoop.editor.INHoopNodeRenderer;
 
 /**
  * 
@@ -48,8 +51,11 @@ public class INHoopVisualGraphComponent extends mxGraphComponent
 	{
 		super(graph);
 
-		// Sets switches typically used in an editor
-		//setPageVisible(true);
+		getGraph().setCellsResizable(false);
+		setConnectable(true);
+		getGraphHandler().setCloneEnabled(false);
+		getGraphHandler().setImagePreview(false);		
+		
 		setGridVisible(true);
 		setToolTips(true);
 		getConnectionHandler().setCreateTarget(true);
@@ -59,9 +65,7 @@ public class INHoopVisualGraphComponent extends mxGraphComponent
 		Document doc = mxUtils.loadDocument(INHoopGraphEditor.class.getResource("/assets/resources/default-style.xml").toString());
 		codec.decode(doc.getDocumentElement(), graph.getStylesheet());
 
-		// Sets the background to white
 		getViewport().setOpaque(true);
-		//getViewport().setBackground(Color.WHITE);
 		getViewport().setBackground(new Color (200,200,200));
 	}
 	/**
@@ -100,8 +104,25 @@ public class INHoopVisualGraphComponent extends mxGraphComponent
 	/**
 	 * 
 	 */
+	/*
 	public mxInteractiveCanvas createCanvas()
 	{
 		return new INHoopEditorCanvas(this);
+	}
+	*/	
+	/**
+	 * 
+	 */
+	public Component[] createComponents(mxCellState state)
+	{
+		if (getGraph().getModel().isVertex(state.getCell()))
+		{
+			return new Component[] 
+			{ 
+				new INHoopNodeRenderer(state.getCell(), this) 
+			};
+		}
+
+		return null;
 	}	
 }

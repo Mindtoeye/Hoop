@@ -65,7 +65,7 @@ public class INHoopJava3DJPanel extends INEmbeddedJPanel
 		setClassName ("INHoopJava3DJPanel");
 		debug ("INHoopJava3DJPanel ()");
 		
-		JPopupMenu.setDefaultLightWeightPopupEnabled (false);
+		//JPopupMenu.setDefaultLightWeightPopupEnabled (false);
 		
 		this.setLayout(new BorderLayout(2,2));
 		

@@ -176,6 +176,7 @@ public class INHoopVisualGraph extends mxGraph
 	/**
 	 * 
 	 */
+	/*
 	public void drawState(mxICanvas canvas, mxCellState state,	boolean drawLabel)
 	{
 		String label = (drawLabel) ? state.getLabel() : "";
@@ -197,5 +198,6 @@ public class INHoopVisualGraph extends mxGraph
 		{
 			super.drawState(canvas, state, drawLabel);
 		}
-	}	
+	}
+	*/	
 }

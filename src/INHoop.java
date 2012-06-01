@@ -44,7 +44,7 @@ public class INHoop
     	 * native. Our menu items will be dropped down in front of the
     	 * Java 3D Canvas3D so they must be created as heavyweight windows.
     	 */
-    	JPopupMenu.setDefaultLightWeightPopupEnabled (false);
+    	//JPopupMenu.setDefaultLightWeightPopupEnabled (false);
     	  
     	// run the INHoopLink constructor; We need this to have a global settings registry
     	@SuppressWarnings("unused")
