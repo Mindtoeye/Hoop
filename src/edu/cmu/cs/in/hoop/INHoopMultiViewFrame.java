@@ -43,18 +43,9 @@ import edu.cmu.cs.in.hoop.editor.INHoopEditorMenuBar;
 public class INHoopMultiViewFrame extends INJFrame implements ActionListener
 {
 	private static final long serialVersionUID = -1;
-		
-	protected INHoopTabDraggable left=null;
-	protected INHoopTabDraggable right=null;
-	protected INHoopTabDraggable center=null;
-	protected INHoopTabDraggable bottom=null;
-	
-    static final String ABOUTMSG = "Hoop is an interactive text exploration tool written with the express\n purpose of understanding narrative structures in written form.";
-	
-    //private JMenuBar menuBar=null;
-	//private JToolBar toolBar=null;
-	//private INHoopStatusBar statusBar=null;
 			
+    static final String ABOUTMSG = "Hoop is an interactive text exploration tool written with the express\n purpose of understanding narrative structures in written form.";
+				
 	/**
 	 *
 	 */	
@@ -184,10 +175,10 @@ public class INHoopMultiViewFrame extends INJFrame implements ActionListener
 
         getContentPane ().add(sep2);
 		
-		left=new INHoopTabDraggable ();		
-		right=new INHoopTabDraggable ();		
-		center=new INHoopTabDraggable ();		
-		bottom=new INHoopTabDraggable ();
+		INHoopLink.left=new INHoopTabDraggable ();		
+		INHoopLink.right=new INHoopTabDraggable ();		
+		INHoopLink.center=new INHoopTabDraggable ();		
+		INHoopLink.bottom=new INHoopTabDraggable ();
 		
         String layoutDef = "(ROW weight=1.0 (LEAF name=left weight=0.2) (COLUMN weight=0.6 (LEAF name=middle weight=0.8) (LEAF name=bottom weight=0.2)) (LEAF name=right weight=0.2))";
         MultiSplitLayout.Node modelRoot = MultiSplitLayout.parseModel(layoutDef);
@@ -196,10 +187,10 @@ public class INHoopMultiViewFrame extends INJFrame implements ActionListener
         multiSplitPane.setBackground(new Color (180,180,180));		
         multiSplitPane.setDividerSize(5);
         multiSplitPane.getMultiSplitLayout().setModel(modelRoot);
-       	multiSplitPane.add(left, "left");
-       	multiSplitPane.add(right, "right");
-        multiSplitPane.add(center, "middle");
-        multiSplitPane.add(bottom, "bottom");
+       	multiSplitPane.add(INHoopLink.left, "left");
+       	multiSplitPane.add(INHoopLink.right, "right");
+        multiSplitPane.add(INHoopLink.center, "middle");
+        multiSplitPane.add(INHoopLink.bottom, "bottom");
 
        	Container cp = this.getContentPane();
        	cp.add(multiSplitPane, BorderLayout.CENTER);
@@ -233,60 +224,6 @@ public class INHoopMultiViewFrame extends INJFrame implements ActionListener
     }    
 	/**
 	 *
-	 */
-    protected void addView (String aTitle,
-    						INEmbeddedJPanel aContent,
-    						JTabbedPane aPane)
-    {
-    	debug ("addView ("+aTitle+",INEmbeddedJPanel,JTabbedPane)");
-    	
-    	if (INHoopLink.getWindow(aTitle)!=null)
-    	{
-    		debug ("We already have such a window, aborting");
-    		return;
-    	}
-    	
-    	aContent.setInstanceName(aTitle);
-    	INHoopLink.addWindow(aContent);
-    	
-    	aPane.addTab(aTitle,INHoopLink.imageIcons [5],aContent,"New Panel");
-    	int index=aPane.indexOfComponent (aContent);
-    	INHoopTabPane pane=new INHoopTabPane (aPane);
-    	aPane.setTabComponentAt(index,pane);
-    	if ((aPane==left) || (aPane==right))
-    	{
-    		left.setPreferredSize(new Dimension (200,this.getHeight()));
-    		aPane.setPreferredSize(new Dimension (200,this.getHeight()));
-    	}	
-    	pane.update();
-    }
-	/**
-	 *
-	 */
-    protected void addView (String aTitle,
-    						INEmbeddedJPanel aContent,
-    						String aPane)
-    {
-    	debug ("addView ("+aTitle+",INEmbeddedJPanel,String)");
-    	
-    	INHoopTabDraggable target=null;
-   	
-    	if (aPane.equals("center")==true)
-    		target=center;
-    	
-    	if (aPane.equals("left")==true)
-    		target=left;
-    	
-    	if (aPane.equals("right")==true)
-    		target=right;
-    	
-    	if (aPane.equals("bottom")==true)
-    		target=bottom;
-    	
-    	addView (aTitle,aContent,target);
-    }    
-	/**
-	 *
 	 */	
     public void quit() 
     {
@@ -299,5 +236,29 @@ public class INHoopMultiViewFrame extends INJFrame implements ActionListener
 	public void actionPerformed (ActionEvent event) 
 	{
 		debug("actionPerformed ()");
+	}
+	/** 
+	 * @param aTitle
+	 * @param aContent
+	 * @param aPane
+	 */
+	protected void addView (String aTitle,
+							INEmbeddedJPanel aContent,
+							JTabbedPane aPane)
+	{
+		debug ("addView ("+aTitle+",INEmbeddedJPanel,JTabbedPane)");
+
+		INHoopLink.addView (aTitle,aContent,aPane);	
+	}
+	/**
+	 *
+	 */
+	protected void addView (String aTitle,
+							INEmbeddedJPanel aContent,
+							String aPane)
+	{
+		debug ("addView ()");
+		
+		INHoopLink.addView (aTitle,aContent,aPane);
 	}
 }

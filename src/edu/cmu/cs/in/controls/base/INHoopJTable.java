@@ -19,8 +19,12 @@
 package edu.cmu.cs.in.controls.base;
 
 import java.awt.Font;
+import java.util.Vector;
 
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableModel;
 
 import edu.cmu.cs.in.base.INBase;
 //import javax.swing.table.TableCellRenderer;
@@ -28,36 +32,81 @@ import edu.cmu.cs.in.base.INBase;
 public class INHoopJTable extends JTable
 {
 	private static final long serialVersionUID = -1127341907493007641L;
-	
-	//BR_Controller controller=null;	
-	
+		
 	/**
-	 *
-	 */
-    public INHoopJTable () 
-    {
-    	debug ("INHoopJTable ()");
+    *
+    */
+	public INHoopJTable () 
+	{
+		debug ("INHoopJTable ()");
     	    	
-    	this.setFont(new Font("Dialog", 1, 10));
-    }
-    /**
-	 * 
+		this.setFont(new Font("Dialog", 1, 10));
+	}	
+	/**
+	 * Constructs a JTable with numRows and numColumns of empty cells using DefaultTableModel.
 	 */
+	public INHoopJTable(int numRows, int numColumns)
+	{
+		super (numRows,numColumns);
+		
+		debug ("INHoopJTable ()");
+	}    
+	/**
+	 * Constructs a JTable to display the values in the two dimensional array, rowData, with column names, columnNames.
+	 */
+	public INHoopJTable(Object[][] rowData, Object[] columnNames)
+	{
+	   super (rowData,columnNames);
+	   
+	   debug ("INHoopJTable ()");
+	   
+	}    
+	/**
+    * Constructs a JTable that is initialized with dm as the data model, a default column model, and a default selection model.
+    */
+	public INHoopJTable(TableModel dm)
+	{
+	   super (dm);
+	   
+	   debug ("INHoopJTable ()");
+	   	   
+	}    
+	/**
+	 * Constructs a JTable that is initialized with dm as the data model, cm as the column model, and a default selection model.
+	 */
+	public INHoopJTable(TableModel dm, TableColumnModel cm)
+	{
+	   super (dm,cm);
+	   
+	   debug ("INHoopJTable ()");
+	   
+	}    
+	/**
+    *	Constructs a JTable that is initialized with dm as the data model, cm as the column model, and sm as the selection model.
+    */
+	public INHoopJTable(TableModel dm, TableColumnModel cm, ListSelectionModel sm)
+	{
+	   super (dm,cm,sm);
+	   
+	   debug ("INHoopJTable ()");
+	   
+	}    
+	/**
+    * Constructs a JTable to display the values in the Vector of Vectors, rowData, with column names, columnNames.
+    */
+	public INHoopJTable(Vector rowData, Vector columnNames)
+	{
+		super (rowData,columnNames);
+		
+		debug ("INHoopJTable ()");
+	}    	
+	/**
+    *
+    */
     protected void debug (String aMessage)
     {
     	INBase.debug ("INHoopJTable",aMessage);
     }  
-	/**
-	 * 
-	 */	
-    /*
-	public void setController (BR_Controller aController)
-	{
-		debug ("setController ()");
-		
-		controller=aController;
-	} 
-	*/   
 	/**
 	 *
 	 */    

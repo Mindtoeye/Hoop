@@ -21,6 +21,7 @@ package edu.cmu.cs.in.hoop.editor;
 import com.mxgraph.swing.mxGraphComponent;
 
 import edu.cmu.cs.in.base.INHoopLink;
+import edu.cmu.cs.in.hoop.INHoopTablePanel;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
 import edu.cmu.cs.in.hoop.base.INHoopFileLoadBase;
 import edu.cmu.cs.in.hoop.properties.INHoopInspectablePanel;
@@ -34,6 +35,7 @@ public class INHoopNodePanel extends INHoopNodeRenderer
 	private static final long serialVersionUID = -1L;
 	private INHoopBase hoop=null;	
 	private INHoopPropertyPanel propPanel=null;
+	private INHoopTablePanel tablePanel=null;
 	
 	/**
 	 * 
@@ -46,6 +48,12 @@ public class INHoopNodePanel extends INHoopNodeRenderer
 		debug ("INHoopNodeRenderer ()");
 		
 		propPanel=(INHoopPropertyPanel) INHoopLink.getWindow("Properties");
+					
+		tablePanel=(INHoopTablePanel) INHoopLink.getWindow("Data View");
+		if (tablePanel==null)
+		{
+			INHoopLink.addView("Data View",new INHoopTablePanel (),"bottom");
+		}
 		
 		setHoop (new INHoopFileLoadBase ()); // Just for testing
 	}

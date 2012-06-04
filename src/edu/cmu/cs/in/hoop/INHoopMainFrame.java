@@ -190,7 +190,7 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     		{
     	    	console=new INHoopConsole();
     	    	
-    	    	addView ("Console",console,bottom);    	    	
+    	    	addView ("Console",console,INHoopLink.bottom);    	    	
     		}
     	});    
     	
@@ -202,7 +202,7 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     		{
     	    	plotter=new INScatterPlot ();
     	    	
-    	    	addView ("Plotter",plotter,bottom);    	    	
+    	    	addView ("Plotter",plotter,INHoopLink.bottom);    	    	
     		}
     	});        	
     	
@@ -214,7 +214,7 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     		{
     	    	propPanel=new INHoopPropertyPanel();
     	    	
-    	    	addView ("Properties",propPanel,right);    	    	
+    	    	addView ("Properties",propPanel,INHoopLink.right);    	    	
     		}
     	});
     	
@@ -226,7 +226,7 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     		{
     	    	INHoopStatistics statsPanel=new INHoopStatistics ();
     	    	
-    	    	addView ("Statistics",statsPanel,bottom);    	    	
+    	    	addView ("Statistics",statsPanel,INHoopLink.bottom);    	    	
     		}
     	});
     	    	
@@ -262,7 +262,7 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     	{
     		public void actionPerformed(ActionEvent e) 
     		{
-    			addView ("Search",new INHoopSearch (),center);
+    			addView ("Search",new INHoopSearch (),INHoopLink.center);
     		}
     	});
    	
@@ -270,7 +270,7 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     	{
     		public void actionPerformed(ActionEvent e) 
     		{
-    			addView ("Cluster",new INHoopCluster (),center);
+    			addView ("Cluster",new INHoopCluster (),INHoopLink.center);
     		}
     	});
    	
@@ -278,7 +278,7 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     	{
     		public void actionPerformed(ActionEvent e) 
     		{
-    			addView ("Experimenter",new INHoopExperimenter (),center);
+    			addView ("Experimenter",new INHoopExperimenter (),INHoopLink.center);
     		}
     	});
     	
@@ -286,7 +286,7 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     	{
     		public void actionPerformed(ActionEvent e) 
     		{
-    			addView ("Reporter",new INHoopReporter (),bottom);
+    			addView ("Reporter",new INHoopReporter (),INHoopLink.bottom);
     		}
     	});    	
     	
@@ -295,17 +295,17 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     		public void actionPerformed(ActionEvent e) 
     		{
     			INHoopEditorPalettePanel pallette=new INHoopEditorPalettePanel ();
-    			addView ("Hoop Palette",pallette,left);
+    			addView ("Hoop Palette",pallette,INHoopLink.left);
     			    			
     			INHoopTreeList hoopList=new INHoopTreeList ();
-    			addView ("Hoop List",hoopList,left);
+    			addView ("Hoop List",hoopList,INHoopLink.left);
     			
     	    	propPanel=new INHoopPropertyPanel();
     	    	
-    	    	addView ("Properties",propPanel,right);    			
+    	    	addView ("Properties",propPanel,INHoopLink.right);
     			
     			INHoopGraphEditor editor=new INHoopGraphEditor ();
-    			addView ("Hoop Editor",editor,center);
+    			addView ("Hoop Editor",editor,INHoopLink.center);
     			INHoopLink.menuBar.create(editor);
     			INHoopLink.toolEditorBar=new INHoopEditorToolBar ();
     			INHoopLink.toolBoxContainer.add (INHoopLink.toolEditorBar,1);    		
@@ -317,7 +317,7 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     	{
     		public void actionPerformed(ActionEvent e) 
     		{
-    			addView ("Hadoop Jobs",new INHoopJobList (),right);
+    			addView ("Hadoop Jobs",new INHoopJobList (),INHoopLink.right);
     		}
     	});    	
     	
@@ -325,7 +325,7 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     	{
     		public void actionPerformed(ActionEvent e) 
     		{
-    			addView ("Stop Words",new INHoopStopWordEditor (),left);
+    			addView ("Stop Words",new INHoopStopWordEditor (),INHoopLink.left);
     		}
     	});     	    	
 
@@ -333,7 +333,7 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     	{
     		public void actionPerformed(ActionEvent e) 
     		{
-    			addView ("Vocabulary",new INHoopVocabularyEditor (),left);
+    			addView ("Vocabulary",new INHoopVocabularyEditor (),INHoopLink.left);
     		}
     	});      	
     	
@@ -341,7 +341,7 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     	{
     		public void actionPerformed(ActionEvent e) 
     		{
-    			addView ("Opportunity Space",new INHoopOpportunitySpace (),center);
+    			addView ("Opportunity Space",new INHoopOpportunitySpace (),INHoopLink.center);
     		}
     	});
     	
@@ -349,7 +349,7 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     	{
     		public void actionPerformed(ActionEvent e) 
     		{
-    			addView ("Hexagon Map",new INHoopJava3DJPanel (),center);
+    			addView ("Hexagon Map",new INHoopJava3DJPanel (),INHoopLink.center);
     		}
     	});
     	    	    	

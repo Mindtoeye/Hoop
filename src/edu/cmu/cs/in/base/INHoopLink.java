@@ -18,10 +18,12 @@
 
 package edu.cmu.cs.in.base;
 
+import java.awt.Dimension;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
 
 import edu.cmu.cs.in.network.INStreamedSocket;
@@ -30,6 +32,8 @@ import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 import edu.cmu.cs.in.hoop.INHoopConsoleInterface;
 import edu.cmu.cs.in.hoop.INHoopManager;
 import edu.cmu.cs.in.hoop.INHoopStatusBar;
+import edu.cmu.cs.in.hoop.INHoopTabDraggable;
+import edu.cmu.cs.in.hoop.INHoopTabPane;
 import edu.cmu.cs.in.hoop.editor.INHoopEditorMenuBar;
 import edu.cmu.cs.in.hoop.editor.INHoopEditorToolBar;
 import edu.cmu.cs.in.search.INTextSearch;
@@ -277,6 +281,11 @@ public class INHoopLink extends INHoopProperties
 	public static JPanel toolBoxContainer=null;
 	public static INHoopStatusBar statusBar=null;
 	
+	public static INHoopTabDraggable left=null;
+	public static INHoopTabDraggable right=null;
+	public static INHoopTabDraggable center=null;
+	public static INHoopTabDraggable bottom=null;	
+	
 	// Networking access
 	
 	public static INStreamedSocket brokerConnection=null;
@@ -284,7 +293,7 @@ public class INHoopLink extends INHoopProperties
 	// Core hoop access
 	
 	public static INHoopManager hoopManager=null;
-		
+				
 	/**
 	 *
 	 */
@@ -406,4 +415,67 @@ public class INHoopLink extends INHoopProperties
     	if (statusBar!=null)
     		statusBar.setStatus(aStatus);
     }
+	/**
+	 *
+	 */
+   public static void addView (String aTitle,
+		   						INEmbeddedJPanel aContent,
+		   						JTabbedPane aPane)
+   {
+   		//debug ("addView ("+aTitle+",INEmbeddedJPanel,JTabbedPane)");
+   	
+   		/*
+   		if (INHoopLink.getWindow(aTitle)!=null)
+   		{
+   			debug ("We already have such a window, aborting");
+   			return;
+   		}
+   		 */
+   	
+   		aContent.setInstanceName(aTitle);
+   		INHoopLink.addWindow(aContent);
+   	
+   		aPane.addTab(aTitle,INHoopLink.imageIcons [5],aContent,"New Panel");
+   		int index=aPane.indexOfComponent (aContent);
+   		INHoopTabPane pane=new INHoopTabPane (aPane);
+   		aPane.setTabComponentAt(index,pane);
+   	
+   		if ((aPane==INHoopLink.left) || (aPane==INHoopLink.right))
+   		{
+   			/*
+   			INHoopLink.left.setPreferredSize(new Dimension (200,this.getHeight()));
+   			aPane.setPreferredSize(new Dimension (200,this.getHeight()));
+   			*/
+   			
+   			INHoopLink.left.setPreferredSize(new Dimension (200,200));
+   			aPane.setPreferredSize(new Dimension (200,200));   			
+   		}
+   	
+   		pane.update();
+   	}
+	/**
+	 *
+	 */
+   	public static void addView (String aTitle,
+   								INEmbeddedJPanel aContent,
+   								String aPane)
+   	{
+   		//debug ("addView ("+aTitle+",INEmbeddedJPanel,String)");
+   	
+   		INHoopTabDraggable target=null;
+  	
+   		if (aPane.equals("center")==true)
+   			target=INHoopLink.center;
+   	
+   		if (aPane.equals("left")==true)
+   			target=INHoopLink.left;
+   	
+   		if (aPane.equals("right")==true)
+   			target=INHoopLink.right;
+   	
+   		if (aPane.equals("bottom")==true)
+   			target=INHoopLink.bottom;
+   	
+   		INHoopLink.addView (aTitle,aContent,target);
+   	}        
 }
