@@ -18,10 +18,15 @@
 
 package edu.cmu.cs.in.hoop;
 
-import javax.swing.JScrollPane;
+import java.util.ArrayList;
 
+import javax.swing.JScrollPane;
+import javax.swing.table.DefaultTableModel;
+
+import edu.cmu.cs.in.base.INKV;
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 import edu.cmu.cs.in.controls.base.INHoopJTable;
+import edu.cmu.cs.in.hoop.base.INHoopBase;
 
 /** 
  * @author vvelsen
@@ -33,6 +38,8 @@ public class INHoopTablePanel extends INEmbeddedJPanel
 			
 	private INHoopJTable table=null;
 	
+	private String[] columnNames = {"Key","Value"};	
+	
 	/**
 	 * Creates a new JPanel with a double buffer and a flow layout.
 	 */	
@@ -40,9 +47,8 @@ public class INHoopTablePanel extends INEmbeddedJPanel
 	{
 		setClassName ("INHoopTablePanel");
 		debug ("INHoopTablePanel ()");
-				
-		String[] columnNames = {"Key","Value"};		
-		
+							
+		/*
 		Object[][] data = 
 		{
 		    {"Key 1", "A"},
@@ -51,8 +57,9 @@ public class INHoopTablePanel extends INEmbeddedJPanel
 		    {"Key 4", "D"},
 		    {"Key 5", "E"}			    
 		};
+		*/
 		
-		table=new INHoopJTable (data, columnNames);
+		table=new INHoopJTable (null, columnNames);
 		
 		JScrollPane scrollPane = new JScrollPane(table);
 		table.setFillsViewportHeight(true);		
@@ -65,6 +72,28 @@ public class INHoopTablePanel extends INEmbeddedJPanel
 	public INHoopJTable getTable() 
 	{
 		return table;
+	}
+	/**
+	 * 
+	 */
+	public void showHoop (INHoopBase aHoop)
+	{
+		debug ("showHoop ()");
+		
+		ArrayList <INKV> content=aHoop.getData();
+		
+		// Convert KV model to table model and show
+		
+		DefaultTableModel model=new DefaultTableModel (null,columnNames);
+		
+		table.setModel(model);
+		
+		// For large data sets we will have to use ranges on the index!
+		
+		for (INKV p : content) 
+		{
+		    model.addRow(new String[] {p.getKeyString(), p.getValue()});
+		}
 	}
 	/**
 	 * 

@@ -18,47 +18,30 @@
 
 package edu.cmu.cs.in.hoop.properties;
 
-//import java.awt.BorderLayout;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Insets;
-//import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-//import java.io.File;
-//import java.net.URL;
-//import java.util.ArrayList;
-//import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.Icon;
-//import javax.swing.ImageIcon;
 import javax.swing.JButton;
-//import javax.swing.JCheckBox;
-//import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-//import javax.swing.JTabbedPane;
 import javax.swing.SwingConstants;
-//import javax.swing.border.EtchedBorder;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
-//import javax.swing.table.TableColumn;
-
-//import edu.cmu.old_pact.dormin.trace;
-//import edu.cmu.pact.BehaviorRecorder.Controller.BR_Controller;
 import edu.cmu.cs.in.base.INHoopLink;
-//import edu.cmu.cs.in.base.INLink;
 import edu.cmu.cs.in.controls.base.INJPanel;
-//import edu.cmu.cs.in.controls.base.INJPanel;
 import edu.cmu.cs.in.hoop.properties.INHoopPropertyTable;
 
 /**

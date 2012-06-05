@@ -66,14 +66,14 @@ public class INUniqueUnigrams extends JPanel implements ActionListener
     
     File permanence=null;
     
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
 	private void debug (String aMessage)
 	{
 		INBase.debug ("INUniqueUnigrams",aMessage);	
 	}
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */	
 	public INUniqueUnigrams ()
@@ -146,7 +146,7 @@ public class INUniqueUnigrams extends JPanel implements ActionListener
 	    saveAsButton.addActionListener (this);
 	    loadButton.addActionListener (this);	    	    	    
 	}
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
 	public void assignData (INDataCollection aData)
@@ -154,7 +154,7 @@ public class INUniqueUnigrams extends JPanel implements ActionListener
 		debug ("assignData ()");
 		INData=aData;
 	}
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */		
     public void actionPerformed(ActionEvent event) 
@@ -174,7 +174,7 @@ public class INUniqueUnigrams extends JPanel implements ActionListener
 		if (button.getText()=="SaveAs") 
 			saveAs ();
     }	
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */    
     private void load ()
@@ -205,7 +205,7 @@ public class INUniqueUnigrams extends JPanel implements ActionListener
         	}
         }
     }
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */    
    	private void save ()
@@ -225,7 +225,7 @@ public class INUniqueUnigrams extends JPanel implements ActionListener
            fManager.saveContents(permanence.getAbsolutePath(),loader.toString());    		
    		}
    	}
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */    
    	private void saveAs ()
@@ -253,7 +253,7 @@ public class INUniqueUnigrams extends JPanel implements ActionListener
    			debug ("Save command cancelled by user");
    		}
    	}    
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
     private void fromXML (Element anElement)
@@ -319,7 +319,7 @@ public class INUniqueUnigrams extends JPanel implements ActionListener
     	
     	debug ("We've been able to match " + matched + " unigrams");
     }
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
     private void toXML ()
@@ -364,13 +364,12 @@ public class INUniqueUnigrams extends JPanel implements ActionListener
         
     	loader.append ("</data>\n");
     }
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */		
 	public void addDependend (INVisualFeatureVisualizer aDep)
 	{
 	    posList.addDependend (aDep);	    
 	    negList.addDependend (aDep);		
-	}
-	//-------------------------------------------------------------------------------------	
+	}	
 }

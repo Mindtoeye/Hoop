@@ -36,10 +36,10 @@ Used Packages:
 - Cobra, for webpage rendering
 	http://lobobrowser.org/cobra.jsp
 
-- JGraph, to render the query trees
+- JGraph, to render the hoop graph and query trees, etc
 	http://www.jgraph.com/jgraph.html
 
-- Hadoop, for the indexing part
+- Hadoop, for the indexing part in case you're running through a cluster
 	http://hadoop.apache.org/
 	
 - Java3D, for data visualization and an optional hex map for future table-top use
