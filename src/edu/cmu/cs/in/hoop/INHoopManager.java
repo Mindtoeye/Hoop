@@ -29,6 +29,8 @@ import edu.cmu.cs.in.hoop.base.INHoopFileSaveBase;
 import edu.cmu.cs.in.hoop.base.INHoopLoadBase;
 import edu.cmu.cs.in.hoop.base.INHoopSaveBase;
 import edu.cmu.cs.in.hoop.base.INHoopTransformBase;
+import edu.cmu.cs.in.hoop.hoops.INHoopFile2Sentence;
+import edu.cmu.cs.in.hoop.hoops.INHoopSentence2Tokens;
 
 public class INHoopManager extends INHoopBase
 {
@@ -112,6 +114,8 @@ public class INHoopManager extends INHoopBase
     	addTemplate(new INHoopLoadBase ());
     	addTemplate(new INHoopSaveBase ());
     	addTemplate(new INHoopTransformBase ());    	
+    	addTemplate(new INHoopFile2Sentence ());
+    	addTemplate(new INHoopSentence2Tokens ());
     }
     /**
      * 

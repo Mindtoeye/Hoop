@@ -18,16 +18,18 @@
 
 package edu.cmu.cs.in.hoop.base;
 
+import java.util.ArrayList;
+
 import edu.cmu.cs.in.base.INFileManager;
+import edu.cmu.cs.in.base.INKV;
 
 /**
 * 
 */
 public class INHoopFileLoadBase extends INHoopBase
 {    				
-	private String content=null;
 	private INFileManager fManager=null;
-	
+	private INKV fileKV=null;
 	private String inputStreamPath=null;
 	
 	/**
@@ -40,6 +42,11 @@ public class INHoopFileLoadBase extends INHoopBase
 		
 		setHoopCategory ("load");
 		fManager=new INFileManager ();
+		fileKV=new INKV ();
+				
+		ArrayList <INKV> aData=this.getData();
+		
+		aData.add(fileKV);
 		
 		setHoopDescription ("Load From File");
     }
@@ -48,21 +55,24 @@ public class INHoopFileLoadBase extends INHoopBase
 	 */
 	public void setContent(String content) 
 	{
-		this.content = content;
+		fileKV.setValue(content);
 	}
 	/**
 	 *
 	 */
 	public String getContent() 
 	{
-		return content;
+		return fileKV.getValue();
 	}
 	/**
 	 *
 	 */
 	public Boolean runHoop ()
-	{
-		setContent (fManager.loadContents(inputStreamPath));
+	{		
+		debug ("runHoop ()");
+		
+		fileKV.setKeyString(fManager.getURI());
+		fileKV.setValue(fManager.loadContents(inputStreamPath));
 		
 		return (true);
 	}

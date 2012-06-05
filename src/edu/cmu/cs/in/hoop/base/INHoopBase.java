@@ -20,6 +20,7 @@ package edu.cmu.cs.in.hoop.base;
 
 import java.util.ArrayList;
 
+import edu.cmu.cs.in.base.INKV;
 import edu.cmu.cs.in.hoop.properties.INHoopInspectable;
 
 /**
@@ -30,8 +31,9 @@ import edu.cmu.cs.in.hoop.properties.INHoopInspectable;
 */
 public class INHoopBase extends INHoopInspectable
 {    			
-	private ArrayList <INHoopBase> inHoops=null;
-	private ArrayList <INHoopBase> outHoops=null;
+	//private ArrayList <INHoopBase> inHoops=null;
+	private ArrayList <INHoopBase> outHoops=null;	
+	private ArrayList <INKV> data=null;
 
 	/// Either one of display,load,save,transform 
 	protected StringBuffer hoopCategory=null; 
@@ -48,15 +50,26 @@ public class INHoopBase extends INHoopInspectable
 		hoopCategory=new StringBuffer ();
 		hoopCategory.append("root");
 		
+		data=new ArrayList<INKV> ();
+		
 		setHoopDescription ("Abstract Hoop");
     }
 	/**
 	 *
 	 */    
+	public ArrayList <INKV> getData() 
+	{
+		return data;
+	}    
+	/**
+	 *
+	 */
+    /*
 	public ArrayList <INHoopBase> getInHoops ()
 	{
 		return (inHoops);
 	}
+	*/
 	/**
 	 *
 	 */	
@@ -95,8 +108,10 @@ public class INHoopBase extends INHoopInspectable
 	/**
 	 *
 	 */
-	public Boolean runHoop ()
-	{
+	public Boolean runHoop (INHoopBase inHoop)
+	{		
+		// Implement in child class!
+		
 		return (true);
 	}
 	/**
