@@ -41,24 +41,16 @@ public class INHoopTablePanel extends INEmbeddedJPanel
 		setClassName ("INHoopTablePanel");
 		debug ("INHoopTablePanel ()");
 				
-		String[] columnNames = {"First Name",
-                "Last Name",
-                "Sport",
-                "# of Years",
-                "Vegetarian"};		
+		String[] columnNames = {"Key","Value"};		
 		
-		Object[][] data = {
-			    {"Kathy", "Smith",
-			     "Snowboarding", new Integer(5), new Boolean(false)},
-			    {"John", "Doe",
-			     "Rowing", new Integer(3), new Boolean(true)},
-			    {"Sue", "Black",
-			     "Knitting", new Integer(2), new Boolean(false)},
-			    {"Jane", "White",
-			     "Speed reading", new Integer(20), new Boolean(true)},
-			    {"Joe", "Brown",
-			     "Pool", new Integer(10), new Boolean(false)}
-			};
+		Object[][] data = 
+		{
+		    {"Key 1", "A"},
+		    {"Key 2", "B"},
+		    {"Key 3", "C"},
+		    {"Key 4", "D"},
+		    {"Key 5", "E"}			    
+		};
 		
 		table=new INHoopJTable (data, columnNames);
 		

@@ -41,3 +41,6 @@ Used Packages:
 
 - Hadoop, for the indexing part
 	http://hadoop.apache.org/
+	
+- Java3D, for data visualization and an optional hex map for future table-top use
+	http://www.oracle.com/technetwork/java/javasebusiness/downloads/java-archive-downloads-java-client-419417.html#java3d-1.5.1-oth-JPR
