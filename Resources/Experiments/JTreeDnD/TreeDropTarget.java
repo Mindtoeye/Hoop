@@ -14,25 +14,26 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
-//TreeDropTarget.java
-//A quick DropTarget that's looking for drops from draggable JTrees.
-//
-
-class TreeDropTarget implements DropTargetListener {
-
+/**
+ * A quick DropTarget that's looking for drops from draggable JTrees.
+ *
+ */
+class TreeDropTarget implements DropTargetListener 
+{
   DropTarget target;
 
   JTree targetTree;
 
-  public TreeDropTarget(JTree tree) {
+  public TreeDropTarget(JTree tree) 
+  {
     targetTree = tree;
     target = new DropTarget(targetTree, this);
   }
-
   /*
    * Drop Event Handlers
    */
-  private TreeNode getNodeForEvent(DropTargetDragEvent dtde) {
+  private TreeNode getNodeForEvent(DropTargetDragEvent dtde) 
+  {
     Point p = dtde.getLocation();
     DropTargetContext dtc = dtde.getDropTargetContext();
     JTree tree = (JTree) dtc.getComponent();
@@ -40,7 +41,8 @@ class TreeDropTarget implements DropTargetListener {
     return (TreeNode) path.getLastPathComponent();
   }
 
-  public void dragEnter(DropTargetDragEvent dtde) {
+  public void dragEnter(DropTargetDragEvent dtde) 
+  {
     TreeNode node = getNodeForEvent(dtde);
     if (node.isLeaf()) {
       dtde.rejectDrag();
