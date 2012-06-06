@@ -43,10 +43,8 @@ public class INHoopFileLoadBase extends INHoopBase
 		setHoopCategory ("load");
 		fManager=new INFileManager ();
 		fileKV=new INKV ();
-				
-		ArrayList <INKV> aData=this.getData();
-		
-		aData.add(fileKV);
+						
+		addKV(fileKV);
 		
 		setHoopDescription ("Load From File");
     }

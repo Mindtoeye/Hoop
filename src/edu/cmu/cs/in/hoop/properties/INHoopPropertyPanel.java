@@ -77,7 +77,9 @@ public class INHoopPropertyPanel extends INEmbeddedJPanel
 		debug ("addPropertyPanel ()");
 		
 		contentBox.add (aPanel);
-		this.invalidate();
+		//this.invalidate();
+		
+		debug ("addPropertyPanel () done");
 	}
 	/**
 	 * 

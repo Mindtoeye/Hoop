@@ -53,7 +53,52 @@ public class INHoopBase extends INHoopInspectable
 		data=new ArrayList<INKV> ();
 		
 		setHoopDescription ("Abstract Hoop");
+		
+		generateRandomKVs ();
     }
+	/**
+	 * 
+	 */
+    private void generateRandomKVs ()
+    {
+    	for (int i=0;i<200;i++)
+    	{
+    		INKV aKV=new INKV ();
+    		aKV.setKey(i);
+    		aKV.setValue("A Value: " + i);
+    		
+    		addKV (aKV);
+    	}
+    }
+    /**
+     * 
+     */
+    public void addKV (String aKey,String aValue)
+    {
+    	INKV aKV=new INKV ();
+    	aKV.setKeyString(aKey);
+    	aKV.setValue(aValue);
+    	
+    	data.add(aKV);
+    }
+    /**
+     * 
+     */
+    public void addKV (int aKey,String aValue)
+    {
+    	INKV aKV=new INKV ();
+    	aKV.setKey(aKey);
+    	aKV.setValue(aValue);
+    	
+    	data.add(aKV);
+    }    
+    /**
+     * 
+     */
+    public void addKV (INKV aKV)
+    {    	
+    	data.add(aKV);
+    }    
 	/**
 	 *
 	 */    

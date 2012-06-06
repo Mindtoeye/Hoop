@@ -47,6 +47,8 @@ import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.base.INHoopProperties;
 import edu.cmu.cs.in.controls.INHoopShadowBorder;
 import edu.cmu.cs.in.controls.base.INJComponent;
+import edu.cmu.cs.in.hoop.INHoopTablePanel;
+import edu.cmu.cs.in.hoop.base.INHoopBase;
 
 /**
  *  
@@ -72,9 +74,11 @@ public class INHoopNodeRenderer extends INJComponent implements MouseListener, M
 	private JLabel titleLabel=null;
 	private JPanel toolBar=null;
 	private JPanel bottomPanel=null;
-	private JButton button=null;
+	private JButton kvExamineButton=null;
 	
 	protected int index=7;
+	
+	protected INHoopBase hoop=null;
 	
 	/**
 	 * 
@@ -114,17 +118,17 @@ public class INHoopNodeRenderer extends INJComponent implements MouseListener, M
 		toolBar.setBackground(INHoopProperties.graphPanelColor);
 		toolBar.setOpaque(true);
 				
-		button=new JButton ();
-		button.setIcon(INHoopLink.getImageByName("minimize.gif"));
-		button.setPreferredSize(new Dimension(16, 16));
-		button.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-		button.setToolTipText("Collapse/Expand");
-		button.setBackground(INHoopProperties.graphPanelColor);
-		button.setOpaque(true);
-        button.setBorder(null);
-        button.setMargin(new Insets (0,0,0,0));
-		button.addActionListener(this);
-		toolBar.add(button);
+		kvExamineButton=new JButton ();
+		kvExamineButton.setIcon(INHoopLink.getImageByName("zoom.gif"));
+		kvExamineButton.setPreferredSize(new Dimension(16, 16));
+		kvExamineButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+		kvExamineButton.setToolTipText("Collapse/Expand");
+		kvExamineButton.setBackground(INHoopProperties.graphPanelColor);
+		kvExamineButton.setOpaque(true);
+		kvExamineButton.setBorder(null);
+		kvExamineButton.setMargin(new Insets (0,0,0,0));
+		kvExamineButton.addActionListener(this);
+		toolBar.add(kvExamineButton);
 
 		titleBar.add(toolBar, BorderLayout.EAST);
 		add (titleBar, BorderLayout.NORTH);
@@ -151,7 +155,7 @@ public class INHoopNodeRenderer extends INJComponent implements MouseListener, M
 		setMinimumSize(new Dimension(20, 30));
 		
 		setTitle ("Hoop Node");
-	} 
+	}	
 	/**
 	 * 
 	 */
@@ -250,18 +254,36 @@ public class INHoopNodeRenderer extends INJComponent implements MouseListener, M
 	 * 
 	 */
 	@Override
-	public void actionPerformed(ActionEvent e) 
+	public void actionPerformed(ActionEvent event) 
 	{
 		debug ("actionPerformed ()");
 		
-		if (graph!=null)
-		{
-			graph.foldCells (graph.isCellCollapsed(cell), false,	new Object[] { cell });
+		JButton button = (JButton)event.getSource();
+    	    	    	    	
+		if (button==kvExamineButton) 
+		{		
+			examineData ();
+							
+			/*
+			if (graph!=null)
+			{
+				graph.foldCells (graph.isCellCollapsed(cell), false,	new Object[] { cell });
 		
-			if (graph.isCellCollapsed(cell))
-				((JButton) e.getSource()).setIcon(INHoopLink.getImageByName("maximize.gif"));
-			else
-				((JButton) e.getSource()).setIcon(INHoopLink.getImageByName("minimize.gif"));
+				if (graph.isCellCollapsed(cell))
+					((JButton) e.getSource()).setIcon(INHoopLink.getImageByName("maximize.gif"));
+				else
+					((JButton) e.getSource()).setIcon(INHoopLink.getImageByName("minimize.gif"));
+			}
+			*/
 		}	
+	}
+	/**
+	 * 
+	 */
+	protected void examineData ()
+	{
+		debug ("examineData ()");
+		
+		// Implement in child class				
 	}
 }

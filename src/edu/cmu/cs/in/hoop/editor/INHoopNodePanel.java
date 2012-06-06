@@ -33,7 +33,6 @@ import edu.cmu.cs.in.hoop.properties.INHoopPropertyPanel;
 public class INHoopNodePanel extends INHoopNodeRenderer
 {
 	private static final long serialVersionUID = -1L;
-	private INHoopBase hoop=null;	
 	private INHoopPropertyPanel propPanel=null;
 	private INHoopTablePanel tablePanel=null;
 	
@@ -53,9 +52,12 @@ public class INHoopNodePanel extends INHoopNodeRenderer
 		if (tablePanel==null)
 		{
 			INHoopLink.addView("Data View",new INHoopTablePanel (),"bottom");
+			tablePanel=(INHoopTablePanel) INHoopLink.getWindow("Data View");
 		}
 		
 		setHoop (new INHoopFileLoadBase ()); // Just for testing
+		
+		debug ("INHoopNodeRenderer () done");
 	}
 	/**
 	 * 
@@ -69,13 +71,31 @@ public class INHoopNodePanel extends INHoopNodeRenderer
 	 */	
 	public void setHoop(INHoopBase aHoop) 
 	{
+		debug ("setHoop ()");
+		
 		this.hoop=aHoop;
 		
-		this.setTitle(hoop.getHoopDescription());
+		this.setTitle (hoop.getHoopDescription());
 		
 		if (propPanel!=null)
 		{
 			propPanel.addPropertyPanel (new INHoopInspectablePanel (hoop.getHoopDescription()));
 		}
+		
+		debug ("setHoop () done");
+	}	
+	/**
+	 * 
+	 */
+	protected void examineData ()
+	{
+		debug ("examineData ()");
+				
+		INHoopTablePanel panel=(INHoopTablePanel) INHoopLink.getWindow("Data View");
+		
+		if (panel!=null)
+		{
+			panel.showHoop(hoop);
+		}		
 	}	
 }

@@ -47,19 +47,10 @@ public class INHoopTablePanel extends INEmbeddedJPanel
 	{
 		setClassName ("INHoopTablePanel");
 		debug ("INHoopTablePanel ()");
-							
-		/*
-		Object[][] data = 
-		{
-		    {"Key 1", "A"},
-		    {"Key 2", "B"},
-		    {"Key 3", "C"},
-		    {"Key 4", "D"},
-		    {"Key 5", "E"}			    
-		};
-		*/
+
+		Object[][] data ={}; 
 		
-		table=new INHoopJTable (null, columnNames);
+		table=new INHoopJTable (data,columnNames);
 		
 		JScrollPane scrollPane = new JScrollPane(table);
 		table.setFillsViewportHeight(true);		
@@ -85,15 +76,20 @@ public class INHoopTablePanel extends INEmbeddedJPanel
 		// Convert KV model to table model and show
 		
 		DefaultTableModel model=new DefaultTableModel (null,columnNames);
-		
-		table.setModel(model);
-		
+				
 		// For large data sets we will have to use ranges on the index!
 		
-		for (INKV p : content) 
+		if (content!=null)
 		{
-		    model.addRow(new String[] {p.getKeyString(), p.getValue()});
+			for (INKV p : content) 
+			{
+				model.addRow(new String[] {p.getKeyString(), p.getValue()});
+			}
+		
+			table.setModel(model);
 		}
+		
+		debug ("showHoop () done");
 	}
 	/**
 	 * 
