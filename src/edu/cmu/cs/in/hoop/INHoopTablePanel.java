@@ -48,6 +48,7 @@ public class INHoopTablePanel extends INEmbeddedJPanel
 		setClassName ("INHoopTablePanel");
 		debug ("INHoopTablePanel ()");
 
+		// We need some empty data because Java crashes when you provide a null parameter in the constructor
 		Object[][] data ={}; 
 		
 		table=new INHoopJTable (data,columnNames);

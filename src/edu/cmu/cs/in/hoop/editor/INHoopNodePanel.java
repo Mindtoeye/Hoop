@@ -68,6 +68,16 @@ public class INHoopNodePanel extends INHoopNodeRenderer
 	}
 	/**
 	 * 
+	 */
+	public void reset ()
+	{
+		icon.setIcon(INHoopLink.getImageByName("led-yellow.png"));
+		
+		if (hoop!=null)
+			hoop.reset ();
+	}
+	/**
+	 * 
 	 */	
 	public void setHoop(INHoopBase aHoop) 
 	{

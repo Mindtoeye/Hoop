@@ -22,12 +22,16 @@
 
 package edu.cmu.cs.in.hoop;
 
-import java.awt.Font;
 import java.util.Enumeration;
 
+import java.awt.Font;
+import java.awt.datatransfer.DataFlavor;
+
 import javax.swing.BorderFactory;
+import javax.swing.JComponent;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
+import javax.swing.TransferHandler;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
@@ -69,6 +73,19 @@ public class INHoopTreeList extends INEmbeddedJPanel
 		
 		TreeNode root = (TreeNode) tree.getModel().getRoot();
 		expandAll (tree, new TreePath(root));				
+		
+		// Shows a nice icon for drag and drop but doesn't import anything
+		tree.setTransferHandler(new TransferHandler()
+		{
+			private static final long serialVersionUID = -1L;
+
+			public boolean canImport(JComponent comp, DataFlavor[] flavors)
+			{
+				debug ("canImport ()");
+				
+				return true;
+			}
+		});		
     }
 	/**
 	 * When this method is called we should assume that we have to
@@ -82,19 +99,37 @@ public class INHoopTreeList extends INEmbeddedJPanel
 	/**
 	 *
 	 */	
-	private void expandAll(JTree tree, TreePath parent) 
+	public void collapseAll(JTree tree, TreePath parent) 
 	{
 	    TreeNode node = (TreeNode) parent.getLastPathComponent();
 	    if (node.getChildCount() >= 0) 
 	    {
-	      for (Enumeration e = node.children(); e.hasMoreElements();) 
-	      {
-	        TreeNode n = (TreeNode) e.nextElement();
-	        TreePath path = parent.pathByAddingChild(n);
-	        expandAll(tree, path);
-	      }
+	    	for (Enumeration e = node.children(); e.hasMoreElements();) 
+	    	{
+	    		TreeNode n = (TreeNode) e.nextElement();
+	    		TreePath path = parent.pathByAddingChild(n);
+	    		collapseAll(tree, path);
+	    	}
 	    }
-	    tree.expandPath(parent);
-	    // tree.collapsePath(parent);
+	    	   
+	    tree.collapsePath(parent);
+	  }		
+	/**
+	 *
+	 */	
+	public void expandAll(JTree tree, TreePath parent) 
+	{
+	    TreeNode node = (TreeNode) parent.getLastPathComponent();
+	    if (node.getChildCount() >= 0) 
+	    {
+	    	for (Enumeration e = node.children(); e.hasMoreElements();) 
+	    	{
+	    		TreeNode n = (TreeNode) e.nextElement();
+	    		TreePath path = parent.pathByAddingChild(n);
+	    		expandAll(tree, path);
+	    	}
+	    }
+	    
+	    tree.expandPath(parent);	    
 	  }	
 }

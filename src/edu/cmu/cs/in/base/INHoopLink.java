@@ -259,7 +259,8 @@ public class INHoopLink extends INHoopProperties
 		 							 "led-green.png",// 84
 		 							 "led-yellow.png",// 84
 		 							 "led-red.png",// 84 							 
-		 							 "resize.png"// 84		 							 
+		 							 "resize.png",// 84		 							 
+		 							 "zoom.png"// 84
 		 							 };
 	
 	public static String vocabularyPath="./";

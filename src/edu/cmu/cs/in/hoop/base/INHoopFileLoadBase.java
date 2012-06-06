@@ -65,15 +65,17 @@ public class INHoopFileLoadBase extends INHoopBase
 	/**
 	 *
 	 */
-	public Boolean runHoop ()
+	public Boolean runHoop (INHoopBase inHoop)
 	{		
 		debug ("runHoop ()");
 		
+		super.runHoop(inHoop);		
+						
 		fileKV.setKeyString(fManager.getURI());
 		fileKV.setValue(fManager.loadContents(inputStreamPath));
 		
 		return (true);
-	}
+	}	
 	/**
 	 *
 	 */	

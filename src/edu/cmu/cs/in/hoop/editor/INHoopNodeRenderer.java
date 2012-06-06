@@ -47,7 +47,7 @@ import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.base.INHoopProperties;
 import edu.cmu.cs.in.controls.INHoopShadowBorder;
 import edu.cmu.cs.in.controls.base.INJComponent;
-import edu.cmu.cs.in.hoop.INHoopTablePanel;
+//import edu.cmu.cs.in.hoop.INHoopTablePanel;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
 
 /**
@@ -67,14 +67,14 @@ public class INHoopNodeRenderer extends INJComponent implements MouseListener, M
 	protected mxGraphComponent graphContainer=null;
 	protected mxGraph graph=null;
 	
-	private JPanel contentArea=null;	
-	private JPanel titleBar=null;
-	private JLabel icon=null;
-	private JLabel label=null;
-	private JLabel titleLabel=null;
-	private JPanel toolBar=null;
-	private JPanel bottomPanel=null;
-	private JButton kvExamineButton=null;
+	protected JPanel contentArea=null;	
+	protected JPanel titleBar=null;
+	protected JLabel icon=null;
+	protected JLabel label=null;
+	protected JLabel titleLabel=null;
+	protected JPanel toolBar=null;
+	protected JPanel bottomPanel=null;
+	protected JButton kvExamineButton=null;
 	
 	protected int index=7;
 	
@@ -119,7 +119,7 @@ public class INHoopNodeRenderer extends INJComponent implements MouseListener, M
 		toolBar.setOpaque(true);
 				
 		kvExamineButton=new JButton ();
-		kvExamineButton.setIcon(INHoopLink.getImageByName("zoom.gif"));
+		kvExamineButton.setIcon(INHoopLink.getImageByName("zoom.png"));
 		kvExamineButton.setPreferredSize(new Dimension(16, 16));
 		kvExamineButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 		kvExamineButton.setToolTipText("Collapse/Expand");

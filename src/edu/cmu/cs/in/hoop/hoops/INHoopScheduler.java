@@ -18,26 +18,26 @@
 
 package edu.cmu.cs.in.hoop.hoops;
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
 
-import edu.cmu.cs.in.base.INKV;
+//import edu.cmu.cs.in.base.INKV;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
 import edu.cmu.cs.in.hoop.base.INHoopTransformBase;
 
 /**
 * 
 */
-public class INHoopSentence2Tokens extends INHoopTransformBase
+public class INHoopScheduler extends INHoopTransformBase
 {    					
 	/**
 	 *
 	 */
-    public INHoopSentence2Tokens () 
+    public INHoopScheduler () 
     {
-		setClassName ("INHoopSentence2Tokens");
-		debug ("INHoopSentence2Tokens ()");
+		setClassName ("INHoopScheduler");
+		debug ("INHoopScheduler ()");
 										
-		setHoopDescription ("Parse Sentences into Tokens");
+		setHoopDescription ("Schedules the Next Hoop");
     }
 	/**
 	 *
@@ -46,7 +46,7 @@ public class INHoopSentence2Tokens extends INHoopTransformBase
 	{		
 		debug ("runHoop ()");
 		
-		super.runHoop(inHoop);		
+		super.runHoop(inHoop);
 				
 		return (true);
 	}	

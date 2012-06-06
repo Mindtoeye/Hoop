@@ -26,7 +26,7 @@ import edu.cmu.cs.in.hoop.properties.INHoopInspectable;
 /**
 * Here we have the basis for all the hoops. It manages incoming and
 * outgoing links to other hoops. Please keep in mind that even
-* though the API allows more than one incoming hoops, we currently
+* though the API allows more than one incoming hoop, we currently
 * restrict the functionality to only one.
 */
 public class INHoopBase extends INHoopInspectable
@@ -38,6 +38,9 @@ public class INHoopBase extends INHoopInspectable
 	/// Either one of display,load,save,transform 
 	protected StringBuffer hoopCategory=null; 
 	protected String hoopDescription="Undefined";
+	
+	/// One of: STOPPED, WAITING, RUNNING, PAUSED, ERROR
+	private String executionState="STOPPED"; 
 	
 	/**
 	 *
@@ -55,7 +58,7 @@ public class INHoopBase extends INHoopInspectable
 		setHoopDescription ("Abstract Hoop");
 		
 		generateRandomKVs ();
-    }
+    }    
 	/**
 	 * 
 	 */
@@ -69,6 +72,31 @@ public class INHoopBase extends INHoopInspectable
     		
     		addKV (aKV);
     	}
+    }
+	/**
+	 * 
+	 */    
+	public String getExecutionState() 
+	{
+		return executionState;
+	}
+	/**
+	 * 
+	 */	
+	public void setExecutionState(String executionState) 
+	{
+		this.executionState = executionState;
+	}    
+	/**
+	 * 
+	 */
+    public void reset ()
+    {
+    	debug ("reset ()");
+    	
+    	data=new ArrayList<INKV> ();
+    	
+    	setExecutionState ("STOPPED");
     }
     /**
      * 
@@ -156,6 +184,8 @@ public class INHoopBase extends INHoopInspectable
 	public Boolean runHoop (INHoopBase inHoop)
 	{		
 		// Implement in child class!
+		
+		setExecutionState ("RUNNING");
 		
 		return (true);
 	}
