@@ -28,7 +28,11 @@ import edu.cmu.cs.in.hoop.properties.INHoopInspectablePanel;
 import edu.cmu.cs.in.hoop.properties.INHoopPropertyPanel;
 
 /**   
- * 
+ * An easy access class to the panel that represents a node in the Hoop graph.
+ * You should be able to manage all graphics controls and hoop operations from
+ * here without having to worry about how Swing does or does not play well 
+ * with UI components. See the INHoopNodeRenderer class if you feel inclined
+ * to subject yourself to Swing GUI management.
  */
 public class INHoopNodePanel extends INHoopNodeRenderer
 {

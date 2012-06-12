@@ -17,36 +17,65 @@
  * 	Notes:
  * 
  * 	http://www.apl.jhu.edu/~hall/java/Swing-Tutorial/Swing-Tutorial-JTree.html
+ *  http://docs.oracle.com/javase/tutorial/uiswing/dnd/intro.html
  * 
  */
 
 package edu.cmu.cs.in.hoop;
 
+import java.util.ArrayList;
 import java.util.Enumeration;
 
+import java.awt.Cursor;
 import java.awt.Font;
+//import java.awt.Point;
 import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.Transferable;
+import java.awt.dnd.DnDConstants;
+import java.awt.dnd.DragGestureEvent;
+import java.awt.dnd.DragGestureListener;
+import java.awt.dnd.DragSource;
+//import java.awt.event.MouseEvent;
+//import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.TransferHandler;
+import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
+//import com.mxgraph.model.mxCell;
+//import com.mxgraph.model.mxGeometry;
+import com.mxgraph.swing.util.mxGraphTransferable;
+//import com.mxgraph.swing.util.mxSwingConstants;
+import com.mxgraph.util.mxEvent;
+import com.mxgraph.util.mxEventObject;
+import com.mxgraph.util.mxEventSource;
+//import com.mxgraph.util.mxRectangle;
+
 import edu.cmu.cs.in.base.INHoopLink;
+import edu.cmu.cs.in.controls.INHoopShadowBorder;
 import edu.cmu.cs.in.controls.INJTreeHoopRenderer;
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
+import edu.cmu.cs.in.hoop.base.INHoopBase;
 
 /**
  * 
  */
+//public class INHoopTreeList extends INEmbeddedJPanel implements MouseListener
+//public class INHoopTreeList extends INEmbeddedJPanel implements DragGestureListener
 public class INHoopTreeList extends INEmbeddedJPanel
 {
 	private static final long serialVersionUID = 1L;		
 	private JTree tree=null;
+	protected JLabel selectedEntry = null;	
+	protected mxEventSource eventSource = new mxEventSource(this);
 	
 	/**
 	 * 
@@ -58,13 +87,15 @@ public class INHoopTreeList extends INEmbeddedJPanel
 		
 		this.setSingleInstance(true);
 				
-		tree = new JTree(INHoopLink.hoopManager.toTreeModel ());
+		tree = new JTree(toTreeModel ());
 		tree.setFont(new Font("Dialog", 1, 10));
 		tree.setCellRenderer (new INJTreeHoopRenderer ());
 		tree.getSelectionModel().setSelectionMode (TreeSelectionModel.SINGLE_TREE_SELECTION);
 		tree.setRootVisible(false);
 		tree.setBorder(BorderFactory.createEmptyBorder(4,4,4,4));
 		tree.putClientProperty("JTree.lineStyle", "Horizontal");
+		//tree.addMouseListener (this);
+		tree.setDragEnabled(true);
 		
 		JScrollPane scrollPane=new JScrollPane(tree);
 		scrollPane.setBorder(BorderFactory.createEmptyBorder(4,4,4,4));
@@ -74,17 +105,51 @@ public class INHoopTreeList extends INEmbeddedJPanel
 		TreeNode root = (TreeNode) tree.getModel().getRoot();
 		expandAll (tree, new TreePath(root));				
 		
-		// Shows a nice icon for drag and drop but doesn't import anything
 		tree.setTransferHandler(new TransferHandler()
 		{
 			private static final long serialVersionUID = -1L;
 
+			/**
+			 * 
+			 */
 			public boolean canImport(JComponent comp, DataFlavor[] flavors)
-			{
+			{				
 				debug ("canImport ()");
 				
-				return true;
+				return false; // This tree does not allow items to be dragged into it
 			}
+			/**
+			 * Only support copy actions. We do not remove hoops from our tree once
+			 * we drag them onto the graph.
+			 */
+			public int getSourceActions(JComponent comp) 
+			{
+				debug ("getSourceActions ()");
+				
+				return COPY;
+			}			
+			/**
+			 * 
+			 */
+			protected Transferable createTransferable (JComponent c) 
+			{
+				debug ("createTransferable ()");
+				
+	            JTree tree = (JTree) c;
+	            DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getSelectionPath().getLastPathComponent();
+
+	            if (node.isLeaf()) 
+	            {
+	                // TODO create the Transferable instance for the selected leaf
+	            	debug ("Creating transferable instance of leaf node ...");
+	            	
+	            	return new StringSelection("foo");
+	            }
+	            else
+	            	debug ("Tree node is not a leaf, not dragging");
+	               
+	            return null;
+	        }			
 		});		
     }
 	/**
@@ -131,5 +196,187 @@ public class INHoopTreeList extends INEmbeddedJPanel
 	    }
 	    
 	    tree.expandPath(parent);	    
-	  }	
+	 }
+	/**
+	 *
+	 */
+	/*
+	@Override
+	public void mouseClicked(MouseEvent e) 
+	{
+		debug ("mouseClicked ()");
+		
+	}
+	*/
+	/**
+	 *
+	 */	
+	/*
+	@Override
+	public void mouseEntered(MouseEvent e) 
+	{
+		debug ("mouseEntered ()");
+		
+	}
+	*/
+	/**
+	 *
+	 */	
+	/*
+	@Override
+	public void mouseExited(MouseEvent e) 
+	{
+		debug ("mouseExited ()");
+		
+	}
+	*/
+	/**
+	 *
+	 */	
+	/*
+	@Override
+	public void mousePressed(MouseEvent e) 
+	{
+		debug ("mousePressed ()");
+		
+		clearSelection();
+	}
+	*/
+	/**
+	 *
+	 */
+	/*
+	@Override	
+	public void mouseReleased(MouseEvent e) 
+	{
+		debug ("mouseReleased ()");
+		
+	}
+	*/	
+	/**
+	 * 
+	 */
+	/*
+	public void clearSelection()
+	{
+		setSelectionEntry(null, null);
+	}
+	*/	
+	/**
+	 * 
+	 */
+	public void setSelectionEntry (JLabel entry,mxGraphTransferable transferable)
+	{
+		JLabel previous = selectedEntry;
+		selectedEntry = entry;
+
+		if (previous != null)
+		{
+			previous.setBorder(null);
+			previous.setOpaque(false);
+		}
+
+		if (selectedEntry != null)
+		{
+			selectedEntry.setBorder(INHoopShadowBorder.getSharedInstance());
+			selectedEntry.setOpaque(true);
+		}
+
+		eventSource.fireEvent(new mxEventObject (mxEvent.SELECT,
+												 "entry",
+												 selectedEntry,
+												 "transferable",
+												 transferable,
+												 "previous",
+												 previous));
+	}	
+    /**
+     * 
+     */
+    public DefaultMutableTreeNode toTreeModel ()
+    {
+    	ArrayList<String> hoopCategories=INHoopLink.hoopManager.getHoopCategories();	
+    	ArrayList<INHoopBase> hoopTemplates=INHoopLink.hoopManager.getHoopTemplates();    	
+    	
+    	DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root");
+		
+    	if ((hoopTemplates!=null) && (hoopCategories!=null))
+    	{    	
+    		for (int j=0;j<hoopCategories.size();j++)
+    		{
+    			String aCat=hoopCategories.get(j);
+    			
+				DefaultMutableTreeNode catNode = new DefaultMutableTreeNode(aCat);
+				catNode.setUserObject(new String (aCat));
+				root.add(catNode);
+				    			
+    			for (int i=0;i<hoopTemplates.size();i++)
+    			{
+    				INHoopBase hoopTemplate=hoopTemplates.get(i);
+    				
+    				if (hoopTemplate.getHoopCategory().toLowerCase().equals(aCat.toLowerCase())==true)
+    				{
+    					DefaultMutableTreeNode templateNode = new DefaultMutableTreeNode(hoopTemplate.getClassName());
+    					templateNode.setUserObject(hoopTemplate);
+    					catNode.add(templateNode);
+    					
+    					/*
+    					mxCell cell = new mxCell (templateNode,new mxGeometry (0,0,50,50),"label;image=/assets/images/gear.png");
+    					cell.setVertex (true);
+    					
+    					mxRectangle bounds = (mxGeometry) cell.getGeometry().clone();
+    					
+    					final mxGraphTransferable transferable = new mxGraphTransferable (new Object[] { cell }, bounds);
+    					    					
+    					// Install the handler for dragging nodes into a graph
+    					DragGestureListener dragGestureListener = new DragGestureListener()
+    					{
+    						public void dragGestureRecognized(DragGestureEvent e)
+    						{
+    							e.startDrag (null,mxSwingConstants.EMPTY_IMAGE,new Point(),transferable, null);
+    						}
+    					};    					
+    					
+    					DragSource dragSource = new DragSource();
+    					dragSource.createDefaultDragGestureRecognizer (templateNode,DnDConstants.ACTION_COPY, dragGestureListener);
+    					*/    					
+    				}	
+    			}
+    		}	
+    	}
+    	
+    	return (root);
+    }
+    /*
+	@Override
+	public void dragGestureRecognized(DragGestureEvent e) 
+	{
+		debug ("dragGestureRecognized ()");
+		
+        DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getSelectionPath().getLastPathComponent();
+
+        if (node.isLeaf())  
+    	{
+        	debug ("Dragging tree leaf ...");
+        	
+    		//Transferable transferable =(Transferable) dragNode.getUserObject();
+
+    		Cursor cursor = selectCursor (e.getDragAction());
+
+    		//tree.startDrag(e, cursor, transferable, this);
+    	}		
+	}
+	*/
+	/** 
+	 * @param action
+	 * @return
+	 */
+    /*
+    private Cursor selectCursor (int action) 
+    {
+    	debug ("selectCursor ()");
+    	
+    	return (action == DnDConstants.ACTION_MOVE) ? DragSource.DefaultMoveDrop : DragSource.DefaultCopyDrop;
+    } 
+    */   
 }

@@ -34,11 +34,13 @@ import java.awt.dnd.DragGestureListener;
 import java.awt.dnd.DragSource;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+//import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.TransferHandler;
+//import javax.swing.tree.DefaultMutableTreeNode;
 
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGeometry;
@@ -51,8 +53,10 @@ import com.mxgraph.util.mxPoint;
 import com.mxgraph.util.mxRectangle;
 import com.mxgraph.util.mxEventSource.mxIEventListener;
 
+//import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.controls.INHoopShadowBorder;
 import edu.cmu.cs.in.controls.base.INJPanel;
+//import edu.cmu.cs.in.hoop.base.INHoopBase;
 
 public class INHoopEditorPalette extends INJPanel
 {
@@ -180,7 +184,7 @@ public class INHoopEditorPalette extends INJPanel
 	/**
 	 * 
 	 */
-	public void setSelectionEntry(JLabel entry, mxGraphTransferable t)
+	public void setSelectionEntry (JLabel entry, mxGraphTransferable transferable)
 	{
 		JLabel previous = selectedEntry;
 		selectedEntry = entry;
@@ -197,7 +201,13 @@ public class INHoopEditorPalette extends INJPanel
 			selectedEntry.setOpaque(true);
 		}
 
-		eventSource.fireEvent(new mxEventObject(mxEvent.SELECT, "entry",selectedEntry, "transferable", t, "previous", previous));
+		eventSource.fireEvent(new mxEventObject (mxEvent.SELECT,
+												 "entry",
+												 selectedEntry,
+												 "transferable",
+												 transferable,
+												 "previous",
+												 previous));
 	}
 	/**
 	 * 
@@ -224,6 +234,8 @@ public class INHoopEditorPalette extends INJPanel
 								int height, 
 								Object value)
 	{
+		debug ("addEdgeTemplate ()");
+		
 		mxGeometry geometry = new mxGeometry(0, 0, width, height);
 		geometry.setTerminalPoint(new mxPoint(0, height), true);
 		geometry.setTerminalPoint(new mxPoint(width, 0), false);
@@ -250,8 +262,10 @@ public class INHoopEditorPalette extends INJPanel
 							 int height, 
 							 Object value)
 	{
-		mxCell cell = new mxCell(value, new mxGeometry(0, 0, width, height),style);
-		cell.setVertex(true);
+		debug ("addTemplate ()");
+		
+		mxCell cell = new mxCell (value,new mxGeometry (0,0,width,height),style);
+		cell.setVertex (true);
 
 		addTemplate (name, icon, cell);
 	}
@@ -261,19 +275,22 @@ public class INHoopEditorPalette extends INJPanel
 	 * @param icon
 	 * @param cell
 	 */
-	public void addTemplate (final String name, ImageIcon icon, mxCell cell)
+	public void addTemplate (final String name, 
+							 ImageIcon icon, 
+							 mxCell cell)
 	{
+		debug ("addTemplate (String,ImageIcon,mxCell)");
+		
 		mxRectangle bounds = (mxGeometry) cell.getGeometry().clone();
 		
-		final mxGraphTransferable t = new mxGraphTransferable(new Object[] { cell }, bounds);
+		final mxGraphTransferable transferable = new mxGraphTransferable (new Object[] { cell }, bounds);
 
 		// Scales the image if it's too large for the library
 		if (icon != null)
 		{
-			if (icon.getIconWidth() > 32 || icon.getIconHeight() > 32)
+			if ((icon.getIconWidth()>32) || (icon.getIconHeight()>32))
 			{
-				icon = new ImageIcon(icon.getImage().getScaledInstance(32, 32,
-						0));
+				icon = new ImageIcon(icon.getImage().getScaledInstance (32,32,0));
 			}
 		}
 
@@ -298,7 +315,7 @@ public class INHoopEditorPalette extends INJPanel
 			 */
 			public void mousePressed(MouseEvent e)
 			{
-				setSelectionEntry(entry, t);
+				setSelectionEntry(entry, transferable);
 			}
 
 			/*
@@ -343,7 +360,7 @@ public class INHoopEditorPalette extends INJPanel
 			 */
 			public void dragGestureRecognized(DragGestureEvent e)
 			{
-				e.startDrag(null, mxSwingConstants.EMPTY_IMAGE, new Point(),t, null);
+				e.startDrag (null,mxSwingConstants.EMPTY_IMAGE,new Point(),transferable, null);
 			}
 
 		};
@@ -353,7 +370,6 @@ public class INHoopEditorPalette extends INJPanel
 
 		add(entry);
 	}
-
 	/**
 	 * @param eventName
 	 * @param listener
@@ -363,7 +379,6 @@ public class INHoopEditorPalette extends INJPanel
 	{
 		eventSource.addListener(eventName, listener);
 	}
-
 	/**
 	 * @return whether or not event are enabled for this palette
 	 * @see com.mxgraph.util.mxEventSource#isEventsEnabled()
@@ -372,7 +387,6 @@ public class INHoopEditorPalette extends INJPanel
 	{
 		return eventSource.isEventsEnabled();
 	}
-
 	/**
 	 * @param listener
 	 * @see com.mxgraph.util.mxEventSource#removeListener(com.mxgraph.util.mxEventSource.mxIEventListener)
@@ -381,7 +395,6 @@ public class INHoopEditorPalette extends INJPanel
 	{
 		eventSource.removeListener(listener);
 	}
-
 	/**
 	 * @param eventName
 	 * @param listener
@@ -391,7 +404,6 @@ public class INHoopEditorPalette extends INJPanel
 	{
 		eventSource.removeListener(listener, eventName);
 	}
-
 	/**
 	 * @param eventsEnabled
 	 * @see com.mxgraph.util.mxEventSource#setEventsEnabled(boolean)
@@ -400,5 +412,4 @@ public class INHoopEditorPalette extends INJPanel
 	{
 		eventSource.setEventsEnabled(eventsEnabled);
 	}
-
 }

@@ -41,7 +41,7 @@ class TransferableTreeNode implements Transferable
 	 * (non-Javadoc)
 	 * @see java.awt.datatransfer.Transferable#getTransferData(java.awt.datatransfer.DataFlavor)
 	 */
-	public synchronized Object getTransferData(DataFlavor flavor)  throws UnsupportedFlavorException, IOException 
+	public synchronized Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException, IOException 
 	{
 		if (isDataFlavorSupported(flavor)) 
 		{

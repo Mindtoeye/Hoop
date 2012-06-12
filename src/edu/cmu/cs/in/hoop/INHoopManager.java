@@ -22,6 +22,9 @@ import java.util.ArrayList;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import com.mxgraph.model.mxCell;
+import com.mxgraph.model.mxGeometry;
+
 import edu.cmu.cs.in.hoop.base.INHoopBase;
 import edu.cmu.cs.in.hoop.base.INHoopDisplayBase;
 import edu.cmu.cs.in.hoop.base.INHoopFileLoadBase;
@@ -30,6 +33,10 @@ import edu.cmu.cs.in.hoop.base.INHoopLoadBase;
 import edu.cmu.cs.in.hoop.base.INHoopSaveBase;
 import edu.cmu.cs.in.hoop.base.INHoopTransformBase;
 import edu.cmu.cs.in.hoop.hoops.INHoopFile2Sentence;
+import edu.cmu.cs.in.hoop.hoops.INHoopHDFSMultiFileInput;
+import edu.cmu.cs.in.hoop.hoops.INHoopHDFSMultiFileOutput;
+import edu.cmu.cs.in.hoop.hoops.INHoopHDFSSingleFileInput;
+import edu.cmu.cs.in.hoop.hoops.INHoopHDFSSingleFileOutput;
 import edu.cmu.cs.in.hoop.hoops.INHoopScheduler;
 import edu.cmu.cs.in.hoop.hoops.INHoopSentence2Tokens;
 
@@ -48,6 +55,20 @@ public class INHoopManager extends INHoopBase
 		
 		initHoopTemplates ();		
 	}	
+	/**
+	 * 
+	 */
+	public ArrayList<String> getHoopCategories ()
+	{
+		return (hoopCategories);
+	}
+	/**
+	 * 
+	 */
+	public ArrayList<INHoopBase> getHoopTemplates ()
+	{
+		return (hoopTemplates);
+	}
 	/**
 	 * 
 	 */
@@ -118,38 +139,9 @@ public class INHoopManager extends INHoopBase
     	addTemplate(new INHoopFile2Sentence ());
     	addTemplate(new INHoopSentence2Tokens ());
     	addTemplate(new INHoopScheduler ());
+    	addTemplate(new INHoopHDFSSingleFileOutput ());
+    	addTemplate(new INHoopHDFSSingleFileInput ());
+    	addTemplate(new INHoopHDFSMultiFileOutput ());
+    	addTemplate(new INHoopHDFSMultiFileInput ());
     }
-    /**
-     * 
-     */
-    public DefaultMutableTreeNode toTreeModel ()
-    {
-    	DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root");
-		
-    	if ((hoopTemplates!=null) && (hoopCategories!=null))
-    	{    	
-    		for (int j=0;j<hoopCategories.size();j++)
-    		{
-    			String aCat=hoopCategories.get(j);
-    			
-				DefaultMutableTreeNode catNode = new DefaultMutableTreeNode(aCat);
-				catNode.setUserObject(new String (aCat));
-				root.add(catNode);
-				    			
-    			for (int i=0;i<hoopTemplates.size();i++)
-    			{
-    				INHoopBase hoopTemplate=hoopTemplates.get(i);
-    				
-    				if (hoopTemplate.getHoopCategory().toLowerCase().equals(aCat.toLowerCase())==true)
-    				{
-    					DefaultMutableTreeNode templateNode = new DefaultMutableTreeNode(hoopTemplate.getClassName());
-    					templateNode.setUserObject(hoopTemplate);
-    					catNode.add(templateNode);
-    				}	
-    			}
-    		}	
-    	}
-    	
-    	return (root);
-    }	
 }
