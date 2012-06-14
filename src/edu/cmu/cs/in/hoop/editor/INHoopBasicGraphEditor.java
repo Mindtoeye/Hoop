@@ -115,6 +115,8 @@ public class INHoopBasicGraphEditor extends INEmbeddedJPanel
 	{
 		public void invoke(Object source, mxEventObject evt)
 		{
+			debug ("invoke ()");
+			
 			setModified(true);
 		}
 	};
