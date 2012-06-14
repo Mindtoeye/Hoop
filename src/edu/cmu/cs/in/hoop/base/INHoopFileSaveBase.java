@@ -73,12 +73,16 @@ public class INHoopFileSaveBase extends INHoopBase
 	/**
 	 *
 	 */
-	public Boolean runHoop ()
-	{
-		fManager.saveContents(outputStreamPath, content);
+	public Boolean runHoop (INHoopBase inHoop)
+	{		
+		debug ("runHoop ()");
 		
+		super.runHoop(inHoop);		
+		
+		fManager.saveContents(outputStreamPath, content);
+				
 		return (true);
-	}
+	}		
 	/**
 	 * 
 	 */

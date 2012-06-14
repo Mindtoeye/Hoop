@@ -28,12 +28,15 @@ import edu.cmu.cs.in.hoop.properties.INHoopInspectablePanel;
 import edu.cmu.cs.in.hoop.properties.INHoopPropertyPanel;
 
 /**   
- * 
+ * An easy access class to the panel that represents a node in the Hoop graph.
+ * You should be able to manage all graphics controls and hoop operations from
+ * here without having to worry about how Swing does or does not play well 
+ * with UI components. See the INHoopNodeRenderer class if you feel inclined
+ * to subject yourself to Swing GUI management.
  */
 public class INHoopNodePanel extends INHoopNodeRenderer
 {
 	private static final long serialVersionUID = -1L;
-	private INHoopBase hoop=null;	
 	private INHoopPropertyPanel propPanel=null;
 	private INHoopTablePanel tablePanel=null;
 	
@@ -53,9 +56,12 @@ public class INHoopNodePanel extends INHoopNodeRenderer
 		if (tablePanel==null)
 		{
 			INHoopLink.addView("Data View",new INHoopTablePanel (),"bottom");
+			tablePanel=(INHoopTablePanel) INHoopLink.getWindow("Data View");
 		}
 		
 		setHoop (new INHoopFileLoadBase ()); // Just for testing
+		
+		debug ("INHoopNodeRenderer () done");
 	}
 	/**
 	 * 
@@ -66,16 +72,44 @@ public class INHoopNodePanel extends INHoopNodeRenderer
 	}
 	/**
 	 * 
+	 */
+	public void reset ()
+	{
+		icon.setIcon(INHoopLink.getImageByName("led-yellow.png"));
+		
+		if (hoop!=null)
+			hoop.reset ();
+	}
+	/**
+	 * 
 	 */	
 	public void setHoop(INHoopBase aHoop) 
 	{
+		debug ("setHoop ()");
+		
 		this.hoop=aHoop;
 		
-		this.setTitle(hoop.getHoopDescription());
+		this.setTitle (hoop.getHoopDescription());
 		
 		if (propPanel!=null)
 		{
 			propPanel.addPropertyPanel (new INHoopInspectablePanel (hoop.getHoopDescription()));
 		}
+		
+		debug ("setHoop () done");
+	}	
+	/**
+	 * 
+	 */
+	protected void examineData ()
+	{
+		debug ("examineData ()");
+				
+		INHoopTablePanel panel=(INHoopTablePanel) INHoopLink.getWindow("Data View");
+		
+		if (panel!=null)
+		{
+			panel.showHoop(hoop);
+		}		
 	}	
 }

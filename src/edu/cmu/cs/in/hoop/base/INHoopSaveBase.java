@@ -54,8 +54,12 @@ public class INHoopSaveBase extends INHoopBase
 	/**
 	 *
 	 */
-	public Boolean runHoop ()
-	{
+	public Boolean runHoop (INHoopBase inHoop)
+	{		
+		debug ("runHoop ()");
+		
+		super.runHoop(inHoop);		
+				
 		return (true);
 	}	
 	/**

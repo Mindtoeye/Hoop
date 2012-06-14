@@ -18,26 +18,23 @@
 
 package edu.cmu.cs.in.hoop.hoops;
 
-import java.util.ArrayList;
-
-import edu.cmu.cs.in.base.INKV;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
-import edu.cmu.cs.in.hoop.base.INHoopTransformBase;
+import edu.cmu.cs.in.hoop.base.INHoopFileLoadBase;
 
 /**
 * 
 */
-public class INHoopSentence2Tokens extends INHoopTransformBase
+public class INHoopHDFSSingleFileOutput extends INHoopFileLoadBase
 {    					
 	/**
 	 *
 	 */
-    public INHoopSentence2Tokens () 
+    public INHoopHDFSSingleFileOutput () 
     {
-		setClassName ("INHoopSentence2Tokens");
-		debug ("INHoopSentence2Tokens ()");
+		setClassName ("INHoopHDFSSingleFileOutput");
+		debug ("INHoopHDFSSingleFileOutput ()");
 										
-		setHoopDescription ("Parse Sentences into Tokens");
+		setHoopDescription ("HDFS Single File Write");
     }
 	/**
 	 *

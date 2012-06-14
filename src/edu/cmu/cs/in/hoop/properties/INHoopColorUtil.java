@@ -21,9 +21,8 @@ package edu.cmu.cs.in.hoop.properties;
 import java.awt.*;
 
 /**
- * This clas extends the color class and 
- * add features like valueOf to the color class
- * to convert HTML color format to a Color object.
+ * This clas extends the color class and add features like valueOf to 
+ * the color class to convert HTML color format to a Color object.
  */
 public class INHoopColorUtil  
 {

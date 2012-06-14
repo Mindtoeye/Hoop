@@ -130,9 +130,11 @@ public class INHoopVisualGraphComponent extends mxGraphComponent
 		{
 			return new Component[] 
 			{ 
-				new INHoopNodePanel (state.getCell(), this) 
+				new INHoopNodePanel (state.getCell(), this)
 			};
 		}
+		
+		debug ("Returning null");
 
 		return (null);
 	}	

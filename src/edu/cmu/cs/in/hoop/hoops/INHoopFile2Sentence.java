@@ -21,6 +21,7 @@ package edu.cmu.cs.in.hoop.hoops;
 import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.INKV;
+import edu.cmu.cs.in.hoop.base.INHoopBase;
 import edu.cmu.cs.in.hoop.base.INHoopTransformBase;
 
 /**
@@ -41,9 +42,11 @@ public class INHoopFile2Sentence extends INHoopTransformBase
 	/**
 	 *
 	 */
-	public Boolean runHoop ()
+	public Boolean runHoop (INHoopBase inHoop)
 	{		
 		debug ("runHoop ()");
+		
+		super.runHoop(inHoop);		
 				
 		return (true);
 	}	

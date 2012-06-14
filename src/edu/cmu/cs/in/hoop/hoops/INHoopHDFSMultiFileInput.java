@@ -22,22 +22,23 @@ import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.INKV;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
+import edu.cmu.cs.in.hoop.base.INHoopFileLoadBase;
 import edu.cmu.cs.in.hoop.base.INHoopTransformBase;
 
 /**
 * 
 */
-public class INHoopSentence2Tokens extends INHoopTransformBase
+public class INHoopHDFSMultiFileInput extends INHoopFileLoadBase
 {    					
 	/**
 	 *
 	 */
-    public INHoopSentence2Tokens () 
+    public INHoopHDFSMultiFileInput () 
     {
-		setClassName ("INHoopSentence2Tokens");
-		debug ("INHoopSentence2Tokens ()");
+		setClassName ("INHoopHDFSMultiFileInput");
+		debug ("INHoopHDFSMultiFileInput ()");
 										
-		setHoopDescription ("Parse Sentences into Tokens");
+		setHoopDescription ("HDFS Mulitple File Save");
     }
 	/**
 	 *

@@ -43,10 +43,8 @@ public class INHoopFileLoadBase extends INHoopBase
 		setHoopCategory ("load");
 		fManager=new INFileManager ();
 		fileKV=new INKV ();
-				
-		ArrayList <INKV> aData=this.getData();
-		
-		aData.add(fileKV);
+						
+		addKV(fileKV);
 		
 		setHoopDescription ("Load From File");
     }
@@ -67,15 +65,17 @@ public class INHoopFileLoadBase extends INHoopBase
 	/**
 	 *
 	 */
-	public Boolean runHoop ()
+	public Boolean runHoop (INHoopBase inHoop)
 	{		
 		debug ("runHoop ()");
 		
+		super.runHoop(inHoop);		
+						
 		fileKV.setKeyString(fManager.getURI());
 		fileKV.setValue(fManager.loadContents(inputStreamPath));
 		
 		return (true);
-	}
+	}	
 	/**
 	 *
 	 */	

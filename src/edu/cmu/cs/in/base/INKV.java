@@ -70,6 +70,12 @@ public class INKV //extends INBase
 	 */	
 	public String getKeyString() 
 	{
+		if (keyString.isEmpty()==true)
+		{
+			Integer transformer=key;
+			return (transformer.toString());
+		}
+		
 		return keyString;
 	}
 	/**
