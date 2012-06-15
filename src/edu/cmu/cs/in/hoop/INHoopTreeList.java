@@ -28,7 +28,7 @@ import java.util.Enumeration;
 
 import java.awt.Cursor;
 import java.awt.Font;
-//import java.awt.Point;
+import java.awt.Point;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
@@ -36,8 +36,8 @@ import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DragGestureEvent;
 import java.awt.dnd.DragGestureListener;
 import java.awt.dnd.DragSource;
-//import java.awt.event.MouseEvent;
-//import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
@@ -50,14 +50,14 @@ import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
-//import com.mxgraph.model.mxCell;
-//import com.mxgraph.model.mxGeometry;
+import com.mxgraph.model.mxCell;
+import com.mxgraph.model.mxGeometry;
 import com.mxgraph.swing.util.mxGraphTransferable;
-//import com.mxgraph.swing.util.mxSwingConstants;
+import com.mxgraph.swing.util.mxSwingConstants;
 import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxEventSource;
-//import com.mxgraph.util.mxRectangle;
+import com.mxgraph.util.mxRectangle;
 
 import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.controls.INHoopShadowBorder;
@@ -68,14 +68,15 @@ import edu.cmu.cs.in.hoop.base.INHoopBase;
 /**
  * 
  */
-//public class INHoopTreeList extends INEmbeddedJPanel implements MouseListener
-//public class INHoopTreeList extends INEmbeddedJPanel implements DragGestureListener
 public class INHoopTreeList extends INEmbeddedJPanel
 {
 	private static final long serialVersionUID = 1L;		
 	private JTree tree=null;
 	protected JLabel selectedEntry = null;	
 	protected mxEventSource eventSource = new mxEventSource(this);
+	
+	private INJTreeHoopRenderer treeHoopRenderer=null;
+	private mxGraphTransferable transferable=null;
 	
 	/**
 	 * 
@@ -86,16 +87,19 @@ public class INHoopTreeList extends INEmbeddedJPanel
 		debug ("INHoopTreeList ()");    	
 		
 		this.setSingleInstance(true);
+		
+		treeHoopRenderer=new INJTreeHoopRenderer ();
 				
 		tree = new JTree(toTreeModel ());
 		tree.setFont(new Font("Dialog", 1, 10));
-		tree.setCellRenderer (new INJTreeHoopRenderer ());
+		tree.setCellRenderer (treeHoopRenderer);
 		tree.getSelectionModel().setSelectionMode (TreeSelectionModel.SINGLE_TREE_SELECTION);
 		tree.setRootVisible(false);
 		tree.setBorder(BorderFactory.createEmptyBorder(4,4,4,4));
 		tree.putClientProperty("JTree.lineStyle", "Horizontal");
-		//tree.addMouseListener (this);
 		tree.setDragEnabled(true);
+		
+		treeHoopRenderer.setTree(tree);
 		
 		JScrollPane scrollPane=new JScrollPane(tree);
 		scrollPane.setBorder(BorderFactory.createEmptyBorder(4,4,4,4));
@@ -104,6 +108,8 @@ public class INHoopTreeList extends INEmbeddedJPanel
 		
 		TreeNode root = (TreeNode) tree.getModel().getRoot();
 		expandAll (tree, new TreePath(root));				
+		
+		initTreeDnD ();
 		
 		tree.setTransferHandler(new TransferHandler()
 		{
@@ -140,26 +146,92 @@ public class INHoopTreeList extends INEmbeddedJPanel
 
 	            if (node.isLeaf()) 
 	            {
-	                // TODO create the Transferable instance for the selected leaf
 	            	debug ("Creating transferable instance of leaf node ...");
-	            	
-	            	return new StringSelection("foo");
+	            		            	
+	            	return (transferable);
 	            }
 	            else
 	            	debug ("Tree node is not a leaf, not dragging");
 	               
-	            return null;
+	            return (null);
 	        }			
-		});		
+		});
+		
+		tree.addMouseListener(new MouseListener()
+		{
+			public void mousePressed(MouseEvent e)
+			{
+				debug ("mousePressed ()");
+				
+				int x = (int) e.getPoint().getX();
+		        int y = (int) e.getPoint().getY();
+		        
+		        TreePath path = tree.getPathForLocation(x, y);
+		        if (path == null) 
+		        {
+		            tree.setCursor(Cursor.getDefaultCursor());
+		        } 
+		        else 
+		        {
+		            tree.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		            
+		            setSelectionEntry(treeHoopRenderer, transferable);		            
+		        }												
+			}
+			public void mouseClicked(MouseEvent e)
+			{
+				debug ("mouseClicked ()");				
+			}
+			public void mouseEntered(MouseEvent e)
+			{
+				debug ("mouseEntered ()");				
+			}
+			public void mouseExited(MouseEvent e)
+			{
+				debug ("mouseExited ()");				
+			}
+			public void mouseReleased(MouseEvent e)
+			{
+				debug ("mouseReleased ()");				
+			}
+		});				
     }
 	/**
-	 * When this method is called we should assume that we have to
-	 * re-evaluate all existing hoop templates
+	 * 
+	 */
+	private void initTreeDnD ()
+	{
+		debug ("initTreeDnD ()");
+		
+		mxCell cell = new mxCell (treeHoopRenderer,new mxGeometry (0,0,100,100),"label;image=/assets/images/gear.png");
+		cell.setVertex (true);
+		
+		mxRectangle bounds = (mxGeometry) cell.getGeometry().clone();
+		
+		transferable = new mxGraphTransferable (new Object[] { cell }, bounds);
+				
+		// Install the handler for dragging nodes into a graph
+		/*
+		DragGestureListener dragGestureListener = new DragGestureListener()
+		{
+			public void dragGestureRecognized(DragGestureEvent e)
+			{
+				debug ("dragGestureRecognized");
+				
+				e.startDrag (null,mxSwingConstants.EMPTY_IMAGE,new Point(),transferable, null);
+			}
+		};
+		
+		DragSource dragSource = new DragSource();
+		dragSource.createDefaultDragGestureRecognizer (treeHoopRenderer,DnDConstants.ACTION_COPY, dragGestureListener);
+		*/
+	}
+	/**
+	 * When this method is called we should assume that we have to re-evaluate all existing hoop templates
 	 */	
 	public void updateContents() 
 	{
 		debug ("updateContents ()");
-
 	}	
 	/**
 	 *
@@ -198,75 +270,16 @@ public class INHoopTreeList extends INEmbeddedJPanel
 	    tree.expandPath(parent);	    
 	 }
 	/**
-	 *
-	 */
-	/*
-	@Override
-	public void mouseClicked(MouseEvent e) 
-	{
-		debug ("mouseClicked ()");
-		
-	}
-	*/
-	/**
-	 *
-	 */	
-	/*
-	@Override
-	public void mouseEntered(MouseEvent e) 
-	{
-		debug ("mouseEntered ()");
-		
-	}
-	*/
-	/**
-	 *
-	 */	
-	/*
-	@Override
-	public void mouseExited(MouseEvent e) 
-	{
-		debug ("mouseExited ()");
-		
-	}
-	*/
-	/**
-	 *
-	 */	
-	/*
-	@Override
-	public void mousePressed(MouseEvent e) 
-	{
-		debug ("mousePressed ()");
-		
-		clearSelection();
-	}
-	*/
-	/**
-	 *
-	 */
-	/*
-	@Override	
-	public void mouseReleased(MouseEvent e) 
-	{
-		debug ("mouseReleased ()");
-		
-	}
-	*/	
-	/**
-	 * 
-	 */
-	/*
-	public void clearSelection()
-	{
-		setSelectionEntry(null, null);
-	}
-	*/	
-	/**
 	 * 
 	 */
 	public void setSelectionEntry (JLabel entry,mxGraphTransferable transferable)
 	{
+		debug ("setSelectionEntry ()");
+		
+		DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+		
+		//treeHoopRenderer.setHoopTemplate (node.getUserObject());
+		
 		JLabel previous = selectedEntry;
 		selectedEntry = entry;
 
@@ -318,28 +331,7 @@ public class INHoopTreeList extends INEmbeddedJPanel
     				{
     					DefaultMutableTreeNode templateNode = new DefaultMutableTreeNode(hoopTemplate.getClassName());
     					templateNode.setUserObject(hoopTemplate);
-    					catNode.add(templateNode);
-    					
-    					/*
-    					mxCell cell = new mxCell (templateNode,new mxGeometry (0,0,50,50),"label;image=/assets/images/gear.png");
-    					cell.setVertex (true);
-    					
-    					mxRectangle bounds = (mxGeometry) cell.getGeometry().clone();
-    					
-    					final mxGraphTransferable transferable = new mxGraphTransferable (new Object[] { cell }, bounds);
-    					    					
-    					// Install the handler for dragging nodes into a graph
-    					DragGestureListener dragGestureListener = new DragGestureListener()
-    					{
-    						public void dragGestureRecognized(DragGestureEvent e)
-    						{
-    							e.startDrag (null,mxSwingConstants.EMPTY_IMAGE,new Point(),transferable, null);
-    						}
-    					};    					
-    					
-    					DragSource dragSource = new DragSource();
-    					dragSource.createDefaultDragGestureRecognizer (templateNode,DnDConstants.ACTION_COPY, dragGestureListener);
-    					*/    					
+    					catNode.add(templateNode);    							
     				}	
     			}
     		}	
@@ -347,36 +339,4 @@ public class INHoopTreeList extends INEmbeddedJPanel
     	
     	return (root);
     }
-    /*
-	@Override
-	public void dragGestureRecognized(DragGestureEvent e) 
-	{
-		debug ("dragGestureRecognized ()");
-		
-        DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getSelectionPath().getLastPathComponent();
-
-        if (node.isLeaf())  
-    	{
-        	debug ("Dragging tree leaf ...");
-        	
-    		//Transferable transferable =(Transferable) dragNode.getUserObject();
-
-    		Cursor cursor = selectCursor (e.getDragAction());
-
-    		//tree.startDrag(e, cursor, transferable, this);
-    	}		
-	}
-	*/
-	/** 
-	 * @param action
-	 * @return
-	 */
-    /*
-    private Cursor selectCursor (int action) 
-    {
-    	debug ("selectCursor ()");
-    	
-    	return (action == DnDConstants.ACTION_MOVE) ? DragSource.DefaultMoveDrop : DragSource.DefaultCopyDrop;
-    } 
-    */   
 }

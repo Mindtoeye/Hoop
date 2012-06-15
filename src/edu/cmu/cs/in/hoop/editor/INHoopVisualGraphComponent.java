@@ -18,7 +18,6 @@
 
 package edu.cmu.cs.in.hoop.editor;
 
-//import java.awt.Color;
 import java.awt.Component;
 //import java.awt.Point;
 
@@ -35,7 +34,6 @@ import com.mxgraph.view.mxGraph;
 //import edu.cmu.cs.in.hoop.INHoopGraphEditor;
 import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.INHoopProperties;
-//import edu.cmu.cs.in.hoop.editor.INHoopNodeRenderer;
 
 /**
  * 
@@ -124,18 +122,18 @@ public class INHoopVisualGraphComponent extends mxGraphComponent
 	 */
 	public Component[] createComponents(mxCellState state)
 	{
-		debug ("createComponents ()");
+		debug ("createComponents ("+state+")");
 		
 		if (getGraph().getModel().isVertex(state.getCell()))
 		{
+			debug ("Returning valid INHoopNodePanel for vertex cell...");
+			
 			return new Component[] 
 			{ 
 				new INHoopNodePanel (state.getCell(), this)
 			};
 		}
 		
-		debug ("Returning null");
-
 		return (null);
 	}	
 }

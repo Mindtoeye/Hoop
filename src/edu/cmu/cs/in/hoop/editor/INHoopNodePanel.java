@@ -47,8 +47,8 @@ public class INHoopNodePanel extends INHoopNodeRenderer
 	{
 		super (cell,graphContainer);
 		
-		setClassName ("INHoopNodeRenderer");
-		debug ("INHoopNodeRenderer ()");
+		setClassName ("INHoopNodePanel");
+		debug ("INHoopNodePanel ()");
 		
 		propPanel=(INHoopPropertyPanel) INHoopLink.getWindow("Properties");
 					
@@ -61,7 +61,7 @@ public class INHoopNodePanel extends INHoopNodeRenderer
 		
 		setHoop (new INHoopFileLoadBase ()); // Just for testing
 		
-		debug ("INHoopNodeRenderer () done");
+		debug ("INHoopNodePanel () done");
 	}
 	/**
 	 * 
