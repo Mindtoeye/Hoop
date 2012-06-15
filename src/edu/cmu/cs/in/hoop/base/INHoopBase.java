@@ -42,6 +42,8 @@ public class INHoopBase extends INHoopInspectable
 	/// One of: STOPPED, WAITING, RUNNING, PAUSED, ERROR
 	private String executionState="STOPPED"; 
 	
+	private Boolean inEditor=false;
+	
 	/**
 	 *
 	 */
@@ -53,16 +55,32 @@ public class INHoopBase extends INHoopInspectable
 		hoopCategory=new StringBuffer ();
 		hoopCategory.append("root");
 		
+		outHoops=new ArrayList<INHoopBase> ();
 		data=new ArrayList<INKV> ();
 		
 		setHoopDescription ("Abstract Hoop");
 		
-		generateRandomKVs ();
-    }    
+		//generateRandomKVs ();
+    }  
+	/**
+	 * 
+	 */    
+	public void setInEditor(Boolean inEditor) 
+	{
+		this.inEditor = inEditor;
+	}
+	/**
+	 * 
+	 */	
+	public Boolean getInEditor() 
+	{
+		return inEditor;
+	}    
 	/**
 	 * 
 	 */
-    private void generateRandomKVs ()
+    @SuppressWarnings("unused")
+	private void generateRandomKVs ()
     {
     	for (int i=0;i<200;i++)
     	{
@@ -142,13 +160,22 @@ public class INHoopBase extends INHoopInspectable
 	{
 		return (inHoops);
 	}
-	*/
+	*/	
 	/**
 	 *
 	 */	
 	public ArrayList <INHoopBase> getOutHoops ()
 	{
 		return (outHoops);
+	}
+	/**
+	 *
+	 */
+	public void addOutHoop (INHoopBase aHoop)
+	{
+		debug ("addOutHoop ()");
+		
+		outHoops.add(aHoop);
 	}
 	/**
 	 *
