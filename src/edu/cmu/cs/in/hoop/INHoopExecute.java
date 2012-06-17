@@ -106,7 +106,7 @@ public class INHoopExecute extends INBase implements Runnable
 		
 		root.setInEditor(inEditor);
 		
-		if (root.runHoop(null)==false)
+		if (root.runHoopInternal(null)==false)
 		{
 			debug ("Error executing hoop:" + root.getErrorString());
 			return (false);
@@ -130,9 +130,10 @@ public class INHoopExecute extends INBase implements Runnable
 		{
 			INHoopBase current=outHoops.get(i);
 			
+			current.reset();
 			current.setInEditor(inEditor);
 			
-			if (current.runHoop(aRoot)==false)
+			if (current.runHoopInternal(aRoot)==false)
 			{
 				debug ("Error executing hoop:" + current.getErrorString());
 				return (false);

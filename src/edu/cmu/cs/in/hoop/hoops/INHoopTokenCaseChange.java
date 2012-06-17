@@ -22,12 +22,13 @@ import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.INKV;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
+import edu.cmu.cs.in.hoop.base.INHoopInterface;
 import edu.cmu.cs.in.hoop.base.INHoopTransformBase;
 
 /**
 * 
 */
-public class INHoopTokenCaseChange extends INHoopTransformBase
+public class INHoopTokenCaseChange extends INHoopTransformBase implements INHoopInterface
 {    					
 	private Boolean toLower=true;
 	
@@ -82,4 +83,11 @@ public class INHoopTokenCaseChange extends INHoopTransformBase
 				
 		return (true);
 	}
+	/**
+	 * 
+	 */
+	public INHoopBase copy ()
+	{
+		return (new INHoopTokenCaseChange ());
+	}	
 }

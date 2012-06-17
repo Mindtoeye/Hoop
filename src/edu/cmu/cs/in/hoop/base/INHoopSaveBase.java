@@ -21,7 +21,7 @@ package edu.cmu.cs.in.hoop.base;
 /**
 * 
 */
-public class INHoopSaveBase extends INHoopBase
+public class INHoopSaveBase extends INHoopBase implements INHoopInterface
 {    				
 	private String content=null;
 	

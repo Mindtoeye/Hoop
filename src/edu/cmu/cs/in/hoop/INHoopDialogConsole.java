@@ -32,9 +32,12 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
+import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
 import edu.cmu.cs.in.base.INHoopLink;
@@ -64,6 +67,7 @@ public class INHoopDialogConsole extends INEmbeddedJPanel implements KeyListener
 	private JButton setButton=null;
 	private JButton inButton=null;
 	private JButton outButton=null;	    
+	private JCheckBox submitEnter=null;
 		
 	/**
 	 * 
@@ -89,14 +93,14 @@ public class INHoopDialogConsole extends INEmbeddedJPanel implements KeyListener
 		clearButton.setMargin(new Insets(1, 1, 1, 1));
 		//clearButton.setText("Clear");
 		clearButton.setFont(new Font("Courier",1,8));
-		clearButton.setPreferredSize(new Dimension (16,16));
+		clearButton.setPreferredSize(new Dimension (20,16));
 		clearButton.addActionListener(this);
 		
 		saveButton=new JButton ();	
 		saveButton.setIcon(INHoopLink.imageIcons [19]);
 		saveButton.setMargin(new Insets(1, 1, 1, 1));
 		saveButton.setFont(new Font("Courier",1,8));
-		saveButton.setPreferredSize(new Dimension (16,16));
+		saveButton.setPreferredSize(new Dimension (20,16));
 		saveButton.addActionListener(this);
 		
 		maxLines=new JTextField ();
@@ -110,8 +114,8 @@ public class INHoopDialogConsole extends INEmbeddedJPanel implements KeyListener
 		setButton.setIcon(INHoopLink.imageIcons [22]);
 		setButton.setMargin(new Insets(1, 1, 1, 1));
 		setButton.setFont(new Font("Courier",1,8));
-		setButton.setMinimumSize(new Dimension (16,16));
-		setButton.setPreferredSize(new Dimension (16,16));
+		setButton.setMinimumSize(new Dimension (20,16));
+		setButton.setPreferredSize(new Dimension (20,16));
 		setButton.addActionListener(this);
 		
 		inButton=new JButton ();
@@ -119,7 +123,7 @@ public class INHoopDialogConsole extends INEmbeddedJPanel implements KeyListener
 		inButton.setIcon(INHoopLink.imageIcons [72]);
 		inButton.setMargin(new Insets(1, 1, 1, 1));
 		inButton.setFont(new Font("Courier",1,8));
-		inButton.setPreferredSize(new Dimension (16,16));
+		inButton.setPreferredSize(new Dimension (20,16));
 		inButton.addActionListener(this);
 		
 		outButton=new JButton ();
@@ -127,14 +131,30 @@ public class INHoopDialogConsole extends INEmbeddedJPanel implements KeyListener
 		outButton.setIcon(INHoopLink.imageIcons [73]);
 		outButton.setMargin(new Insets(1, 1, 1, 1));
 		outButton.setFont(new Font("Courier",1,8));
-		outButton.setPreferredSize(new Dimension (16,16));
+		outButton.setPreferredSize(new Dimension (20,16));
 		outButton.addActionListener(this);
 		
+		submitEnter=new JCheckBox ();
+		submitEnter.setText("Submit on Enter");
+		submitEnter.setSelected(true);
+		submitEnter.setFont(new Font("Courier",1,8));
+		submitEnter.setPreferredSize(new Dimension (100,16));		
+		
 		Box controlBox = new Box (BoxLayout.X_AXIS);
+		controlBox.add(submitEnter);
+		
+        JSeparator sep=new JSeparator(SwingConstants.VERTICAL);
+        sep.setMinimumSize(new Dimension (10,5));
+        sep.setMaximumSize(new Dimension (10,50));
+        
+		controlBox.add(setButton);
+		
+        controlBox.add(sep);
+        
 		controlBox.add(clearButton);
 		controlBox.add(saveButton);
 		controlBox.add(maxLines);
-		controlBox.add(setButton);
+		
 		controlBox.add(inButton);
 		controlBox.add(outButton);
 		controlBox.add(Box.createHorizontalGlue());
@@ -154,6 +174,8 @@ public class INHoopDialogConsole extends INEmbeddedJPanel implements KeyListener
 		mainBox.add(textArea);		
 										
 		// We should be ready for action now
+		
+		this.setBorder(BorderFactory.createEmptyBorder(2,2,2,2));
 		
 		setContentPane (mainBox);					
 	}
@@ -249,6 +271,8 @@ public class INHoopDialogConsole extends INEmbeddedJPanel implements KeyListener
 		}
 		else
 			JOptionPane.showMessageDialog(null, "Error: no input hoop available process request");
+		
+		entry.setText("");
 	}
 	/**
 	 * 

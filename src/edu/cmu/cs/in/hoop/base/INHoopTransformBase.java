@@ -21,7 +21,7 @@ package edu.cmu.cs.in.hoop.base;
 /**
 * 
 */
-public class INHoopTransformBase extends INHoopBase
+public class INHoopTransformBase extends INHoopBase implements INHoopInterface
 {    				
 	/**
 	 *

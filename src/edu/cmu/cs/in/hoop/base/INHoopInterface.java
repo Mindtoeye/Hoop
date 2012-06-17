@@ -16,43 +16,23 @@
  * 
  */
 
-package edu.cmu.cs.in.hoop.hoops;
-
-import edu.cmu.cs.in.hoop.base.INHoopBase;
-import edu.cmu.cs.in.hoop.base.INHoopFileLoadBase;
-import edu.cmu.cs.in.hoop.base.INHoopInterface;
+package edu.cmu.cs.in.hoop.base;
 
 /**
-* 
+* Here we have the basis for all the hoops. It manages incoming and
+* outgoing links to other hoops. Please keep in mind that even
+* though the API allows more than one incoming hoop, we currently
+* restrict the functionality to only one.
 */
-public class INHoopHDFSSingleFileInput extends INHoopFileLoadBase implements INHoopInterface
-{    					
+public interface INHoopInterface
+{    			
 	/**
 	 *
 	 */
-    public INHoopHDFSSingleFileInput () 
-    {
-		setClassName ("INHoopHDFSSingleFileInput");
-		debug ("INHoopHDFSSingleFileInput ()");
-										
-		setHoopDescription ("HDFS Single File Load");
-    }
-	/**
-	 *
-	 */
-	public Boolean runHoop (INHoopBase inHoop)
-	{		
-		debug ("runHoop ()");
-		
-		super.runHoop(inHoop);		
-				
-		return (true);
-	}	
+	public Boolean runHoop (INHoopBase inHoop);
+
 	/**
 	 * 
 	 */
-	public INHoopBase copy ()
-	{
-		return (new INHoopHDFSSingleFileInput ());
-	}	
+	public INHoopBase copy ();
 }

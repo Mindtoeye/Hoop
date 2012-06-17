@@ -24,12 +24,13 @@ import java.util.List;
 import edu.cmu.cs.in.base.INKV;
 import edu.cmu.cs.in.base.INSimpleFeatureMaker;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
+import edu.cmu.cs.in.hoop.base.INHoopInterface;
 import edu.cmu.cs.in.hoop.base.INHoopTransformBase;
 
 /**
 * 
 */
-public class INHoopSentence2Tokens extends INHoopTransformBase
+public class INHoopSentence2Tokens extends INHoopTransformBase implements INHoopInterface
 {    					
 	/**
 	 *
@@ -73,4 +74,11 @@ public class INHoopSentence2Tokens extends INHoopTransformBase
 				
 		return (true);
 	}	
+	/**
+	 * 
+	 */
+	public INHoopBase copy ()
+	{
+		return (new INHoopSentence2Tokens ());
+	}		
 }

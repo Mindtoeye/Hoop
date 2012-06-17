@@ -20,30 +20,25 @@ package edu.cmu.cs.in.hoop.hoops;
 
 import java.util.ArrayList;
 
-import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.base.INKV;
-import edu.cmu.cs.in.hoop.INHoopDialogConsole;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
 import edu.cmu.cs.in.hoop.base.INHoopInterface;
+import edu.cmu.cs.in.hoop.base.INHoopTransformBase;
 
 /**
 * 
 */
-public class INHoopStdout extends INHoopBase implements INHoopInterface
-{    	
-	private INHoopDialogConsole userIO=null;
-	
+public class INHoopFilterGarbage extends INHoopTransformBase implements INHoopInterface
+{    				
 	/**
 	 *
 	 */
-    public INHoopStdout () 
+    public INHoopFilterGarbage () 
     {
-		setClassName ("INHoopStdout");
-		debug ("INHoopStdout ()");
-										
-		setHoopCategory ("save");
-		
-		setHoopDescription ("Write to Standard Output");
+		setClassName ("INHoopFilterGarbage");
+		debug ("INHoopFilterGarbage ()");
+				
+		setHoopDescription ("Remove any garbage terms from input KVs");		
     }
 	/**
 	 *
@@ -52,45 +47,33 @@ public class INHoopStdout extends INHoopBase implements INHoopInterface
 	{		
 		debug ("runHoop ()");
 		
-		super.runHoop(inHoop);
+		super.runHoop(inHoop);		
 		
 		ArrayList <INKV> inData=inHoop.getData();
-		
-		if (getInEditor()==true)
-		{
-			userIO=(INHoopDialogConsole) INHoopLink.getWindow("User Dialog");
-			if (userIO==null)
-			{
-				INHoopLink.addView ("User Dialog",new INHoopDialogConsole (),INHoopLink.bottom);
-				userIO=(INHoopDialogConsole) INHoopLink.getWindow("User Dialog");
-			}			
-			
-			userIO.setOutHoop(this);
-			
+		if (inData!=null)
+		{					
 			for (int i=0;i<inData.size();i++)
 			{
 				INKV aKV=inData.get(i);
 				
-				userIO.processOutput (aKV.getKeyString()+" : " + aKV.getValue());					
-			}			
+				Boolean isGarbage=false;
+								
+				if (isGarbage==false)
+				{
+					addKV (new INKV (i,aKV.getValue()));
+				}	
+			}						
 		}
 		else
-		{
-			for (int i=0;i<inData.size();i++)
-			{
-				INKV aKV=inData.get(i);
-				
-				System.out.println(aKV.getKeyString()+" : " + aKV.getValue());
-			}
-		}		
+			return (false);		
 				
 		return (true);
-	}	
+	}	 
 	/**
 	 * 
 	 */
 	public INHoopBase copy ()
 	{
-		return (new INHoopStdout ());
-	}		
+		return (new INHoopFilterGarbage ());
+	}	
 }

@@ -23,12 +23,13 @@ import java.util.ArrayList;
 import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.base.INKV;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
+import edu.cmu.cs.in.hoop.base.INHoopInterface;
 import edu.cmu.cs.in.hoop.base.INHoopTransformBase;
 
 /**
 * 
 */
-public class INHoopFilterStopWords extends INHoopTransformBase
+public class INHoopFilterStopWords extends INHoopTransformBase implements INHoopInterface
 {    				
 	/**
 	 *

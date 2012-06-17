@@ -22,12 +22,13 @@ import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.INKV;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
+import edu.cmu.cs.in.hoop.base.INHoopInterface;
 import edu.cmu.cs.in.hoop.base.INHoopTransformBase;
 
 /**
 * 
 */
-public class INHoopFile2Sentence extends INHoopTransformBase
+public class INHoopFile2Sentence extends INHoopTransformBase implements INHoopInterface
 {    					
 	/**
 	 *
@@ -50,4 +51,11 @@ public class INHoopFile2Sentence extends INHoopTransformBase
 				
 		return (true);
 	}	
+	/**
+	 * 
+	 */
+	public INHoopBase copy ()
+	{
+		return (new INHoopFile2Sentence ());
+	}		
 }

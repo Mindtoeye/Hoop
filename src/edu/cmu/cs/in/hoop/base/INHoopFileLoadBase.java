@@ -26,7 +26,7 @@ import edu.cmu.cs.in.base.INKV;
 /**
 * 
 */
-public class INHoopFileLoadBase extends INHoopBase
+public class INHoopFileLoadBase extends INHoopBase implements INHoopInterface
 {    				
 	private INFileManager fManager=null;
 	private INKV fileKV=null;

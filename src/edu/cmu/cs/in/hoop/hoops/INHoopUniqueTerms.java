@@ -26,12 +26,13 @@ import java.util.Map;
 
 import edu.cmu.cs.in.base.INKV;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
+import edu.cmu.cs.in.hoop.base.INHoopInterface;
 import edu.cmu.cs.in.hoop.base.INHoopTransformBase;
 
 /**
 * 
 */
-public class INHoopUniqueTerms extends INHoopTransformBase
+public class INHoopUniqueTerms extends INHoopTransformBase implements INHoopInterface
 {    				
 	/**
 	 *

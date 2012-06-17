@@ -22,6 +22,8 @@ import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.INKV;
 import edu.cmu.cs.in.hoop.properties.INHoopInspectable;
+import edu.cmu.cs.in.stats.INPerformanceMetrics;
+import edu.cmu.cs.in.stats.INStatisticsMeasure;
 
 /**
 * Here we have the basis for all the hoops. It manages incoming and
@@ -29,9 +31,8 @@ import edu.cmu.cs.in.hoop.properties.INHoopInspectable;
 * though the API allows more than one incoming hoop, we currently
 * restrict the functionality to only one.
 */
-public class INHoopBase extends INHoopInspectable
+public class INHoopBase extends INHoopInspectable implements INHoopInterface
 {    			
-	//private ArrayList <INHoopBase> inHoops=null;
 	private ArrayList <INHoopBase> outHoops=null;	
 	private ArrayList <INKV> data=null;
 
@@ -45,6 +46,9 @@ public class INHoopBase extends INHoopInspectable
 	private Boolean inEditor=false;
 	
 	private String errorString="";
+	
+	private INPerformanceMetrics performance=null;
+	private INStatisticsMeasure stats=null;
 	
 	/**
 	 *
@@ -60,10 +64,26 @@ public class INHoopBase extends INHoopInspectable
 		outHoops=new ArrayList<INHoopBase> ();
 		data=new ArrayList<INKV> ();
 		
+		performance=new INPerformanceMetrics ();
+		
 		setHoopDescription ("Abstract Hoop");
 		
 		//generateRandomKVs ();
     }
+	/**
+	 * 
+	 */    
+	public void setStats(INStatisticsMeasure stats) 
+	{
+		this.stats = stats;
+	}
+	/**
+	 * 
+	 */	
+	public INStatisticsMeasure getStats() 
+	{
+		return stats;
+	}    
 	/**
 	 * 
 	 */	
@@ -220,16 +240,33 @@ public class INHoopBase extends INHoopInspectable
 	public String getHoopDescription() 
 	{
 		return hoopDescription;
-	}		
+	}	
+	/**
+	 *
+	 */
+	public Boolean runHoopInternal (INHoopBase inHoop)
+	{	
+		performance.setMarker ("start");
+		
+		setExecutionState ("RUNNING");
+	
+		Boolean result=runHoop (inHoop);
+		
+		setExecutionState ("STOPPED");
+		
+		Long metric=performance.getOutPoint ();
+		
+		debug ("Hoop executed in: " + metric+"ms");
+				
+		return (result);
+	}	
 	/**
 	 *
 	 */
 	public Boolean runHoop (INHoopBase inHoop)
 	{		
 		// Implement in child class!
-		
-		setExecutionState ("RUNNING");
-		
+				
 		return (true);
 	}
 	/**

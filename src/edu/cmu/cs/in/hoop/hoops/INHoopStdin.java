@@ -28,11 +28,12 @@ import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.base.INKV;
 import edu.cmu.cs.in.hoop.INHoopDialogConsole;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
+import edu.cmu.cs.in.hoop.base.INHoopInterface;
 
 /**
 * 
 */
-public class INHoopStdin extends INHoopBase
+public class INHoopStdin extends INHoopBase implements INHoopInterface
 {    	
 	public static int lineCounter=0;
     private BufferedReader in=null;		

@@ -23,7 +23,7 @@ import edu.cmu.cs.in.base.INFileManager;
 /**
 * 
 */
-public class INHoopFileSaveBase extends INHoopBase
+public class INHoopFileSaveBase extends INHoopBase implements INHoopInterface
 {    				
 	private String content=null;
 	

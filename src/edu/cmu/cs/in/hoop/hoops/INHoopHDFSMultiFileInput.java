@@ -23,12 +23,13 @@ import java.util.ArrayList;
 import edu.cmu.cs.in.base.INKV;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
 import edu.cmu.cs.in.hoop.base.INHoopFileLoadBase;
+import edu.cmu.cs.in.hoop.base.INHoopInterface;
 import edu.cmu.cs.in.hoop.base.INHoopTransformBase;
 
 /**
 * 
 */
-public class INHoopHDFSMultiFileInput extends INHoopFileLoadBase
+public class INHoopHDFSMultiFileInput extends INHoopFileLoadBase implements INHoopInterface
 {    					
 	/**
 	 *
@@ -51,4 +52,11 @@ public class INHoopHDFSMultiFileInput extends INHoopFileLoadBase
 				
 		return (true);
 	}	
+	/**
+	 * 
+	 */
+	public INHoopBase copy ()
+	{
+		return (new INHoopHDFSMultiFileInput ());
+	}		
 }

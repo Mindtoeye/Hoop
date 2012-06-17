@@ -23,7 +23,7 @@ import edu.cmu.cs.in.hoop.INHoopConsole;
 /**
 * 
 */
-public class INHoopDisplayBase extends INHoopBase
+public class INHoopDisplayBase extends INHoopBase implements INHoopInterface
 {    	
 	private INHoopConsole viewer=null;
 	

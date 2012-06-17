@@ -22,12 +22,13 @@ import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.INKV;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
+import edu.cmu.cs.in.hoop.base.INHoopInterface;
 import edu.cmu.cs.in.hoop.base.INHoopTransformBase;
 
 /**
 * 
 */
-public class INHoopPorterStemmer extends INHoopTransformBase
+public class INHoopPorterStemmer extends INHoopTransformBase implements INHoopInterface
 {    				
 	/**
 	 *
@@ -68,6 +69,6 @@ public class INHoopPorterStemmer extends INHoopTransformBase
 	 */
 	public INHoopBase copy ()
 	{
-		return (new INHoopFilterStopWords ());
+		return (new INHoopPorterStemmer ());
 	}	
 }

@@ -20,11 +20,12 @@ package edu.cmu.cs.in.hoop.hoops;
 
 import edu.cmu.cs.in.hoop.base.INHoopBase;
 import edu.cmu.cs.in.hoop.base.INHoopFileLoadBase;
+import edu.cmu.cs.in.hoop.base.INHoopInterface;
 
 /**
 * 
 */
-public class INHoopHDFSSingleFileOutput extends INHoopFileLoadBase
+public class INHoopHDFSSingleFileOutput extends INHoopFileLoadBase implements INHoopInterface
 {    					
 	/**
 	 *
@@ -46,5 +47,12 @@ public class INHoopHDFSSingleFileOutput extends INHoopFileLoadBase
 		super.runHoop(inHoop);		
 				
 		return (true);
+	}	
+	/**
+	 * 
+	 */
+	public INHoopBase copy ()
+	{
+		return (new INHoopHDFSSingleFileOutput ());
 	}	
 }

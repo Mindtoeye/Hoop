@@ -24,7 +24,9 @@ import edu.cmu.cs.in.hoop.base.INHoopBase;
 import edu.cmu.cs.in.hoop.base.INHoopDisplayBase;
 import edu.cmu.cs.in.hoop.base.INHoopFileLoadBase;
 import edu.cmu.cs.in.hoop.base.INHoopFileSaveBase;
+import edu.cmu.cs.in.hoop.hoops.INHoopCleanTokens;
 import edu.cmu.cs.in.hoop.hoops.INHoopFile2Sentence;
+import edu.cmu.cs.in.hoop.hoops.INHoopFilterGarbage;
 import edu.cmu.cs.in.hoop.hoops.INHoopFilterStopWords;
 import edu.cmu.cs.in.hoop.hoops.INHoopHDFSMultiFileInput;
 import edu.cmu.cs.in.hoop.hoops.INHoopHDFSMultiFileOutput;
@@ -130,10 +132,7 @@ public class INHoopManager extends INHoopBase
     	
     	addTemplate(new INHoopDisplayBase ());
     	addTemplate(new INHoopFileLoadBase ());
-    	addTemplate(new INHoopFileSaveBase ());
-    	//addTemplate(new INHoopLoadBase ());
-    	//addTemplate(new INHoopSaveBase ());
-    	//addTemplate(new INHoopTransformBase ());    	
+    	addTemplate(new INHoopFileSaveBase ());   	
     	addTemplate(new INHoopFile2Sentence ());
     	addTemplate(new INHoopSentence2Tokens ());
     	addTemplate(new INHoopScheduler ());
@@ -147,5 +146,7 @@ public class INHoopManager extends INHoopBase
     	addTemplate (new INHoopUniqueTerms ());
     	addTemplate (new INHoopTokenCaseChange ());
     	addTemplate (new INHoopPorterStemmer ());
+    	addTemplate (new INHoopCleanTokens ());
+    	addTemplate (new INHoopFilterGarbage ());
     }
 }
