@@ -21,7 +21,6 @@ import javax.swing.*;
 
 import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.INHoopLink;
-import edu.cmu.cs.in.base.INLink;
 import edu.cmu.cs.in.hoop.INHoopMainFrame;
 
 /** 
@@ -50,7 +49,7 @@ public class INHoop
     	@SuppressWarnings("unused")
 		INHoopLink link = new INHoopLink();     	    	
    	
-    	INBase.debug ("INQueryTest","main ()");
+    	INBase.debug ("INHoop","main ()");
     	
         UIManager.put ("swing.boldMetal", Boolean.FALSE);
         JDialog.setDefaultLookAndFeelDecorated (true);

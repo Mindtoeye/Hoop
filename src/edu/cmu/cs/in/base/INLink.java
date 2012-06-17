@@ -46,6 +46,7 @@ public class INLink extends INBase
 	public static boolean stemming=true;
 	public static boolean cleanoutput=false;
 	public static boolean dbglocal=false;
+	public static boolean nodebug=false;
 	public static int minstemsize=4;
 	
 	public static INHoopConsoleInterface console=null;

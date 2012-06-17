@@ -28,34 +28,71 @@ import edu.cmu.cs.in.hoop.hoops.INHoopStoud;
 /** 
  * @author Martin van Velsen
  */
-public class INHoopExecute extends INBase 
+public class INHoopExecute extends INBase implements Runnable 
 {
 	private INHoopBase root=null;
-	
+	/// -1 = forever, 1 = once, >1 = run N times
+	private int loopCount=-1; 
+	private Boolean loopExecuting=false;
+	private Boolean inEditor=false;
+		
 	/**
 	 *
 	 */
 	public INHoopExecute () 
 	{
 		setClassName ("INHoopExecute");
-		debug ("INHoopExecute ()");		
+		debug ("INHoopExecute ()");					
+	}	
+	/**
+	 * 
+	 */	
+	public void setRoot (INHoopBase aRoot)
+	{
+		root=aRoot;
 	}
 	/**
 	 * 
 	 */
-	public void testExecute ()
+	public INHoopBase getRoot ()
 	{
-		debug ("testExecute ()");
-				
-		INHoopStdin inp=new INHoopStdin ();
-		INHoopStoud outp=new INHoopStoud ();
-		inp.addOutHoop(outp);
-		inp.addOutHoop(outp);
-		
-		root=inp;
-				
-		execute ();
+		return (root);
 	}
+	/**
+	 * 
+	 */
+	public void stopExecution ()
+	{
+		loopExecuting=false;
+	}
+	/**
+	 * 
+	 */    
+	public void setInEditor(Boolean inEditor) 
+	{
+		this.inEditor = inEditor;
+	}
+	/**
+	 * 
+	 */	
+	public Boolean getInEditor() 
+	{
+		return inEditor;
+	} 	
+	/**
+	 * 
+	 */	
+	public void setLoopCount(int loopCount) 
+	{
+		this.loopCount = loopCount;
+	}
+	/**
+	 * 
+	 */	
+	public int getLoopCount() 
+	{
+		return loopCount;
+	}	
 	/**
 	 * 
 	 */
@@ -90,13 +127,51 @@ public class INHoopExecute extends INBase
 		{
 			INHoopBase current=outHoops.get(i);
 			
-			current.runHoop(aRoot);
+			current.setInEditor(inEditor);
+			
+			if (current.runHoop(aRoot)==false)
+			{
+				debug ("Error executing hoop:" + current.getErrorString());
+				return (false);
+			}
+			
+			/// One of: STOPPED, WAITING, RUNNING, PAUSED, ERROR
+			current.setExecutionState("STOPPED");
 			
 			if (current.getOutHoops().size()>0) // quick test before we execute
 				execute (current);
 		}
 		
 		return (true);
+	}
+	@Override
+	public void run() 
+	{	
+		debug ("run ()");
+		
+		loopExecuting=true;
+		
+		if (loopCount==-1)
+		{
+			while (loopExecuting==true)
+			{
+				execute ();
+			}	
+		}	
+		else
+		{
+			if (loopCount>0)
+			{
+				for (int i=0;i<loopCount;i++)
+				{
+					execute ();
+				}
+			}
+			else
+				debug ("Error: loop count can't be 0");
+		}
+		
+		loopExecuting=false;
 	}
 }
 
