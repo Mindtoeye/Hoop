@@ -22,9 +22,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.base.INKV;
+import edu.cmu.cs.in.hoop.INHoopDialogConsole;
+import edu.cmu.cs.in.hoop.INHoopReporter;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
-import edu.cmu.cs.in.hoop.base.INHoopFileLoadBase;
 
 /**
 * 
@@ -33,6 +35,7 @@ public class INHoopStdin extends INHoopBase
 {    	
 	public static int lineCounter=0;
     private BufferedReader in=null;		
+    private INHoopDialogConsole userIO=null;
 	
 	/**
 	 *
@@ -46,7 +49,7 @@ public class INHoopStdin extends INHoopBase
 		
 		setHoopDescription ("Read from Standard Input");
 		
-		in = new BufferedReader(new InputStreamReader(System.in));		
+		in = new BufferedReader(new InputStreamReader(System.in));
     }
 	/**
 	 *
@@ -59,7 +62,14 @@ public class INHoopStdin extends INHoopBase
 		
 		if (getInEditor()==true)
 		{
+			userIO=(INHoopDialogConsole) INHoopLink.getWindow("User Dialog");
+			if (userIO==null)
+			{
+				INHoopLink.addView ("User Dialog",new INHoopDialogConsole (),INHoopLink.bottom);
+				userIO=(INHoopDialogConsole) INHoopLink.getWindow("User Dialog");
+			}
 			
+			userIO.setInHoop(this);
 		}
 		else
 		{			
@@ -69,7 +79,7 @@ public class INHoopStdin extends INHoopBase
 			{
 				String str = in.readLine();
 				
-				addKV (new INKV (lineCounter,str));
+				processInput (str);
 				
 				lineCounter++;
 			} 
@@ -90,4 +100,13 @@ public class INHoopStdin extends INHoopBase
 	{
 		return (new INHoopStdin ());
 	}		
+	/**
+	 * 
+	 */
+	public void processInput (String anInput)
+	{
+		debug ("processInput ()");
+		
+		addKV (new INKV (lineCounter,anInput));		
+	}
 }

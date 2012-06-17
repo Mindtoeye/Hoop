@@ -33,7 +33,7 @@ import edu.cmu.cs.in.hoop.hoops.INHoopHDFSSingleFileOutput;
 import edu.cmu.cs.in.hoop.hoops.INHoopScheduler;
 import edu.cmu.cs.in.hoop.hoops.INHoopSentence2Tokens;
 import edu.cmu.cs.in.hoop.hoops.INHoopStdin;
-import edu.cmu.cs.in.hoop.hoops.INHoopStoud;
+import edu.cmu.cs.in.hoop.hoops.INHoopStdout;
 import edu.cmu.cs.in.hoop.hoops.INHoopUniqueTerms;
 
 public class INHoopManager extends INHoopBase
@@ -139,7 +139,7 @@ public class INHoopManager extends INHoopBase
     	addTemplate(new INHoopHDFSSingleFileInput ());
     	addTemplate(new INHoopHDFSMultiFileOutput ());
     	addTemplate(new INHoopHDFSMultiFileInput ());
-    	addTemplate (new INHoopStoud ());
+    	addTemplate (new INHoopStdout ());
     	addTemplate (new INHoopStdin ());
     	addTemplate (new INHoopFilterStopWords ());
     	addTemplate (new INHoopUniqueTerms ());

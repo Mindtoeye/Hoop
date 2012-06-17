@@ -22,8 +22,6 @@ import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
-import edu.cmu.cs.in.hoop.hoops.INHoopStdin;
-import edu.cmu.cs.in.hoop.hoops.INHoopStoud;
 
 /** 
  * @author Martin van Velsen
@@ -106,8 +104,13 @@ public class INHoopExecute extends INBase implements Runnable
 			return (false);
 		}
 		
+		root.setInEditor(inEditor);
+		
 		if (root.runHoop(null)==false)
+		{
+			debug ("Error executing hoop:" + root.getErrorString());
 			return (false);
+		}
 		
 		return (execute (root));	
 	}

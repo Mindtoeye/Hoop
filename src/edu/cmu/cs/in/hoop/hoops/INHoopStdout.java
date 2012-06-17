@@ -20,21 +20,25 @@ package edu.cmu.cs.in.hoop.hoops;
 
 import java.util.ArrayList;
 
+import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.base.INKV;
+import edu.cmu.cs.in.hoop.INHoopDialogConsole;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
 
 /**
 * 
 */
-public class INHoopStoud extends INHoopBase
-{    					
+public class INHoopStdout extends INHoopBase
+{    	
+	private INHoopDialogConsole userIO=null;
+	
 	/**
 	 *
 	 */
-    public INHoopStoud () 
+    public INHoopStdout () 
     {
-		setClassName ("INHoopStoud");
-		debug ("INHoopStoud ()");
+		setClassName ("INHoopStdout");
+		debug ("INHoopStdout ()");
 										
 		setHoopCategory ("save");
 		
@@ -53,7 +57,14 @@ public class INHoopStoud extends INHoopBase
 		
 		if (getInEditor()==true)
 		{
+			userIO=(INHoopDialogConsole) INHoopLink.getWindow("User Dialog");
+			if (userIO==null)
+			{
+				INHoopLink.addView ("User Dialog",new INHoopDialogConsole (),INHoopLink.bottom);
+				userIO=(INHoopDialogConsole) INHoopLink.getWindow("User Dialog");
+			}			
 			
+			userIO.setOutHoop(this);
 		}
 		else
 		{
@@ -72,6 +83,6 @@ public class INHoopStoud extends INHoopBase
 	 */
 	public INHoopBase copy ()
 	{
-		return (new INHoopStoud ());
+		return (new INHoopStdout ());
 	}		
 }
