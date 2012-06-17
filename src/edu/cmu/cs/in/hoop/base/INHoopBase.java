@@ -44,6 +44,8 @@ public class INHoopBase extends INHoopInspectable
 	
 	private Boolean inEditor=false;
 	
+	private String errorString="";
+	
 	/**
 	 *
 	 */
@@ -61,7 +63,21 @@ public class INHoopBase extends INHoopInspectable
 		setHoopDescription ("Abstract Hoop");
 		
 		//generateRandomKVs ();
-    }  
+    }
+	/**
+	 * 
+	 */	
+	public void setErrorString(String errorString) 
+	{
+		this.errorString = errorString;
+	}
+	/**
+	 * 
+	 */	
+	public String getErrorString() 
+	{
+		return errorString;
+	}    
 	/**
 	 * 
 	 */    

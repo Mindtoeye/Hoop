@@ -27,8 +27,6 @@ import edu.cmu.cs.in.controls.INScatterPlot;
 import edu.cmu.cs.in.controls.map.INHoopJava3DJPanel;
 import edu.cmu.cs.in.hoop.editor.INHoopEditorPalettePanel;
 import edu.cmu.cs.in.hoop.editor.INHoopEditorToolBar;
-import edu.cmu.cs.in.hoop.hoops.INHoopStdin;
-import edu.cmu.cs.in.hoop.hoops.INHoopStoud;
 import edu.cmu.cs.in.hoop.properties.INHoopPropertyPanel;
 import edu.cmu.cs.in.network.INMessageReceiver;
 
@@ -404,19 +402,49 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     protected JMenu buildRunMenu() 
     {
     	JMenu runMenu = new JMenu("Run");
-    	JMenuItem runItem = new JMenuItem("Run");
+    	JMenuItem runOnceItem = new JMenuItem("Run Once");
+    	JMenuItem runNTimesItem = new JMenuItem("Run N Times");
+    	JMenuItem runForeverItem = new JMenuItem("Run Until Stopped");
     	JMenuItem debugItem = new JMenuItem("Debug");
 
-    	runItem.addActionListener(new ActionListener() 
+    	runOnceItem.addActionListener(new ActionListener() 
     	{
     		public void actionPerformed(ActionEvent e) 
     		{
-    			debug ("Run ...");
+    			debug ("Run Once ...");
     			    			
-    			INHoopExecute runtime=new INHoopExecute ();
-    			runtime.testExecute ();
+    			INHoopExecuteInEditor runtime=new INHoopExecuteInEditor ();
+    			runtime.setLoopCount(1);
+    			
+    			new Thread(runtime).start();    			
     		}
     	});
+    	
+    	runNTimesItem.addActionListener(new ActionListener() 
+    	{
+    		public void actionPerformed(ActionEvent e) 
+    		{
+    			debug ("Run N Times ...");
+    			    			
+    			INHoopExecuteInEditor runtime=new INHoopExecuteInEditor ();
+    			runtime.setLoopCount(10);
+    			
+    			new Thread(runtime).start();    			
+    		}
+    	});
+    	
+    	runForeverItem.addActionListener(new ActionListener() 
+    	{
+    		public void actionPerformed(ActionEvent e) 
+    		{
+    			debug ("Run Forever ...");
+    			    			
+    			INHoopExecuteInEditor runtime=new INHoopExecuteInEditor ();
+    			runtime.setLoopCount(-1);
+    			
+    			new Thread(runtime).start();    			
+    		}
+    	});    	
 
     	debugItem.addActionListener(new ActionListener() 
     	{
@@ -426,7 +454,9 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     		}
     	});
 
-       runMenu.add(runItem);
+       runMenu.add(runOnceItem);
+       runMenu.add(runNTimesItem);
+       runMenu.add(runForeverItem);
        runMenu.add(debugItem);
 
        return runMenu;

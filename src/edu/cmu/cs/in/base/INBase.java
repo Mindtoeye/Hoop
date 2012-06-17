@@ -110,6 +110,8 @@ public class INBase
 	 */		
 	public static void debug(String aClass,String s) 
 	{
+		if (INHoopLink.nodebug==true)
+			return;
 		
 		StringBuffer buffer=new StringBuffer ();
 					
@@ -127,6 +129,9 @@ public class INBase
 	 */		
 	public void debug(String s) 
 	{
+		if (INHoopLink.nodebug==true)
+			return;		
+		
 		StringBuffer buffer=new StringBuffer ();
 
 		buffer.append (String.format ("[%s] [%d] <"+className+"> %s\n", generateFileTimestamp (), ++INHoopLink.debugLine, s));
