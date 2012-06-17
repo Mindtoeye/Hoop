@@ -40,6 +40,14 @@ public class INKV //extends INBase
 	/**
 	 *
 	 */
+    public INKV (int aKey,String aValue) 
+    {
+    	setKey (aKey);
+    	setValue (aValue);
+    }    
+	/**
+	 *
+	 */
 	public int getKey() 
 	{
 		return key;

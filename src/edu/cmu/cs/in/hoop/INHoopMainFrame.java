@@ -27,6 +27,8 @@ import edu.cmu.cs.in.controls.INScatterPlot;
 import edu.cmu.cs.in.controls.map.INHoopJava3DJPanel;
 import edu.cmu.cs.in.hoop.editor.INHoopEditorPalettePanel;
 import edu.cmu.cs.in.hoop.editor.INHoopEditorToolBar;
+import edu.cmu.cs.in.hoop.hoops.INHoopStdin;
+import edu.cmu.cs.in.hoop.hoops.INHoopStoud;
 import edu.cmu.cs.in.hoop.properties.INHoopPropertyPanel;
 import edu.cmu.cs.in.network.INMessageReceiver;
 
@@ -410,6 +412,9 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     		public void actionPerformed(ActionEvent e) 
     		{
     			debug ("Run ...");
+    			    			
+    			INHoopExecute runtime=new INHoopExecute ();
+    			runtime.testExecute ();
     		}
     	});
 

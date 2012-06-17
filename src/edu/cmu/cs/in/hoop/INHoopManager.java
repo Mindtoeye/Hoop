@@ -20,25 +20,21 @@ package edu.cmu.cs.in.hoop;
 
 import java.util.ArrayList;
 
-import javax.swing.tree.DefaultMutableTreeNode;
-
-import com.mxgraph.model.mxCell;
-import com.mxgraph.model.mxGeometry;
-
 import edu.cmu.cs.in.hoop.base.INHoopBase;
 import edu.cmu.cs.in.hoop.base.INHoopDisplayBase;
 import edu.cmu.cs.in.hoop.base.INHoopFileLoadBase;
 import edu.cmu.cs.in.hoop.base.INHoopFileSaveBase;
-import edu.cmu.cs.in.hoop.base.INHoopLoadBase;
-import edu.cmu.cs.in.hoop.base.INHoopSaveBase;
-import edu.cmu.cs.in.hoop.base.INHoopTransformBase;
 import edu.cmu.cs.in.hoop.hoops.INHoopFile2Sentence;
+import edu.cmu.cs.in.hoop.hoops.INHoopFilterStopWords;
 import edu.cmu.cs.in.hoop.hoops.INHoopHDFSMultiFileInput;
 import edu.cmu.cs.in.hoop.hoops.INHoopHDFSMultiFileOutput;
 import edu.cmu.cs.in.hoop.hoops.INHoopHDFSSingleFileInput;
 import edu.cmu.cs.in.hoop.hoops.INHoopHDFSSingleFileOutput;
 import edu.cmu.cs.in.hoop.hoops.INHoopScheduler;
 import edu.cmu.cs.in.hoop.hoops.INHoopSentence2Tokens;
+import edu.cmu.cs.in.hoop.hoops.INHoopStdin;
+import edu.cmu.cs.in.hoop.hoops.INHoopStoud;
+import edu.cmu.cs.in.hoop.hoops.INHoopUniqueTerms;
 
 public class INHoopManager extends INHoopBase
 {
@@ -133,9 +129,9 @@ public class INHoopManager extends INHoopBase
     	addTemplate(new INHoopDisplayBase ());
     	addTemplate(new INHoopFileLoadBase ());
     	addTemplate(new INHoopFileSaveBase ());
-    	addTemplate(new INHoopLoadBase ());
-    	addTemplate(new INHoopSaveBase ());
-    	addTemplate(new INHoopTransformBase ());    	
+    	//addTemplate(new INHoopLoadBase ());
+    	//addTemplate(new INHoopSaveBase ());
+    	//addTemplate(new INHoopTransformBase ());    	
     	addTemplate(new INHoopFile2Sentence ());
     	addTemplate(new INHoopSentence2Tokens ());
     	addTemplate(new INHoopScheduler ());
@@ -143,5 +139,9 @@ public class INHoopManager extends INHoopBase
     	addTemplate(new INHoopHDFSSingleFileInput ());
     	addTemplate(new INHoopHDFSMultiFileOutput ());
     	addTemplate(new INHoopHDFSMultiFileInput ());
+    	addTemplate (new INHoopStoud ());
+    	addTemplate (new INHoopStdin ());
+    	addTemplate (new INHoopFilterStopWords ());
+    	addTemplate (new INHoopUniqueTerms ());
     }
 }

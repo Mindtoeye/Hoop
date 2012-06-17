@@ -34,11 +34,13 @@ import java.awt.dnd.DragGestureListener;
 import java.awt.dnd.DragSource;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+//import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.TransferHandler;
+//import javax.swing.tree.DefaultMutableTreeNode;
 
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGeometry;
@@ -51,8 +53,10 @@ import com.mxgraph.util.mxPoint;
 import com.mxgraph.util.mxRectangle;
 import com.mxgraph.util.mxEventSource.mxIEventListener;
 
+//import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.controls.INHoopShadowBorder;
 import edu.cmu.cs.in.controls.base.INJPanel;
+//import edu.cmu.cs.in.hoop.base.INHoopBase;
 
 public class INHoopEditorPalette extends INJPanel
 {
@@ -271,7 +275,9 @@ public class INHoopEditorPalette extends INJPanel
 	 * @param icon
 	 * @param cell
 	 */
-	public void addTemplate (final String name,ImageIcon icon,mxCell cell)
+	public void addTemplate (final String name, 
+							 ImageIcon icon, 
+							 mxCell cell)
 	{
 		debug ("addTemplate (String,ImageIcon,mxCell)");
 		
@@ -302,6 +308,7 @@ public class INHoopEditorPalette extends INJPanel
 
 		entry.addMouseListener(new MouseListener()
 		{
+
 			/*
 			 * (non-Javadoc)
 			 * @see java.awt.event.MouseListener#mousePressed(java.awt.event.MouseEvent)
