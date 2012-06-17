@@ -21,9 +21,10 @@ package edu.cmu.cs.in.base;
 //import edu.cmu.cs.in.base.INBase;
 
 /**
-*
+* We should deliberately not derive from INBase since that comes with a
+* large memory footprint.
 */
-public class INKV //extends INBase
+public class INKV
 {    			
 	private int key=-1;
 	private String keyString="";
@@ -34,20 +35,16 @@ public class INKV //extends INBase
 	 */
     public INKV () 
     {
-		//setClassName ("INKV");
-		//debug ("INKV ()");						
+				
     }
 	/**
 	 *
 	 */
-   public INKV (int aKey,String aValue) 
-   {
-		//setClassName ("INKV");
-		//debug ("INKV ()");
-	   
-	   setKey (aKey);
-	   setValue (aValue);
-   }    
+    public INKV (int aKey,String aValue) 
+    {	   
+    	setKey (aKey);
+    	setValue (aValue);
+    }    
 	/**
 	 *
 	 */

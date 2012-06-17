@@ -457,6 +457,7 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
        runMenu.add(runOnceItem);
        runMenu.add(runNTimesItem);
        runMenu.add(runForeverItem);
+       runMenu.add (new JSeparator());
        runMenu.add(debugItem);
 
        return runMenu;

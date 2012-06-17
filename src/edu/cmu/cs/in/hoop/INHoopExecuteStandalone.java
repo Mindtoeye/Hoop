@@ -76,7 +76,7 @@ public class INHoopExecuteStandalone extends INHoopExecute
 			
 			if (args [i].equals("-execute")==true)
 			{
-				this.setLoopCount(Integer.parseInt(args [i]));
+				this.setLoopCount(Integer.parseInt(args [i+1]));
 			}			
 		}
 	}
