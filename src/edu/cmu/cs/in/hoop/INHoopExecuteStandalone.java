@@ -21,7 +21,7 @@ package edu.cmu.cs.in.hoop;
 import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.hoop.hoops.INHoopStdin;
-import edu.cmu.cs.in.hoop.hoops.INHoopStoud;
+import edu.cmu.cs.in.hoop.hoops.INHoopStdout;
 
 /** 
  * @author Martin van Velsen
@@ -39,7 +39,7 @@ public class INHoopExecuteStandalone extends INHoopExecute
 		this.setInEditor(false);
 		
 		INHoopStdin inp=new INHoopStdin ();
-		INHoopStoud outp=new INHoopStoud ();
+		INHoopStdout outp=new INHoopStdout ();
 		inp.addOutHoop(outp);
 		inp.addOutHoop(outp);	
 		

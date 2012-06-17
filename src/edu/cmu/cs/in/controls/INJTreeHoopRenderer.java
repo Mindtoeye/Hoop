@@ -26,22 +26,45 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeCellRenderer;
 
+import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
 
 /**
  *
  */
-public class INJTreeHoopRenderer extends JLabel implements TreeCellRenderer 
+public class INJTreeHoopRenderer extends JLabel implements TreeCellRenderer
 {
 	private static final long serialVersionUID = -1L;
-
+	private JTree tree=null;	
+	
 	/**
 	 * 
 	 */
 	public INJTreeHoopRenderer ()
 	{
-		this.setOpaque(true);
+		this.setOpaque(true);				
 	}
+	/**
+	 * 
+	 */
+	protected void debug (String aMessage)
+	{
+		INBase.debug("INJTreeHoopRenderer",aMessage);
+	}	
+	/**
+	 * 
+	 */
+	public void setTree (JTree aTree)
+	{
+		tree=aTree;
+	}
+	/**
+	 * 
+	 */
+	public JTree getTree ()
+	{
+		return (tree);
+	}	
 	/**
 	 * 
 	 */
@@ -80,5 +103,5 @@ public class INJTreeHoopRenderer extends JLabel implements TreeCellRenderer
     	setEnabled(tree.isEnabled());
     	
     	return this;
-    }
+    }   
 }

@@ -26,6 +26,10 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Insets;
+import java.awt.dnd.DnDConstants;
+import java.awt.dnd.DragGestureEvent;
+import java.awt.dnd.DragGestureListener;
+import java.awt.dnd.DragSource;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -36,8 +40,10 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTree;
 import javax.swing.SwingUtilities;
 import javax.swing.border.BevelBorder;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.swing.handler.mxCellHandler;
@@ -75,11 +81,12 @@ public class INHoopNodeRenderer extends INJComponent implements MouseListener, M
 	protected JPanel toolBar=null;
 	protected JPanel bottomPanel=null;
 	protected JButton kvExamineButton=null;
-	
+		
 	protected int index=7;
 	
 	protected INHoopBase hoop=null;
-	
+	private   INHoopBase hoopTemplate=null;
+		
 	/**
 	 * 
 	 */
@@ -155,6 +162,20 @@ public class INHoopNodeRenderer extends INJComponent implements MouseListener, M
 		setMinimumSize(new Dimension(20, 30));
 		
 		setTitle ("Hoop Node");
+	}
+	/**
+	 * 
+	 */	
+	public INHoopBase getHoopTemplate() 
+	{
+		return hoopTemplate;
+	}
+	/**
+	 * 
+	 */	
+	public void setHoopTemplate(INHoopBase hoopTemplate) 
+	{
+		this.hoopTemplate = hoopTemplate;
 	}	
 	/**
 	 * 
