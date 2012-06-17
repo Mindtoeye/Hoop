@@ -31,7 +31,7 @@ public class INVisualClass extends INBase
 	private HashMap <String,INVisualFeature>uniqueFeatures=null;
 	private Color color=Color.BLACK;
 	
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
     public INVisualClass () 
@@ -40,7 +40,7 @@ public class INVisualClass extends INBase
 		//debug ("INVisualClass ()");	
 		uniqueFeatures=new HashMap<String,INVisualFeature> ();
     }
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
     public void addFeature (INVisualFeature aFeature)
@@ -49,54 +49,53 @@ public class INVisualClass extends INBase
     	
     	uniqueFeatures.put(aFeature.text,aFeature);
     }
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
     public HashMap<String,INVisualFeature> getFeatures ()
     {
     	return (uniqueFeatures);
     }
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */    
 	public void setName(String name) 
 	{
 		this.name=name;
 	}
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
 	public String getName() 
 	{
 		return name;
 	}
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */	
 	public void setClassIndex(int classIndex) 
 	{
 		this.classIndex=classIndex;
 	}
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */	
 	public int getClassIndex() 
 	{
 		return classIndex;
 	}
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */		
 	public void setColor(Color color) 
 	{
 		this.color = color;
 	}
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */	
 	public Color getColor() 
 	{
 		return color;
 	}
-	//-------------------------------------------------------------------------------------	
 }

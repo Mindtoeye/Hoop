@@ -37,7 +37,9 @@ public class INQuickBayesArffReader extends INQuickBayesFileBase
 		setClassName ("INQuickBayesArffReader");
 		debug ("INQuickBayesArffReader ()");		
 	}
-	//---------------------------------------------------------------------------------
+	/**
+	*
+	*/	
 	public void addFeature (String a_feature)
 	{
 		//debug ("Adding feature: " + a_feature);
@@ -45,14 +47,18 @@ public class INQuickBayesArffReader extends INQuickBayesFileBase
 		feature.featureName=a_feature.toLowerCase ();
 		dataGrid.features.add (feature);
 	}
-	//---------------------------------------------------------------------------------
+	/**
+	*
+	*/	
 	public void addFeatureRaw (String a_feature)
 	{
 		String parsed[]=a_feature.split(" ");
 		if (parsed.length>1)
 			addFeature (parsed [1]);
 	}
-	//---------------------------------------------------------------------------------
+	/**
+	*
+	*/	
 	public void addInstanceString (String a_row,int rowCounter)
 	{
 		//debug ("Adding instance string: " + a_row);
@@ -68,7 +74,9 @@ public class INQuickBayesArffReader extends INQuickBayesFileBase
 		
 		dataGrid.data.add(row);
 	}
-	//---------------------------------------------------------------------------------
+	/**
+	*
+	*/	
 	public boolean processInput (String a_file,INQuickBayesData a_grid)
 	{
 		dataGrid=a_grid;
@@ -112,7 +120,6 @@ public class INQuickBayesArffReader extends INQuickBayesFileBase
 		
 		return (true);
 	}
-	//---------------------------------------------------------------------------------	
 }
 
 
