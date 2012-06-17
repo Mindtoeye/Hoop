@@ -68,6 +68,7 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
         JMenu file = buildFileMenu();
         JMenu edit = buildEditMenu();
         JMenu views = buildViewsMenu();
+        JMenu project = buildProjectMenu();
         JMenu run = buildRunMenu();
         JMenu tools = buildToolsMenu();
         JMenu help = buildHelpMenu();
@@ -75,6 +76,7 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
         mBar.add(file);
         mBar.add(edit);
         mBar.add(tools);
+        mBar.add(project);
         mBar.add(run);
         mBar.add(views);
         mBar.add(help);        
@@ -396,6 +398,47 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
 
         return help;
     }
+	/**
+	 *
+	 */	
+    protected JMenu buildProjectMenu() 
+    {
+    	JMenu project = new JMenu("Project");
+    	JMenuItem buildItem = new JMenuItem("Build");
+    	JMenuItem cleanItem = new JMenuItem("Clean");
+    	JMenuItem propertiesItem = new JMenuItem("Properties");
+
+    	buildItem.addActionListener(new ActionListener() 
+    	{
+    		public void actionPerformed(ActionEvent e) 
+    		{
+    			// Fill in later
+    		}
+    	});
+
+    	cleanItem.addActionListener(new ActionListener() 
+    	{
+    		public void actionPerformed(ActionEvent e) 
+    		{
+    			// Fill in later
+    		}
+    	});
+
+    	propertiesItem.addActionListener(new ActionListener() 
+    	{
+    		public void actionPerformed(ActionEvent e) 
+    		{
+    			// Fill in later
+    		}
+    	});
+
+    	project.add(buildItem);
+    	project.add(cleanItem);
+    	project.addSeparator();
+    	project.add(propertiesItem);
+   	
+    	return (project);
+    }    
 	/**
 	 *
 	 */	

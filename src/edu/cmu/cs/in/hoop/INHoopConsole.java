@@ -140,16 +140,12 @@ public class INHoopConsole extends INEmbeddedJPanel implements INHoopConsoleInte
 		
 		mainBox.add(controlBox);
 		mainBox.add(consoleContainer);
-		
-		//this.add(mainBox);
+								
+		INHoopLink.console=this;
 		
 		// We should be ready for action now
 		
-		INHoopLink.console=this;
-		
 		setContentPane (mainBox);
-		//setSize (425,300);
-		//setLocation (75,75);
 	}
 	/**
 	 * 

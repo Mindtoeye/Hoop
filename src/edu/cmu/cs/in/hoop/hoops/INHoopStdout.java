@@ -65,6 +65,13 @@ public class INHoopStdout extends INHoopBase
 			}			
 			
 			userIO.setOutHoop(this);
+			
+			for (int i=0;i<inData.size();i++)
+			{
+				INKV aKV=inData.get(i);
+				
+				userIO.processOutput (aKV.getKeyString()+" : " + aKV.getValue());					
+			}			
 		}
 		else
 		{

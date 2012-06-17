@@ -30,10 +30,12 @@ import edu.cmu.cs.in.hoop.hoops.INHoopHDFSMultiFileInput;
 import edu.cmu.cs.in.hoop.hoops.INHoopHDFSMultiFileOutput;
 import edu.cmu.cs.in.hoop.hoops.INHoopHDFSSingleFileInput;
 import edu.cmu.cs.in.hoop.hoops.INHoopHDFSSingleFileOutput;
+import edu.cmu.cs.in.hoop.hoops.INHoopPorterStemmer;
 import edu.cmu.cs.in.hoop.hoops.INHoopScheduler;
 import edu.cmu.cs.in.hoop.hoops.INHoopSentence2Tokens;
 import edu.cmu.cs.in.hoop.hoops.INHoopStdin;
 import edu.cmu.cs.in.hoop.hoops.INHoopStdout;
+import edu.cmu.cs.in.hoop.hoops.INHoopTokenCaseChange;
 import edu.cmu.cs.in.hoop.hoops.INHoopUniqueTerms;
 
 public class INHoopManager extends INHoopBase
@@ -143,5 +145,7 @@ public class INHoopManager extends INHoopBase
     	addTemplate (new INHoopStdin ());
     	addTemplate (new INHoopFilterStopWords ());
     	addTemplate (new INHoopUniqueTerms ());
+    	addTemplate (new INHoopTokenCaseChange ());
+    	addTemplate (new INHoopPorterStemmer ());
     }
 }

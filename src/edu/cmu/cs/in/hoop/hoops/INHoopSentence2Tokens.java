@@ -19,8 +19,10 @@
 package edu.cmu.cs.in.hoop.hoops;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import edu.cmu.cs.in.base.INKV;
+import edu.cmu.cs.in.base.INSimpleFeatureMaker;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
 import edu.cmu.cs.in.hoop.base.INHoopTransformBase;
 
@@ -46,7 +48,28 @@ public class INHoopSentence2Tokens extends INHoopTransformBase
 	{		
 		debug ("runHoop ()");
 		
-		super.runHoop(inHoop);		
+		super.runHoop(inHoop);
+		
+		ArrayList <INKV> inData=inHoop.getData();
+		if (inData!=null)
+		{		
+			INSimpleFeatureMaker featureMaker=new INSimpleFeatureMaker ();
+			
+			for (int i=0;i<inData.size();i++)
+			{
+				INKV aKV=inData.get(i);
+				
+				List<String> tokens=featureMaker.unigramTokenizeBasic (aKV.getValue());
+								
+				for (int j=0;j<tokens.size();j++)
+				{				
+					String aToken=tokens.get(j);
+					addKV (new INKV (j,aToken));
+				}									
+			}						
+		}
+		else
+			return (false);
 				
 		return (true);
 	}	

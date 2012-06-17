@@ -118,9 +118,36 @@ public class INSimpleFeatureMaker extends INBase implements INFeatureMaker
 	/**
 	 *
 	 */	
+	public List<String> unigramTokenizeBasic (String aSource)
+	{
+		debug ("unigramTokenizeBasic (String)");
+		
+		String cleaned=aSource;
+				
+		ArrayList<String> out = new ArrayList<String>();
+		
+		if (aSource == null || (aSource.trim().length() == 0))
+			return out;
+		
+		if (cleaned!=null)
+		{
+			String [] split=cleaned.split("\\s+");
+		
+			for (int i = 0; i < split.length; i++)
+			{
+	
+				out.add(split [i]);
+			}
+		}	
+		
+		return (out);				
+	}		
+	/**
+	 *
+	 */	
 	public List<String> unigramTokenize (String aSource)
 	{
-		//debug ("unigramTokenize (String)");
+		debug ("unigramTokenize (String)");
 		
 		String cleaned=aSource;
 				

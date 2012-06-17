@@ -18,6 +18,10 @@
 
 package edu.cmu.cs.in.hoop.hoops;
 
+import java.util.ArrayList;
+
+import edu.cmu.cs.in.base.INHoopLink;
+import edu.cmu.cs.in.base.INKV;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
 import edu.cmu.cs.in.hoop.base.INHoopTransformBase;
 
@@ -44,6 +48,32 @@ public class INHoopFilterStopWords extends INHoopTransformBase
 		debug ("runHoop ()");
 		
 		super.runHoop(inHoop);		
+		
+		ArrayList <INKV> inData=inHoop.getData();
+		if (inData!=null)
+		{					
+			for (int i=0;i<inData.size();i++)
+			{
+				INKV aKV=inData.get(i);
+				
+				Boolean isStop=false;
+				
+				for (int j=0;j<INHoopLink.stops.length;j++)
+				{				
+					if (aKV.getValue().toLowerCase().equals(INHoopLink.stops [j])==true)
+					{
+						isStop=true;
+					}	
+				}	
+				
+				if (isStop==false)
+				{
+					addKV (new INKV (i,aKV.getValue()));
+				}	
+			}						
+		}
+		else
+			return (false);		
 				
 		return (true);
 	}	 

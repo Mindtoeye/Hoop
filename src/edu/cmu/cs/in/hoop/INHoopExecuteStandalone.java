@@ -20,8 +20,12 @@ package edu.cmu.cs.in.hoop;
 
 import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.INHoopLink;
+import edu.cmu.cs.in.hoop.hoops.INHoopFilterStopWords;
+import edu.cmu.cs.in.hoop.hoops.INHoopSentence2Tokens;
 import edu.cmu.cs.in.hoop.hoops.INHoopStdin;
 import edu.cmu.cs.in.hoop.hoops.INHoopStdout;
+import edu.cmu.cs.in.hoop.hoops.INHoopTokenCaseChange;
+import edu.cmu.cs.in.hoop.hoops.INHoopUniqueTerms;
 
 /** 
  * @author Martin van Velsen
@@ -39,9 +43,17 @@ public class INHoopExecuteStandalone extends INHoopExecute
 		this.setInEditor(false);
 		
 		INHoopStdin inp=new INHoopStdin ();
+		INHoopSentence2Tokens tokenizer=new INHoopSentence2Tokens ();
+		INHoopTokenCaseChange lowercaser=new INHoopTokenCaseChange ();
+		INHoopUniqueTerms countUnique=new INHoopUniqueTerms ();
+		INHoopFilterStopWords removeStops=new INHoopFilterStopWords ();
 		INHoopStdout outp=new INHoopStdout ();
-		inp.addOutHoop(outp);
-		inp.addOutHoop(outp);	
+		
+		inp.addOutHoop(tokenizer);
+		tokenizer.addOutHoop(lowercaser);
+		lowercaser.addOutHoop(countUnique);
+		countUnique.addOutHoop(removeStops);
+		removeStops.addOutHoop(outp);
 		
 		setRoot (inp);		
 	}	

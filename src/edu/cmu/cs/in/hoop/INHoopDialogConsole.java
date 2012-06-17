@@ -21,12 +21,17 @@ package edu.cmu.cs.in.hoop;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -41,45 +46,116 @@ import edu.cmu.cs.in.hoop.hoops.INHoopStdout;
  * @author vvelsen
  *
  */
-public class INHoopDialogConsole extends INEmbeddedJPanel implements KeyListener
+public class INHoopDialogConsole extends INEmbeddedJPanel implements KeyListener, ActionListener
 {	
 	private static final long serialVersionUID = 1L;
 	
-    private JTextField entry=null;
+    private JTextArea entry=null;
     private JTextArea textArea=null;
     
     private INHoopStdin inHoop=null;
     private INHoopStdout outHoop=null;
+    
+	private int consoleSize=200; // Only show 200 lines
+	
+	private JButton clearButton=null;
+	private JButton saveButton=null;	
+	private JTextField maxLines=null;
+	private JButton setButton=null;
+	private JButton inButton=null;
+	private JButton outButton=null;	    
 		
 	/**
-	 * Creates a new JPanel with a double buffer and a flow layout.
+	 * 
 	 */	
 	public INHoopDialogConsole()
 	{
 		setClassName ("INHoopDialogConsole");
 		debug ("INHoopDialogConsole ()");
 		
-		Box holder = new Box (BoxLayout.Y_AXIS);
+		Box mainBox = new Box (BoxLayout.Y_AXIS);
 		
 		Border blackborder=BorderFactory.createLineBorder(Color.black);
 		
-		entry=new JTextField ();
+		entry=new JTextArea ();
 		entry.setFont(new Font("Dialog", 1, 10));
 		entry.setBorder(blackborder);
 		entry.setMinimumSize(new Dimension (50,25));
 		entry.setPreferredSize(new Dimension (100,25));		
 		entry.addKeyListener(this);		
-		holder.add(entry);
+						
+		clearButton=new JButton ();
+		clearButton.setIcon(INHoopLink.imageIcons [8]);
+		clearButton.setMargin(new Insets(1, 1, 1, 1));
+		//clearButton.setText("Clear");
+		clearButton.setFont(new Font("Courier",1,8));
+		clearButton.setPreferredSize(new Dimension (16,16));
+		clearButton.addActionListener(this);
 		
+		saveButton=new JButton ();	
+		saveButton.setIcon(INHoopLink.imageIcons [19]);
+		saveButton.setMargin(new Insets(1, 1, 1, 1));
+		saveButton.setFont(new Font("Courier",1,8));
+		saveButton.setPreferredSize(new Dimension (16,16));
+		saveButton.addActionListener(this);
+		
+		maxLines=new JTextField ();
+		maxLines.setText(String.format("%d",consoleSize));
+		//maxLines.setFont(new Font("Courier",1,fontSize));
+		maxLines.setPreferredSize(new Dimension (40,25));
+		maxLines.setMaximumSize(new Dimension (40,25));
+		
+		setButton=new JButton ();
+		//setButton.setText("Set");
+		setButton.setIcon(INHoopLink.imageIcons [22]);
+		setButton.setMargin(new Insets(1, 1, 1, 1));
+		setButton.setFont(new Font("Courier",1,8));
+		setButton.setMinimumSize(new Dimension (16,16));
+		setButton.setPreferredSize(new Dimension (16,16));
+		setButton.addActionListener(this);
+		
+		inButton=new JButton ();
+		//setButton.setText("Set");
+		inButton.setIcon(INHoopLink.imageIcons [72]);
+		inButton.setMargin(new Insets(1, 1, 1, 1));
+		inButton.setFont(new Font("Courier",1,8));
+		inButton.setPreferredSize(new Dimension (16,16));
+		inButton.addActionListener(this);
+		
+		outButton=new JButton ();
+		//setButton.setText("Set");
+		outButton.setIcon(INHoopLink.imageIcons [73]);
+		outButton.setMargin(new Insets(1, 1, 1, 1));
+		outButton.setFont(new Font("Courier",1,8));
+		outButton.setPreferredSize(new Dimension (16,16));
+		outButton.addActionListener(this);
+		
+		Box controlBox = new Box (BoxLayout.X_AXIS);
+		controlBox.add(clearButton);
+		controlBox.add(saveButton);
+		controlBox.add(maxLines);
+		controlBox.add(setButton);
+		controlBox.add(inButton);
+		controlBox.add(outButton);
+		controlBox.add(Box.createHorizontalGlue());
+		
+		controlBox.setMinimumSize(new Dimension (100,24));
+		controlBox.setPreferredSize(new Dimension (100,24));
+												
 		textArea=new JTextArea ();
 		textArea.setEditable(false);
 		textArea.setBorder(blackborder);
 		textArea.setFont(new Font("Dialog", 1, 10));
 		textArea.setMinimumSize(new Dimension (50,50));
 		//textArea.setPreferredSize(new Dimension (100,50));
-		holder.add(textArea);
 		
-		setContentPane (holder);		
+		mainBox.add(entry);
+		mainBox.add(controlBox);		
+		mainBox.add(textArea);		
+										
+		// We should be ready for action now
+		
+		setContentPane (mainBox);					
 	}
 	/**
 	 * 
@@ -143,6 +219,13 @@ public class INHoopDialogConsole extends INEmbeddedJPanel implements KeyListener
 	/**
 	 *
 	 */		
+	public void processOutput (String aString)
+	{
+		textArea.append(aString+"\n");
+	}
+	/**
+	 *
+	 */		
 	private void processInput ()
 	{
 		debug ("processInput ()");
@@ -156,9 +239,24 @@ public class INHoopDialogConsole extends INEmbeddedJPanel implements KeyListener
 		
 		if (inHoop!=null)
 		{
-			inHoop.processInput(entry.getText());
+			List<String> holder=inHoop.getHolder();
+			
+			synchronized (holder) 
+			{
+				holder.add(entry.getText());
+				holder.notify();
+			}							
 		}
 		else
 			JOptionPane.showMessageDialog(null, "Error: no input hoop available process request");
+	}
+	/**
+	 * 
+	 */
+	@Override
+	public void actionPerformed(ActionEvent arg0) 
+	{
+		// TODO Auto-generated method stub
+		
 	}	
 }

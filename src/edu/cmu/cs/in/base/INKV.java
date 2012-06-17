@@ -41,11 +41,7 @@ public class INKV
 	 *
 	 */
     public INKV (int aKey,String aValue) 
-<<<<<<< HEAD
     {	   
-=======
-    {
->>>>>>> refs/remotes/origin/master
     	setKey (aKey);
     	setValue (aValue);
     }    

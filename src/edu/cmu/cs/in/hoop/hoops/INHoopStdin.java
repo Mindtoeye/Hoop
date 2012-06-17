@@ -21,11 +21,12 @@ package edu.cmu.cs.in.hoop.hoops;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.LinkedList;
+import java.util.List;
 
 import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.base.INKV;
 import edu.cmu.cs.in.hoop.INHoopDialogConsole;
-import edu.cmu.cs.in.hoop.INHoopReporter;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
 
 /**
@@ -36,6 +37,8 @@ public class INHoopStdin extends INHoopBase
 	public static int lineCounter=0;
     private BufferedReader in=null;		
     private INHoopDialogConsole userIO=null;
+    
+    private List<String> holder = null;
 	
 	/**
 	 *
@@ -50,6 +53,15 @@ public class INHoopStdin extends INHoopBase
 		setHoopDescription ("Read from Standard Input");
 		
 		in = new BufferedReader(new InputStreamReader(System.in));
+		
+		holder = new LinkedList<String>();
+    }
+    /**
+     * 
+     */
+    public List<String> getHolder ()
+    {
+    	return (holder);
     }
 	/**
 	 *
@@ -70,6 +82,36 @@ public class INHoopStdin extends INHoopBase
 			}
 			
 			userIO.setInHoop(this);
+			
+			// create the structures here that will block this method until
+			// a user enters text in the Swing designated input box
+			
+			synchronized (holder) 
+			{
+		        // wait for input from field
+		        while (holder.isEmpty())
+		        {
+		        	debug ("Waiting for input ...");
+		        	
+		            try 
+		            {
+						holder.wait();
+					} 
+		            catch (InterruptedException e) 
+		            {			
+						e.printStackTrace();
+						debug ("Internal error: Hoop interrupted");
+						return (false);
+					}
+		        } 
+
+		        String nextString = holder.remove(0);
+		        
+		        // Now we can continue!
+		        
+		        processInput (nextString);
+		    }
+			
 		}
 		else
 		{			
@@ -105,7 +147,7 @@ public class INHoopStdin extends INHoopBase
 	 */
 	public void processInput (String anInput)
 	{
-		debug ("processInput ()");
+		debug ("processInput ("+anInput+")");
 		
 		addKV (new INKV (lineCounter,anInput));		
 	}
