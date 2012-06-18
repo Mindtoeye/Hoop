@@ -43,9 +43,9 @@ public class INHoopNodePanel extends INHoopNodeRenderer
 	/**
 	 * 
 	 */
-	public INHoopNodePanel (final Object cell, final mxGraphComponent graphContainer)
+	public INHoopNodePanel (INHoopBase aHoop,Object cell,mxGraphComponent graphContainer)
 	{
-		super (cell,graphContainer);
+		super (aHoop,cell,graphContainer);
 		
 		setClassName ("INHoopNodePanel");
 		debug ("INHoopNodePanel ()");
@@ -60,6 +60,9 @@ public class INHoopNodePanel extends INHoopNodeRenderer
 		}
 		
 		setHoop (new INHoopFileLoadBase ()); // Just for testing
+		
+		if (hoop!=null)
+			this.setTitle (hoop.getClassName());
 		
 		debug ("INHoopNodePanel () done");
 	}

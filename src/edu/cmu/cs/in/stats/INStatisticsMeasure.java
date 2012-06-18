@@ -18,10 +18,14 @@
 
 package edu.cmu.cs.in.stats;
 
+import java.io.Serializable;
+
 import edu.cmu.cs.in.base.INBase;
 
-public class INStatisticsMeasure extends INBase
+public class INStatisticsMeasure extends INBase implements Serializable
 {    			
+	private static final long serialVersionUID = 1L;
+	
 	private float N=0;
 	private float value=0;
 	private float median=0;

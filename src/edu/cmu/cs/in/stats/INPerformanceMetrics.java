@@ -18,12 +18,15 @@
 
 package edu.cmu.cs.in.stats;
 
+import java.io.Serializable;
 import java.util.Date;
 
 //import edu.cmu.cs.in.base.INBase;
 
-public class INPerformanceMetrics extends INXYMeasure
+public class INPerformanceMetrics extends INXYMeasure implements Serializable
 {    						
+	private static final long serialVersionUID = 1L;
+	
 	private Date inPoint=null;
 	private Date outPoint=null;
 	private String label="";

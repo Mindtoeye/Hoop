@@ -296,8 +296,10 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     	{
     		public void actionPerformed(ActionEvent e) 
     		{
+    			/*
     			INHoopEditorPalettePanel pallette=new INHoopEditorPalettePanel ();
     			addView ("Hoop Palette",pallette,INHoopLink.left);
+    			*/
     			    			
     			INHoopTreeList hoopList=new INHoopTreeList ();
     			addView ("Hoop List",hoopList,INHoopLink.left);

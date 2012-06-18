@@ -90,11 +90,12 @@ public class INHoopNodeRenderer extends INJComponent implements MouseListener, M
 	/**
 	 * 
 	 */
-	public INHoopNodeRenderer (final Object cell, final mxGraphComponent graphContainer)
+	public INHoopNodeRenderer (INHoopBase aHoop,Object cell,mxGraphComponent graphContainer)
 	{
 		setClassName ("INHoopNodeRenderer");
 		debug ("INHoopNodeRenderer ()");
 		
+		this.hoop=aHoop;
 		this.cell = cell;
 		this.graphContainer = graphContainer;
 		this.graph = graphContainer.getGraph();

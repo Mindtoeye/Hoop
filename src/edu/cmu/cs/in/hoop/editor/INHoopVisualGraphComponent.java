@@ -26,6 +26,7 @@ import java.awt.Component;
 //import com.mxgraph.io.mxCodec;
 //import com.mxgraph.model.mxICell;
 //import com.mxgraph.model.mxIGraphModel;
+import com.mxgraph.model.mxCell;
 import com.mxgraph.swing.mxGraphComponent;
 //import com.mxgraph.util.mxUtils;
 import com.mxgraph.view.mxCellState;
@@ -34,6 +35,8 @@ import com.mxgraph.view.mxGraph;
 //import edu.cmu.cs.in.hoop.INHoopGraphEditor;
 import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.INHoopProperties;
+import edu.cmu.cs.in.hoop.INHoopManager;
+import edu.cmu.cs.in.hoop.base.INHoopBase;
 
 /**
  * 
@@ -124,14 +127,47 @@ public class INHoopVisualGraphComponent extends mxGraphComponent
 	{
 		debug ("createComponents ("+state+")");
 		
+		debug ("Cell: " + state.getCell());
+		
 		if (getGraph().getModel().isVertex(state.getCell()))
 		{
 			debug ("Returning valid INHoopNodePanel for vertex cell...");
 			
-			return new Component[] 
-			{ 
-				new INHoopNodePanel (state.getCell(), this)
-			};
+			Component [] createdPanels=new Component [1];
+			
+			Object aCell=state.getCell();
+			
+			if (aCell!=null)
+			{
+				if (aCell instanceof mxCell)
+				{
+					debug ("We've got a cell here");
+			
+					mxCell cell=(mxCell) aCell;
+					
+					Object userObject=cell.getValue();
+										
+					if (userObject instanceof String)
+					{										
+						String templateName=(String) userObject;
+						
+						debug ("User object: " + templateName);
+						
+						INHoopManager hManager=new INHoopManager ();
+						INHoopBase hoopTemplate=hManager.instantiate (templateName);
+											
+						createdPanels [0]=new INHoopNodePanel (hoopTemplate,cell, this);
+			
+						return (createdPanels);
+					}
+					else
+						debug ("Transferable object is not a hoop template string");
+				}
+				else
+					debug ("Cell object is not of type mxCell");
+			}
+			else
+				debug ("Error: cell state doesn't contain a cell object");			
 		}
 		
 		return (null);

@@ -18,13 +18,15 @@
 
 package edu.cmu.cs.in.base;
 
+import java.io.Serializable;
+
 //import edu.cmu.cs.in.base.INBase;
 
 /**
 * We should deliberately not derive from INBase since that comes with a
 * large memory footprint.
 */
-public class INKV
+public class INKV implements Serializable
 {    			
 	private int key=-1;
 	private String keyString="";

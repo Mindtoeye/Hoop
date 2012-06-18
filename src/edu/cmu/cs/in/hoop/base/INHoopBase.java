@@ -18,6 +18,7 @@
 
 package edu.cmu.cs.in.hoop.base;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.INKV;
@@ -31,8 +32,9 @@ import edu.cmu.cs.in.stats.INStatisticsMeasure;
 * though the API allows more than one incoming hoop, we currently
 * restrict the functionality to only one.
 */
-public class INHoopBase extends INHoopInspectable implements INHoopInterface
+public class INHoopBase extends INHoopInspectable implements INHoopInterface, Serializable
 {    			
+	private static final long serialVersionUID = 1L;
 	private ArrayList <INHoopBase> outHoops=null;	
 	private ArrayList <INKV> data=null;
 

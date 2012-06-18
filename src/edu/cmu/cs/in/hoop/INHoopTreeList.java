@@ -109,7 +109,7 @@ public class INHoopTreeList extends INEmbeddedJPanel
 		TreeNode root = (TreeNode) tree.getModel().getRoot();
 		expandAll (tree, new TreePath(root));				
 		
-		initTreeDnD ();
+		//initTreeDnD ();
 		
 		tree.setTransferHandler(new TransferHandler()
 		{
@@ -120,7 +120,7 @@ public class INHoopTreeList extends INEmbeddedJPanel
 			 */
 			public boolean canImport(JComponent comp, DataFlavor[] flavors)
 			{				
-				debug ("canImport ()");
+				//debug ("canImport ()");
 				
 				return false; // This tree does not allow items to be dragged into it
 			}
@@ -147,7 +147,18 @@ public class INHoopTreeList extends INEmbeddedJPanel
 	            if (node.isLeaf()) 
 	            {
 	            	debug ("Creating transferable instance of leaf node ...");
-	            		            	
+	            	
+	            	INHoopBase hoopTemplate=(INHoopBase) node.getUserObject();
+	            	
+	            	debug ("Assigning hoop class: " + hoopTemplate.getClassName() + " to transferable");
+	            	
+	        		mxCell cell = new mxCell (hoopTemplate.getClassName(),new mxGeometry (0,0,100,100),"label;image=/assets/images/gear.png");
+	        		cell.setVertex (true);
+	        		
+	        		mxRectangle bounds = (mxGeometry) cell.getGeometry().clone();
+	        		
+	        		transferable = new mxGraphTransferable (new Object[] { cell }, bounds);	            	
+	            		            		            	
 	            	return (transferable);
 	            }
 	            else
@@ -211,7 +222,7 @@ public class INHoopTreeList extends INEmbeddedJPanel
 		transferable = new mxGraphTransferable (new Object[] { cell }, bounds);
 				
 		// Install the handler for dragging nodes into a graph
-		/*
+
 		DragGestureListener dragGestureListener = new DragGestureListener()
 		{
 			public void dragGestureRecognized(DragGestureEvent e)
@@ -222,9 +233,8 @@ public class INHoopTreeList extends INEmbeddedJPanel
 			}
 		};
 		
-		DragSource dragSource = new DragSource();
-		dragSource.createDefaultDragGestureRecognizer (treeHoopRenderer,DnDConstants.ACTION_COPY, dragGestureListener);
-		*/
+		DragSource dragSource = DragSource.getDefaultDragSource();
+		//dragSource.createDefaultDragGestureRecognizer (tree,DnDConstants.ACTION_COPY, dragGestureListener);
 	}
 	/**
 	 * When this method is called we should assume that we have to re-evaluate all existing hoop templates
@@ -276,7 +286,7 @@ public class INHoopTreeList extends INEmbeddedJPanel
 	{
 		debug ("setSelectionEntry ()");
 		
-		DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+		//DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
 		
 		//treeHoopRenderer.setHoopTemplate (node.getUserObject());
 		
@@ -288,13 +298,19 @@ public class INHoopTreeList extends INEmbeddedJPanel
 			previous.setBorder(null);
 			previous.setOpaque(false);
 		}
+		else
+			debug ("previous==null");		
 
 		if (selectedEntry != null)
 		{
 			selectedEntry.setBorder(INHoopShadowBorder.getSharedInstance());
 			selectedEntry.setOpaque(true);
 		}
+		else
+			debug ("selectedEntry==null");		
 
+		debug ("fireEvent ...");
+		
 		eventSource.fireEvent(new mxEventObject (mxEvent.SELECT,
 												 "entry",
 												 selectedEntry,

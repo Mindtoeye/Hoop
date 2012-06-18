@@ -186,6 +186,8 @@ public class INHoopEditorPalette extends INJPanel
 	 */
 	public void setSelectionEntry (JLabel entry, mxGraphTransferable transferable)
 	{
+		debug ("setSelectionEntry ()");
+		
 		JLabel previous = selectedEntry;
 		selectedEntry = entry;
 
@@ -194,12 +196,16 @@ public class INHoopEditorPalette extends INJPanel
 			previous.setBorder(null);
 			previous.setOpaque(false);
 		}
+		else
+			debug ("previous==null");
 
-		if (selectedEntry != null)
+		if (selectedEntry!=null)
 		{
 			selectedEntry.setBorder(INHoopShadowBorder.getSharedInstance());
 			selectedEntry.setOpaque(true);
 		}
+		else
+			debug ("selectedEntry==null");
 
 		eventSource.fireEvent(new mxEventObject (mxEvent.SELECT,
 												 "entry",
@@ -360,6 +366,7 @@ public class INHoopEditorPalette extends INJPanel
 			 */
 			public void dragGestureRecognized(DragGestureEvent e)
 			{
+				debug ("dragGestureRecognized ()");
 				e.startDrag (null,mxSwingConstants.EMPTY_IMAGE,new Point(),transferable, null);
 			}
 
