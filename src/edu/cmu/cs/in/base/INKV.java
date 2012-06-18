@@ -26,7 +26,7 @@ import java.io.Serializable;
 * We should deliberately not derive from INBase since that comes with a
 * large memory footprint.
 */
-public class INKV implements Serializable
+public class INKV
 {    			
 	private int key=-1;
 	private String keyString="";

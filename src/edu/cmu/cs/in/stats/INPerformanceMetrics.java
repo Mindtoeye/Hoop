@@ -23,7 +23,7 @@ import java.util.Date;
 
 //import edu.cmu.cs.in.base.INBase;
 
-public class INPerformanceMetrics extends INXYMeasure implements Serializable
+public class INPerformanceMetrics extends INXYMeasure
 {    						
 	private static final long serialVersionUID = 1L;
 	

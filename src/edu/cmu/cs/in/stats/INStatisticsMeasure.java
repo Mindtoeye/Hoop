@@ -22,7 +22,7 @@ import java.io.Serializable;
 
 import edu.cmu.cs.in.base.INBase;
 
-public class INStatisticsMeasure extends INBase implements Serializable
+public class INStatisticsMeasure extends INBase
 {    			
 	private static final long serialVersionUID = 1L;
 	

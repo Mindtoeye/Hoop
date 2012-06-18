@@ -60,6 +60,7 @@ public class INHoopGraphEditor extends INHoopBasicGraphEditor implements mxIEven
 		
 		graph=graphComponent.getGraph();
 	
+		/*
 		INHoopEditorPalette shapesPalette = insertPalette("shapes");
 	
 		// Sets the edge template to be used for creating new edges if an edge
@@ -85,6 +86,7 @@ public class INHoopGraphEditor extends INHoopBasicGraphEditor implements mxIEven
 		shapesPalette.addEdgeTemplate("Vertical Connector",INHoopLink.getImageByName("vertical.png"),"vertical", 100, 100, "");
 		shapesPalette.addEdgeTemplate("Entity Relation",INHoopLink.getImageByName("entity.png"),"entity", 100, 100, "");
 		shapesPalette.addEdgeTemplate("Arrow",INHoopLink.getImageByName("arrow.png"),"arrow", 120, 120, "");
+		*/
 	}
 	/**
 	 * 

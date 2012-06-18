@@ -18,6 +18,10 @@
 
 package edu.cmu.cs.in.hoop.editor;
 
+import java.util.ArrayList;
+
+import javax.swing.Box;
+
 import com.mxgraph.swing.mxGraphComponent;
 
 import edu.cmu.cs.in.base.INHoopLink;
@@ -45,7 +49,7 @@ public class INHoopNodePanel extends INHoopNodeRenderer
 	 */
 	public INHoopNodePanel (INHoopBase aHoop,Object cell,mxGraphComponent graphContainer)
 	{
-		super (aHoop,cell,graphContainer);
+		super (cell,graphContainer);
 		
 		setClassName ("INHoopNodePanel");
 		debug ("INHoopNodePanel ()");
@@ -59,11 +63,8 @@ public class INHoopNodePanel extends INHoopNodeRenderer
 			tablePanel=(INHoopTablePanel) INHoopLink.getWindow("Data View");
 		}
 		
-		setHoop (new INHoopFileLoadBase ()); // Just for testing
-		
-		if (hoop!=null)
-			this.setTitle (hoop.getClassName());
-		
+		setHoop (aHoop);
+				
 		debug ("INHoopNodePanel () done");
 	}
 	/**
@@ -91,8 +92,32 @@ public class INHoopNodePanel extends INHoopNodeRenderer
 		debug ("setHoop ()");
 		
 		this.hoop=aHoop;
-		
-		this.setTitle (hoop.getHoopDescription());
+				
+		if (hoop!=null)					
+		{
+			this.setTitle (hoop.getClassName());
+			this.setDescription (hoop.getHoopDescription());
+			
+			leftPortBox.removeAll();
+			rightPortBox.removeAll();
+			
+			ArrayList <String> inPorts=hoop.getInPorts();
+			
+			for (int i=0;i<inPorts.size();i++)
+			{
+				addInPort (inPorts.get(i));
+			}
+			
+			ArrayList <String> outPorts=hoop.getOutPorts();
+			
+			for (int j=0;j<outPorts.size();j++)
+			{
+				addOutPort (outPorts.get(j));
+			}			
+			
+			leftPortBox.add(Box.createVerticalGlue());
+			rightPortBox.add(Box.createVerticalGlue());
+		}		
 		
 		if (propPanel!=null)
 		{

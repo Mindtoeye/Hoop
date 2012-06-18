@@ -52,6 +52,34 @@ public class INStringTools extends INBase
     }
 	/**
 	 *
+	 */
+    public static String getNamespaceFirst (String input)
+    {
+    	//INBase.debug ("INStringTools","Splitting: " + input);
+    	
+    	String [] splitter=input.split("\\.");
+    	
+    	if (splitter.length==0)
+    		return (input);
+    	
+    	return (splitter [0]);
+    }
+	/**
+	 *
+	 */
+    public static String getNamespaceLast (String input)
+    {
+    	//INBase.debug ("INStringTools","Splitting: " + input);
+    	
+    	String [] splitter=input.split("\\.");
+    	
+    	if (splitter.length==0)
+    		return (input);    	
+	
+    	return (splitter [splitter.length-1]);
+    }    
+	/**
+	 *
 	 */    
     public static boolean isInteger (String input)  
     {  

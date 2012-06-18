@@ -32,7 +32,7 @@ import edu.cmu.cs.in.stats.INStatisticsMeasure;
 * though the API allows more than one incoming hoop, we currently
 * restrict the functionality to only one.
 */
-public class INHoopBase extends INHoopInspectable implements INHoopInterface, Serializable
+public class INHoopBase extends INHoopInspectable implements INHoopInterface
 {    			
 	private static final long serialVersionUID = 1L;
 	private ArrayList <INHoopBase> outHoops=null;	
@@ -52,6 +52,9 @@ public class INHoopBase extends INHoopInspectable implements INHoopInterface, Se
 	private INPerformanceMetrics performance=null;
 	private INStatisticsMeasure stats=null;
 	
+	private ArrayList <String>inPorts=null;
+	private ArrayList <String>outPorts=null;
+	
 	/**
 	 *
 	 */
@@ -66,12 +69,33 @@ public class INHoopBase extends INHoopInspectable implements INHoopInterface, Se
 		outHoops=new ArrayList<INHoopBase> ();
 		data=new ArrayList<INKV> ();
 		
+		inPorts=new ArrayList<String> ();
+		outPorts=new ArrayList<String> ();
+		
 		performance=new INPerformanceMetrics ();
 		
 		setHoopDescription ("Abstract Hoop");
 		
+		inPorts.add("KV");
+		outPorts.add("KV");
+		outPorts.add("Stats");
+				
 		//generateRandomKVs ();
     }
+    /**
+     * 
+     */
+    public ArrayList <String> getInPorts ()
+    {
+    	return (inPorts);
+    }
+    /**
+     * 
+     */
+    public ArrayList <String> getOutPorts ()
+    {
+    	return (outPorts);
+    }    
 	/**
 	 * 
 	 */    

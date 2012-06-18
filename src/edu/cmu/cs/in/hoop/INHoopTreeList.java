@@ -28,14 +28,14 @@ import java.util.Enumeration;
 
 import java.awt.Cursor;
 import java.awt.Font;
-import java.awt.Point;
+//import java.awt.Point;
 import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.StringSelection;
+//import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
-import java.awt.dnd.DnDConstants;
-import java.awt.dnd.DragGestureEvent;
-import java.awt.dnd.DragGestureListener;
-import java.awt.dnd.DragSource;
+//import java.awt.dnd.DnDConstants;
+//import java.awt.dnd.DragGestureEvent;
+//import java.awt.dnd.DragGestureListener;
+//import java.awt.dnd.DragSource;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -53,13 +53,14 @@ import javax.swing.tree.TreeSelectionModel;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGeometry;
 import com.mxgraph.swing.util.mxGraphTransferable;
-import com.mxgraph.swing.util.mxSwingConstants;
+//import com.mxgraph.swing.util.mxSwingConstants;
 import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxEventSource;
 import com.mxgraph.util.mxRectangle;
 
 import edu.cmu.cs.in.base.INHoopLink;
+import edu.cmu.cs.in.base.INStringTools;
 import edu.cmu.cs.in.controls.INHoopShadowBorder;
 import edu.cmu.cs.in.controls.INJTreeHoopRenderer;
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
@@ -210,6 +211,7 @@ public class INHoopTreeList extends INEmbeddedJPanel
 	/**
 	 * 
 	 */
+	/*
 	private void initTreeDnD ()
 	{
 		debug ("initTreeDnD ()");
@@ -236,6 +238,7 @@ public class INHoopTreeList extends INEmbeddedJPanel
 		DragSource dragSource = DragSource.getDefaultDragSource();
 		//dragSource.createDefaultDragGestureRecognizer (tree,DnDConstants.ACTION_COPY, dragGestureListener);
 	}
+	*/
 	/**
 	 * When this method is called we should assume that we have to re-evaluate all existing hoop templates
 	 */	
@@ -336,7 +339,7 @@ public class INHoopTreeList extends INEmbeddedJPanel
     			String aCat=hoopCategories.get(j);
     			
 				DefaultMutableTreeNode catNode = new DefaultMutableTreeNode(aCat);
-				catNode.setUserObject(new String (aCat));
+				catNode.setUserObject(new String (INStringTools.getNamespaceLast(aCat)));
 				root.add(catNode);
 				    			
     			for (int i=0;i<hoopTemplates.size();i++)

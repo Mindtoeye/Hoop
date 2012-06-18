@@ -34,11 +34,12 @@ import com.mxgraph.model.mxCell;
  */
 public class INHoopVisualGraph extends mxGraph
 {
+	final int PORT_DIAMETER = 20;
+	final int PORT_RADIUS = PORT_DIAMETER / 2;	
+	
 	public static final NumberFormat numberFormat = NumberFormat.getInstance();
 	
-	/**
-	 * Holds the edge to be used as a template for inserting new edges.
-	 */
+	/// Holds the edge to be used as a template for inserting new edges.
 	protected Object edgeTemplate;
 
 	/**
@@ -171,4 +172,33 @@ public class INHoopVisualGraph extends mxGraph
 		}
 		return super.createEdge(parent, id, value, source, target, style);
 	}
+	/**
+	 *  Ports are not used as terminals for edges, they are
+	 *  only used to compute the graphical connection point
+	 */
+	public boolean isPort(Object cell)
+	{
+		mxGeometry geo = getCellGeometry(cell);
+		
+		return (geo != null) ? geo.isRelative() : false;
+	}
+	/** 
+	 * Implements a tooltip that shows the actual source and target of an edge 
+	 */
+	/*
+	public String getToolTipForCell(Object cell)
+	{
+		if (model.isEdge(cell))
+		{
+			return convertValueToString(model.getTerminal(cell, true)) + " -> " + convertValueToString(model.getTerminal(cell, false));
+		}
+		
+		return super.getToolTipForCell(cell);
+	}
+	*/	
+	// Removes the folding icon and disables any folding
+	public boolean isCellFoldable(Object cell, boolean collapse)
+	{
+		return false;
+	}	
 }
