@@ -28,6 +28,8 @@ import com.mxgraph.view.mxCellState;
 import com.mxgraph.view.mxGraph;
 import com.mxgraph.model.mxCell;
 
+import edu.cmu.cs.in.base.INBase;
+
 /** 
  * @author vvelsen
  * A graph that creates new edges from a given template edge.
@@ -49,6 +51,13 @@ public class INHoopVisualGraph extends mxGraph
 	public INHoopVisualGraph()
 	{
 		setAlternateEdgeStyle("edgeStyle=mxEdgeStyle.ElbowConnector;elbow=vertical");
+	}
+	/**
+	 * 
+	 */
+	private void debug (String aMessage)
+	{
+		INBase.debug("INHoopVisualGraph",aMessage);
 	}
 	/**
 	 * Sets the edge template to be used to inserting edges.
@@ -164,13 +173,22 @@ public class INHoopVisualGraph extends mxGraph
 							 Object target, 
 							 String style)
 	{
+		debug ("createEdge ()");
+		
+		mxCell edge =null;
+		
 		if (edgeTemplate != null)
 		{
-			mxCell edge = (mxCell) cloneCells(new Object[] { edgeTemplate })[0];
-			edge.setId(id);
-			return edge;
+			edge = (mxCell) cloneCells(new Object[] { edgeTemplate })[0];
+			edge.setId(id);		
 		}
-		return super.createEdge(parent, id, value, source, target, style);
+		else
+		{
+			debug ("Calling super class ...");
+			return (super.createEdge (parent, id, value, source, target, style));
+		}	
+		
+		return edge;
 	}
 	/**
 	 *  Ports are not used as terminals for edges, they are
