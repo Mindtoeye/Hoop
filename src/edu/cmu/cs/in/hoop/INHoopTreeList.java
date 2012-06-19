@@ -57,6 +57,7 @@ import com.mxgraph.swing.util.mxGraphTransferable;
 import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxEventSource;
+import com.mxgraph.util.mxPoint;
 import com.mxgraph.util.mxRectangle;
 
 import edu.cmu.cs.in.base.INHoopLink;
@@ -155,6 +156,31 @@ public class INHoopTreeList extends INEmbeddedJPanel
 	            	
 	        		mxCell cell = new mxCell (hoopTemplate.getClassName(),new mxGeometry (0,0,100,100),"label;image=/assets/images/gear.png");
 	        		cell.setVertex (true);
+	        		
+	        		/*
+	    			mxGeometry geo = graph.getModel().getGeometry(v1);
+	    			// The size of the rectangle when the minus sign is clicked
+	    			geo.setAlternateBounds(new mxRectangle(20, 20, 100, 50));
+
+	    			mxGeometry geo1 = new mxGeometry(0, 0.5, PORT_DIAMETER,	PORT_DIAMETER);
+	    			// Because the origin is at upper left corner, need to translate to
+	    			// position the center of port correctly
+	    			geo1.setOffset(new mxPoint(-PORT_RADIUS, -PORT_RADIUS));
+	    			geo1.setRelative(true);
+
+	    			mxCell port1 = new mxCell(null, geo1, "shape=ellipse;perimter=ellipsePerimeter");
+	    			port1.setVertex(true);
+
+	    			mxGeometry geo2 = new mxGeometry(1.0, 0.5, PORT_DIAMETER,	PORT_DIAMETER);
+	    			geo2.setOffset(new mxPoint(-PORT_RADIUS, -PORT_RADIUS));
+	    			geo2.setRelative(true);
+
+	    			mxCell port2 = new mxCell(null, geo2,"shape=ellipse;perimter=ellipsePerimeter");
+	    			port2.setVertex(true);
+
+	    			graph.addCell(port1, v1);
+	    			graph.addCell(port2, v1);
+	    			*/	        		
 	        		
 	        		mxRectangle bounds = (mxGeometry) cell.getGeometry().clone();
 	        		

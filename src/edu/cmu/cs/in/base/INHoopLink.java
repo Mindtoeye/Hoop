@@ -30,6 +30,7 @@ import edu.cmu.cs.in.network.INStreamedSocket;
 import edu.cmu.cs.in.search.INDataSet;
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 import edu.cmu.cs.in.hoop.INHoopConsoleInterface;
+import edu.cmu.cs.in.hoop.INHoopGraphManager;
 import edu.cmu.cs.in.hoop.INHoopManager;
 import edu.cmu.cs.in.hoop.INHoopStatusBar;
 import edu.cmu.cs.in.hoop.INHoopTabDraggable;
@@ -260,7 +261,8 @@ public class INHoopLink extends INHoopProperties
 		 							 "led-yellow.png",// 84
 		 							 "led-red.png",// 84 							 
 		 							 "resize.png",// 84		 							 
-		 							 "zoom.png"// 84
+		 							 "zoom.png", // 84
+		 							 "port.png" // 84
 		 							 };
 	
 	public static String vocabularyPath="./";
@@ -294,6 +296,7 @@ public class INHoopLink extends INHoopProperties
 	// Core hoop access
 	
 	public static INHoopManager hoopManager=null;
+	public static INHoopGraphManager hoopGraphManager=null;
 				
 	/**
 	 *
@@ -322,7 +325,10 @@ public class INHoopLink extends INHoopProperties
 			jobs=new ArrayList<String> ();
 		
 		if (hoopManager==null)
-			hoopManager=new INHoopManager ();		
+			hoopManager=new INHoopManager ();
+		
+		if (hoopGraphManager==null)
+			hoopGraphManager=new INHoopGraphManager ();		
     }  
     /**
      * 

@@ -154,14 +154,19 @@ public class INHoopNodeRenderer extends INJComponent implements MouseListener, M
 		rightPortBox.setMinimumSize(new Dimension(20,20));
 		rightPortBox.setPreferredSize(new Dimension(30,100));		
 		
-		//contentArea=new JPanel ();
+		/*
 		contentArea=new JTextArea ();
+		contentArea.setFont(new Font("Dialog", 1, 10));
+		contentArea.setForeground(Color.WHITE);
+		contentArea.setLineWrap(true);
+		contentArea.setWrapStyleWord(true);
 		contentArea.setEditable(false);
 		contentArea.setBackground(INHoopProperties.graphPanelContent);
-		contentArea.setBorder(BorderFactory.createLoweredBevelBorder());		
+		contentArea.setBorder(BorderFactory.createLoweredBevelBorder());
+		*/		
 		
 		contentBox.add(leftPortBox);
-		contentBox.add(contentArea);
+		//contentBox.add(contentArea);
 		contentBox.add(rightPortBox);
 		
 		add (contentBox, BorderLayout.CENTER);
@@ -197,7 +202,13 @@ public class INHoopNodeRenderer extends INJComponent implements MouseListener, M
 	protected void addInPort (String aPort)
 	{
 		debug ("addInPort ("+aPort+")");
+		
+		Box portBox = new Box (BoxLayout.X_AXIS);
 	
+		JLabel portIcon = new JLabel(INHoopLink.getImageByName("port.png"));
+		portIcon.setMinimumSize(new Dimension (16,16));
+		portIcon.setMaximumSize(new Dimension (16,16));		
+		
 		JLabel aPortLabel=new JLabel ();
 		aPortLabel.setText(aPort);
 		//aPortLabel.setBorder(bevel);
@@ -205,9 +216,12 @@ public class INHoopNodeRenderer extends INJComponent implements MouseListener, M
 		aPortLabel.setFont(new Font("Dialog", 1, 10));	
 		aPortLabel.setForeground(Color.WHITE);
 		aPortLabel.setMinimumSize(new Dimension (20,20));
-		aPortLabel.setMaximumSize(new Dimension (30,20));		
+		aPortLabel.setPreferredSize(new Dimension (50,20));
 		
-		leftPortBox.add(aPortLabel);
+		portBox.add(portIcon);
+		portBox.add(aPortLabel);
+		
+		leftPortBox.add(portBox);
 	}
 	/**
 	 * 
@@ -216,6 +230,12 @@ public class INHoopNodeRenderer extends INJComponent implements MouseListener, M
 	{
 		debug ("addOutPort ("+aPort+")");
 		
+		Box portBox = new Box (BoxLayout.X_AXIS);
+		
+		JLabel portIcon = new JLabel(INHoopLink.getImageByName("port.png"));
+		portIcon.setMinimumSize(new Dimension (16,16));
+		portIcon.setMaximumSize(new Dimension (16,16));
+		
 		JLabel aPortLabel=new JLabel ();
 		aPortLabel.setText(aPort);
 		//aPortLabel.setBorder(bevel);
@@ -223,9 +243,12 @@ public class INHoopNodeRenderer extends INJComponent implements MouseListener, M
 		aPortLabel.setFont(new Font("Dialog", 1, 10));
 		aPortLabel.setForeground(Color.WHITE);
 		aPortLabel.setMinimumSize(new Dimension (20,20));
-		aPortLabel.setMaximumSize(new Dimension (30,20));		
+		aPortLabel.setPreferredSize(new Dimension (50,20));		
+
+		portBox.add(aPortLabel);		
+		portBox.add(portIcon);
 		
-		rightPortBox.add(aPortLabel);		
+		rightPortBox.add(portBox);		
 	}	
 	/**
 	 * 
@@ -256,14 +279,16 @@ public class INHoopNodeRenderer extends INJComponent implements MouseListener, M
 	 */	
 	public void setTitle (String aTitle)
 	{
-		titleLabel.setText(aTitle);
+		if (titleLabel!=null)
+			titleLabel.setText(aTitle);
 	}
 	/**
 	 * 
 	 */	
 	public void setDescription (String aDescription)
 	{
-		contentArea.setText(aDescription);
+		if (contentArea!=null)
+			contentArea.setText(aDescription);
 	}	
 	/**
 	 * 

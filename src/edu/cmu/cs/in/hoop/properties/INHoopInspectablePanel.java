@@ -67,15 +67,12 @@ public class INHoopInspectablePanel extends INJPanel implements ActionListener, 
     private int fixedHeight=300;	
 	    
 	JPanel parameterPanel=null;
-	//JPanel stylePanel=null;
-	//JPanel SAIPanel=null;
 		
 	INHoopPropertyTable parameterTable=null;
 		
 	String[] columnNames = {"Name","Value"};	
 	
 	DefaultTableModel parameterModel=null;
-	//DefaultTableModel styleModel=null;
 	
 	String panelTitle="No Title";
 	

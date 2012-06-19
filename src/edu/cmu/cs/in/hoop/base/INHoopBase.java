@@ -21,6 +21,8 @@ package edu.cmu.cs.in.hoop.base;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import javax.swing.JPanel;
+
 import edu.cmu.cs.in.base.INKV;
 import edu.cmu.cs.in.hoop.properties.INHoopInspectable;
 import edu.cmu.cs.in.stats.INPerformanceMetrics;
@@ -301,5 +303,14 @@ public class INHoopBase extends INHoopInspectable implements INHoopInterface
 	public INHoopBase copy ()
 	{
 		return (new INHoopBase ());
+	}
+	/**
+	 * 
+	 */
+	@Override
+	public JPanel getPropertiesPanel() 
+	{
+		// To be implemented by child class
+		return null;
 	}
 }

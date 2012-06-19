@@ -21,13 +21,13 @@ package edu.cmu.cs.in.hoop.editor;
 import java.util.ArrayList;
 
 import javax.swing.Box;
+import javax.swing.JPanel;
 
 import com.mxgraph.swing.mxGraphComponent;
 
 import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.hoop.INHoopTablePanel;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
-import edu.cmu.cs.in.hoop.base.INHoopFileLoadBase;
 import edu.cmu.cs.in.hoop.properties.INHoopInspectablePanel;
 import edu.cmu.cs.in.hoop.properties.INHoopPropertyPanel;
 
@@ -43,6 +43,7 @@ public class INHoopNodePanel extends INHoopNodeRenderer
 	private static final long serialVersionUID = -1L;
 	private INHoopPropertyPanel propPanel=null;
 	private INHoopTablePanel tablePanel=null;
+	private INHoopInspectablePanel propertiesPanel=null;
 	
 	/**
 	 * 
@@ -121,7 +122,10 @@ public class INHoopNodePanel extends INHoopNodeRenderer
 		
 		if (propPanel!=null)
 		{
-			propPanel.addPropertyPanel (new INHoopInspectablePanel (hoop.getHoopDescription()));
+			propertiesPanel=new INHoopInspectablePanel (hoop.getHoopDescription());
+			propPanel.addPropertyPanel (propertiesPanel);
+			
+			JPanel propContent=aHoop.getPropertiesPanel();
 		}
 		
 		debug ("setHoop () done");

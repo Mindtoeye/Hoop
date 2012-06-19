@@ -20,6 +20,7 @@ package edu.cmu.cs.in.controls;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 
 import javax.swing.JLabel;
 import javax.swing.JTree;
@@ -43,6 +44,8 @@ public class INJTreeHoopRenderer extends JLabel implements TreeCellRenderer
 	public INJTreeHoopRenderer ()
 	{
 		this.setOpaque(true);				
+		this.setFont(new Font("Dialog", 1, 10));
+		this.setOpaque(true);
 	}
 	/**
 	 * 

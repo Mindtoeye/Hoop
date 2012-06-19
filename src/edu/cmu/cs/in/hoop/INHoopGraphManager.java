@@ -16,31 +16,38 @@
  * 
  */
 
-package edu.cmu.cs.in.hoop.base;
+package edu.cmu.cs.in.hoop;
 
-import javax.swing.JPanel;
+import edu.cmu.cs.in.hoop.base.INHoopBase;
 
-/**
-* Here we have the basis for all the hoops. It manages incoming and
-* outgoing links to other hoops. Please keep in mind that even
-* though the API allows more than one incoming hoop, we currently
-* restrict the functionality to only one.
-*/
-public interface INHoopInterface
-{    			
-	/**
-	 *
-	 */
-	public Boolean runHoop (INHoopBase inHoop);
-
-	/**
-	 * 
-	 */
-	public INHoopBase copy ();
+/** 
+ * @author Martin van Velsen
+ */
+public class INHoopGraphManager extends INHoopBase
+{	
+	private INHoopBase root=null;
 	
 	/**
 	 * 
 	 */
-	public JPanel getPropertiesPanel ();
-	
+	public INHoopGraphManager()
+	{		
+		setClassName ("INHoopGraphManager");
+		debug ("INHoopGraphManager ()");
+			
+	}
+	/** 
+	 * @param root
+	 */
+	public void setRoot(INHoopBase root) 
+	{
+		this.root = root;
+	}
+	/** 
+	 * @return
+	 */
+	public INHoopBase getRoot() 
+	{
+		return root;
+	}	
 }

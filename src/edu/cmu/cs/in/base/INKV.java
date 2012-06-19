@@ -18,9 +18,7 @@
 
 package edu.cmu.cs.in.base;
 
-import java.io.Serializable;
-
-//import edu.cmu.cs.in.base.INBase;
+import java.util.ArrayList;
 
 /**
 * We should deliberately not derive from INBase since that comes with a
@@ -30,14 +28,16 @@ public class INKV
 {    			
 	private int key=-1;
 	private String keyString="";
-	private String value="";
-			
+	private ArrayList <String> values=null;
+	
 	/**
 	 *
 	 */
     public INKV () 
     {
-				
+    	values=new ArrayList <String>();
+    	// Make sure we have at least one entry for quick access
+    	values.add("undefined");
     }
 	/**
 	 *
@@ -66,14 +66,28 @@ public class INKV
 	 */
 	public String getValue() 
 	{
-		return value;
+		return (values.get(0));
 	}
+	/**
+	 *
+	 */
+	public ArrayList <String> getValues() 
+	{
+		return (values);
+	}
+	/**
+	 *
+	 */
+	public int getValueCount() 
+	{
+		return (values.size());
+	}	
 	/**
 	 *
 	 */
 	public void setValue(String value) 
 	{
-		this.value = value;
+		values.set(0,value);
 	}
 	/**
 	 *

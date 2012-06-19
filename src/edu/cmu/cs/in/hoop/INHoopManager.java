@@ -40,11 +40,17 @@ import edu.cmu.cs.in.hoop.hoops.INHoopStdout;
 import edu.cmu.cs.in.hoop.hoops.INHoopTokenCaseChange;
 import edu.cmu.cs.in.hoop.hoops.INHoopUniqueTerms;
 
+/** 
+ * @author Martin van Velsen
+ */
 public class INHoopManager extends INHoopBase
 {
 	private ArrayList<String> hoopCategories=null;	
 	private ArrayList<INHoopBase> hoopTemplates=null;
 	
+	/**
+	 * 
+	 */
 	public INHoopManager()
 	{		
 		setClassName ("INHoopManager");

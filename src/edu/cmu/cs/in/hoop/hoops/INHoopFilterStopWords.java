@@ -20,6 +20,8 @@ package edu.cmu.cs.in.hoop.hoops;
 
 import java.util.ArrayList;
 
+import javax.swing.JPanel;
+
 import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.base.INKV;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
@@ -84,5 +86,14 @@ public class INHoopFilterStopWords extends INHoopTransformBase implements INHoop
 	public INHoopBase copy ()
 	{
 		return (new INHoopFilterStopWords ());
+	}
+	/**
+	 * 
+	 */
+	@Override
+	public JPanel getPropertiesPanel() 
+	{
+		// To be implemented by child class
+		return null;
 	}	
 }
