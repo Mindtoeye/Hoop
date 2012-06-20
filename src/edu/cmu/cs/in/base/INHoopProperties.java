@@ -31,7 +31,13 @@ public class INHoopProperties extends INLangLink
 	
 	// graph settings
 	
+	/*
 	public static Color graphBackgroundColor=new Color (47,46,47);
 	public static Color graphPanelContent=new Color (29,29,29);
-	public static Color graphPanelColor=new Color (50,50,50);	
+	public static Color graphPanelColor=new Color (50,50,50);
+	*/
+	
+	public static Color graphBackgroundColor=new Color (140,140,140);
+	public static Color graphPanelContent=new Color (132,132,132);
+	public static Color graphPanelColor=new Color (120,120,120);	
 }

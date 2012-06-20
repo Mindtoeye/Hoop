@@ -27,22 +27,25 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.Font;
-//import java.awt.Point;
 import java.awt.datatransfer.DataFlavor;
-//import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
-//import java.awt.dnd.DnDConstants;
-//import java.awt.dnd.DragGestureEvent;
-//import java.awt.dnd.DragGestureListener;
-//import java.awt.dnd.DragSource;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+//import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+///import javax.swing.JList;
 import javax.swing.JScrollPane;
+//import javax.swing.JTextField;
 import javax.swing.JTree;
 import javax.swing.TransferHandler;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -53,16 +56,14 @@ import javax.swing.tree.TreeSelectionModel;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGeometry;
 import com.mxgraph.swing.util.mxGraphTransferable;
-//import com.mxgraph.swing.util.mxSwingConstants;
 import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxEventSource;
-import com.mxgraph.util.mxPoint;
 import com.mxgraph.util.mxRectangle;
 
 import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.base.INStringTools;
-import edu.cmu.cs.in.controls.INHoopShadowBorder;
+//import edu.cmu.cs.in.controls.INHoopShadowBorder;
 import edu.cmu.cs.in.controls.INJTreeHoopRenderer;
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
@@ -70,7 +71,7 @@ import edu.cmu.cs.in.hoop.base.INHoopBase;
 /**
  * 
  */
-public class INHoopTreeList extends INEmbeddedJPanel
+public class INHoopTreeList extends INEmbeddedJPanel implements MouseListener, ActionListener
 {
 	private static final long serialVersionUID = 1L;		
 	private JTree tree=null;
@@ -79,6 +80,11 @@ public class INHoopTreeList extends INEmbeddedJPanel
 	
 	private INJTreeHoopRenderer treeHoopRenderer=null;
 	private mxGraphTransferable transferable=null;
+		
+    private JButton expandButton=null;
+    private JButton foldButton=null;
+    private JButton inverseButton=null;
+    private JButton selectedButton=null;		
 	
 	/**
 	 * 
@@ -89,6 +95,44 @@ public class INHoopTreeList extends INEmbeddedJPanel
 		debug ("INHoopTreeList ()");    	
 		
 		this.setSingleInstance(true);
+		
+		Box mainBox = new Box (BoxLayout.Y_AXIS);
+					    
+	    Box buttonBox = new Box (BoxLayout.X_AXIS);
+	    
+	    expandButton=new JButton ();
+	    expandButton.setFont(new Font("Dialog", 1, 8));
+	    expandButton.setPreferredSize(new Dimension (20,20));
+	    expandButton.setMaximumSize(new Dimension (20,20));
+	    //expandButton.setText("All");
+	    expandButton.setIcon(INHoopLink.getImageByName("tree-expand-icon.png"));
+	    expandButton.addActionListener(this);
+	    buttonBox.add (expandButton);
+	    foldButton=new JButton ();
+	    foldButton.setFont(new Font("Dialog", 1, 8));
+	    foldButton.setPreferredSize(new Dimension (20,20));
+	    foldButton.setMaximumSize(new Dimension (20,20));
+	    foldButton.setIcon(INHoopLink.getImageByName("tree-fold-icon.png"));
+	    //foldButton.setText("None");
+	    foldButton.addActionListener(this);
+	    buttonBox.add (foldButton);
+	    inverseButton=new JButton ();
+	    inverseButton.setFont(new Font("Dialog", 1, 8));
+	    inverseButton.setPreferredSize(new Dimension (75,20));
+	    //inverseButton.setMaximumSize(new Dimension (2000,20));
+	    inverseButton.setText("Inverse");
+	    inverseButton.addActionListener(this);
+	    buttonBox.add (inverseButton);
+	    selectedButton=new JButton ();
+	    selectedButton.setFont(new Font("Dialog", 1, 8));
+	    selectedButton.setPreferredSize(new Dimension (75,20));
+	    //selectedButton.setMaximumSize(new Dimension (2000,20));
+	    selectedButton.setText("Selected");
+	    selectedButton.addActionListener(this);
+	    selectedButton.setEnabled(false);
+	    buttonBox.add (selectedButton);		
+	    
+	    buttonBox.add(Box.createHorizontalGlue());
 		
 		treeHoopRenderer=new INJTreeHoopRenderer ();
 				
@@ -105,15 +149,15 @@ public class INHoopTreeList extends INEmbeddedJPanel
 		
 		JScrollPane scrollPane=new JScrollPane(tree);
 		scrollPane.setBorder(BorderFactory.createEmptyBorder(4,4,4,4));
-		
-		setContentPane (scrollPane);
-		
+				
 		TreeNode root = (TreeNode) tree.getModel().getRoot();
 		expandAll (tree, new TreePath(root));				
 		
 		//initTreeDnD ();
 		
-		tree.setTransferHandler(new TransferHandler()
+		tree.addMouseListener(this);
+		
+		tree.setTransferHandler (new TransferHandler()
 		{
 			private static final long serialVersionUID = -1L;
 
@@ -154,34 +198,9 @@ public class INHoopTreeList extends INEmbeddedJPanel
 	            	
 	            	debug ("Assigning hoop class: " + hoopTemplate.getClassName() + " to transferable");
 	            	
-	        		mxCell cell = new mxCell (hoopTemplate.getClassName(),new mxGeometry (0,0,100,100),"label;image=/assets/images/gear.png");
+	        		mxCell cell = new mxCell (hoopTemplate.getClassName(),new mxGeometry (0,0,150,100),"label;image=/assets/images/gear.png");
 	        		cell.setVertex (true);
-	        		
-	        		/*
-	    			mxGeometry geo = graph.getModel().getGeometry(v1);
-	    			// The size of the rectangle when the minus sign is clicked
-	    			geo.setAlternateBounds(new mxRectangle(20, 20, 100, 50));
-
-	    			mxGeometry geo1 = new mxGeometry(0, 0.5, PORT_DIAMETER,	PORT_DIAMETER);
-	    			// Because the origin is at upper left corner, need to translate to
-	    			// position the center of port correctly
-	    			geo1.setOffset(new mxPoint(-PORT_RADIUS, -PORT_RADIUS));
-	    			geo1.setRelative(true);
-
-	    			mxCell port1 = new mxCell(null, geo1, "shape=ellipse;perimter=ellipsePerimeter");
-	    			port1.setVertex(true);
-
-	    			mxGeometry geo2 = new mxGeometry(1.0, 0.5, PORT_DIAMETER,	PORT_DIAMETER);
-	    			geo2.setOffset(new mxPoint(-PORT_RADIUS, -PORT_RADIUS));
-	    			geo2.setRelative(true);
-
-	    			mxCell port2 = new mxCell(null, geo2,"shape=ellipse;perimter=ellipsePerimeter");
-	    			port2.setVertex(true);
-
-	    			graph.addCell(port1, v1);
-	    			graph.addCell(port2, v1);
-	    			*/	        		
-	        		
+	        			        		
 	        		mxRectangle bounds = (mxGeometry) cell.getGeometry().clone();
 	        		
 	        		transferable = new mxGraphTransferable (new Object[] { cell }, bounds);	            	
@@ -193,78 +212,13 @@ public class INHoopTreeList extends INEmbeddedJPanel
 	               
 	            return (null);
 	        }			
-		});
-		
-		tree.addMouseListener(new MouseListener()
-		{
-			public void mousePressed(MouseEvent e)
-			{
-				debug ("mousePressed ()");
-				
-				int x = (int) e.getPoint().getX();
-		        int y = (int) e.getPoint().getY();
-		        
-		        TreePath path = tree.getPathForLocation(x, y);
-		        if (path == null) 
-		        {
-		            tree.setCursor(Cursor.getDefaultCursor());
-		        } 
-		        else 
-		        {
-		            tree.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		            
-		            setSelectionEntry(treeHoopRenderer, transferable);		            
-		        }												
-			}
-			public void mouseClicked(MouseEvent e)
-			{
-				debug ("mouseClicked ()");				
-			}
-			public void mouseEntered(MouseEvent e)
-			{
-				debug ("mouseEntered ()");				
-			}
-			public void mouseExited(MouseEvent e)
-			{
-				debug ("mouseExited ()");				
-			}
-			public void mouseReleased(MouseEvent e)
-			{
-				debug ("mouseReleased ()");				
-			}
 		});				
+		
+		mainBox.add(buttonBox);
+		mainBox.add(scrollPane);
+		
+		setContentPane (mainBox);			
     }
-	/**
-	 * 
-	 */
-	/*
-	private void initTreeDnD ()
-	{
-		debug ("initTreeDnD ()");
-		
-		mxCell cell = new mxCell (treeHoopRenderer,new mxGeometry (0,0,100,100),"label;image=/assets/images/gear.png");
-		cell.setVertex (true);
-		
-		mxRectangle bounds = (mxGeometry) cell.getGeometry().clone();
-		
-		transferable = new mxGraphTransferable (new Object[] { cell }, bounds);
-				
-		// Install the handler for dragging nodes into a graph
-
-		DragGestureListener dragGestureListener = new DragGestureListener()
-		{
-			public void dragGestureRecognized(DragGestureEvent e)
-			{
-				debug ("dragGestureRecognized");
-				
-				e.startDrag (null,mxSwingConstants.EMPTY_IMAGE,new Point(),transferable, null);
-			}
-		};
-		
-		DragSource dragSource = DragSource.getDefaultDragSource();
-		//dragSource.createDefaultDragGestureRecognizer (tree,DnDConstants.ACTION_COPY, dragGestureListener);
-	}
-	*/
 	/**
 	 * When this method is called we should assume that we have to re-evaluate all existing hoop templates
 	 */	
@@ -314,29 +268,29 @@ public class INHoopTreeList extends INEmbeddedJPanel
 	public void setSelectionEntry (JLabel entry,mxGraphTransferable transferable)
 	{
 		debug ("setSelectionEntry ()");
-		
-		//DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
-		
-		//treeHoopRenderer.setHoopTemplate (node.getUserObject());
-		
+				
 		JLabel previous = selectedEntry;
 		selectedEntry = entry;
 
+		/*
 		if (previous != null)
 		{
 			previous.setBorder(null);
 			previous.setOpaque(false);
 		}
 		else
-			debug ("previous==null");		
+			debug ("previous==null");
+		*/			
 
+		/*
 		if (selectedEntry != null)
 		{
 			selectedEntry.setBorder(INHoopShadowBorder.getSharedInstance());
 			selectedEntry.setOpaque(true);
 		}
 		else
-			debug ("selectedEntry==null");		
+			debug ("selectedEntry==null");
+		*/			
 
 		debug ("fireEvent ...");
 		
@@ -384,4 +338,110 @@ public class INHoopTreeList extends INEmbeddedJPanel
     	
     	return (root);
     }
+	/**
+	 * 
+	 */
+	/*
+	private void initTreeDnD ()
+	{
+		debug ("initTreeDnD ()");
+		
+		mxCell cell = new mxCell (treeHoopRenderer,new mxGeometry (0,0,100,100),"label;image=/assets/images/gear.png");
+		cell.setVertex (true);
+		
+		mxRectangle bounds = (mxGeometry) cell.getGeometry().clone();
+		
+		transferable = new mxGraphTransferable (new Object[] { cell }, bounds);
+				
+		// Install the handler for dragging nodes into a graph
+
+		DragGestureListener dragGestureListener = new DragGestureListener()
+		{
+			public void dragGestureRecognized(DragGestureEvent e)
+			{
+				debug ("dragGestureRecognized");
+				
+				e.startDrag (null,mxSwingConstants.EMPTY_IMAGE,new Point(),transferable, null);
+			}
+		};
+		
+		DragSource dragSource = DragSource.getDefaultDragSource();
+		//dragSource.createDefaultDragGestureRecognizer (tree,DnDConstants.ACTION_COPY, dragGestureListener);
+	}
+	*/
+	@Override
+	public void mouseClicked(MouseEvent arg0) 
+	{
+		
+	}
+	/**
+	 * 
+	 */
+	@Override
+	public void mouseEntered(MouseEvent arg0) 
+	{
+		
+	}
+	/**
+	 * 
+	 */
+	@Override
+	public void mouseExited(MouseEvent arg0) 
+	{
+		
+	}
+	/**
+	 * 
+	 */
+	@Override
+	public void mousePressed(MouseEvent e) 
+	{
+		debug ("mousePressed ()");
+		
+		int x = (int) e.getPoint().getX();
+        int y = (int) e.getPoint().getY();
+        
+        TreePath path = tree.getPathForLocation(x, y);
+        if (path == null) 
+        {
+            tree.setCursor(Cursor.getDefaultCursor());
+        } 
+        else 
+        {
+            tree.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            
+            setSelectionEntry(treeHoopRenderer, transferable);		            
+        }								
+	}
+	/**
+	 * 
+	 */
+	@Override
+	public void mouseReleased(MouseEvent arg0) 
+	{
+		
+	}
+	/**
+	 * 
+	 */
+	@Override
+	public void actionPerformed(ActionEvent event) 
+	{		
+		debug ("actionPerformed ("+event.getActionCommand()+")");
+		
+		//String act=event.getActionCommand();
+		JButton button = (JButton)event.getSource();
+		
+		if (button==expandButton)
+		{
+			TreeNode root = (TreeNode) tree.getModel().getRoot();
+			expandAll (tree, new TreePath(root));
+		}		
+		
+		if (button==foldButton)
+		{
+			TreeNode root = (TreeNode) tree.getModel().getRoot();
+			collapseAll (tree, new TreePath(root));
+		}				
+	}    
 }

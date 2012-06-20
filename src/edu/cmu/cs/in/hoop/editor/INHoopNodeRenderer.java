@@ -95,6 +95,9 @@ public class INHoopNodeRenderer extends INJComponent implements MouseListener, M
 		setClassName ("INHoopNodeRenderer");
 		debug ("INHoopNodeRenderer ()");
 		
+		//Border blackborder=BorderFactory.createLineBorder(Color.black);
+		//Border redborder=BorderFactory.createLineBorder(Color.red);		
+		
 		this.cell = cell;
 		this.graphContainer = graphContainer;
 		this.graph = graphContainer.getGraph();
@@ -140,33 +143,38 @@ public class INHoopNodeRenderer extends INJComponent implements MouseListener, M
 		titleBar.add(toolBar, BorderLayout.EAST);
 		add (titleBar, BorderLayout.NORTH);
 		
-		Box contentBox = new Box (BoxLayout.X_AXIS);
+		Box contentBox = new Box (BoxLayout.X_AXIS);	
+		//contentBox.setBorder(redborder);
+		contentBox.setMinimumSize(new Dimension(50,50));
+		contentBox.setPreferredSize(new Dimension(100,100));
+		//contentBox.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
 		
 		leftPortBox = new Box (BoxLayout.Y_AXIS);
+		//leftPortBox.setAlignmentX(LEFT_ALIGNMENT);
 		leftPortBox.setBackground(INHoopProperties.graphPanelColor);
 		leftPortBox.setOpaque(true);
-		leftPortBox.setMinimumSize(new Dimension(20,20));
-		leftPortBox.setPreferredSize(new Dimension(30,100));
+		leftPortBox.setMinimumSize(new Dimension(50,20));
+		leftPortBox.setPreferredSize(new Dimension(50,100));
 		
 		rightPortBox = new Box (BoxLayout.Y_AXIS);		
+		//rightPortBox.setAlignmentX(RIGHT_ALIGNMENT);
 		rightPortBox.setBackground(INHoopProperties.graphPanelColor);
 		rightPortBox.setOpaque(true);
-		rightPortBox.setMinimumSize(new Dimension(20,20));
-		rightPortBox.setPreferredSize(new Dimension(30,100));		
+		rightPortBox.setMinimumSize(new Dimension(50,20));		
+		rightPortBox.setPreferredSize(new Dimension(50,100));		
 		
-		/*
 		contentArea=new JTextArea ();
 		contentArea.setFont(new Font("Dialog", 1, 10));
-		contentArea.setForeground(Color.WHITE);
+		//contentArea.setForeground(Color.WHITE);
 		contentArea.setLineWrap(true);
 		contentArea.setWrapStyleWord(true);
 		contentArea.setEditable(false);
 		contentArea.setBackground(INHoopProperties.graphPanelContent);
-		contentArea.setBorder(BorderFactory.createLoweredBevelBorder());
-		*/		
-		
+		//contentArea.setBorder(BorderFactory.createLoweredBevelBorder());
+				
 		contentBox.add(leftPortBox);
 		//contentBox.add(contentArea);
+		contentBox.add(Box.createHorizontalGlue());
 		contentBox.add(rightPortBox);
 		
 		add (contentBox, BorderLayout.CENTER);
@@ -203,7 +211,13 @@ public class INHoopNodeRenderer extends INJComponent implements MouseListener, M
 	{
 		debug ("addInPort ("+aPort+")");
 		
+		//Border border=BorderFactory.createLineBorder(Color.white);	
+		
 		Box portBox = new Box (BoxLayout.X_AXIS);
+		portBox.setAlignmentX(LEFT_ALIGNMENT);
+		portBox.setMinimumSize(new Dimension (50,20));
+		portBox.setPreferredSize(new Dimension (50,20));
+		//portBox.setBorder(border);
 	
 		JLabel portIcon = new JLabel(INHoopLink.getImageByName("port.png"));
 		portIcon.setMinimumSize(new Dimension (16,16));
@@ -215,8 +229,8 @@ public class INHoopNodeRenderer extends INJComponent implements MouseListener, M
 		aPortLabel.setHorizontalAlignment (JLabel.RIGHT);
 		aPortLabel.setFont(new Font("Dialog", 1, 10));	
 		aPortLabel.setForeground(Color.WHITE);
-		aPortLabel.setMinimumSize(new Dimension (20,20));
-		aPortLabel.setPreferredSize(new Dimension (50,20));
+		aPortLabel.setMinimumSize(new Dimension (50,20));
+		//aPortLabel.setPreferredSize(new Dimension (50,20));
 		
 		portBox.add(portIcon);
 		portBox.add(aPortLabel);
@@ -230,7 +244,13 @@ public class INHoopNodeRenderer extends INJComponent implements MouseListener, M
 	{
 		debug ("addOutPort ("+aPort+")");
 		
+		//Border border=BorderFactory.createLineBorder(Color.white);	
+		
 		Box portBox = new Box (BoxLayout.X_AXIS);
+		portBox.setAlignmentX(RIGHT_ALIGNMENT);
+		portBox.setMinimumSize(new Dimension (50,20));
+		portBox.setPreferredSize(new Dimension (50,20));
+		//portBox.setBorder(border);
 		
 		JLabel portIcon = new JLabel(INHoopLink.getImageByName("port.png"));
 		portIcon.setMinimumSize(new Dimension (16,16));
@@ -242,8 +262,8 @@ public class INHoopNodeRenderer extends INJComponent implements MouseListener, M
 		aPortLabel.setHorizontalAlignment (JLabel.LEFT);
 		aPortLabel.setFont(new Font("Dialog", 1, 10));
 		aPortLabel.setForeground(Color.WHITE);
-		aPortLabel.setMinimumSize(new Dimension (20,20));
-		aPortLabel.setPreferredSize(new Dimension (50,20));		
+		aPortLabel.setMinimumSize(new Dimension (50,20));
+		//aPortLabel.setPreferredSize(new Dimension (50,20));		
 
 		portBox.add(aPortLabel);		
 		portBox.add(portIcon);

@@ -150,7 +150,7 @@ public class INHoopMultiViewFrame extends INJFrame implements ActionListener
 		INHoopLink.statusBar.setBorder(blackborder);
 		INHoopLink.statusBar.setMinimumSize(new Dimension (50,22));
 		INHoopLink.statusBar.setPreferredSize(new Dimension (100,22));
-		INHoopLink.statusBar.setMaximumSize(new Dimension (5000,22));		
+		//INHoopLink.statusBar.setMaximumSize(new Dimension (1000,22));		
 				
 		INHoopLink.toolBar=new JToolBar ("Still draggable");
 		INHoopLink.toolBar.setMinimumSize(new Dimension (50,24));
@@ -171,7 +171,7 @@ public class INHoopMultiViewFrame extends INJFrame implements ActionListener
         
         JSeparator sep2=new JSeparator(SwingConstants.HORIZONTAL);
         sep2.setMinimumSize(new Dimension (50,5));
-        sep2.setMaximumSize(new Dimension (5000,5));
+        sep2.setMaximumSize(new Dimension (500,5));
 
         getContentPane ().add(sep2);
 		

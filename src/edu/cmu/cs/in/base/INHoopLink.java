@@ -262,7 +262,9 @@ public class INHoopLink extends INHoopProperties
 		 							 "led-red.png",// 84 							 
 		 							 "resize.png",// 84		 							 
 		 							 "zoom.png", // 84
-		 							 "port.png" // 84
+		 							 "port.png",
+		 							 "tree-expand-icon.png",
+		 							 "tree-fold-icon.png"// 84
 		 							 };
 	
 	public static String vocabularyPath="./";
@@ -454,8 +456,8 @@ public class INHoopLink extends INHoopProperties
    			aPane.setPreferredSize(new Dimension (200,this.getHeight()));
    			*/
    			
-   			INHoopLink.left.setPreferredSize(new Dimension (200,200));
-   			aPane.setPreferredSize(new Dimension (200,200));   			
+   			INHoopLink.left.setPreferredSize(new Dimension (150,200));
+   			aPane.setPreferredSize(new Dimension (150,200));   			
    		}
    	
    		pane.update();

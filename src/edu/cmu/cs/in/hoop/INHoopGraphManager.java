@@ -49,5 +49,34 @@ public class INHoopGraphManager extends INHoopBase
 	public INHoopBase getRoot() 
 	{
 		return root;
+	}
+	/** 
+	 * @param root
+	 */
+	public Boolean connectHoops(INHoopBase aSource,INHoopBase aTarget) 
+	{
+		debug ("connectHoops ()");
+		
+		if (aSource==null)
+		{
+			debug ("Error: hoop source is null");
+			return (false);
+		}
+		
+		if (aTarget==null)
+		{
+			debug ("Error: hoop target is null");
+			return (false);
+		}		
+		
+		if (aSource==aTarget)
+		{
+			setErrorString ("Can't connect a hoop to itself");
+			return (false);
+		}
+		
+		aSource.addOutHoop(aTarget);
+		
+		return (true);
 	}	
 }

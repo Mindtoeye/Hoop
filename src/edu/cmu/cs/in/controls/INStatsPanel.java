@@ -30,14 +30,14 @@ public class INStatsPanel extends JPanel implements INVisualFeatureVisualizer
 {	
 	public ArrayList <INVisualSentence> texts=null;
 		
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
 	private void debug (String aMessage)
 	{
 		INBase.debug ("INStatsPanel",aMessage);	
 	}
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */	
 	public INStatsPanel ()
@@ -46,13 +46,12 @@ public class INStatsPanel extends JPanel implements INVisualFeatureVisualizer
 		
 		debug ("INStatsPanel ()");				
 	}
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */	
 	public void updateVisualFeatures () 
 	{		
 		debug ("updateVisualFeatures ()");
 		
-	}
-	//-------------------------------------------------------------------------------------	
+	}	
 }

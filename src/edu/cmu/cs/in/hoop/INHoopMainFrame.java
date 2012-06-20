@@ -25,7 +25,7 @@ import javax.swing.*;
 import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.controls.INScatterPlot;
 import edu.cmu.cs.in.controls.map.INHoopJava3DJPanel;
-import edu.cmu.cs.in.hoop.editor.INHoopEditorPalettePanel;
+//import edu.cmu.cs.in.hoop.editor.INHoopEditorPalettePanel;
 import edu.cmu.cs.in.hoop.editor.INHoopEditorToolBar;
 import edu.cmu.cs.in.hoop.properties.INHoopPropertyPanel;
 import edu.cmu.cs.in.network.INMessageReceiver;
@@ -55,7 +55,10 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     	debug ("INHoopMainFrame ()");
     	    
         buildMenus();       
-        addButtons (this.getToolBar());        
+        
+        addButtons (this.getToolBar());
+        
+        startEditor ();
     }
 	/**
 	 *
@@ -295,25 +298,8 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     	hoopEditorItem.addActionListener(new ActionListener() 
     	{
     		public void actionPerformed(ActionEvent e) 
-    		{
-    			/*
-    			INHoopEditorPalettePanel pallette=new INHoopEditorPalettePanel ();
-    			addView ("Hoop Palette",pallette,INHoopLink.left);
-    			*/
-    			    			
-    			INHoopTreeList hoopList=new INHoopTreeList ();
-    			addView ("Hoop List",hoopList,INHoopLink.left);
-    			
-    	    	propPanel=new INHoopPropertyPanel();
-    	    	
-    	    	addView ("Properties",propPanel,INHoopLink.right);
-    			
-    			INHoopGraphEditor editor=new INHoopGraphEditor ();
-    			addView ("Hoop Editor",editor,INHoopLink.center);
-    			INHoopLink.menuBar.create(editor);
-    			INHoopLink.toolEditorBar=new INHoopEditorToolBar ();
-    			INHoopLink.toolBoxContainer.add (INHoopLink.toolEditorBar,1);    		
-    			INHoopLink.toolEditorBar.create(editor,JToolBar.HORIZONTAL);
+    		{    			    			
+    			startEditor ();
     		}
     	});     	
     	
@@ -614,4 +600,28 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
 		// TODO Auto-generated method stub
 		
 	}      
+	/**
+	 * 
+	 */
+	private void startEditor ()
+	{
+		debug ("startEditor ()");
+		
+    	console=new INHoopConsole();    	
+    	addView ("Console",console,INHoopLink.bottom);  		
+		
+		INHoopTreeList hoopList=new INHoopTreeList ();
+		addView ("Hoop List",hoopList,INHoopLink.left);
+		
+    	propPanel=new INHoopPropertyPanel();
+    	
+    	addView ("Properties",propPanel,INHoopLink.right);
+		
+		INHoopGraphEditor editor=new INHoopGraphEditor ();
+		addView ("Hoop Editor",editor,INHoopLink.center);
+		INHoopLink.menuBar.create(editor);
+		INHoopLink.toolEditorBar=new INHoopEditorToolBar ();
+		INHoopLink.toolBoxContainer.add (INHoopLink.toolEditorBar,1);    		
+		INHoopLink.toolEditorBar.create(editor,JToolBar.HORIZONTAL);		
+	}
 }

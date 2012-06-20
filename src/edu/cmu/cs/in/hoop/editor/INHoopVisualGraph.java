@@ -21,24 +21,28 @@ package edu.cmu.cs.in.hoop.editor;
 import java.text.NumberFormat;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
+import com.mxgraph.canvas.mxICanvas;
+import com.mxgraph.canvas.mxImageCanvas;
 import com.mxgraph.model.mxGeometry;
+import com.mxgraph.util.mxConstants;
 import com.mxgraph.util.mxPoint;
 import com.mxgraph.view.mxCellState;
+import com.mxgraph.view.mxEdgeStyle;
 import com.mxgraph.view.mxGraph;
 import com.mxgraph.model.mxCell;
 
 import edu.cmu.cs.in.base.INBase;
+import edu.cmu.cs.in.base.INHoopLink;
+import edu.cmu.cs.in.hoop.base.INHoopBase;
 
 /** 
  * @author vvelsen
  * A graph that creates new edges from a given template edge.
  */
 public class INHoopVisualGraph extends mxGraph
-{
-	final int PORT_DIAMETER = 20;
-	final int PORT_RADIUS = PORT_DIAMETER / 2;	
-	
+{	
 	public static final NumberFormat numberFormat = NumberFormat.getInstance();
 	
 	/// Holds the edge to be used as a template for inserting new edges.
@@ -50,7 +54,16 @@ public class INHoopVisualGraph extends mxGraph
 	 */
 	public INHoopVisualGraph()
 	{
-		setAlternateEdgeStyle("edgeStyle=mxEdgeStyle.ElbowConnector;elbow=vertical");
+		setAllowDanglingEdges(false);
+		setCellsCloneable(false);		
+		setAllowLoops (false);
+		setDisconnectOnMove (false);
+		
+		//setAlternateEdgeStyle("edgeStyle=mxEdgeStyle.ElbowConnector;elbow=vertical");
+		
+		// Sets the default edge style
+		Map<String, Object> style = this.getStylesheet().getDefaultEdgeStyle();
+		style.put(mxConstants.STYLE_EDGE, mxEdgeStyle.ElbowConnector);		
 	}
 	/**
 	 * 
@@ -175,6 +188,43 @@ public class INHoopVisualGraph extends mxGraph
 	{
 		debug ("createEdge ()");
 		
+		INHoopBase sourceHoop=null;
+		INHoopBase targetHoop=null;
+		
+		if (source instanceof mxCell)
+		{
+			debug ("We've got a source cell here");
+	
+			mxCell sourceCell=(mxCell) source;
+			
+			Object userSourceObject=sourceCell.getValue();
+			
+			if (userSourceObject instanceof INHoopBase)
+			{
+				sourceHoop=(INHoopBase) userSourceObject;
+			}
+		}	
+				
+		if (target instanceof mxCell)
+		{
+			debug ("We've got a target cell here");
+	
+			mxCell targetCell=(mxCell) target;
+			
+			Object userTargetObject=targetCell.getValue();
+			
+			if (userTargetObject instanceof INHoopBase)
+			{
+				targetHoop=(INHoopBase) userTargetObject;
+			}
+		}			
+		
+		if (INHoopLink.hoopGraphManager.connectHoops(sourceHoop, targetHoop)==false)
+		{
+			
+			return (null);
+		}
+		
 		mxCell edge =null;
 		
 		if (edgeTemplate != null)
@@ -191,32 +241,88 @@ public class INHoopVisualGraph extends mxGraph
 		return edge;
 	}
 	/**
+	 * 
+	 */
+	public Object createVertex (Object parent,
+            					String id,
+            					Object value,
+            					double x,
+            					double y,
+            					double width,
+            					double height,
+            					String style)
+	{
+		debug ("createVertex ()");
+		
+		Object result=super.createVertex(parent,id,value,x,y,width,height,style);
+		
+		debug (result.toString());
+		
+		return (result);
+	}
+	/**
+	 * 
+	 */
+	public Object createVertex (Object parent,
+            					String id,
+            					Object value,
+            					double x,
+            					double y,
+            					double width,
+            					double height,
+            					String style,
+            					boolean something)
+	{
+		debug ("createVertex ()");
+		
+		Object result=super.createVertex(parent,id,value,x,y,width,height,style,something);
+		
+		debug (result.toString());
+		
+		return (result);
+	}	
+	/**
 	 *  Ports are not used as terminals for edges, they are
 	 *  only used to compute the graphical connection point
 	 */
 	public boolean isPort(Object cell)
 	{
-		mxGeometry geo = getCellGeometry(cell);
+		debug ("isPort ()");
 		
-		return (geo != null) ? geo.isRelative() : false;
+		mxGeometry geo=getCellGeometry(cell);
+		
+		return (geo!=null) ? geo.isRelative() : false;
 	}
-	/** 
-	 * Implements a tooltip that shows the actual source and target of an edge 
+	/**
+	 *  Removes the folding icon and disables any folding
 	 */
-	/*
-	public String getToolTipForCell(Object cell)
-	{
-		if (model.isEdge(cell))
-		{
-			return convertValueToString(model.getTerminal(cell, true)) + " -> " + convertValueToString(model.getTerminal(cell, false));
-		}
-		
-		return super.getToolTipForCell(cell);
-	}
-	*/	
-	// Removes the folding icon and disables any folding
 	public boolean isCellFoldable(Object cell, boolean collapse)
 	{
 		return false;
+	}	
+	/**
+	 * 
+	 */
+	public void drawState (mxICanvas canvas, 
+						   mxCellState state,
+						   boolean drawLabel)
+	{
+		String label = (drawLabel) ? state.getLabel() : "";
+
+		// Indirection for wrapped swing canvas inside image canvas (used for creating
+		// the preview image when cells are dragged)
+		if (getModel().isVertex(state.getCell()) && canvas instanceof mxImageCanvas && ((mxImageCanvas) canvas).getGraphicsCanvas() instanceof INHoopVisualGraphCanvas)
+		{
+			((INHoopVisualGraphCanvas) ((mxImageCanvas) canvas).getGraphicsCanvas()).drawVertex(state, label);
+		}
+		// Redirection of drawing vertices in SwingCanvas
+		else if (getModel().isVertex(state.getCell()) && canvas instanceof INHoopVisualGraphCanvas)
+		{
+			((INHoopVisualGraphCanvas) canvas).drawVertex(state, label);
+		}
+		else
+		{
+			super.drawState(canvas, state, drawLabel);
+		}
 	}	
 }

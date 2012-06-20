@@ -42,8 +42,7 @@ public class INJTreeHoopRenderer extends JLabel implements TreeCellRenderer
 	 * 
 	 */
 	public INJTreeHoopRenderer ()
-	{
-		this.setOpaque(true);				
+	{				
 		this.setFont(new Font("Dialog", 1, 10));
 		this.setOpaque(true);
 	}

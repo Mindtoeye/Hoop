@@ -133,8 +133,8 @@ public class INHoopConsole extends INEmbeddedJPanel implements INHoopConsoleInte
 		console.setMinimumSize(new Dimension (50,150));
 						
 		JScrollPane consoleContainer = new JScrollPane (console);
-		consoleContainer.setMinimumSize(new Dimension (50,150));
-		consoleContainer.setPreferredSize(new Dimension (500,150));
+		consoleContainer.setMinimumSize(new Dimension (50,100));
+		consoleContainer.setPreferredSize(new Dimension (500,100));
 			
 		Box mainBox = new Box (BoxLayout.X_AXIS);
 		

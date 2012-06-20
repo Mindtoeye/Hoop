@@ -18,13 +18,17 @@
 
 package edu.cmu.cs.in.hoop;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
 
 import edu.cmu.cs.in.controls.base.INJPanel;
 
@@ -48,7 +52,7 @@ public class INHoopStatusBar extends INJPanel
 	
 	private JTextField memory=null;
 	private JTextField keys=null;
-	private JTextField padding=null;
+	//private JTextField padding=null;
 	private JTextField memo=null;
 	
 	/**
@@ -58,8 +62,15 @@ public class INHoopStatusBar extends INJPanel
 	{
 		setClassName ("INHoopStatusBar");
 		debug ("INHoopStatusBar ()");
+		
+		BoxLayout bLayout=new BoxLayout (this,BoxLayout.X_AXIS);
 	
-		setLayout(new BoxLayout (this,BoxLayout.X_AXIS));
+		setLayout(bLayout);
+		
+		//Border blackborder=BorderFactory.createLineBorder(Color.black);
+		Border redborder=BorderFactory.createLineBorder(Color.red);
+		
+		this.setBorder(redborder);
 		
 		memory=new JTextField ();
 		memory.setEditable(false);
@@ -75,12 +86,14 @@ public class INHoopStatusBar extends INJPanel
 		keys.setPreferredSize(new Dimension (100,23));
 		keys.setMaximumSize(new Dimension (100,23));
 		
+		/*
 		padding=new JTextField ();
 		padding.setEditable(false);
 		padding.setFont(new Font("Dialog", 1, 10));
 		padding.setMinimumSize(new Dimension (50,23));
 		padding.setPreferredSize(new Dimension (100,23));
 		//padding.setMaximumSize(new Dimension (5000,23));
+		 */
 		
 		memo=new JTextField ();
 		memo.setEditable(false);
@@ -90,9 +103,10 @@ public class INHoopStatusBar extends INJPanel
 		//memo.setMaximumSize(new Dimension (5000,23));		
 		
 		this.add(memory);
-		this.add(keys);
+		this.add(keys);		
+		//this.add(padding);
+		this.add(Box.createHorizontalGlue());
 		this.add(memo);
-		this.add(padding);
 		
 		update ();
 		
@@ -117,7 +131,7 @@ public class INHoopStatusBar extends INJPanel
 		
 		keys.setText("N | C | S - I/O");
 		
-		padding.setText(" ");
+		//padding.setText(" ");
 	}
 	/**
 	 * 

@@ -21,7 +21,12 @@ package edu.cmu.cs.in.hoop.editor;
 import java.awt.Component;
 
 import com.mxgraph.model.mxCell;
+import com.mxgraph.model.mxGeometry;
 import com.mxgraph.swing.mxGraphComponent;
+import com.mxgraph.swing.handler.mxRubberband;
+import com.mxgraph.swing.view.mxInteractiveCanvas;
+import com.mxgraph.util.mxPoint;
+import com.mxgraph.util.mxRectangle;
 import com.mxgraph.view.mxCellState;
 import com.mxgraph.view.mxGraph;
 
@@ -36,6 +41,9 @@ import edu.cmu.cs.in.hoop.base.INHoopBase;
 public class INHoopVisualGraphComponent extends mxGraphComponent
 {
 	private static final long serialVersionUID = -1L;
+	
+	final int PORT_DIAMETER = 20;
+	final int PORT_RADIUS = PORT_DIAMETER / 2;		
 
 	/**
 	 * 
@@ -49,14 +57,12 @@ public class INHoopVisualGraphComponent extends mxGraphComponent
 
 		setConnectable(true);
 		
-		getGraph().setCellsResizable(false);
-		getGraph ().setAllowDanglingEdges(false);
 		getGraphHandler().setCloneEnabled(false);
 		getGraphHandler().setImagePreview(false);		
 		
 		setGridVisible(false);
 		setToolTips(true);
-		getConnectionHandler().setCreateTarget(true);
+		//getConnectionHandler().setCreateTarget(true);
 
 		// Loads the default stylesheet from an external file
 		/*
@@ -66,7 +72,7 @@ public class INHoopVisualGraphComponent extends mxGraphComponent
 		*/
 
 		getViewport().setOpaque(true);
-		getViewport().setBackground(INHoopProperties.graphBackgroundColor);
+		getViewport().setBackground(INHoopProperties.graphBackgroundColor);				
 	}
 	/**
 	 * 
@@ -78,7 +84,16 @@ public class INHoopVisualGraphComponent extends mxGraphComponent
 	/**
 	 * 
 	 */
-	public Component[] createComponents(mxCellState state)
+	public mxInteractiveCanvas createCanvas()
+	{
+		debug ("createCanvas ()");
+		
+		return new INHoopVisualGraphCanvas (this);
+	}	
+	/**
+	 * 
+	 */
+	public Component[] createComponents (mxCellState state)
 	{
 		debug ("createComponents ("+state+")");
 		
@@ -96,9 +111,11 @@ public class INHoopVisualGraphComponent extends mxGraphComponent
 			{
 				if (aCell instanceof mxCell)
 				{
-					debug ("We've got a cell here");
+					debug ("We've got a cell here, configuring ...");
 			
 					mxCell cell=(mxCell) aCell;
+					
+					cell.setConnectable(false);
 					
 					Object userObject=cell.getValue();
 										
@@ -114,7 +131,41 @@ public class INHoopVisualGraphComponent extends mxGraphComponent
 							INHoopLink.hoopGraphManager.setRoot(hoopTemplate);
 																	
 						createdPanels [0]=new INHoopNodePanel (hoopTemplate,cell, this);
-			
+						
+						graph.getModel().beginUpdate();
+						
+						try
+						{
+							mxGeometry geo = graph.getModel().getGeometry(cell);
+							// The size of the rectangle when the minus sign is clicked
+							geo.setAlternateBounds(new mxRectangle(20, 20, 100, 50));
+
+							mxGeometry geo1 = new mxGeometry(0, 0.5, PORT_DIAMETER,	PORT_DIAMETER);
+							// Because the origin is at upper left corner, need to translate to
+							// position the center of port correctly
+							geo1.setOffset(new mxPoint(-PORT_RADIUS, -PORT_RADIUS));
+							geo1.setRelative(true);
+
+							mxCell port1 = new mxCell(null, geo1, "shape=ellipse;perimter=ellipsePerimeter");
+							port1.setVertex(true);
+							port1.setConnectable(false);
+
+							mxGeometry geo2 = new mxGeometry(1.0, 0.5, PORT_DIAMETER,	PORT_DIAMETER);
+							geo2.setOffset(new mxPoint(-PORT_RADIUS, -PORT_RADIUS));
+							geo2.setRelative(true);
+							
+							mxCell port2 = new mxCell(null, geo2,"shape=ellipse;perimter=ellipsePerimeter");
+							port2.setVertex(true);
+							port2.setConnectable(false);
+
+							graph.addCell(port1,cell);
+							graph.addCell(port2,cell);
+						}
+						finally
+						{
+							graph.getModel().endUpdate();
+						}							
+		    				        											
 						return (createdPanels);
 					}
 					else
