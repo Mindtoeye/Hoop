@@ -19,6 +19,7 @@
 package edu.cmu.cs.in.controls;
 
 import java.awt.Component;
+import java.awt.Font;
 
 import javax.swing.JCheckBox;
 import javax.swing.JList;
@@ -45,6 +46,7 @@ class INJCheckListItem extends JCheckBox implements ListCellRenderer
 	{
 		setBackground (UIManager.getColor("List.textBackground"));
 		setForeground (UIManager.getColor("List.textForeground"));
+		setFont(new Font("Dialog", 1, 10)); 
 		
 		debug ("INJCheckList ()");
 	}

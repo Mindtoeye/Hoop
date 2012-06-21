@@ -59,15 +59,7 @@ public class INHoopPropertyPanel extends INEmbeddedJPanel
         
         hoopPropertyBox.add (contentScroller);
         
-        this.add (hoopPropertyBox);
-        
-        /*
-		addPropertyPanel (new INHoopInspectablePanel ("First Panel"));
-		addPropertyPanel (new INHoopInspectablePanel ("Second Panel"));
-		addPropertyPanel (new INHoopInspectablePanel ("Third Panel"));
-		*/
-		
-		//contentBox.add(Box.createVerticalGlue());
+        this.add (hoopPropertyBox);        
 	}
 	/**
 	 * 
@@ -77,7 +69,7 @@ public class INHoopPropertyPanel extends INEmbeddedJPanel
 		debug ("addPropertyPanel ()");
 		
 		contentBox.add (aPanel);
-		//this.invalidate();
+		//contentBox.add(Box.createVerticalGlue());
 		
 		debug ("addPropertyPanel () done");
 	}

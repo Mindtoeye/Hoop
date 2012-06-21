@@ -137,6 +137,8 @@ public class INHoopMultiViewFrame extends INJFrame implements ActionListener
      */
     private void constructUI ()
     {
+    	Container cp = this.getContentPane();
+    	
 		//Border padding = BorderFactory.createEmptyBorder(2,0,0,0);
 		Border blackborder=BorderFactory.createLineBorder(Color.black);
 		//Border redborder=BorderFactory.createLineBorder(Color.red);		
@@ -166,21 +168,21 @@ public class INHoopMultiViewFrame extends INJFrame implements ActionListener
         sep1.setMinimumSize(new Dimension (50,5));
         sep1.setMaximumSize(new Dimension (100,5));
                         
-        getContentPane ().add(sep1);        
-        getContentPane ().add (INHoopLink.toolBoxContainer);
+        cp.add(sep1);        
+        cp.add (INHoopLink.toolBoxContainer);
         
         JSeparator sep2=new JSeparator(SwingConstants.HORIZONTAL);
         sep2.setMinimumSize(new Dimension (50,5));
         sep2.setMaximumSize(new Dimension (500,5));
 
-        getContentPane ().add(sep2);
+        cp.add(sep2);
 		
 		INHoopLink.left=new INHoopTabDraggable ();		
 		INHoopLink.right=new INHoopTabDraggable ();		
 		INHoopLink.center=new INHoopTabDraggable ();		
 		INHoopLink.bottom=new INHoopTabDraggable ();
 		
-        String layoutDef = "(ROW weight=1.0 (LEAF name=left weight=0.2) (COLUMN weight=0.6 (LEAF name=middle weight=0.8) (LEAF name=bottom weight=0.2)) (LEAF name=right weight=0.2))";
+        String layoutDef = "(ROW weight=1.0 (LEAF name=left weight=0.2) (COLUMN weight=0.6 (LEAF name=middle weight=0.9) (LEAF name=bottom weight=0.1)) (LEAF name=right weight=0.2))";
         MultiSplitLayout.Node modelRoot = MultiSplitLayout.parseModel(layoutDef);
 
         MultiSplitPane multiSplitPane = new MultiSplitPane();
@@ -191,11 +193,10 @@ public class INHoopMultiViewFrame extends INJFrame implements ActionListener
        	multiSplitPane.add(INHoopLink.right, "right");
         multiSplitPane.add(INHoopLink.center, "middle");
         multiSplitPane.add(INHoopLink.bottom, "bottom");
-
-       	Container cp = this.getContentPane();
+       	       	
        	cp.add(multiSplitPane, BorderLayout.CENTER);
        	
-       	getContentPane ().add (INHoopLink.statusBar);
+       	cp.add (INHoopLink.statusBar, BorderLayout.CENTER);
        									
 		debug ("Ready for input");        		 	
     }

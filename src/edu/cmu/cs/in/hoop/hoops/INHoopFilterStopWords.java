@@ -18,12 +18,14 @@
 
 package edu.cmu.cs.in.hoop.hoops;
 
+import java.awt.Dimension;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
 import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.base.INKV;
+import edu.cmu.cs.in.hoop.INHoopStopWordEditor;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
 import edu.cmu.cs.in.hoop.base.INHoopInterface;
 import edu.cmu.cs.in.hoop.base.INHoopTransformBase;
@@ -32,7 +34,9 @@ import edu.cmu.cs.in.hoop.base.INHoopTransformBase;
 * 
 */
 public class INHoopFilterStopWords extends INHoopTransformBase implements INHoopInterface
-{    				
+{    	
+	private INHoopStopWordEditor propPanel=null;
+	
 	/**
 	 *
 	 */
@@ -93,7 +97,12 @@ public class INHoopFilterStopWords extends INHoopTransformBase implements INHoop
 	@Override
 	public JPanel getPropertiesPanel() 
 	{
-		// To be implemented by child class
-		return null;
+		debug ("getPropertiesPanel ()");
+		
+		if (propPanel==null)
+			propPanel=new INHoopStopWordEditor ();
+		
+		propPanel.setPreferredSize(new Dimension (150,200));
+		return (propPanel);
 	}	
 }

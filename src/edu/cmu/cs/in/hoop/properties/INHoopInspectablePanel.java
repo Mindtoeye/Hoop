@@ -36,6 +36,7 @@ import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
@@ -54,7 +55,7 @@ public class INHoopInspectablePanel extends INJPanel implements ActionListener, 
 	private INHoopInspectable component=null;
 	
 	private FlatButton foldButton=null;
-	//private JLabel componentType=null;
+	private JScrollPane parameterScrollList=null;
 	
 	private JPanel preview=null;
 	
@@ -153,16 +154,18 @@ public class INHoopInspectablePanel extends INJPanel implements ActionListener, 
         controlBox.add(Box.createHorizontalGlue());
                                                 	    
         parameterPanel=new JPanel ();
-                                               	    
+        
         parameterTable=new INHoopPropertyTable ();
         parameterTable.setBorder(BorderFactory.createLineBorder(Color.black));
-        //parameterTable.setMaximumSize(new Dimension (5000,5000));
                 
-        JScrollPane parameterScrollList=new JScrollPane (parameterTable);
+        //parameterScrollList=new JScrollPane (parameterTable);
+        parameterScrollList=new JScrollPane ();
         parameterScrollList.setMinimumSize(new Dimension (10,10));
-        parameterScrollList.setPreferredSize(new Dimension (100,100));
-        //parameterScrollList.setMaximumSize(new Dimension (5000,5000));	    
-        parameterScrollList.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        parameterScrollList.setPreferredSize(new Dimension (100,100));   
+        parameterScrollList.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);        
+        parameterScrollList.setBorder(BorderFactory.createLineBorder(Color.red));
+        parameterScrollList.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        parameterScrollList.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
         
         BorderLayout configBox=new BorderLayout();
         parameterPanel.setLayout(configBox);
@@ -170,6 +173,8 @@ public class INHoopInspectablePanel extends INJPanel implements ActionListener, 
         parameterPanel.add(parameterScrollList,BorderLayout.CENTER);        
                 
         panelBox.add (parameterPanel);	
+        
+        this.setPreferredSize(new Dimension (fixedWidth,fixedHeight));
 	}
 	/**
 	 * 
@@ -207,6 +212,13 @@ public class INHoopInspectablePanel extends INJPanel implements ActionListener, 
 	{
 		return fixedWidth;
 	}
+	/**
+	 * 
+	 */	
+	public Dimension getCurrentDimensions() 
+	{
+		return (new Dimension (parameterScrollList.getWidth(),parameterScrollList.getHeight()));
+	}	
 	/**
 	 * 
 	 */	
@@ -449,5 +461,24 @@ public class INHoopInspectablePanel extends INJPanel implements ActionListener, 
 		else
 			debug ("Error: controller object is null");
 		*/	
+	}
+	/**
+	 * 
+	 */
+	public void setPanelContent (JPanel aContent)
+	{
+		debug ("setPanelContent ()");
+		
+		if (aContent==null)
+		{
+			debug ("Internal error: can't insert a null object!");
+			return;
+		}
+		
+		//parameterScrollList.removeAll();
+		parameterScrollList.setViewportView (aContent);
+		parameterScrollList.invalidate();
+		
+		debug ("setPanelContent () done");
 	}
 }

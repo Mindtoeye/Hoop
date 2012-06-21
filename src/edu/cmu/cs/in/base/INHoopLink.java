@@ -351,24 +351,30 @@ public class INHoopLink extends INHoopProperties
 	 */
     public static void addWindow (INEmbeddedJPanel aWindow)
     {
+    	INBase.debug ("INHoopLink","addWindow ()");
+    	
     	if (windows!=null)
     		windows.add(aWindow);
     }
 	/**
 	 *
 	 */
-   public static void removeWindowInternal (INEmbeddedJPanel aWindow)
-   {
+    public static void removeWindowInternal (INEmbeddedJPanel aWindow)
+    {
+	   INBase.debug ("INHoopLink","removeWindowInternal ()");
+	   
    		if (windows!=null)
    		{
    			windows.remove(aWindow);
    		}
-   }    
+    }    
 	/**
 	 *
 	 */
     public static void removeWindow (INEmbeddedJPanel aWindow)
     {
+    	INBase.debug ("INHoopLink","removeWindow ()");
+    	
     	if (windows!=null)
     	{
     		aWindow.close();
@@ -380,6 +386,8 @@ public class INHoopLink extends INHoopProperties
 	 */
     public static INEmbeddedJPanel getWindow (String aTitle)
     {
+    	INBase.debug ("INHoopLink","getWindow ()");
+    	
     	for (int i=0;i<windows.size();i++)
     	{
     		INEmbeddedJPanel aWindow=windows.get(i);
@@ -394,8 +402,10 @@ public class INHoopLink extends INHoopProperties
 	/**
 	 *
 	 */
-    public static void updateWindows (String aTitle)
+    public static void updateWindow (String aTitle)
     {
+    	INBase.debug ("INHoopLink","updateWindow ()");
+    	
    		for (int i=0;i<windows.size();i++)
    		{
    			INEmbeddedJPanel aWindow=windows.get(i);
@@ -410,6 +420,8 @@ public class INHoopLink extends INHoopProperties
 	 */
     public static void updateAllWindows ()
     {
+    	INBase.debug ("INHoopLink","updateAllWindows ()");
+    	
  		for (int i=0;i<windows.size();i++)
  		{
  			INEmbeddedJPanel aWindow=windows.get(i);
@@ -420,28 +432,45 @@ public class INHoopLink extends INHoopProperties
      * 
      */
     public void setStatus (String aStatus)
-    {
+    {    	
     	if (statusBar!=null)
     		statusBar.setStatus(aStatus);
     }
 	/**
 	 *
 	 */
-   public static void addView (String aTitle,
-		   						INEmbeddedJPanel aContent,
+  	public static void addView (String aTitle,
+  								INEmbeddedJPanel aContent,
+  								String aPane)
+  	{
+  		INBase.debug ("INHoopLink","addView ()");
+  	
+  		INHoopTabDraggable target=null;
+ 	
+  		if (aPane.equals("center")==true)
+  			target=INHoopLink.center;
+  	
+  		if (aPane.equals("left")==true)
+  			target=INHoopLink.left;
+  	
+  		if (aPane.equals("right")==true)
+  			target=INHoopLink.right;
+  	
+  		if (aPane.equals("bottom")==true)
+  			target=INHoopLink.bottom;
+  	
+  		INHoopLink.addView (aTitle,aContent,target);
+  	}      
+	/**
+	 *
+	 */
+  	public static void addView (String aTitle,
+  								INEmbeddedJPanel aContent,
 		   						JTabbedPane aPane)
-   {
-   		//debug ("addView ("+aTitle+",INEmbeddedJPanel,JTabbedPane)");
-   	
-   		/*
-   		if (INHoopLink.getWindow(aTitle)!=null)
-   		{
-   			debug ("We already have such a window, aborting");
-   			return;
-   		}
-   		 */
-   	
-   		aContent.setInstanceName(aTitle);
+  	{
+  		INBase.debug ("INHoopLink","addView ()");
+	   
+  		aContent.setInstanceName(aTitle);
    		INHoopLink.addWindow(aContent);
    	
    		aPane.addTab(aTitle,INHoopLink.imageIcons [5],aContent,"New Panel");
@@ -449,42 +478,27 @@ public class INHoopLink extends INHoopProperties
    		INHoopTabPane pane=new INHoopTabPane (aPane);
    		aPane.setTabComponentAt(index,pane);
    	
-   		if ((aPane==INHoopLink.left) || (aPane==INHoopLink.right))
-   		{
-   			/*
-   			INHoopLink.left.setPreferredSize(new Dimension (200,this.getHeight()));
-   			aPane.setPreferredSize(new Dimension (200,this.getHeight()));
-   			*/
-   			
+   		if (aPane==INHoopLink.left)
+   		{   			
+   			INBase.debug ("INHoopLink","Setting appropriate dimensions for left panel ...");
    			INHoopLink.left.setPreferredSize(new Dimension (150,200));
    			aPane.setPreferredSize(new Dimension (150,200));   			
    		}
+   		
+   		if (aPane==INHoopLink.right)
+   		{   			
+   			INBase.debug ("INHoopLink","Setting appropriate dimensions for right panel ...");   			
+   			INHoopLink.right.setPreferredSize(new Dimension (150,200));
+   			aPane.setPreferredSize(new Dimension (150,200));   			
+   		}
+   		
+   		if (aPane==INHoopLink.bottom)
+   		{   			
+   			INBase.debug ("INHoopLink","Setting appropriate dimensions for bottom panel ...");   			
+   			INHoopLink.bottom.setPreferredSize(new Dimension (300,150));
+   			aPane.setPreferredSize(new Dimension (300,150));  			
+   		}   		
    	
    		pane.update();
-   	}
-	/**
-	 *
-	 */
-   	public static void addView (String aTitle,
-   								INEmbeddedJPanel aContent,
-   								String aPane)
-   	{
-   		//debug ("addView ("+aTitle+",INEmbeddedJPanel,String)");
-   	
-   		INHoopTabDraggable target=null;
-  	
-   		if (aPane.equals("center")==true)
-   			target=INHoopLink.center;
-   	
-   		if (aPane.equals("left")==true)
-   			target=INHoopLink.left;
-   	
-   		if (aPane.equals("right")==true)
-   			target=INHoopLink.right;
-   	
-   		if (aPane.equals("bottom")==true)
-   			target=INHoopLink.bottom;
-   	
-   		INHoopLink.addView (aTitle,aContent,target);
-   	}        
+   	}      
 }

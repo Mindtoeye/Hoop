@@ -258,7 +258,7 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     	JMenuItem reporterItem = new JMenuItem("Reporter");
     	JMenuItem hoopEditorItem = new JMenuItem("Hoop Editor");    	
     	JMenuItem jobListItem = new JMenuItem("Hadoop Jobs");
-    	JMenuItem stopWordItem = new JMenuItem("Stopword Editor");
+    	//JMenuItem stopWordItem = new JMenuItem("Stopword Editor");
     	JMenuItem vocabularyItem = new JMenuItem("Vocabulary Editor");
     	JMenuItem opSpaceItem = new JMenuItem("Narrative Opportunity Space Visualizer");
     	JMenuItem hexMapItem = new JMenuItem("Hexagon Map");
@@ -311,13 +311,15 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     		}
     	});    	
     	
+    	/*
     	stopWordItem.addActionListener(new ActionListener() 
     	{
     		public void actionPerformed(ActionEvent e) 
     		{
     			addView ("Stop Words",new INHoopStopWordEditor (),INHoopLink.left);
     		}
-    	});     	    	
+    	});
+    	*/     	    	
 
     	vocabularyItem.addActionListener(new ActionListener() 
     	{
@@ -349,7 +351,7 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     	tools.add (reporterItem);
     	tools.add (hoopEditorItem);
     	tools.add (jobListItem);
-    	tools.add (stopWordItem);
+    	//tools.add (stopWordItem);
     	tools.add (vocabularyItem);
     	tools.add (opSpaceItem);
     	tools.add (hexMapItem);

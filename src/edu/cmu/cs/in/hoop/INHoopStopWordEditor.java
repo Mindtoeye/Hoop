@@ -53,8 +53,8 @@ public class INHoopStopWordEditor extends INEmbeddedJPanel implements ActionList
     {
     	//super("StopWord Editor", true, true, true, true);
     	
-		setClassName ("INHoopEditor");
-		debug ("INHoopEditor ()");    	
+		setClassName ("INHoopStopWordEditor");
+		debug ("INHoopStopWordEditor ()");    	
     
 		stopList=new INJFeatureList ();
 		stopList.setLabel("Selected Stop Words");

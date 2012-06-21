@@ -61,7 +61,7 @@ public class INHoopNodePanel extends INHoopNodeRenderer
 		if (tablePanel==null)
 		{
 			INHoopLink.addView("Data View",new INHoopTablePanel (),"bottom");
-			tablePanel=(INHoopTablePanel) INHoopLink.getWindow("Data View");
+			tablePanel=(INHoopTablePanel) INHoopLink.getWindow("Data View");			
 		}
 		
 		setHoop (aHoop);
@@ -123,9 +123,20 @@ public class INHoopNodePanel extends INHoopNodeRenderer
 		if (propPanel!=null)
 		{
 			propertiesPanel=new INHoopInspectablePanel (hoop.getHoopDescription());
+			
+			JPanel hoopPanel=aHoop.getPropertiesPanel();
+						
 			propPanel.addPropertyPanel (propertiesPanel);
 			
-			JPanel propContent=aHoop.getPropertiesPanel();
+			if (hoopPanel!=null)
+			{
+				propertiesPanel.setPanelContent (hoopPanel);
+				hoopPanel.setPreferredSize(propertiesPanel.getCurrentDimensions ());
+			}
+			else
+			{
+				debug ("No custom config panel provided, switching to properties panel instead");
+			}						
 		}
 		
 		debug ("setHoop () done");

@@ -37,8 +37,7 @@ import edu.cmu.cs.in.controls.base.INJPanel;
  *
  */
 public class INHoopStatusBar extends INJPanel
-{	
-	
+{		
 	class UpdateTimeTask extends TimerTask 
 	{
 		public void run() 
@@ -52,7 +51,6 @@ public class INHoopStatusBar extends INJPanel
 	
 	private JTextField memory=null;
 	private JTextField keys=null;
-	//private JTextField padding=null;
 	private JTextField memo=null;
 	
 	/**
@@ -66,12 +64,7 @@ public class INHoopStatusBar extends INJPanel
 		BoxLayout bLayout=new BoxLayout (this,BoxLayout.X_AXIS);
 	
 		setLayout(bLayout);
-		
-		//Border blackborder=BorderFactory.createLineBorder(Color.black);
-		Border redborder=BorderFactory.createLineBorder(Color.red);
-		
-		this.setBorder(redborder);
-		
+				
 		memory=new JTextField ();
 		memory.setEditable(false);
 		memory.setFont(new Font("Dialog", 1, 10));
@@ -85,29 +78,19 @@ public class INHoopStatusBar extends INJPanel
 		keys.setMinimumSize(new Dimension (100,23));
 		keys.setPreferredSize(new Dimension (100,23));
 		keys.setMaximumSize(new Dimension (100,23));
-		
-		/*
-		padding=new JTextField ();
-		padding.setEditable(false);
-		padding.setFont(new Font("Dialog", 1, 10));
-		padding.setMinimumSize(new Dimension (50,23));
-		padding.setPreferredSize(new Dimension (100,23));
-		//padding.setMaximumSize(new Dimension (5000,23));
-		 */
-		
+				
 		memo=new JTextField ();
 		memo.setEditable(false);
 		memo.setFont(new Font("Dialog", 1, 10));
 		memo.setMinimumSize(new Dimension (50,23));
 		memo.setPreferredSize(new Dimension (100,23));
-		//memo.setMaximumSize(new Dimension (5000,23));		
+		memo.setMaximumSize(new Dimension (100,23));
 		
 		this.add(memory);
 		this.add(keys);		
-		//this.add(padding);
 		this.add(Box.createHorizontalGlue());
 		this.add(memo);
-		
+				
 		update ();
 		
 		Timer timer=new Timer();
@@ -129,9 +112,7 @@ public class INHoopStatusBar extends INJPanel
 		
 		memory.setText(formatted.toString());
 		
-		keys.setText("N | C | S - I/O");
-		
-		//padding.setText(" ");
+		keys.setText("N | C | S - I/O");		
 	}
 	/**
 	 * 
