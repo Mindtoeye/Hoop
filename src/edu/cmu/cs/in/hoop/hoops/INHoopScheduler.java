@@ -46,9 +46,7 @@ public class INHoopScheduler extends INHoopTransformBase implements INHoopInterf
 	public Boolean runHoop (INHoopBase inHoop)
 	{		
 		debug ("runHoop ()");
-		
-		super.runHoop(inHoop);
-				
+						
 		return (true);
 	}	
 	/**

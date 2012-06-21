@@ -18,11 +18,8 @@
 
 package edu.cmu.cs.in.base;
 
-//import edu.cmu.cs.in.base.INBase;
-
-public class INToken //extends INBase
+public class INToken extends INKV
 {    
-	private String value;
 	private Integer position;
 	
 	/**
@@ -30,32 +27,21 @@ public class INToken //extends INBase
 	 */
     public INToken () 
     {
-		//setClassName ("INToken");
-		//debug ("INToken ()");						
+						
     }
 	/**
 	 *
 	 */
-   public INToken (String aValue) 
-   {
-		//setClassName ("INToken");
-		//debug ("INToken ()");	
-	   
+    public INToken (String aValue) 
+    {	   
 	   setValue (aValue);
-   }    
-	/**
-	 *
-	 */
-	public String getValue() 
-	{
-		return value;
-	}
+    }    
 	/**
 	 *
 	 */
 	public void setValue(String value) 
 	{
-		this.value = value;
+		super.setValue(value);
 		
 		if (value.indexOf(':')!=-1)
 		{		
@@ -63,7 +49,7 @@ public class INToken //extends INBase
 		
 			if (temp.length>1)
 			{
-				this.value=temp [0];
+				super.setValue(temp [0]);
 				position=Integer.parseInt(temp [1]);
 			}
 		}	

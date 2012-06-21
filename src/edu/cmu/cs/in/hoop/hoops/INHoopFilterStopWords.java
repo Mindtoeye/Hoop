@@ -53,9 +53,7 @@ public class INHoopFilterStopWords extends INHoopTransformBase implements INHoop
 	public Boolean runHoop (INHoopBase inHoop)
 	{		
 		debug ("runHoop ()");
-		
-		super.runHoop(inHoop);		
-		
+				
 		ArrayList <INKV> inData=inHoop.getData();
 		if (inData!=null)
 		{					
@@ -102,7 +100,10 @@ public class INHoopFilterStopWords extends INHoopTransformBase implements INHoop
 		if (propPanel==null)
 			propPanel=new INHoopStopWordEditor ();
 		
-		propPanel.setPreferredSize(new Dimension (150,200));
+		// Doesn't make a difference, probably because there is no vertical glue in the scrollpane
+		
+		propPanel.setPreferredSize(new Dimension (150,200)); 
+		
 		return (propPanel);
 	}	
 }

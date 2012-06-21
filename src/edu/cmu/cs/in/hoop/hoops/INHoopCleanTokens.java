@@ -46,9 +46,7 @@ public class INHoopCleanTokens extends INHoopTransformBase implements INHoopInte
 	public Boolean runHoop (INHoopBase inHoop)
 	{		
 		debug ("runHoop ()");
-		
-		super.runHoop(inHoop);		
-		
+				
 		ArrayList <INKV> inData=inHoop.getData();
 		if (inData!=null)
 		{					

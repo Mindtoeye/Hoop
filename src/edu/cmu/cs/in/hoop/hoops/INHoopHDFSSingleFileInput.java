@@ -43,9 +43,7 @@ public class INHoopHDFSSingleFileInput extends INHoopFileLoadBase implements INH
 	public Boolean runHoop (INHoopBase inHoop)
 	{		
 		debug ("runHoop ()");
-		
-		super.runHoop(inHoop);		
-				
+						
 		return (true);
 	}	
 	/**

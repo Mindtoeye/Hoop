@@ -25,6 +25,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -45,6 +46,8 @@ public class INHoopStopWordEditor extends INEmbeddedJPanel implements ActionList
 	
     private JFileChooser fc=null;
 	private INJFeatureList stopList=null;
+	private JButton loadStops=null;
+	private JButton saveStops=null;
 	
 	/**
 	 * 
@@ -56,25 +59,39 @@ public class INHoopStopWordEditor extends INEmbeddedJPanel implements ActionList
 		setClassName ("INHoopStopWordEditor");
 		debug ("INHoopStopWordEditor ()");    	
     
+	    Box buttonBox = new Box (BoxLayout.X_AXIS);
+	    buttonBox.setBorder(BorderFactory.createEmptyBorder(1,1,1,2));
+	    
+	    loadStops=new JButton ();
+	    loadStops.setFont(new Font("Dialog", 1, 8));
+	    loadStops.setPreferredSize(new Dimension (20,20));
+	    loadStops.setMaximumSize(new Dimension (20,20));
+	    loadStops.setIcon(INHoopLink.getImageByName("open.gif"));
+	    loadStops.addActionListener(this);
+	    buttonBox.add (loadStops);
+	    
+	    saveStops=new JButton ();
+	    saveStops.setFont(new Font("Dialog", 1, 8));
+	    saveStops.setPreferredSize(new Dimension (20,20));
+	    saveStops.setMaximumSize(new Dimension (20,20));
+	    saveStops.setIcon(INHoopLink.getImageByName("save.gif"));
+	    //foldButton.setText("None");
+	    saveStops.addActionListener(this);
+	    buttonBox.add (saveStops);
+	    	    
+	    buttonBox.add(Box.createHorizontalGlue());		
+		
 		stopList=new INJFeatureList ();
 		stopList.setLabel("Selected Stop Words");
 		stopList.setMinimumSize(new Dimension (50,5000));
 		stopList.setMaximumSize(new Dimension (5000,5000));
-		
-		JButton loadStops=new JButton ();
-		loadStops.setText("Load Stopwords");
-		loadStops.setFont(new Font("Dialog", 1, 10));
-		loadStops.setMinimumSize(new Dimension (100,25));
-		loadStops.setPreferredSize(new Dimension (5000,25));
-		loadStops.setMaximumSize(new Dimension (5000,25));
-		loadStops.addActionListener(this);				
-		
+							
 		Box stopBox = new Box (BoxLayout.Y_AXIS);
 		stopBox.setMinimumSize(new Dimension (50,50));
 		stopBox.setPreferredSize(new Dimension (150,5000));
 		stopBox.setMaximumSize(new Dimension (150,5000));
 		
-		stopBox.add(loadStops);
+		stopBox.add(buttonBox);
 		stopBox.add(stopList);		
 		
 		setContentPane (stopBox);
@@ -108,7 +125,7 @@ public class INHoopStopWordEditor extends INEmbeddedJPanel implements ActionList
 				
 		//>---------------------------------------------------------
 				
-		if (button.getText().equals("Load Stopwords"))
+		if (loadStops==button)
 		{
 			debug ("Command " + act + " on loadStops");
 
@@ -151,5 +168,13 @@ public class INHoopStopWordEditor extends INEmbeddedJPanel implements ActionList
 		}			
 		
 		//>---------------------------------------------------------		
+				
+		if (saveStops==button)
+		{
+			
+		}
+		
+		//>---------------------------------------------------------
+		
 	}  
 }

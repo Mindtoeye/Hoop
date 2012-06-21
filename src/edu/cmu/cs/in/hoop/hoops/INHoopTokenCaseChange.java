@@ -62,9 +62,7 @@ public class INHoopTokenCaseChange extends INHoopTransformBase implements INHoop
 	public Boolean runHoop (INHoopBase inHoop)
 	{		
 		debug ("runHoop ()");
-		
-		super.runHoop(inHoop);
-		
+				
 		ArrayList <INKV> inData=inHoop.getData();
 		if (inData!=null)
 		{					

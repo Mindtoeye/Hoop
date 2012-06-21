@@ -132,6 +132,7 @@ public class INHoopVisualGraphComponent extends mxGraphComponent
 																	
 						createdPanels [0]=new INHoopNodePanel (hoopTemplate,cell, this);
 						
+						/*
 						graph.getModel().beginUpdate();
 						
 						try
@@ -164,7 +165,8 @@ public class INHoopVisualGraphComponent extends mxGraphComponent
 						finally
 						{
 							graph.getModel().endUpdate();
-						}							
+						}
+						*/							
 		    				        											
 						return (createdPanels);
 					}

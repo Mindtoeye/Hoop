@@ -70,9 +70,7 @@ public class INHoopStdin extends INHoopBase implements INHoopInterface
 	public Boolean runHoop (INHoopBase inHoop)
 	{		
 		debug ("runHoop ()");
-		
-		super.runHoop(inHoop);
-		
+				
 		if (getInEditor()==true)
 		{
 			userIO=(INHoopDialogConsole) INHoopLink.getWindow("User Dialog");

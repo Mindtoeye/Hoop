@@ -47,9 +47,7 @@ public class INHoopHDFSMultiFileInput extends INHoopFileLoadBase implements INHo
 	public Boolean runHoop (INHoopBase inHoop)
 	{		
 		debug ("runHoop ()");
-		
-		super.runHoop(inHoop);		
-				
+						
 		return (true);
 	}	
 	/**

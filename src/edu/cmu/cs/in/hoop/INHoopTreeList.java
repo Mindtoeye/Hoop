@@ -136,8 +136,8 @@ public class INHoopTreeList extends INEmbeddedJPanel implements MouseListener, A
 		
 		treeHoopRenderer=new INJTreeHoopRenderer ();
 				
-		tree = new JTree(toTreeModel ());
-		tree.setFont(new Font("Dialog", 1, 10));
+		tree=new JTree(toTreeModel ());
+		tree.setFont(new Font("Dialog", 1, 10)); // overwritten by cellrenderer?
 		tree.setCellRenderer (treeHoopRenderer);
 		tree.getSelectionModel().setSelectionMode (TreeSelectionModel.SINGLE_TREE_SELECTION);
 		tree.setRootVisible(false);

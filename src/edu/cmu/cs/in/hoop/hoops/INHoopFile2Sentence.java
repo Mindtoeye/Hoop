@@ -46,9 +46,7 @@ public class INHoopFile2Sentence extends INHoopTransformBase implements INHoopIn
 	public Boolean runHoop (INHoopBase inHoop)
 	{		
 		debug ("runHoop ()");
-		
-		super.runHoop(inHoop);		
-				
+						
 		return (true);
 	}	
 	/**

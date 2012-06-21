@@ -22,12 +22,15 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JTree;
+import javax.swing.border.Border;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeCellRenderer;
 
 import edu.cmu.cs.in.base.INBase;
+import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
 
 /**
@@ -36,15 +39,19 @@ import edu.cmu.cs.in.hoop.base.INHoopBase;
 public class INJTreeHoopRenderer extends JLabel implements TreeCellRenderer
 {
 	private static final long serialVersionUID = -1L;
-	private JTree tree=null;	
+	private JTree tree=null;
+	private Border border=null;
 	
 	/**
 	 * 
 	 */
 	public INJTreeHoopRenderer ()
-	{				
+	{	
+		border = BorderFactory.createEmptyBorder (1,1,1,2);
+		
 		this.setFont(new Font("Dialog", 1, 10));
 		this.setOpaque(true);
+		this.setBorder (border);
 	}
 	/**
 	 * 
@@ -81,17 +88,19 @@ public class INJTreeHoopRenderer extends JLabel implements TreeCellRenderer
     	DefaultMutableTreeNode node=(DefaultMutableTreeNode) value;
     	    	
     	Object userObject=node.getUserObject();
-    	
+    	    	
     	if (userObject!=null)
     	{
     		if (userObject instanceof String)
     		{
-    			setText ((String) userObject);
+    			setText ((String) userObject);    			
+    			setIcon (INHoopLink.getImageByName("gtk-open.png"));
     		}
     		else
     		{
     			INHoopBase hoop=(INHoopBase) userObject;
-    			setText (hoop.getHoopDescription());    			
+    			setText (hoop.getHoopDescription());
+    			setIcon (INHoopLink.getImageByName("hoop.png"));
     		}
     	}
     	else

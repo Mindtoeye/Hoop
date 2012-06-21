@@ -18,7 +18,6 @@
 
 package edu.cmu.cs.in.hoop.base;
 
-//import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -36,7 +35,6 @@ import edu.cmu.cs.in.stats.INStatisticsMeasure;
 */
 public class INHoopBase extends INHoopInspectable implements INHoopInterface
 {    			
-	//private static final long serialVersionUID = 1L;
 	private ArrayList <INHoopBase> outHoops=null;	
 	private ArrayList <INKV> data=null;
 
@@ -78,11 +76,25 @@ public class INHoopBase extends INHoopInspectable implements INHoopInterface
 		
 		setHoopDescription ("Abstract Hoop");
 		
-		inPorts.add("KV");
-		outPorts.add("KV");
-		outPorts.add("Stats");
+		addInPort ("KV");
+		addOutPort ("KV");
+		addOutPort ("Stats");
 				
 		//generateRandomKVs ();
+    }
+    /**
+     * 
+     */
+    protected void addInPort (String aPort)
+    {
+    	inPorts.add(aPort);	
+    }    
+    /**
+     * 
+     */
+    protected void addOutPort (String aPort)
+    {
+    	outPorts.add(aPort);	
     }
     /**
      * 

@@ -51,9 +51,7 @@ public class INHoopStdout extends INHoopBase implements INHoopInterface
 	public Boolean runHoop (INHoopBase inHoop)
 	{		
 		debug ("runHoop ()");
-		
-		super.runHoop(inHoop);
-		
+				
 		ArrayList <INKV> inData=inHoop.getData();
 		
 		if (getInEditor()==true)
