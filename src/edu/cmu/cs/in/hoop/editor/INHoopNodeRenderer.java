@@ -60,7 +60,7 @@ import edu.cmu.cs.in.hoop.base.INHoopBase;
  * Default index is 7 (bottom right). 
  * 
  */
-public class INHoopNodeRenderer extends INJComponent implements MouseListener, MouseMotionListener, ActionListener
+public class INHoopNodeRenderer extends INJComponent implements /*MouseListener, MouseMotionListener,*/ ActionListener
 {
 	private static final long serialVersionUID = -1L;
 
@@ -190,8 +190,8 @@ public class INHoopNodeRenderer extends INJComponent implements MouseListener, M
 
 		add(bottomPanel, BorderLayout.SOUTH);
 		
-		label.addMouseListener(this);
-		label.addMouseMotionListener(this);
+		//label.addMouseListener(this);
+		//label.addMouseMotionListener(this);
 
 		setMinimumSize(new Dimension(20, 30));
 		
@@ -313,46 +313,57 @@ public class INHoopNodeRenderer extends INJComponent implements MouseListener, M
 	/**
 	 * 
 	 */	
+	/*
 	@Override
 	public void mouseDragged(MouseEvent e) 
 	{
 		graphContainer.getGraphControl().dispatchEvent(SwingUtilities.convertMouseEvent((Component) e.getSource(),e, graphContainer.getGraphControl()));
 	}
+	*/
 	/**
 	 * 
-	 */	
+	 */
+	/*
 	@Override
 	public void mouseMoved(MouseEvent arg0) 
 	{
 		// Not implemented yet
 	}
+	*/
 	/**
 	 * 
-	 */	
+	 */
+	/*
 	@Override
 	public void mouseClicked(MouseEvent arg0) 
 	{
 		// Not implemented yet
 	}
+	*/
 	/**
 	 * 
-	 */	
+	 */
+	/*
 	@Override
 	public void mouseEntered(MouseEvent arg0) 
 	{
 		// Not implemented yet		
 	}
+	*/
 	/**
 	 * 
-	 */	
+	 */
+	/*
 	@Override
 	public void mouseExited(MouseEvent arg0) 
 	{
 		// Not implemented yet		
 	}
+	*/
 	/**
 	 * 
-	 */	
+	 */
+	/*
 	@Override
 	public void mousePressed(MouseEvent e) 
 	{
@@ -372,14 +383,17 @@ public class INHoopNodeRenderer extends INJComponent implements MouseListener, M
 			e.consume();
 		}
 	}
+	*/
 	/**
 	 * 
 	 */	
+	/*	
 	@Override
 	public void mouseReleased(MouseEvent e) 
 	{
 		graphContainer.getGraphControl().dispatchEvent(SwingUtilities.convertMouseEvent((Component) e.getSource(),e, graphContainer.getGraphControl()));
 	}
+	*/
 	/**
 	 * 
 	 */

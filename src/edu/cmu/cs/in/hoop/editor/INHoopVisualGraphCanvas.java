@@ -71,6 +71,7 @@ public class INHoopVisualGraphCanvas extends mxInteractiveCanvas
 	{
 		//debug ("drawVertex ()");
 		
+		/*
 		vertexRenderer.setText(label);
 	
 		rendererPane.paintComponent (g, 
@@ -81,5 +82,6 @@ public class INHoopVisualGraphCanvas extends mxInteractiveCanvas
 									 (int) state.getWidth(),
 									 (int) state.getHeight(), 
 									 true);
+		*/
 	}
 }

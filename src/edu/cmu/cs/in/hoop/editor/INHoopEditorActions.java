@@ -247,8 +247,7 @@ public class INHoopEditorActions
 		{
 			if (e.getSource() instanceof mxGraphComponent)
 			{
-				mxGraphComponent graphComponent = (mxGraphComponent) e
-						.getSource();
+				mxGraphComponent graphComponent = (mxGraphComponent) e.getSource();
 				graphComponent.setGridStyle(style);
 				graphComponent.repaint();
 			}
@@ -1964,14 +1963,12 @@ public class INHoopEditorActions
 		{
 			if (e.getSource() instanceof mxGraphComponent)
 			{
-				mxGraphComponent graphComponent = (mxGraphComponent) e
-						.getSource();
+				mxGraphComponent graphComponent = (mxGraphComponent) e.getSource();
 				mxGraph graph = graphComponent.getGraph();
 
 				if (!graph.isSelectionEmpty())
 				{
-					Color newColor = JColorChooser.showDialog(graphComponent,
-							name, null);
+					Color newColor = JColorChooser.showDialog(graphComponent,name, null);
 
 					if (newColor != null)
 					{

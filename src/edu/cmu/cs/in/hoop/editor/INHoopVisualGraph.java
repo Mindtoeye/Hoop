@@ -63,7 +63,7 @@ public class INHoopVisualGraph extends mxGraph
 		
 		// Sets the default edge style
 		Map<String, Object> style = this.getStylesheet().getDefaultEdgeStyle();
-		style.put(mxConstants.STYLE_EDGE, mxEdgeStyle.ElbowConnector);		
+		style.put (mxConstants.STYLE_STROKECOLOR,"yellow");				
 	}
 	/**
 	 * 
@@ -186,59 +186,11 @@ public class INHoopVisualGraph extends mxGraph
 							 Object target, 
 							 String style)
 	{
-		debug ("createEdge ()");
+		//debug ("createEdge ()");
 		
-		INHoopBase sourceHoop=null;
-		INHoopBase targetHoop=null;
-		
-		if (source instanceof mxCell)
-		{
-			debug ("We've got a source cell here");
-	
-			mxCell sourceCell=(mxCell) source;
-			
-			Object userSourceObject=sourceCell.getValue();
-			
-			if (userSourceObject instanceof INHoopBase)
-			{
-				sourceHoop=(INHoopBase) userSourceObject;
-			}
-		}	
+		Object result=super.createEdge(parent,id,value,source,target,style);
 				
-		if (target instanceof mxCell)
-		{
-			debug ("We've got a target cell here");
-	
-			mxCell targetCell=(mxCell) target;
-			
-			Object userTargetObject=targetCell.getValue();
-			
-			if (userTargetObject instanceof INHoopBase)
-			{
-				targetHoop=(INHoopBase) userTargetObject;
-			}
-		}			
-		
-		if (INHoopLink.hoopGraphManager.connectHoops(sourceHoop, targetHoop)==false)
-		{
-			
-			return (null);
-		}
-		
-		mxCell edge =null;
-		
-		if (edgeTemplate != null)
-		{
-			edge = (mxCell) cloneCells(new Object[] { edgeTemplate })[0];
-			edge.setId(id);		
-		}
-		else
-		{
-			debug ("Calling super class ...");
-			return (super.createEdge (parent, id, value, source, target, style));
-		}	
-		
-		return edge;
+		return (result);
 	}
 	/**
 	 * 
@@ -252,11 +204,11 @@ public class INHoopVisualGraph extends mxGraph
             					double height,
             					String style)
 	{
-		debug ("createVertex ()");
+		//debug ("createVertex ()");
 		
 		Object result=super.createVertex(parent,id,value,x,y,width,height,style);
 		
-		debug (result.toString());
+		//debug (result.toString());
 		
 		return (result);
 	}
@@ -273,7 +225,7 @@ public class INHoopVisualGraph extends mxGraph
             					String style,
             					boolean something)
 	{
-		debug ("createVertex ()");
+		//debug ("createVertex ()");
 		
 		Object result=super.createVertex(parent,id,value,x,y,width,height,style,something);
 		
@@ -325,4 +277,73 @@ public class INHoopVisualGraph extends mxGraph
 			super.drawState(canvas, state, drawLabel);
 		}
 	}	
+	/**
+	 * 
+	 */
+	/*
+	public String validateEdge(Object edge,Object source,Object target)
+	{
+		debug ("validateEdge ()");
+		
+		INHoopBase sourceHoop=null;
+		INHoopBase targetHoop=null;
+		
+		if (source instanceof mxCell)
+		{
+			//debug ("We've got a source cell here");
+	
+			mxCell sourceCell=(mxCell) source;
+			
+			Object userSourceObject=sourceCell.getValue();
+			
+			if (userSourceObject!=null)
+			{
+				if (userSourceObject instanceof INHoopBase)
+				{
+					sourceHoop=(INHoopBase) userSourceObject;
+				}
+				else
+					debug ("Edge source is: " + userSourceObject);
+			}
+			else
+				debug ("Source is null");
+		}	
+				
+		if (target instanceof mxCell)
+		{
+			//debug ("We've got a target cell here");
+	
+			mxCell targetCell=(mxCell) target;
+			
+			Object userTargetObject=targetCell.getValue();
+			
+			if (userTargetObject!=null)
+			{
+				if (userTargetObject instanceof INHoopBase)
+				{
+					targetHoop=(INHoopBase) userTargetObject;
+				}
+				else
+					debug ("Edge target is: " + userTargetObject);
+			}
+			else
+				debug ("Target is null");
+		}			
+		
+		if ((sourceHoop!=null) && (targetHoop!=null))
+		{
+			debug ("We have a valid source and target hoop, linking them together ...");
+			
+			if (INHoopLink.hoopGraphManager.connectHoops(sourceHoop, targetHoop)==false)
+			{				
+				debug ("Error creating edge");
+				return ("Error creating edge");
+			}
+		}			
+		else
+			debug ("Info: no complete edge yet, waiting ...");
+		
+		return (null);
+	}
+	*/
 }

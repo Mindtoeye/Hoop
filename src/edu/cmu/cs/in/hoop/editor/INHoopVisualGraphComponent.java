@@ -23,6 +23,7 @@ import java.awt.Component;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGeometry;
 import com.mxgraph.swing.mxGraphComponent;
+import com.mxgraph.swing.handler.mxConnectionHandler;
 import com.mxgraph.swing.handler.mxRubberband;
 import com.mxgraph.swing.view.mxInteractiveCanvas;
 import com.mxgraph.util.mxPoint;
@@ -84,6 +85,15 @@ public class INHoopVisualGraphComponent extends mxGraphComponent
 	/**
 	 * 
 	 */
+	protected mxConnectionHandler createConnectionHandler()
+	{
+		debug ("createConnectionHandler()");
+		
+		return (new INHoopVisualGraphConnectionHandler (this));
+	}
+	/**
+	 * 
+	 */
 	public mxInteractiveCanvas createCanvas()
 	{
 		debug ("createCanvas ()");
@@ -115,7 +125,7 @@ public class INHoopVisualGraphComponent extends mxGraphComponent
 			
 					mxCell cell=(mxCell) aCell;
 					
-					cell.setConnectable(false);
+					//cell.setConnectable(false);
 					
 					Object userObject=cell.getValue();
 										
@@ -127,11 +137,13 @@ public class INHoopVisualGraphComponent extends mxGraphComponent
 											
 						INHoopBase hoopTemplate=INHoopLink.hoopManager.instantiate (templateName);
 						
+						cell.setValue(hoopTemplate);
+						
 						if (INHoopLink.hoopGraphManager.getRoot()==null)
 							INHoopLink.hoopGraphManager.setRoot(hoopTemplate);
 																	
 						createdPanels [0]=new INHoopNodePanel (hoopTemplate,cell, this);
-						
+																		
 						/*
 						graph.getModel().beginUpdate();
 						
