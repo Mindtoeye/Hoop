@@ -147,7 +147,7 @@ public class INHoopNodeRenderer extends INJComponent implements /*MouseListener,
 		//contentBox.setBorder(redborder);
 		contentBox.setMinimumSize(new Dimension(50,50));
 		contentBox.setPreferredSize(new Dimension(100,100));
-		//contentBox.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+		contentBox.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
 		
 		leftPortBox = new Box (BoxLayout.Y_AXIS);
 		//leftPortBox.setAlignmentX(LEFT_ALIGNMENT);
@@ -203,6 +203,24 @@ public class INHoopNodeRenderer extends INJComponent implements /*MouseListener,
 	public INHoopBase getHoopTemplate() 
 	{
 		return hoopTemplate;
+	}
+	/**
+	 * 
+	 */
+	protected void removeAllInPorts ()
+	{
+		debug ("removeAllInPorts ()");
+		
+		leftPortBox.removeAll();
+	}	
+	/**
+	 * 
+	 */
+	protected void removeAllOutPorts ()
+	{
+		debug ("removeAllOutPorts ()");
+		
+		rightPortBox.removeAll();
 	}
 	/**
 	 * 

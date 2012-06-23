@@ -85,9 +85,23 @@ public class INHoopBase extends INHoopInspectable implements INHoopInterface
     /**
      * 
      */
+    protected void removeInPort (String aPort)
+    {
+    	inPorts.remove(aPort);
+    }
+    /**
+     * 
+     */
     protected void addInPort (String aPort)
     {
     	inPorts.add(aPort);	
+    }
+    /**
+     * 
+     */
+    protected void removeOutPort (String aPort)
+    {
+    	outPorts.remove(aPort);
     }    
     /**
      * 

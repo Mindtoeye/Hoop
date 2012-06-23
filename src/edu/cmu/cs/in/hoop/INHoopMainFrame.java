@@ -447,6 +447,7 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     			debug ("Run Once ...");
     			    			
     			INHoopExecuteInEditor runtime=new INHoopExecuteInEditor ();
+    			runtime.setRoot(INHoopLink.hoopGraphManager.getRoot());
     			runtime.setLoopCount(1);
     			
     			new Thread(runtime).start();    			
@@ -460,6 +461,7 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     			debug ("Run N Times ...");
     			    			
     			INHoopExecuteInEditor runtime=new INHoopExecuteInEditor ();
+    			runtime.setRoot(INHoopLink.hoopGraphManager.getRoot());
     			runtime.setLoopCount(10);
     			
     			new Thread(runtime).start();    			
@@ -473,6 +475,7 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     			debug ("Run Forever ...");
     			    			
     			INHoopExecuteInEditor runtime=new INHoopExecuteInEditor ();
+    			runtime.setRoot(INHoopLink.hoopGraphManager.getRoot());
     			runtime.setLoopCount(-1);
     			
     			new Thread(runtime).start();    			

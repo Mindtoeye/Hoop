@@ -58,9 +58,7 @@ public class INHoopVisualGraph extends mxGraph
 		setCellsCloneable(false);		
 		setAllowLoops (false);
 		setDisconnectOnMove (false);
-		
-		//setAlternateEdgeStyle("edgeStyle=mxEdgeStyle.ElbowConnector;elbow=vertical");
-		
+				
 		// Sets the default edge style
 		Map<String, Object> style = this.getStylesheet().getDefaultEdgeStyle();
 		style.put (mxConstants.STYLE_STROKECOLOR,"yellow");				

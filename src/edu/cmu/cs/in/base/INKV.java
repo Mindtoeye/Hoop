@@ -44,6 +44,10 @@ public class INKV
 	 */
     public INKV (int aKey,String aValue) 
     {	   
+    	values=new ArrayList <String>();
+    	// Make sure we have at least one entry for quick access
+    	values.add("undefined");    	
+    	
     	setKey (aKey);
     	setValue (aValue);
     }    

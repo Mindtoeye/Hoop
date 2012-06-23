@@ -42,6 +42,7 @@ public class INHoopExecuteStandalone extends INHoopExecute
 		
 		this.setInEditor(false);
 		
+		/*
 		INHoopStdin inp=new INHoopStdin ();
 		INHoopSentence2Tokens tokenizer=new INHoopSentence2Tokens ();
 		INHoopTokenCaseChange lowercaser=new INHoopTokenCaseChange ();
@@ -55,7 +56,8 @@ public class INHoopExecuteStandalone extends INHoopExecute
 		countUnique.addOutHoop(removeStops);
 		removeStops.addOutHoop(outp);
 		
-		setRoot (inp);		
+		setRoot (inp);
+		*/		
 	}	
 	/**
 	 * 

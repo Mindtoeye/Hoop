@@ -18,6 +18,8 @@
 
 package edu.cmu.cs.in.hoop;
 
+import java.util.ArrayList;
+
 import edu.cmu.cs.in.hoop.base.INHoopBase;
 
 /** 
@@ -26,6 +28,7 @@ import edu.cmu.cs.in.hoop.base.INHoopBase;
 public class INHoopGraphManager extends INHoopBase
 {	
 	private INHoopBase root=null;
+	private ArrayList <INHoopBase> hoops=null;
 	
 	/**
 	 * 
@@ -35,7 +38,28 @@ public class INHoopGraphManager extends INHoopBase
 		setClassName ("INHoopGraphManager");
 		debug ("INHoopGraphManager ()");
 			
+		hoops=new ArrayList<INHoopBase> ();
 	}
+	/**
+	 * 
+	 */
+	public void reset ()
+	{
+		debug ("reset ()");
+		
+		root=null;
+		hoops=new ArrayList<INHoopBase> ();
+	}
+	/** 
+	 * @param root
+	 */
+	public void addHoop(INHoopBase aHoop) 
+	{
+		if (this.root==null)
+			setRoot (aHoop);
+		
+		hoops.add(aHoop);
+	}	
 	/** 
 	 * @param root
 	 */

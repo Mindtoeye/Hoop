@@ -39,7 +39,8 @@ public class INHoopExecuteInEditor extends INHoopExecute
 		debug ("INHoopExecuteInEditor ()");		
 		
 		this.setInEditor(true);
-		
+
+		/*
 		INHoopStdin inp=new INHoopStdin ();
 		INHoopSentence2Tokens tokenizer=new INHoopSentence2Tokens ();
 		INHoopTokenCaseChange lowercaser=new INHoopTokenCaseChange ();
@@ -54,6 +55,7 @@ public class INHoopExecuteInEditor extends INHoopExecute
 		removeStops.addOutHoop(outp);
 		
 		setRoot (inp);
+		*/
 	}	
 }
 
