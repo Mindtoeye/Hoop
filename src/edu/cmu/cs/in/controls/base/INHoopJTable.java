@@ -39,6 +39,8 @@ public class INHoopJTable extends JTable
 	public INHoopJTable () 
 	{
 		debug ("INHoopJTable ()");
+		
+		autoCreateColumnsFromModel=true;
     	    	
 		this.setFont(new Font("Dialog", 1, 10));
 	}	
@@ -49,6 +51,8 @@ public class INHoopJTable extends JTable
 	{
 		super (numRows,numColumns);
 		
+		autoCreateColumnsFromModel=true;
+		
 		debug ("INHoopJTable ()");
 	}    
 	/**
@@ -58,8 +62,9 @@ public class INHoopJTable extends JTable
 	{
 	   super (rowData,columnNames);
 	   
-	   debug ("INHoopJTable ()");
+	   autoCreateColumnsFromModel=true;
 	   
+	   debug ("INHoopJTable ()");	   
 	}    
 	/**
     * Constructs a JTable that is initialized with dm as the data model, a default column model, and a default selection model.
@@ -68,8 +73,9 @@ public class INHoopJTable extends JTable
 	{
 	   super (dm);
 	   
-	   debug ("INHoopJTable ()");
-	   	   
+	   autoCreateColumnsFromModel=true;
+	   
+	   debug ("INHoopJTable ()");	   	   
 	}    
 	/**
 	 * Constructs a JTable that is initialized with dm as the data model, cm as the column model, and a default selection model.
@@ -77,9 +83,10 @@ public class INHoopJTable extends JTable
 	public INHoopJTable(TableModel dm, TableColumnModel cm)
 	{
 	   super (dm,cm);
+
+	   autoCreateColumnsFromModel=true;
 	   
-	   debug ("INHoopJTable ()");
-	   
+	   debug ("INHoopJTable ()");	   	   	   
 	}    
 	/**
     *	Constructs a JTable that is initialized with dm as the data model, cm as the column model, and sm as the selection model.
@@ -88,8 +95,9 @@ public class INHoopJTable extends JTable
 	{
 	   super (dm,cm,sm);
 	   
-	   debug ("INHoopJTable ()");
+	   autoCreateColumnsFromModel=true;	   
 	   
+	   debug ("INHoopJTable ()");	   
 	}    
 	/**
     * Constructs a JTable to display the values in the Vector of Vectors, rowData, with column names, columnNames.
@@ -97,6 +105,8 @@ public class INHoopJTable extends JTable
 	public INHoopJTable(Vector rowData, Vector columnNames)
 	{
 		super (rowData,columnNames);
+		
+		autoCreateColumnsFromModel=true;		
 		
 		debug ("INHoopJTable ()");
 	}    	

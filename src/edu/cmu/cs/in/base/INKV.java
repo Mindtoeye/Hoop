@@ -49,25 +49,26 @@ public class INKV
 {    			
 	private int key=-1;
 	private String keyString="";
-	private ArrayList <String> values=null;
+	private ArrayList <String> stringValues=null;
+	private ArrayList <Integer> intValues=null;
 		
 	/**
 	 *
 	 */
     public INKV () 
     {
-    	values=new ArrayList <String>();
+    	stringValues=new ArrayList <String>();
     	// Make sure we have at least one entry for quick access
-    	values.add("0");
+    	stringValues.add("0");
     }
 	/**
 	 *
 	 */
     public INKV (int aKey,String aValue) 
     {	   
-    	values=new ArrayList <String>();
+    	stringValues=new ArrayList <String>();
     	// Make sure we have at least one entry for quick access
-    	values.add("0");    	
+    	stringValues.add("0");    	
     	
     	setKey (aKey);
     	setValue (aValue);
@@ -77,7 +78,7 @@ public class INKV
 	 */
     public int getValueSize ()
     {
-    	return (values.size());
+    	return (stringValues.size());
     }
 	/**
 	 *
@@ -98,55 +99,55 @@ public class INKV
 	 */
 	public String getValue() 
 	{
-		return (values.get(0));
+		return (stringValues.get(0));
 	}
 	/**
 	 *
 	 */
 	public String getValue(int anIndex) 
 	{
-		if (anIndex>values.size())
+		if (anIndex>stringValues.size())
 			return ("0");
 		
-		return (values.get(anIndex));
+		return (stringValues.get(anIndex));
 	}	
 	/**
 	 *
 	 */
 	public ArrayList <String> getValues() 
 	{
-		return (values);
+		return (stringValues);
 	}
 	/**
 	 *
 	 */
 	public int getValueCount() 
 	{
-		return (values.size());
+		return (stringValues.size());
 	}	
 	/**
 	 *
 	 */
 	public void setValue(String value) 
 	{
-		values.set(0,value);
+		stringValues.set(0,value);
 	}
 	/**
 	 *
 	 */
 	public void setValue(String value, int anIndex) 
 	{
-		if (anIndex>values.size())
+		if (anIndex>(stringValues.size()-1))
 		{
 			// fill with bogus data up to the requested element
 			
-			for (int i=values.size ();i<anIndex;i++)
+			for (int i=(stringValues.size ()-1);i<anIndex;i++)
 			{
-				values.add("0");
+				stringValues.add("0");
 			}
 		}
 		
-		values.set(anIndex,value);
+		stringValues.set(anIndex,value);
 	}	
 	/**
 	 *

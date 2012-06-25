@@ -22,6 +22,7 @@ import java.util.ArrayList;
 
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 import edu.cmu.cs.in.base.INKV;
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
@@ -72,8 +73,10 @@ public class INHoopTablePanel extends INEmbeddedJPanel
 	{
 		debug ("showHoop ()");
 		
-		ArrayList <INKV> content=aHoop.getData();
+		TableColumnModel columnModel=table.getColumnModel();
 		
+		ArrayList <INKV> content=aHoop.getData();
+					
 		// Convert KV model to table model and show
 		
 		DefaultTableModel model=new DefaultTableModel (null,columnNames);
@@ -84,7 +87,18 @@ public class INHoopTablePanel extends INEmbeddedJPanel
 		{
 			for (INKV p : content) 
 			{
-				model.addRow(new String[] {p.getKeyString(), p.getValue()});
+				//model.addRow(new String[] {p.getKeyString(), p.getValue()});
+				
+				String [] rowData=new String [p.getValueSize()+1];
+				
+				rowData [0]=p.getKeyString();
+				
+				for (int i=0;i<p.getValueSize();i++)
+				{
+					rowData [i+1]=p.getValue();
+				}
+				
+				model.addRow(rowData);
 			}
 		
 			table.setModel(model);

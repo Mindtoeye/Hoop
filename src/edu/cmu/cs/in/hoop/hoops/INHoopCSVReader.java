@@ -27,7 +27,7 @@ import edu.cmu.cs.in.hoop.base.INHoopTransformBase;
 
 public class INHoopCSVReader extends INHoopTransformBase implements INHoopInterface
 {
-	private String mode="TAB"; // TAB,COMMA,DASH
+	private String mode="COMMA"; // TAB,COMMA,DASH
 	private Boolean skipHeader=false;
 	
 	/**
@@ -85,12 +85,16 @@ public class INHoopCSVReader extends INHoopTransformBase implements INHoopInterf
 		ArrayList <INKV> inData=inHoop.getData();
 		
 		if (inData!=null)
-		{										
+		{									
+			debug ("Loading " + inData.size()+" entries ...");
+			
 			for (int t=0;t<inData.size();t++)
 			{
 				INKV aKV=inData.get(t);
 				
 				String split[]=aKV.getValue().split("\\n");
+				
+				//debug ("CSV data contains " + split.length + " rows");
 				
 				INKV currentKV=null;
 		
@@ -103,11 +107,21 @@ public class INHoopCSVReader extends INHoopTransformBase implements INHoopInterf
 					
 					if (i>skipper)
 					{
-						String entries[]=split [i].split("\\t");
+						String entries[]=null;
+								
+						if (mode.equals ("TAB")==true)
+							entries=split [i].split("\\t");
+						else
+						{
+							if (mode.equals ("COMMA")==true)
+								entries=split [i].split("(?<!\\\\),");
+						}
 		 
 						currentKV=new INKV ();
 						currentKV.setKey (i);
 				
+						//debug ("Storing " + entries.length + " tokens ...");	
+						
 						for (int j=0;j<entries.length;j++)
 						{
 							currentKV.setValue(entries [j],j);							
@@ -118,6 +132,8 @@ public class INHoopCSVReader extends INHoopTransformBase implements INHoopInterf
 				}
 			}
 		}	
+		else
+			debug ("Error: no data input hoop");
 		
 		return (true);
 	}	

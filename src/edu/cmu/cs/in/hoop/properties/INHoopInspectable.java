@@ -355,9 +355,9 @@ public class INHoopInspectable extends INXMLBase
 	/**
 	*	
 	*/		
-	public String toString()
+	public String toXML()
 	{
-		debug ("toString ()");
+		debug ("toXML ()");
 		
 		StringBuffer buffer=new StringBuffer();
 				

@@ -266,7 +266,10 @@ public class INHoopLink extends INHoopProperties
 		 							 "port.png",
 		 							 "tree-expand-icon.png",
 		 							 "tree-fold-icon.png", // 84
-		 							 "hoop.png"// 84
+		 							 "hoop.png",// 84
+		 							 "run-once.png",
+		 							 "run-n.png", // 84
+		 							 "run-forever.png"// 84		 							 
 		 							 };
 	
 	public static String vocabularyPath="./";

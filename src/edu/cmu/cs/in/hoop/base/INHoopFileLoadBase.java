@@ -18,19 +18,17 @@
 
 package edu.cmu.cs.in.hoop.base;
 
-import java.util.ArrayList;
-
 import edu.cmu.cs.in.base.io.INFileManager;
 import edu.cmu.cs.in.base.INKV;
 
 /**
 * 
 */
-public class INHoopFileLoadBase extends INHoopBase implements INHoopInterface
+public class INHoopFileLoadBase extends INHoopLoadBase implements INHoopInterface
 {    				
 	private INFileManager fManager=null;
 	private INKV fileKV=null;
-	private String inputStreamPath=null;
+	private String inputStreamPath="X:\\Echidne\\Hydra (Science)\\Development\\Hoop\\Resources\\ExampleData\\MovieReviews-Full.csv";
 	
 	/**
 	 *
@@ -40,13 +38,13 @@ public class INHoopFileLoadBase extends INHoopBase implements INHoopInterface
 		setClassName ("INHoopFileLoadBase");
 		debug ("INHoopFileLoadBase ()");
 		
-		setHoopCategory ("load");
-		fManager=new INFileManager ();
-		fileKV=new INKV ();
-						
-		addKV(fileKV);
-		
 		setHoopDescription ("Load From File");
+
+		removeInPort ("KV");
+		
+		fManager=new INFileManager ();
+		fileKV=new INKV ();						
+		addKV (fileKV);		
     }
 	/**
 	 *
@@ -68,9 +66,7 @@ public class INHoopFileLoadBase extends INHoopBase implements INHoopInterface
 	public Boolean runHoop (INHoopBase inHoop)
 	{		
 		debug ("runHoop ()");
-		
-		super.runHoop(inHoop);		
-						
+								
 		fileKV.setKeyString(fManager.getURI());
 		fileKV.setValue(fManager.loadContents(inputStreamPath));
 		

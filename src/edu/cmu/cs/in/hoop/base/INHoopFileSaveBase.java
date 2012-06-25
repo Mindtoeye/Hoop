@@ -23,7 +23,7 @@ import edu.cmu.cs.in.base.io.INFileManager;
 /**
 * 
 */
-public class INHoopFileSaveBase extends INHoopBase implements INHoopInterface
+public class INHoopFileSaveBase extends INHoopSaveBase implements INHoopInterface
 {    				
 	private String content=null;
 	
@@ -38,7 +38,6 @@ public class INHoopFileSaveBase extends INHoopBase implements INHoopInterface
     {
 		setClassName ("INHoopFileSaveBase");
 		debug ("INHoopFileSaveBase ()");
-		setHoopCategory ("save");
 		
 		setHoopDescription ("Save To File");
     }
@@ -76,9 +75,7 @@ public class INHoopFileSaveBase extends INHoopBase implements INHoopInterface
 	public Boolean runHoop (INHoopBase inHoop)
 	{		
 		debug ("runHoop ()");
-		
-		super.runHoop(inHoop);		
-		
+				
 		fManager.saveContents(outputStreamPath, content);
 				
 		return (true);

@@ -440,8 +440,14 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     {
     	JMenu runMenu = new JMenu("Run");
     	JMenuItem runOnceItem = new JMenuItem("Run Once");
+    	runOnceItem.setIcon(INHoopLink.getImageByName("run-once.png"));
+    	
     	JMenuItem runNTimesItem = new JMenuItem("Run N Times");
+    	runNTimesItem.setIcon(INHoopLink.getImageByName("run-n.png"));
+    	
     	JMenuItem runForeverItem = new JMenuItem("Run Until Stopped");
+    	runForeverItem.setIcon(INHoopLink.getImageByName("run-forever.png"));
+    	
     	JMenuItem debugItem = new JMenuItem("Debug");
 
     	runOnceItem.addActionListener(new ActionListener() 
@@ -507,62 +513,33 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
 	 */    
     protected void addButtons(JToolBar toolBar) 
     {
-        JButton button = null;
-
-        //first button
-        button = makeNavigationButton("Back24", 
-        							  PREVIOUS,
-                                      "Back to previous something-or-other",
-                                      "Previous",
-                                      INHoopLink.imageIcons [44]);        
+        JButton runButton = makeNavigationButton("RUN", 
+        							  			 PREVIOUS,
+        							  			 "Run Once",
+        							  			 "Run Once",
+        							  			 INHoopLink.getImageByName("run-once.png"));                
+        toolBar.add(runButton);
         
-        toolBar.add(button);
+        JButton runNButton = makeNavigationButton("RUN N", 
+	  			 								  PREVIOUS,
+	  			 								  "Run N Times",
+	  			 								  "Run N Times",
+	  			 								  INHoopLink.getImageByName("run-n.png"));                
+        toolBar.add(runNButton);
+
+        JButton runForeverButton = makeNavigationButton("RUN FOREVER", 
+        												PREVIOUS,
+        												"Run Forever",
+        												"Run Forever",
+        												INHoopLink.getImageByName("run-forever.png"));                
+        toolBar.add(runForeverButton);
         
-        //first button
-        button = makeNavigationButton("Back24", 
-        							  PREVIOUS,
-                                      "Back to previous something-or-other",
-                                      "Previous",
-                                      INHoopLink.imageIcons [16]);
-        toolBar.add(button);
-
-        //second button
-        button = makeNavigationButton("Up24", 
-        							  UP,
-                                      "Up to something-or-other",
-                                      "Up",
-                                      INHoopLink.imageIcons [55]);
-        toolBar.add(button);
-
-        //third button
-        button = makeNavigationButton("Forward24", 
-        							  NEXT,
-                                      "Forward to something-or-other",
-                                      "Next",
-                                      INHoopLink.imageIcons [56]);
-        toolBar.add (button);
         
         JSeparator sep=new JSeparator(SwingConstants.VERTICAL);
         sep.setMinimumSize(new Dimension (5,5));
         sep.setMaximumSize(new Dimension (5,50));
         
-        toolBar.add(sep);
-        
-        //third button
-        button = makeNavigationButton("Forward24", 
-        							  NEXT,
-                                      "Forward to something-or-other",
-                                      "Next",
-                                      INHoopLink.imageIcons [2]);
-        toolBar.add (button);
-        
-        //third button
-        button = makeNavigationButton("Forward24", 
-        							  NEXT,
-                                      "Forward to something-or-other",
-                                      "Next",
-                                      INHoopLink.imageIcons [69]);
-        toolBar.add (button);        
+        toolBar.add(sep);                
     }     
 	/**
 	 *
