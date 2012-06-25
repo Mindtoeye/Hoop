@@ -27,6 +27,7 @@ import javax.swing.ImageIcon;
 
 import edu.cmu.cs.in.search.INDataSet;
 import edu.cmu.cs.in.base.INBase;
+import edu.cmu.cs.in.base.io.INFileManager;
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 //import edu.cmu.cs.in.controls.base.INJInternalFrame;
 import edu.cmu.cs.in.hoop.INHoopConsoleInterface;

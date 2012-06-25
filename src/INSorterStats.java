@@ -24,7 +24,7 @@ import java.util.Comparator;
 import java.util.Map;
 
 import edu.cmu.cs.in.base.INBase;
-import edu.cmu.cs.in.base.INFileManager;
+import edu.cmu.cs.in.base.io.INFileManager;
 import edu.cmu.cs.in.base.INKV;
 import edu.cmu.cs.in.base.INLink;
 import edu.cmu.cs.in.base.INPositionsBase;

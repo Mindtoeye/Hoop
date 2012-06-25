@@ -168,7 +168,7 @@ public class INHoopBasicGraphEditor extends INEmbeddedJPanel
 		updateTitle();
 	}
 	/** 
-	 * @return
+	 * @return JTabbedPane
 	 */
 	public JTabbedPane getLibraryPane ()
 	{

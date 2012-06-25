@@ -28,6 +28,7 @@ import javax.swing.JToolBar;
 
 import edu.cmu.cs.in.network.INStreamedSocket;
 import edu.cmu.cs.in.search.INDataSet;
+import edu.cmu.cs.in.base.io.INFileManager;
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 import edu.cmu.cs.in.hoop.INHoopConsoleInterface;
 import edu.cmu.cs.in.hoop.INHoopGraphManager;

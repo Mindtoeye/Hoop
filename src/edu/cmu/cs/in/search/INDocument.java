@@ -21,7 +21,7 @@ package edu.cmu.cs.in.search;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.cmu.cs.in.base.INFileManager;
+import edu.cmu.cs.in.base.io.INFileManager;
 import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.base.INPorterStemmer;

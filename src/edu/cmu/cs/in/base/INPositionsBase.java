@@ -27,7 +27,7 @@ import java.util.Map;
 //import java.util.Set;
 
 import edu.cmu.cs.in.base.INBase;
-import edu.cmu.cs.in.base.INFileManager;
+import edu.cmu.cs.in.base.io.INFileManager;
 
 public class INPositionsBase extends INBase
 {    			

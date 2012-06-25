@@ -24,7 +24,7 @@ import javax.swing.*;
 
 import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.controls.INScatterPlot;
-import edu.cmu.cs.in.controls.map.INHoopJava3DJPanel;
+//import edu.cmu.cs.in.controls.map.INHoopJava3DJPanel;
 //import edu.cmu.cs.in.hoop.editor.INHoopEditorPalettePanel;
 import edu.cmu.cs.in.hoop.editor.INHoopEditorToolBar;
 import edu.cmu.cs.in.hoop.properties.INHoopPropertyPanel;
@@ -261,7 +261,7 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     	//JMenuItem stopWordItem = new JMenuItem("Stopword Editor");
     	JMenuItem vocabularyItem = new JMenuItem("Vocabulary Editor");
     	JMenuItem opSpaceItem = new JMenuItem("Narrative Opportunity Space Visualizer");
-    	JMenuItem hexMapItem = new JMenuItem("Hexagon Map");
+    	//JMenuItem hexMapItem = new JMenuItem("Hexagon Map");
 
     	searchItem.addActionListener(new ActionListener() 
     	{
@@ -329,6 +329,7 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     		}
     	});      	
     	
+    	/*
     	opSpaceItem.addActionListener(new ActionListener() 
     	{
     		public void actionPerformed(ActionEvent e) 
@@ -336,7 +337,9 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     			addView ("Opportunity Space",new INHoopOpportunitySpace (),INHoopLink.center);
     		}
     	});
+    	*/
     	
+    	/*
     	hexMapItem.addActionListener(new ActionListener() 
     	{
     		public void actionPerformed(ActionEvent e) 
@@ -344,6 +347,7 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     			addView ("Hexagon Map",new INHoopJava3DJPanel (),INHoopLink.center);
     		}
     	});
+    	*/
     	    	    	
     	tools.add (searchItem);
     	tools.add (clusterItem);
@@ -354,7 +358,7 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     	//tools.add (stopWordItem);
     	tools.add (vocabularyItem);
     	tools.add (opSpaceItem);
-    	tools.add (hexMapItem);
+    	//tools.add (hexMapItem);
     	
     	return (tools);
     }    

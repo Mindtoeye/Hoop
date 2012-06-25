@@ -21,15 +21,36 @@ package edu.cmu.cs.in.base;
 import java.util.ArrayList;
 
 /**
+* Any data created by hoops (INHoopBase) will use the KV object in some
+* form. INKV objects represent Key/Value pairs and form the most basic
+* data structure unit within the Hoop system. If your hoop can represent
+* language in a list, table or other structure containing KV values, then
+* any other hoop should be able to inspect and process your data.
+* 
+* Additionally the KV class allows native support for multi-value 
+* representations. This allows you to create tables for example where
+* the key represents the index and the list of values represents the
+* columns. Keep in mind that each KV instance can have any number of
+* values stored and that means you might have to add additional
+* housekeeping code to keep a table symmetrical. Support classes are
+* provided to make this task easier by representing KV tables natively,
+* which enforces each KV row to have an equal number of values. Empty
+* values are added in case padding is needed for KVs (rows) that have
+* less than the maximum number of values (rows). Please see the Naive
+* Bayes classes for a good example of how this is used.
+* 
 * We should deliberately not derive from INBase since that comes with a
-* large memory footprint.
+* large memory footprint. Currently the key and value types are somewhat
+* pre-determined and immutable. That means that for a long while any
+* code you write will have to check first the type of key and the type
+* of value before using the contents of a KV object.
 */
 public class INKV
 {    			
 	private int key=-1;
 	private String keyString="";
 	private ArrayList <String> values=null;
-	
+		
 	/**
 	 *
 	 */
@@ -37,7 +58,7 @@ public class INKV
     {
     	values=new ArrayList <String>();
     	// Make sure we have at least one entry for quick access
-    	values.add("undefined");
+    	values.add("0");
     }
 	/**
 	 *
@@ -46,11 +67,18 @@ public class INKV
     {	   
     	values=new ArrayList <String>();
     	// Make sure we have at least one entry for quick access
-    	values.add("undefined");    	
+    	values.add("0");    	
     	
     	setKey (aKey);
     	setValue (aValue);
-    }    
+    }  
+	/**
+	 *
+	 */
+    public int getValueSize ()
+    {
+    	return (values.size());
+    }
 	/**
 	 *
 	 */
@@ -75,6 +103,16 @@ public class INKV
 	/**
 	 *
 	 */
+	public String getValue(int anIndex) 
+	{
+		if (anIndex>values.size())
+			return ("0");
+		
+		return (values.get(anIndex));
+	}	
+	/**
+	 *
+	 */
 	public ArrayList <String> getValues() 
 	{
 		return (values);
@@ -93,6 +131,23 @@ public class INKV
 	{
 		values.set(0,value);
 	}
+	/**
+	 *
+	 */
+	public void setValue(String value, int anIndex) 
+	{
+		if (anIndex>values.size())
+		{
+			// fill with bogus data up to the requested element
+			
+			for (int i=values.size ();i<anIndex;i++)
+			{
+				values.add("0");
+			}
+		}
+		
+		values.set(anIndex,value);
+	}	
 	/**
 	 *
 	 */	

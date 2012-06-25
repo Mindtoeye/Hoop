@@ -51,7 +51,7 @@ public class INHoopGraphManager extends INHoopBase
 		hoops=new ArrayList<INHoopBase> ();
 	}
 	/** 
-	 * @param root
+	 * @param aHoop
 	 */
 	public void addHoop(INHoopBase aHoop) 
 	{
@@ -68,14 +68,15 @@ public class INHoopGraphManager extends INHoopBase
 		this.root = root;
 	}
 	/** 
-	 * @return
+	 * @return INHoopBase
 	 */
 	public INHoopBase getRoot() 
 	{
 		return root;
 	}
 	/** 
-	 * @param root
+	 * @param aSource
+	 * @param aTarget
 	 */
 	public Boolean connectHoops(INHoopBase aSource,INHoopBase aTarget) 
 	{

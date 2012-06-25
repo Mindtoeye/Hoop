@@ -16,52 +16,37 @@
  * 
  */
 
-package edu.cmu.cs.in.hoop.base;
+package edu.cmu.cs.in.hoop.hoops;
 
 import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.io.INFileManager;
 import edu.cmu.cs.in.base.INKV;
+import edu.cmu.cs.in.hoop.base.INHoopBase;
+import edu.cmu.cs.in.hoop.base.INHoopInterface;
+import edu.cmu.cs.in.hoop.base.INHoopSaveBase;
 
 /**
 * 
 */
-public class INHoopFileLoadBase extends INHoopBase implements INHoopInterface
-{    				
+public class INHoopCSVWriter extends INHoopSaveBase implements INHoopInterface
+{    			
+	private String mode="TAB"; // TAB,COMMA,DASH
+	private String outURI="./HoopOut.csv";
 	private INFileManager fManager=null;
-	private INKV fileKV=null;
-	private String inputStreamPath=null;
 	
 	/**
 	 *
 	 */
-    public INHoopFileLoadBase () 
+    public INHoopCSVWriter () 
     {
-		setClassName ("INHoopFileLoadBase");
-		debug ("INHoopFileLoadBase ()");
+		setClassName ("INHoopCSVWriter");
+		debug ("INHoopCSVWriter ()");
+				
+		setHoopDescription ("Save KVs in CSV format");
 		
-		setHoopCategory ("load");
 		fManager=new INFileManager ();
-		fileKV=new INKV ();
-						
-		addKV(fileKV);
-		
-		setHoopDescription ("Load From File");
-    }
-	/**
-	 *
-	 */
-	public void setContent(String content) 
-	{
-		fileKV.setValue(content);
-	}
-	/**
-	 *
-	 */
-	public String getContent() 
-	{
-		return fileKV.getValue();
-	}
+    }  
 	/**
 	 *
 	 */
@@ -69,32 +54,40 @@ public class INHoopFileLoadBase extends INHoopBase implements INHoopInterface
 	{		
 		debug ("runHoop ()");
 		
-		super.runHoop(inHoop);		
+		ArrayList <INKV> inData=inHoop.getData();
+					
+		if (inData!=null)
+		{
+			StringBuffer formatted=new StringBuffer ();
+			
+			for (int t=0;t<inData.size();t++)
+			{
+				INKV aKV=inData.get(t);
+								
+				formatted.append(aKV.getKeyString ());
+				//formatted.append(",");
+				
+				ArrayList <String> vals=aKV.getValues();
+				
+				for (int i=0;i<vals.size();i++)
+				{
+					formatted.append(",");
+					formatted.append(vals.get(i));
+				}
+				
+				formatted.append("\n");
+			}
+			
+			fManager.saveContents (outURI,formatted.toString());
+		}	
 						
-		fileKV.setKeyString(fManager.getURI());
-		fileKV.setValue(fManager.loadContents(inputStreamPath));
-		
 		return (true);
-	}	
-	/**
-	 *
-	 */	
-	public void setInputStreamPath(String inputStreamPath) 
-	{
-		this.inputStreamPath = inputStreamPath;
-	}
-	/**
-	 *
-	 */	
-	public String getInputStreamPath() 
-	{
-		return inputStreamPath;
 	}	
 	/**
 	 * 
 	 */
 	public INHoopBase copy ()
 	{
-		return (new INHoopFileLoadBase ());
+		return (new INHoopCSVWriter ());
 	}	
 }

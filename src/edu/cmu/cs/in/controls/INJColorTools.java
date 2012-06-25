@@ -24,9 +24,9 @@ import edu.cmu.cs.in.base.INBase;
 
 public class INJColorTools extends INBase
 {
-	/**------------------------------------------------------------------------------------ 
+	/** 
 	 * Parses the specified Color as a string. 
-	 * @param representation of the color as a 24-bit integer, the format of the string can be either htmlcolor #xxxxxx or xxxxxx.
+	 * @param nm of the color as a 24-bit integer, the format of the string can be either htmlcolor #xxxxxx or xxxxxx.
 	 * @return the new color.
 	 * @exception NumberFormatException if the format of the string does not comply with rules or illegal charater for the 24-bit integer as a string.
 	 */
@@ -48,5 +48,4 @@ public class INJColorTools extends INBase
 		Color color = new Color( Integer.parseInt( nm , 16 ) );
 		return color;
 	}
-	//-------------------------------------------------------------------------------------
 }

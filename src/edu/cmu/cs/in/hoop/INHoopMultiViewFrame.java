@@ -30,7 +30,7 @@ import org.jdesktop.swingx.MultiSplitLayout;
 import org.jdesktop.swingx.MultiSplitPane;
 import org.apache.hadoop.util.VersionInfo;
 
-import edu.cmu.cs.in.base.INFileManager;
+import edu.cmu.cs.in.base.io.INFileManager;
 import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 import edu.cmu.cs.in.controls.base.INJFrame;

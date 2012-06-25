@@ -45,7 +45,7 @@ import org.w3c.dom.NodeList;
 
 import edu.cmu.cs.in.base.INDataCollection;
 import edu.cmu.cs.in.base.INBase;
-import edu.cmu.cs.in.base.INFileManager;
+import edu.cmu.cs.in.base.io.INFileManager;
 
 @SuppressWarnings("serial")
 

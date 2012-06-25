@@ -16,7 +16,7 @@
  * 
  */
 
-package edu.cmu.cs.in.base;
+package edu.cmu.cs.in.base.io;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -27,6 +27,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
+
+import edu.cmu.cs.in.base.INBase;
 
 public class INFileManager extends INBase
 {

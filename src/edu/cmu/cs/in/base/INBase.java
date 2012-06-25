@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import edu.cmu.cs.in.base.INFilterBase;
+import edu.cmu.cs.in.base.io.INFileManager;
 
 public class INBase 
 {

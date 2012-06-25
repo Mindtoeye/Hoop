@@ -57,9 +57,7 @@ public class INHoopSaveBase extends INHoopBase implements INHoopInterface
 	public Boolean runHoop (INHoopBase inHoop)
 	{		
 		debug ("runHoop ()");
-		
-		super.runHoop(inHoop);		
-				
+						
 		return (true);
 	}	
 	/**

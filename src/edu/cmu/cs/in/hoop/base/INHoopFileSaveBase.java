@@ -18,7 +18,7 @@
 
 package edu.cmu.cs.in.hoop.base;
 
-import edu.cmu.cs.in.base.INFileManager;
+import edu.cmu.cs.in.base.io.INFileManager;
 
 /**
 * 

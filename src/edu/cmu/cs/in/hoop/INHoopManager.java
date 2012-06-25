@@ -24,6 +24,8 @@ import edu.cmu.cs.in.hoop.base.INHoopBase;
 import edu.cmu.cs.in.hoop.base.INHoopDisplayBase;
 import edu.cmu.cs.in.hoop.base.INHoopFileLoadBase;
 import edu.cmu.cs.in.hoop.base.INHoopFileSaveBase;
+import edu.cmu.cs.in.hoop.hoops.INHoopCSVReader;
+import edu.cmu.cs.in.hoop.hoops.INHoopCSVWriter;
 import edu.cmu.cs.in.hoop.hoops.INHoopCleanTokens;
 import edu.cmu.cs.in.hoop.hoops.INHoopFile2Sentence;
 import edu.cmu.cs.in.hoop.hoops.INHoopFilterGarbage;
@@ -156,5 +158,7 @@ public class INHoopManager extends INHoopBase
     	addTemplate (new INHoopCleanTokens ());
     	addTemplate (new INHoopFilterGarbage ());
     	addTemplate (new INHoopKV2TXT ());
+    	addTemplate (new INHoopCSVWriter ());
+    	addTemplate (new INHoopCSVReader ());
     }
 }

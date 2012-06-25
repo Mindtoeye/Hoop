@@ -20,12 +20,17 @@
  *   http://www.calculatorsoup.com/calculators/geometry-plane/polygon.php
  */
 
+package edu.cmu.cs.in.controls.map;
+
 import com.sun.j3d.utils.behaviors.keyboard.KeyNavigatorBehavior;
 import com.sun.j3d.utils.behaviors.mouse.MouseRotate;
 import com.sun.j3d.utils.behaviors.mouse.MouseTranslate;
 import com.sun.j3d.utils.geometry.*;
 
 import com.sun.j3d.utils.universe.*;
+
+import edu.cmu.cs.in.base.INBase;
+
 import java.awt.Color;
 
 import javax.media.j3d.*;
@@ -35,7 +40,7 @@ import javax.vecmath.*;
 /**
  * 
  */
-public class INHoopJava3D 
+public class INHoopJava3D extends INBase
 {
 	private PolygonAttributes pa=new PolygonAttributes();
     private SimpleUniverse universe=null;
@@ -49,10 +54,18 @@ public class INHoopJava3D
     /**
      * 
      */
-    public void init() 
+    public INHoopJava3D () 
     {
-    	pa.setCapability(PolygonAttributes.ALLOW_MODE_WRITE);
-    	
+		setClassName ("INHoopJava3D");
+		debug ("INHoopJava3D ()");
+		
+    	pa.setCapability(PolygonAttributes.ALLOW_MODE_WRITE);    	
+    }
+    /**
+     * 
+     */
+    public void create ()
+    {
         createUniverse();
         createAppearance();
         //createCubeOfCubes();        
@@ -70,7 +83,14 @@ public class INHoopJava3D
         //pa.setBackFaceNormalFlip(true);
         //pa.setCullFace(PolygonAttributes.CULL_NONE);
         
-        createCameraPosition ();
+        createCameraPosition ();    	
+    }
+    /**
+     * 
+     */
+    public SimpleUniverse getUniverse ()
+    {
+    	return (universe);
     }
     /**
      * 
@@ -240,6 +260,6 @@ public class INHoopJava3D
      */
     public static void main(String[] args) 
     {
-        (new INHoopJava3D()).init();
+    	INHoopJava3D driver=new INHoopJava3D();
     }
 }

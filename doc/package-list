@@ -4,7 +4,6 @@ edu.cmu.cs.in.base
 edu.cmu.cs.in.base.io
 edu.cmu.cs.in.controls
 edu.cmu.cs.in.controls.base
-edu.cmu.cs.in.controls.map
 edu.cmu.cs.in.hadoop
 edu.cmu.cs.in.hoop
 edu.cmu.cs.in.hoop.base
