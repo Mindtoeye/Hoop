@@ -18,12 +18,21 @@
 
 package edu.cmu.cs.in.hoop;
 
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
+import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.base.INKV;
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 import edu.cmu.cs.in.controls.base.INHoopJTable;
@@ -33,7 +42,7 @@ import edu.cmu.cs.in.hoop.base.INHoopBase;
  * @author vvelsen
  *
  */
-public class INHoopTablePanel extends INEmbeddedJPanel
+public class INHoopTablePanel extends INEmbeddedJPanel implements ActionListener
 {	
 	private static final long serialVersionUID = 1L;
 			
@@ -48,6 +57,32 @@ public class INHoopTablePanel extends INEmbeddedJPanel
 	{
 		setClassName ("INHoopTablePanel");
 		debug ("INHoopTablePanel ()");
+		
+    	Box holder = new Box (BoxLayout.Y_AXIS);
+    	
+		Box controlBox = new Box (BoxLayout.X_AXIS);
+		
+		JButton clearButton=new JButton ();
+		clearButton.setIcon(INHoopLink.imageIcons [8]);
+		clearButton.setMargin(new Insets(1, 1, 1, 1));
+		//clearButton.setText("Clear");
+		clearButton.setFont(new Font("Courier",1,8));
+		clearButton.setPreferredSize(new Dimension (20,16));
+		clearButton.addActionListener(this);
+		
+		JButton saveButton=new JButton ();	
+		saveButton.setIcon(INHoopLink.imageIcons [19]);
+		saveButton.setMargin(new Insets(1, 1, 1, 1));
+		saveButton.setFont(new Font("Courier",1,8));
+		saveButton.setPreferredSize(new Dimension (20,16));
+		saveButton.addActionListener(this);
+		
+		controlBox.add (clearButton);
+		controlBox.add (saveButton);
+		controlBox.add(Box.createHorizontalGlue());
+		
+		controlBox.setMinimumSize(new Dimension (100,24));
+		controlBox.setPreferredSize(new Dimension (100,24));		
 
 		// We need some empty data because Java crashes when you provide a null parameter in the constructor
 		Object[][] data ={}; 
@@ -57,7 +92,10 @@ public class INHoopTablePanel extends INEmbeddedJPanel
 		JScrollPane scrollPane = new JScrollPane(table);
 		table.setFillsViewportHeight(true);		
 		
-		this.add(scrollPane);		
+		holder.add(controlBox);
+		holder.add (scrollPane);
+		
+		this.add(holder);		
 	}
 	/**
 	 * 
@@ -130,5 +168,14 @@ public class INHoopTablePanel extends INEmbeddedJPanel
 		debug ("updateContents ()");
 		
 		// Implement in child class!!
+	}
+	/**
+	 * 
+	 */
+	@Override
+	public void actionPerformed(ActionEvent arg0) 
+	{
+		debug ("actionPerformed ()");
+		
 	}	
 }
