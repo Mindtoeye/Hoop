@@ -18,6 +18,7 @@
 
 package edu.cmu.cs.in.hoop;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Insets;
@@ -25,15 +26,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
 import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
-import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.base.INKV;
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 import edu.cmu.cs.in.controls.base.INHoopJTable;
@@ -49,6 +54,14 @@ public class INHoopTablePanel extends INEmbeddedJPanel implements ActionListener
 			
 	private INHoopJTable table=null;
 	
+	private JTextField status=null;
+    private JTextField minRange=null;
+    private JTextField maxRange=null;    
+    private JButton setRange=null;    
+    //private JButton setDateRange=null;
+    private JButton previousSet=null;
+    private JButton nextSet=null;	
+	
 	private String[] columnNames = {"Key","Value"};	
 	
 	/**
@@ -59,28 +72,64 @@ public class INHoopTablePanel extends INEmbeddedJPanel implements ActionListener
 		setClassName ("INHoopTablePanel");
 		debug ("INHoopTablePanel ()");
 		
-    	Box holder = new Box (BoxLayout.Y_AXIS);
-    	
+    	Box holder = new Box (BoxLayout.Y_AXIS);    	
 		Box controlBox = new Box (BoxLayout.X_AXIS);
 		
-		JButton clearButton=new JButton ();
-		clearButton.setIcon(INHoopLink.imageIcons [8]);
-		clearButton.setMargin(new Insets(1, 1, 1, 1));
-		//clearButton.setText("Clear");
-		clearButton.setFont(new Font("Courier",1,8));
-		clearButton.setPreferredSize(new Dimension (20,16));
-		clearButton.addActionListener(this);
+		Border border=BorderFactory.createLineBorder(Color.black);
 		
-		JButton saveButton=new JButton ();	
-		saveButton.setIcon(INHoopLink.imageIcons [19]);
-		saveButton.setMargin(new Insets(1, 1, 1, 1));
-		saveButton.setFont(new Font("Courier",1,8));
-		saveButton.setPreferredSize(new Dimension (20,16));
-		saveButton.addActionListener(this);
-		
-		controlBox.add (clearButton);
-		controlBox.add (saveButton);
-		controlBox.add(Box.createHorizontalGlue());
+	    minRange=new JTextField ();
+	    minRange.setText("0");
+	    minRange.setFont(new Font("Dialog", 1, 10));
+	    minRange.setMinimumSize(new Dimension (50,18));
+	    minRange.setPreferredSize(new Dimension (50,18));
+	    controlBox.add(minRange);
+	    	    	    	    
+	    maxRange=new JTextField ();
+	    maxRange.setText("100");
+	    maxRange.setFont(new Font("Dialog", 1, 10));
+	    maxRange.setMinimumSize(new Dimension (50,20));
+	    maxRange.setPreferredSize(new Dimension (50,20));
+	    controlBox.add(maxRange);
+	    	    
+	    setRange=new JButton ();
+	    setRange.setMargin(new Insets(1,1,1,1));
+	    setRange.setText("Set");
+	    setRange.setFont(new Font("Dialog", 1, 10));
+	    setRange.setMinimumSize(new Dimension (60,20));
+	    setRange.setPreferredSize(new Dimension (60,20));
+	    setRange.addActionListener(this);
+	    controlBox.add(setRange);	    
+	    
+	    previousSet=new JButton ();
+	    previousSet.setMargin(new Insets(1,1,1,1));
+	    previousSet.setText("Previous");
+	    previousSet.setFont(new Font("Dialog", 1, 10));
+	    previousSet.setMinimumSize(new Dimension (60,20));
+	    previousSet.setPreferredSize(new Dimension (60,20));
+	    previousSet.addActionListener(this);
+	    controlBox.add(previousSet);
+	    
+	    nextSet=new JButton ();
+	    nextSet.setMargin(new Insets(1,1,1,1));  
+	    nextSet.setText("Next");
+	    nextSet.setFont(new Font("Dialog", 1, 10));
+	    nextSet.setMinimumSize(new Dimension (60,20));
+	    nextSet.setPreferredSize(new Dimension (60,20));
+	    nextSet.addActionListener(this);
+	    controlBox.add(nextSet);	    
+	    
+	    controlBox.add(new JSeparator(SwingConstants.VERTICAL));
+
+	    status=new JTextField ();
+	    status.setText("Status: OK");
+	    status.setEditable(false);
+	    //status.setBorder(border);
+	    status.setFont(new Font("Dialog", 1, 10));
+	    status.setMinimumSize(new Dimension (20,20));
+	    status.setPreferredSize(new Dimension (100,20));
+	    controlBox.add(status);	    
+
+		//controlBox.add(Box.createHorizontalGlue());
 		
 		controlBox.setMinimumSize(new Dimension (100,24));
 		controlBox.setPreferredSize(new Dimension (100,24));		
@@ -185,9 +234,21 @@ public class INHoopTablePanel extends INEmbeddedJPanel implements ActionListener
 	 * 
 	 */
 	@Override
-	public void actionPerformed(ActionEvent arg0) 
+	public void actionPerformed(ActionEvent event) 
 	{
 		debug ("actionPerformed ()");
 		
+		if (event.getSource()==setRange)
+		{
+			/*
+			sortby=BYRANGE;
+			
+			createRange ();
+			
+			refreshTable ();
+			*/
+			
+			return;
+		}		
 	}	
 }

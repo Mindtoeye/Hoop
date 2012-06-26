@@ -21,6 +21,7 @@ package edu.cmu.cs.in.hoop;
 import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.INBase;
+import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
 import edu.cmu.cs.in.hoop.editor.INHoopVisualRepresentation;
 
@@ -116,6 +117,12 @@ public class INHoopExecute extends INBase implements Runnable
 				panel.setState("ERROR");
 			else
 				debug ("No visual representation present to show error result!");
+			
+			INHoopErrorPanel errorPanel=(INHoopErrorPanel) INHoopLink.getWindow("Errors");
+			if (errorPanel!=null)
+			{
+				errorPanel.addError (root.getClassType(),root.getErrorString());
+			}			
 		}
 		
 		return (execute (root));	
@@ -148,6 +155,12 @@ public class INHoopExecute extends INBase implements Runnable
 					panel.setState("ERROR");
 				else
 					debug ("No visual representation present to show error result!");
+				
+				INHoopErrorPanel errorPanel=(INHoopErrorPanel) INHoopLink.getWindow("Errors");
+				if (errorPanel!=null)
+				{
+					errorPanel.addError (current.getClassType(),current.getErrorString());
+				}
 				
 				return (false);
 			}

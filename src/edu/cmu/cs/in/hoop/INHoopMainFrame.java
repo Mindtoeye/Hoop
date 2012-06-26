@@ -197,7 +197,17 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     	    	
     	    	addView ("Console",console,INHoopLink.bottom);    	    	
     		}
-    	});    
+    	});
+    	
+    	JMenuItem errorItem=new JMenuItem("Error Output");    	
+    	
+    	errorItem.addActionListener(new ActionListener() 
+    	{
+    		public void actionPerformed(ActionEvent e) 
+    		{    	    
+    	    	addView ("Errors",new INHoopErrorPanel(),"bottom");
+    		}
+    	});    	
     	
     	JMenuItem plotterItem=new JMenuItem("Main Data Plotter");    	
     	
@@ -238,6 +248,7 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     	views.add (documentItem);
     	views.add (documentListItem);
     	views.add (consoleItem);
+    	views.add (errorItem);
     	views.add (statsItem);
     	views.add (plotterItem);
     	views.add (new JSeparator());

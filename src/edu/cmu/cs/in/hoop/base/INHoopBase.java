@@ -38,6 +38,7 @@ public class INHoopBase extends INHoopInspectable implements INHoopInterface
 {    			
 	private ArrayList <INHoopBase> outHoops=null;	
 	private ArrayList <INKV> data=null;
+	private ArrayList <String> headers=null;
 
 	/// Either one of display,load,save,transform 
 	protected StringBuffer hoopCategory=null; 
@@ -70,7 +71,11 @@ public class INHoopBase extends INHoopInspectable implements INHoopInterface
 		hoopCategory.append("root");
 		
 		outHoops=new ArrayList<INHoopBase> ();
-		data=new ArrayList<INKV> ();
+		data=new ArrayList <INKV> ();
+		
+		headers=new ArrayList <String> ();
+		headers.add("Key");
+		headers.add("Value");
 		
 		inPorts=new ArrayList<String> ();
 		outPorts=new ArrayList<String> ();
@@ -81,9 +86,7 @@ public class INHoopBase extends INHoopInspectable implements INHoopInterface
 		
 		addInPort ("KV");
 		addOutPort ("KV");
-		addOutPort ("Stats");
-				
-		//generateRandomKVs ();
+		addOutPort ("Stats");				
     }
     /**
      * 
