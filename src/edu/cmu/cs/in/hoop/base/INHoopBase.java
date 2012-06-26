@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 import edu.cmu.cs.in.base.INKV;
+import edu.cmu.cs.in.hoop.editor.INHoopVisualRepresentation;
 import edu.cmu.cs.in.hoop.properties.INHoopInspectable;
 import edu.cmu.cs.in.stats.INPerformanceMetrics;
 import edu.cmu.cs.in.stats.INStatisticsMeasure;
@@ -46,14 +47,16 @@ public class INHoopBase extends INHoopInspectable implements INHoopInterface
 	private String executionState="STOPPED"; 
 	
 	private Boolean inEditor=false;
-	
-	private String errorString="";
-	
+		
 	private INPerformanceMetrics performance=null;
 	private INStatisticsMeasure stats=null;
 	
 	private ArrayList <String>inPorts=null;
 	private ArrayList <String>outPorts=null;
+	
+	private INHoopVisualRepresentation visualizer=null;
+	
+	private int maxValues=1;
 	
 	/**
 	 *
@@ -82,6 +85,20 @@ public class INHoopBase extends INHoopInspectable implements INHoopInterface
 				
 		//generateRandomKVs ();
     }
+    /**
+     * 
+     */    
+	public void setVisualizer(INHoopVisualRepresentation visualizer) 
+	{
+		this.visualizer = visualizer;
+	}
+    /**
+     * 
+     */	
+	public INHoopVisualRepresentation getVisualizer() 
+	{
+		return visualizer;
+	}    
     /**
      * 
      */
@@ -137,21 +154,7 @@ public class INHoopBase extends INHoopInspectable implements INHoopInterface
 	public INStatisticsMeasure getStats() 
 	{
 		return stats;
-	}    
-	/**
-	 * 
-	 */	
-	public void setErrorString(String errorString) 
-	{
-		this.errorString = errorString;
-	}
-	/**
-	 * 
-	 */	
-	public String getErrorString() 
-	{
-		return errorString;
-	}    
+	}        
 	/**
 	 * 
 	 */    
@@ -338,5 +341,19 @@ public class INHoopBase extends INHoopInspectable implements INHoopInterface
 	{
 		// To be implemented by child class
 		return null;
+	}
+	/**
+	 * 
+	 */	
+	public void setMaxValues(int maxValues) 
+	{
+		this.maxValues = maxValues;
+	}
+	/**
+	 * 
+	 */	
+	public int getMaxValues() 
+	{
+		return maxValues;
 	}
 }

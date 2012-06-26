@@ -177,6 +177,12 @@ public class INFileManager extends INBase
 		debug ("loadContents ("+aFileURI+")");
 		
 		setURI (aFileURI);
+
+		if (doesFileExist (aFileURI)==false)
+		{
+			this.setErrorString ("Error, file does not exist: " + aFileURI);
+			return (null);
+		}
 		
 		File aFile=new File(aFileURI);
 

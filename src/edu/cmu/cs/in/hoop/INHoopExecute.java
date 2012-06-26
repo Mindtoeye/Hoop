@@ -22,6 +22,7 @@ import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
+import edu.cmu.cs.in.hoop.editor.INHoopVisualRepresentation;
 
 /** 
  * @author Martin van Velsen
@@ -108,8 +109,13 @@ public class INHoopExecute extends INBase implements Runnable
 		
 		if (root.runHoopInternal(null)==false)
 		{
-			debug ("Error executing hoop:" + root.getErrorString());
-			return (false);
+			debug ("Error executing hoop: " + root.getErrorString());
+			INHoopVisualRepresentation panel=root.getVisualizer();
+			
+			if (panel!=null)
+				panel.setState("ERROR");
+			else
+				debug ("No visual representation present to show error result!");
 		}
 		
 		return (execute (root));	
@@ -135,7 +141,14 @@ public class INHoopExecute extends INBase implements Runnable
 			
 			if (current.runHoopInternal(aRoot)==false)
 			{
-				debug ("Error executing hoop:" + current.getErrorString());
+				debug ("Error executing hoop: " + current.getErrorString());
+				INHoopVisualRepresentation panel=current.getVisualizer();
+				
+				if (panel!=null)
+					panel.setState("ERROR");
+				else
+					debug ("No visual representation present to show error result!");
+				
 				return (false);
 			}
 			
@@ -143,7 +156,9 @@ public class INHoopExecute extends INBase implements Runnable
 			current.setExecutionState("STOPPED");
 			
 			if (current.getOutHoops().size()>0) // quick test before we execute
-				execute (current);
+			{
+				return (execute (current));
+			}	
 		}
 		
 		return (true);

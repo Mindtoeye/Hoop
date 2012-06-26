@@ -38,7 +38,7 @@ import edu.cmu.cs.in.hoop.properties.INHoopPropertyPanel;
  * with UI components. See the INHoopNodeRenderer class if you feel inclined
  * to subject yourself to Swing GUI management.
  */
-public class INHoopNodePanel extends INHoopNodeRenderer
+public class INHoopNodePanel extends INHoopNodeRenderer implements INHoopVisualRepresentation
 {
 	private static final long serialVersionUID = -1L;
 	private INHoopPropertyPanel propPanel=null;
@@ -153,6 +153,34 @@ public class INHoopNodePanel extends INHoopNodeRenderer
 		if (panel!=null)
 		{
 			panel.showHoop(hoop);
+		}		
+	}
+	/**
+	 * One of: STOPPED, WAITING, RUNNING, PAUSED, ERROR
+	 */
+	@Override
+	public void setState(String aState) 
+	{
+		debug ("setState ("+aState+")");
+		
+		if (aState.equals("ERROR")==true)
+		{
+			icon.setIcon(INHoopLink.getImageByName("led-red.png"));	
+		}
+		
+		if (aState.equals("STOPPED")==true)
+		{
+			icon.setIcon(INHoopLink.getImageByName("led-yellow.png"));
+		}
+		
+		if (aState.equals("WAITING")==true)
+		{
+			icon.setIcon(INHoopLink.getImageByName("led-yellow.png"));
+		}
+		
+		if (aState.equals("RUNNING")==true)
+		{
+			icon.setIcon(INHoopLink.getImageByName("led-green.png"));
 		}		
 	}	
 }

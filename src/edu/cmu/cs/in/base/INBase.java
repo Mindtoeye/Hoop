@@ -31,7 +31,8 @@ public class INBase
 	private SimpleDateFormat df;	
 	private String instanceName="Undefined";
 	private String className="INBase";
-	private String classType="Unknown"; // Used for serialization and should be a basetype
+	private String classType="Unknown"; // Used for serialization and should be a base type
+	private String errorString="";
 	
 	private ArrayList<INFilterBase> filters=null;
 	
@@ -73,10 +74,24 @@ public class INBase
 	/**
 	 *
 	 */
-   public String getClassType ()
-   {
-   	return (classType);
-   } 	
+   	public String getClassType ()
+   	{
+   		return (classType);
+   	} 	
+	/**
+	 * 
+	 */	
+	public void setErrorString(String errorString) 
+	{
+		this.errorString = errorString;
+	}
+	/**
+	 * 
+	 */	
+	public String getErrorString() 
+	{
+		return errorString;
+	}   
 	/**
 	 *
 	 */    

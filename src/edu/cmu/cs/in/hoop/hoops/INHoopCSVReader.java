@@ -28,7 +28,7 @@ import edu.cmu.cs.in.hoop.base.INHoopTransformBase;
 public class INHoopCSVReader extends INHoopTransformBase implements INHoopInterface
 {
 	private String mode="COMMA"; // TAB,COMMA,DASH
-	private Boolean skipHeader=false;
+	private Boolean skipHeader=true;
 	
 	/**
 	 *
@@ -82,6 +82,8 @@ public class INHoopCSVReader extends INHoopTransformBase implements INHoopInterf
 	{		
 		debug ("runHoop ()");
 				
+		this.setMaxValues(1);
+		
 		ArrayList <INKV> inData=inHoop.getData();
 		
 		if (inData!=null)
@@ -124,8 +126,11 @@ public class INHoopCSVReader extends INHoopTransformBase implements INHoopInterf
 						
 						for (int j=0;j<entries.length;j++)
 						{
-							currentKV.setValue(entries [j],j);							
+							currentKV.setValue(entries [j],j);				
 						}
+						
+						if (entries.length>this.getMaxValues())
+							this.setMaxValues(entries.length);
 						
 						this.addKV(currentKV);
 					}	
@@ -134,6 +139,8 @@ public class INHoopCSVReader extends INHoopTransformBase implements INHoopInterf
 		}	
 		else
 			debug ("Error: no data input hoop");
+		
+		debug ("Max tokens per line: " + this.getMaxValues());
 		
 		return (true);
 	}	

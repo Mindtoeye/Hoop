@@ -29,6 +29,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
@@ -51,7 +52,7 @@ public class INHoopTablePanel extends INEmbeddedJPanel implements ActionListener
 	private String[] columnNames = {"Key","Value"};	
 	
 	/**
-	 * Creates a new JPanel with a double buffer and a flow layout.
+	 * http://stackoverflow.com/questions/965023/how-to-wrap-lines-in-a-jtable-cell
 	 */	
 	public INHoopTablePanel()
 	{
@@ -90,7 +91,8 @@ public class INHoopTablePanel extends INEmbeddedJPanel implements ActionListener
 		table=new INHoopJTable (data,columnNames);
 		
 		JScrollPane scrollPane = new JScrollPane(table);
-		table.setFillsViewportHeight(true);		
+		//table.setFillsViewportHeight(true);		
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		
 		holder.add(controlBox);
 		holder.add (scrollPane);
@@ -117,23 +119,33 @@ public class INHoopTablePanel extends INEmbeddedJPanel implements ActionListener
 					
 		// Convert KV model to table model and show
 		
-		DefaultTableModel model=new DefaultTableModel (null,columnNames);
+		String[] cNames = new String [aHoop.getMaxValues()+1];
+		
+		cNames [0]="Key";
+		cNames [1]="Value";
+		
+		for (int w=0;w<(aHoop.getMaxValues()-2);w++)
+		{
+			cNames [w+2]="V"+w;
+		}
+		
+		DefaultTableModel model=new DefaultTableModel (null,cNames);
 				
 		// For large data sets we will have to use ranges on the index!
 		
 		if (content!=null)
 		{
 			for (INKV p : content) 
-			{
-				//model.addRow(new String[] {p.getKeyString(), p.getValue()});
-				
+			{				
 				String [] rowData=new String [p.getValueSize()+1];
 				
 				rowData [0]=p.getKeyString();
 				
+				//debug ("Adding " + p.getValueSize() + " values");
+				
 				for (int i=0;i<p.getValueSize();i++)
 				{
-					rowData [i+1]=p.getValue();
+					rowData [i+1]=p.getValue(i);
 				}
 				
 				model.addRow(rowData);
