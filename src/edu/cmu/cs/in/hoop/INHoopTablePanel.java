@@ -18,7 +18,7 @@
 
 package edu.cmu.cs.in.hoop;
 
-import java.awt.Color;
+//import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Insets;
@@ -26,7 +26,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.swing.BorderFactory;
+//import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -35,11 +35,11 @@ import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.border.Border;
+//import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumnModel;
 
 import edu.cmu.cs.in.base.INKV;
+import edu.cmu.cs.in.base.INKVType;
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 import edu.cmu.cs.in.controls.base.INHoopJTable;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
@@ -75,7 +75,7 @@ public class INHoopTablePanel extends INEmbeddedJPanel implements ActionListener
     	Box holder = new Box (BoxLayout.Y_AXIS);    	
 		Box controlBox = new Box (BoxLayout.X_AXIS);
 		
-		Border border=BorderFactory.createLineBorder(Color.black);
+		//Border border=BorderFactory.createLineBorder(Color.black);
 		
 	    minRange=new JTextField ();
 	    minRange.setText("0");
@@ -162,7 +162,7 @@ public class INHoopTablePanel extends INEmbeddedJPanel implements ActionListener
 	{
 		debug ("showHoop ()");
 		
-		TableColumnModel columnModel=table.getColumnModel();
+		//TableColumnModel columnModel=table.getColumnModel();
 		
 		ArrayList <INKV> content=aHoop.getData();
 					
@@ -170,8 +170,14 @@ public class INHoopTablePanel extends INEmbeddedJPanel implements ActionListener
 		
 		String[] cNames = new String [aHoop.getMaxValues()+1];
 		
-		cNames [0]="Key";
-		cNames [1]="Value";
+		ArrayList <INKVType> types=aHoop.getTypes();
+		
+		for (int n=0;n<types.size();n++)
+		{
+			INKVType aType=types.get(n);
+			
+			cNames [n]=aType.getTypeValue()+"("+aType.getTypeName()+")";
+		}
 		
 		for (int w=0;w<(aHoop.getMaxValues()-2);w++)
 		{

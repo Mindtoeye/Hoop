@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 import edu.cmu.cs.in.base.INKV;
+import edu.cmu.cs.in.base.INKVType;
 import edu.cmu.cs.in.hoop.editor.INHoopVisualRepresentation;
 import edu.cmu.cs.in.hoop.properties.INHoopInspectable;
 import edu.cmu.cs.in.stats.INPerformanceMetrics;
@@ -34,11 +35,10 @@ import edu.cmu.cs.in.stats.INStatisticsMeasure;
 * though the API allows more than one incoming hoop, we currently
 * restrict the functionality to only one.
 */
-public class INHoopBase extends INHoopInspectable implements INHoopInterface
+public class INHoopBase extends INHoopBaseTyped implements INHoopInterface
 {    			
 	private ArrayList <INHoopBase> outHoops=null;	
 	private ArrayList <INKV> data=null;
-	private ArrayList <String> headers=null;
 
 	/// Either one of display,load,save,transform 
 	protected StringBuffer hoopCategory=null; 
@@ -72,11 +72,7 @@ public class INHoopBase extends INHoopInspectable implements INHoopInterface
 		
 		outHoops=new ArrayList<INHoopBase> ();
 		data=new ArrayList <INKV> ();
-		
-		headers=new ArrayList <String> ();
-		headers.add("Key");
-		headers.add("Value");
-		
+				
 		inPorts=new ArrayList<String> ();
 		outPorts=new ArrayList<String> ();
 		

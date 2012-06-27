@@ -102,23 +102,25 @@ public class INHoopCSVReader extends INHoopTransformBase implements INHoopInterf
 		
 				for (int i=0;i<split.length;i++)
 				{			
-					int skipper=-1;
-					
-					if (skipHeader==true)
-						skipper=0;
-					
-					if (i>skipper)
-					{
-						String entries[]=null;
+					String entries[]=null;
 								
-						if (mode.equals ("TAB")==true)
-							entries=split [i].split("\\t");
-						else
+					if (mode.equals ("TAB")==true)
+						entries=split [i].split("\\t");
+					else
+					{
+						if (mode.equals ("COMMA")==true)
+							entries=split [i].split("(?<!\\\\),");
+					}
+
+					if ((skipHeader==true) && (i==0))
+					{
+						for (int j=0;j<entries.length;j++)
 						{
-							if (mode.equals ("COMMA")==true)
-								entries=split [i].split("(?<!\\\\),");
-						}
-		 
+							setKVType (j,"String",entries [j]);				
+						}						
+					}
+					else
+					{					
 						currentKV=new INKV ();
 						currentKV.setKey (i);
 				

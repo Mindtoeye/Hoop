@@ -28,8 +28,8 @@ public class INHoopFileLoadBase extends INHoopLoadBase implements INHoopInterfac
 {    				
 	private INFileManager fManager=null;
 	private INKV fileKV=null;
-	//private String inputStreamPath="X:\\Echidne\\Hydra (Science)\\Development\\Hoop\\Resources\\ExampleData\\MovieReviews-Full.csv";
-	private String inputStreamPath="C:\\Martin\\Echidne\\Hydra (Science)\\Development\\Hoop\\Resources\\ExampleData\\MovieReviews-Full.csv";
+	private String inputStreamPath="X:\\Echidne\\Hydra (Science)\\Development\\Hoop\\Resources\\ExampleData\\MovieReviews-Full.csv";
+	//private String inputStreamPath="C:\\Martin\\Echidne\\Hydra (Science)\\Development\\Hoop\\Resources\\ExampleData\\MovieReviews-Full.csv";
 	
 	/**
 	 *
