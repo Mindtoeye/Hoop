@@ -11,15 +11,15 @@ Author: Martin van Velsen <vvelsen@cs.cmu.edu>,<vvelsen@gmail.com>
 
 Notice!
 
-Currently the toolkit is being migrated to the Eclipse Workbench
-and although all the core module code will stay the same and will migrate,
-the integrated environment support will most likely drastically change.
+At some point the IDE might be migrated to the Eclipse workbench,
+although it looks like we don't need to go that elaborate and the
+current system is almost done anyway.
 
 History
 
 Initially written as a set of support code for graduate classes
-and smaller narrative projects, the code is slowly growing to
-encompass a larger text-based data mining framework.
+in Language Technologies and smaller narrative projects, the code 
+is slowly growing to encompass a larger text-based data mining framework.
 
 This source set includes code written for other various graduate 
 courses and is part of a larger research effort in the field of
@@ -41,6 +41,3 @@ Used Packages:
 
 - Hadoop, for the indexing part in case you're running through a cluster
 	http://hadoop.apache.org/
-	
-- Java3D, for data visualization and an optional hex map for future table-top use
-	http://www.oracle.com/technetwork/java/javasebusiness/downloads/java-archive-downloads-java-client-419417.html#java3d-1.5.1-oth-JPR
