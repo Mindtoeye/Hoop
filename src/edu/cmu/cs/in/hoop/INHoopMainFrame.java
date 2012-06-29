@@ -607,6 +607,9 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     	console=new INHoopConsole();    	
     	addView ("Console",console,INHoopLink.bottom);  		
 		
+    	INHoopProjectPanel projectPanel=new INHoopProjectPanel ();
+    	addView ("Project",projectPanel,INHoopLink.left);
+    	
 		INHoopTreeList hoopList=new INHoopTreeList ();
 		addView ("Hoop List",hoopList,INHoopLink.left);
 		
