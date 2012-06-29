@@ -21,6 +21,7 @@ package edu.cmu.cs.in.hoop.hoops;
 import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.INKV;
+import edu.cmu.cs.in.base.INKVInteger;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
 import edu.cmu.cs.in.hoop.base.INHoopTransformBase;
 
@@ -56,7 +57,7 @@ public class INHoopKV2TXT extends INHoopTransformBase
 		
 		for (int i=0;i<inData.size();i++)
 		{
-			INKV aKV=inData.get(i);
+			INKVInteger aKV=(INKVInteger) inData.get(i);
 			
 			textRepresentation.append(aKV.getKeyString()+" : " + aKV.getValue() + "\n");
 		}		

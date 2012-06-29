@@ -25,6 +25,7 @@ import javax.swing.JPanel;
 
 import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.base.INKV;
+import edu.cmu.cs.in.base.INKVInteger;
 import edu.cmu.cs.in.hoop.INHoopStopWordEditor;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
 import edu.cmu.cs.in.hoop.base.INHoopInterface;
@@ -59,7 +60,7 @@ public class INHoopFilterStopWords extends INHoopTransformBase implements INHoop
 		{					
 			for (int i=0;i<inData.size();i++)
 			{
-				INKV aKV=inData.get(i);
+				INKVInteger aKV=(INKVInteger) inData.get(i);
 				
 				Boolean isStop=false;
 				
@@ -73,7 +74,7 @@ public class INHoopFilterStopWords extends INHoopTransformBase implements INHoop
 				
 				if (isStop==false)
 				{
-					addKV (new INKV (i,aKV.getValue()));
+					addKV (new INKVInteger (i,aKV.getValue()));
 				}	
 			}						
 		}

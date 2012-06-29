@@ -24,6 +24,7 @@ import edu.cmu.cs.in.hoop.base.INHoopBase;
 import edu.cmu.cs.in.hoop.base.INHoopDisplayBase;
 import edu.cmu.cs.in.hoop.base.INHoopFileLoadBase;
 import edu.cmu.cs.in.hoop.base.INHoopFileSaveBase;
+import edu.cmu.cs.in.hoop.hoops.INHoopArffReader;
 import edu.cmu.cs.in.hoop.hoops.INHoopCSVReader;
 import edu.cmu.cs.in.hoop.hoops.INHoopCSVWriter;
 import edu.cmu.cs.in.hoop.hoops.INHoopCleanTokens;
@@ -35,6 +36,7 @@ import edu.cmu.cs.in.hoop.hoops.INHoopHDFSMultiFileOutput;
 import edu.cmu.cs.in.hoop.hoops.INHoopHDFSSingleFileInput;
 import edu.cmu.cs.in.hoop.hoops.INHoopHDFSSingleFileOutput;
 import edu.cmu.cs.in.hoop.hoops.INHoopKV2TXT;
+import edu.cmu.cs.in.hoop.hoops.INHoopNaiveBayes;
 import edu.cmu.cs.in.hoop.hoops.INHoopPorterStemmer;
 import edu.cmu.cs.in.hoop.hoops.INHoopScheduler;
 import edu.cmu.cs.in.hoop.hoops.INHoopSentence2Tokens;
@@ -160,5 +162,7 @@ public class INHoopManager extends INHoopBase
     	addTemplate (new INHoopKV2TXT ());
     	addTemplate (new INHoopCSVWriter ());
     	addTemplate (new INHoopCSVReader ());
+    	addTemplate (new INHoopNaiveBayes ());
+    	addTemplate (new INHoopArffReader ());
     }
 }

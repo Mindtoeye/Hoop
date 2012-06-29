@@ -21,6 +21,7 @@ package edu.cmu.cs.in.hoop.hoops;
 import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.INKV;
+import edu.cmu.cs.in.base.INKVInteger;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
 import edu.cmu.cs.in.hoop.base.INHoopInterface;
 import edu.cmu.cs.in.hoop.base.INHoopTransformBase;
@@ -52,9 +53,9 @@ public class INHoopPorterStemmer extends INHoopTransformBase implements INHoopIn
 		{					
 			for (int i=0;i<inData.size();i++)
 			{
-				INKV aKV=inData.get(i);
+				INKVInteger aKV=(INKVInteger) inData.get(i);
 				
-				addKV (new INKV (i,aKV.getValue()));
+				addKV (new INKVInteger (i,aKV.getValue()));
 			}						
 		}
 		else

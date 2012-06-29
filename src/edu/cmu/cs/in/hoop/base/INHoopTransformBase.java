@@ -42,7 +42,6 @@ public class INHoopTransformBase extends INHoopBase implements INHoopInterface
 	{		
 		debug ("runHoop ()");
 		
-		super.runHoop(inHoop);		
 				
 		return (true);
 	}	 

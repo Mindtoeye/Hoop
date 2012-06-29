@@ -176,7 +176,7 @@ public class INHoopTablePanel extends INEmbeddedJPanel implements ActionListener
 		{
 			INKVType aType=types.get(n);
 			
-			cNames [n]=aType.getTypeValue()+"("+aType.getTypeName()+")";
+			cNames [n]=aType.getTypeValue()+"("+aType.typeToString()+")";
 		}
 		
 		for (int w=0;w<(aHoop.getMaxValues()-2);w++)
@@ -200,7 +200,7 @@ public class INHoopTablePanel extends INEmbeddedJPanel implements ActionListener
 				
 				for (int i=0;i<p.getValueSize();i++)
 				{
-					rowData [i+1]=p.getValue(i);
+					rowData [i+1]=p.getValueAsString(i);
 				}
 				
 				model.addRow(rowData);

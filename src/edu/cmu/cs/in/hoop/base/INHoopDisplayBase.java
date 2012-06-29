@@ -34,7 +34,7 @@ public class INHoopDisplayBase extends INHoopBase implements INHoopInterface
     {
 		setClassName ("INHoopDisplayBase");
 		debug ("INHoopDisplayBase ()");
-		setHoopCategory ("display");
+		setHoopCategory ("Display");
 		
 		setHoopDescription ("Shows Hoop Results");
     }
@@ -59,8 +59,7 @@ public class INHoopDisplayBase extends INHoopBase implements INHoopInterface
 	{		
 		debug ("runHoop ()");
 		
-		super.runHoop(inHoop);		
-				
+					
 		return (true);
 	}	
 	/**

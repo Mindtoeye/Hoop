@@ -16,27 +16,35 @@
  * 
  */
 
-package edu.cmu.cs.in.ml.quickbayes;
-
-import edu.cmu.cs.in.base.INBase;
+package edu.cmu.cs.in.base;
 
 /** 
  * @author vvelsen
  */
-public class INQuickBayesClassify extends INBase
+public interface INKVInterface
 {
-	public String featureName="undefined";
-	public String attributeName="undefined";
-	
-	public float value=0;
-	public String valueString="-1/-1";
-	
-	/**
-	 * 
+	/** 
+	 * @return String
 	 */
-	public INQuickBayesClassify () 
-	{
-		setClassName ("INQuickBayesClassify");
-		debug ("INQuickBayesClassify ()");   
-	}	
+	public String getKeyString ();	
+	
+	/** 
+	 * @return Object
+	 */	
+	public Object getValue ();
+	
+	/** 
+	 * @return Object
+	 */	
+	public Object getValue (int anIndex);
+	
+	/** 
+	 * @return Object
+	 */	
+	public String getValueAsString ();
+	
+	/** 
+	 * @return Object
+	 */	
+	public String getValueAsString (int anIndex);	
 }

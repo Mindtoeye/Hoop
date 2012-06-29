@@ -25,7 +25,7 @@ import java.util.Map;
 
 import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.io.INFileManager;
-import edu.cmu.cs.in.base.INKV;
+import edu.cmu.cs.in.base.INKVInteger;
 import edu.cmu.cs.in.base.INLink;
 import edu.cmu.cs.in.base.INPositionsBase;
 
@@ -205,18 +205,18 @@ public class INSorterStats extends INBase
         {
         	fPositions.sortEntries();
         	
-            ArrayList<INKV> results=fPositions.getTop(25);
+            ArrayList<INKVInteger> results=fPositions.getTop(25);
             
             for (int i=0;i<results.size();i++)
             {
-            	INKV kv=results.get(i);
+            	INKVInteger kv=results.get(i);
             	INBase.debug ("INSorterStats","Key: " + kv.getKeyString()+", value: " + kv.getValue()); 
             }        	
         }
                 
         if (INSorterStats.getSelected==true)
         {
-        	ArrayList<INKV> results=fPositions.getSorted();
+        	ArrayList<INKVInteger> results=fPositions.getSorted();
         	
         	for (int j=0;j<selectedEntries.length;j++)
         	{        	
@@ -224,7 +224,7 @@ public class INSorterStats extends INBase
         		
         		for (int i=0;i<results.size();i++)
         		{
-        			INKV kv=results.get(i);
+        			INKVInteger kv=results.get(i);
         			if (kv.getKeyString().equals (target.toLowerCase())==true)
         			{
         				INBase.debug ("INSorterStats","Value for " + target + " is: " + kv.getValue ());

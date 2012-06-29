@@ -25,6 +25,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import edu.cmu.cs.in.base.INKV;
+import edu.cmu.cs.in.base.INKVInteger;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
 import edu.cmu.cs.in.hoop.base.INHoopInterface;
 import edu.cmu.cs.in.hoop.base.INHoopTransformBase;
@@ -58,7 +59,7 @@ public class INHoopUniqueTerms extends INHoopTransformBase implements INHoopInte
 					
 			for (int i=0;i<inData.size();i++)
 			{
-				INKV aKV=inData.get(i);
+				INKVInteger aKV=(INKVInteger) inData.get(i);
 				
 				uniqueHash.put(aKV.getValue(),i);					
 			}						
@@ -69,7 +70,7 @@ public class INHoopUniqueTerms extends INHoopTransformBase implements INHoopInte
 			{
 			  Map.Entry<String, Integer> entry = it.next();
 
-			  addKV (new INKV (entry.getValue (),entry.getKey()));			  
+			  addKV (new INKVInteger (entry.getValue (),entry.getKey()));			  
 			} 			
 		}
 		else

@@ -22,24 +22,24 @@ import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.INKV;
 import edu.cmu.cs.in.base.INKVInteger;
+import edu.cmu.cs.in.hoop.base.INHoopAnalyze;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
 import edu.cmu.cs.in.hoop.base.INHoopInterface;
-import edu.cmu.cs.in.hoop.base.INHoopTransformBase;
 
 /**
 * 
 */
-public class INHoopFilterGarbage extends INHoopTransformBase implements INHoopInterface
+public class INHoopNaiveBayes extends INHoopAnalyze implements INHoopInterface
 {    				
 	/**
 	 *
 	 */
-    public INHoopFilterGarbage () 
+    public INHoopNaiveBayes () 
     {
-		setClassName ("INHoopFilterGarbage");
-		debug ("INHoopFilterGarbage ()");
+		setClassName ("INHoopNaiveBayes");
+		debug ("INHoopNaiveBayes ()");
 				
-		setHoopDescription ("Remove any garbage terms from input KVs");		
+		setHoopDescription ("Classify KVs using Naive Bayes");		
     }
 	/**
 	 *
@@ -47,32 +47,38 @@ public class INHoopFilterGarbage extends INHoopTransformBase implements INHoopIn
 	public Boolean runHoop (INHoopBase inHoop)
 	{		
 		debug ("runHoop ()");
-				
+			
 		ArrayList <INKV> inData=inHoop.getData();
+		
 		if (inData!=null)
-		{					
-			for (int i=0;i<inData.size();i++)
+		{
+			//StringBuffer formatted=new StringBuffer ();
+			
+			for (int t=0;t<inData.size();t++)
 			{
-				INKVInteger aKV=(INKVInteger) inData.get(i);
-				
-				Boolean isGarbage=false;
+				INKVInteger aKV=(INKVInteger) inData.get(t);
 								
-				if (isGarbage==false)
-				{
-					addKV (new INKVInteger (i,aKV.getValue()));
-				}	
-			}						
-		}
-		else
-			return (false);		
+				//formatted.append(aKV.getKeyString ());
 				
-		return (true);
+				ArrayList<Object> vals=aKV.getValuesRaw();
+				
+				for (int i=0;i<vals.size();i++)
+				{
+					//formatted.append(",");
+					//formatted.append(vals.get(i));
+				}
+				
+				//formatted.append("\n");
+			}			
+		}	
+						
+		return (true);				
 	}	 
 	/**
 	 * 
 	 */
 	public INHoopBase copy ()
 	{
-		return (new INHoopFilterGarbage ());
+		return (new INHoopNaiveBayes ());
 	}	
 }

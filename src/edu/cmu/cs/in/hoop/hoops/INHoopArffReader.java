@@ -27,21 +27,39 @@ import edu.cmu.cs.in.hoop.base.INHoopBase;
 import edu.cmu.cs.in.hoop.base.INHoopInterface;
 import edu.cmu.cs.in.hoop.base.INHoopTransformBase;
 
-public class INHoopCSVReader extends INHoopTransformBase implements INHoopInterface
+public class INHoopArffReader extends INHoopTransformBase implements INHoopInterface
 {
 	private String mode="COMMA"; // TAB,COMMA,DASH
 	private Boolean skipHeader=true;
+	private String relation="undefined";
+	private int attrCounter=0;
+	
+	private int completed=0; 
 	
 	/**
 	 *
 	 */ 
-	public INHoopCSVReader () 
+	public INHoopArffReader () 
 	{		
-		setClassName ("INCSVReader");
-		debug ("INCSVReader ()");
+		setClassName ("INHoopArffReader");
+		debug ("INHoopArffReader ()");
 				
-		setHoopDescription ("Convert from a CSV stream");		
+		setHoopDescription ("Convert from a Weka Arff stream");		
 	}
+	/**
+	 * 
+	 */
+	public String getRelation() 
+	{
+		return relation;
+	}
+	/**
+	 * 
+	 */	
+	public void setRelation(String relation) 
+	{
+		this.relation = relation;
+	}	
 	/**
 	 *
 	 */	
@@ -75,7 +93,68 @@ public class INHoopCSVReader extends INHoopTransformBase implements INHoopInterf
 	 */
 	public INHoopBase copy ()
 	{
-		return (new INHoopCSVReader ());
+		return (new INHoopArffReader ());
+	}	
+	/** 
+	 * @param aLine
+	 */
+	private Boolean processRelation (String aLine)
+	{
+		debug ("ProcessRelation ()");
+		
+		return (true);
+	}	
+	/** 
+	 * @param aLine
+	 */
+	private Boolean processAttribute (String aLine)
+	{
+		debug ("ProcessAttribute ()");
+		
+		String entries []=aLine.split("\\s+");
+		
+		if (entries.length==0)
+		{
+			this.setErrorString("Error: unable to parse attribute line: " + aLine);
+			return (false);
+		}
+
+		this.setKVType(attrCounter,INKVType.STRING,entries [1]);
+						
+		return (true);
+	}
+	/** 
+	 * @param aLine
+	 */
+	private Boolean processDataLine (String aLine)
+	{
+		debug ("ProcessDataLine ()");
+		
+		String entries []=aLine.split("(?<!\\\\),");
+		
+		if (entries.length==0)
+		{
+			this.setErrorString("Error: unable to parse data line: " + aLine);
+			return (false);
+		}
+		
+		INKVString kv=new INKVString ();
+		
+		for (int i=0;i<entries.length;i++)
+		{			
+			if (i==0)
+			{
+				kv.setKey(entries [i]);
+			}
+			else
+			{
+				kv.setValue(entries [i],i-1);
+			}
+		}
+		
+		this.addKV(kv);
+		
+		return (true);
 	}	
 	/**
 	 * We're expecting a KV object that has a key of type String representing the file URI,
@@ -84,63 +163,54 @@ public class INHoopCSVReader extends INHoopTransformBase implements INHoopInterf
 	public Boolean runHoop (INHoopBase inHoop)
 	{		
 		debug ("runHoop ()");
+		
+		attrCounter=0;
 				
-		this.setMaxValues(1);
+		//this.setMaxValues(1);
 		
 		ArrayList <INKV> inData=inHoop.getData();
 		
 		if (inData!=null)
 		{									
 			debug ("Loading " + inData.size()+" entries ...");
-			
+									
 			for (int t=0;t<inData.size();t++)
 			{
 				INKVString aKV=(INKVString) inData.get(t);
 				
 				String split[]=aKV.getValueAsString().split("\\n");
 				
-				//debug ("CSV data contains " + split.length + " rows");
+				debug ("Arff data contains " + split.length + " rows");
 				
-				INKVString currentKV=null;
-		
+				boolean markData=false;
+						
 				for (int i=0;i<split.length;i++)
 				{			
-					String entries[]=null;
-								
-					if (mode.equals ("TAB")==true)
-						entries=split [i].split("\\t");
-					else
+					if (markData==false)
 					{
-						if (mode.equals ("COMMA")==true)
-							entries=split [i].split("(?<!\\\\),");
-					}
-
-					if ((skipHeader==true) && (i==0))
-					{
-						for (int j=0;j<entries.length;j++)
+						if (split [i].indexOf("@relation")!=-1)
 						{
-							setKVType (j,INKVType.STRING,entries [j]);				
+							if (processRelation (split [i])==false)
+								return (false);
 						}						
+						
+						if (split [i].indexOf("@attribute")!=-1)
+						{
+							if (processAttribute (split [i])==false)
+								return (false);
+						}
+					
+						if (split [i].indexOf("@data")!=-1)
+						{
+							markData=true;
+							completed++;
+						}
 					}
 					else
-					{					
-						currentKV=new INKVString ();
-				
-						//debug ("Storing " + entries.length + " tokens ...");	
-						
-						for (int j=0;j<entries.length;j++)
-						{
-							if (j==0)
-								currentKV.setKey(entries [j]);
-							else
-								currentKV.setValue(entries [j],j);				
-						}
-						
-						if (entries.length>this.getMaxValues())
-							this.setMaxValues(entries.length);
-						
-						this.addKV(currentKV);
-					}	
+					{
+						if (processDataLine (split [i])==false)
+							return (false);
+					}
 				}
 			}
 		}	
@@ -148,6 +218,12 @@ public class INHoopCSVReader extends INHoopTransformBase implements INHoopInterf
 			debug ("Error: no data input hoop");
 		
 		debug ("Max tokens per line: " + this.getMaxValues());
+		
+		if (completed==0)
+		{
+			this.setErrorString("Parsing error, no data loaded");
+			return (false);
+		}
 		
 		return (true);
 	}	

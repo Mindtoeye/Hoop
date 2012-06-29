@@ -16,30 +16,24 @@
  * 
  */
 
-package edu.cmu.cs.in.hoop.hoops;
-
-import java.util.ArrayList;
-
-import edu.cmu.cs.in.base.INKV;
-import edu.cmu.cs.in.base.INKVInteger;
-import edu.cmu.cs.in.hoop.base.INHoopBase;
-import edu.cmu.cs.in.hoop.base.INHoopInterface;
-import edu.cmu.cs.in.hoop.base.INHoopTransformBase;
+package edu.cmu.cs.in.hoop.base;
 
 /**
 * 
 */
-public class INHoopFilterGarbage extends INHoopTransformBase implements INHoopInterface
+public class INHoopAnalyze extends INHoopBase implements INHoopInterface
 {    				
 	/**
 	 *
 	 */
-    public INHoopFilterGarbage () 
+    public INHoopAnalyze () 
     {
-		setClassName ("INHoopFilterGarbage");
-		debug ("INHoopFilterGarbage ()");
-				
-		setHoopDescription ("Remove any garbage terms from input KVs");		
+		setClassName ("INHoopAnalyze");
+		debug ("INHoopAnalyze ()");
+		
+		setHoopCategory ("Analyze");
+		
+		setHoopDescription ("Analyze or Classify");		
     }
 	/**
 	 *
@@ -47,24 +41,7 @@ public class INHoopFilterGarbage extends INHoopTransformBase implements INHoopIn
 	public Boolean runHoop (INHoopBase inHoop)
 	{		
 		debug ("runHoop ()");
-				
-		ArrayList <INKV> inData=inHoop.getData();
-		if (inData!=null)
-		{					
-			for (int i=0;i<inData.size();i++)
-			{
-				INKVInteger aKV=(INKVInteger) inData.get(i);
-				
-				Boolean isGarbage=false;
-								
-				if (isGarbage==false)
-				{
-					addKV (new INKVInteger (i,aKV.getValue()));
-				}	
-			}						
-		}
-		else
-			return (false);		
+		
 				
 		return (true);
 	}	 
@@ -73,6 +50,6 @@ public class INHoopFilterGarbage extends INHoopTransformBase implements INHoopIn
 	 */
 	public INHoopBase copy ()
 	{
-		return (new INHoopFilterGarbage ());
+		return (new INHoopAnalyze ());
 	}	
 }

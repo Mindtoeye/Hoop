@@ -19,7 +19,8 @@
 package edu.cmu.cs.in.hoop.base;
 
 import edu.cmu.cs.in.base.io.INFileManager;
-import edu.cmu.cs.in.base.INKV;
+import edu.cmu.cs.in.base.INKVInteger;
+import edu.cmu.cs.in.base.INKVString;
 
 /**
 * 
@@ -27,8 +28,9 @@ import edu.cmu.cs.in.base.INKV;
 public class INHoopFileLoadBase extends INHoopLoadBase implements INHoopInterface
 {    				
 	private INFileManager fManager=null;
-	private INKV fileKV=null;
-	private String inputStreamPath="X:\\Echidne\\Hydra (Science)\\Development\\Hoop\\Resources\\ExampleData\\MovieReviews-Full.csv";
+	private INKVString fileKV=null;
+	private String inputStreamPath="X:\\Echidne\\Hydra (Science)\\Development\\Hoop\\Resources\\ExampleData\\playtennis.arff";
+	//private String inputStreamPath="X:\\Echidne\\Hydra (Science)\\Development\\Hoop\\Resources\\ExampleData\\MovieReviews-Full.csv";
 	//private String inputStreamPath="C:\\Martin\\Echidne\\Hydra (Science)\\Development\\Hoop\\Resources\\ExampleData\\MovieReviews-Full.csv";
 	
 	/**
@@ -44,7 +46,7 @@ public class INHoopFileLoadBase extends INHoopLoadBase implements INHoopInterfac
 		removeInPort ("KV");
 		
 		fManager=new INFileManager ();
-		fileKV=new INKV ();						
+		fileKV=new INKVString ();						
 		addKV (fileKV);		
     }
 	/**

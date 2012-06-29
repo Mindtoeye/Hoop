@@ -20,7 +20,7 @@ package edu.cmu.cs.in.hoop.hoops;
 
 import java.util.ArrayList;
 
-import edu.cmu.cs.in.base.INKV;
+import edu.cmu.cs.in.base.INKVInteger;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
 import edu.cmu.cs.in.hoop.base.INHoopFileLoadBase;
 import edu.cmu.cs.in.hoop.base.INHoopInterface;

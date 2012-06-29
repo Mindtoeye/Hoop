@@ -20,19 +20,26 @@ package edu.cmu.cs.in.ml.quickbayes;
 
 import edu.cmu.cs.in.base.INBase;
 
+/**
+ * 
+ */
 public class INQuickBayesInstance extends INBase
 {
 	public String instanceName="undefined";
 	public int countClassifier=0;	
 	public int instanceCount  =0;
 			
-	//--------------------------------------------------------------------------------- 
+	/**
+	 * 
+	 */ 
 	public INQuickBayesInstance () 
 	{
 		setClassName ("INQuickBayesInstance");
 		debug ("INQuickBayesInstance ()");		
 	}
-	//---------------------------------------------------------------------------------
+	/**
+	 * 
+	 */
 	public String getLikelihoodString ()
 	{
 		StringBuffer likelihood=new StringBuffer ();
@@ -46,13 +53,14 @@ public class INQuickBayesInstance extends INBase
 		
 		return (likelihood.toString());
 	}
-	//---------------------------------------------------------------------------------
+	/**
+	 * 
+	 */
 	public float getLikelihood ()
 	{		
 		if (instanceCount==0)
 			return (0);
 		
 		return ((float) countClassifier / (float) instanceCount);
-	}	
-	//---------------------------------------------------------------------------------	
+	}		
 }

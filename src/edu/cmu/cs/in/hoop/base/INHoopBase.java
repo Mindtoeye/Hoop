@@ -170,21 +170,6 @@ public class INHoopBase extends INHoopBaseTyped implements INHoopInterface
 	}    
 	/**
 	 * 
-	 */
-    @SuppressWarnings("unused")
-	private void generateRandomKVs ()
-    {
-    	for (int i=0;i<200;i++)
-    	{
-    		INKV aKV=new INKV ();
-    		aKV.setKey(i);
-    		aKV.setValue("A Value: " + i);
-    		
-    		addKV (aKV);
-    	}
-    }
-	/**
-	 * 
 	 */    
 	public String getExecutionState() 
 	{
@@ -207,29 +192,7 @@ public class INHoopBase extends INHoopBaseTyped implements INHoopInterface
     	data=new ArrayList<INKV> ();
     	
     	setExecutionState ("STOPPED");
-    }
-    /**
-     * 
-     */
-    public void addKV (String aKey,String aValue)
-    {
-    	INKV aKV=new INKV ();
-    	aKV.setKeyString(aKey);
-    	aKV.setValue(aValue);
-    	
-    	data.add(aKV);
-    }
-    /**
-     * 
-     */
-    public void addKV (int aKey,String aValue)
-    {
-    	INKV aKV=new INKV ();
-    	aKV.setKey(aKey);
-    	aKV.setValue(aValue);
-    	
-    	data.add(aKV);
-    }    
+    }   
     /**
      * 
      */
@@ -244,15 +207,6 @@ public class INHoopBase extends INHoopBaseTyped implements INHoopInterface
 	{
 		return data;
 	}    
-	/**
-	 *
-	 */
-    /*
-	public ArrayList <INHoopBase> getInHoops ()
-	{
-		return (inHoops);
-	}
-	*/	
 	/**
 	 *
 	 */	

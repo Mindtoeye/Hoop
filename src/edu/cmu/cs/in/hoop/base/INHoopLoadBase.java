@@ -32,7 +32,7 @@ public class INHoopLoadBase extends INHoopBase implements INHoopInterface
     {
 		setClassName ("INHoopLoadBase");
 		debug ("INHoopLoadBase ()");
-		setHoopCategory ("load");
+		setHoopCategory ("Load");
 		
 		setHoopDescription ("Abstract Hoop Loader");
     }
@@ -57,7 +57,6 @@ public class INHoopLoadBase extends INHoopBase implements INHoopInterface
 	{		
 		debug ("runHoop ()");
 		
-		super.runHoop(inHoop);		
 				
 		return (true);
 	}	

@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.cmu.cs.in.base.INKV;
+import edu.cmu.cs.in.base.INKVInteger;
 import edu.cmu.cs.in.base.INSimpleFeatureMaker;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
 import edu.cmu.cs.in.hoop.base.INHoopInterface;
@@ -56,14 +57,14 @@ public class INHoopSentence2Tokens extends INHoopTransformBase implements INHoop
 			
 			for (int i=0;i<inData.size();i++)
 			{
-				INKV aKV=inData.get(i);
+				INKVInteger aKV=(INKVInteger) inData.get(i);
 				
 				List<String> tokens=featureMaker.unigramTokenizeBasic (aKV.getValue());
 								
 				for (int j=0;j<tokens.size();j++)
 				{				
 					String aToken=tokens.get(j);
-					addKV (new INKV (j,aToken));
+					addKV (new INKVInteger (j,aToken));
 				}									
 			}						
 		}

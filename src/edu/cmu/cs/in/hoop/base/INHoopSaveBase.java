@@ -33,7 +33,7 @@ public class INHoopSaveBase extends INHoopBase implements INHoopInterface
 		setClassName ("INHoopSaveBase");
 		debug ("INHoopSaveBase ()");
 		
-		setHoopCategory ("save");
+		setHoopCategory ("Save");
 		
 		setHoopDescription ("Abstract Hoop Saving");
     }

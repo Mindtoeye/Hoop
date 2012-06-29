@@ -21,6 +21,7 @@ package edu.cmu.cs.in.hoop.hoops;
 import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.INKV;
+import edu.cmu.cs.in.base.INKVInteger;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
 import edu.cmu.cs.in.hoop.base.INHoopInterface;
 import edu.cmu.cs.in.hoop.base.INHoopTransformBase;
@@ -68,12 +69,12 @@ public class INHoopTokenCaseChange extends INHoopTransformBase implements INHoop
 		{					
 			for (int i=0;i<inData.size();i++)
 			{
-				INKV aKV=inData.get(i);
+				INKVInteger aKV=(INKVInteger) inData.get(i);
 				
 				if (toLower==true)
-					addKV (new INKV (i,aKV.getValue().toLowerCase()));
+					addKV (new INKVInteger (i,aKV.getValue().toLowerCase()));
 				else
-					addKV (new INKV (i,aKV.getValue().toUpperCase()));
+					addKV (new INKVInteger (i,aKV.getValue().toUpperCase()));
 			}						
 		}
 		else

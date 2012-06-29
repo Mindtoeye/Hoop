@@ -25,7 +25,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import edu.cmu.cs.in.base.INHoopLink;
-import edu.cmu.cs.in.base.INKV;
+import edu.cmu.cs.in.base.INKVInteger;
 import edu.cmu.cs.in.hoop.INHoopDialogConsole;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
 import edu.cmu.cs.in.hoop.base.INHoopInterface;
@@ -148,6 +148,6 @@ public class INHoopStdin extends INHoopBase implements INHoopInterface
 	{
 		debug ("processInput ("+anInput+")");
 		
-		addKV (new INKV (lineCounter,anInput));		
+		addKV (new INKVInteger (lineCounter,anInput));		
 	}
 }

@@ -21,6 +21,7 @@ package edu.cmu.cs.in.hoop.hoops;
 import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.INKV;
+import edu.cmu.cs.in.base.INKVInteger;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
 import edu.cmu.cs.in.hoop.base.INHoopInterface;
 import edu.cmu.cs.in.hoop.base.INHoopTransformBase;
@@ -52,13 +53,13 @@ public class INHoopCleanTokens extends INHoopTransformBase implements INHoopInte
 		{					
 			for (int i=0;i<inData.size();i++)
 			{
-				INKV aKV=inData.get(i);
+				INKVInteger aKV=(INKVInteger) inData.get(i);
 				
 				Boolean isGarbage=false;
 								
 				if (isGarbage==false)
 				{
-					addKV (new INKV (i,aKV.getValue()));
+					addKV (new INKVInteger (i,aKV.getValue()));
 				}	
 			}						
 		}

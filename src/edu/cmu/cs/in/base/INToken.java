@@ -18,7 +18,7 @@
 
 package edu.cmu.cs.in.base;
 
-public class INToken extends INKV
+public class INToken extends INKVString
 {    
 	private Integer position;
 	

@@ -18,8 +18,6 @@
 
 package edu.cmu.cs.in.base;
 
-import java.util.ArrayList;
-
 /**
 * Any data created by hoops (INHoopBase) will use the KV object in some
 * form. INKV objects represent Key/Value pairs and form the most basic
@@ -45,68 +43,116 @@ import java.util.ArrayList;
 * code you write will have to check first the type of key and the type
 * of value before using the contents of a KV object.
 */
-public class INKV implements INKVInterface
+public class INKVBoolean extends INKV implements INKVInterface
 {    			
-	protected ArrayList <Object> values=null;
+	private Boolean key=true;
+
+	/**
+	 *
+	 */
+    public INKVBoolean () 
+    {
+    	// Make sure we have at least one entry for quick access
+    	values.add(new String ("0"));
+    }
+	/**
+	 *
+	 */
+    public INKVBoolean (Boolean aKey,String aValue) 
+    {	   
+    	// Make sure we have at least one entry for quick access
+    	values.add(new String ("0"));
+    	
+    	setKey (aKey);
+    	setValue (aValue);
+    }  
+	/**
+	 *
+	 */
+	public Boolean getKey() 
+	{
+		return key;
+	}
+	/**
+	 *
+	 */
+	public void setKey(Boolean key) 
+	{
+		this.key = key;
+	}
+	/**
+	 *
+	 */
+	public String getValue() 
+	{
+		return (String) (values.get(0));
+	}
+	/**
+	 *
+	 */
+	public String getValue(int anIndex) 
+	{
+		if (anIndex>values.size())
+			return ("0");
 		
+		return (String) (values.get(anIndex));
+	}	
 	/**
 	 *
 	 */
-    public INKV ()
-    {
-    	values=new ArrayList <Object>();
-    }
-    /**
-     * 
-     */
-    public String getKeyString ()
-    {
-    	return ("abstract");
-    }
-	/**
-	 *
-	 */
-    public int getValueSize ()
-    {
-    	return (values.size());
-    }
-	/**
-	 *
-	 */
-    public ArrayList <Object> getValuesRaw ()
-    {
-    	return (values);
-    }
-    /**
-     * 
-     */
-	@Override
-	public Object getValue() 
-	{
-		return new String ("abstract");
-	}
-	/**
-	 * 
-	 */
-	@Override
-	public Object getValue(int anIndex) 
-	{
-		return new String ("abstract");
-	}
-	/**
-	 * 
-	 */
-	@Override
 	public String getValueAsString() 
 	{
-		return new String ("abstract");
+		return (String) (values.get(0));
 	}
 	/**
-	 * 
+	 *
 	 */
-	@Override
 	public String getValueAsString(int anIndex) 
 	{
-		return new String ("abstract");
+		if (anIndex>values.size())
+			return ("0");
+		
+		return (String) (values.get(anIndex));
+	}	
+	/**
+	 *
+	 */
+	public void setValue(String value) 
+	{
+		values.set(0,value);
 	}
+	/**
+	 *
+	 */
+	public void setValue(String value, int anIndex) 
+	{
+		if (anIndex>(values.size()-1))
+		{
+			// fill with bogus data up to the requested element
+			
+			for (int i=(values.size ()-1);i<anIndex;i++)
+			{
+				values.add("0");
+			}
+		}
+		
+		values.set(anIndex,value);
+	}	
+	/**
+	 *
+	 */	
+	public String getKeyString() 
+	{		
+		return key.toString();
+	}
+	/**
+	 *
+	 */	
+	public void setKeyString(String keyString) 
+	{
+		if ((keyString.toLowerCase().equals("true")==true) || (keyString.toLowerCase().equals("yes")==true))
+			key=true;		
+		else
+			key=false;
+	}  
 }

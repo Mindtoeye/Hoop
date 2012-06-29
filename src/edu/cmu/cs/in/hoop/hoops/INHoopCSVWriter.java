@@ -22,6 +22,7 @@ import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.io.INFileManager;
 import edu.cmu.cs.in.base.INKV;
+import edu.cmu.cs.in.base.INKVInteger;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
 import edu.cmu.cs.in.hoop.base.INHoopInterface;
 import edu.cmu.cs.in.hoop.base.INHoopSaveBase;
@@ -62,12 +63,12 @@ public class INHoopCSVWriter extends INHoopSaveBase implements INHoopInterface
 			
 			for (int t=0;t<inData.size();t++)
 			{
-				INKV aKV=inData.get(t);
+				INKVInteger aKV=(INKVInteger) inData.get(t);
 								
 				formatted.append(aKV.getKeyString ());
 				//formatted.append(",");
 				
-				ArrayList <String> vals=aKV.getValues();
+				ArrayList<Object> vals=aKV.getValuesRaw();
 				
 				for (int i=0;i<vals.size();i++)
 				{

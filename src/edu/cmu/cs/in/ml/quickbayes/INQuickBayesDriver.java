@@ -18,9 +18,9 @@
 
 package edu.cmu.cs.in.ml.quickbayes;
 
+/*
 import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.ml.quickbayes.INQuickBayesArffReader;
-import edu.cmu.cs.in.ml.quickbayes.INQuickBayesCSVWriter;
 import edu.cmu.cs.in.ml.quickbayes.INQuickBayesData;
 
 public class INQuickBayesDriver extends INBase
@@ -34,22 +34,21 @@ public class INQuickBayesDriver extends INBase
 	private String operation="undefined";
 	private String targetClass="undefined";
 	
-	//--------------------------------------------------------------------------------- 
 	public INQuickBayesDriver () 
 	{
 		 setClassName ("INQuickBayes");
 		 debug ("INQuickBayesDriver ()");  
 		 
 		reader=new INQuickBayesArffReader ();
-		writer=new INQuickBayesCSVWriter ();
+		//writer=new INQuickBayesCSVWriter ();
 		data=new INQuickBayesData ();
 	}
-	//---------------------------------------------------------------------------------
+	
 	public void help ()
 	{
 		System.err.println ("Usage: INQuickBayesMain -input <arff file> -output <csv file> -operation <operation> -class <targetClass> -smoothing <on|off>");		
 	}
-	//---------------------------------------------------------------------------------
+
 	private void parseArgs (String [] args)
 	{
 		for (int i=0;i<args.length;i++)
@@ -84,22 +83,22 @@ public class INQuickBayesDriver extends INBase
 		}
 	}	
 	@SuppressWarnings("unused")
-	//---------------------------------------------------------------------------------
+
 	private void loadInput ()
 	{
 		reader.processInput (inputFile,data);
 	}
-	//---------------------------------------------------------------------------------
+
 	public void processOperation ()
 	{
 		
 	}
-	//---------------------------------------------------------------------------------
+
 	public void saveOutput ()
 	{
-	 writer.processOutput(outputFile,data);	
+		writer.processOutput(outputFile,data);	
 	}
-	//---------------------------------------------------------------------------------	
+	
 	public void run (String [] args)
 	{
 		parseArgs (args);
@@ -124,11 +123,12 @@ public class INQuickBayesDriver extends INBase
 			debug ("Error, unable to read input file");
 			return;
 		}
+		
 		data.prepClassification(targetClass);
 		data.classify (operation);
-		writer.processOutput(outputFile,data);	
+		//writer.processOutput(outputFile,data);	
 		
-		//debug ("Found instane: " + reader.getDataItem("play",13));
-	}
-	//---------------------------------------------------------------------------------	
+		//debug ("Found instacne: " + reader.getDataItem("play",13));
+	}	
 }
+*/

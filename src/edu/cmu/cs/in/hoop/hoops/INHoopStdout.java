@@ -22,6 +22,7 @@ import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.base.INKV;
+import edu.cmu.cs.in.base.INKVInteger;
 import edu.cmu.cs.in.hoop.INHoopDialogConsole;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
 import edu.cmu.cs.in.hoop.base.INHoopInterface;
@@ -67,7 +68,7 @@ public class INHoopStdout extends INHoopBase implements INHoopInterface
 			
 			for (int i=0;i<inData.size();i++)
 			{
-				INKV aKV=inData.get(i);
+				INKVInteger aKV=(INKVInteger) inData.get(i);
 				
 				userIO.processOutput (aKV.getKeyString()+" : " + aKV.getValue());					
 			}			
@@ -76,7 +77,7 @@ public class INHoopStdout extends INHoopBase implements INHoopInterface
 		{
 			for (int i=0;i<inData.size();i++)
 			{
-				INKV aKV=inData.get(i);
+				INKVInteger aKV=(INKVInteger) inData.get(i);
 				
 				System.out.println(aKV.getKeyString()+" : " + aKV.getValue());
 			}

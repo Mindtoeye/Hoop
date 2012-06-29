@@ -25,7 +25,12 @@ package edu.cmu.cs.in.base;
  */
 public class INKVType
 {
-	private String typeName="String";
+	public static final int INT=1;
+	public static final int STRING=2;
+	public static final int FLOAT=3;
+	public static final int BOOLEAN=4;
+	
+	private int type=INT;
 	private String typeValue="String";
 	
 	/**
@@ -34,35 +39,47 @@ public class INKVType
     public INKVType () 
     {
 
-    }
+    }    
 	/**
 	 *
 	 */
-    public INKVType (String aType,String aValue) 
+    public INKVType (int aType,String aValue) 
     {
-    	typeName=aType;
+    	type=aType;
     	setTypeValue(aValue);
-    }    
+    }
     /**
     * 
- 	*/
-	public String getTypeName() 
+ 	*/    
+	public int getType() 
 	{
-		return typeName;
+		return type;
 	}
-	/** 
-	 * @param typeName
-	 */
-	public void setTypeName(String typeName) 
+    /**
+    * 
+ 	*/	
+	public void setType(int type) 
 	{
-		this.typeName = typeName;
-	}
-	/*
+		this.type = type;
+	}    
+	/**
 	 * 
 	 */
-	public String getTypeValue() 
+	public String typeToString ()
 	{
-		return typeValue;
+		switch (type)
+		{
+			case INT:
+						return ("Integer");
+			case STRING:
+						return ("String");
+			case FLOAT:
+						return ("Float");
+			case BOOLEAN:
+							return ("Boolean");
+		}
+		
+		return ("Integer");
 	}
 	/*
 	 * 
@@ -70,5 +87,12 @@ public class INKVType
 	public void setTypeValue(String typeValue) 
 	{
 		this.typeValue = typeValue;
-	}  
+	}
+	/*
+	 * 
+	 */
+	public String getTypeValue() 
+	{
+		return typeValue;
+	}	
 }

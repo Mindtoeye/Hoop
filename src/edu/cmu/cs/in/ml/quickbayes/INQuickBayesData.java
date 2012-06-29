@@ -25,6 +25,9 @@ import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.ml.quickbayes.INQuickBayesAttribute;
 import edu.cmu.cs.in.ml.quickbayes.INQuickBayesFeature;
 
+/** 
+ * @author vvelsen
+ */
 public class INQuickBayesData extends INBase
 {
 	public ArrayList<INQuickBayesFeature>	features=null;
@@ -45,7 +48,9 @@ public class INQuickBayesData extends INBase
 	int majorityTotal=0;
 	int majorityCount=0;
 	
-	//--------------------------------------------------------------------------------- 
+	/**
+	 * 
+	 */
 	public INQuickBayesData () 
 	{
 		setClassName ("INQuickBayesData");
@@ -55,7 +60,9 @@ public class INQuickBayesData extends INBase
 		data=new ArrayList<ArrayList> ();
 		classifiers=new ArrayList<INQuickBayesClassify> ();
 	}
-	//---------------------------------------------------------------------------------
+	/**
+	 * 
+	 */
 	public INQuickBayesFeature getFeature (String a_feature)
 	{
 		for (int i=0;i<features.size ();i++)
@@ -68,7 +75,9 @@ public class INQuickBayesData extends INBase
 		
 		return (null);
 	}	
-	//---------------------------------------------------------------------------------
+	/**
+	 * 
+	 */
 	public int getFeatureIndex (String a_feature)
 	{
 		for (int i=0;i<features.size ();i++)
@@ -81,7 +90,9 @@ public class INQuickBayesData extends INBase
 		
 		return (-1);
 	}
-	//---------------------------------------------------------------------------------
+	/**
+	 * 
+	 */
 	public String getDataItem (String a_feature,int a_row)
 	{
 		int featureIndex=getFeatureIndex (a_feature);
@@ -91,7 +102,9 @@ public class INQuickBayesData extends INBase
 		ArrayList <String> row=(ArrayList) data.get (a_row);
 		return (String) (row.get (featureIndex));
 	}
-	//---------------------------------------------------------------------------------
+	/**
+	 * 
+	 */
 	public void dumpFeatures ()
 	{
 		debug ("dumpFeatures ()");
@@ -112,7 +125,9 @@ public class INQuickBayesData extends INBase
 			 }
 		 }	 		
 	}
-	//---------------------------------------------------------------------------------
+	/**
+	 * 
+	 */
 	private void calculateSmoothing ()
 	{
 		 for (int i=0;i<features.size ();i++)
@@ -132,7 +147,9 @@ public class INQuickBayesData extends INBase
 			 //}	 
 		 }	 				
 	}
-	//---------------------------------------------------------------------------------
+	/**
+	 * 
+	 */
 	public void prepClassification (String a_class)
 	{
 	 debug ("prepClassification ()");
@@ -232,7 +249,9 @@ public class INQuickBayesData extends INBase
 	 
 	 dumpFeatures ();	 
 	}
-	//---------------------------------------------------------------------------------
+	/**
+	 * 
+	 */
 	private void addClassify (String a_feature,String an_attribute)
 	{
 		INQuickBayesClassify newClassify		=new INQuickBayesClassify ();
@@ -240,128 +259,130 @@ public class INQuickBayesData extends INBase
 		newClassify.attributeName	=an_attribute.toLowerCase ();
 		classifiers.add (newClassify);
 	}
-	//---------------------------------------------------------------------------------
+	/**
+	 * 
+	 */
 	public void classify (String an_operation)
 	{
-	 debug ("classify ("+an_operation+")");
+		debug ("classify ("+an_operation+")");
 	 
-	 String separator[]=an_operation.split(",");
+		String separator[]=an_operation.split(",");
 	 
-	 for (int i=0;i<separator.length;i++)
-	 {
-		 String fseparator []=separator [i].split ("=");
+		for (int i=0;i<separator.length;i++)
+		{
+			String fseparator []=separator [i].split ("=");
 		 
-		 addClassify (fseparator [0],fseparator [1]);		 
-	 }
+			addClassify (fseparator [0],fseparator [1]);		 
+		}
 	 
-	 //>------------------------------------------------------------------------
+		//>------------------------------------------------------------------------
 	 
-	 debug ("Running classification for majority attribute in class feature...");
+		debug ("Running classification for majority attribute in class feature...");
 	 	 
-	 for (int j=0;j<classifiers.size();j++)
-	 {
-		 INQuickBayesClassify cl=classifiers.get(j);
-		 INQuickBayesFeature feature=getFeature (cl.featureName);
-		 if (feature!=null)
-		 {
-			 INQuickBayesAttribute inst=feature.findAttribute (cl.attributeName);
-			 if (inst!=null)
-			 {				 
-				 cl.value=inst.getLikelihood();
-				 cl.valueString=inst.getLikelihoodString();
-			 }
-			 else
-			 {
-				 cl.value=(float) 1.0;
-				 cl.valueString="missing";
-				 debug ("Internal error: unable to find attribute " + cl.attributeName + " in feature: " + cl.featureName);
-			 }
-		 }
-		 else
-			 debug ("Internal error: unable to find feature: " + cl.featureName + "in data");
-	 }
+		for (int j=0;j<classifiers.size();j++)
+		{
+			INQuickBayesClassify cl=classifiers.get(j);
+			INQuickBayesFeature feature=getFeature (cl.featureName);
+			if (feature!=null)
+			{
+				INQuickBayesAttribute inst=feature.findAttribute (cl.attributeName);
+				if (inst!=null)
+				{				 
+					cl.value=inst.getLikelihood();
+					cl.valueString=inst.getLikelihoodString();
+				}
+				else
+				{
+					cl.value=(float) 1.0;
+					cl.valueString="missing";
+					debug ("Internal error: unable to find attribute " + cl.attributeName + " in feature: " + cl.featureName);
+				}
+			}
+			else
+				debug ("Internal error: unable to find feature: " + cl.featureName + "in data");
+		}
 	 
-	 StringBuffer formatted=new StringBuffer ();
+		StringBuffer formatted=new StringBuffer ();
 	 
-	 float total=0;
+		float total=0;
 	 
-	 for (int k=0;k<classifiers.size();k++)
-	 {
-		 INQuickBayesClassify cl=classifiers.get(k);
-		 formatted.append("(");
-		 formatted.append(cl.valueString);
-		 formatted.append(") * ");
+		for (int k=0;k<classifiers.size();k++)
+		{
+			INQuickBayesClassify cl=classifiers.get(k);
+			formatted.append("(");
+			formatted.append(cl.valueString);
+			formatted.append(") * ");
 		 
-		 if (k==0)
-			 total=cl.value;
-		 else
-			 total=total*cl.value;
-	 }
+			if (k==0)
+				total=cl.value;
+			else
+				total=total*cl.value;
+		}
 	 	 
-	 formatted.append("prior: (");
-	 formatted.append (majorityCount + "/" + majorityTotal);
-	 formatted.append(")");
+		formatted.append("prior: (");
+		formatted.append (majorityCount + "/" + majorityTotal);
+		formatted.append(")");
 	 
-	 total=(total*prior);
+		total=(total*prior);
 	 
-	 debug ("Likelihood: " + formatted.toString() + " = " + total + " for majority attribute: " + majorityAttribute.instanceName + " in feature: " + targetFeature.featureName);
+		debug ("Likelihood: " + formatted.toString() + " = " + total + " for majority attribute: " + majorityAttribute.instanceName + " in feature: " + targetFeature.featureName);
 	 
-	 //>------------------------------------------------------------------------
+		//>------------------------------------------------------------------------
 	 
-	 debug ("Running classification for majority attribute in class feature...");
+		debug ("Running classification for majority attribute in class feature...");
 	 	 
-	 for (int l=0;l<classifiers.size();l++)
-	 {
-		 INQuickBayesClassify cl=classifiers.get(l);
-		 INQuickBayesFeature feature=getFeature (cl.featureName);
-		 if (feature!=null)
-		 {
-			 INQuickBayesAttribute inst=feature.findAttribute (cl.attributeName);
-			 if (inst!=null)
-			 {				
-				 cl.value=inst.getLikelihood();
-				 cl.valueString=inst.getLikelihoodString(); 
-			 }
-			 else
-			 {
-				 cl.value=(float) 1.0;
-				 cl.valueString="missing";				 
-				 debug ("Internal error: unable to find attribute " + cl.attributeName + " in feature: " + cl.featureName);
-			 }
-		 }
-		 else
-			 debug ("Internal error: unable to find feature: " + cl.featureName + "in data");
-	 }
+		for (int l=0;l<classifiers.size();l++)
+		{
+			INQuickBayesClassify cl=classifiers.get(l);
+			INQuickBayesFeature feature=getFeature (cl.featureName);
+			
+			if (feature!=null)
+			{
+				INQuickBayesAttribute inst=feature.findAttribute (cl.attributeName);
+				if (inst!=null)
+				{				
+					cl.value=inst.getLikelihood();
+					cl.valueString=inst.getLikelihoodString(); 
+				}
+				else
+				{
+					cl.value=(float) 1.0;
+					cl.valueString="missing";				 
+					debug ("Internal error: unable to find attribute " + cl.attributeName + " in feature: " + cl.featureName);
+				}
+			}
+			else
+				debug ("Internal error: unable to find feature: " + cl.featureName + "in data");
+		}
 	 
-	 formatted=new StringBuffer ();
+		formatted=new StringBuffer ();
 	 
-	 float totalInv=0;
+		float totalInv=0;
 	 
-	 for (int m=0;m<classifiers.size();m++)
-	 {
-		 INQuickBayesClassify cl=classifiers.get(m);
-		 formatted.append("(");
-		 formatted.append(cl.valueString);
-		 formatted.append(") * ");
+		for (int m=0;m<classifiers.size();m++)
+		{
+			INQuickBayesClassify cl=classifiers.get(m);
+			formatted.append("(");
+			formatted.append(cl.valueString);
+			formatted.append(") * ");
 		 
-		 if (m==0)
-			 total=cl.value;
-		 else
-			 total=total*cl.value;
-	 }
+			if (m==0)
+				total=cl.value;
+			else
+				total=total*cl.value;
+		}
 	 	 
-	 formatted.append("prior: (");
-	 formatted.append ((majorityTotal-majorityCount) + "/" + majorityTotal);
-	 formatted.append(")");
+		formatted.append("prior: (");
+		formatted.append ((majorityTotal-majorityCount) + "/" + majorityTotal);
+		formatted.append(")");
 	 
-	 totalInv=(total*priorInv);
+		totalInv=(total*priorInv);
 	 
-	 debug ("Likelihood: " + formatted.toString() + " = " + total + " for minority attribute in feature: " + targetFeature.featureName);
+		debug ("Likelihood: " + formatted.toString() + " = " + total + " for minority attribute in feature: " + targetFeature.featureName);
 	 
-	 NumberFormat nf = NumberFormat.getPercentInstance();
+		NumberFormat nf = NumberFormat.getPercentInstance();
      	 
-	 debug ("Normalized majority: " + (nf.format(total/(total+totalInv))));
-	 debug ("Normalized minority: " + (nf.format(totalInv/(totalInv+total))));	 	 	 
-	}	
-	//---------------------------------------------------------------------------------	
+		debug ("Normalized majority: " + (nf.format(total/(total+totalInv))));
+		debug ("Normalized minority: " + (nf.format(totalInv/(totalInv+total))));	 	 	 
+	}		
 }

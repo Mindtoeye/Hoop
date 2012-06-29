@@ -39,8 +39,8 @@ public class INHoopBaseTyped extends INHoopInspectable
 		debug ("INHoopBaseTyped ()");
 				
 		types=new ArrayList <INKVType> ();
-		types.add(new INKVType ("String","Key"));
-		types.add(new INKVType ("String","Value"));						
+		types.add(new INKVType (INKVType.STRING,"Key"));
+		types.add(new INKVType (INKVType.STRING,"Value"));						
     }
     /**
      *  
@@ -52,7 +52,7 @@ public class INHoopBaseTyped extends INHoopInspectable
     /**
      * 
      */
-    public void setKVType (int anIndex,String aType)
+    public void setKVType (int anIndex,int aType)
     {
     	INKVType target=types.get(anIndex);
     	
@@ -62,12 +62,12 @@ public class INHoopBaseTyped extends INHoopInspectable
     		types.set(anIndex, target);
     	}
     	
-		target.setTypeName(aType);
+		target.setType (aType);
     }
     /**
      * 
      */
-    public void setKVType (int anIndex,String aType,String aValue)
+    public void setKVType (int anIndex,int aType,String aValue)
     {
     	INKVType target=types.get(anIndex);
     	
@@ -77,7 +77,7 @@ public class INHoopBaseTyped extends INHoopInspectable
     		types.set(anIndex, target);
     	}
     	
-		target.setTypeName(aType);
+		target.setType(aType);
 		target.setTypeValue (aValue);
     }    
 }

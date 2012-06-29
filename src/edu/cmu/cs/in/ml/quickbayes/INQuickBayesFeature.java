@@ -22,6 +22,9 @@ import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.INBase;
 
+/**
+ * 
+ */
 public class INQuickBayesFeature extends INBase
 {
 	public boolean majorityAttribute		=false;

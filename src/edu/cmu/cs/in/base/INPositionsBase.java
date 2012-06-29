@@ -33,9 +33,9 @@ public class INPositionsBase extends INBase
 {    			
 	private INFileManager fManager=null;
     private Hashtable<String, Integer> entries=null;
-    //private ArrayList<INKV> entries =null;
-    private ArrayList<INKV> sorted =null;
-    private ArrayList<INKV> results=null;
+    //private ArrayList<INKVInteger> entries =null;
+    private ArrayList<INKVInteger> sorted =null;
+    private ArrayList<INKVInteger> results=null;
 	
 	static class MyComparator implements Comparator<Object>
 	{
@@ -93,25 +93,25 @@ public class INPositionsBase extends INBase
     /**
      * 
      */    
-    public ArrayList<INKV> getResults ()
+    public ArrayList<INKVInteger> getResults ()
     {
     	return (results);
     }
     /**
      * 
      */    
-    public ArrayList<INKV> getSorted ()
+    public ArrayList<INKVInteger> getSorted ()
     {
     	return (sorted);
     }    
     /**
      * 
      */
-    public ArrayList<INKV> getTop (int topNr)
+    public ArrayList<INKVInteger> getTop (int topNr)
     {
     	debug ("getTop ()");
     	
-    	results=new ArrayList<INKV> ();
+    	results=new ArrayList<INKVInteger> ();
     	
     	//String str;    	
         //int index=0;
@@ -121,7 +121,7 @@ public class INPositionsBase extends INBase
         
         for (int i=0;i<topNr;i++) 
         {          
-          INKV keyValue=sorted.get(i);
+          INKVInteger keyValue=sorted.get(i);
           
           results.add(keyValue);
           
@@ -169,7 +169,7 @@ public class INPositionsBase extends INBase
         	key = (String)e.getKey();
         	value = ((Integer)e.getValue()).intValue();
         	
-        	INKV entry=new INKV ();
+        	INKVInteger entry=new INKVInteger ();
         	entry.setKeyString(key);
         	entry.setValue(e.toString());
         	
@@ -181,12 +181,12 @@ public class INPositionsBase extends INBase
     /**
      * 
      */    
-    public ArrayList<INKV> getValues (String val)
+    public ArrayList<INKVInteger> getValues (String val)
     {
     	debug ("getValues ()");
     	
     	ArrayList<Object> myArrayList=new ArrayList<Object>(entries.entrySet());
-    	ArrayList<INKV> subset=new ArrayList<INKV> ();
+    	ArrayList<INKVInteger> subset=new ArrayList<INKVInteger> ();
     	
         Iterator itr=myArrayList.iterator();
         
@@ -201,7 +201,7 @@ public class INPositionsBase extends INBase
         	key = (String)e.getKey();
         	value = ((Integer)e.getValue()).intValue();
         	
-        	INKV tag=new INKV ();
+        	INKVInteger tag=new INKVInteger ();
 
         	tag.setKeyString(key);
         	tag.setValue(e.toString ());
@@ -222,7 +222,7 @@ public class INPositionsBase extends INBase
     	
     	for (int i=0;i<results.size();i++)
     	{
-    		INKV res=results.get(i);
+    		INKVInteger res=results.get(i);
     		if (res.getValue().equals(val)==true)
     		{
     			//if ((isInteger (res.getKeyString())==false) && (res.getKeyString().length()<10) && (res.getKeyString().indexOf('$')!=-1) && (res.getKeyString().indexOf('/')!=-1) && (res.getKeyString().indexOf('\\')!=-1))
@@ -243,8 +243,8 @@ public class INPositionsBase extends INBase
     	debug ("fromLines ()");
     	
         entries=new Hashtable<String, Integer>();
-        sorted=new ArrayList <INKV>();
-        results=new ArrayList<INKV> ();
+        sorted=new ArrayList <INKVInteger>();
+        results=new ArrayList<INKVInteger> ();
         
         //debug ("Pass 1 ...");
         
@@ -255,7 +255,7 @@ public class INPositionsBase extends INBase
         	
         	//debug ("Key: "+kv [0] +", value: " + kv [1]);
         	
-        	INKV newer=new INKV ();
+        	INKVInteger newer=new INKVInteger ();
         	newer.setKeyString(kv [0]);
         	newer.setValue(kv [1]);
         	
