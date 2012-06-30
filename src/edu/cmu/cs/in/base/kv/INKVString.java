@@ -16,7 +16,7 @@
  * 
  */
 
-package edu.cmu.cs.in.base;
+package edu.cmu.cs.in.base.kv;
 
 /**
 * Any data created by hoops (INHoopBase) will use the KV object in some

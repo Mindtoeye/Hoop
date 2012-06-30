@@ -19,7 +19,7 @@
 package edu.cmu.cs.in.hoop.base;
 
 import edu.cmu.cs.in.base.io.INFileManager;
-import edu.cmu.cs.in.base.INKVString;
+import edu.cmu.cs.in.base.kv.INKVString;
 
 /**
 * 

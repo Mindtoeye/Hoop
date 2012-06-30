@@ -24,8 +24,8 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
 
-import edu.cmu.cs.in.base.INKV;
-import edu.cmu.cs.in.base.INKVInteger;
+import edu.cmu.cs.in.base.kv.INKV;
+import edu.cmu.cs.in.base.kv.INKVInteger;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
 import edu.cmu.cs.in.hoop.base.INHoopInterface;
 import edu.cmu.cs.in.hoop.base.INHoopTransformBase;

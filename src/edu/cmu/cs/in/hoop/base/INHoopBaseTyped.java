@@ -20,7 +20,7 @@ package edu.cmu.cs.in.hoop.base;
 
 import java.util.ArrayList;
 
-import edu.cmu.cs.in.base.INKVType;
+import edu.cmu.cs.in.base.kv.INKVType;
 import edu.cmu.cs.in.hoop.properties.INHoopInspectable;
 
 /**

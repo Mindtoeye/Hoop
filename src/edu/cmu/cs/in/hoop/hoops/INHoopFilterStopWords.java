@@ -24,8 +24,8 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 import edu.cmu.cs.in.base.INHoopLink;
-import edu.cmu.cs.in.base.INKV;
-import edu.cmu.cs.in.base.INKVInteger;
+import edu.cmu.cs.in.base.kv.INKV;
+import edu.cmu.cs.in.base.kv.INKVInteger;
 import edu.cmu.cs.in.hoop.INHoopStopWordEditor;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
 import edu.cmu.cs.in.hoop.base.INHoopInterface;

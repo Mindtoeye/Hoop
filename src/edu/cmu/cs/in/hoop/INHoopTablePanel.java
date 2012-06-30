@@ -38,8 +38,8 @@ import javax.swing.SwingConstants;
 //import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 
-import edu.cmu.cs.in.base.INKV;
-import edu.cmu.cs.in.base.INKVType;
+import edu.cmu.cs.in.base.kv.INKV;
+import edu.cmu.cs.in.base.kv.INKVType;
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 import edu.cmu.cs.in.controls.base.INHoopJTable;
 import edu.cmu.cs.in.hoop.base.INHoopBase;

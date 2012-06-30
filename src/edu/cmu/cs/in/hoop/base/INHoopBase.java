@@ -22,10 +22,10 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-import edu.cmu.cs.in.base.INKV;
-import edu.cmu.cs.in.base.INKVType;
+import edu.cmu.cs.in.base.kv.INKV;
+//import edu.cmu.cs.in.base.kv.INKVType;
 import edu.cmu.cs.in.hoop.editor.INHoopVisualRepresentation;
-import edu.cmu.cs.in.hoop.properties.INHoopInspectable;
+//import edu.cmu.cs.in.hoop.properties.INHoopInspectable;
 import edu.cmu.cs.in.stats.INPerformanceMetrics;
 import edu.cmu.cs.in.stats.INStatisticsMeasure;
 

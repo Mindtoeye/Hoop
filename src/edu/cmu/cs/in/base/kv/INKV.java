@@ -16,7 +16,9 @@
  * 
  */
 
-package edu.cmu.cs.in.base;
+package edu.cmu.cs.in.base.kv;
+
+import java.util.ArrayList;
 
 /**
 * Any data created by hoops (INHoopBase) will use the KV object in some
@@ -43,113 +45,68 @@ package edu.cmu.cs.in.base;
 * code you write will have to check first the type of key and the type
 * of value before using the contents of a KV object.
 */
-public class INKVInteger extends INKV implements INKVInterface
+public class INKV implements INKVInterface
 {    			
-	private Integer key=0;
+	protected ArrayList <Object> values=null;
 		
 	/**
 	 *
 	 */
-    public INKVInteger ()
+    public INKV ()
     {
-    	// Make sure we have at least one entry for quick access
-    	values.add(new String ("0"));
+    	values=new ArrayList <Object>();
+    }
+    /**
+     * 
+     */
+    public String getKeyString ()
+    {
+    	return ("abstract");
     }
 	/**
 	 *
 	 */
-    public INKVInteger (Integer aKey,String aValue) 
-    {	   
-    	// Make sure we have at least one entry for quick access
-    	values.add(new String ("0"));
-    	
-    	setKey (aKey);
-    	setValue (aValue);
-    }  
+    public int getValueSize ()
+    {
+    	return (values.size());
+    }
 	/**
 	 *
 	 */
-	public Integer getKey() 
+    public ArrayList <Object> getValuesRaw ()
+    {
+    	return (values);
+    }
+    /**
+     * 
+     */
+	@Override
+	public Object getValue() 
 	{
-		return key;
+		return new String ("abstract");
 	}
 	/**
-	 *
+	 * 
 	 */
-	public void setKey(Integer key) 
+	@Override
+	public Object getValue(int anIndex) 
 	{
-		this.key = key;
+		return new String ("abstract");
 	}
 	/**
-	 *
+	 * 
 	 */
-	public String getValue() 
-	{
-		return (String) (values.get(0));
-	}
-	/**
-	 *
-	 */
-	public String getValue(int anIndex) 
-	{
-		if (anIndex>values.size())
-			return ("0");
-		
-		return (String) (values.get(anIndex));
-	}
-	/**
-	 *
-	 */
+	@Override
 	public String getValueAsString() 
 	{
-		return (String) (values.get(0));
+		return new String ("abstract");
 	}
 	/**
-	 *
+	 * 
 	 */
+	@Override
 	public String getValueAsString(int anIndex) 
 	{
-		if (anIndex>values.size())
-			return ("0");
-		
-		return (String) (values.get(anIndex));
-	}		
-	/**
-	 *
-	 */
-	public void setValue(String value) 
-	{
-		values.set(0,value);
+		return new String ("abstract");
 	}
-	/**
-	 *
-	 */
-	public void setValue(String value, int anIndex) 
-	{
-		if (anIndex>(values.size()-1))
-		{
-			// fill with bogus data up to the requested element
-			
-			for (int i=(values.size ()-1);i<anIndex;i++)
-			{
-				values.add(new String ("0"));
-			}
-		}
-		
-		values.set(anIndex,value);
-	}	
-	/**
-	 *
-	 */	
-	public String getKeyString() 
-	{		
-		return key.toString();
-	}
-	/**
-	 *
-	 */	
-	public void setKeyString(String keyString) 
-	{
-		key=Integer.parseInt(keyString);
-	}  
 }

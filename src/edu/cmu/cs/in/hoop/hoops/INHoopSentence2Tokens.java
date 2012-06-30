@@ -21,8 +21,8 @@ package edu.cmu.cs.in.hoop.hoops;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.cmu.cs.in.base.INKV;
-import edu.cmu.cs.in.base.INKVInteger;
+import edu.cmu.cs.in.base.kv.INKV;
+import edu.cmu.cs.in.base.kv.INKVInteger;
 import edu.cmu.cs.in.base.INSimpleFeatureMaker;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
 import edu.cmu.cs.in.hoop.base.INHoopInterface;

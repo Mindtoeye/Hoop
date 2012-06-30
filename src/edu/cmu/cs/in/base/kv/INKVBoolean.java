@@ -16,7 +16,7 @@
  * 
  */
 
-package edu.cmu.cs.in.base;
+package edu.cmu.cs.in.base.kv;
 
 /**
 * Any data created by hoops (INHoopBase) will use the KV object in some
@@ -43,14 +43,14 @@ package edu.cmu.cs.in.base;
 * code you write will have to check first the type of key and the type
 * of value before using the contents of a KV object.
 */
-public class INKVFloat extends INKV implements INKVInterface
+public class INKVBoolean extends INKV implements INKVInterface
 {    			
-	private Float key=(float) 0;
-		
+	private Boolean key=true;
+
 	/**
 	 *
 	 */
-    public INKVFloat () 
+    public INKVBoolean () 
     {
     	// Make sure we have at least one entry for quick access
     	values.add(new String ("0"));
@@ -58,10 +58,10 @@ public class INKVFloat extends INKV implements INKVInterface
 	/**
 	 *
 	 */
-    public INKVFloat (Float aKey,String aValue) 
+    public INKVBoolean (Boolean aKey,String aValue) 
     {	   
     	// Make sure we have at least one entry for quick access
-    	values.add(new String ("0"));   	
+    	values.add(new String ("0"));
     	
     	setKey (aKey);
     	setValue (aValue);
@@ -69,14 +69,14 @@ public class INKVFloat extends INKV implements INKVInterface
 	/**
 	 *
 	 */
-	public Float getKey() 
+	public Boolean getKey() 
 	{
 		return key;
 	}
 	/**
 	 *
 	 */
-	public void setKey(Float key) 
+	public void setKey(Boolean key) 
 	{
 		this.key = key;
 	}
@@ -150,6 +150,9 @@ public class INKVFloat extends INKV implements INKVInterface
 	 */	
 	public void setKeyString(String keyString) 
 	{
-		key=Float.parseFloat(keyString);
+		if ((keyString.toLowerCase().equals("true")==true) || (keyString.toLowerCase().equals("yes")==true))
+			key=true;		
+		else
+			key=false;
 	}  
 }

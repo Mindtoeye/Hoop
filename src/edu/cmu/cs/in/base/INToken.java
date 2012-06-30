@@ -18,6 +18,8 @@
 
 package edu.cmu.cs.in.base;
 
+import edu.cmu.cs.in.base.kv.INKVString;
+
 public class INToken extends INKVString
 {    
 	private Integer position;

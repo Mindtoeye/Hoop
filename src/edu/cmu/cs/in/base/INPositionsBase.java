@@ -28,6 +28,7 @@ import java.util.Map;
 
 import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.io.INFileManager;
+import edu.cmu.cs.in.base.kv.INKVInteger;
 
 public class INPositionsBase extends INBase
 {    			

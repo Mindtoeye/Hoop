@@ -16,7 +16,7 @@
  * 
  */
 
-package edu.cmu.cs.in.base;
+package edu.cmu.cs.in.base.kv;
 
 /** 
  * @author vvelsen

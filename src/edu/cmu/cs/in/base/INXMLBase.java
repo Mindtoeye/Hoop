@@ -151,7 +151,7 @@ public class INXMLBase extends INBase
 		debug ("toXML ()");
 		
 		StringBuffer buffer=new StringBuffer ();
-		buffer.append("<xml class=\""+this.getClassName()+"\" instance=\""+this.getInstanceName()+"\" />");
+		buffer.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><xml class=\""+this.getClassName()+"\" instance=\""+this.getInstanceName()+"\" />");
 				
 		return (buffer.toString());
 	}
