@@ -116,8 +116,8 @@ public class INHoopVisualGraphConnectionHandler extends mxConnectionHandler
 				{
 					source=userSourceObject;
 				}	
-				else
-					debug ("Source is not INHoopBase class, instead: " + userSourceObject.getClass());				
+				//else
+				//	debug ("Source is not INHoopBase class, instead: " + userSourceObject.getClass());				
 			}
 			else
 				debug ("Source is null");
@@ -146,8 +146,8 @@ public class INHoopVisualGraphConnectionHandler extends mxConnectionHandler
 				{
 					target=userTargetObject;
 				}	
-				else
-					debug ("Target is not INHoopBase class, instead: " + userTargetObject.getClass());
+				//else
+				//	debug ("Target is not INHoopBase class, instead: " + userTargetObject.getClass());
 			}
 			else
 				debug ("Target is null");

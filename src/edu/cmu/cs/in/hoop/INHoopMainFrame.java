@@ -28,6 +28,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.controls.INScatterPlot;
 //import edu.cmu.cs.in.hoop.editor.INHoopEditorToolBar;
+import edu.cmu.cs.in.hoop.project.INHoopProject;
 import edu.cmu.cs.in.hoop.properties.INHoopPropertyPanel;
 import edu.cmu.cs.in.network.INMessageReceiver;
 
@@ -109,6 +110,34 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     	{
     		public void actionPerformed(ActionEvent e) 
     		{
+    			if (INHoopLink.project!=null)
+    			{
+    				debug ("We already have an open project!");
+    				
+    				Object[] options = {"Yes","No","Cancel"};
+    	           	int n = JOptionPane.showOptionDialog (compReference,
+    	           										  "You already have a project open, save and close this project first?",
+    	           										  "Hoop Info Panel",
+    	           										  JOptionPane.YES_NO_CANCEL_OPTION,
+    	           										  JOptionPane.QUESTION_MESSAGE,
+    	           										  null,
+    	           										  options,
+    	           										  options[2]);
+    	           	
+    	           	if (n==0)
+    	           	{          	
+    	           		debug ("Saving project ...");
+    	           		
+    	           		INHoopLink.project.save();
+    	           	}
+    	           	
+    	           	if (n==2)
+    	           	{
+    	           		debug ("Aborting creating new project");
+    	           		return;
+    	           	}
+    			}
+    			
     			FileNameExtensionFilter filter=new FileNameExtensionFilter ("Target Directories", "Directories");
     			fc.setFileFilter(filter);    			
     			fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -133,7 +162,12 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
 
     	           		debug ("Creating in directory: " + file.getName() + " ...");
     	                   	           		
-    	           		
+    	           		INHoopLink.project=new INHoopProject ();
+    	           		if (INHoopLink.project.newProject (file.getName ()))
+    	           		{
+    	           			debug ("Error creating project!");
+    	           			
+    	           		}
     	           	}	
     			} 
     			else 
@@ -147,6 +181,34 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     	{
     		public void actionPerformed(ActionEvent e) 
     		{
+    			if (INHoopLink.project!=null)
+    			{
+    				debug ("We already have an open project!");
+    				
+    				Object[] options = {"Yes","No","Cancel"};
+    	           	int n = JOptionPane.showOptionDialog (compReference,
+    	           										  "You already have a project open, save and close this project first?",
+    	           										  "Hoop Info Panel",
+    	           										  JOptionPane.YES_NO_CANCEL_OPTION,
+    	           										  JOptionPane.QUESTION_MESSAGE,
+    	           										  null,
+    	           										  options,
+    	           										  options[2]);
+    	           	
+    	           	if (n==0)
+    	           	{          	
+    	           		debug ("Saving project ...");
+    	           		
+    	           		INHoopLink.project.save();
+    	           	}
+    	           	
+    	           	if (n==2)
+    	           	{
+    	           		debug ("Aborting creating new project");
+    	           		return;
+    	           	}
+    			}    			
+    			
     			FileNameExtensionFilter filter=new FileNameExtensionFilter (".hpj project files", "hpj");
     			fc.setFileFilter(filter); 
     			fc.setFileSelectionMode (JFileChooser.FILES_ONLY);

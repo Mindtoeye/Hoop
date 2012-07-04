@@ -38,6 +38,7 @@ import edu.cmu.cs.in.hoop.INHoopTabDraggable;
 import edu.cmu.cs.in.hoop.INHoopTabPane;
 import edu.cmu.cs.in.hoop.editor.INHoopEditorMenuBar;
 import edu.cmu.cs.in.hoop.editor.INHoopEditorToolBar;
+import edu.cmu.cs.in.hoop.project.INHoopProject;
 import edu.cmu.cs.in.search.INTextSearch;
 import edu.cmu.cs.in.stats.INPerformanceMetrics;
 import edu.cmu.cs.in.stats.INStatistics;
@@ -304,6 +305,10 @@ public class INHoopLink extends INHoopProperties
 	
 	public static INHoopManager hoopManager=null;
 	public static INHoopGraphManager hoopGraphManager=null;
+	
+	// Le data
+	
+	public static INHoopProject project=null;
 				
 	/**
 	 *
