@@ -505,5 +505,7 @@ public class INHoopLink extends INHoopProperties
    		}   		
    	
    		pane.update();
+
+   		aPane.setSelectedComponent (aContent);   		
    	}      
 }

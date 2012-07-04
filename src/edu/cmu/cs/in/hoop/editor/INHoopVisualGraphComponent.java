@@ -21,13 +21,13 @@ package edu.cmu.cs.in.hoop.editor;
 import java.awt.Component;
 
 import com.mxgraph.model.mxCell;
-import com.mxgraph.model.mxGeometry;
+//import com.mxgraph.model.mxGeometry;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.swing.handler.mxConnectionHandler;
-import com.mxgraph.swing.handler.mxRubberband;
+//import com.mxgraph.swing.handler.mxRubberband;
 import com.mxgraph.swing.view.mxInteractiveCanvas;
-import com.mxgraph.util.mxPoint;
-import com.mxgraph.util.mxRectangle;
+//import com.mxgraph.util.mxPoint;
+//import com.mxgraph.util.mxRectangle;
 import com.mxgraph.view.mxCellState;
 import com.mxgraph.view.mxGraph;
 
@@ -71,9 +71,10 @@ public class INHoopVisualGraphComponent extends mxGraphComponent
 		Document doc = mxUtils.loadDocument(INHoopGraphEditor.class.getResource("/assets/resources/default-style.xml").toString());
 		codec.decode(doc.getDocumentElement(), graph.getStylesheet());
 		*/
-
-		getViewport().setOpaque(true);
-		getViewport().setBackground(INHoopProperties.graphBackgroundColor);				
+	
+		getViewport().setBackground(INHoopProperties.graphBackgroundColor);
+				
+		//getViewport().setBackgroundImage(new ImageIcon("testimage.jpg"));		
 	}
 	/**
 	 * 

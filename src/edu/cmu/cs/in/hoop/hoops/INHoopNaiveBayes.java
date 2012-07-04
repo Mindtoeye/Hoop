@@ -39,7 +39,7 @@ public class INHoopNaiveBayes extends INHoopAnalyze implements INHoopInterface
 		setClassName ("INHoopNaiveBayes");
 		debug ("INHoopNaiveBayes ()");
 				
-		setHoopDescription ("Classify KVs using Naive Bayes");		
+		setHoopDescription ("Classify Using Naive Bayes");		
     }
 	/**
 	 *

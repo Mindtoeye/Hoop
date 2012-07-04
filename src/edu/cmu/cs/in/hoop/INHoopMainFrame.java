@@ -20,13 +20,14 @@ package edu.cmu.cs.in.hoop;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.controls.INScatterPlot;
-//import edu.cmu.cs.in.controls.map.INHoopJava3DJPanel;
-//import edu.cmu.cs.in.hoop.editor.INHoopEditorPalettePanel;
-import edu.cmu.cs.in.hoop.editor.INHoopEditorToolBar;
+//import edu.cmu.cs.in.hoop.editor.INHoopEditorToolBar;
 import edu.cmu.cs.in.hoop.properties.INHoopPropertyPanel;
 import edu.cmu.cs.in.network.INMessageReceiver;
 
@@ -37,14 +38,16 @@ import edu.cmu.cs.in.network.INMessageReceiver;
 public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListener, INMessageReceiver
 {
 	private static final long serialVersionUID = -1L;
-	    
+
+    private JFileChooser fc=null;
+	
     static final private String PREVIOUS = "previous";
-    static final private String UP = "up";
-    static final private String NEXT = "next";
 	    
     private INScatterPlot plotter=null;
 	private INHoopConsole console=null;
 	private INHoopPropertyPanel propPanel=null;
+	
+	private Component compReference=null;
 			
 	/**
 	 *
@@ -53,11 +56,17 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     {                
     	setClassName ("INHoopMainFrame");
     	debug ("INHoopMainFrame ()");
+    	
+    	compReference=this;
+    	
+		fc = new JFileChooser();
+		FileNameExtensionFilter filter=new FileNameExtensionFilter (".xml rule files", "xml");
+		fc.setFileFilter(filter);    	
     	    
         buildMenus();       
         
         addButtons (this.getToolBar());
-        
+                        
         startEditor ();
     }
 	/**
@@ -90,15 +99,47 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     protected JMenu buildFileMenu() 
     {
     	JMenu file = new JMenu("File");
-    	JMenuItem newWin = new JMenuItem("New");
-    	JMenuItem open = new JMenuItem("Open");
-    	JMenuItem quit = new JMenuItem("Quit");
-
-    	newWin.addActionListener(new ActionListener() 
+    	
+    	//>------------------------------------------------------
+    	
+    	JMenuItem newFile = new JMenuItem("New");
+    	JMenuItem open = new JMenuItem("Open File");
+    	
+    	newFile.addActionListener(new ActionListener() 
     	{
     		public void actionPerformed(ActionEvent e) 
     		{
-    			// Fill in later
+    			FileNameExtensionFilter filter=new FileNameExtensionFilter ("Target Directories", "Directories");
+    			fc.setFileFilter(filter);    			
+    			fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+    			
+    			int returnVal=fc.showOpenDialog (compReference);
+
+    			if (returnVal==JFileChooser.APPROVE_OPTION) 
+    			{
+    				Object[] options = {"Yes","No","Cancel"};
+    	           	int n = JOptionPane.showOptionDialog (compReference,
+    	           										  "Loading a saved set will override any existing selections, do you want to continue?",
+    	           										  "Hoop Info Panel",
+    	           										  JOptionPane.YES_NO_CANCEL_OPTION,
+    	           										  JOptionPane.QUESTION_MESSAGE,
+    	           										  null,
+    	           										  options,
+    	           										  options[2]);
+    	           	
+    	           	if (n==0)
+    	           	{          	
+    	           		File file = fc.getSelectedFile();
+
+    	           		debug ("Creating in directory: " + file.getName() + " ...");
+    	                   	           		
+    	           		
+    	           	}	
+    			} 
+    			else 
+    			{
+    				debug ("Open command cancelled by user.");
+    			}
     		}
     	});
 
@@ -106,10 +147,92 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     	{
     		public void actionPerformed(ActionEvent e) 
     		{
-    			// Fill in later
+    			FileNameExtensionFilter filter=new FileNameExtensionFilter (".hpj project files", "hpj");
+    			fc.setFileFilter(filter); 
+    			fc.setFileSelectionMode (JFileChooser.FILES_ONLY);
+    			
+    			int returnVal=fc.showOpenDialog (compReference);
+
+    			if (returnVal==JFileChooser.APPROVE_OPTION) 
+    			{
+    				Object[] options = {"Yes","No","Cancel"};
+    	           	int n = JOptionPane.showOptionDialog (compReference,
+    	           										  "Loading a saved set will override any existing selections, do you want to continue?",
+    	           										  "Hoop Info Panel",
+    	           										  JOptionPane.YES_NO_CANCEL_OPTION,
+    	           										  JOptionPane.QUESTION_MESSAGE,
+    	           										  null,
+    	           										  options,
+    	           										  options[2]);
+    	           	
+    	           	if (n==0)
+    	           	{          	
+    	           		File file = fc.getSelectedFile();
+
+    	           		debug ("Loading: " + file.getName() + " ...");
+    	               
+    	           		
+    	           	}	
+    			} 
+    			else 
+    			{
+    				debug ("Open command cancelled by user.");
+    			}
+    			
+    		}
+    	});    	
+    	
+    	//>------------------------------------------------------
+    	
+    	JMenuItem save = new JMenuItem("Save",INHoopLink.getImageByName("save.gif"));
+    	JMenuItem saveas = new JMenuItem("Save As ...",INHoopLink.getImageByName("saveas.gif"));
+    	JMenuItem saveall = new JMenuItem("Save All",INHoopLink.getImageByName("save.gif"));
+    	JMenuItem revert = new JMenuItem("Revert",INHoopLink.getImageByName("undo.gif"));
+    	
+    	save.addActionListener(new ActionListener() 
+    	{
+    		public void actionPerformed(ActionEvent e) 
+    		{
+    			debug ("Save ...");
+    			
     		}
     	});
+    	
+    	saveas.addActionListener(new ActionListener() 
+    	{
+    		public void actionPerformed(ActionEvent e) 
+    		{
+    			debug ("SaveAs ...");
 
+    		}
+    	});
+    	
+    	saveall.addActionListener(new ActionListener() 
+    	{
+    		public void actionPerformed(ActionEvent e) 
+    		{
+    			debug ("SaveAll ...");
+
+    		}
+    	});
+    	
+    	revert.addActionListener(new ActionListener() 
+    	{
+    		public void actionPerformed(ActionEvent e) 
+    		{
+    			debug ("Revert ...");
+
+    		}
+    	});    	
+    	
+    	//>------------------------------------------------------    	
+    	
+    	JMenuItem props = new JMenuItem("Properties");
+    	
+    	//>------------------------------------------------------
+    	
+    	JMenuItem quit = new JMenuItem("Exit");
+    	    	
     	quit.addActionListener(new ActionListener() 
     	{
     		public void actionPerformed(ActionEvent e) 
@@ -117,10 +240,19 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     			quit();
     		}
     	});
+    	
+    	//>------------------------------------------------------
 
-    	file.add(newWin);
+    	file.add(newFile);
     	file.add(open);
     	file.addSeparator();
+    	file.add(save);
+    	file.add(saveas);
+    	file.add(saveall);
+    	file.add(revert);
+    	file.addSeparator();
+    	file.add(props);   
+    	file.addSeparator();    	
     	file.add(quit);
     	
     	return (file);
@@ -619,9 +751,13 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
 		
 		INHoopGraphEditor editor=new INHoopGraphEditor ();
 		addView ("Hoop Editor",editor,INHoopLink.center);
+		
+		/*
 		INHoopLink.menuBar.create(editor);
+		
 		INHoopLink.toolEditorBar=new INHoopEditorToolBar ();
 		INHoopLink.toolBoxContainer.add (INHoopLink.toolEditorBar,1);    		
-		INHoopLink.toolEditorBar.create(editor,JToolBar.HORIZONTAL);		
+		INHoopLink.toolEditorBar.create(editor,JToolBar.HORIZONTAL);
+		*/		
 	}
 }

@@ -25,6 +25,7 @@ package edu.cmu.cs.in.hoop;
 
 import java.util.Enumeration;
 import java.awt.Font;
+import java.awt.event.ComponentEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -172,5 +173,29 @@ public class INHoopProjectPanel extends INEmbeddedJPanel implements MouseListene
 	public void mouseReleased(MouseEvent arg0) 
 	{
 		
-	}   
+	}	
+	/**
+	 *
+	 */	
+	@Override
+	public void componentHidden(ComponentEvent arg0) 
+	{
+		debug ("componentHidden ()");
+		
+		debug ("Disabling certain file menu options");
+		
+	}
+	/**
+	 *
+	 */	
+	@Override
+	public void componentShown(ComponentEvent arg0) 
+	{
+		debug ("componentShown ()");
+		
+		super.componentShown (arg0);
+		
+		debug ("Enabling certain file menu options");
+		
+	}		
 }

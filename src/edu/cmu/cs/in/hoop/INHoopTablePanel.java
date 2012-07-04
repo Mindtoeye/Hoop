@@ -37,6 +37,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 //import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 import edu.cmu.cs.in.base.kv.INKV;
 import edu.cmu.cs.in.base.kv.INKVType;
@@ -58,9 +59,10 @@ public class INHoopTablePanel extends INEmbeddedJPanel implements ActionListener
     private JTextField minRange=null;
     private JTextField maxRange=null;    
     private JButton setRange=null;    
-    //private JButton setDateRange=null;
     private JButton previousSet=null;
     private JButton nextSet=null;	
+    
+	private int primColWidth=100;
 	
 	private String[] columnNames = {"Key","Value"};	
 	
@@ -256,5 +258,22 @@ public class INHoopTablePanel extends INEmbeddedJPanel implements ActionListener
 			
 			return;
 		}		
+	}	
+	/**
+	 *
+	 */	
+	public void updateSize() 
+	{
+		debug ("updateSize ()");
+		
+		TableColumn col1 = table.getColumnModel().getColumn(0);
+		col1.setPreferredWidth(primColWidth);		
+	 
+		this.setVisible(true);
+		
+		debug ("Total width: " + this.getWidth());
+		
+		TableColumn col2 = table.getColumnModel().getColumn(1);
+		col2.setPreferredWidth(this.getWidth()-primColWidth);		
 	}	
 }

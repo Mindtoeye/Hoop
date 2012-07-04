@@ -21,8 +21,11 @@ package edu.cmu.cs.in.controls.base;
 import java.awt.BorderLayout;
 //import java.awt.Color;
 import java.awt.Component;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 
 import javax.swing.BorderFactory;
+//import javax.swing.table.TableColumn;
 
 //import javax.swing.BorderFactory;
 //import javax.swing.BoxLayout;
@@ -35,7 +38,7 @@ import edu.cmu.cs.in.base.INHoopProperties;
  * @author vvelsen
  *
  */
-public class INEmbeddedJPanel extends INJPanel
+public class INEmbeddedJPanel extends INJPanel implements ComponentListener
 {	
 	private static final long serialVersionUID = 1L;
 	
@@ -51,7 +54,8 @@ public class INEmbeddedJPanel extends INJPanel
 		debug ("INEmbeddedJPanel ()");
 		
 		this.setBorder(BorderFactory.createEmptyBorder(INHoopProperties.tabPadding,INHoopProperties.tabPadding,INHoopProperties.tabPadding,INHoopProperties.tabPadding));		
-		this.setLayout(new BorderLayout(2,2));					
+		this.setLayout(new BorderLayout(2,2));
+		this.addComponentListener(this);
 	}
 	/**
 	 * 
@@ -91,6 +95,15 @@ public class INEmbeddedJPanel extends INJPanel
 	/**
 	 *
 	 */	
+	public void updateSize() 
+	{
+		debug ("updateSize ()");
+		
+		// Implement in child class !!
+	}		
+	/**
+	 *
+	 */	
 	public Boolean getSingleInstance() 
 	{
 		return singleInstance;
@@ -101,5 +114,41 @@ public class INEmbeddedJPanel extends INJPanel
 	public void setSingleInstance(Boolean singleInstance) 
 	{
 		this.singleInstance = singleInstance;
+	}
+	/**
+	 *
+	 */	
+	@Override
+	public void componentHidden(ComponentEvent arg0) 
+	{
+		debug ("componentHidden ()");
+	}
+	/**
+	 *
+	 */	
+	@Override
+	public void componentMoved(ComponentEvent arg0) 
+	{
+		debug ("componentMoved ()");		
+	}
+	/**
+	 *
+	 */	
+	@Override
+	public void componentResized(ComponentEvent arg0) 
+	{
+		debug ("componentResized ()");
+		
+		updateSize();		
+	}
+	/**
+	 *
+	 */	
+	@Override
+	public void componentShown(ComponentEvent arg0) 
+	{
+		debug ("componentShown ()");
+		
+		updateSize();
 	}	
 }

@@ -24,7 +24,9 @@ import java.awt.event.ActionListener;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 import edu.cmu.cs.in.controls.base.INHoopJTable;
@@ -37,8 +39,8 @@ public class INHoopErrorPanel extends INEmbeddedJPanel implements ActionListener
 {	
 	private static final long serialVersionUID = 1L;			
 	private INHoopJTable table=null;		
-	//private String[] columnNames = {"Hoop","Error"};	
 	private DefaultTableModel errorData=null;
+	private int primColWidth=100;
 	
 	/**
 	 * http://stackoverflow.com/questions/965023/how-to-wrap-lines-in-a-jtable-cell
@@ -58,9 +60,8 @@ public class INHoopErrorPanel extends INEmbeddedJPanel implements ActionListener
 		
 		JScrollPane scrollPane = new JScrollPane(table);
 		table.setFillsViewportHeight(true);		
-		//table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		
-		//holder.add(controlBox);
 		holder.add (scrollPane);
 		
 		this.add(holder);		
@@ -97,6 +98,23 @@ public class INHoopErrorPanel extends INEmbeddedJPanel implements ActionListener
 		debug ("updateContents ()");
 		
 	}
+	/**
+	 *
+	 */	
+	public void updateSize() 
+	{
+		debug ("updateSize ()");
+		
+		TableColumn col1 = table.getColumnModel().getColumn(0);
+		col1.setPreferredWidth(primColWidth);		
+	 
+		this.setVisible(true);
+		
+		debug ("Total width: " + this.getWidth());
+		
+		TableColumn col2 = table.getColumnModel().getColumn(1);
+		col2.setPreferredWidth(this.getWidth()-primColWidth);		
+	}	
 	/**
 	 * 
 	 */
