@@ -428,6 +428,27 @@ public class INHoopLink extends INHoopProperties
 	/**
 	 *
 	 */
+   public static void popWindow (String aTitle)
+   {
+   		INBase.debug ("INHoopLink","popWindow ()");
+   	
+  		for (int i=0;i<windows.size();i++)
+  		{
+  			INEmbeddedJPanel aWindow=windows.get(i);
+  			if (aWindow.getInstanceName().toLowerCase().equals(aTitle.toLowerCase())==true)
+  			{
+  				aWindow.updateContents ();
+  				
+  				JTabbedPane pane=aWindow.getHost();
+  				
+  				if (pane!=null)
+  					pane.setSelectedComponent (aWindow);
+  			}
+  		}   
+   }    
+	/**
+	 *
+	 */
     public static void updateAllWindows ()
     {
     	INBase.debug ("INHoopLink","updateAllWindows ()");
@@ -510,6 +531,8 @@ public class INHoopLink extends INHoopProperties
    		}   		
    	
    		pane.update();
+   		
+   		aContent.setHost(aPane);
 
    		aPane.setSelectedComponent (aContent);   		
    	}      

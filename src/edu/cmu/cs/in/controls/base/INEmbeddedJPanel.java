@@ -25,6 +25,7 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.JTabbedPane;
 //import javax.swing.table.TableColumn;
 
 //import javax.swing.BorderFactory;
@@ -43,7 +44,9 @@ public class INEmbeddedJPanel extends INJPanel implements ComponentListener
 	private static final long serialVersionUID = 1L;
 	
 	/// Most of them are single instances, we'll let selected panels override this
-	private Boolean singleInstance=true; 
+	private Boolean singleInstance=true;
+	
+	private JTabbedPane host=null;
 		
 	/**
 	 * Creates a new JPanel with a double buffer and a flow layout.
@@ -57,6 +60,20 @@ public class INEmbeddedJPanel extends INJPanel implements ComponentListener
 		this.setLayout(new BorderLayout(2,2));
 		this.addComponentListener(this);
 	}
+	/**
+	 * 
+	 */	
+	public JTabbedPane getHost() 
+	{
+		return host;
+	}
+	/**
+	 * 
+	 */	
+	public void setHost(JTabbedPane host) 
+	{
+		this.host = host;
+	}	
 	/**
 	 * 
 	 */
