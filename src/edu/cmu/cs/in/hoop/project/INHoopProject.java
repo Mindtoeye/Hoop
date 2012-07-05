@@ -45,6 +45,22 @@ public class INHoopProject extends INHoopProjectFile
 	/**
 	 * 
 	 */
+	public void addFile (INHoopProjectFile aFile)
+	{
+		debug ("addFile ()");
+		
+		files.add(aFile);
+	}
+	/**
+	 * 
+	 */
+	public ArrayList <INHoopProjectFile> getFiles ()
+	{
+		return (files);
+	}
+	/**
+	 * 
+	 */
 	public INHoopProjectFile getFileByClass (String aClass)
 	{
 		debug ("getFileByClass ("+aClass+")");
@@ -96,6 +112,22 @@ public class INHoopProject extends INHoopProjectFile
 	/**
 	 * 
 	 */
+	public Boolean newProject ()
+	{
+		debug ("newProject ()");
+		
+		setFileURI (".hprj");
+		
+		INHoopGraphFile aGraph=new INHoopGraphFile ();
+		aGraph.setFileURI("graph.xml");
+		
+		files.add(aGraph);
+		
+		return (true);
+	}
+	/**
+	 * 
+	 */
 	public Boolean newProject (String aURI)
 	{
 		debug ("newProject ("+aURI+")");
@@ -108,7 +140,7 @@ public class INHoopProject extends INHoopProjectFile
 		files.add(aGraph);
 		
 		return (true);
-	}
+	}	
 	/**
 	 * 
 	 */

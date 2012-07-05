@@ -40,7 +40,9 @@ public class INHoopGraphFile extends INHoopProjectFile
 		setClassName ("INHoopGraphFile");
 		debug ("INHoopGraphFile ()");
 		
-		hoops=new ArrayList<INHoopBase> ();		
+		hoops=new ArrayList<INHoopBase> ();
+		
+		//this.setInstanceName("graph.xml");
 	}
 	/**
 	 * 

@@ -874,6 +874,7 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
 		addView ("Hoop Editor",editor,INHoopLink.center);
 		
 		INHoopLink.project=new INHoopProject ();
+		INHoopLink.project.newProject ();
 		
 		/*
 		INHoopLink.menuBar.create(editor);
@@ -881,6 +882,8 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
 		INHoopLink.toolEditorBar=new INHoopEditorToolBar ();
 		INHoopLink.toolBoxContainer.add (INHoopLink.toolEditorBar,1);    		
 		INHoopLink.toolEditorBar.create(editor,JToolBar.HORIZONTAL);
-		*/		
+		*/
+		
+		projectPanel.updateContents();
 	}
 }

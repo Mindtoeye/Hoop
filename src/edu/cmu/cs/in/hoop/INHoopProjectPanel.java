@@ -23,6 +23,7 @@
 
 package edu.cmu.cs.in.hoop;
 
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.awt.Font;
 import java.awt.event.ComponentEvent;
@@ -34,11 +35,16 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
+import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
+import edu.cmu.cs.in.hoop.project.INHoopProject;
+import edu.cmu.cs.in.hoop.project.INHoopProjectFile;
 
 /**
  * 
@@ -80,13 +86,40 @@ public class INHoopProjectPanel extends INEmbeddedJPanel implements MouseListene
 		mainBox.add(scrollPane);
 		
 		setContentPane (mainBox);			
+		
+		updateContents();
     }
 	/**
-	 * When this method is called we should assume that we have to re-evaluate all existing hoop templates
+	 * 
 	 */	
 	public void updateContents() 
 	{
 		debug ("updateContents ()");
+		
+		INHoopProject proj=INHoopLink.project;
+		
+		if (proj==null)
+		{
+			debug ("Error: no project available yet");
+			return;
+		}	
+		
+    	DefaultMutableTreeNode root = new DefaultMutableTreeNode(proj.getInstanceName());
+		  			
+    	ArrayList <INHoopProjectFile> files=proj.getFiles();
+    	
+    	for (int i=0;i<files.size();i++)
+    	{
+    		INHoopProjectFile aFile=files.get(i);
+    		
+			DefaultMutableTreeNode catNode = new DefaultMutableTreeNode(aFile.getInstanceName());
+			//catNode.setUserObject(aFile);
+			root.add(catNode);
+    	}		    	
+    	
+    	DefaultTreeModel model = new DefaultTreeModel(root);
+    	
+    	tree.setModel(model);
 	}	
 	/**
 	 *
