@@ -16,47 +16,27 @@
  * 
  */
 
-package edu.cmu.cs.in.hoop.base;
+package edu.cmu.cs.in.hoop.project;
 
-import javax.swing.JPanel;
+import java.util.ArrayList;
 
-import org.w3c.dom.Element;
-
-/**
-* Here we have the basis for all the hoops. It manages incoming and
-* outgoing links to other hoops. Please keep in mind that even
-* though the API allows more than one incoming hoop, we currently
-* restrict the functionality to only one.
-*/
-public interface INHoopInterface
-{    			
-	/**
-	 *
-	 */
-	public Boolean runHoop (INHoopBase inHoop);
-
-	/**
-	 * 
-	 */
-	public INHoopBase copy ();
+/** 
+ * @author Martin van Velsen
+ */
+public class INHoopVocabulary extends INHoopProjectFile
+{
+	//private ArrayList <String> wordList=null;
 	
 	/**
 	 * 
 	 */
-	public JPanel getPropertiesPanel ();
-	
-	/**
-	 * 
-	 */
-	public void fromXML (String aStream);
-	
-	/**
-	 * 
-	 */
-	public void fromXMLElement (Element anElement);
-	
-	/**
-	 * 
-	 */
-	public String toXML ();
+	public INHoopVocabulary ()
+	{
+		setClassName ("INHoopVocabulary");
+		debug ("INHoopVocabulary ()");
+		
+		//wordList=new ArrayList<String> ();
+		
+		this.setInstanceName("vocabulary.xml");
+	}	
 }

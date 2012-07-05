@@ -21,6 +21,7 @@ package edu.cmu.cs.in.hoop;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
+import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -59,6 +60,15 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     	debug ("INHoopMainFrame ()");
     	
     	compReference=this;
+    	
+    	ArrayList <String> profileLocations=INHoopLink.environment.getProfileLocation();
+    	
+    	if (profileLocations.size()==0)
+    	{
+    		debug ("Error: unable to figure out where the profile location should be");
+    	}
+    	else
+    		debug ("Determined profile directory to be: " + profileLocations.get(0));
     	
 		fc = new JFileChooser();
 		FileNameExtensionFilter filter=new FileNameExtensionFilter (".xml rule files", "xml");
@@ -160,10 +170,10 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     	           	{          	
     	           		File file = fc.getSelectedFile();
 
-    	           		debug ("Creating in directory: " + file.getName() + " ...");
+    	           		debug ("Creating in directory: " + file.getAbsolutePath() + " ...");
     	                   	           		
     	           		INHoopLink.project=new INHoopProject ();
-    	           		if (INHoopLink.project.newProject (file.getName ()))
+    	           		if (INHoopLink.project.newProject (file.getAbsolutePath()))
     	           		{
     	           			debug ("Error creating project!");
     	           			
@@ -209,7 +219,7 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     	           	}
     			}    			
     			
-    			FileNameExtensionFilter filter=new FileNameExtensionFilter (".hpj project files", "hpj");
+    			FileNameExtensionFilter filter=new FileNameExtensionFilter (".hprj project files", "hprj");
     			fc.setFileFilter(filter); 
     			fc.setFileSelectionMode (JFileChooser.FILES_ONLY);
     			
@@ -231,7 +241,7 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     	           	{          	
     	           		File file = fc.getSelectedFile();
 
-    	           		debug ("Loading: " + file.getName() + " ...");
+    	           		debug ("Loading: " + file.getAbsolutePath() + " ...");
     	               
     	           		
     	           	}	
@@ -256,7 +266,56 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     		public void actionPerformed(ActionEvent e) 
     		{
     			debug ("Save ...");
+    		
+    			INHoopProject proj=INHoopLink.project;
     			
+    			if (proj==null)
+    			{
+    				debug ("Internal error: no project available");
+    				return;
+    			}
+    			
+    			if (proj.getFileURI().equals("")==true)
+    			{
+        			FileNameExtensionFilter filter=new FileNameExtensionFilter ("Target Directories", "Directories");
+        			fc.setFileFilter(filter);    			
+        			fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        			
+        			int returnVal=fc.showOpenDialog (compReference);
+
+        			if (returnVal==JFileChooser.APPROVE_OPTION) 
+        			{
+        				Object[] options = {"Yes","No","Cancel"};
+        	           	int n = JOptionPane.showOptionDialog (compReference,
+        	           										  "Loading a saved set will override any existing selections, do you want to continue?",
+        	           										  "Hoop Info Panel",
+        	           										  JOptionPane.YES_NO_CANCEL_OPTION,
+        	           										  JOptionPane.QUESTION_MESSAGE,
+        	           										  null,
+        	           										  options,
+        	           										  options[2]);
+        	           	
+        	           	if (n==0)
+        	           	{          	
+        	           		File file = fc.getSelectedFile();
+
+        	           		debug ("Creating in directory: " + file.getAbsolutePath() + " ...");
+        	                   	           		
+        	           		INHoopLink.project.setFileURI(file.getAbsolutePath()+"/.hprj");
+        	           		
+        	           		proj.save();
+        	           	}	
+        			} 
+        			else 
+        			{
+        				debug ("Open command cancelled by user.");
+        				return;
+        			}    				
+    			}
+    			else
+    			{
+    				proj.save();
+    			}	
     		}
     	});
     	
@@ -814,12 +873,17 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
 		INHoopGraphEditor editor=new INHoopGraphEditor ();
 		addView ("Hoop Editor",editor,INHoopLink.center);
 		
+		INHoopLink.project=new INHoopProject ();
+		INHoopLink.project.newProject ();
+		
 		/*
 		INHoopLink.menuBar.create(editor);
 		
 		INHoopLink.toolEditorBar=new INHoopEditorToolBar ();
 		INHoopLink.toolBoxContainer.add (INHoopLink.toolEditorBar,1);    		
 		INHoopLink.toolEditorBar.create(editor,JToolBar.HORIZONTAL);
-		*/		
+		*/
+		
+		projectPanel.updateContents();
 	}
 }

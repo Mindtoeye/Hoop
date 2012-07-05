@@ -18,6 +18,8 @@
 
 package edu.cmu.cs.in.hoop.project;
 
+import java.util.ArrayList;
+
 import org.w3c.dom.Element;
 
 import edu.cmu.cs.in.hoop.base.INHoopBase;
@@ -28,6 +30,7 @@ import edu.cmu.cs.in.hoop.base.INHoopBase;
 public class INHoopGraphFile extends INHoopProjectFile
 {
 	private INHoopBase graphRoot=null;
+	private ArrayList <INHoopBase> hoops=null;
 	
 	/**
 	 * 
@@ -37,7 +40,34 @@ public class INHoopGraphFile extends INHoopProjectFile
 		setClassName ("INHoopGraphFile");
 		debug ("INHoopGraphFile ()");
 		
+		hoops=new ArrayList<INHoopBase> ();
+		
+		//this.setInstanceName("graph.xml");
 	}
+	/**
+	 * 
+	 */
+	public void reset ()
+	{
+		debug ("reset ()");
+		
+		graphRoot=null;
+		hoops=new ArrayList<INHoopBase> ();	
+	}
+	/**
+	 * 
+	 */
+	public void setHoops(ArrayList <INHoopBase> hoops) 
+	{
+		this.hoops = hoops;
+	}
+	/** 
+	 * @return
+	 */
+	public ArrayList <INHoopBase> getHoops() 
+	{
+		return hoops;
+	}	
 	/** 
 	 * @param graphRoot
 	 */
@@ -51,7 +81,7 @@ public class INHoopGraphFile extends INHoopProjectFile
 	public INHoopBase getGraphRoot() 
 	{
 		return graphRoot;
-	}		
+	}	
 	/**
 	*
 	*/	
@@ -74,7 +104,34 @@ public class INHoopGraphFile extends INHoopProjectFile
 		StringBuffer formatted=new StringBuffer ();
 		formatted.append (super.toXML());
 		
-		formatted.append (graphRoot.toXML());
+		formatted.append("<hoops>\n");
+		
+		for (int i=0;i<hoops.size();i++)
+		{
+			INHoopBase aHoop=hoops.get(i);
+			formatted.append(aHoop.toXML ());
+			formatted.append("\n");
+		}
+		
+		formatted.append("</hoops>\n");
+		
+		formatted.append("<connections>");
+		
+		if (graphRoot!=null)
+		{			
+			ArrayList<INHoopBase> list=graphRoot.getOutHoops();
+			
+			for (int j=0;j<list.size();j++)
+			{
+				INHoopBase target=list.get(j);
+				
+				formatted.append("<connection from=" + graphRoot.getHoopID() + " to=" + target.getHoopID() + " />\n");
+			}
+		}
+		
+		formatted.append("</connections>");
+		
+		//formatted.append (graphRoot.toXML());
 		
 		return (formatted.toString());
 	}	

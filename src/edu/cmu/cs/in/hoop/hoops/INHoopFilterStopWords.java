@@ -26,10 +26,13 @@ import javax.swing.JPanel;
 import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.base.kv.INKV;
 import edu.cmu.cs.in.base.kv.INKVInteger;
+import edu.cmu.cs.in.hoop.INHoopProjectPanel;
 import edu.cmu.cs.in.hoop.INHoopStopWordEditor;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
 import edu.cmu.cs.in.hoop.base.INHoopInterface;
 import edu.cmu.cs.in.hoop.base.INHoopTransformBase;
+import edu.cmu.cs.in.hoop.project.INHoopProject;
+import edu.cmu.cs.in.hoop.project.INHoopVocabulary;
 
 /**
 * 
@@ -37,6 +40,7 @@ import edu.cmu.cs.in.hoop.base.INHoopTransformBase;
 public class INHoopFilterStopWords extends INHoopTransformBase implements INHoopInterface
 {    	
 	private INHoopStopWordEditor propPanel=null;
+	private INHoopVocabulary vocab=null;
 	
 	/**
 	 *
@@ -46,7 +50,19 @@ public class INHoopFilterStopWords extends INHoopTransformBase implements INHoop
 		setClassName ("INHoopFilterStopWords");
 		debug ("INHoopFilterStopWords ()");
 				
-		setHoopDescription ("Remove stopwords from input KVs");		
+		setHoopDescription ("Remove stopwords from input KVs");
+		
+		INHoopProject proj=INHoopLink.project;
+		
+		if (proj!=null)
+		{
+			vocab=new INHoopVocabulary ();
+			proj.addFile (vocab);
+			
+			INHoopProjectPanel projectPanel=(INHoopProjectPanel) INHoopLink.getWindow("Project");
+			if (projectPanel!=null)
+				projectPanel.updateContents();
+		}
     }
 	/**
 	 *

@@ -18,6 +18,8 @@
 
 package edu.cmu.cs.in.hoop.project;
 
+import java.io.File;
+
 import org.w3c.dom.Element;
 
 import edu.cmu.cs.in.base.INXMLBase;
@@ -28,7 +30,7 @@ import edu.cmu.cs.in.base.io.INFileManager;
  */
 public class INHoopProjectFile extends INXMLBase
 {
-	private String fileURI=null;
+	private String fileURI="";
 	protected INFileManager fManager=null;
 	
 	/**
@@ -44,9 +46,17 @@ public class INHoopProjectFile extends INXMLBase
 	/**
 	 * 
 	 */	
-	public void setFileURI(String fileURI) 
+	public void setFileURI(String aURI) 
 	{
-		this.fileURI = fileURI;
+		debug ("setFileURI ("+aURI+")");
+		
+		fileURI = aURI;
+		
+		File transf=new File (fileURI);
+		
+		debug ("Setting instance name to: " + transf.getName());
+		
+		this.setInstanceName(transf.getName());
 	}
 	/**
 	 * 
@@ -62,7 +72,7 @@ public class INHoopProjectFile extends INXMLBase
 	{
 		debug ("save ()");
 		
-		return (true);
+		return (fManager.saveContents(fileURI,this.toXML()));
 	}	
 	/**
 	 * 
@@ -73,7 +83,7 @@ public class INHoopProjectFile extends INXMLBase
 		
 		setFileURI (aURI);
 		
-		return (true);
+		return (save ());
 	}		
 	/**
 	 * 

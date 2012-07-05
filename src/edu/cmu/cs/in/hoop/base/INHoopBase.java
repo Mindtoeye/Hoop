@@ -19,12 +19,16 @@
 package edu.cmu.cs.in.hoop.base;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import javax.swing.JPanel;
+
+import org.w3c.dom.Element;
 
 import edu.cmu.cs.in.base.kv.INKV;
 //import edu.cmu.cs.in.base.kv.INKVType;
 import edu.cmu.cs.in.hoop.editor.INHoopVisualRepresentation;
+import edu.cmu.cs.in.hoop.properties.INHoopStyleProperty;
 //import edu.cmu.cs.in.hoop.properties.INHoopInspectable;
 import edu.cmu.cs.in.stats.INPerformanceMetrics;
 import edu.cmu.cs.in.stats.INStatisticsMeasure;
@@ -40,6 +44,8 @@ public class INHoopBase extends INHoopBaseTyped implements INHoopInterface
 	private ArrayList <INHoopBase> outHoops=null;	
 	private ArrayList <INKV> data=null;
 
+	private String hoopID="";
+	
 	/// Either one of display,load,save,transform 
 	protected StringBuffer hoopCategory=null; 
 	protected String hoopDescription="Undefined";
@@ -59,6 +65,8 @@ public class INHoopBase extends INHoopBaseTyped implements INHoopInterface
 	
 	private int maxValues=1;
 	
+	private ArrayList <INHoopStyleProperty> properties=null;
+	
 	/**
 	 *
 	 */
@@ -66,6 +74,8 @@ public class INHoopBase extends INHoopBaseTyped implements INHoopInterface
     {
 		setClassName ("INHoopBase");
 		debug ("INHoopBase ()");
+
+		hoopID=UUID.randomUUID().toString();
 		
 		hoopCategory=new StringBuffer ();
 		hoopCategory.append("root");
@@ -84,6 +94,20 @@ public class INHoopBase extends INHoopBaseTyped implements INHoopInterface
 		addOutPort ("KV");
 		addOutPort ("Stats");				
     }
+    /**
+     * 
+     */    
+	public void setHoopID(String hoopID) 
+	{
+		this.hoopID = hoopID;
+	}
+    /**
+     * 
+     */	
+	public String getHoopID() 
+	{
+		return hoopID;
+	}    
     /**
      * 
      */    
@@ -308,5 +332,50 @@ public class INHoopBase extends INHoopBaseTyped implements INHoopInterface
 	public int getMaxValues() 
 	{
 		return maxValues;
+	}
+	/**
+	 * 
+	 */
+	@Override
+	public void fromXML(String aStream) 
+	{
+		debug ("fromXML ()");
+		
+	}
+	/**
+	 * 
+	 */
+	@Override
+	public void fromXMLElement(Element anElement) 
+	{
+		debug ("fromXMLElement ()");
+		
+	}
+	/**
+	 * 
+	 */
+	public String toXML ()
+	{
+		debug ("toXML ()");
+		
+		StringBuffer formatted=new StringBuffer ();
+		
+		formatted.append("<hoop id="+this.getHoopID()+" class="+this.getClassName()+">\n");
+		
+		formatted.append("<properties>\n");
+		
+		for (int i=0;i<properties.size();i++)
+		{
+			INHoopStyleProperty prop=properties.get(i);
+			
+			formatted.append(prop.toXML());
+			formatted.append("\n");
+		}
+		
+		formatted.append("</properties>\n");
+		
+		formatted.append("</hoop>\n");
+		
+		return (formatted.toString());
 	}
 }
