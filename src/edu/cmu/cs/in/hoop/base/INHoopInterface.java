@@ -20,6 +20,8 @@ package edu.cmu.cs.in.hoop.base;
 
 import javax.swing.JPanel;
 
+import org.w3c.dom.Element;
+
 /**
 * Here we have the basis for all the hoops. It manages incoming and
 * outgoing links to other hoops. Please keep in mind that even
@@ -43,4 +45,18 @@ public interface INHoopInterface
 	 */
 	public JPanel getPropertiesPanel ();
 	
+	/**
+	 * 
+	 */
+	public void fromXML (String aStream);
+	
+	/**
+	 * 
+	 */
+	public void fromXMLElement (Element anElement);
+	
+	/**
+	 * 
+	 */
+	public String toXML ();
 }

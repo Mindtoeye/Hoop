@@ -20,25 +20,23 @@ package edu.cmu.cs.in.hoop;
 
 import java.util.ArrayList;
 
+import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
+import edu.cmu.cs.in.hoop.project.INHoopGraphFile;
+//import edu.cmu.cs.in.hoop.project.INHoopProjectFile;
 
 /** 
  * @author Martin van Velsen
  */
 public class INHoopGraphManager extends INHoopBase
-{	
-	private INHoopBase root=null;
-	private ArrayList <INHoopBase> hoops=null;
-	
+{		
 	/**
 	 * 
 	 */
 	public INHoopGraphManager()
 	{		
 		setClassName ("INHoopGraphManager");
-		debug ("INHoopGraphManager ()");
-			
-		hoops=new ArrayList<INHoopBase> ();
+		debug ("INHoopGraphManager ()");		
 	}
 	/**
 	 * 
@@ -46,33 +44,79 @@ public class INHoopGraphManager extends INHoopBase
 	public void reset ()
 	{
 		debug ("reset ()");
+				
+		INHoopGraphFile grFile=(INHoopGraphFile) INHoopLink.project.getFileByClass (new INHoopGraphFile ().getClassName());
 		
-		root=null;
-		hoops=new ArrayList<INHoopBase> ();
+		if (grFile!=null)
+		{
+			grFile.reset();
+		}	
+		else
+			debug ("Error: unable to find graph file in project");	
 	}
 	/** 
 	 * @param aHoop
 	 */
 	public void addHoop(INHoopBase aHoop) 
 	{
-		if (this.root==null)
-			setRoot (aHoop);
+		debug ("addHoop ()");
+
+		if (INHoopLink.getGraphRoot ()==null)
+		{
+			debug ("Error: unable to get graph root, creating one ...");
+		}
 		
-		hoops.add(aHoop);
+		if (INHoopLink.project==null)
+		{
+			debug ("Error: no project available yet");
+			return;
+		}
+		
+		INHoopLink.project.setGraphRoot (aHoop);
+		
+		INHoopGraphFile grFile=(INHoopGraphFile) INHoopLink.project.getFileByClass (new INHoopGraphFile ().getClassName());
+		
+		if (grFile!=null)
+		{
+			ArrayList <INHoopBase> hoops=grFile.getHoops();
+			
+			if (hoops!=null)
+				hoops.add(aHoop);
+			else
+				debug ("Error: graph file does not contain hoops list");
+		}	
+		else
+			debug ("Error: unable to find graph file in project");
 	}	
 	/** 
 	 * @param root
 	 */
-	public void setRoot(INHoopBase root) 
+	public void setRoot(INHoopBase aRoot) 
 	{
-		this.root = root;
+		debug ("setRoot ()");
+		
+		if (INHoopLink.project==null)
+		{
+			debug ("Error: no project available yet");
+			return;
+		}
+		
+		INHoopLink.project.setGraphRoot (aRoot);
 	}
 	/** 
 	 * @return INHoopBase
 	 */
 	public INHoopBase getRoot() 
 	{
-		return root;
+		debug ("setRoot ()");
+		
+		if (INHoopLink.project==null)
+		{
+			debug ("Error: no project available yet");
+			return (null);
+		}
+		
+		return (INHoopLink.project.getGraphRoot());
 	}
 	/** 
 	 * @param aSource

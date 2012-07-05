@@ -23,6 +23,8 @@ import java.util.ArrayList;
 
 import org.w3c.dom.Element;
 
+import edu.cmu.cs.in.hoop.base.INHoopBase;
+
 /** 
  * @author Martin van Velsen
  */
@@ -43,11 +45,67 @@ public class INHoopProject extends INHoopProjectFile
 	/**
 	 * 
 	 */
+	public INHoopProjectFile getFileByClass (String aClass)
+	{
+		debug ("getFileByClass ("+aClass+")");
+		
+		for (int i=0;i<files.size();i++)
+		{
+			INHoopProjectFile aFile=files.get(i);
+			
+			if (aFile.getClassName().toLowerCase().equals(aClass.toLowerCase())==true)
+			{
+				return (aFile);
+			}
+		}
+		
+		return (null);
+	}	
+	/**
+	 * This is just a shortcut! In no way should the project file revolve around
+	 * hoop graph editing.
+	 */
+	public INHoopBase getGraphRoot ()
+	{
+		debug ("getGraphRoot ()");
+		
+		INHoopGraphFile graphFile=(INHoopGraphFile) getFileByClass (new INHoopGraphFile ().getClassName());
+		
+		if (graphFile!=null)
+		{
+			return (graphFile.getGraphRoot ());
+		}
+		
+		return (null);
+	}
+	/**
+	 * This is just a shortcut! In no way should the project file revolve around
+	 * hoop graph editing.
+	 */
+	public void setGraphRoot (INHoopBase aHoop)
+	{
+		debug ("setGraphRoot ()");
+		
+		INHoopGraphFile graphFile=(INHoopGraphFile) getFileByClass (new INHoopGraphFile ().getClassName());
+		
+		if (graphFile!=null)
+		{
+			graphFile.setGraphRoot(aHoop);
+		}		
+	}	
+	/**
+	 * 
+	 */
 	public Boolean newProject (String aURI)
 	{
 		debug ("newProject ("+aURI+")");
 		
 		setFileURI (aURI+"/.hprj");
+		
+		INHoopGraphFile aGraph=new INHoopGraphFile ();
+		aGraph.setFileURI(aURI+"/graph.xml");
+		
+		files.add(aGraph);
 		
 		return (true);
 	}
@@ -65,7 +123,7 @@ public class INHoopProject extends INHoopProjectFile
 			tFile.save();
 		}		
 		
-		return (true);
+		return (super.save());
 	}	
 	/**
 	 * 

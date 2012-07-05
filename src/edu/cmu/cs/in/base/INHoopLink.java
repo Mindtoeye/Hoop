@@ -36,6 +36,7 @@ import edu.cmu.cs.in.hoop.INHoopManager;
 import edu.cmu.cs.in.hoop.INHoopStatusBar;
 import edu.cmu.cs.in.hoop.INHoopTabDraggable;
 import edu.cmu.cs.in.hoop.INHoopTabPane;
+import edu.cmu.cs.in.hoop.base.INHoopBase;
 import edu.cmu.cs.in.hoop.editor.INHoopEditorMenuBar;
 import edu.cmu.cs.in.hoop.editor.INHoopEditorToolBar;
 import edu.cmu.cs.in.hoop.project.INHoopProject;
@@ -512,5 +513,17 @@ public class INHoopLink extends INHoopProperties
    		pane.update();
 
    		aPane.setSelectedComponent (aContent);   		
-   	}      
+   	}
+	/** 
+	 * @return INHoopBase
+	 */
+	public static INHoopBase getGraphRoot() 
+	{
+		INBase.debug ("INHoopLink","getGraphRoot ()");
+		
+		if (INHoopLink.project==null)
+			return (null);
+		
+		return (INHoopLink.project.getGraphRoot());
+	}	  	
 }

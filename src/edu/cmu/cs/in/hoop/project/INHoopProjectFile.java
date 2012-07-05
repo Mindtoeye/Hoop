@@ -28,7 +28,7 @@ import edu.cmu.cs.in.base.io.INFileManager;
  */
 public class INHoopProjectFile extends INXMLBase
 {
-	private String fileURI=null;
+	private String fileURI="";
 	protected INFileManager fManager=null;
 	
 	/**
@@ -62,7 +62,7 @@ public class INHoopProjectFile extends INXMLBase
 	{
 		debug ("save ()");
 		
-		return (true);
+		return (fManager.saveContents(fileURI,this.toXML()));
 	}	
 	/**
 	 * 
@@ -73,7 +73,7 @@ public class INHoopProjectFile extends INXMLBase
 		
 		setFileURI (aURI);
 		
-		return (true);
+		return (save ());
 	}		
 	/**
 	 * 

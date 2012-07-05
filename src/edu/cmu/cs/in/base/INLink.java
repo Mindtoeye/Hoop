@@ -18,21 +18,9 @@
 
 package edu.cmu.cs.in.base;
 
-//import java.util.regex.Matcher;
-//import java.util.regex.Pattern;
-
-import java.util.ArrayList;
-
-import javax.swing.ImageIcon;
-
-import edu.cmu.cs.in.search.INDataSet;
 import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.io.INFileManager;
-import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
-//import edu.cmu.cs.in.controls.base.INJInternalFrame;
 import edu.cmu.cs.in.hoop.INHoopConsoleInterface;
-import edu.cmu.cs.in.search.INTextSearch;
-import edu.cmu.cs.in.stats.INPerformanceMetrics;
 
 /**
 *
@@ -69,6 +57,7 @@ public class INLink extends INBase
 	//public static String monitorHost="augustus.pslc.cs.cmu.edu";
 	public static int monitorPort=8080;
 			 							 	
+	public static INHoopEnvironment environment=null;
 	public static INFileManager fManager=null;	
 		
 	public static String crossDomainPolicy = "<?xml version=\"1.0\"?>\n" +
@@ -84,14 +73,8 @@ public class INLink extends INBase
     {
 		setClassName ("INLink");
 		debug ("INLink ()");
-		
-		//whitespace=Pattern.compile("["  + whitespace_chars + "]");
-		//Matcher matcher = whitespace.matcher ("test");
-				
-		//metrics=new ArrayList<INPerformanceMetrics> ();
-		//windows=new ArrayList<INEmbeddedJPanel>();
-		//searchHistory=new ArrayList<INTextSearch>();
-		
-		fManager=new INFileManager ();		
+							
+		environment=new INHoopEnvironment ();
+		fManager=new INFileManager ();				
     }      
 }
