@@ -43,6 +43,7 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.controls.base.INJPanel;
+import edu.cmu.cs.in.hoop.base.INHoopBase;
 import edu.cmu.cs.in.hoop.properties.INHoopPropertyTable;
 
 /**
@@ -52,7 +53,7 @@ public class INHoopInspectablePanel extends INJPanel implements ActionListener, 
 {	
 	private static final long serialVersionUID = 1L;
 	
-	private INHoopInspectable component=null;
+	private INHoopBase component=null;
 	
 	private FlatButton foldButton=null;
 	private JScrollPane parameterScrollList=null;
@@ -305,7 +306,7 @@ public class INHoopInspectablePanel extends INJPanel implements ActionListener, 
 	/**
 	 * 
 	 */	
-	public void setComponent(INHoopInspectable component) 
+	public void setComponent(INHoopBase component) 
 	{
 		this.component=component;
 		
@@ -316,7 +317,7 @@ public class INHoopInspectablePanel extends INJPanel implements ActionListener, 
 	/**
 	 * 
 	 */	
-	public INHoopInspectable getComponent() 
+	public INHoopBase getComponent() 
 	{
 		return component;
 	}
@@ -344,57 +345,20 @@ public class INHoopInspectablePanel extends INJPanel implements ActionListener, 
 						debug ("Style object: " + tester.getClass().getName() + " with value: " + tester);						
 						
 						INHoopSerializableTableEntry value=(INHoopSerializableTableEntry) parameterModel.getValueAt(arg0.getFirstRow(),1);
-						INHoopStyleProperty entry=(INHoopStyleProperty) value.getEntry();
+						INHoopSerializable entry=(INHoopSerializable) value.getEntry();
 						if (entry!=null)
 						{							
 							debug ("Entry: " + entry.toString());
 							
-							INHoopInspectable target=value.getComponent();
+							INHoopBase target=value.getComponent();
 						
 							entry.setTouched(true);
-						
-							/*
-							if (controller!=null)
-							{
-								//debug ("Sending: " +target.toStringElementTouched());
-								
-								controller.sendInterfaceDescription (target.getName(),target.toStringElementTouched());
-							}	
-							else
-								debug ("Error: controller object is null!");
-							*/	
-						
-							entry.setTouched(false);
-						
-							//untouch ();
+												
+							entry.setTouched(false);												
 						}	
 					}
 				}
-			});						
-			
-			/*
-			ArrayList<INHoopParameter> params=component.getParameters();
-						
-			for (int i=0;i<params.size();i++)
-			{
-				INHoopParameter param=params.get(i);
-								
-				INHoopSerializableTableEntry entry1=new INHoopSerializableTableEntry (param.getInstanceName());				
-				
-				INHoopSerializableTableEntry entry2=new INHoopSerializableTableEntry (param.getValue());
-				entry2.setEntry(param);
-				entry2.setComponent(getComponent());
-				
-				INHoopSerializableTableEntry[] parameterData = {entry1,entry2};
-				
-				parameterModel.addRow (parameterData);				
-			}
-			
-			parameterTable.setModel(parameterModel);
-			
-	        TableColumn colP = parameterTable.getColumnModel().getColumn(1);
-	        colP.setCellEditor(new INHoopSheetCellEditor());
-	        */			
+			});												
 		}	
 	}
 	/**

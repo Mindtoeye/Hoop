@@ -90,7 +90,7 @@ public class INHoopGraphFile extends INHoopProjectFile
 		debug ("fromXML ()");
 				
 		graphRoot=new INHoopBase ();
-		graphRoot.fromXML(root);
+		graphRoot.fromXMLElement(root);
 		
 		return (true);
 	}	

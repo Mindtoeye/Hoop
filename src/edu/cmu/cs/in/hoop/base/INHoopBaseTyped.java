@@ -20,15 +20,20 @@ package edu.cmu.cs.in.hoop.base;
 
 import java.util.ArrayList;
 
+import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.kv.INKVType;
-import edu.cmu.cs.in.hoop.properties.INHoopInspectable;
+import edu.cmu.cs.in.hoop.properties.INHoopSerializable;
 
 /**
 *
 */
-public class INHoopBaseTyped extends INHoopInspectable
+public class INHoopBaseTyped extends INBase implements INHoopPropertyContainer
 {    			
 	private ArrayList <INKVType> types=null;
+	
+	private INHoopSerializable aVariable=null;
+	
+	private ArrayList <INHoopSerializable> properties=null;
 	
 	/**
 	 *
@@ -40,7 +45,11 @@ public class INHoopBaseTyped extends INHoopInspectable
 				
 		types=new ArrayList <INKVType> ();
 		types.add(new INKVType (INKVType.STRING,"Key"));
-		types.add(new INKVType (INKVType.STRING,"Value"));						
+		types.add(new INKVType (INKVType.STRING,"Value"));
+		
+		properties=new ArrayList<INHoopSerializable> ();
+		
+		aVariable=new INHoopSerializable (this);
     }
     /**
      *  
@@ -48,6 +57,13 @@ public class INHoopBaseTyped extends INHoopInspectable
     public ArrayList <INKVType> getTypes ()
     {
     	return (types);
+    }
+    /**
+     * 
+     */
+    public ArrayList <INHoopSerializable> getProperties ()
+    {
+    	return (properties);
     }
     /**
      * 
@@ -79,5 +95,13 @@ public class INHoopBaseTyped extends INHoopInspectable
     	
 		target.setType(aType);
 		target.setTypeValue (aValue);
-    }    
+    }
+    /**
+     * 
+     */
+	@Override
+	public INHoopBaseTyped getPropParent() 
+	{	
+		return this;
+	}    
 }

@@ -18,10 +18,8 @@
 
 package edu.cmu.cs.in.hoop.properties;
 
+import java.util.ArrayList;
 
-//import java.util.Iterator;
-
-//import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -30,6 +28,7 @@ import org.w3c.dom.NodeList;
 //import org.xml.sax.SAXParseException;
 
 import edu.cmu.cs.in.base.INXMLBase;
+import edu.cmu.cs.in.hoop.base.INHoopPropertyContainer;
 
 /**
 
@@ -38,18 +37,48 @@ public class INHoopSerializable extends INXMLBase
 {			
 	protected String value="";
 	protected String type="";
-	protected String format=""; // Either one of Boolean, Number, String
+	
+	/// Either one of Boolean, Float, Integer, String where higher level types such as Color and Font will have t be mapped to base types
+	protected String format=""; 
 	
 	private Boolean touched=false;
+	
+	private INHoopPropertyContainer propParent=null;
 	
 	/**
 	 *
 	 */
-    public INHoopSerializable () 
+    public INHoopSerializable (INHoopPropertyContainer aParent) 
     {
     	setClassName ("INHoopSerializable");
     	debug ("INHoopSerializable ()");
+    	
+    	propParent=aParent;
+    	
+    	if (propParent!=null)
+    	{
+    		ArrayList <INHoopSerializable> props=propParent.getProperties ();
+    		if (props!=null)
+    		{
+    			debug ("Adding this to parent properties list");
+    			props.add(this);
+    		}
+    	}
     }
+	/**
+	 *
+	 */    
+	public INHoopPropertyContainer getPropParent() 
+	{
+		return propParent;
+	}
+	/**
+	 *
+	 */	
+	public void setPropParent(INHoopPropertyContainer propParent) 
+	{
+		this.propParent = propParent;
+	}    
 	/**
 	 *
 	 */    
@@ -161,25 +190,4 @@ public class INHoopSerializable extends INXMLBase
 		buffer.append(getClassOpen ()+"<name>"+getInstanceName ()+"</name><value fmt=\"text\" type=\"String\">"+value+"</value>"+getClassClose ());
 		return (buffer.toString ());
 	}
-	/**
-	*	
-	*/		
-	/*
-	public Element toStringElement()
-	{
-		Element newElement=getClassElement ();
-
-		Element nameElement=new Element ("name");
-		nameElement.setText(getName());						
-		newElement.addContent(nameElement);
-		
-		Element valueElement=new Element ("value");
-		valueElement.setAttribute("fmt","text");
-		valueElement.setAttribute("type","String");
-		valueElement.setText(value);		
-		newElement.addContent(valueElement);		
-		
-		return(newElement);
-	}
-	*/	
 }

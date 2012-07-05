@@ -22,10 +22,8 @@ import edu.cmu.cs.in.hoop.base.INHoopBase;
 
 public class INHoopSerializableTableEntry extends INHoopBase
 {	
-	private INHoopSerializable entry=null;
-	//private INHoopSAI          sai=null;
-	//private INHoopArgument     arg=null;	
-	private INHoopInspectable component=null;
+	private INHoopSerializable entry=null;	
+	private INHoopBase component=null;
 	private String value="";
 	
 	/**
@@ -68,36 +66,18 @@ public class INHoopSerializableTableEntry extends INHoopBase
 	public INHoopSerializable getEntry() 
 	{
 		return entry;
-	}
+	}	
 	/**
 	 *
 	 */
-	/*
-	public void setArgument(INHoopArgument anArg) 
-	{
-		arg=anArg;
-	}
-	*/
-	/**
-	 *
-	 */
-	/*
-	public INHoopArgument getArgument() 
-	{
-		return arg;
-	}
-	*/		
-	/**
-	 *
-	 */
-	public void setComponent(INHoopInspectable component) 
+	public void setComponent(INHoopBase component) 
 	{
 		this.component=component;
 	}
 	/**
 	 *
 	 */
-	public INHoopInspectable getComponent() 
+	public INHoopBase getComponent() 
 	{
 		return component;
 	}

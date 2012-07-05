@@ -26,10 +26,8 @@ import javax.swing.JPanel;
 import org.w3c.dom.Element;
 
 import edu.cmu.cs.in.base.kv.INKV;
-//import edu.cmu.cs.in.base.kv.INKVType;
 import edu.cmu.cs.in.hoop.editor.INHoopVisualRepresentation;
-import edu.cmu.cs.in.hoop.properties.INHoopStyleProperty;
-//import edu.cmu.cs.in.hoop.properties.INHoopInspectable;
+import edu.cmu.cs.in.hoop.properties.INHoopSerializable;
 import edu.cmu.cs.in.stats.INPerformanceMetrics;
 import edu.cmu.cs.in.stats.INStatisticsMeasure;
 
@@ -64,9 +62,7 @@ public class INHoopBase extends INHoopBaseTyped implements INHoopInterface
 	private INHoopVisualRepresentation visualizer=null;
 	
 	private int maxValues=1;
-	
-	private ArrayList <INHoopStyleProperty> properties=null;
-	
+		
 	/**
 	 *
 	 */
@@ -85,9 +81,9 @@ public class INHoopBase extends INHoopBaseTyped implements INHoopInterface
 				
 		inPorts=new ArrayList<String> ();
 		outPorts=new ArrayList<String> ();
-		
+				
 		performance=new INPerformanceMetrics ();
-		
+				
 		setHoopDescription ("Abstract Hoop");
 		
 		addInPort ("KV");
@@ -364,9 +360,11 @@ public class INHoopBase extends INHoopBaseTyped implements INHoopInterface
 		
 		formatted.append("<properties>\n");
 		
-		for (int i=0;i<properties.size();i++)
+		ArrayList <INHoopSerializable> props=getProperties ();
+		
+		for (int i=0;i<props.size();i++)
 		{
-			INHoopStyleProperty prop=properties.get(i);
+			INHoopSerializable prop=props.get(i);
 			
 			formatted.append(prop.toXML());
 			formatted.append("\n");
