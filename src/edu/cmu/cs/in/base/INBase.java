@@ -172,6 +172,20 @@ public class INBase
 	/**
 	 *
 	 */	
+	public String getName() 
+	{
+		return instanceName;
+	}
+	/**
+	 *
+	 */	
+	public void setName(String instanceName) 
+	{
+		this.instanceName = instanceName;
+	}	
+	/**
+	 *
+	 */	
 	public String getInstanceName() 
 	{
 		return instanceName;

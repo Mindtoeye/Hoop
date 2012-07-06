@@ -16,21 +16,23 @@
  * 
  */
 
-package edu.cmu.cs.in.hoop.base;
+package edu.cmu.cs.in.hoop.properties.types;
 
-import java.util.ArrayList;
+import edu.cmu.cs.in.hoop.base.INHoopPropertyContainer;
 
-import edu.cmu.cs.in.hoop.properties.types.INHoopSerializable;
+/**
 
-public interface INHoopPropertyContainer
-{
-	/** 
-	 * @return INHoopBaseTyped
+*/
+public class INHoopURISerializable extends INHoopSerializable
+{				
+	/**
+	 *
 	 */
-	public INHoopBaseTyped getPropParent ();
-	
-	/** 
-	 * @return ArrayList <INHoopSerializable>
-	 */
-	public ArrayList <INHoopSerializable> getProperties ();
+    public INHoopURISerializable (INHoopPropertyContainer aParent) 
+    {
+    	super (aParent);
+    	setClassName ("INHoopURISerializable");
+    	debug ("INHoopURISerializable ()");
+    	
+    }
 }

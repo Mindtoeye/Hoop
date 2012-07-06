@@ -32,7 +32,7 @@ import edu.cmu.cs.in.hoop.base.INHoopBase;
 import edu.cmu.cs.in.hoop.base.INHoopInterface;
 import edu.cmu.cs.in.hoop.base.INHoopTransformBase;
 import edu.cmu.cs.in.hoop.project.INHoopProject;
-import edu.cmu.cs.in.hoop.project.INHoopVocabulary;
+import edu.cmu.cs.in.hoop.project.INHoopStopWords;
 
 /**
 * 
@@ -40,7 +40,7 @@ import edu.cmu.cs.in.hoop.project.INHoopVocabulary;
 public class INHoopFilterStopWords extends INHoopTransformBase implements INHoopInterface
 {    	
 	private INHoopStopWordEditor propPanel=null;
-	private INHoopVocabulary vocab=null;
+	private INHoopStopWords vocab=null;
 	
 	/**
 	 *
@@ -56,7 +56,7 @@ public class INHoopFilterStopWords extends INHoopTransformBase implements INHoop
 		
 		if (proj!=null)
 		{
-			vocab=new INHoopVocabulary ();
+			vocab=new INHoopStopWords ();
 			proj.addFile (vocab);
 			
 			INHoopProjectPanel projectPanel=(INHoopProjectPanel) INHoopLink.getWindow("Project");

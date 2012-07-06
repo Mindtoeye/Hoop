@@ -20,6 +20,7 @@ package edu.cmu.cs.in.hoop.base;
 
 import edu.cmu.cs.in.base.io.INFileManager;
 import edu.cmu.cs.in.base.kv.INKVString;
+import edu.cmu.cs.in.hoop.properties.types.INHoopURISerializable;
 
 /**
 * 
@@ -28,9 +29,12 @@ public class INHoopFileLoadBase extends INHoopLoadBase implements INHoopInterfac
 {    				
 	private INFileManager fManager=null;
 	private INKVString fileKV=null;
-	private String inputStreamPath="X:\\Echidne\\Hydra (Science)\\Development\\Hoop\\Resources\\ExampleData\\playtennis.arff";
+	
+	//private String inputStreamPath="X:\\Echidne\\Hydra (Science)\\Development\\Hoop\\Resources\\ExampleData\\playtennis.arff";
 	//private String inputStreamPath="X:\\Echidne\\Hydra (Science)\\Development\\Hoop\\Resources\\ExampleData\\MovieReviews-Full.csv";
 	//private String inputStreamPath="C:\\Martin\\Echidne\\Hydra (Science)\\Development\\Hoop\\Resources\\ExampleData\\MovieReviews-Full.csv";
+	
+	private INHoopURISerializable URI=null;
 	
 	/**
 	 *
@@ -47,6 +51,10 @@ public class INHoopFileLoadBase extends INHoopLoadBase implements INHoopInterfac
 		fManager=new INFileManager ();
 		fileKV=new INKVString ();						
 		addKV (fileKV);		
+		
+		URI=new INHoopURISerializable (this);
+		URI.setName("File");
+		URI.setValue("C:\\Martin\\Echidne\\Hydra (Science)\\Development\\Hoop\\Resources\\ExampleData\\MovieReviews-Full.csv");
     }
 	/**
 	 *
@@ -69,7 +77,7 @@ public class INHoopFileLoadBase extends INHoopLoadBase implements INHoopInterfac
 	{		
 		debug ("runHoop ()");
 								
-		String contents=fManager.loadContents(inputStreamPath);
+		String contents=fManager.loadContents(URI.getValue());
 		
 		if (contents==null)
 		{
@@ -87,14 +95,14 @@ public class INHoopFileLoadBase extends INHoopLoadBase implements INHoopInterfac
 	 */	
 	public void setInputStreamPath(String inputStreamPath) 
 	{
-		this.inputStreamPath = inputStreamPath;
+		URI.setValue(inputStreamPath);
 	}
 	/**
 	 *
 	 */	
 	public String getInputStreamPath() 
 	{
-		return inputStreamPath;
+		return URI.getValue();
 	}	
 	/**
 	 * 

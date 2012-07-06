@@ -16,21 +16,27 @@
  * 
  */
 
-package edu.cmu.cs.in.hoop.base;
+package edu.cmu.cs.in.hoop.project;
 
 import java.util.ArrayList;
 
-import edu.cmu.cs.in.hoop.properties.types.INHoopSerializable;
-
-public interface INHoopPropertyContainer
+/** 
+ * @author Martin van Velsen
+ */
+public class INHoopStopWords extends INHoopProjectFile
 {
-	/** 
-	 * @return INHoopBaseTyped
-	 */
-	public INHoopBaseTyped getPropParent ();
+	//private ArrayList <String> wordList=null;
 	
-	/** 
-	 * @return ArrayList <INHoopSerializable>
+	/**
+	 * 
 	 */
-	public ArrayList <INHoopSerializable> getProperties ();
+	public INHoopStopWords ()
+	{
+		setClassName ("INHoopStopWords");
+		debug ("INHoopStopWords ()");
+		
+		//wordList=new ArrayList<String> ();
+		
+		this.setInstanceName("stopwords.xml");
+	}	
 }

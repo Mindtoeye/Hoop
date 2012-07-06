@@ -28,6 +28,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -41,15 +42,18 @@ import javax.swing.SwingConstants;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+
 import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.controls.base.INJPanel;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
 import edu.cmu.cs.in.hoop.properties.INHoopPropertyTable;
+import edu.cmu.cs.in.hoop.properties.types.INHoopSerializable;
 
 /**
  * 
  */
-public class INHoopInspectablePanel extends INJPanel implements ActionListener, ItemListener
+public class INHoopInspectablePanel extends INJPanel implements ActionListener, ItemListener, TableModelListener
 {	
 	private static final long serialVersionUID = 1L;
 	
@@ -155,16 +159,21 @@ public class INHoopInspectablePanel extends INJPanel implements ActionListener, 
         controlBox.add(Box.createHorizontalGlue());
                                                 	    
         parameterPanel=new JPanel ();
+        //parameterPanel.setBorder(BorderFactory.createLineBorder(Color.white));
+        
+        parameterModel=new DefaultTableModel (null,columnNames);
+        parameterModel.addTableModelListener (this);
         
         parameterTable=new INHoopPropertyTable ();
-        parameterTable.setBorder(BorderFactory.createLineBorder(Color.black));
-                
-        //parameterScrollList=new JScrollPane (parameterTable);
-        parameterScrollList=new JScrollPane ();
+        //parameterTable.setBorder(BorderFactory.createLineBorder(Color.black));
+        parameterTable.setModel(parameterModel);
+                                
+        parameterScrollList=new JScrollPane (parameterTable);        
+        //parameterScrollList=new JScrollPane ();
         parameterScrollList.setMinimumSize(new Dimension (10,10));
         parameterScrollList.setPreferredSize(new Dimension (100,100));   
         parameterScrollList.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);        
-        parameterScrollList.setBorder(BorderFactory.createLineBorder(Color.red));
+        //parameterScrollList.setBorder(BorderFactory.createLineBorder(Color.red));
         parameterScrollList.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         parameterScrollList.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
         
@@ -308,10 +317,10 @@ public class INHoopInspectablePanel extends INJPanel implements ActionListener, 
 	 */	
 	public void setComponent(INHoopBase component) 
 	{
+		debug ("setComponent ()");
+		
 		this.component=component;
-		
-		//this.component.setChecker (componentShow);
-		
+				
 		configComponentPanel ();
 	}
 	/**
@@ -326,40 +335,38 @@ public class INHoopInspectablePanel extends INJPanel implements ActionListener, 
 	 */
 	private void configComponentPanel ()
 	{				
+		debug ("configComponentPanel ()");
+		
 		if (parameterTable!=null)
 		{						
 			parameterModel=new DefaultTableModel (null,columnNames);
-		
-			parameterModel.addTableModelListener(new TableModelListener() 
+									
+			ArrayList<INHoopSerializable> props=component.getProperties();
+			
+			for (int i=0;i<props.size();i++)
 			{
-				@Override
-				public void tableChanged(TableModelEvent arg0) 
-				{
-					debug ("Table changed: " + arg0.getFirstRow() + "," + arg0.getType());
-					
-					if (arg0.getType()==TableModelEvent.UPDATE)
-					{
-						debug ("Propagating parameter value back into INHoop object ...");
-						
-						Object tester=parameterTable.getValueAt(arg0.getFirstRow(),1);
-						debug ("Style object: " + tester.getClass().getName() + " with value: " + tester);						
-						
-						INHoopSerializableTableEntry value=(INHoopSerializableTableEntry) parameterModel.getValueAt(arg0.getFirstRow(),1);
-						INHoopSerializable entry=(INHoopSerializable) value.getEntry();
-						if (entry!=null)
-						{							
-							debug ("Entry: " + entry.toString());
-							
-							INHoopBase target=value.getComponent();
-						
-							entry.setTouched(true);
-												
-							entry.setTouched(false);												
-						}	
-					}
-				}
-			});												
-		}	
+				INHoopSerializable prop=props.get(i);
+								
+				INHoopSerializableTableEntry entry1=new INHoopSerializableTableEntry (prop.getName());				
+				
+				INHoopSerializableTableEntry entry2=new INHoopSerializableTableEntry (prop.getValue());
+				entry2.setEntry(prop);
+				entry2.setComponent(getComponent());
+				
+				INHoopSerializableTableEntry[] parameterData = {entry1,entry2};
+				
+				parameterModel.addRow (parameterData);				
+			}
+			
+			parameterTable.setModel(parameterModel);
+			
+			/*
+	        TableColumn colP = parameterTable.getColumnModel().getColumn(1);
+	        colP.setCellEditor(new CTATSheetCellEditor());
+	        */						
+		}
+		else
+			debug ("Error: no parameter table available for property sheet");
 	}
 	/**
 	 * 
@@ -380,23 +387,7 @@ public class INHoopInspectablePanel extends INJPanel implements ActionListener, 
 			}
 			else
 				debug ("Internal error: item in parameter table is not a INHoop entry");
-		}
-		
-		/*
-		for (int i=0;i<styleModel.getRowCount();i++)
-		{
-			Object tester=styleModel.getValueAt(i,1);
-
-			if (tester instanceof INHoopSerializableTableEntry)
-			{
-				INHoopSerializableTableEntry value=(INHoopSerializableTableEntry) styleModel.getValueAt(i,1);
-				INHoopSerializable entry=value.getEntry();
-				entry.setTouched(false);
-			}
-			else
-				debug ("Internal error: item in style table is not a INHoop entry");
-		}
-		*/		
+		}	
 	}
 	/**
 	 * 
@@ -404,27 +395,7 @@ public class INHoopInspectablePanel extends INJPanel implements ActionListener, 
 	public void checkComponent ()
 	{
 		debug ("checkComponent ()");
-		
-		/*
-		if (controller!=null)
-		{
-			if (componentShow.isSelected()==true)
-			{
-				controller.sendHighlightMsg("",s2v(component.getInstanceName()),s2v ("dummy"));
-				component.setSelected(true);
-			}	
-			else
-			{	
-				controller.sendUnHighlightMsg("",s2v(component.getInstanceName()),s2v ("dummy"));
-				component.setSelected(false);
-			}	
 			
-			if (preview!=null)
-				preview.repaint();
-		}
-		else
-			debug ("Error: controller object is null");
-		*/	
 	}
 	/**
 	 * 
@@ -444,5 +415,36 @@ public class INHoopInspectablePanel extends INJPanel implements ActionListener, 
 		parameterScrollList.invalidate();
 		
 		debug ("setPanelContent () done");
+	}
+	/*
+	 * 
+	 */
+	@Override
+	public void tableChanged(TableModelEvent tEvent) 
+	{
+		debug ("tableChanged ()");
+		
+		debug ("Table changed: " + tEvent.getFirstRow() + "," + tEvent.getType());
+		
+		if (tEvent.getType()==TableModelEvent.UPDATE)
+		{
+			debug ("Propagating parameter value back into INHoop object ...");
+			
+			Object tester=parameterTable.getValueAt(tEvent.getFirstRow(),1);
+			debug ("Style object: " + tester.getClass().getName() + " with value: " + tester);						
+			
+			INHoopSerializableTableEntry value=(INHoopSerializableTableEntry) parameterModel.getValueAt(tEvent.getFirstRow(),1);
+			INHoopSerializable entry=(INHoopSerializable) value.getEntry();
+			if (entry!=null)
+			{							
+				debug ("Entry: " + entry.toString());
+				
+				INHoopBase target=value.getComponent();
+			
+				entry.setTouched(true);
+									
+				entry.setTouched(false);												
+			}	
+		}		
 	}
 }

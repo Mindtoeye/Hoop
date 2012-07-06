@@ -29,6 +29,7 @@ import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 
 import edu.cmu.cs.in.controls.base.INJPanel;
+import edu.cmu.cs.in.hoop.properties.types.INHoopSerializable;
 
 import java.awt.Color;
 import java.awt.Component;

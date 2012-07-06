@@ -123,7 +123,7 @@ public class INHoopNodePanel extends INHoopNodeRenderer implements INHoopVisualR
 		if (propPanel!=null)
 		{
 			propertiesPanel=new INHoopInspectablePanel (hoop.getHoopDescription());
-			
+						
 			JPanel hoopPanel=aHoop.getPropertiesPanel();
 						
 			propPanel.addPropertyPanel (propertiesPanel);
@@ -136,6 +136,7 @@ public class INHoopNodePanel extends INHoopNodeRenderer implements INHoopVisualR
 			else
 			{
 				debug ("No custom config panel provided, switching to properties panel instead");
+				propertiesPanel.setComponent(aHoop);
 			}						
 		}
 		

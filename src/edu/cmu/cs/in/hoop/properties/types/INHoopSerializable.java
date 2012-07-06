@@ -16,7 +16,7 @@
  * 
  */
 
-package edu.cmu.cs.in.hoop.properties;
+package edu.cmu.cs.in.hoop.properties.types;
 
 import java.util.ArrayList;
 

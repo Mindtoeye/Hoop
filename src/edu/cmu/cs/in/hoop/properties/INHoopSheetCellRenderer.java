@@ -23,6 +23,7 @@ import java.awt.Font;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import edu.cmu.cs.in.base.INBase;
+import edu.cmu.cs.in.hoop.properties.types.INHoopSerializable;
 
 /**
  * 

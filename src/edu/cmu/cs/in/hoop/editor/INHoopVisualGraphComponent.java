@@ -139,16 +139,7 @@ public class INHoopVisualGraphComponent extends mxGraphComponent
 						INHoopBase hoopTemplate=INHoopLink.hoopManager.instantiate (templateName);
 						
 						cell.setValue(hoopTemplate);
-						
-						/*
-						if (INHoopLink.hoopGraphManager.getRoot()==null)
-							INHoopLink.hoopGraphManager.setRoot(hoopTemplate);
-						else
-						{
-							INHoopLink.hoopGraphManager.addHoop (hoopTemplate);
-						}
-						*/
-						
+												
 						INHoopLink.hoopGraphManager.addHoop (hoopTemplate);
 						
 						INHoopNodePanel aPanel=new INHoopNodePanel (hoopTemplate,cell, this);					

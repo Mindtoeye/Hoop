@@ -37,6 +37,7 @@ import javax.swing.JTextField;
 import javax.swing.table.TableCellEditor;
 
 import edu.cmu.cs.in.base.INBase;
+import edu.cmu.cs.in.hoop.properties.types.INHoopSerializable;
 
 public class INHoopSheetCellEditor extends AbstractCellEditor implements TableCellEditor, ActionListener 
 {

@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.kv.INKVType;
-import edu.cmu.cs.in.hoop.properties.INHoopSerializable;
+import edu.cmu.cs.in.hoop.properties.types.INHoopSerializable;
 
 /**
 *
@@ -30,9 +30,6 @@ import edu.cmu.cs.in.hoop.properties.INHoopSerializable;
 public class INHoopBaseTyped extends INBase implements INHoopPropertyContainer
 {    			
 	private ArrayList <INKVType> types=null;
-	
-	private INHoopSerializable aVariable=null;
-	
 	private ArrayList <INHoopSerializable> properties=null;
 	
 	/**
@@ -47,9 +44,7 @@ public class INHoopBaseTyped extends INBase implements INHoopPropertyContainer
 		types.add(new INKVType (INKVType.STRING,"Key"));
 		types.add(new INKVType (INKVType.STRING,"Value"));
 		
-		properties=new ArrayList<INHoopSerializable> ();
-		
-		aVariable=new INHoopSerializable (this);
+		properties=new ArrayList<INHoopSerializable> ();		
     }
     /**
      *  

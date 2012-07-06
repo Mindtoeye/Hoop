@@ -21,6 +21,7 @@ package edu.cmu.cs.in.hoop.properties;
 import javax.swing.table.TableCellRenderer;
 
 import edu.cmu.cs.in.controls.base.INHoopJTable;
+import edu.cmu.cs.in.hoop.properties.types.INHoopSerializable;
 
 public class INHoopPropertyTable extends INHoopJTable
 {

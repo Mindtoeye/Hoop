@@ -27,7 +27,7 @@ import org.w3c.dom.Element;
 
 import edu.cmu.cs.in.base.kv.INKV;
 import edu.cmu.cs.in.hoop.editor.INHoopVisualRepresentation;
-import edu.cmu.cs.in.hoop.properties.INHoopSerializable;
+import edu.cmu.cs.in.hoop.properties.types.INHoopSerializable;
 import edu.cmu.cs.in.stats.INPerformanceMetrics;
 import edu.cmu.cs.in.stats.INStatisticsMeasure;
 

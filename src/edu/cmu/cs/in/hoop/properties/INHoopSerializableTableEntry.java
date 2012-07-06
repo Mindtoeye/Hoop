@@ -19,6 +19,7 @@
 package edu.cmu.cs.in.hoop.properties;
 
 import edu.cmu.cs.in.hoop.base.INHoopBase;
+import edu.cmu.cs.in.hoop.properties.types.INHoopSerializable;
 
 public class INHoopSerializableTableEntry extends INHoopBase
 {	
