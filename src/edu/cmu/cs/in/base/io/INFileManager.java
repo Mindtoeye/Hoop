@@ -18,8 +18,21 @@
 
 package edu.cmu.cs.in.base.io;
 
-import java.io.*;
+import java.util.Enumeration;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 import java.util.ArrayList;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Writer;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -514,20 +527,195 @@ public class INFileManager extends INBase
         
         return files;
 	}
-	/**
-	 *
+	/** 
+	 * @param is
+	 * @return
 	 */
-	/*
-	private static void addFilesRecursively(File file, Collection<File> all) 
+	public String convertStreamToString(InputStream is) 
 	{
-	    final File[] children = file.listFiles();
-	    
-	    if (children != null) {
-	        for (File child : children) {
-	            all.add(child);
-	            addFilesRecursively(child, all);
-	        }
+	    try 
+	    {
+	        return new java.util.Scanner(is).useDelimiter("\\A").next();
+	    } 
+	    catch (java.util.NoSuchElementException e) 
+	    {
+	        return "";
 	    }
 	}
-	*/
+	/**
+	 * 
+	 */
+	public Boolean extractJarToDisk (String aJarFile,String aDest)
+	{
+		debug ("extractJarToDisk ("+aJarFile+","+aDest+")");
+		
+		JarFile jar;
+		try 
+		{
+			jar = new JarFile(aJarFile);
+		} 
+		catch (IOException e1) 
+		{
+			e1.printStackTrace();
+			return (false);
+		}
+		
+		Enumeration e = jar.entries();
+				
+		while (e.hasMoreElements()) 
+		{
+			JarEntry file = (JarEntry) e.nextElement();
+			File f = new File(aDest + File.separator + file.getName());
+			
+			if (file.isDirectory()) 
+			{ 
+				// if its a directory, create it
+				f.mkdir();
+				continue;
+			}
+			
+			InputStream is=null; // get the input stream
+			
+			try 
+			{
+				is = jar.getInputStream(file);
+			} 
+			catch (IOException e1) 
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} 
+			
+			FileOutputStream fos=null;
+			
+			try 
+			{
+				fos = new FileOutputStream(f);
+			} 
+			catch (FileNotFoundException e1) 
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			int avail=-1;
+			
+			try 
+			{
+				avail = is.available();
+			} 
+			catch (IOException e2) 
+			{		
+				e2.printStackTrace();
+				return (false);
+			}
+			
+			while (avail > 0) 
+			{  
+				// write contents of 'is' to 'fos'
+				try 
+				{
+					fos.write(is.read());
+				} 
+				catch (IOException e1) 
+				{
+					e1.printStackTrace();
+					return (false);
+				}
+				
+				try 
+				{
+					avail=is.available();
+				} 
+				catch (IOException e1) 
+				{				
+					e1.printStackTrace();
+					return (false);
+				}
+			}
+			
+			try 
+			{
+				fos.close();
+			} 
+			catch (IOException e1) 
+			{
+				debug ("Error, unable to close file output stream");
+				e1.printStackTrace();
+				return (false);
+			}
+			
+			try 
+			{
+				is.close();
+			} 
+			catch (IOException e1) 
+			{
+				debug ("Error, unable to close file input stream");
+				e1.printStackTrace();
+				return (false);
+			}
+		}
+		
+		return (true);
+	}		
+	/**
+	 * 
+	 */
+	public String extractJarEntry (String aJarFile,String aFile)
+	{
+		debug ("extractJarEntry ("+aJarFile+","+aFile+")");
+		
+		JarFile jar=null;
+		
+		try 
+		{
+			jar = new JarFile(aJarFile);
+		} 
+		catch (IOException e1) 
+		{
+			e1.printStackTrace();
+			return (null);
+		}
+		
+		Enumeration e = jar.entries();
+				
+		while (e.hasMoreElements()) 
+		{
+			JarEntry file = (JarEntry) e.nextElement();
+						
+			if ((file.isDirectory()==false) && (file.getName().equals(aFile)==true)) 
+			{
+				InputStream is=null; // get the input stream
+				
+				try 
+				{
+					is = jar.getInputStream(file);
+				} 
+				catch (IOException e1) 
+				{
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+					return (null);
+				} 
+									
+				String entryContents=convertStreamToString (is);
+						
+				try 
+				{
+					is.close();
+				} 
+				catch (IOException e1) 
+				{
+					debug ("Error, unable to close file input stream");
+					e1.printStackTrace();
+					return (null);
+				}
+			
+				return (entryContents);
+			}	
+		}
+		
+		return (null);
+	}		
 } 

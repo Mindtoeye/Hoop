@@ -52,17 +52,21 @@ public class INHoopEnvironment extends INBase
 		
 		//debug ("Java properties: ");
 		
+		/*
 		for (Entry<Object,Object> entry : sets) 
 		{
-			//debug ("Inspecting Java property: " + entry.getKey().toString() +"="+entry.getValue().toString());								
-		}    	
+			debug ("Inspecting Java property: " + entry.getKey().toString() +"="+entry.getValue().toString());								
+		} 
+		*/   	
 				
 		//debug ("Environment properties: ");
 		
+		/*
         for (String envName : env.keySet()) 
         {
-        	//debug ("Inspecting Environment property: " + envName +"="+env.get(envName));        	
+        	debug ("Inspecting Environment property: " + envName +"="+env.get(envName));        	
         }
+        */
 		
 		String option="";
     	    	
