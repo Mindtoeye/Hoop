@@ -20,9 +20,7 @@ package edu.cmu.cs.in.controls.base;
 
 import java.awt.Component;
 import java.awt.Dimension;
-import java.io.IOException;
 import java.io.PrintStream;
-import java.io.StringReader;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -295,5 +293,12 @@ public class INHoopJDialog extends JDialog
 		Box dynamicBox=new Box (BoxLayout.Y_AXIS);
 		dynamicBox.add(comp);
 		return (dynamicBox);
+	}	
+	/**
+	 * 
+	 */
+	protected void alert (String aMessage)
+	{
+		INBase.alert(aMessage);
 	}	
 }

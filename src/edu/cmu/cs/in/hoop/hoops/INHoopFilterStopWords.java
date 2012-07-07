@@ -33,6 +33,7 @@ import edu.cmu.cs.in.hoop.base.INHoopInterface;
 import edu.cmu.cs.in.hoop.base.INHoopTransformBase;
 import edu.cmu.cs.in.hoop.project.INHoopProject;
 import edu.cmu.cs.in.hoop.project.INHoopStopWords;
+import edu.cmu.cs.in.hoop.properties.types.INHoopURISerializable;
 
 /**
 * 
@@ -41,6 +42,8 @@ public class INHoopFilterStopWords extends INHoopTransformBase implements INHoop
 {    	
 	private INHoopStopWordEditor propPanel=null;
 	private INHoopStopWords vocab=null;
+	
+	private INHoopURISerializable URI=null;
 	
 	/**
 	 *
@@ -63,6 +66,8 @@ public class INHoopFilterStopWords extends INHoopTransformBase implements INHoop
 			if (projectPanel!=null)
 				projectPanel.updateContents();
 		}
+		
+		URI=new INHoopURISerializable (this,"File","<PROJECTPATH>/vocabulary.xml");		
     }
 	/**
 	 *

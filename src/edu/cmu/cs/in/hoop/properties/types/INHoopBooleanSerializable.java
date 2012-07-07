@@ -25,14 +25,43 @@ import edu.cmu.cs.in.hoop.base.INHoopPropertyContainer;
 */
 public class INHoopBooleanSerializable extends INHoopSerializable
 {				
+	private Boolean propValue=true;
+	
 	/**
 	 *
 	 */
-    public INHoopBooleanSerializable (INHoopPropertyContainer aParent) 
+	public INHoopBooleanSerializable (INHoopPropertyContainer aParent,String aName,Boolean aPropValue) 
+	{
+		super (aParent,aName);
+		setClassName ("INHoopBooleanSerializable");
+		debug ("INHoopBooleanSerializable ()");
+   	
+		this.setPropValue(aPropValue);
+	}	
+	/**
+	 *
+	 */
+    public INHoopBooleanSerializable (INHoopPropertyContainer aParent,String aName) 
     {
-    	super (aParent);
+    	super (aParent,aName);
     	setClassName ("INHoopBooleanSerializable");
     	debug ("INHoopBooleanSerializable ()");
     	
     }
+    /** 
+     * @param propValue
+     */
+	public void setPropValue(Boolean propValue) 
+	{
+		this.propValue = propValue;
+		this.setValue(propValue.toString());
+	}
+	/**
+	 * 
+	 * @return
+	 */
+	public Boolean getPropValue() 
+	{
+		return propValue;
+	}
 }

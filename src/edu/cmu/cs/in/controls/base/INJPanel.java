@@ -154,5 +154,12 @@ public class INJPanel extends JPanel
 		 
 		// Move the window
 		aWindow.setLocation(x, y);		
-	}	
+	}
+	/**
+	 * 
+	 */
+	protected void alert (String aMessage)
+	{
+		INBase.alert(aMessage);
+	}
 }

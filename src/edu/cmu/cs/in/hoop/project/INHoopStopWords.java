@@ -20,6 +20,8 @@ package edu.cmu.cs.in.hoop.project;
 
 import java.util.ArrayList;
 
+import edu.cmu.cs.in.base.INHoopLink;
+
 /** 
  * @author Martin van Velsen
  */
@@ -39,4 +41,27 @@ public class INHoopStopWords extends INHoopProjectFile
 		
 		this.setInstanceName("stopwords.xml");
 	}	
+	/**
+	*
+	*/	
+	public String toXML() 
+	{
+		debug ("toXML ()");
+	
+		StringBuffer formatted=new StringBuffer ();
+		formatted.append (super.toXML());
+		
+		formatted.append("<entries>\n");
+		
+		for (int i=0;i<INHoopLink.stops.length;i++)
+		{
+			String stopEntry=INHoopLink.stops [i];
+			
+			formatted.append("<stopword name=\""+stopEntry+"\" />\n");
+		}
+		
+		formatted.append("</entries>\n");
+		
+		return (formatted.toString());
+	}		
 }

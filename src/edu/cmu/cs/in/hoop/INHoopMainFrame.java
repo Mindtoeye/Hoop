@@ -275,7 +275,7 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     				return;
     			}
     			
-    			if (proj.getFileURI().equals("")==true)
+    			if (proj.getVirginFile()==true)
     			{
         			FileNameExtensionFilter filter=new FileNameExtensionFilter ("Target Directories", "Directories");
         			fc.setFileFilter(filter);    			
@@ -285,26 +285,13 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
 
         			if (returnVal==JFileChooser.APPROVE_OPTION) 
         			{
-        				Object[] options = {"Yes","No","Cancel"};
-        	           	int n = JOptionPane.showOptionDialog (compReference,
-        	           										  "Loading a saved set will override any existing selections, do you want to continue?",
-        	           										  "Hoop Info Panel",
-        	           										  JOptionPane.YES_NO_CANCEL_OPTION,
-        	           										  JOptionPane.QUESTION_MESSAGE,
-        	           										  null,
-        	           										  options,
-        	           										  options[2]);
-        	           	
-        	           	if (n==0)
-        	           	{          	
-        	           		File file = fc.getSelectedFile();
+        	           	File file = fc.getSelectedFile();
 
-        	           		debug ("Creating in directory: " + file.getAbsolutePath() + " ...");
+        	           	debug ("Creating in directory: " + file.getAbsolutePath() + " ...");
         	                   	           		
-        	           		INHoopLink.project.setFileURI(file.getAbsolutePath()+"/.hprj");
+        	           	INHoopLink.project.setFileURI(file.getAbsolutePath()+"/.hprj");
         	           		
-        	           		proj.save();
-        	           	}	
+        	           	proj.save();	
         			} 
         			else 
         			{
@@ -348,6 +335,41 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     	
     	//>------------------------------------------------------    	
     	
+    	JMenuItem imp = new JMenuItem("Import ...");
+    	
+    	imp.addActionListener(new ActionListener() 
+    	{
+    		public void actionPerformed(ActionEvent e) 
+    		{
+    			INHoopProject proj=INHoopLink.project;
+    			
+    			if (proj==null)
+    			{
+    				debug ("Internal error: no project available");
+    				return;
+    			}
+    			
+    			if (proj.getVirginFile()==true)
+    			{
+    				alert ("Please save your project first");
+    				return;
+    			}
+    		}
+    	});    	
+    	
+    	JMenuItem exp = new JMenuItem("Export ...");
+    	exp.setEnabled(false);
+    	
+    	exp.addActionListener(new ActionListener() 
+    	{
+    		public void actionPerformed(ActionEvent e) 
+    		{
+    		
+    		}
+    	});    	
+    	
+    	//>------------------------------------------------------    	
+    	
     	JMenuItem props = new JMenuItem("Properties");
     	
     	//>------------------------------------------------------
@@ -371,6 +393,9 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     	file.add(saveas);
     	file.add(saveall);
     	file.add(revert);
+    	file.addSeparator();
+    	file.add(imp);
+    	file.add(exp);
     	file.addSeparator();
     	file.add(props);   
     	file.addSeparator();    	

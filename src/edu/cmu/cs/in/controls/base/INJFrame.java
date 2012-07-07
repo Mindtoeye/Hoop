@@ -25,6 +25,7 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 
 import edu.cmu.cs.in.base.INBase;
+import edu.cmu.cs.in.base.INHoopLink;
 
 /** 
  * @author vvelsen
@@ -43,6 +44,8 @@ public class INJFrame extends JFrame
 	{
 		setClassName ("INJFrame");
 		debug ("INJFrame ()");
+		
+		INHoopLink.mainFrame=this;
 	}
 	/**
 	 * Creates a Frame in the specified GraphicsConfiguration of a screen device and a blank title.
@@ -52,6 +55,8 @@ public class INJFrame extends JFrame
 		super (gc);
 		setClassName ("INJFrame");
 		debug ("INJFrame ()");
+		
+		INHoopLink.mainFrame=this;
 	}
 	/**
 	 * Creates a new, initially invisible Frame with the specified title.
@@ -61,6 +66,8 @@ public class INJFrame extends JFrame
 		super (title);
 		setClassName ("INJFrame");
 		debug ("INJFrame ()");
+		
+		INHoopLink.mainFrame=this;
 	}
 	/**
 	 * Creates a JFrame with the specified title and the specified GraphicsConfiguration of a screen device.
@@ -70,6 +77,8 @@ public class INJFrame extends JFrame
 		super (title,gc);
 		setClassName ("INJFrame");
 		debug ("INJFrame ()");
+		
+		INHoopLink.mainFrame=this;
 	}  
 	/**
 	 *
@@ -95,7 +104,7 @@ public class INJFrame extends JFrame
 	/**
 	 * 
 	 */
-	private void centerWindow (JFrame aWindow)
+	public void centerWindow (JFrame aWindow)
 	{
 		debug ("centerWindow ()");
 		
@@ -110,5 +119,12 @@ public class INJFrame extends JFrame
 		 
 		// Move the window
 		aWindow.setLocation(x, y);		
+	}	
+	/**
+	 * 
+	 */
+	protected void alert (String aMessage)
+	{
+		INBase.alert(aMessage);
 	}	
 }

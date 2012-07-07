@@ -78,4 +78,11 @@ public class INJComponent extends JComponent
 	{
 		INBase.debug(getClassName(),aMessage);
 	}	
+	/**
+	 * 
+	 */
+	protected void alert (String aMessage)
+	{
+		INBase.alert(aMessage);
+	}	
 }

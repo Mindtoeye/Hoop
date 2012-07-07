@@ -123,5 +123,12 @@ public class INHoopJTable extends JTable
     public boolean isCellEditable (int rowIndex, int vColIndex) 
     {    	
         return true;
-    }        
+    }
+	/**
+	 * 
+	 */
+	protected void alert (String aMessage)
+	{
+		INBase.alert(aMessage);
+	}    
 }

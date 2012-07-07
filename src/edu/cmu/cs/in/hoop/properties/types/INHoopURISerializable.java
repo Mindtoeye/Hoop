@@ -24,7 +24,28 @@ import edu.cmu.cs.in.hoop.base.INHoopPropertyContainer;
 
 */
 public class INHoopURISerializable extends INHoopSerializable
-{				
+{
+	/**
+	 *
+	 */
+	public INHoopURISerializable (INHoopPropertyContainer aParent,String aName,String aPropValue) 
+	{
+		super (aParent,aName);
+		setClassName ("INHoopURISerializable");
+		debug ("INHoopURISerializable ()");
+  	
+		this.setValue(aPropValue);
+	}	
+	/**
+	 *
+	 */
+	public INHoopURISerializable (INHoopPropertyContainer aParent,String aName) 
+	{
+		super (aParent,aName);
+		setClassName ("INHoopURISerializable");
+		debug ("INHoopURISerializable ()");
+   	
+	}	
 	/**
 	 *
 	 */
@@ -35,4 +56,18 @@ public class INHoopURISerializable extends INHoopSerializable
     	debug ("INHoopURISerializable ()");
     	
     }
+    /** 
+     * @param propValue
+     */
+	public void setPropValue(String propValue) 
+	{
+		this.setValue(propValue);
+	}
+	/** 
+	 * @return
+	 */
+	public String getPropValue() 
+	{
+		return (getValue ());
+	}      
 }

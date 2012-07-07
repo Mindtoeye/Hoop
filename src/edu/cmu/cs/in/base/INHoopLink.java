@@ -22,6 +22,7 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
@@ -273,6 +274,8 @@ public class INHoopLink extends INHoopProperties
 		 							 "run-n.png", // 84
 		 							 "run-forever.png"// 84		 							 
 		 							 };
+	
+	public static JFrame mainFrame=null;
 	
 	public static String vocabularyPath="./";
 	public static ArrayList <String> posFiles=null;	

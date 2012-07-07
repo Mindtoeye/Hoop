@@ -48,6 +48,27 @@ public class INHoopSerializable extends INXMLBase
 	/**
 	 *
 	 */
+	public INHoopSerializable (INHoopPropertyContainer aParent,String aName) 
+	{
+		setClassName ("INHoopSerializable");
+		debug ("INHoopSerializable ()");
+   	
+		this.setName(aName);
+		propParent=aParent;
+   	
+		if (propParent!=null)
+		{
+			ArrayList <INHoopSerializable> props=propParent.getProperties ();
+			if (props!=null)
+			{
+				debug ("Adding this to parent properties list");
+				props.add(this);
+			}
+		}
+   }	
+	/**
+	 *
+	 */
     public INHoopSerializable (INHoopPropertyContainer aParent) 
     {
     	setClassName ("INHoopSerializable");

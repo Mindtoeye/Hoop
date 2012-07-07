@@ -23,6 +23,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.swing.JOptionPane;
+
 import edu.cmu.cs.in.base.INFilterBase;
 import edu.cmu.cs.in.base.io.INFileManager;
 
@@ -217,6 +219,13 @@ public class INBase
 	protected String getClassClose ()
 	{
 		return ("</"+getClassType ()+">");
-	}	
+	}
+	/**
+	 * 
+	 */
+	public static void alert (String aMessage)
+	{
+		JOptionPane.showMessageDialog(INHoopLink.mainFrame,aMessage);
+	}
 }
 

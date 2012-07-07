@@ -32,6 +32,7 @@ public class INHoopProjectFile extends INXMLBase
 {
 	private String fileURI="";
 	protected INFileManager fManager=null;
+	private Boolean virginFile=true;
 	
 	/**
 	 * 
@@ -43,6 +44,20 @@ public class INHoopProjectFile extends INXMLBase
 		
 		fManager=new INFileManager ();
 	}
+	/**
+	 * 
+	 */
+	public void setVirginFile(Boolean virginFile) 
+	{
+		this.virginFile = virginFile;
+	}
+	/** 
+	 * @return Boolean
+	 */
+	public Boolean getVirginFile() 
+	{
+		return virginFile;
+	}	
 	/**
 	 * 
 	 */	
@@ -64,13 +79,26 @@ public class INHoopProjectFile extends INXMLBase
 	public String getFileURI() 
 	{
 		return fileURI;
-	}	
+	}
+	/**
+	 * 
+	 */
+	public String getBasePath ()
+	{
+		File transf=new File (fileURI);
+		
+		//int index=fileURI.indexOf(transf.getP)
+		
+		return (transf.getParent());
+	}
 	/**
 	 * 
 	 */
 	public Boolean save ()
 	{
 		debug ("save ()");
+		
+		this.virginFile=false;
 		
 		return (fManager.saveContents(fileURI,this.toXML()));
 	}	
@@ -102,6 +130,8 @@ public class INHoopProjectFile extends INXMLBase
 			return (false);
 		
 		fromXML (root);
+		
+		this.virginFile=false;
 		
 		return (true);
 	}	

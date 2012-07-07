@@ -23,7 +23,6 @@ import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.InternalFrameListener;
 
 import edu.cmu.cs.in.base.INBase;
-import edu.cmu.cs.in.base.INHoopLink;
 
 /** 
  * @author vvelsen
@@ -224,4 +223,11 @@ public class INJInternalFrame extends JInternalFrame implements InternalFrameLis
 		debug ("processClose ()");
 		// handle in child window!
 	}
+	/**
+	 * 
+	 */
+	protected void alert (String aMessage)
+	{
+		INBase.alert(aMessage);
+	}	
 }

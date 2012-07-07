@@ -24,15 +24,43 @@ import edu.cmu.cs.in.hoop.base.INHoopPropertyContainer;
 
 */
 public class INHoopIntegerSerializable extends INHoopSerializable
-{				
+{		
+	private Integer propValue=0;
+	
 	/**
 	 *
 	 */
-    public INHoopIntegerSerializable (INHoopPropertyContainer aParent) 
+	public INHoopIntegerSerializable (INHoopPropertyContainer aParent,String aName,Boolean aPropValue) 
+	{
+		super (aParent,aName);
+		setClassName ("INHoopIntegerSerializable");
+		debug ("INHoopIntegerSerializable ()");
+   	
+		this.setPropValue(propValue);
+	}	
+	/**
+	 *
+	 */
+    public INHoopIntegerSerializable (INHoopPropertyContainer aParent,String aName) 
     {
-    	super (aParent);
+    	super (aParent,aName);
     	setClassName ("INHoopIntegerSerializable");
     	debug ("INHoopIntegerSerializable ()");
     	
     }
+    /** 
+     * @param propValue
+     */
+	public void setPropValue(Integer propValue) 
+	{
+		this.propValue = propValue;
+		this.setValue(propValue.toString ());
+	}
+	/** 
+	 * @return
+	 */
+	public Integer getPropValue() 
+	{
+		return propValue;
+	}
 }

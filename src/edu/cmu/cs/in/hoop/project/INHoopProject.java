@@ -152,6 +152,8 @@ public class INHoopProject extends INHoopProjectFile
 		{
 			INHoopProjectFile tFile=files.get(i);
 			
+			tFile.setFileURI(this.getBasePath ()+"/"+tFile.getInstanceName());
+			
 			tFile.save();
 		}		
 		

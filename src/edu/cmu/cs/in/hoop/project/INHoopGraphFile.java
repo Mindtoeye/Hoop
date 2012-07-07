@@ -43,7 +43,7 @@ public class INHoopGraphFile extends INHoopProjectFile
 		hoops=new ArrayList<INHoopBase> ();
 		
 		//this.setInstanceName("graph.xml");
-	}
+	}		
 	/**
 	 * 
 	 */
@@ -104,6 +104,8 @@ public class INHoopGraphFile extends INHoopProjectFile
 		StringBuffer formatted=new StringBuffer ();
 		formatted.append (super.toXML());
 		
+		formatted.append("<graph>\n");
+		
 		formatted.append("<hoops>\n");
 		
 		for (int i=0;i<hoops.size();i++)
@@ -115,7 +117,7 @@ public class INHoopGraphFile extends INHoopProjectFile
 		
 		formatted.append("</hoops>\n");
 		
-		formatted.append("<connections>");
+		formatted.append("<connections>\n");
 		
 		if (graphRoot!=null)
 		{			
@@ -129,10 +131,10 @@ public class INHoopGraphFile extends INHoopProjectFile
 			}
 		}
 		
-		formatted.append("</connections>");
+		formatted.append("</connections>\n");
 		
-		//formatted.append (graphRoot.toXML());
+		formatted.append("</graph>\n");
 		
 		return (formatted.toString());
-	}	
+	}
 }
