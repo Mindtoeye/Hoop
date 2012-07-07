@@ -671,8 +671,8 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
         openHelp.addActionListener(new ActionListener() 
         {
         	public void actionPerformed(ActionEvent e) 
-        	{
-        		openHelpWindow();
+        	{        		
+        		addView ("Help",new INHoopHelp (),INHoopLink.right);        		
         	}
         });
 
@@ -830,25 +830,6 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
         
         toolBar.add(sep);                
     }     
-	/**
-	 *
-	 */	
-    public void openHelpWindow() 
-    {
-    	/*
-    	JInternalFrame help = new INHoopHelp();
-    	desktop.add(help, HELPLAYER);
-    	try 
-    	{ 
-    		help.setVisible(true);
-    		help.setSelected(true); 
-    	} 
-    	catch (java.beans.PropertyVetoException e2) 
-    	{
-    		
-    	}
-    	*/
-    }
 	/**
 	 *
 	 */	
