@@ -20,16 +20,20 @@ package edu.cmu.cs.in.hoop.hoops;
 
 import java.util.ArrayList;
 
+import edu.cmu.cs.in.base.kv.INKV;
 import edu.cmu.cs.in.base.kv.INKVInteger;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
 import edu.cmu.cs.in.hoop.base.INHoopInterface;
 import edu.cmu.cs.in.hoop.base.INHoopTransformBase;
+import edu.cmu.cs.in.hoop.properties.types.INHoopStringSerializable;
 
 /**
 * 
 */
 public class INHoopFile2Sentence extends INHoopTransformBase implements INHoopInterface
-{    					
+{    	
+	private INHoopStringSerializable splitRegEx=null;
+	
 	/**
 	 *
 	 */
@@ -39,6 +43,8 @@ public class INHoopFile2Sentence extends INHoopTransformBase implements INHoopIn
 		debug ("INHoopFile2Sentence ()");
 										
 		setHoopDescription ("Parse File into Sentences");
+		
+		splitRegEx=new INHoopStringSerializable (this,"Split Expression","[\\r\\n]+");
     }
 	/**
 	 *
@@ -46,6 +52,32 @@ public class INHoopFile2Sentence extends INHoopTransformBase implements INHoopIn
 	public Boolean runHoop (INHoopBase inHoop)
 	{		
 		debug ("runHoop ()");
+		
+		ArrayList <INKV> inData=inHoop.getData();
+		
+		if (inData!=null)
+		{			
+			for (int t=0;t<inData.size();t++)
+			{
+				INKV aKV=inData.get(t);
+
+				String aFullText=aKV.getValueAsString();
+				
+				if (aFullText!=null)
+				{
+					String lines[] =aFullText.split(splitRegEx.getValue());
+				
+					for (int i=0;i<lines.length;i++)
+					{					
+						INKVInteger sentenceKV=new INKVInteger ();
+						sentenceKV.setKey((t+1)*(i+1));
+						sentenceKV.setValue(lines [i]);
+				
+						addKV (sentenceKV);
+					}	
+				}	
+			}		
+		}			
 						
 		return (true);
 	}	

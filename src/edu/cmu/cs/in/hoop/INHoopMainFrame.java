@@ -28,6 +28,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.controls.INScatterPlot;
+import edu.cmu.cs.in.controls.INSentenceWall;
+import edu.cmu.cs.in.controls.INSentinetPanel;
 //import edu.cmu.cs.in.hoop.editor.INHoopEditorToolBar;
 import edu.cmu.cs.in.hoop.project.INHoopProject;
 import edu.cmu.cs.in.hoop.properties.INHoopPropertyPanel;
@@ -522,6 +524,18 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     	    	addView ("Statistics",statsPanel,INHoopLink.bottom);    	    	
     		}
     	});
+    	
+    	JMenuItem sWallItem=new JMenuItem("Sentence Wall");    	
+    	
+    	sWallItem.addActionListener(new ActionListener() 
+    	{
+    		public void actionPerformed(ActionEvent e) 
+    		{
+    			INSentenceWall sWallPanel=new INSentenceWall ();
+    	    	
+    	    	addView ("Sentence Wall",sWallPanel,INHoopLink.right);    	    	
+    		}
+    	});    	
     	    	
     	views.add (documentItem);
     	views.add (documentListItem);
@@ -531,6 +545,7 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     	views.add (plotterItem);
     	views.add (new JSeparator());
     	views.add (propertiesItem);
+    	views.add (sWallItem);
     	
     	return (views);
     }
@@ -551,6 +566,7 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     	JMenuItem vocabularyItem = new JMenuItem("Vocabulary Editor");
     	JMenuItem opSpaceItem = new JMenuItem("Narrative Opportunity Space Visualizer");
     	//JMenuItem hexMapItem = new JMenuItem("Hexagon Map");
+    	JMenuItem sentItem = new JMenuItem("Sentinet Panel");
 
     	searchItem.addActionListener(new ActionListener() 
     	{
@@ -618,6 +634,14 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     		}
     	});      	
     	
+    	sentItem.addActionListener (new ActionListener ()
+    	{    		    		
+    		public void actionPerformed(ActionEvent e) 
+    		{
+    			addView ("Sentinet",new INSentinetPanel (),INHoopLink.center);
+    		}    		
+    	});
+    	
     	/*
     	opSpaceItem.addActionListener(new ActionListener() 
     	{
@@ -647,6 +671,7 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     	//tools.add (stopWordItem);
     	tools.add (vocabularyItem);
     	tools.add (opSpaceItem);
+    	tools.add (sentItem);
     	//tools.add (hexMapItem);
     	
     	return (tools);

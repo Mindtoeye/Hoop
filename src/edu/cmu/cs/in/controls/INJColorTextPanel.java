@@ -30,6 +30,9 @@ import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.controls.INVisualFeature;
 import edu.cmu.cs.in.controls.INVisualSentence;
 
+/**
+ *
+ */
 public class INJColorTextPanel extends JPanel implements ListCellRenderer
 {
 	private static final long serialVersionUID = 1L;
@@ -38,14 +41,14 @@ public class INJColorTextPanel extends JPanel implements ListCellRenderer
 	private int lineSpacing=1;
 	private int yOffset=20;
 		
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
 	private void debug (String aMessage)
 	{
 		INBase.debug ("INFeatureMatrixPane",aMessage);	
 	}	
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */	
 	public INJColorTextPanel ()
@@ -56,14 +59,14 @@ public class INJColorTextPanel extends JPanel implements ListCellRenderer
 		
 		setBackground(INJColorTools.parse("#ffffff"));
 	}
-	/**------------------------------------------------------------------------------------ 
+	/** 
      * Return the renderers fixed size here.  
      */
     public Dimension getPreferredSize() 
     {    	
     	return new Dimension (this.getWidth(),yOffset);
     }	
-	/**------------------------------------------------------------------------------------
+	/**
 	 * Set the attributes of the class and return a reference
 	 */	
 	public Component getListCellRendererComponent (JList list,Object value,int index,boolean iss,boolean chf)
@@ -81,21 +84,21 @@ public class INJColorTextPanel extends JPanel implements ListCellRenderer
 
 		return this;
 	}	
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */	
 	public void setPadding(int padding) 
 	{
 		this.padding = padding;
 	}
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */	
 	public int getPadding() 
 	{
 		return padding;
 	}	
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */	
 	public void paint (Graphics g) 
@@ -170,7 +173,7 @@ public class INJColorTextPanel extends JPanel implements ListCellRenderer
 		
 		setPreferredSize (new Dimension (getWidth (),yOffset));
 	}
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */	
 /*	
@@ -210,7 +213,7 @@ public class INJColorTextPanel extends JPanel implements ListCellRenderer
 		g2d.drawString (attributedString.getIterator(),padding,textHeight+padding);				
 	}
 */		
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
 	@SuppressWarnings("unused")
@@ -232,7 +235,7 @@ public class INJColorTextPanel extends JPanel implements ListCellRenderer
 		
 		return (formatter.toString());
 	}
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
 	@SuppressWarnings("unused")
@@ -252,6 +255,5 @@ public class INJColorTextPanel extends JPanel implements ListCellRenderer
 			counter+=feature.text.length();
 			counter++; // compensate for space
 		}		
-	}	
-	//-------------------------------------------------------------------------------------	
+	}		
 }

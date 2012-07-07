@@ -40,11 +40,15 @@ import edu.cmu.cs.in.base.INDataCollection;
 import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.io.INFileManager;
 import edu.cmu.cs.in.base.io.INSentinetReader;
+import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 import edu.cmu.cs.in.ml.quickbayes.INQuickBayesData;
 
 @SuppressWarnings("serial")
 
-public class INSentinetPanel extends JPanel implements ActionListener
+/**
+ * 
+ */
+public class INSentinetPanel extends INEmbeddedJPanel implements ActionListener
 {		
 	private INSentinetReader reader=null;
 	private INQuickBayesData dataGrid=null;
@@ -66,19 +70,13 @@ public class INSentinetPanel extends JPanel implements ActionListener
     
     File permanence=null;
     
-	/**------------------------------------------------------------------------------------
-	 *
-	 */
-	private void debug (String aMessage)
-	{
-		INBase.debug ("INSentinetPanel",aMessage);	
-	}
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */	
 	public INSentinetPanel ()
 	{
-		super();
+		setClassName ("INSentinetPanel");
+		debug ("INSentinetPanel ()");
 		
 		fc = new JFileChooser();
 		FileNameExtensionFilter filter=new FileNameExtensionFilter (".txt and .csv files", "txt", "csv");
@@ -132,7 +130,7 @@ public class INSentinetPanel extends JPanel implements ActionListener
 	    loadButton.addActionListener (this);	    	    	    
 	    importButton.addActionListener (this);
 	}
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
 	public void assignData (INDataCollection aData)
@@ -142,7 +140,7 @@ public class INSentinetPanel extends JPanel implements ActionListener
 		
 		reader.assignData (aData);
 	}
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */		
     public void actionPerformed(ActionEvent event) 
@@ -163,7 +161,7 @@ public class INSentinetPanel extends JPanel implements ActionListener
 		if (button.getText()=="SaveAs") 
 			saveAs ();        
     }
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */    
     private void importFile ()
@@ -202,14 +200,14 @@ public class INSentinetPanel extends JPanel implements ActionListener
             debug ("Open command cancelled by user.");
         }    	
     }
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */    
     private void load ()
     {
     	debug ("load ()");
     }
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */    
     private void save ()
@@ -229,7 +227,7 @@ public class INSentinetPanel extends JPanel implements ActionListener
             fManager.saveContents(permanence.getAbsolutePath(),loader.toString());    		
     	}
     }
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */    
     private void saveAs ()
@@ -257,7 +255,7 @@ public class INSentinetPanel extends JPanel implements ActionListener
         	debug ("Save command cancelled by user");
         }
     }
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
     private void toXML ()
@@ -296,14 +294,14 @@ public class INSentinetPanel extends JPanel implements ActionListener
         
     	loader.append ("</data>\n");
     }
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */		
 	public void addDependend (INVisualFeatureVisualizer aDep)
 	{
 	    sentList.addDependend (aDep);	    		
 	}
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */	
 	private void match ()
@@ -350,6 +348,5 @@ public class INSentinetPanel extends JPanel implements ActionListener
 		// All done, show what we have ...
 		
 		sentList.setLabel ("Number terms " + INData.sents.size() + ", nr hits: " + matched);
-	}
-	//-------------------------------------------------------------------------------------	
+	}	
 }

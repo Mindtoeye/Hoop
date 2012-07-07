@@ -25,6 +25,9 @@ import java.util.ListIterator;
 import edu.cmu.cs.in.base.INFeatureMakerBase;
 import edu.cmu.cs.in.base.INBase;
 
+/** 
+ * 
+ */
 public class INVisualSentence extends INBase
 {    		    
 	public String text="";
@@ -32,7 +35,7 @@ public class INVisualSentence extends INBase
 	private ArrayList <INFeaturePerspective> perspectives=null;
 	private int searchWindow=5;
 	
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
     public INVisualSentence () 
@@ -45,14 +48,14 @@ public class INVisualSentence extends INBase
 		addPerspective (new INFeaturePerspective ("Sentinet"));
 		addPerspective (new INFeaturePerspective ("Rules"));
     }
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
     public void addPerspective (INFeaturePerspective aPersp)
     {
     	perspectives.add(aPersp);
     }
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
     public void addPerspective (String aType)
@@ -60,21 +63,21 @@ public class INVisualSentence extends INBase
     	INFeaturePerspective newPerspective=new INFeaturePerspective (aType);
     	perspectives.add(newPerspective);
     }    
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */        
 	public void setPerspectives(ArrayList <INFeaturePerspective> perspectives) 
 	{
 		this.perspectives = perspectives;
 	}
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */	
 	public ArrayList <INFeaturePerspective> getPerspectives() 
 	{
 		return perspectives;
 	}    
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
     public ArrayList<INVisualFeature> getFeatures ()
@@ -84,7 +87,7 @@ public class INVisualSentence extends INBase
     	    	
     	return (perspectives.get(0).getFeatures ());
     }
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
     public INFeaturePerspective getPerspective (String aType)
@@ -101,21 +104,21 @@ public class INVisualSentence extends INBase
     	
     	return (null);
     }    
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
     public void assignClass (INVisualClass aClass)
     {
     	classification=aClass;
     }
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
     public INVisualClass getClassification ()
     {
     	return classification;
     }    
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
     public ArrayList<INVisualFeature> getFeatures (String aType)
@@ -129,7 +132,7 @@ public class INVisualSentence extends INBase
     	    		
     	return (null);
     }    
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
     public void buildUnigramFeatureList (String aSentence,String aPerspective) 
@@ -156,7 +159,7 @@ public class INVisualSentence extends INBase
     		features.add(newFeature);
     	}
     }
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
     public int buildSentimentFeatureList (String aPerspective,ArrayList <INVisualSentinetFeature> sents) 
@@ -192,7 +195,7 @@ public class INVisualSentence extends INBase
 	   
 	   return (hitcount);
     }    
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
     public int buildRuleFeatureList (String aPerspective,ArrayList <INVisualRuleFeature> rules) 
@@ -226,7 +229,7 @@ public class INVisualSentence extends INBase
 	   
     	return (hitcount);
     }        
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
     private Boolean matchRule (INVisualRuleFeature aRule)
@@ -308,7 +311,7 @@ public class INVisualSentence extends INBase
     	
     	return (true);
     }
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
     private ArrayList<INVisualFeature> findBreak (ArrayList<INVisualFeature> aUnis,
@@ -384,6 +387,5 @@ public class INVisualSentence extends INBase
     	// We should now have a match with at least one entry
     	
     	return (breakMatch);
-    }
-	//-------------------------------------------------------------------------------------	
+    }	
 }

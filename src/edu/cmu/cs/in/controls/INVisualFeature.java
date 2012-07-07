@@ -29,6 +29,9 @@ import org.w3c.dom.Node;
 import edu.cmu.cs.in.base.INDataCollection;
 import edu.cmu.cs.in.base.INBase;
 
+/**
+ * 
+ */
 public class INVisualFeature extends INBase implements INVisualFeatureBase
 {
 	public String text="";
@@ -39,7 +42,7 @@ public class INVisualFeature extends INBase implements INVisualFeatureBase
 	public int startFeatureMarker=0;
 	public int endFeatureMarker=0;
 				
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
     public INVisualFeature () 
@@ -47,30 +50,30 @@ public class INVisualFeature extends INBase implements INVisualFeatureBase
 		setClassName ("INVisualFeature");
 		//debug ("INVisualFeature ()");		
     }
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
-   public INVisualFeature (String aText) 
-   {
-		setClassName ("INVisualFeature");
+    public INVisualFeature (String aText) 
+    {
+    	setClassName ("INVisualFeature");
 		//debug ("INVisualFeature ()");
 		text=aText;
-   }   
-	/**------------------------------------------------------------------------------------
+    }   
+	/**
 	 *
 	 */
    	public String getText ()
    	{
    		return text;
    	}
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
    	public void setText (String aText)
    	{
    		text=aText;
    	}
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
     public Color featureToClassification ()
@@ -79,43 +82,43 @@ public class INVisualFeature extends INBase implements INVisualFeatureBase
     	Color form=new Color (inverse,inverse,inverse);
     	return (form);
     }
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
-   public Color featureToCoverage ()
-   {
-	   float conv=(float) 0.15;
+    public Color featureToCoverage ()
+    {
+    	float conv=(float) 0.15;
 	   
-	   if (isSelected==true)
-		   conv=(float) 1.0;
+    	if (isSelected==true)
+    		conv=(float) 1.0;
 	   
    		float inverse=(float) (1.0-conv);
    		Color form=new Color (inverse,inverse,inverse);
    		
    		return (form);
-   }    
-	/**------------------------------------------------------------------------------------
+    }    
+	/**
 	 *
 	 */	
 	public boolean isSelected()
 	{
 		return isSelected;
 	}
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */	
 	public void setSelected (boolean isSelected)
 	{
 		this.isSelected = isSelected;
 	}
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */	
 	public String toString()
 	{
 		return text;
 	}
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */	
 	public Boolean isPronoun ()
@@ -128,7 +131,7 @@ public class INVisualFeature extends INBase implements INVisualFeatureBase
 		
 		return (false);
 	}
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */	
 	public void fromXML (Node aNode)
@@ -158,7 +161,7 @@ public class INVisualFeature extends INBase implements INVisualFeatureBase
              }    
 		 }	
 	}
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
 	public String toXML ()
@@ -175,6 +178,5 @@ public class INVisualFeature extends INBase implements INVisualFeatureBase
 		formatter.append("\" />");
 		
 		return (formatter.toString());
-	}
-	//-------------------------------------------------------------------------------------	
+	}	
 }

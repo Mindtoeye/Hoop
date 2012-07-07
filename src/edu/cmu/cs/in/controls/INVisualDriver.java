@@ -24,19 +24,22 @@ import java.awt.event.ComponentEvent;
 //import edu.cmu.cs.in.INFeatureMatrixPane;
 import edu.cmu.cs.in.base.INBase;
 
+/**
+ *
+ */
 public class INVisualDriver extends ComponentAdapter 
 {
 	//@SuppressWarnings("unused")
 	//private INFeatureMatrixPane responsibility=null;
 	
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
 	private void debug (String aMessage)
 	{
 		INBase.debug ("INVisualDriver",aMessage);	
 	}	
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
 	/*
@@ -47,7 +50,7 @@ public class INVisualDriver extends ComponentAdapter
 		responsibility=aResponsibility;
 	}
 	*/
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */	
 	public void	componentHidden (ComponentEvent e)
@@ -55,7 +58,7 @@ public class INVisualDriver extends ComponentAdapter
 		//debug ("componentHidden ()");
 		
 	}	 
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
 	public void	componentMoved (ComponentEvent e)
@@ -63,7 +66,7 @@ public class INVisualDriver extends ComponentAdapter
 		//debug ("componentMoved ()");
 		
 	}
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
 	public void	componentResized (ComponentEvent e)
@@ -71,7 +74,7 @@ public class INVisualDriver extends ComponentAdapter
 		//debug ("componentResized ()");
 		
 	}
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
 	public void	componentShown (ComponentEvent e)
@@ -84,6 +87,5 @@ public class INVisualDriver extends ComponentAdapter
 		else
 			debug ("Error: no component provided to propagate event");
 		 */			
-	}
-	//-------------------------------------------------------------------------------------	
+	}	
 }

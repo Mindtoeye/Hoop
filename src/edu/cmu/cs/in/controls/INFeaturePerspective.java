@@ -22,12 +22,15 @@ import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.INBase;
 
+/** 
+ * 
+ */
 public class INFeaturePerspective  extends INBase
 {		
 	private ArrayList <INVisualFeature> features=null;
 	private String perspectiveName="";
 	
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
 	public INFeaturePerspective () 
@@ -37,7 +40,7 @@ public class INFeaturePerspective  extends INBase
 		
 		setFeatures(new ArrayList<INVisualFeature> ());		
 	}
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
 	public INFeaturePerspective (String aName) 
@@ -48,41 +51,40 @@ public class INFeaturePerspective  extends INBase
 		setPerspectiveName (aName);
 		setFeatures(new ArrayList<INVisualFeature> ());				
 	}	
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */	
 	public void setFeatures(ArrayList <INVisualFeature> features) 
 	{
 		this.features = features;
 	}
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
 	public ArrayList <INVisualFeature> getFeatures() 
 	{
 		return features;
 	}
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
 	public INVisualFeature getFeature (String aFeature) 
 	{
 		return (features.get(features.indexOf(aFeature)));
 	}	
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */		
 	public void setPerspectiveName(String perspectiveName) 
 	{
 		this.perspectiveName = perspectiveName;
 	}
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */	
 	public String getPerspectiveName() 
 	{
 		return perspectiveName;
-	}
-	//-------------------------------------------------------------------------------------	
+	}	
 }
 

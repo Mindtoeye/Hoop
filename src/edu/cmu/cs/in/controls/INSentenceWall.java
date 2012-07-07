@@ -18,59 +18,52 @@
 
 package edu.cmu.cs.in.controls;
 
-//import java.awt.Dimension;
 import java.awt.Dimension;
 import java.awt.Font;
-//import java.awt.Graphics;
-//import java.awt.LayoutManager;
 import java.util.ArrayList;
 
-//import javax.swing.Box;
-//import javax.swing.Box;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import edu.cmu.cs.in.base.INBase;
+import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 
-@SuppressWarnings("serial")
-
-public class INSentenceWall extends JPanel implements INVisualFeatureVisualizer
+/**
+ * 
+ */
+public class INSentenceWall extends INEmbeddedJPanel implements INVisualFeatureVisualizer
 {	
+	private static final long serialVersionUID = -1L;
+	
 	public ArrayList <INVisualSentence> texts=null;	
 	private JList sentenceList=null;
 		
-	/**------------------------------------------------------------------------------------
-	 *
-	 */
-	private void debug (String aMessage)
-	{
-		INBase.debug ("INSentenceWall",aMessage);	
-	}
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */	
 	public INSentenceWall ()
 	{
-		super();
-		
+		setClassName ("INSentenceWall");
 		debug ("INSentenceWall ()");
-		
-		this.setLayout(new BoxLayout (this,BoxLayout.Y_AXIS));
+				
+		Box mainBox = new Box (BoxLayout.Y_AXIS);
 			
 	    sentenceList=new JList ();
 	    JScrollPane sentenceScrollList = new JScrollPane (sentenceList);
 	    sentenceScrollList.setMinimumSize (new Dimension(100, 80));
-
-	    this.add (sentenceScrollList);
+	    
 	    JLabel featuresLabel=new JLabel ("Feature Wall");
 	    featuresLabel.setFont(new Font("Dialog", 1, 10));	    	    
-	    this.add (featuresLabel);		
+	    
+	    mainBox.add (sentenceScrollList);
+	    mainBox.add(featuresLabel);
+	    
+	    setContentPane (mainBox);
 	}
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */	
 	public void updateVisualFeatures () 
@@ -78,7 +71,7 @@ public class INSentenceWall extends JPanel implements INVisualFeatureVisualizer
 		debug ("updateVisualFeatures ()");
 		
 	}
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */	
 	public void assignData (ArrayList <INVisualSentence> aData)
@@ -97,6 +90,5 @@ public class INSentenceWall extends JPanel implements INVisualFeatureVisualizer
         
         sentenceList.setCellRenderer (new INJColorTextPanel ());                
         sentenceList.setModel (model);             
-	}
-	//-------------------------------------------------------------------------------------	
+	}	
 }

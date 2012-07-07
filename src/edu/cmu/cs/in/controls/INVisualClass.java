@@ -24,6 +24,9 @@ import java.util.HashMap;
 
 import edu.cmu.cs.in.base.INBase;
 
+/**
+ *
+ */
 public class INVisualClass extends INBase
 {
 	private String name="";
