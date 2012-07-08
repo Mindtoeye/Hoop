@@ -57,6 +57,12 @@ public class INHoopFile2Sentence extends INHoopTransformBase implements INHoopIn
 		
 		if (inData!=null)
 		{			
+			if (inData.size()==0)
+			{
+				this.setErrorString("Error: data size is 0");
+				return (false);
+			}
+			
 			for (int t=0;t<inData.size();t++)
 			{
 				INKV aKV=inData.get(t);
@@ -77,7 +83,12 @@ public class INHoopFile2Sentence extends INHoopTransformBase implements INHoopIn
 					}	
 				}	
 			}		
-		}			
+		}		
+		else
+		{
+			this.setErrorString("Error: no data found in incoming hoop");
+			return (false);
+		}	
 						
 		return (true);
 	}	

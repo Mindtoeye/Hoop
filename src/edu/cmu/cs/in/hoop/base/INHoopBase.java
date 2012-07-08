@@ -117,7 +117,37 @@ public class INHoopBase extends INHoopBaseTyped implements INHoopInterface
 	public INHoopVisualRepresentation getVisualizer() 
 	{
 		return visualizer;
-	}    
+	}
+	/**
+	 * 
+	 */
+	protected Boolean inPortExists (String aPort)
+	{
+		for (int i=0;i<inPorts.size();i++)
+		{
+			String port=inPorts.get(i);
+			
+			if (port.toLowerCase().equals(aPort.toLowerCase())==true)
+				return (true);
+		}
+		
+		return (false);
+	}
+	/**
+	 * 
+	 */
+	protected Boolean outPortExists (String aPort)
+	{
+		for (int i=0;i<outPorts.size();i++)
+		{
+			String port=outPorts.get(i);
+			
+			if (port.toLowerCase().equals(aPort.toLowerCase())==true)
+				return (true);
+		}
+		
+		return (false);
+	}	
     /**
      * 
      */
@@ -278,12 +308,33 @@ public class INHoopBase extends INHoopBaseTyped implements INHoopInterface
 	{	
 		performance.setMarker ("start");
 		
-		if (inHoop==null)
+		if (inPortExists ("KV")==true)
 		{
-			setExecutionState ("ERROR");
-			this.setErrorString("Error: incoming hoop object is null!");
-			return (false);
-		}
+			if (inHoop==null)
+			{
+				setExecutionState ("ERROR");
+				this.setErrorString("Error: incoming hoop object is null!");
+				return (false);
+			}
+			else
+			{
+				ArrayList <INKV> inData=inHoop.getData();
+				
+				if (inData!=null)
+				{			
+					if (inData.size()==0)
+					{
+						this.setErrorString("Error: data size is 0");
+						return (false);
+					}
+				}	
+				else
+				{
+					this.setErrorString("Error: no data found in incoming hoop");
+					return (false);
+				}					
+			}
+		}	
 		
 		setExecutionState ("RUNNING");
 	

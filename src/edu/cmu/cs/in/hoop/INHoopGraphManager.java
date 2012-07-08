@@ -61,19 +61,18 @@ public class INHoopGraphManager extends INHoopBase
 	{
 		debug ("addHoop ()");
 
-		if (INHoopLink.getGraphRoot ()==null)
-		{
-			debug ("Error: unable to get graph root, creating one ...");
-		}
-		
 		if (INHoopLink.project==null)
 		{
 			debug ("Error: no project available yet");
 			return;
+		}		
+		
+		if (INHoopLink.getGraphRoot ()==null)
+		{
+			debug ("Error: unable to get graph root, creating one ...");
+			INHoopLink.project.setGraphRoot (aHoop);
 		}
-		
-		INHoopLink.project.setGraphRoot (aHoop);
-		
+						
 		INHoopGraphFile grFile=(INHoopGraphFile) INHoopLink.project.getFileByClass (new INHoopGraphFile ().getClassName());
 		
 		if (grFile!=null)

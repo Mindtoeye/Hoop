@@ -234,6 +234,8 @@ public class INFileManager extends INBase
 			ex.printStackTrace();
 			return (null);
 		}
+		
+		debug ("Loaded " + contents.length() + " characters");
     
 		return (contents.toString());
 	}
