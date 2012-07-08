@@ -52,7 +52,8 @@ public class INHoopFileLoadBase extends INHoopLoadBase implements INHoopInterfac
 		fileKV=new INKVString ();						
 		addKV (fileKV);		
 		
-		URI=new INHoopURISerializable (this,"File","<PROJECTPATH>/data/MovieReviews-Full.csv");
+		//URI=new INHoopURISerializable (this,"File","<PROJECTPATH>/data/MovieReviews-Full.csv");
+		URI=new INHoopURISerializable (this,"File","C:\\Martin\\Echidne\\Hydra (Science)\\Development\\Hoop\\Resources\\ExampleData\\Agatha Christie - The Mysterious Affair at Styles.txt");
     }
 	/**
 	 *

@@ -278,6 +278,13 @@ public class INHoopBase extends INHoopBaseTyped implements INHoopInterface
 	{	
 		performance.setMarker ("start");
 		
+		if (inHoop==null)
+		{
+			setExecutionState ("ERROR");
+			this.setErrorString("Error: incoming hoop object is null!");
+			return (false);
+		}
+		
 		setExecutionState ("RUNNING");
 	
 		Boolean result=runHoop (inHoop);
