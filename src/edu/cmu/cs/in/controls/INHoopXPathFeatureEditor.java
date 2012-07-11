@@ -75,7 +75,7 @@ public class INHoopXPathFeatureEditor extends INEmbeddedJPanel implements Action
 	    featureName.setFont(new Font("Dialog", 1, 8));
 	    featureName.setPreferredSize(new Dimension (100,20));
 	    featureName.setMaximumSize(new Dimension (100,20));
-	    featureName.add (addFeature);
+	    buttonBox.add (featureName);
 	    
 	    addFeature=new JButton ();
 	    addFeature.setFont(new Font("Dialog", 1, 8));
@@ -123,6 +123,11 @@ public class INHoopXPathFeatureEditor extends INEmbeddedJPanel implements Action
 		
 		JScrollPane posScrollList = new JScrollPane (featureList);
 		
+		INHoopXMLTreeView xmlTree=new INHoopXMLTreeView ();
+		xmlTree.setMinimumSize(new Dimension (50,50));
+		xmlTree.setPreferredSize(new Dimension (150,150));
+		
+		stopBox.add(xmlTree);
 		stopBox.add(buttonBox);
 		stopBox.add(posScrollList);		
 		
