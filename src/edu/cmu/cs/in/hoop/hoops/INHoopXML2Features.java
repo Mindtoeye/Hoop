@@ -18,17 +18,20 @@
 
 package edu.cmu.cs.in.hoop.hoops;
 
+import java.awt.Dimension;
 import java.util.ArrayList;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
+import javax.swing.JPanel;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
 
 import edu.cmu.cs.in.base.INXMLBase;
 import edu.cmu.cs.in.base.kv.INKV;
+import edu.cmu.cs.in.controls.INHoopXPathFeatureEditor;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
 import edu.cmu.cs.in.hoop.base.INHoopInterface;
 import edu.cmu.cs.in.hoop.base.INHoopTransformBase;
@@ -40,6 +43,8 @@ import edu.cmu.cs.in.hoop.properties.types.INHoopStringSerializable;
 public class INHoopXML2Features extends INHoopTransformBase implements INHoopInterface
 {    	
 	private ArrayList <INHoopStringSerializable>features=null;
+	
+	private INHoopXPathFeatureEditor featureEditor=null;
 	
 	/**
 	 *
@@ -74,25 +79,33 @@ public class INHoopXML2Features extends INHoopTransformBase implements INHoopInt
 
 				String aFullText=aKV.getValueAsString();
 					
-				INXMLBase xmlTools=new INXMLBase ();
-				Document root=xmlTools.loadXMLFromString (aFullText);
-				
-				for (int i=0;i<features.size();i++)
+				if (aFullText.indexOf("<?xml")==-1) // Quick check
 				{
-					INHoopStringSerializable aFeature=features.get(i);
-					
-					try
-					{
-						XPath xPath = XPathFactory.newInstance().newXPath();
-						//Node node = (Node) xPath.evaluate("/Request/@name", root, XPathConstants.NODE);
-						Node node = (Node) xPath.evaluate(aFeature.getName(), root, XPathConstants.NODE);
-						//System.out.println(node.getNodeValue());						
-					} 
-					catch (Exception e) 
-					{
-						e.printStackTrace();
-					}					
+					this.setErrorString("Error: loaded text does not contain xml signature");
+					return (false);
 				}
+				else
+				{
+					INXMLBase xmlTools=new INXMLBase ();
+					Document root=xmlTools.loadXMLFromString (aFullText);
+				
+					for (int i=0;i<features.size();i++)
+					{
+						INHoopStringSerializable aFeature=features.get(i);
+					
+						try
+						{
+							XPath xPath = XPathFactory.newInstance().newXPath();
+							//Node node = (Node) xPath.evaluate("/Request/@name", root, XPathConstants.NODE);
+							Node node = (Node) xPath.evaluate(aFeature.getName(), root, XPathConstants.NODE);
+							aFeature.setValue(node.getNodeValue());						
+						} 
+						catch (Exception e) 
+						{
+							e.printStackTrace();
+						}					
+					}
+				}	
 			}		
 		}		
 		else
@@ -109,5 +122,22 @@ public class INHoopXML2Features extends INHoopTransformBase implements INHoopInt
 	public INHoopBase copy ()
 	{
 		return (new INHoopXML2Features ());
+	}		
+	/**
+	 * 
+	 */
+	@Override
+	public JPanel getPropertiesPanel() 
+	{
+		debug ("getPropertiesPanel ()");
+		
+		if (featureEditor==null)
+			featureEditor=new INHoopXPathFeatureEditor ();
+		
+		// Doesn't make a difference, probably because there is no vertical glue in the scrollpane
+		
+		featureEditor.setPreferredSize(new Dimension (150,200)); 
+		
+		return (featureEditor);
 	}		
 }

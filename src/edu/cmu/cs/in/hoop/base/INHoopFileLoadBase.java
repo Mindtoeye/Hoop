@@ -18,6 +18,7 @@
 
 package edu.cmu.cs.in.hoop.base;
 
+import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.base.io.INFileManager;
 import edu.cmu.cs.in.base.kv.INKVString;
 import edu.cmu.cs.in.hoop.properties.types.INHoopURISerializable;
@@ -44,7 +45,7 @@ public class INHoopFileLoadBase extends INHoopLoadBase implements INHoopInterfac
 		setClassName ("INHoopFileLoadBase");
 		debug ("INHoopFileLoadBase ()");
 		
-		setHoopDescription ("Load From File");
+		setHoopDescription ("Load Text from a File");
 
 		removeInPort ("KV");
 		
@@ -53,7 +54,8 @@ public class INHoopFileLoadBase extends INHoopLoadBase implements INHoopInterfac
 		addKV (fileKV);		
 		
 		//URI=new INHoopURISerializable (this,"File","<PROJECTPATH>/data/MovieReviews-Full.csv");
-		URI=new INHoopURISerializable (this,"File","C:\\Martin\\Echidne\\Hydra (Science)\\Development\\Hoop\\Resources\\ExampleData\\Agatha Christie - The Mysterious Affair at Styles.txt");
+		//URI=new INHoopURISerializable (this,"File","C:\\Martin\\Echidne\\Hydra (Science)\\Development\\Hoop\\Resources\\ExampleData\\Agatha Christie - The Mysterious Affair at Styles.txt");
+		URI=new INHoopURISerializable (this,"File","<PROJECTPATH>\\Resources\\ExampleData\\Agatha Christie - The Mysterious Affair at Styles.txt");
     }
 	/**
 	 *
@@ -75,8 +77,23 @@ public class INHoopFileLoadBase extends INHoopLoadBase implements INHoopInterfac
 	public Boolean runHoop (INHoopBase inHoop)
 	{		
 		debug ("runHoop ()");
-								
-		String contents=fManager.loadContents(URI.getValue());
+		
+		if (URI.getValue().indexOf("<PROJECTPATH>")!=-1)
+		{
+			if (INHoopLink.project==null)
+			{
+				this.setErrorString ("You need a project first for this hoop to be useful");
+				return (false);
+			}
+		
+			if (INHoopLink.project.getVirginFile()==true)
+			{
+				this.setErrorString ("You to save your project first for this hoop to be useful");
+				return (false);
+			}
+		}	
+		
+		String contents=fManager.loadContents(INHoopLink.relativeToAbsolute(URI.getValue()));
 		
 		if (contents==null)
 		{

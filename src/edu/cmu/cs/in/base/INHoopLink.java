@@ -551,5 +551,21 @@ public class INHoopLink extends INHoopProperties
 			return (null);
 		
 		return (INHoopLink.project.getGraphRoot());
-	}	  	
+	}
+	/**
+	 * 
+	 */
+	public static String relativeToAbsolute (String aPath)
+	{		
+		if (aPath.indexOf("<PROJECTPATH>")==-1)
+		{
+			return (aPath); // Nothing to do
+		}
+		
+		String lastPart=aPath.substring(11); // index of <PROJECTPATH> which is 12 long
+		
+		String projectPath=INHoopLink.project.getBasePath();
+		
+		return (projectPath+"\\"+lastPart);
+	}
 }
