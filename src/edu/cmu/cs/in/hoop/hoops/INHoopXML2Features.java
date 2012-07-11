@@ -20,31 +20,36 @@ package edu.cmu.cs.in.hoop.hoops;
 
 import java.util.ArrayList;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathFactory;
+
+import edu.cmu.cs.in.base.INXMLBase;
 import edu.cmu.cs.in.base.kv.INKV;
-import edu.cmu.cs.in.base.kv.INKVInteger;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
 import edu.cmu.cs.in.hoop.base.INHoopInterface;
 import edu.cmu.cs.in.hoop.base.INHoopTransformBase;
 import edu.cmu.cs.in.hoop.properties.types.INHoopStringSerializable;
 
 /**
-* 
+* http://www.ibm.com/developerworks/library/x-javaxpathapi/index.html
 */
-public class INHoopFile2Sentence extends INHoopTransformBase implements INHoopInterface
+public class INHoopXML2Features extends INHoopTransformBase implements INHoopInterface
 {    	
-	private INHoopStringSerializable splitRegEx=null;
+	private ArrayList <INHoopStringSerializable>features=null;
 	
 	/**
 	 *
 	 */
-    public INHoopFile2Sentence () 
+    public INHoopXML2Features () 
     {
-		setClassName ("INHoopFile2Sentence");
-		debug ("INHoopFile2Sentence ()");
+		setClassName ("INHoopXML2Features");
+		debug ("INHoopXML2Features ()");
 										
-		setHoopDescription ("Parse File into Sentences");
-		
-		splitRegEx=new INHoopStringSerializable (this,"Split Expression","[\\r\\n]+");
+		setHoopDescription ("Parse Text as XML and extract Features");			
     }
 	/**
 	 *
@@ -68,20 +73,26 @@ public class INHoopFile2Sentence extends INHoopTransformBase implements INHoopIn
 				INKV aKV=inData.get(t);
 
 				String aFullText=aKV.getValueAsString();
+					
+				INXMLBase xmlTools=new INXMLBase ();
+				Document root=xmlTools.loadXMLFromString (aFullText);
 				
-				if (aFullText!=null)
+				for (int i=0;i<features.size();i++)
 				{
-					String lines[] =aFullText.split(splitRegEx.getValue());
-				
-					for (int i=0;i<lines.length;i++)
-					{					
-						INKVInteger sentenceKV=new INKVInteger ();
-						sentenceKV.setKey((t+1)*(i+1));
-						sentenceKV.setValue(lines [i]);
-				
-						addKV (sentenceKV);
-					}	
-				}	
+					INHoopStringSerializable aFeature=features.get(i);
+					
+					try
+					{
+						XPath xPath = XPathFactory.newInstance().newXPath();
+						//Node node = (Node) xPath.evaluate("/Request/@name", root, XPathConstants.NODE);
+						Node node = (Node) xPath.evaluate(aFeature.getName(), root, XPathConstants.NODE);
+						//System.out.println(node.getNodeValue());						
+					} 
+					catch (Exception e) 
+					{
+						e.printStackTrace();
+					}					
+				}
 			}		
 		}		
 		else
@@ -97,6 +108,6 @@ public class INHoopFile2Sentence extends INHoopTransformBase implements INHoopIn
 	 */
 	public INHoopBase copy ()
 	{
-		return (new INHoopFile2Sentence ());
+		return (new INHoopXML2Features ());
 	}		
 }

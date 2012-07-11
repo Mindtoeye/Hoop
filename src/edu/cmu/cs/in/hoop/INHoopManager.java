@@ -28,7 +28,6 @@ import edu.cmu.cs.in.hoop.hoops.INHoopArffReader;
 import edu.cmu.cs.in.hoop.hoops.INHoopCSVReader;
 import edu.cmu.cs.in.hoop.hoops.INHoopCSVWriter;
 import edu.cmu.cs.in.hoop.hoops.INHoopCleanTokens;
-import edu.cmu.cs.in.hoop.hoops.INHoopFile2Sentence;
 import edu.cmu.cs.in.hoop.hoops.INHoopFilterGarbage;
 import edu.cmu.cs.in.hoop.hoops.INHoopFilterStopWords;
 import edu.cmu.cs.in.hoop.hoops.INHoopHDFSMultiFileInput;
@@ -42,8 +41,10 @@ import edu.cmu.cs.in.hoop.hoops.INHoopScheduler;
 import edu.cmu.cs.in.hoop.hoops.INHoopSentence2Tokens;
 import edu.cmu.cs.in.hoop.hoops.INHoopStdin;
 import edu.cmu.cs.in.hoop.hoops.INHoopStdout;
+import edu.cmu.cs.in.hoop.hoops.INHoopText2Sentence;
 import edu.cmu.cs.in.hoop.hoops.INHoopTokenCaseChange;
 import edu.cmu.cs.in.hoop.hoops.INHoopUniqueTerms;
+import edu.cmu.cs.in.hoop.hoops.INHoopXML2Features;
 
 /** 
  * @author Martin van Velsen
@@ -144,7 +145,7 @@ public class INHoopManager extends INHoopBase
     	addTemplate(new INHoopDisplayBase ());
     	addTemplate(new INHoopFileLoadBase ());
     	addTemplate(new INHoopFileSaveBase ());   	
-    	addTemplate(new INHoopFile2Sentence ());
+    	addTemplate(new INHoopText2Sentence ());
     	addTemplate(new INHoopSentence2Tokens ());
     	addTemplate(new INHoopScheduler ());
     	addTemplate(new INHoopHDFSSingleFileOutput ());
@@ -164,5 +165,6 @@ public class INHoopManager extends INHoopBase
     	addTemplate (new INHoopCSVReader ());
     	addTemplate (new INHoopNaiveBayes ());
     	addTemplate (new INHoopArffReader ());
+    	addTemplate (new INHoopXML2Features ());
     }
 }

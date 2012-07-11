@@ -63,7 +63,7 @@ public class INXMLBase extends INBase
 	/**
 	*
 	*/	
-    private Document loadXMLFromString (String xml)
+    public Document loadXMLFromString (String xml)
     {
     	debug ("loadXMLFromString ()");
     	
