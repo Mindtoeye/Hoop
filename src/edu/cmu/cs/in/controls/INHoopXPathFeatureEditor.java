@@ -125,7 +125,7 @@ public class INHoopXPathFeatureEditor extends INEmbeddedJPanel implements Action
 		
 		INHoopXMLTreeView xmlTree=new INHoopXMLTreeView ();
 		xmlTree.setMinimumSize(new Dimension (50,50));
-		xmlTree.setPreferredSize(new Dimension (150,150));
+		xmlTree.setPreferredSize(new Dimension (150,100));
 		
 		stopBox.add(xmlTree);
 		stopBox.add(buttonBox);

@@ -24,6 +24,9 @@
 package edu.cmu.cs.in.controls;
 
 import java.awt.*;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.StringReader;
 
 import javax.swing.*;
 import javax.swing.tree.*;
@@ -45,7 +48,7 @@ public class INHoopXMLTreeView extends INJPanel
 	private SAXTreeBuilder saxTree = null;
 	private JTree tree=null;
 	
-	private String testXML="<?xml version=\"1.0\"?><games><game genre=\"rpg\">XML Invaders</game><game genre=\"rpg\">A Node in the XPath</game><game genre=\"rpg\">XPath Racers</game></games>";
+	private String testXML="<?xml version=\"1.0\" encoding=\"UTF-8\"?><games><game genre=\"rpg\">XML Invaders</game><game genre=\"rpg\">A Node in the XPath</game><game genre=\"rpg\">XPath Racers</game></games>";
    
 	/**
 	 * 
@@ -63,7 +66,7 @@ public class INHoopXMLTreeView extends INJPanel
 		{
 			SAXParser saxParser = new SAXParser();
 			saxParser.setContentHandler(saxTree);
-			saxParser.parse(testXML);
+			saxParser.parse(new InputSource(new StringReader(testXML)));
 		}
 		catch(Exception ex)
 		{
@@ -71,7 +74,7 @@ public class INHoopXMLTreeView extends INJPanel
 		}
               
 		tree = new JTree(saxTree.getTree()); 
-		tree.setFont(new Font("Dialog", 1, 8));
+		tree.setFont(new Font("Dialog", 1, 10));
 		JScrollPane scrollPane = new JScrollPane(tree);
               
 		this.setBorder(BorderFactory.createEmptyBorder(INHoopProperties.tabPadding,INHoopProperties.tabPadding,INHoopProperties.tabPadding,INHoopProperties.tabPadding));		
