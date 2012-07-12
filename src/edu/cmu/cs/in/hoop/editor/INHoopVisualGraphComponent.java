@@ -20,6 +20,8 @@ package edu.cmu.cs.in.hoop.editor;
 
 import java.awt.Component;
 
+import javax.swing.JViewport;
+
 import com.mxgraph.model.mxCell;
 //import com.mxgraph.model.mxGeometry;
 import com.mxgraph.swing.mxGraphComponent;
@@ -34,6 +36,7 @@ import com.mxgraph.view.mxGraph;
 import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.base.INHoopProperties;
+import edu.cmu.cs.in.controls.INJViewport;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
 
 /**
@@ -46,6 +49,9 @@ public class INHoopVisualGraphComponent extends mxGraphComponent
 	final int PORT_DIAMETER = 20;
 	final int PORT_RADIUS = PORT_DIAMETER / 2;		
 
+	private INJViewport viewport=new INJViewport ();
+	private Boolean useCustomViewport=false;
+	
 	/**
 	 * 
 	 * @param graph
@@ -71,11 +77,50 @@ public class INHoopVisualGraphComponent extends mxGraphComponent
 		Document doc = mxUtils.loadDocument(INHoopGraphEditor.class.getResource("/assets/resources/default-style.xml").toString());
 		codec.decode(doc.getDocumentElement(), graph.getStylesheet());
 		*/
-	
-		getViewport().setBackground(INHoopProperties.graphBackgroundColor);
-				
-		//getViewport().setBackgroundImage(new ImageIcon("testimage.jpg"));		
+		
+		if (useCustomViewport==true)
+		{
+			viewport.setOpaque(true);
+			this.setViewport(viewport);
+			//this.setViewportView(viewport);
+		}
+		else
+		{
+			JViewport canvas=this.getViewport();		
+			canvas.setBackground(INHoopProperties.graphBackgroundColor);
+		}	
 	}
+	/**
+	 * 
+	 */
+	/*
+	public JViewport getViewport ()
+	{
+		if (useCustomViewport==true)
+		{
+			return (viewport);
+		}
+
+		return (super.getViewport());
+		
+		return (viewport);
+	}
+	*/
+	/** 
+	 * @return
+	 */
+	public Boolean getUseCustomViewport() 
+	{
+		return useCustomViewport;
+	}
+	/**
+	 * 
+	 * @param useCustomViewport
+	 */
+	public void setUseCustomViewport(Boolean useCustomViewport) 
+	{
+		this.useCustomViewport = useCustomViewport;
+	}	
 	/**
 	 * 
 	 */

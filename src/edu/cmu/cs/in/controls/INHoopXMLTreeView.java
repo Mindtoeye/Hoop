@@ -28,7 +28,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.StringReader;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.tree.*;
@@ -39,7 +39,7 @@ import org.xml.sax.helpers.*;
 import org.apache.xerces.parsers.*;
 
 import edu.cmu.cs.in.base.INHoopLink;
-import edu.cmu.cs.in.base.INHoopProperties;
+//import edu.cmu.cs.in.base.INHoopProperties;
 import edu.cmu.cs.in.controls.base.INJPanel;
 
 /**

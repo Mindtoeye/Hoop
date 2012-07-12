@@ -272,7 +272,8 @@ public class INHoopLink extends INHoopProperties
 		 							 "hoop.png",// 84
 		 							 "run-once.png",
 		 							 "run-n.png", // 84
-		 							 "run-forever.png"// 84		 							 
+		 							 "run-forever.png", // 84		 							 
+		 							 "checkbox.jpg" // 84
 		 							 };
 	
 	public static JFrame mainFrame=null;
