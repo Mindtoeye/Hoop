@@ -132,7 +132,7 @@ public class INHoopXML2Features extends INHoopTransformBase implements INHoopInt
 		debug ("getPropertiesPanel ()");
 		
 		if (featureEditor==null)
-			featureEditor=new INHoopXPathFeatureEditor ();
+			featureEditor=new INHoopXPathFeatureEditor (this);
 		
 		// Doesn't make a difference, probably because there is no vertical glue in the scrollpane
 		

@@ -46,6 +46,7 @@ import edu.cmu.cs.in.base.INHoopLink;
 //import edu.cmu.cs.in.controls.INJFeatureList;
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 import edu.cmu.cs.in.controls.base.INHoopJTable;
+import edu.cmu.cs.in.hoop.base.INHoopBase;
 //import edu.cmu.cs.in.controls.base.INJInternalFrame;
 
 /**
@@ -62,11 +63,18 @@ public class INHoopXPathFeatureEditor extends INEmbeddedJPanel implements Action
 	private JComboBox featureCombo=null;
 	private JTextField featureName=null;
 	
+	private INHoopBase propContainer=null;
+	
 	/**
 	 * 
 	 */
-	public INHoopXPathFeatureEditor ()  
+	public INHoopXPathFeatureEditor (INHoopBase aPropContainer)  
     {
+		setClassName ("INHoopXPathFeatureEditor");
+		debug ("INHoopXPathFeatureEditor ()");
+		
+		propContainer=aPropContainer;
+		
 		UIManager.put("Tree.expandedIcon",  new WindowsTreeUI.ExpandedIcon()); 
 		UIManager.put("Tree.collapsedIcon", new WindowsTreeUI.CollapsedIcon());
 		
@@ -142,6 +150,20 @@ public class INHoopXPathFeatureEditor extends INEmbeddedJPanel implements Action
 		
 		setContentPane (splitPane);		
     }
+	/**
+	 * 
+	 */
+	public INHoopBase getPropContainer() 
+	{
+		return propContainer;
+	}
+	/**
+	 * 	
+	 */
+	public void setPropContainer(INHoopBase propContainer) 
+	{
+		this.propContainer = propContainer;
+	}	
 	/**
 	 * 
 	 */
