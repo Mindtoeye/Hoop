@@ -21,7 +21,6 @@ package edu.cmu.cs.in.hoop;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
-import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -30,7 +29,6 @@ import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.controls.INScatterPlot;
 import edu.cmu.cs.in.controls.INSentenceWall;
 import edu.cmu.cs.in.controls.INSentinetPanel;
-//import edu.cmu.cs.in.hoop.editor.INHoopEditorToolBar;
 import edu.cmu.cs.in.hoop.project.INHoopProject;
 import edu.cmu.cs.in.hoop.properties.INHoopPropertyPanel;
 import edu.cmu.cs.in.network.INMessageReceiver;
@@ -62,16 +60,7 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     	debug ("INHoopMainFrame ()");
     	
     	compReference=this;
-    	
-    	ArrayList <String> profileLocations=INHoopLink.environment.getProfileLocation();
-    	
-    	if (profileLocations.size()==0)
-    	{
-    		debug ("Error: unable to figure out where the profile location should be");
-    	}
-    	else
-    		debug ("Determined profile directory to be: " + profileLocations.get(0));
-    	
+    	    	
 		fc = new JFileChooser();
 		FileNameExtensionFilter filter=new FileNameExtensionFilter (".xml rule files", "xml");
 		fc.setFileFilter(filter);    	

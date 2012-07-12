@@ -33,14 +33,13 @@ import org.apache.hadoop.util.VersionInfo;
 import edu.cmu.cs.in.base.io.INFileManager;
 import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
-import edu.cmu.cs.in.controls.base.INJFrame;
 import edu.cmu.cs.in.hoop.editor.INHoopEditorMenuBar;
 
 /** 
  * @author vvelsen
  *
  */
-public class INHoopMultiViewFrame extends INJFrame implements ActionListener
+public class INHoopMultiViewFrame extends INHoopPreferencesJFrame implements ActionListener
 {
 	private static final long serialVersionUID = -1;
 			
@@ -51,14 +50,11 @@ public class INHoopMultiViewFrame extends INJFrame implements ActionListener
 	 */	
     public INHoopMultiViewFrame() 
     {
-        super ("Hoop");
-        
+    	setClassName ("INHoopMultiViewFrame");
+    	debug ("INHoopMultiViewFrame ()");
+    	
 		this.setTitle ("Hoop");
-                
-        final int inset=50;
-        Dimension screenSize=Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds (inset,inset,screenSize.width-inset*2, screenSize.height-inset*2);
-	    
+                	    
 	    loadImageIcons ();
 		
 		INHoopLink.fManager=new INFileManager ();
@@ -222,14 +218,7 @@ public class INHoopMultiViewFrame extends INJFrame implements ActionListener
     	//button.setText(altText);
 
     	return button;
-    }    
-	/**
-	 *
-	 */	
-    public void quit() 
-    {
-        System.exit(0);
-    }      
+    }         
 	/**
 	 *
 	 */	
