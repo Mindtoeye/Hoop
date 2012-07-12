@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
 <jardesc>
-    <jar path="IN/INHoop.jar"/>
-    <options buildIfNeeded="true" compress="true" descriptionLocation="/IN/INHoop.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="true" overwrite="false" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
+    <jar path="Hoop/INHoop.jar"/>
+    <options buildIfNeeded="true" compress="true" descriptionLocation="/Hoop/INHoop.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="true" overwrite="false" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
     <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
     <selectedProjects/>
-    <manifest generateManifest="true" mainClassHandleIdentifier="=IN/src&lt;{INHoop.java[INHoop" manifestLocation="/IN/MANIFEST" manifestVersion="1.0" reuseManifest="false" saveManifest="true" usesManifest="true">
+    <manifest generateManifest="true" mainClassHandleIdentifier="=Hoop/src&lt;{INHoop.java[INHoop" manifestLocation="/Hoop/MANIFEST" manifestVersion="1.0" reuseManifest="false" saveManifest="true" usesManifest="true">
         <sealing sealJar="false">
             <packagesToSeal/>
             <packagesToUnSeal/>
         </sealing>
     </manifest>
     <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
-        <file path="/IN/MANIFEST"/>
-        <javaElement handleIdentifier="=IN/src"/>
-        <file path="/IN/README.txt"/>
+        <file path="/Hoop/MANIFEST"/>
+        <file path="/Hoop/README.txt"/>
+        <file path="/Hoop/LICENSE.txt"/>
+        <javaElement handleIdentifier="=Hoop/src"/>
     </selectedElements>
 </jardesc>

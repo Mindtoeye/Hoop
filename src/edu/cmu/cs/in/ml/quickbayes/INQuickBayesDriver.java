@@ -18,15 +18,14 @@
 
 package edu.cmu.cs.in.ml.quickbayes;
 
-/*
 import edu.cmu.cs.in.base.INBase;
-import edu.cmu.cs.in.ml.quickbayes.INQuickBayesArffReader;
+//import edu.cmu.cs.in.ml.quickbayes.INQuickBayesArffReader;
 import edu.cmu.cs.in.ml.quickbayes.INQuickBayesData;
 
 public class INQuickBayesDriver extends INBase
 {
-	private INQuickBayesArffReader reader=null;
-	private INQuickBayesCSVWriter writer=null;
+	//private INQuickBayesArffReader reader=null;
+	//private INQuickBayesCSVWriter writer=null;
 	private INQuickBayesData data=null;
 	
 	private String inputFile="undefined";
@@ -39,7 +38,7 @@ public class INQuickBayesDriver extends INBase
 		 setClassName ("INQuickBayes");
 		 debug ("INQuickBayesDriver ()");  
 		 
-		reader=new INQuickBayesArffReader ();
+		//reader=new INQuickBayesArffReader ();
 		//writer=new INQuickBayesCSVWriter ();
 		data=new INQuickBayesData ();
 	}
@@ -86,7 +85,7 @@ public class INQuickBayesDriver extends INBase
 
 	private void loadInput ()
 	{
-		reader.processInput (inputFile,data);
+		//reader.processInput (inputFile,data);
 	}
 
 	public void processOperation ()
@@ -96,7 +95,7 @@ public class INQuickBayesDriver extends INBase
 
 	public void saveOutput ()
 	{
-		writer.processOutput(outputFile,data);	
+		//writer.processOutput(outputFile,data);	
 	}
 	
 	public void run (String [] args)
@@ -118,11 +117,13 @@ public class INQuickBayesDriver extends INBase
 			help ();	
 		}			
 		
+		/*
 		if (reader.processInput (inputFile,data)==false)
 		{
 			debug ("Error, unable to read input file");
 			return;
 		}
+		*/
 		
 		data.prepClassification(targetClass);
 		data.classify (operation);
@@ -131,4 +132,3 @@ public class INQuickBayesDriver extends INBase
 		//debug ("Found instacne: " + reader.getDataItem("play",13));
 	}	
 }
-*/
