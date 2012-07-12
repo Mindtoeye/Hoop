@@ -9,11 +9,16 @@ complex analysis systems.
 
 Author: Martin van Velsen <vvelsen@cs.cmu.edu>,<vvelsen@gmail.com> 
 
-Notice!
+Background
 
-At some point the IDE might be migrated to the Eclipse workbench,
-although it looks like we don't need to go that elaborate and the
-current system is almost done anyway.
+When analyzing any kind of textual data you will soon find yourself
+in a situation where you're writing the same code over and over
+again. Each new project requires a version of string tokenizing,
+each new effort has some form of custom text filtering and 
+cleaning. You feel as if you have to jump through the same hoops
+over and over again. Hence the creation of a modular toolkit 
+called hoops in which those building blocks are pre-packaged for
+you and can be easily customized.
 
 History
 
@@ -33,11 +38,23 @@ source base are:
 
 Used Packages:
 
-- Cobra, for webpage rendering
+- Cobra (included), for webpage rendering
 	http://lobobrowser.org/cobra.jsp
 
-- JGraph, to render the hoop graph and query trees, etc
+- JGraph (included), to render the hoop graph and query trees, etc
 	http://www.jgraph.com/jgraph.html
 
-- Hadoop, for the indexing part in case you're running through a cluster
+- Hadoop (included), for the indexing part in case you're running through a cluster
 	http://hadoop.apache.org/
+	
+- Apache Xerces (included), used to populate certain swing controls from 
+	xml, for example the INHoopXMLTreeView. This package is included in the lib
+	directory but can be separately downloaded and linked to externally	if so desired.	
+	http://xerces.apache.org/mirrors.cgi
+
+Notice!
+
+At some point the IDE might be migrated to the Eclipse workbench,
+although it looks like we don't need to go that elaborate and the
+current system is almost done anyway.
+	

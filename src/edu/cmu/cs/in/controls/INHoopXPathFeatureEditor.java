@@ -30,13 +30,17 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JSplitPane;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 //import javax.swing.JFileChooser;
 //import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
+
+import com.sun.java.swing.plaf.windows.WindowsTreeUI;
 
 import edu.cmu.cs.in.base.INHoopLink;
 //import edu.cmu.cs.in.controls.INJFeatureList;
@@ -55,7 +59,7 @@ public class INHoopXPathFeatureEditor extends INEmbeddedJPanel implements Action
 	private INHoopJTable featureList=null;
 	private JButton addFeature=null;
 	private JButton deleteFeature=null;
-	private  JComboBox featureCombo=null;
+	private JComboBox featureCombo=null;
 	private JTextField featureName=null;
 	
 	/**
@@ -63,8 +67,9 @@ public class INHoopXPathFeatureEditor extends INEmbeddedJPanel implements Action
 	 */
 	public INHoopXPathFeatureEditor ()  
     {
-    	//super("StopWord Editor", true, true, true, true);
-    	
+		UIManager.put("Tree.expandedIcon",  new WindowsTreeUI.ExpandedIcon()); 
+		UIManager.put("Tree.collapsedIcon", new WindowsTreeUI.CollapsedIcon());
+		
 		setClassName ("INHoopXPathFeatureEditor");
 		debug ("INHoopXPathFeatureEditor ()");    	
     
@@ -99,7 +104,7 @@ public class INHoopXPathFeatureEditor extends INEmbeddedJPanel implements Action
 	    featureCombo = new JComboBox(featureStrings);
 	    //featureCombo.setSelectedIndex(4);
 
-	    featureCombo.setFont(new Font("Dialog", 1, 8));
+	    featureCombo.setFont(new Font("Dialog", 1, 9));
 	    featureCombo.setPreferredSize(new Dimension (100,20));
 	    featureCombo.setMaximumSize(new Dimension (100,20));
 	    featureCombo.addActionListener(this);
@@ -126,12 +131,16 @@ public class INHoopXPathFeatureEditor extends INEmbeddedJPanel implements Action
 		INHoopXMLTreeView xmlTree=new INHoopXMLTreeView ();
 		xmlTree.setMinimumSize(new Dimension (50,50));
 		xmlTree.setPreferredSize(new Dimension (150,100));
-		
-		stopBox.add(xmlTree);
+					
+		//stopBox.add(xmlTree);
 		stopBox.add(buttonBox);
-		stopBox.add(posScrollList);		
+		stopBox.add(posScrollList);
 		
-		setContentPane (stopBox);		
+		JSplitPane splitPane = new JSplitPane (JSplitPane.VERTICAL_SPLIT,xmlTree, stopBox);
+		splitPane.setOneTouchExpandable(true);
+		splitPane.setDividerLocation(100);	
+		
+		setContentPane (splitPane);		
     }
 	/**
 	 * 
@@ -143,8 +152,8 @@ public class INHoopXPathFeatureEditor extends INEmbeddedJPanel implements Action
 		
 		//int returnVal=0;
 		
-		String act=event.getActionCommand();
-		JButton button = (JButton)event.getSource();
+		//String act=event.getActionCommand();
+		//JButton button = (JButton)event.getSource();
 
 		/*
 		//>---------------------------------------------------------
