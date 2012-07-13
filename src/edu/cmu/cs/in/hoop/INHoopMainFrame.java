@@ -688,7 +688,7 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
         {
         	public void actionPerformed(ActionEvent e) 
         	{        		
-        		addView ("Help",new INHoopHelp (),INHoopLink.right);        		
+        		addView ("Help",new INHoopHelp (),INHoopLink.left);        		
         	}
         });
 

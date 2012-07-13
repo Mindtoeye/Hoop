@@ -25,6 +25,7 @@ import javax.swing.JPanel;
 
 import org.w3c.dom.Element;
 
+import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.base.kv.INKV;
 import edu.cmu.cs.in.hoop.editor.INHoopVisualRepresentation;
 import edu.cmu.cs.in.hoop.properties.types.INHoopSerializable;
@@ -62,6 +63,8 @@ public class INHoopBase extends INHoopBaseTyped implements INHoopInterface
 	private INHoopVisualRepresentation visualizer=null;
 	
 	private int maxValues=1;
+	
+	private String helpTopic="hooptemplate";
 		
 	/**
 	 *
@@ -433,5 +436,28 @@ public class INHoopBase extends INHoopBaseTyped implements INHoopInterface
 		formatted.append("</hoop>\n");
 		
 		return (formatted.toString());
+	}
+	/**
+	 * 
+	 */
+	public String getHelpTopic() 
+	{
+		return helpTopic;
+	}
+	/**
+	 * 
+	 */
+	public void setHelpTopic(String helpTopic) 
+	{
+		this.helpTopic = helpTopic;
+	}	
+	/**
+	 * 
+	 */
+	public void showHelp ()
+	{
+		debug ("showHelp ()");
+		
+		INHoopLink.showHelpTopic (helpTopic);
 	}
 }

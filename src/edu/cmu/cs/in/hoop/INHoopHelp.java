@@ -28,13 +28,27 @@ public class INHoopHelp extends INEmbeddedJPanel
 {  
 	private static final long serialVersionUID = 8470077729832249463L;
 
+	private INHoopHTMLPane html=null;
+	
+	/**
+	 * 
+	 */
 	public INHoopHelp () 
     {
 		setClassName ("INHoopHelp");
 		debug ("INHoopHelp ()");  
 		
        	setBounds (200,25,400,400);
-       	INHoopHTMLPane html=new INHoopHTMLPane ();
+       	html=new INHoopHTMLPane ();
        	setContentPane(html);
     }
+	/**
+	 * 
+	 */
+	public void navigateToTopic (String aTopic)
+	{
+		debug ("navigateToTopic ("+aTopic+")");
+		
+		html.navigateTo("/assets/help/" + aTopic + ".html");
+	}
 }

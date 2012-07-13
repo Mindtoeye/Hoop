@@ -78,6 +78,7 @@ public class INHoopNodeRenderer extends INJComponent implements /*MouseListener,
 	protected JPanel toolBar=null;
 	protected JPanel bottomPanel=null;
 	protected JButton kvExamineButton=null;
+	protected JButton showHelpButton=null;
 		
 	Box leftPortBox = null;
 	Box rightPortBox = null;	
@@ -139,6 +140,18 @@ public class INHoopNodeRenderer extends INJComponent implements /*MouseListener,
 		kvExamineButton.setMargin(new Insets (0,0,0,0));
 		kvExamineButton.addActionListener(this);
 		toolBar.add(kvExamineButton);
+		
+		showHelpButton=new JButton ();
+		showHelpButton.setIcon(INHoopLink.getImageByName("help_icon.png"));
+		showHelpButton.setPreferredSize(new Dimension(16, 16));
+		showHelpButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+		showHelpButton.setToolTipText("Collapse/Expand");
+		showHelpButton.setBackground(INHoopProperties.graphPanelColor);
+		showHelpButton.setOpaque(true);
+		showHelpButton.setBorder(null);
+		showHelpButton.setMargin(new Insets (0,0,0,0));
+		showHelpButton.addActionListener(this);
+		toolBar.add(showHelpButton);		
 
 		titleBar.add(toolBar, BorderLayout.EAST);
 		add (titleBar, BorderLayout.NORTH);
@@ -438,6 +451,12 @@ public class INHoopNodeRenderer extends INJComponent implements /*MouseListener,
 			}
 			*/
 		}	
+		
+		if (button==showHelpButton)
+		{
+			if (hoop!=null)
+				hoop.showHelp();
+		}
 	}
 	/**
 	 * 

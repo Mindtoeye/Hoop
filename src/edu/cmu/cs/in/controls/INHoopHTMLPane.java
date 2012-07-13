@@ -144,4 +144,13 @@ public class INHoopHTMLPane extends JScrollPane implements HyperlinkListener
         URL url;
         Cursor cursor;
     }
+    /**
+     * 
+     */
+    public void navigateTo (String aURL)
+    {
+    	URL url = getClass().getResource(aURL);
+    
+    	linkActivated (url);
+    }
 }

@@ -33,6 +33,7 @@ import edu.cmu.cs.in.base.io.INFileManager;
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 import edu.cmu.cs.in.hoop.INHoopConsoleInterface;
 import edu.cmu.cs.in.hoop.INHoopGraphManager;
+import edu.cmu.cs.in.hoop.INHoopHelp;
 import edu.cmu.cs.in.hoop.INHoopManager;
 import edu.cmu.cs.in.hoop.INHoopStatusBar;
 import edu.cmu.cs.in.hoop.INHoopTabDraggable;
@@ -276,7 +277,8 @@ public class INHoopLink extends INHoopProperties
 		 							 "checkbox.jpg", 
 		 							 "player-pause.png", 
 		 							 "player-play.png", 		 							 
-		 							 "player-stop.jpg" 		 							 
+		 							 "player-stop.jpg",
+		 							 "help_icon.png"
 		 							 };
 	
 	public static JFrame mainFrame=null;
@@ -544,6 +546,25 @@ public class INHoopLink extends INHoopProperties
 
    		aPane.setSelectedComponent (aContent);   		
    	}
+  	/**
+  	 * 
+  	 */
+  	public static void showHelpTopic (String aTopic)
+  	{
+  		INBase.debug ("INHoopLink","showHelpTopic ()");
+  		  		
+  		INHoopHelp helpWindow=(INHoopHelp) INHoopLink.getWindow("Help");
+  		
+  		if (helpWindow==null)
+  		{
+  			addView ("Help",new INHoopHelp (),INHoopLink.left);      
+  			helpWindow=(INHoopHelp) INHoopLink.getWindow("Help");
+  		}
+  		
+  		INHoopLink.popWindow("Help");
+  		
+  		helpWindow.navigateToTopic (aTopic);
+  	}
 	/** 
 	 * @return INHoopBase
 	 */
