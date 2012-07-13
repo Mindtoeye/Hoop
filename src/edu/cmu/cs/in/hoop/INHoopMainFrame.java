@@ -28,6 +28,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.controls.INSentenceWall;
 import edu.cmu.cs.in.controls.INSentinetPanel;
+import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 import edu.cmu.cs.in.hoop.project.INHoopProject;
 import edu.cmu.cs.in.hoop.properties.INHoopPropertyPanel;
 import edu.cmu.cs.in.hoop.visualizers.INHoopCluster;
@@ -759,6 +760,8 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     		public void actionPerformed(ActionEvent e) 
     		{
     			debug ("Run Once ...");
+    			
+    			showErrorWindow ();
     			    			
     			INHoopExecuteInEditor runtime=new INHoopExecuteInEditor ();
     			runtime.setRoot(INHoopLink.hoopGraphManager.getRoot());
@@ -773,7 +776,9 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     		public void actionPerformed(ActionEvent e) 
     		{
     			debug ("Run N Times ...");
-    			    			
+    			
+    			showErrorWindow ();
+    			    			    			    		
     			INHoopExecuteInEditor runtime=new INHoopExecuteInEditor ();
     			runtime.setRoot(INHoopLink.hoopGraphManager.getRoot());
     			runtime.setLoopCount(10);
@@ -788,6 +793,8 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     		{
     			debug ("Run Forever ...");
     			    			
+    			showErrorWindow ();
+    			
     			INHoopExecuteInEditor runtime=new INHoopExecuteInEditor ();
     			runtime.setRoot(INHoopLink.hoopGraphManager.getRoot());
     			runtime.setLoopCount(-1);
@@ -906,5 +913,22 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
 		*/
 		
 		projectPanel.updateContents();
+	}
+	/**
+	 * 
+	 */
+	private void showErrorWindow ()
+	{
+		debug ("showErrorWindow ()");
+		
+		INHoopErrorPanel test=(INHoopErrorPanel) INHoopLink.getWindow("Errors");
+		
+		if (test==null)
+		{
+			addView ("Errors",new INHoopErrorPanel(),"bottom");
+			test=(INHoopErrorPanel) INHoopLink.getWindow("Errors");
+		}	
+		
+		INHoopLink.popWindow ("Errors");
 	}
 }

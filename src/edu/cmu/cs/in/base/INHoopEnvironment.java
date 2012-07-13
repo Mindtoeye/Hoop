@@ -20,9 +20,9 @@ package edu.cmu.cs.in.base;
 
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Properties;
-import java.util.Set;
+//import java.util.Map.Entry;
+//import java.util.Properties;
+//import java.util.Set;
 
 /** 
  * @author Martin van Velsen
@@ -46,8 +46,8 @@ public class INHoopEnvironment extends INBase
     	
     	ArrayList <String> writableDirs=new ArrayList<String> ();
     	
-		Properties systemProps = System.getProperties();
-		Set<Entry<Object, Object>> sets = systemProps.entrySet();
+		//Properties systemProps = System.getProperties();
+		//Set<Entry<Object, Object>> sets = systemProps.entrySet();
 		Map<String,String> env=System.getenv();
 		
 		//debug ("Java properties: ");

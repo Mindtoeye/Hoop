@@ -142,138 +142,141 @@ public class INHoopLink extends INHoopProperties
 		 							 "hoop-to-list.png",// 81
 		 							 "hoop-to-table.png",// 82
 		 							 "arrow-up.png",// 83
-		 							 "arrow-down.png", // 84		 
-		 							 "actor.png", // 84		 
-		 							 "alignbottom.gif", // 84		 
-		 							 "aligncenter.gif", // 84
-		 							 "alignleft.gif", // 84
-		 							 "alignmiddle.gif", // 84
-		 							 "alignright.gif", // 84
-		 							 "aligntop.gif", // 84
-		 							 "arrow.gif", // 84
-		 							 "arrow.png", // 84
-		 							 "bell.png", // 84
-		 							 "block_end.gif", // 84
-		 							 "block_start.gif", // 84
-		 							 "bold.gif", // 84
-		 							 "bottom.gif", // 84
-		 							 "box.png", // 84
-		 							 "cancel_end.png", // 84
-		 							 "cancel_intermediate.png", // 84g
-		 							 "center.gif", // 84
-		 							 "classic_end.gif", // 84
-		 							 "classic_start.gif", // 84
-		 							 "cloud.png", // 84
-		 							 "collapse.gif", // 84
-		 							 "connect.gif", // 84
-		 							 "connect.png", // 84
-		 							 "connector.gif", // 84
-		 							 "copy.gif", // 84
-		 							 "cube_green.png", // 84
-		 							 "cut.gif", // 84
-		 							 "cylinder.png", // 84
-		 							 "delete.gif", // 84
-		 							 "diagram.gif", // 84
-		 							 "diamond_end.gif", // 84
-		 							 "diamond_start.gif", // 84
-		 							 "doubleellipse.png", // 84
-		 							 "down.gif", // 84
-		 							 "dude3.png", // 84
-		 							 "earth.png", // 84
-		 							 "ellipse.png", // 84
-		 							 "entity.gif", // 84
-		 							 "entity.png", // 84
-		 							 "error.png", // 84
-		 							 "event.png", // 84
-		 							 "event_end.png", // 84
-		 							 "event_intermediate.png", // 84
-		 							 "expand.gif", // 84
-		 							 "fillcolor.gif", // 84
-		 							 "fit.gif", // 84
-		 							 "font.gif", // 84
-		 							 "fontcolor.gif", // 84
-		 							 "fork.png", // 84
-		 							 "gear.png", // 84
-		 							 "group.gif", // 84
-		 							 "hexagon.png", // 84
-		 							 "hline.png", // 84
-		 							 "house.gif", // 84
-		 							 "house.png", // 84
-		 							 "image.gif", // 84
-		 							 "inclusive.png", // 84
-		 							 "italic.gif", // 84
-		 							 "left.gif", // 84
-		 							 "linecolor.gif", // 84
-		 							 "link.png", // 84
-		 							 "maximize.gif", // 84
-		 							 "merge.png", // 84
-		 							 "message.png", // 84
-		 							 "message_end.png", // 84
-		 							 "message_intermediate.png", // 84
-		 							 "middle.gif", // 84
-		 							 "minimize.gif", // 84
-		 							 "multiple.png", // 84
-		 							 "new.gif", // 84
-		 							 "open.gif", // 84
-		 							 "open_end.gif", // 84
-		 							 "open_start.gif", // 84
-		 							 "outline.gif", // 84
-		 							 "oval_end.gif", // 84
-		 							 "oval_start.gif", // 84
-		 							 "package.png", // 84
-		 							 "pagesetup.gif", // 84
-		 							 "pan.gif", // 84
-		 							 "paste.gif", // 84
-		 							 "plain.gif", // 84
-		 							 "preferences.gif", // 84
-		 							 "preview.gif", // 84
-		 							 "print.gif", // 84
-		 							 "printer.png", // 84
-		 							 "rectangle.png", // 84
-		 							 "redo.gif", // 84
-		 							 "resize.gif", // 84
-		 							 "rhombus.png", // 84
-		 							 "right.gif", // 84
-		 							 "rounded.png", // 84
-		 							 "rule.png", // 84
-		 							 "save.gif", // 84
-		 							 "saveas.gif", // 84
-		 							 "select.gif", // 84
-		 							 "server.png", // 84
-		 							 "straight.gif", // 84
-		 							 "straight.png", // 84
-		 							 "swimlane.png", // 84
-		 							 "terminate.png", // 84
-		 							 "timer.png", // 84
-		 							 "toback.gif", // 84
-		 							 "tofront.gif", // 84
-		 							 "top.gif", // 84
-		 							 "tree.gif", // 84
-		 							 "triangle.png", // 84
-		 							 "undo.gif", // 84
-		 							 "ungroup.gif", // 84
-		 							 "up.gif", // 84
-		 							 "vertical.gif", // 84
-		 							 "vertical.png", // 84
-		 							 "workplace.png", // 84
-		 							 "wrench.png", // 84
-		 							 "zoom.gif", // 84
-		 							 "zoomactual.gif", // 84
-		 							 "zoomin.gif", // 84
-		 							 "zoomout.gif",// 84
-		 							 "led-green.png",// 84
-		 							 "led-yellow.png",// 84
-		 							 "led-red.png",// 84 							 
-		 							 "resize.png",// 84		 							 
-		 							 "zoom.png", // 84
+		 							 "arrow-down.png", 		 
+		 							 "actor.png", 		 
+		 							 "alignbottom.gif", 		 
+		 							 "aligncenter.gif", 
+		 							 "alignleft.gif", 
+		 							 "alignmiddle.gif", 
+		 							 "alignright.gif", 
+		 							 "aligntop.gif", 
+		 							 "arrow.gif", 
+		 							 "arrow.png", 
+		 							 "bell.png", 
+		 							 "block_end.gif", 
+		 							 "block_start.gif", 
+		 							 "bold.gif", 
+		 							 "bottom.gif", 
+		 							 "box.png", 
+		 							 "cancel_end.png", 
+		 							 "cancel_intermediate.png", 
+		 							 "center.gif", 
+		 							 "classic_end.gif", 
+		 							 "classic_start.gif", 
+		 							 "cloud.png", 
+		 							 "collapse.gif", 
+		 							 "connect.gif", 
+		 							 "connect.png", 
+		 							 "connector.gif", 
+		 							 "copy.gif", 
+		 							 "cube_green.png", 
+		 							 "cut.gif", 
+		 							 "cylinder.png", 
+		 							 "delete.gif", 
+		 							 "diagram.gif", 
+		 							 "diamond_end.gif", 
+		 							 "diamond_start.gif", 
+		 							 "doubleellipse.png", 
+		 							 "down.gif", 
+		 							 "dude3.png", 
+		 							 "earth.png", 
+		 							 "ellipse.png", 
+		 							 "entity.gif", 
+		 							 "entity.png", 
+		 							 "error.png", 
+		 							 "event.png", 
+		 							 "event_end.png", 
+		 							 "event_intermediate.png", 
+		 							 "expand.gif", 
+		 							 "fillcolor.gif", 
+		 							 "fit.gif", 
+		 							 "font.gif", 
+		 							 "fontcolor.gif", 
+		 							 "fork.png", 
+		 							 "gear.png", 
+		 							 "group.gif", 
+		 							 "hexagon.png", 
+		 							 "hline.png", 
+		 							 "house.gif", 
+		 							 "house.png", 
+		 							 "image.gif", 
+		 							 "inclusive.png", 
+		 							 "italic.gif", 
+		 							 "left.gif", 
+		 							 "linecolor.gif", 
+		 							 "link.png", 
+		 							 "maximize.gif", 
+		 							 "merge.png", 
+		 							 "message.png", 
+		 							 "message_end.png", 
+		 							 "message_intermediate.png", 
+		 							 "middle.gif", 
+		 							 "minimize.gif", 
+		 							 "multiple.png", 
+		 							 "new.gif", 
+		 							 "open.gif", 
+		 							 "open_end.gif", 
+		 							 "open_start.gif", 
+		 							 "outline.gif", 
+		 							 "oval_end.gif", 
+		 							 "oval_start.gif", 
+		 							 "package.png", 
+		 							 "pagesetup.gif", 
+		 							 "pan.gif", 
+		 							 "paste.gif", 
+		 							 "plain.gif", 
+		 							 "preferences.gif", 
+		 							 "preview.gif", 
+		 							 "print.gif", 
+		 							 "printer.png", 
+		 							 "rectangle.png", 
+		 							 "redo.gif", 
+		 							 "resize.gif", 
+		 							 "rhombus.png", 
+		 							 "right.gif", 
+		 							 "rounded.png", 
+		 							 "rule.png", 
+		 							 "save.gif", 
+		 							 "saveas.gif", 
+		 							 "select.gif", 
+		 							 "server.png", 
+		 							 "straight.gif", 
+		 							 "straight.png", 
+		 							 "swimlane.png", 
+		 							 "terminate.png", 
+		 							 "timer.png", 
+		 							 "toback.gif", 
+		 							 "tofront.gif", 
+		 							 "top.gif", 
+		 							 "tree.gif", 
+		 							 "triangle.png", 
+		 							 "undo.gif", 
+		 							 "ungroup.gif", 
+		 							 "up.gif", 
+		 							 "vertical.gif", 
+		 							 "vertical.png", 
+		 							 "workplace.png", 
+		 							 "wrench.png", 
+		 							 "zoom.gif", 
+		 							 "zoomactual.gif", 
+		 							 "zoomin.gif", 
+		 							 "zoomout.gif",
+		 							 "led-green.png",
+		 							 "led-yellow.png",
+		 							 "led-red.png", 							 
+		 							 "resize.png",		 							 
+		 							 "zoom.png", 
 		 							 "port.png",
 		 							 "tree-expand-icon.png",
-		 							 "tree-fold-icon.png", // 84
-		 							 "hoop.png",// 84
+		 							 "tree-fold-icon.png", 
+		 							 "hoop.png",
 		 							 "run-once.png",
-		 							 "run-n.png", // 84
-		 							 "run-forever.png", // 84		 							 
-		 							 "checkbox.jpg" // 84
+		 							 "run-n.png", 
+		 							 "run-forever.png", 		 							 
+		 							 "checkbox.jpg", 
+		 							 "player-pause.png", 
+		 							 "player-play.png", 		 							 
+		 							 "player-stop.jpg" 		 							 
 		 							 };
 	
 	public static JFrame mainFrame=null;

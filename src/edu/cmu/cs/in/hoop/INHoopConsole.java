@@ -23,10 +23,14 @@ import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Enumeration;
+import java.util.Hashtable;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -55,7 +59,17 @@ public class INHoopConsole extends INEmbeddedJPanel implements INHoopConsoleInte
 	private JButton inButton=null;
 	private JButton outButton=null;	
 	
+	private JButton pauseButton=null;
+	
+	private JCheckBox filterClassCheck=null;
+	private JComboBox filterClass=null;
+	private JButton updateClasses=null;
+	
 	private int fontSize=8;
+	
+	private Boolean logPaused=false;
+	
+	private Hashtable<String,String> classTable=null; 
 	
 	/**
 	 * 
@@ -67,6 +81,8 @@ public class INHoopConsole extends INEmbeddedJPanel implements INHoopConsoleInte
 		setClassName ("INHoopConsole");
 		debug ("INHoopConsole ()");
 		
+		classTable = new Hashtable<String, String>();
+		
 		consoleData=new INFixedSizeQueue<String>(consoleSize);
 		
 		setLayout(new BoxLayout (this,BoxLayout.Y_AXIS));
@@ -76,7 +92,7 @@ public class INHoopConsole extends INEmbeddedJPanel implements INHoopConsoleInte
 		clearButton.setMargin(new Insets(1, 1, 1, 1));
 		//clearButton.setText("Clear");
 		clearButton.setFont(new Font("Courier",1,8));
-		clearButton.setPreferredSize(new Dimension (16,16));
+		clearButton.setPreferredSize(new Dimension (20,20));
 		clearButton.addActionListener(this);
 		
 		saveButton=new JButton ();	
@@ -84,7 +100,7 @@ public class INHoopConsole extends INEmbeddedJPanel implements INHoopConsoleInte
 		saveButton.setMargin(new Insets(1, 1, 1, 1));
 		//saveButton.setText("Save ...");
 		saveButton.setFont(new Font("Courier",1,8));
-		saveButton.setPreferredSize(new Dimension (16,16));
+		saveButton.setPreferredSize(new Dimension (20,20));
 		saveButton.addActionListener(this);
 		
 		maxLines=new JTextField ();
@@ -98,7 +114,7 @@ public class INHoopConsole extends INEmbeddedJPanel implements INHoopConsoleInte
 		setButton.setIcon(INHoopLink.imageIcons [22]);
 		setButton.setMargin(new Insets(1, 1, 1, 1));
 		setButton.setFont(new Font("Courier",1,8));
-		setButton.setPreferredSize(new Dimension (16,16));
+		setButton.setPreferredSize(new Dimension (20,20));
 		setButton.addActionListener(this);
 		
 		inButton=new JButton ();
@@ -106,7 +122,7 @@ public class INHoopConsole extends INEmbeddedJPanel implements INHoopConsoleInte
 		inButton.setIcon(INHoopLink.imageIcons [72]);
 		inButton.setMargin(new Insets(1, 1, 1, 1));
 		inButton.setFont(new Font("Courier",1,8));
-		inButton.setPreferredSize(new Dimension (16,16));
+		inButton.setPreferredSize(new Dimension (20,20));
 		inButton.addActionListener(this);
 		
 		outButton=new JButton ();
@@ -114,18 +130,53 @@ public class INHoopConsole extends INEmbeddedJPanel implements INHoopConsoleInte
 		outButton.setIcon(INHoopLink.imageIcons [73]);
 		outButton.setMargin(new Insets(1, 1, 1, 1));
 		outButton.setFont(new Font("Courier",1,8));
-		outButton.setPreferredSize(new Dimension (16,16));
+		outButton.setPreferredSize(new Dimension (20,20));
 		outButton.addActionListener(this);
 		
-		Box controlBox = new Box (BoxLayout.Y_AXIS);
+		pauseButton=new JButton ();
+		//setButton.setText("Set");
+		pauseButton.setIcon(INHoopLink.getImageByName("player-pause.png"));
+		pauseButton.setMargin(new Insets(1, 1, 1, 1));
+		pauseButton.setFont(new Font("Courier",1,8));
+		pauseButton.setPreferredSize(new Dimension (20,20));
+		pauseButton.addActionListener(this);		
+		
+		filterClassCheck=new JCheckBox ();
+		filterClassCheck.setText("Filter on class name:");
+		filterClassCheck.setFont(new Font("Courier",1,9));
+		filterClassCheck.setPreferredSize(new Dimension (150,20));
+		filterClassCheck.setMaximumSize(new Dimension (150,20));		
+		
+		filterClass = new JComboBox();
+		filterClass.setFont(new Font("Courier",1,9));
+		filterClass.setPreferredSize(new Dimension (150,20));
+		filterClass.setMaximumSize(new Dimension (150,20));
+		
+		updateClasses=new JButton ();
+		//setButton.setText("Set");
+		updateClasses.setIcon(INHoopLink.getImageByName("redo.gif"));
+		updateClasses.setMargin(new Insets(1, 1, 1, 1));
+		updateClasses.setFont(new Font("Courier",1,8));
+		updateClasses.setPreferredSize(new Dimension (20,20));
+		updateClasses.addActionListener(this);				
+		
+		Box controlBox = new Box (BoxLayout.X_AXIS);
 		controlBox.add(clearButton);
 		controlBox.add(saveButton);
 		controlBox.add(maxLines);
 		controlBox.add(setButton);
 		controlBox.add(inButton);
 		controlBox.add(outButton);
-		controlBox.setMinimumSize(new Dimension (24,150));
-		controlBox.setPreferredSize(new Dimension (24,150));
+		
+		controlBox.add(pauseButton);
+		
+		controlBox.add(filterClassCheck);
+		controlBox.add(filterClass);
+		controlBox.add(updateClasses);		
+		controlBox.add(Box.createHorizontalGlue());
+		
+		controlBox.setMinimumSize(new Dimension (150,24));
+		controlBox.setPreferredSize(new Dimension (150,24));		
 		
 		console=new JTextArea ();
 		console.setEditable (false);
@@ -134,9 +185,9 @@ public class INHoopConsole extends INEmbeddedJPanel implements INHoopConsoleInte
 						
 		JScrollPane consoleContainer = new JScrollPane (console);
 		consoleContainer.setMinimumSize(new Dimension (50,100));
-		consoleContainer.setPreferredSize(new Dimension (500,100));
-			
-		Box mainBox = new Box (BoxLayout.X_AXIS);
+		//consoleContainer.setPreferredSize(new Dimension (500,100));
+
+		Box mainBox = new Box (BoxLayout.Y_AXIS);
 		
 		mainBox.add(controlBox);
 		mainBox.add(consoleContainer);
@@ -161,29 +212,6 @@ public class INHoopConsole extends INEmbeddedJPanel implements INHoopConsoleInte
 	{
 		this.consoleSize = consoleSize;
 	}	
-	/**
-	 * 
-	 */		
-	public void appendString (String aMessage)
-	{		
-		consoleData.add (aMessage);
-		
-		if (console!=null)
-		{
-			console.setText(""); // Reset
-	
-			//System.out.println ("Console size: " + consoleData.size ());
-			
-			for (int i=0;i<consoleData.size();i++)
-			{			
-				String aString=consoleData.get(i);
-				console.append(aString);
-			}
-			
-			// Scroll to bottom
-			console.setCaretPosition(console.getDocument().getLength());
-		}	
-	}
 	/**
 	 * 
 	 */	
@@ -228,7 +256,26 @@ public class INHoopConsole extends INEmbeddedJPanel implements INHoopConsoleInte
 				fontSize=1;
 			
 			console.setFont(new Font("Courier",1,fontSize));			
-		}							
+		}		
+		
+		if (button==updateClasses)
+		{
+			fillClassCombo ();
+		}
+		
+		if (button==pauseButton)
+		{
+			if (logPaused==true)
+			{
+				logPaused=false;
+				pauseButton.setIcon(INHoopLink.getImageByName("player-pause.png"));
+			}
+			else
+			{
+				logPaused=true;
+				pauseButton.setIcon(INHoopLink.getImageByName("player-play.png"));
+			}	
+		}
 	}
 	/**
 	 * 
@@ -238,5 +285,68 @@ public class INHoopConsole extends INEmbeddedJPanel implements INHoopConsoleInte
 		debug ("processClose ()");
 		
 		INHoopLink.console=this;
+	}
+	/**
+	 * DO NOT CALL DEBUG IN THIS METHOD!!
+	 */
+	public void appendString (String aMessage)
+	{		
+		if (logPaused==true)
+			return;
+		
+		consoleData.add (aMessage);
+		
+		if (console!=null)
+		{
+			console.setText(""); // Reset
+	
+			//System.out.println ("Console size: " + consoleData.size ());
+			
+			for (int i=0;i<consoleData.size();i++)
+			{			
+				String aString=consoleData.get(i);
+				console.append(aString);
+			}
+			
+			// Scroll to bottom
+			console.setCaretPosition(console.getDocument().getLength());
+		}	
+		
+		processString (aMessage);
 	}	
+	/**
+	 * DO NOT CALL DEBUG IN THIS METHOD!!
+	 */
+	private void processString (String aString)
+	{
+		int startIndex=aString.indexOf("<");
+		int endIndex=aString.indexOf(">");
+		
+		if ((startIndex!=-1) && (endIndex!=-1))
+		{
+			if (endIndex>startIndex)
+			{
+				String classIdent=aString.substring(startIndex+1,endIndex);
+				
+				classTable.put(classIdent, classIdent);
+			}
+		}
+	}
+	/**
+	 * DO NOT CALL DEBUG IN THIS METHOD!!
+	 */	
+	private void fillClassCombo ()
+	{
+		filterClass.removeAllItems();
+		filterClass.addItem ("ALL");
+		
+		Enumeration<String> names; 
+		names = classTable.keys();
+		while(names.hasMoreElements()) 
+		{
+			String str = (String) names.nextElement();
+			//System.out.println(str + ": " +	names.get(str));
+			filterClass.addItem (str);
+		}
+	}
 }
