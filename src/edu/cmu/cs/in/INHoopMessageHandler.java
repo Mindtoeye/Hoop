@@ -18,27 +18,15 @@
 
 package edu.cmu.cs.in;
 
-//import java.util.ArrayList;
-
-//import javax.swing.DefaultListModel;
-//import javax.swing.JList;
-//import javax.swing.JTextArea;
-//import javax.swing.ListModel;
-
 import org.w3c.dom.Element;
 
 import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.INHoopLink;
-//import edu.cmu.cs.in.controls.INGridNodeVisualizer;
-//import edu.cmu.cs.in.controls.INJFeatureList;
-//import edu.cmu.cs.in.controls.INScatterPlot;
-import edu.cmu.cs.in.controls.INScatterPlot;
-//import edu.cmu.cs.in.controls.INVisualFeature;
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
-import edu.cmu.cs.in.hoop.INHoopCluster;
 import edu.cmu.cs.in.hoop.INHoopStatistics;
+import edu.cmu.cs.in.hoop.visualizers.INHoopCluster;
+import edu.cmu.cs.in.hoop.visualizers.INScatterPlot;
 import edu.cmu.cs.in.stats.INPerformanceMetrics;
-//import edu.cmu.cs.in.stats.INStatistics;
 import edu.cmu.cs.in.network.INMessageHandler;
 
 /**
@@ -46,14 +34,6 @@ import edu.cmu.cs.in.network.INMessageHandler;
 */
 public class INHoopMessageHandler extends INBase implements INMessageHandler
 {    	
-	//private INStatistics stats=null;
-	//private INScatterPlot plotter=null;
-	//private JTextArea rawStats=null;
-	//private INGridNodeVisualizer clusterGrid=null;
-	//private INJFeatureList jobList=null;
-	//private DefaultListModel listModel=null;
-	//private ArrayList <String>jobs=null;
-	
 	/**
 	*
 	*/	

@@ -16,7 +16,7 @@
  * 
  */
 
-package edu.cmu.cs.in.controls;
+package edu.cmu.cs.in.hoop.visualizers;
 
 import java.awt.Color;
 import java.awt.Font;

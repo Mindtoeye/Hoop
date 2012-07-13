@@ -26,11 +26,12 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import edu.cmu.cs.in.base.INHoopLink;
-import edu.cmu.cs.in.controls.INScatterPlot;
 import edu.cmu.cs.in.controls.INSentenceWall;
 import edu.cmu.cs.in.controls.INSentinetPanel;
 import edu.cmu.cs.in.hoop.project.INHoopProject;
 import edu.cmu.cs.in.hoop.properties.INHoopPropertyPanel;
+import edu.cmu.cs.in.hoop.visualizers.INHoopCluster;
+import edu.cmu.cs.in.hoop.visualizers.INScatterPlot;
 import edu.cmu.cs.in.network.INMessageReceiver;
 
 /** 

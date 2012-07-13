@@ -25,7 +25,7 @@ import javax.swing.border.*;
 import javax.swing.tree.*;
 */
 
-package edu.cmu.cs.in.hoop;
+package edu.cmu.cs.in.hoop.visualizers;
 
 //import java.awt.BorderLayout;
 //import java.awt.Color;
