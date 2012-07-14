@@ -18,138 +18,75 @@
 
 package edu.cmu.cs.in.base.kv;
 
+import java.util.ArrayList;
+
 /**
-* Any data created by hoops (INHoopBase) will use the KV object in some
-* form. INKV objects represent Key/Value pairs and form the most basic
-* data structure unit within the Hoop system. If your hoop can represent
-* language in a list, table or other structure containing KV values, then
-* any other hoop should be able to inspect and process your data.
+* Primarily meant for machine learning analsysis, but using key/value pairs,
+* we present the KV table datastructure. There are two ways to think about
+* this class. You can think about it as a table of key/value pairs, where
+* each cell is an INKV object. Or you can think about it as a table where
+* the columns are features and the rows are attributes. Currently the table
+* isn't specifically designed for machine learning or classification and
+* you should therefore use INKVClassificationTable if you want to get a table
+* with specific ML support.
 * 
-* Additionally the KV class allows native support for multi-value 
-* representations. This allows you to create tables for example where
-* the key represents the index and the list of values represents the
-* columns. Keep in mind that each KV instance can have any number of
-* values stored and that means you might have to add additional
-* housekeeping code to keep a table symmetrical. Support classes are
-* provided to make this task easier by representing KV tables natively,
-* which enforces each KV row to have an equal number of values. Empty
-* values are added in case padding is needed for KVs (rows) that have
-* less than the maximum number of values (rows). Please see the Naive
-* Bayes classes for a good example of how this is used.
+* Since the INKV class can store more than one value if so desired we can
+* turn the INKVTable class into a three dimensional data structure. When
+* using the table class directly for that purpose please be careful to see
+* how the class works internally since it would not be too difficult to
+* go against the internal api for data access.
 * 
-* We should deliberately not derive from INBase since that comes with a
-* large memory footprint. Currently the key and value types are somewhat
-* pre-determined and immutable. That means that for a long while any
-* code you write will have to check first the type of key and the type
-* of value before using the contents of a KV object.
+* Note: this table class does not provide any support for named headers.
+* Instead you should used the INKVClassificationTable class.
 */
-public class INKVTable extends INKV implements INKVInterface
+public class INKVTable extends INKV
 {    			
-	private String key="0";
+	private ArrayList <ArrayList <INKV>>data=null;
 	
 	/**
 	 *
 	 */
     public INKVTable () 
     {
-    	// Make sure we have at least one entry for quick access
-    	values.add(new String ("0"));
+    	data=new ArrayList<ArrayList <INKV>> ();
     }
-	/**
-	 *
-	 */
-    public INKVTable (String aKey,String aValue) 
-    {	   
-    	// Make sure we have at least one entry for quick access
-    	values.add(new String ("0"));  	
+    /**
+     * 
+     */
+    public ArrayList <INKV> getRow (int aRow)
+    {
+		ArrayList <INKV> row=(ArrayList <INKV>) data.get (aRow);
+		return (row);
+    }
+    /**
+     * CURRENTLY THIS COULD BE VERY SLOW!!!
+     */
+    public ArrayList <INKV> getColumn (int aCol)
+    {
+    	ArrayList <INKV> aSlice=new ArrayList<INKV> ();
     	
-    	setKey (aKey);
-    	setValue (aValue);
-    }  
-	/**
-	 *
-	 */
-	public String getKey() 
-	{
-		return key;
-	}
-	/**
-	 *
-	 */
-	public void setKey(String key) 
-	{
-		this.key = key;
-	}
-	/**
-	 *
-	 */
-	public String getValue() 
-	{
-		return (String) (values.get(0));
-	}
-	/**
-	 *
-	 */
-	public String getValue(int anIndex) 
-	{
-		if (anIndex>values.size())
-			return ("0");
-		
-		return (String) (values.get(anIndex));
-	}	
-	/**
-	 *
-	 */
-	public String getValueAsString() 
-	{
-		return (String) (values.get(0));
-	}
-	/**
-	 *
-	 */
-	public String getValueAsString(int anIndex) 
-	{
-		if (anIndex>values.size())
-			return ("0");
-		
-		return (String) (values.get(anIndex));
-	}		
-	/**
-	 *
-	 */
-	public void setValue(String value) 
-	{
-		values.set(0,value);
-	}
-	/**
-	 *
-	 */
-	public void setValue(String value, int anIndex) 
-	{
-		if (anIndex>(values.size()-1))
-		{
-			// fill with bogus data up to the requested element
-			
-			for (int i=(values.size ()-1);i<anIndex;i++)
-			{
-				values.add("0");
-			}
-		}
-		
-		values.set(anIndex,value);
-	}	
-	/**
-	 *
-	 */	
-	public String getKeyString() 
-	{
-		return key;
-	}
-	/**
-	 *
-	 */	
-	public void setKeyString(String keyString) 
-	{
-		this.key=keyString;
-	}  
+    	for (int i=0;i<data.size();i++)
+    	{
+    		ArrayList <INKV> aRow=data.get(i);
+    		
+    		aSlice.add(aRow.get(aCol));
+    	}
+    	
+    	return (aSlice);
+    }
+    /**
+     * 
+     */
+    public INKV getCell (int aCol,int aRow)
+    {
+		ArrayList <INKV> row=(ArrayList <INKV>) data.get (aRow);
+		return (row.get (aCol));
+    }
+    /**
+     * 
+     */
+    public void addRow (ArrayList <INKV> aRow)
+    {
+    	data.add(aRow);
+    }
 }
