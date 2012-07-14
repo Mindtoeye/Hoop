@@ -29,6 +29,7 @@ public class INKVType
 	public static final int STRING=2;
 	public static final int FLOAT=3;
 	public static final int BOOLEAN=4;
+	public static final int TABLE=5;
 	
 	private int type=INT;
 	private String typeValue="String";
@@ -70,13 +71,15 @@ public class INKVType
 		switch (type)
 		{
 			case INT:
-						return ("Integer");
+							return ("Integer");
 			case STRING:
-						return ("String");
+							return ("String");
 			case FLOAT:
-						return ("Float");
+							return ("Float");
 			case BOOLEAN:
 							return ("Boolean");
+			case TABLE:
+							return ("Table");
 		}
 		
 		return ("Integer");

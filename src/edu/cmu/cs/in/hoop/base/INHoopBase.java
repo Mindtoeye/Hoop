@@ -437,6 +437,38 @@ public class INHoopBase extends INHoopBaseTyped implements INHoopInterface
 		
 		return (formatted.toString());
 	}
+	/*
+	public Element toStringElement() 
+	{
+		debug ("toStringElement ()");
+		
+		Element newElement=getClassElement ();
+
+		Element selectionElement=new Element ("selection");
+		selectionElement.setText(getName());						
+		newElement.addContent(selectionElement);
+		
+		Element actionElement=new Element ("action");
+		actionElement.setText(action);						
+		newElement.addContent(actionElement);		
+		
+		Element argElement=new Element ("internalArguments");
+		newElement.addContent(argElement);		
+		
+		for (int i=0;i<arguments.size();i++)
+		{
+			CTATArgument arg=arguments.get(i);
+			
+			Element inputElement=new Element ("value");
+			inputElement.setAttribute("fmt",arg.getFormat());
+			inputElement.setAttribute("type",arg.getType ());
+			inputElement.setText(arg.getValue ());		
+			argElement.addContent(inputElement);			
+		}
+				
+		return(newElement);
+	}
+	*/		
 	/**
 	 * 
 	 */
