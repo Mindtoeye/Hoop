@@ -27,6 +27,7 @@ import org.w3c.dom.Element;
 
 import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.base.kv.INKV;
+import edu.cmu.cs.in.base.kv.INKVTable;
 import edu.cmu.cs.in.hoop.editor.INHoopVisualRepresentation;
 import edu.cmu.cs.in.hoop.properties.types.INHoopSerializable;
 import edu.cmu.cs.in.stats.INPerformanceMetrics;
@@ -42,6 +43,7 @@ public class INHoopBase extends INHoopBaseTyped implements INHoopInterface
 {    			
 	private ArrayList <INHoopBase> outHoops=null;	
 	private ArrayList <INKV> data=null;
+	private INKVTable model=null;	
 
 	private String hoopID="";
 	
@@ -91,7 +93,8 @@ public class INHoopBase extends INHoopBaseTyped implements INHoopInterface
 		
 		addInPort ("KV");
 		addOutPort ("KV");
-		addOutPort ("Stats");				
+		addOutPort ("Stats");
+		addOutPort ("Model");
     }
     /**
      * 
@@ -491,5 +494,12 @@ public class INHoopBase extends INHoopBaseTyped implements INHoopInterface
 		debug ("showHelp ()");
 		
 		INHoopLink.showHelpTopic (helpTopic);
+	}
+	/*
+	 * 
+	 */
+	public INKVTable getModel() 
+	{
+		return model;
 	}
 }

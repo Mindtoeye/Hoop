@@ -53,6 +53,13 @@ public class INKVTable extends INKV
     /**
      * 
      */
+    public int getRowCount ()
+    {
+    	return (data.size());
+    }
+    /**
+     * 
+     */
     public ArrayList <INKV> getRow (int aRow)
     {
 		ArrayList <INKV> row=(ArrayList <INKV>) data.get (aRow);
