@@ -32,11 +32,13 @@ import java.awt.geom.AffineTransform;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+
+import edu.cmu.cs.in.controls.INJFeatureList;
  
 /**
  *
  */
-public class INZoomedJPanel extends INJPanel implements MouseListener, MouseWheelListener
+public class INZoomedJPanel extends INJPanel implements MouseWheelListener
 { 
 	private static final long serialVersionUID = -1L;
 
@@ -53,53 +55,7 @@ public class INZoomedJPanel extends INJPanel implements MouseListener, MouseWhee
 		 
 		this.setBackground(Color.white);
 		this.setPreferredSize(new Dimension(200,300));
-		this.addMouseListener (this);
-		this.addMouseWheelListener(this);
-		
-		//Add a mouse Listener
-		/*
-		this.addMouseListener(new java.awt.event.MouseAdapter() 
-		{
-			public void mousePressed(java.awt.event.MouseEvent evt) 
-			{
-				debug ("mousePressed ()");
-				
-				try 
-				{
-					panelMousePressed(evt);
-				} 
-				catch (Exception e) 
-				{	
-					e.getMessage(); 
-				}
-			}//end
-		});
-		*/
-	}
-	/**
-	 * 
-	 */
-	private void panelMousePressed (MouseEvent evt) //throws Exception 
-	{
-		debug ("panelMousePressed ()");
-		
-		Point press = evt.getPoint();
- 
-		debug ("X: " + press.x +" - Y: " + press.y);
- 
-		// Inverse the Point
-		inverseXform.transform(press, press);
- 
-		/*Create a bound Rectangle to enclose this JLabel*/
-		Rectangle enRect = new Rectangle(press.x,press.y,40,30);
- 
-		JLabel label = new JLabel("Label");
-		label.setBounds(enRect);
- 
-		//Add it to the JPanel
-		this.add(label);
- 
-		repaint();
+		this.addMouseWheelListener(this);		
 	}
 	/**
 	 * 
@@ -169,6 +125,16 @@ public class INZoomedJPanel extends INJPanel implements MouseListener, MouseWhee
 	/**
 	 * 
 	 */
+	@Override
+	public void mouseWheelMoved(MouseWheelEvent evt) 
+	{
+		int notches = evt.getWheelRotation();
+		
+		changeZoom (zoomFactor+=(notches*0.01));				
+	}		
+	/**
+	 * 
+	 */
 	public static void main(String[] args) 
 	{
         JFrame window = new JFrame ();
@@ -185,61 +151,4 @@ public class INZoomedJPanel extends INJPanel implements MouseListener, MouseWhee
         
         window.setVisible(true);
     }
-	/**
-	 * 
-	 */
-	@Override
-	public void mouseClicked(MouseEvent arg0) 
-	{
-		// TODO Auto-generated method stub
-		
-	}
-	/**
-	 * 
-	 */
-	@Override
-	public void mouseEntered(MouseEvent arg0) 
-	{
-		// TODO Auto-generated method stub
-		
-	}
-	/**
-	 * 
-	 */
-	@Override
-	public void mouseExited(MouseEvent arg0) 
-	{
-		// TODO Auto-generated method stub
-		
-	}
-	/**
-	 * 
-	 */
-	@Override
-	public void mousePressed(MouseEvent evt) 
-	{
-		debug ("mousePressed ()");
-		
-		try 
-		{
-			panelMousePressed(evt);
-		} 
-		catch (Exception e) 
-		{	
-			e.getMessage(); 
-		}
-	}
-	@Override
-	public void mouseReleased(MouseEvent arg0) 
-	{
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void mouseWheelMoved(MouseWheelEvent evt) 
-	{
-		int notches = evt.getWheelRotation();
-		
-		changeZoom (zoomFactor+=(notches*0.01));				
-	}	
 }
