@@ -42,6 +42,7 @@ import java.util.ArrayList;
 public class INKVTable extends INKV
 {    			
 	private ArrayList <ArrayList <INKV>>data=null;
+	private int maxRowLength=1; // technically not true but at least not 0
 	
 	/**
 	 *
@@ -49,6 +50,13 @@ public class INKVTable extends INKV
     public INKVTable () 
     {
     	data=new ArrayList<ArrayList <INKV>> ();
+    }
+    /**
+     * 
+     */
+    public int getRowSize ()
+    {
+    	return (maxRowLength);
     }
     /**
      * 
@@ -94,6 +102,7 @@ public class INKVTable extends INKV
      */
     public void addRow (ArrayList <INKV> aRow)
     {
+    	maxRowLength=aRow.size();
     	data.add(aRow);
     }
 }

@@ -31,7 +31,7 @@ public class INKVClassificationTable extends INKVTable
 {    	
 	private int classColumn=0;
 	
-	private ArrayList <String> features=null;	
+	private ArrayList <String> features=null;
 	
 	/**
 	 *
