@@ -27,34 +27,24 @@ import javax.swing.tree.*;
 
 package edu.cmu.cs.in.hoop.visualizers;
 
-//import java.awt.BorderLayout;
-//import java.awt.Color;
-//import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-//import javax.swing.BorderFactory;
-//import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
-//import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-//import org.w3c.dom.Attr;
-import org.w3c.dom.Element;
-//import org.w3c.dom.NamedNodeMap;
-//import javax.swing.border.Border;
+import org.jdom.Element;
 
 import edu.cmu.cs.in.INHoopMessageHandler;
 import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.base.INXMLBase;
 import edu.cmu.cs.in.controls.INGridNodeVisualizer;
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
-//import edu.cmu.cs.in.hadoop.INHadoopReporter;
 import edu.cmu.cs.in.network.INMessageReceiver;
 import edu.cmu.cs.in.network.INStreamedSocket;
 

@@ -21,7 +21,7 @@ package edu.cmu.cs.in.hoop.project;
 import java.io.File;
 import java.util.ArrayList;
 
-import org.w3c.dom.Element;
+import org.jdom.Element;
 
 import edu.cmu.cs.in.hoop.base.INHoopBase;
 
@@ -201,13 +201,10 @@ public class INHoopProject extends INHoopProjectFile
 	/**
 	*
 	*/	
-	public String toXML() 
+	public Element toXML() 
 	{
 		debug ("toXML ()");
 	
-		StringBuffer formatted=new StringBuffer ();
-		formatted.append (super.toXML());
-				
-		return (formatted.toString());
+		return (super.toXML());
 	}		
 }

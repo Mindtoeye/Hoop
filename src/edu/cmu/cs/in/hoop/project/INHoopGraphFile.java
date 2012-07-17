@@ -20,7 +20,8 @@ package edu.cmu.cs.in.hoop.project;
 
 import java.util.ArrayList;
 
-import org.w3c.dom.Element;
+import org.jdom.Element;
+
 
 import edu.cmu.cs.in.hoop.base.INHoopBase;
 
@@ -90,35 +91,35 @@ public class INHoopGraphFile extends INHoopProjectFile
 		debug ("fromXML ()");
 				
 		graphRoot=new INHoopBase ();
-		graphRoot.fromXMLElement(root);
+		graphRoot.fromXML(root);
 		
 		return (true);
 	}	
 	/**
 	*
 	*/	
-	public String toXML() 
+	public Element toXML() 
 	{
 		debug ("toXML ()");
-	
-		StringBuffer formatted=new StringBuffer ();
-		formatted.append (super.toXML());
 		
-		formatted.append("<graph>\n");
+		Element rootElement=super.toXML();
 		
-		formatted.append("<hoops>\n");
+		Element hoopElement=new Element ("graph");
 		
+		rootElement.setContent(hoopElement);
+			
+		Element hoopsElement=new Element ("hoops");
+		hoopElement.addContent(hoopsElement);
+							
 		for (int i=0;i<hoops.size();i++)
 		{
 			INHoopBase aHoop=hoops.get(i);
-			formatted.append(aHoop.toXML ());
-			formatted.append("\n");
+			hoopsElement.addContent (aHoop.toXML());
 		}
 		
-		formatted.append("</hoops>\n");
-		
-		formatted.append("<connections>\n");
-		
+		Element connElement=new Element ("connections");
+		hoopElement.addContent(connElement);
+				
 		if (graphRoot!=null)
 		{			
 			ArrayList<INHoopBase> list=graphRoot.getOutHoops();
@@ -127,14 +128,14 @@ public class INHoopGraphFile extends INHoopProjectFile
 			{
 				INHoopBase target=list.get(j);
 				
-				formatted.append("<connection from=" + graphRoot.getHoopID() + " to=" + target.getHoopID() + " />\n");
+				Element cElement=new Element ("connection");
+				connElement.addContent(cElement);
+				
+				cElement.setAttribute("from",graphRoot.getHoopID());
+				cElement.setAttribute("to",target.getHoopID());				
 			}
 		}
-		
-		formatted.append("</connections>\n");
-		
-		formatted.append("</graph>\n");
-		
-		return (formatted.toString());
+				
+		return (rootElement);
 	}
 }

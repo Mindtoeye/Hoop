@@ -18,7 +18,7 @@
 
 package edu.cmu.cs.in;
 
-import org.w3c.dom.Element;
+import org.jdom.Element;
 
 import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.INHoopLink;

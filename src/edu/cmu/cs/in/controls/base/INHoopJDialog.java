@@ -32,9 +32,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 
-import org.w3c.dom.Element;
+import org.jdom.Element;
 
-//import edu.cmu.pact.Utilities.trace;
 import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.INXMLBase;
 
@@ -159,7 +158,7 @@ public class INHoopJDialog extends JDialog
 		*/
     	
     	INXMLBase driver=new INXMLBase ();
-    	Element elm=driver.fromXMLString(xml);
+    	Element elm=driver.fromXMLString (xml);
 		
 		fromXML (elm);
     }

@@ -21,13 +21,14 @@ package edu.cmu.cs.in.hoop.hoops;
 import java.awt.Dimension;
 import java.util.ArrayList;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-
 import javax.swing.JPanel;
+
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
+
+import org.jdom.Document;
+import org.jdom.Element;
 
 import edu.cmu.cs.in.base.INXMLBase;
 import edu.cmu.cs.in.base.kv.INKV;
@@ -87,7 +88,9 @@ public class INHoopXML2Features extends INHoopTransformBase implements INHoopInt
 				else
 				{
 					INXMLBase xmlTools=new INXMLBase ();
-					Document root=xmlTools.loadXMLFromString (aFullText);
+					xmlTools.loadXMLFromString (aFullText);
+					
+					Document root=xmlTools.getDoc();
 				
 					for (int i=0;i<features.size();i++)
 					{
@@ -97,8 +100,10 @@ public class INHoopXML2Features extends INHoopTransformBase implements INHoopInt
 						{
 							XPath xPath = XPathFactory.newInstance().newXPath();
 							//Node node = (Node) xPath.evaluate("/Request/@name", root, XPathConstants.NODE);
-							Node node = (Node) xPath.evaluate(aFeature.getName(), root, XPathConstants.NODE);
-							aFeature.setValue(node.getNodeValue());						
+							//Node node = (Node) xPath.evaluate(aFeature.getName(), root, XPathConstants.NODE);
+							Element node =(Element) xPath.evaluate(aFeature.getName(), root, XPathConstants.NODE);
+							//aFeature.setValue(node.getNodeValue());						
+							aFeature.setValue(node.getText());
 						} 
 						catch (Exception e) 
 						{

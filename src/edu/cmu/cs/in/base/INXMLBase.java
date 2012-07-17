@@ -38,6 +38,8 @@ import org.jdom.input.SAXBuilder;
  */
 public class INXMLBase extends INBase
 {			
+	private Document doc = null;
+	
 	/**
 	*
 	*/	
@@ -46,6 +48,20 @@ public class INXMLBase extends INBase
     	setClassName ("INXMLBase");
     	debug ("INXMLBase ()");
 	}
+	/**
+	 * 
+	 */	
+	public Document getDoc() 
+	{
+		return doc;
+	}
+	/**
+	 * 
+	 */	
+	public void setDoc(Document doc) 
+	{
+		this.doc = doc;
+	}	
 	/**
 	 * 
 	 */
@@ -77,7 +93,6 @@ public class INXMLBase extends INBase
     	
     	SAXBuilder builder = new SAXBuilder();
     	Reader in = new StringReader(xml);
-    	Document doc = null;
     	Element root = null;
   
     	try

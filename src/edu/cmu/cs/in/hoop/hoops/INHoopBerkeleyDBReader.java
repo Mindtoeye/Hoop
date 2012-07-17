@@ -16,22 +16,28 @@
  * 
  */
 
-package edu.cmu.cs.in.network;
+package edu.cmu.cs.in.hoop.hoops;
 
-import org.jdom.Element;
+import java.util.ArrayList;
 
-/**
-*
-*/
-public interface INMessageHandler
-{    						
+import edu.cmu.cs.in.base.kv.INKV;
+import edu.cmu.cs.in.base.kv.INKVString;
+import edu.cmu.cs.in.base.kv.INKVType;
+import edu.cmu.cs.in.hoop.base.INHoopBase;
+import edu.cmu.cs.in.hoop.base.INHoopInterface;
+import edu.cmu.cs.in.hoop.base.INHoopLoadBase;
+
+public class INHoopBerkeleyDBReader extends INHoopLoadBase implements INHoopInterface
+{	
 	/**
 	 *
-	 */
-    public void handleIncomingData (int ID,String data); 
-      
-	/**
-	 *
-	 */
-    public void handleIncomingXML (int ID,Element root);    
+	 */ 
+	public INHoopBerkeleyDBReader () 
+	{		
+		setClassName ("INHoopBerkeleyDBReader");
+		debug ("INHoopBerkeleyDBReader ()");
+				
+		setHoopDescription ("Read from a Berkeley DB");		
+	}
+
 }

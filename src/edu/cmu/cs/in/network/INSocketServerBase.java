@@ -22,8 +22,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-//import org.w3c.dom.Document;
-import org.w3c.dom.Element;
+import org.jdom.Element;
 
 import edu.cmu.cs.in.base.INLink;
 import edu.cmu.cs.in.base.INXMLBase;

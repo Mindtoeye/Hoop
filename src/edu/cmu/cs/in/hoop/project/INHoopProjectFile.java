@@ -20,7 +20,10 @@ package edu.cmu.cs.in.hoop.project;
 
 import java.io.File;
 
-import org.w3c.dom.Element;
+import org.jdom.Element;
+import org.jdom.output.XMLOutputter;
+import org.jdom.Document;
+import org.jdom.output.Format;
 
 import edu.cmu.cs.in.base.INXMLBase;
 import edu.cmu.cs.in.base.io.INFileManager;
@@ -100,7 +103,16 @@ public class INHoopProjectFile extends INXMLBase
 		
 		this.virginFile=false;
 		
-		return (fManager.saveContents(fileURI,this.toXML()));
+		Document document = new Document();
+		
+		Element root=this.toXML();
+		
+		document.setContent(root);
+		
+		XMLOutputter outputter = new XMLOutputter(Format.getPrettyFormat());
+        String xmlString = outputter.outputString(document);
+		
+		return (fManager.saveContents(fileURI,xmlString));
 	}	
 	/**
 	 * 
@@ -147,14 +159,10 @@ public class INHoopProjectFile extends INXMLBase
 	/**
 	*
 	*/	
-	public String toXML() 
+	public Element toXML() 
 	{
 		debug ("toXML ()");
 	
-		StringBuffer formatted=new StringBuffer ();
-		formatted.append (super.toXML());
-		
-		
-		return (formatted.toString());
+		return (super.toXML());
 	}	
 }
