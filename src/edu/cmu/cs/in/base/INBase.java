@@ -25,6 +25,8 @@ import java.util.Date;
 
 import javax.swing.JOptionPane;
 
+import org.jdom.Element;
+
 import edu.cmu.cs.in.base.INFilterBase;
 import edu.cmu.cs.in.base.io.INFileManager;
 
@@ -199,6 +201,26 @@ public class INBase
 	{
 		this.instanceName = instanceName;
 	}
+	/**
+	 * 
+	 */
+	protected Element getClassElement ()
+	{
+		Element classElement=new Element (getClassType ());
+				
+		return (classElement);
+	}
+	/**
+	 * 
+	 */
+	protected Element getClassElement (String aName)
+	{
+		Element classElement=new Element (getClassType ());
+		
+		classElement.setAttribute("name",aName);
+		
+		return (classElement);
+	}	
 	/**
 	*	
 	*/		

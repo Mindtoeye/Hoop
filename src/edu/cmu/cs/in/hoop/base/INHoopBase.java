@@ -23,7 +23,7 @@ import java.util.UUID;
 
 import javax.swing.JPanel;
 
-import org.w3c.dom.Element;
+import org.jdom.Element;
 
 import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.base.kv.INKV;
@@ -406,23 +406,25 @@ public class INHoopBase extends INHoopBaseTyped implements INHoopInterface
 	 * 
 	 */
 	@Override
-	public void fromXMLElement(Element anElement) 
+	public void fromXML(Element anElement) 
 	{
-		debug ("fromXMLElement ()");
+		debug ("fromXML ()");
 		
 	}
 	/**
 	 * 
 	 */
-	public String toXML ()
+	public Element toXML ()
 	{
 		debug ("toXML ()");
 		
-		StringBuffer formatted=new StringBuffer ();
+		Element hoopElement=new Element ("hoop");
 		
-		formatted.append("<hoop id="+this.getHoopID()+" class="+this.getClassName()+">\n");
+		hoopElement.setAttribute("id",this.getHoopID());
+		hoopElement.setAttribute("class",this.getClassName());
 		
-		formatted.append("<properties>\n");
+		Element propertiesElement=new Element ("properties");							
+		hoopElement.addContent(propertiesElement);		
 		
 		ArrayList <INHoopSerializable> props=getProperties ();
 		
@@ -430,48 +432,11 @@ public class INHoopBase extends INHoopBaseTyped implements INHoopInterface
 		{
 			INHoopSerializable prop=props.get(i);
 			
-			formatted.append(prop.toXML());
-			formatted.append("\n");
-		}
-		
-		formatted.append("</properties>\n");
-		
-		formatted.append("</hoop>\n");
-		
-		return (formatted.toString());
-	}
-	/*
-	public Element toStringElement() 
-	{
-		debug ("toStringElement ()");
-		
-		Element newElement=getClassElement ();
-
-		Element selectionElement=new Element ("selection");
-		selectionElement.setText(getName());						
-		newElement.addContent(selectionElement);
-		
-		Element actionElement=new Element ("action");
-		actionElement.setText(action);						
-		newElement.addContent(actionElement);		
-		
-		Element argElement=new Element ("internalArguments");
-		newElement.addContent(argElement);		
-		
-		for (int i=0;i<arguments.size();i++)
-		{
-			CTATArgument arg=arguments.get(i);
-			
-			Element inputElement=new Element ("value");
-			inputElement.setAttribute("fmt",arg.getFormat());
-			inputElement.setAttribute("type",arg.getType ());
-			inputElement.setText(arg.getValue ());		
-			argElement.addContent(inputElement);			
-		}
+			propertiesElement.addContent(prop.toXML());			
+		}		
 				
-		return(newElement);
-	}
-	*/		
+		return (hoopElement);
+	}			
 	/**
 	 * 
 	 */

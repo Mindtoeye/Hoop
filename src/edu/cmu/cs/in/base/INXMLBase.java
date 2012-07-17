@@ -19,23 +19,22 @@
 package edu.cmu.cs.in.base;
 
 import java.io.IOException;
+import java.io.Reader;
 import java.io.StringReader;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.w3c.dom.Attr;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
+import org.jdom.Document;
+import org.jdom.Element;
+import org.jdom.JDOMException;
+import org.jdom.input.SAXBuilder;
 
 /**
- * 
+ * This class is the workhorse for anything XML. You can derive from it to get easy
+ * xml parsing and creation, or you can use it as an exernal tool. Be aware that
+ * INXMLBase inherits from INBase and that means you shouldn't create loads of
+ * instances of it since that would waste a lot of memory. You might notice that
+ * the code has some old commented out w3c methods and usages. We've completely
+ * switched to jdom for easy parsing and generation of xml where we also don't
+ * need to get the SAX parser separately.
  */
 public class INXMLBase extends INBase
 {			
@@ -45,11 +44,12 @@ public class INXMLBase extends INBase
 	public INXMLBase ()
 	{  
     	setClassName ("INXMLBase");
-    	//debug ("INXMLBase ()");
+    	debug ("INXMLBase ()");
 	}
 	/**
 	 * 
 	 */
+	/*
 	public void debugSAXException (SAXParseException spe)
 	{
 		StringBuffer sb = new StringBuffer( spe.toString() );		
@@ -60,10 +60,11 @@ public class INXMLBase extends INBase
 		
 		debug (sb.toString ());		
 	}
+	*/
 	/**
 	*
 	*/	
-    public Document loadXMLFromString (String xml)
+    public Element loadXMLFromString (String xml)
     {
     	debug ("loadXMLFromString ()");
     	
@@ -74,50 +75,34 @@ public class INXMLBase extends INBase
     		xml="<?xml version=\"1.0\" encoding=\"utf-8\"?>"+xml;
     	}
     	
-    	//debug ("Parsing: " +xml);
+    	SAXBuilder builder = new SAXBuilder();
+    	Reader in = new StringReader(xml);
+    	Document doc = null;
+    	Element root = null;
+  
+    	try
+    	{
+    		doc = builder.build(in);
+    		root = doc.getRootElement();
+
+    	} 
+    	catch (JDOMException e)
+    	{
+    		// do what you want
+    		return (null);
+    	} 
+    	catch (IOException e)
+    	{
+    		// do what yo want
+    		return (null);
+    	} 
+    	catch (Exception e)
+    	{
+    		// do what you want
+    		return (null);
+    	}
     	
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder;
-        
-		try 
-		{
-			builder = factory.newDocumentBuilder();
-		} 
-		catch (ParserConfigurationException e) 
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return (null);			
-		}
-		
-        InputSource is = new InputSource(new StringReader(xml));
-        
-        Document result=null;
-        
-		try 
-		{
-			result = builder.parse(is);
-		} 
-		catch (SAXParseException spe) 
-		{
-			// TODO Auto-generated catch block
-			debugSAXException (spe);
-			return (null);
-		}		
-		catch (SAXException e) 
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return (null);
-		} 
-		catch (IOException e) 
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return (null);
-		}
-        
-        return result;
+    	return (root);
     }		
 	/**
 	*
@@ -126,11 +111,7 @@ public class INXMLBase extends INBase
     {
     	debug ("fromXMLString ()");
     
-    	Document parsed=loadXMLFromString (xml);
-    	if (parsed==null)
-    		return (null);
-    	
-    	return (parsed.getDocumentElement());
+    	return (loadXMLFromString (xml));
     }
 	/**
 	*
@@ -146,19 +127,28 @@ public class INXMLBase extends INBase
 	/**
 	*
 	*/	
-	public String toXML() 
+	public Element toXML() 
 	{
 		debug ("toXML ()");
 		
+		Element baseElement=new Element ("xml");
+		
+		baseElement.setAttribute("class",this.getClassName());
+		baseElement.setAttribute("instance",this.getInstanceName());		
+		
+		/*
 		StringBuffer buffer=new StringBuffer ();
 		buffer.append ("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
-		buffer.append ("<xml class=\""+this.getClassName()+"\" instance=\""+this.getInstanceName()+"\" />\n");
-				
+		buffer.append ("<xml class=\""+this.getClassName()+"\" instance=\""+this.getInstanceName()+"\" />\n");			
 		return (buffer.toString());
+		*/
+		
+		return (baseElement);
 	}
 	/**
 	*	
 	*/  
+	/*
 	public void showNodeType (Node a_node)
 	{
 		if (a_node==null)
@@ -206,12 +196,15 @@ public class INXMLBase extends INBase
 	                                     debug ("Node type: The node is a Text node.");
 	                                     break;   
 		}
-	} 		
+	}
+	*/	
 	/**
 	*	
 	*/	    
-    protected String getAttributeValue (Node aNode,String anAttribute)
+    protected String getAttributeValue (Element aNode,String anAttribute)
     {    	
+    	    	
+    	/*
         NamedNodeMap attrs = aNode.getAttributes();
         
         for(int i = 0 ; i<attrs.getLength() ; i++) 
@@ -227,5 +220,8 @@ public class INXMLBase extends INBase
         }    	
     	
     	return ("");
+    	*/
+    	
+    	return (aNode.getAttributeValue(anAttribute));
     }	
 }

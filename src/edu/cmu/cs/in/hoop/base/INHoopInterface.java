@@ -20,7 +20,7 @@ package edu.cmu.cs.in.hoop.base;
 
 import javax.swing.JPanel;
 
-import org.w3c.dom.Element;
+import org.jdom.Element;
 
 /**
 * Here we have the basis for all the hoops. It manages incoming and
@@ -53,10 +53,10 @@ public interface INHoopInterface
 	/**
 	 * 
 	 */
-	public void fromXMLElement (Element anElement);
+	public void fromXML (Element anElement);
 	
 	/**
 	 * 
 	 */
-	public String toXML ();
+	public Element toXML ();
 }

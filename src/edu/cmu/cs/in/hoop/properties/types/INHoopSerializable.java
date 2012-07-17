@@ -19,13 +19,9 @@
 package edu.cmu.cs.in.hoop.properties.types;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-//import org.xml.sax.InputSource;
-//import org.xml.sax.SAXException;
-//import org.xml.sax.SAXParseException;
+import org.jdom.Element;
 
 import edu.cmu.cs.in.base.INXMLBase;
 import edu.cmu.cs.in.hoop.base.INHoopPropertyContainer;
@@ -163,13 +159,8 @@ public class INHoopSerializable extends INXMLBase
     public Boolean fromXML (Element anElement)
     {
     	debug ("fromXML ()");
-    	
-    	if (anElement.getNodeType()!=Node.ELEMENT_NODE)
-    		return (false);
-    	
-    	Node node=anElement;
-  
-    	NodeList children=node.getChildNodes ();
+    	    	  
+    	List children = anElement.getChildren ();
     	      
     	if (children==null)
     	{
@@ -177,28 +168,25 @@ public class INHoopSerializable extends INXMLBase
     		return (false);
     	}
 		
-    	if (children.getLength()>0)
-    	{    
-    		for (int i=0;i<children.getLength();i++) 
-    		{
-    			Node childNode=children.item (i);
+    	for (int i = 0; i < children.size(); i++) 
+    	{    		
+    		Element node = (Element) children.get(i);
             
-    			debug ("Parsing text node ("+childNode.getNodeName()+")...");
+   			debug ("Parsing text node ("+node.getName()+")...");
             
-    			if (childNode.getNodeName().equals ("name")==true)
-    			{
-    				debug ("Parsing selection: " + childNode.getChildNodes ().item (0).getNodeValue());
-    				setInstanceName (childNode.getChildNodes ().item (0).getNodeValue());
-    			}   
-			
-    			if (childNode.getNodeName().equals ("value")==true)
-    			{
-    				setValue (childNode.getChildNodes ().item (0).getNodeValue());				
-    				//setType (childNode.getAttributeValue("type")));
-    				setType (getAttributeValue(childNode,"type"));
-    			}
-    		}
-    	}	
+   			if (node.getName().equals ("name")==true)
+   			{
+   				debug ("Parsing selection: " + node.getName() + ":"+node.getText());
+   				setInstanceName (node.getText());
+   			}   
+		
+   			if (node.getName().equals ("value")==true)
+   			{
+   				debug ("Parsing selection: " + node.getName() + ":"+node.getText());
+   				setValue (node.getText());				
+   				setType (node.getAttributeValue ("type"));
+   			}
+   		}
 		
 		return (true);
     }
@@ -210,5 +198,25 @@ public class INHoopSerializable extends INXMLBase
 		StringBuffer buffer=new StringBuffer();
 		buffer.append(getClassOpen ()+"<name>"+getInstanceName ()+"</name><value fmt=\"text\" type=\"String\">"+value+"</value>"+getClassClose ());
 		return (buffer.toString ());
+	}
+	/**
+	 * 
+	 */
+	public Element toXML ()
+	{
+		Element classElement=super.getClassElement();
+		
+		Element baseElement=new Element ("name");
+		
+		classElement.setContent(baseElement);
+		
+		baseElement.setAttribute("class",getInstanceName ());
+		
+		Element valueElement=new Element ("value");
+		valueElement.setAttribute("fmt","text");
+		valueElement.setAttribute("type","String");
+		valueElement.setText(value);
+		
+		return (classElement);		
 	}
 }

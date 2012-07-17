@@ -38,6 +38,9 @@ source base are:
 
 Used Packages:
 
+- JDom (included), used as the XML processing and creation workhorse
+	http://www.jdom.org/
+
 - Cobra (included), for webpage rendering
 	http://lobobrowser.org/cobra.jsp
 
