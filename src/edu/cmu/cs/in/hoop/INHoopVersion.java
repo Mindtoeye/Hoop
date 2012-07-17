@@ -18,13 +18,46 @@
 
 package edu.cmu.cs.in.hoop;
 
+import java.io.File;
+import java.net.URISyntaxException;
+import java.util.Date;
+
+import edu.cmu.cs.in.base.INBase;
+
 /** 
  * @author vvelsen
  *
  */
-public class INHoopVersion 
+public class INHoopVersion extends INBase
 {
-	public static String version="0.45";
+	public static String version="0.55";
 	public static String compiledBy="vvelsen";
-	public static String compiledDate="Unknown";
+	public static String compiledDate="**undef***";
+	
+	/**
+	 * 
+	 */
+	public INHoopVersion ()
+	{
+		INHoopVersion.compiledDate=this.getCompileDate();
+	}
+	/**
+	 * Obtain the date on which the jar was compiled that holds this class
+	 */
+	public String getCompileDate ()
+	{
+		StringBuffer formatted=new StringBuffer ();
+		
+		try 
+		{
+			File jarFile = new File	(this.getClass().getProtectionDomain().getCodeSource().getLocation().toURI());
+			formatted.append(new Date(jarFile.lastModified()));
+		} 
+		catch (URISyntaxException e1) 
+		{
+			formatted.append ("Unable to obtain compile date");
+		}
+		
+		return (formatted.toString());
+	}	
 }
