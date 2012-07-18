@@ -28,7 +28,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.controls.INSentenceWall;
 import edu.cmu.cs.in.controls.INSentinetPanel;
-import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
+//import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 import edu.cmu.cs.in.hoop.project.INHoopProject;
 import edu.cmu.cs.in.hoop.properties.INHoopPropertyPanel;
 import edu.cmu.cs.in.hoop.visualizers.INHoopCluster;

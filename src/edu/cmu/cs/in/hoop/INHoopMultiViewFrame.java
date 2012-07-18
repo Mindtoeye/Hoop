@@ -75,7 +75,7 @@ public class INHoopMultiViewFrame extends INHoopPreferencesJFrame implements Act
 	 */	
     public void showAboutBox() 
     {
-       JOptionPane.showMessageDialog(this, ABOUTMSG+"\n\nHoop version "+INHoopVersion.version+" (compiled on Hadoop "+VersionInfo.getVersion()+", running on port "+INHoopLink.monitorPort+")");
+       JOptionPane.showMessageDialog(this, ABOUTMSG+"\n\nHoop version "+INHoopVersion.version+"\nCompiled on: " + INHoopVersion.compiledDate + "\n(compiled on Hadoop "+VersionInfo.getVersion()+", running on port "+INHoopLink.monitorPort+")");
     }
     /**
      * 

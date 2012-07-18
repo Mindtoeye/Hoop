@@ -33,10 +33,11 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.Border;
 
-import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.controls.INVisualFeatureVisualizer;
+import edu.cmu.cs.in.controls.base.INJPanel;
+//import edu.cmu.cs.in.controls.base.INZoomedJPanel;
 
-public class INJFeatureList extends JPanel implements ActionListener, MouseListener
+public class INJFeatureList extends INJPanel implements ActionListener, MouseListener
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -59,13 +60,6 @@ public class INJFeatureList extends JPanel implements ActionListener, MouseListe
     private ArrayList <INVisualFeatureVisualizer> dependends=null;
     private INVisualClass assignedClass=null;
     
-	/**
-	 *
-	 */
-	private void debug (String aMessage)
-	{
-		INBase.debug ("INJFeatureList",aMessage);	
-	}	
 	/**
 	 *
 	 */	

@@ -21,6 +21,7 @@ package edu.cmu.cs.in.base;
 import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.io.INFileManager;
 import edu.cmu.cs.in.hoop.INHoopConsoleInterface;
+import edu.cmu.cs.in.hoop.INHoopVersion;
 
 /**
 *
@@ -73,6 +74,10 @@ public class INLink extends INBase
     {
 		setClassName ("INLink");
 		debug ("INLink ()");
+		
+		// This runs the code that sets a public static variable to the date the jar was compiled on
+		@SuppressWarnings("unused")
+		INHoopVersion versionGenerator=new INHoopVersion ();
 							
 		environment=new INHoopEnvironment ();
 		fManager=new INFileManager ();				

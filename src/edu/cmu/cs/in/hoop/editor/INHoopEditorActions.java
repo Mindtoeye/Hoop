@@ -213,8 +213,7 @@ public class INHoopEditorActions
 		{
 			if (e.getSource() instanceof mxGraphComponent)
 			{
-				mxGraphComponent graphComponent = (mxGraphComponent) e
-						.getSource();
+				mxGraphComponent graphComponent = (mxGraphComponent) e.getSource();
 				graphComponent.setPageVisible(true);
 				graphComponent.setZoomPolicy(zoomPolicy);
 			}
@@ -308,8 +307,7 @@ public class INHoopEditorActions
 		{
 			if (e.getSource() instanceof mxGraphComponent)
 			{
-				mxGraphComponent graphComponent = (mxGraphComponent) e
-						.getSource();
+				mxGraphComponent graphComponent = (mxGraphComponent) e.getSource();
 				double scale = this.scale;
 
 				if (scale == 0)
