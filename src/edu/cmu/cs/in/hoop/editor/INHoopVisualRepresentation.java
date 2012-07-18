@@ -18,7 +18,22 @@
 
 package edu.cmu.cs.in.hoop.editor;
 
+/**
+ *
+ */
 public interface INHoopVisualRepresentation
 {
+	/**
+	 * 
+	 * @param aState
+	 */
 	public void setState (String aState);
+	
+	/**
+	 * When a graph is saved it will go through each hoop and call this
+	 * method. This will in turn in the panel belonging to that hoop
+	 * call a method that sets all the visual properties back into the
+	 * hoop.
+	 */
+	public void propagateVisualProperties ();
 }

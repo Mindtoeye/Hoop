@@ -183,5 +183,24 @@ public class INHoopNodePanel extends INHoopNodeRenderer implements INHoopVisualR
 		{
 			icon.setIcon(INHoopLink.getImageByName("led-green.png"));
 		}		
+	}
+	/**
+	 * When a graph is saved it will go through each hoop and call this
+	 * method. This will in turn in the panel belonging to that hoop
+	 * call a method that sets all the visual properties back into the
+	 * hoop.
+	 */	
+	@Override
+	public void propagateVisualProperties() 
+	{
+		debug ("propagateVisualProperties ()");
+		
+		if (hoop!=null)
+		{
+			hoop.setX(this.getX());
+			hoop.setY(this.getY());
+			hoop.setWidth(this.getWidth());
+			hoop.setHeight(this.getHeight());			
+		}
 	}	
 }

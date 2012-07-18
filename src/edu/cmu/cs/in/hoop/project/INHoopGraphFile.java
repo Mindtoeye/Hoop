@@ -41,7 +41,7 @@ public class INHoopGraphFile extends INHoopProjectFile
 		setClassName ("INHoopGraphFile");
 		debug ("INHoopGraphFile ()");
 		
-		hoops=new ArrayList<INHoopBase> ();		
+		hoops=new ArrayList<INHoopBase> ();
 	}		
 	/**
 	 * 
@@ -112,6 +112,7 @@ public class INHoopGraphFile extends INHoopProjectFile
 		for (int i=0;i<hoops.size();i++)
 		{
 			INHoopBase aHoop=hoops.get(i);
+			aHoop.propagateVisualProperties();
 			hoopsElement.addContent (aHoop.toXML());
 		}
 		

@@ -426,10 +426,10 @@ public class INHoopBase extends INHoopBaseTyped implements INHoopInterface
 		hoopElement.setAttribute("class",this.getClassName());
 		
 		Element visualElement=new Element ("visual");			
-		visualElement.setAttribute("x",String.format("%d",this.x));
-		visualElement.setAttribute("y",String.format("%d",this.y));		
-		visualElement.setAttribute("width",String.format("%d",this.width));
-		visualElement.setAttribute("height",String.format("%d",this.height));
+		visualElement.setAttribute("x",String.format("%d",this.getX()));
+		visualElement.setAttribute("y",String.format("%d",this.getY()));		
+		visualElement.setAttribute("width",String.format("%d",this.getWidth()));
+		visualElement.setAttribute("height",String.format("%d",this.getHeight()));
 		hoopElement.addContent(visualElement);		
 		
 		Element propertiesElement=new Element ("properties");							
@@ -489,5 +489,18 @@ public class INHoopBase extends INHoopBaseTyped implements INHoopInterface
 	public void setGraphCellReference(Object graphCellReference) 
 	{
 		this.graphCellReference = graphCellReference;
+	}
+	/**
+	 * When a graph is saved it will go through each hoop and call this
+	 * method. This will in turn in the panel belonging to that hoop
+	 * call a method that sets all the visual properties back into the
+	 * hoop.
+	 */
+	public void propagateVisualProperties ()
+	{
+		debug ("propagateVisualProperties ()");
+		
+		if (visualizer!=null)
+			visualizer.propagateVisualProperties();
 	}
 }
