@@ -250,9 +250,14 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     	//>------------------------------------------------------
     	
     	JMenuItem save = new JMenuItem("Save",INHoopLink.getImageByName("save.gif"));
+    	
     	JMenuItem saveas = new JMenuItem("Save As ...",INHoopLink.getImageByName("saveas.gif"));
+    	
     	JMenuItem saveall = new JMenuItem("Save All",INHoopLink.getImageByName("save.gif"));
+    	saveall.setEnabled(false);
+    	
     	JMenuItem revert = new JMenuItem("Revert",INHoopLink.getImageByName("undo.gif"));
+    	revert.setEnabled(false);
     	
     	save.addActionListener(new ActionListener() 
     	{
@@ -274,7 +279,7 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
         			fc.setFileFilter(filter);    			
         			fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         			
-        			int returnVal=fc.showOpenDialog (compReference);
+        			int returnVal=fc.showSaveDialog (compReference);
 
         			if (returnVal==JFileChooser.APPROVE_OPTION) 
         			{
@@ -304,7 +309,36 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     		public void actionPerformed(ActionEvent e) 
     		{
     			debug ("SaveAs ...");
+    		        		
+    			INHoopProject proj=INHoopLink.project;
+    			
+    			if (proj==null)
+    			{
+    				debug ("Internal error: no project available");
+    				return;
+    			}
+    			
+    			FileNameExtensionFilter filter=new FileNameExtensionFilter ("Target Directories", "Directories");
+        		fc.setFileFilter(filter);    			
+        		fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        			
+        		int returnVal=fc.showSaveDialog (compReference);
 
+        		if (returnVal==JFileChooser.APPROVE_OPTION) 
+        		{
+        	       	File file = fc.getSelectedFile();
+
+        	       	debug ("Creating in directory: " + file.getAbsolutePath() + " ...");
+        	                   	           		
+        	       	INHoopLink.project.setFileURI(file.getAbsolutePath()+"/.hprj");
+        	           		
+        	       	proj.save();	
+        		} 
+        		else 
+        		{
+        			debug ("Open command cancelled by user.");
+        			return;
+        		}	    			
     		}
     	});
     	
@@ -329,6 +363,7 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     	//>------------------------------------------------------    	
     	
     	JMenuItem imp = new JMenuItem("Import ...");
+    	imp.setEnabled(false);
     	
     	imp.addActionListener(new ActionListener() 
     	{
@@ -364,6 +399,7 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
     	//>------------------------------------------------------    	
     	
     	JMenuItem props = new JMenuItem("Properties");
+    	props.setEnabled(false);
     	
     	//>------------------------------------------------------
     	

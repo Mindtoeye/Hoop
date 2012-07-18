@@ -18,8 +18,6 @@
 
 package edu.cmu.cs.in.hoop.project;
 
-import java.util.ArrayList;
-
 import org.jdom.Element;
 
 import edu.cmu.cs.in.base.INHoopLink;
@@ -28,9 +26,7 @@ import edu.cmu.cs.in.base.INHoopLink;
  * @author Martin van Velsen
  */
 public class INHoopStopWords extends INHoopProjectFile
-{
-	//private ArrayList <String> wordList=null;
-	
+{	
 	/**
 	 * 
 	 */
@@ -38,9 +34,7 @@ public class INHoopStopWords extends INHoopProjectFile
 	{
 		setClassName ("INHoopStopWords");
 		debug ("INHoopStopWords ()");
-		
-		//wordList=new ArrayList<String> ();
-		
+				
 		this.setInstanceName("stopwords.xml");
 	}	
 	/**
@@ -52,9 +46,8 @@ public class INHoopStopWords extends INHoopProjectFile
 		
 		Element rootElement=super.toXML();
 	
-		Element baseElement=new Element ("entries");
-		
-		rootElement.setContent(baseElement);
+		Element baseElement=new Element ("entries");		
+		rootElement.addContent(baseElement);
 				
 		for (int i=0;i<INHoopLink.stops.length;i++)
 		{
@@ -63,30 +56,10 @@ public class INHoopStopWords extends INHoopProjectFile
 			Element stopElement=new Element ("stopword");
 			
 			stopElement.setAttribute("name",stopEntry);
-			
-			//formatted.append("<stopword name=\""+stopEntry+"\" />\n");
-			
+						
 			baseElement.addContent(stopEntry);
 		}
-		
-		/*
-		StringBuffer formatted=new StringBuffer ();
-		formatted.append (super.toXML());
-		
-		formatted.append("<entries>\n");
-		
-		for (int i=0;i<INHoopLink.stops.length;i++)
-		{
-			String stopEntry=INHoopLink.stops [i];
-			
-			formatted.append("<stopword name=\""+stopEntry+"\" />\n");
-		}
-		
-		formatted.append("</entries>\n");
-		
-		return (formatted.toString());
-		*/
-		
+				
 		return (rootElement);
 	}		
 }

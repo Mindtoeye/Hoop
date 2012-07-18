@@ -146,18 +146,11 @@ public class INXMLBase extends INBase
 	{
 		debug ("toXML ()");
 		
-		Element baseElement=new Element ("xml");
+		Element baseElement=new Element ("hoopxml");
 		
 		baseElement.setAttribute("class",this.getClassName());
 		baseElement.setAttribute("instance",this.getInstanceName());		
-		
-		/*
-		StringBuffer buffer=new StringBuffer ();
-		buffer.append ("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
-		buffer.append ("<xml class=\""+this.getClassName()+"\" instance=\""+this.getInstanceName()+"\" />\n");			
-		return (buffer.toString());
-		*/
-		
+				
 		return (baseElement);
 	}
 	/**

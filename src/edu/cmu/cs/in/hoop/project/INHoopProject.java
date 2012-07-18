@@ -204,7 +204,22 @@ public class INHoopProject extends INHoopProjectFile
 	public Element toXML() 
 	{
 		debug ("toXML ()");
+		
+		Element rootElement=super.toXML();
+		
+		for (int i=0;i<files.size();i++)
+		{
+			INHoopProjectFile aFile=files.get(i);
+			
+			Element fileElement=new Element ("file");
+			
+			fileElement.setAttribute("name",aFile.getName());
+			fileElement.setAttribute("uri",aFile.getFileURI());
+			fileElement.setAttribute("basepath",aFile.getBasePath());
+						
+			rootElement.addContent(fileElement);			
+		}
 	
-		return (super.toXML());
+		return (rootElement);
 	}		
 }

@@ -107,12 +107,55 @@ public class INHoopMessageHandler extends INBase implements INMessageHandler
     	String hadoopNode="";
     	Long time=(long) 0;
     	
+    	if (root.getName().equals("ack")==true)
+    	{
+    		debug ("Processing ack message ...");
+    	}
+    	
+    	/*
 		if (root.getNodeName().equals("ack")==true)
 		{	
 			debug ("Processing acknowledge messsage ...");
 			
 		}
+		*/
     	
+    	if (root.getName().equals("register")==true)
+    	{
+    		debug ("Processing register messsage ...");
+    		
+    		addJob (root.getAttributeValue("job"));
+    		
+			hadoopID=root.getAttributeValue("class");
+			hadoopGUID=root.getAttributeValue("guid");
+			hadoopNode=root.getAttributeValue("node");			
+			time=Long.parseLong(root.getAttributeValue("time"));    	
+			
+			INPerformanceMetrics measure=new INPerformanceMetrics ();
+			measure.setLabel(hadoopID);
+			measure.setGuid(hadoopGUID);
+			measure.setInPoint(time);
+			
+			debug ("Adding: " + measure.getLabel()+" at: " + time);			
+    		
+			INHoopLink.metrics.add(measure);
+			
+			INEmbeddedJPanel win=INHoopLink.getWindow ("Cluster");
+			if (win!=null)
+			{
+				INHoopCluster cluster=(INHoopCluster) win;
+				
+				if (hadoopID.equals("Mapper")==true)
+					cluster.getDriver().incNodeMapper (hadoopNode);
+				
+				if (hadoopID.equals("Reducer")==true)
+					cluster.getDriver().incNodeReducer (hadoopNode);
+				
+				//win.updateContents();
+			}			
+    	}
+    	
+    	/*
 		if (root.getNodeName().equals("register")==true)
 		{			
 			debug ("Processing register messsage ...");
@@ -147,7 +190,58 @@ public class INHoopMessageHandler extends INBase implements INMessageHandler
 				//win.updateContents();
 			}
 		}
+		*/
+    	
+    	if (root.getName().equals("register")==true)
+    	{
+			debug ("Processing unregister messsage ...");
+			
+			hadoopID=root.getAttributeValue("class");
+			hadoopGUID=root.getAttributeValue("guid");
+			hadoopNode=root.getAttributeValue("node");
+			time=Long.parseLong(root.getAttributeValue("time"));
+			
+			INPerformanceMetrics update=findPerformanceMetric (hadoopGUID);
+			
+			if (update!=null)
+			{    		
+				debug ("Updating: " + update.getLabel()+" with outpoint: " + time + "for inpoint:" + update.getInPoint());
+				
+				update.setOutPoint(time);
+				
+				INEmbeddedJPanel win=INHoopLink.getWindow ("Cluster");
+				if (win!=null)
+				{
+					INHoopCluster cluster=(INHoopCluster) win;
+					
+					if (hadoopID.equals("Mapper")==true)
+						cluster.getDriver().decNodeMapper (hadoopNode);
+					
+					if (hadoopID.equals("Reducer")==true)
+						cluster.getDriver().decNodeReducer (hadoopNode);
+					
+					//win.updateContents();
+				}								
+			}
+			
+			if (hadoopID.toLowerCase().equals("main")==true)
+			{
+				debug ("Received unregister of Main task, calculating statistics ...");
+				INHoopLink.stats.calcStatistics();
+				String results=INHoopLink.stats.printStatistics();
+				debug (results);
+				
+				INHoopStatistics statsPanel=(INHoopStatistics) INHoopLink.getWindow ("Statistics");
+				
+				if (statsPanel!=null)
+				{
+					statsPanel.appendString ("Status: Done\n");
+					statsPanel.appendString(results);
+				}			
+			}			
+    	}
 		
+    	/*
 		if (root.getNodeName().equals("unregister")==true)
 		{			
 			debug ("Processing unregister messsage ...");
@@ -195,14 +289,13 @@ public class INHoopMessageHandler extends INBase implements INMessageHandler
 				}			
 			}
 			
-			/*
-			INEmbeddedJPanel win=INHoopLink.getWindow ("Cluster");
-			if (win!=null)
-			{
-				win.updateContents();
-			}
-			*/			
+			//INEmbeddedJPanel win=INHoopLink.getWindow ("Cluster");
+			//if (win!=null)
+			//{
+			//	win.updateContents();
+			//}			
 		}
+    	*/
 		
 		INScatterPlot plotter=(INScatterPlot) INHoopLink.getWindow ("Main Data Plotter");
 		
