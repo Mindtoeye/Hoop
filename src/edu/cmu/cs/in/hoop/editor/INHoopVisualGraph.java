@@ -402,6 +402,10 @@ public class INHoopVisualGraph extends mxGraph implements mxEventSource.mxIEvent
 					if (cell.isVertex())
 					{
 						debug ("Removing node ...");
+						
+						mxCell properCell=cell;
+						
+						INHoopLink.hoopGraphManager.removeHoop((INHoopBase) properCell.getValue());
 					}
 				}	
 			}
