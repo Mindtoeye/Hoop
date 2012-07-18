@@ -52,7 +52,7 @@ Used Packages:
 	
 - Apache Xerces (included), used to populate certain swing controls from 
 	xml, for example the INHoopXMLTreeView. This package is included in the lib
-	directory but can be separately downloaded and linked to externally	if so desired.	
+	directory but can be separately downloaded and linked to externally if so desired.	
 	http://xerces.apache.org/mirrors.cgi
 
 Notice!

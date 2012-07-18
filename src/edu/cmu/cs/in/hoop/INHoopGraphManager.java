@@ -41,6 +41,77 @@ public class INHoopGraphManager extends INHoopBase
 	/**
 	 * 
 	 */
+	public INHoopBase findHoopByReference (Object aRef)
+	{
+		debug ("findHoopByReference (Object)");
+		
+		if (aRef==null)
+			return (null);
+		
+		INHoopBase aRoot=INHoopLink.getGraphRoot ();
+		
+		if (aRoot==null)
+			return (null);
+		
+		if (aRoot.getGraphCellReference()==aRef)
+			return (aRoot);
+		
+		ArrayList <INHoopBase> hoopList=aRoot.getOutHoops();
+		
+		for (int i=0;i<hoopList.size();i++)
+		{
+			INHoopBase checker=hoopList.get(i);
+			
+			if (checker.getGraphCellReference()==aRef)
+				return (checker);
+			else
+			{
+				INHoopBase deferred=findHoopByReference (aRef,checker);
+				if (deferred!=null)
+				{
+					return (deferred);
+				}
+			}	
+		}
+		
+		return (null);
+	}
+	/**
+	 * 
+	 */
+	public INHoopBase findHoopByReference (Object aRef,INHoopBase aRoot)
+	{
+		debug ("findHoopByReference (Object,INHoopBase)");
+		
+		if (aRef==null)
+			return (null);
+				
+		if (aRoot==null)
+			return (null);
+				
+		ArrayList <INHoopBase> hoopList=aRoot.getOutHoops();
+		
+		for (int i=0;i<hoopList.size();i++)
+		{
+			INHoopBase checker=hoopList.get(i);
+			
+			if (checker.getGraphCellReference()==aRef)
+				return (checker);
+			else
+			{
+				INHoopBase deferred=findHoopByReference (aRef,checker);
+				if (deferred!=null)
+				{
+					return (deferred);
+				}
+			}	
+		}
+		
+		return (null);		
+	}
+	/**
+	 * 
+	 */
 	public void reset ()
 	{
 		debug ("reset ()");
@@ -87,6 +158,46 @@ public class INHoopGraphManager extends INHoopBase
 		else
 			debug ("Error: unable to find graph file in project");
 	}	
+	/** 
+	 * @param aHoop
+	 */
+	public void removeHoop (INHoopBase aHoop)
+	{
+		debug ("removeHoop ()");
+	
+		if (INHoopLink.project==null)
+		{
+			debug ("Error: no project available yet");
+			return;
+		}		
+		
+		if (INHoopLink.getGraphRoot ()==null)
+		{
+			debug ("Error: unable to get graph root, creating one ...");
+			return;
+		}
+		
+		// First disconnect the hoop in our own version of the graph ...
+		
+		
+		// Next we completely remove the hoop from our main list of hoops ...
+						
+		INHoopGraphFile grFile=(INHoopGraphFile) INHoopLink.project.getFileByClass (new INHoopGraphFile ().getClassName());
+		
+		if (grFile!=null)
+		{
+			ArrayList <INHoopBase> hoops=grFile.getHoops();
+			
+			if (hoops!=null)
+			{
+				hoops.remove(aHoop);
+			}
+			else
+				debug ("Error: graph file does not contain hoops list");
+		}	
+		else
+			debug ("Error: unable to find graph file in project");		
+	}
 	/** 
 	 * @param root
 	 */
@@ -147,4 +258,18 @@ public class INHoopGraphManager extends INHoopBase
 		
 		return (true);
 	}	
+	/** 
+	 * @param aSource
+	 * @param aTarget
+	 */
+	public Boolean disconnectHoops(INHoopBase aSource,INHoopBase aTarget) 
+	{
+		debug ("disconnectHoops ()");
+		
+		ArrayList<INHoopBase> list=aSource.getOutHoops();
+		
+		list.remove(aTarget); // We remove it but don't delete it
+				
+		return (true);
+	}
 }

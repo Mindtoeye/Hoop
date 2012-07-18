@@ -20,6 +20,7 @@ package edu.cmu.cs.in.base;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.prefs.Preferences;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -51,6 +52,8 @@ import edu.cmu.cs.in.stats.INStatistics;
 */
 public class INHoopLink extends INHoopProperties
 {    		    		
+	public static Preferences preferences=null;
+	
 	public static INHoopConsoleInterface console=null;	
 	public static INStatistics stats=null;
 	

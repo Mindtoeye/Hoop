@@ -41,6 +41,8 @@ import edu.cmu.cs.in.stats.INStatisticsMeasure;
 */
 public class INHoopBase extends INHoopBaseTyped implements INHoopInterface
 {    			
+	private Object graphCellReference=null;
+	
 	private ArrayList <INHoopBase> outHoops=null;	
 	private ArrayList <INKV> data=null;
 	private INKVTable model=null;	
@@ -466,5 +468,19 @@ public class INHoopBase extends INHoopBaseTyped implements INHoopInterface
 	public INKVTable getModel() 
 	{
 		return model;
+	}
+	/** 
+	 * @return
+	 */
+	public Object getGraphCellReference() 
+	{
+		return graphCellReference;
+	}
+	/** 
+	 * @param graphCellReference
+	 */
+	public void setGraphCellReference(Object graphCellReference) 
+	{
+		this.graphCellReference = graphCellReference;
 	}
 }

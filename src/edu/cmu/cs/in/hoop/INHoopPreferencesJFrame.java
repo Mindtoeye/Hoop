@@ -62,6 +62,8 @@ public class INHoopPreferencesJFrame extends INJFrame
         setBounds (inset,inset,screenSize.width-inset*2, screenSize.height-inset*2);    	
     	    	
     	root=Preferences.userNodeForPackage(this.getClass());
+    	
+    	INHoopLink.preferences=root;
 
     	int left = root.getInt("left", inset);
     	int top = root.getInt("top", inset);

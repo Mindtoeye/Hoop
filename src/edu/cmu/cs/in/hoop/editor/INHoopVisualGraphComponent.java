@@ -184,6 +184,8 @@ public class INHoopVisualGraphComponent extends mxGraphComponent
 						INHoopBase hoopTemplate=INHoopLink.hoopManager.instantiate (templateName);
 						
 						cell.setValue(hoopTemplate);
+						
+						hoopTemplate.setGraphCellReference(cell);
 												
 						INHoopLink.hoopGraphManager.addHoop (hoopTemplate);
 						

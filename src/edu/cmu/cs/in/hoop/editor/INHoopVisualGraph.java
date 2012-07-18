@@ -27,6 +27,7 @@ import com.mxgraph.canvas.mxICanvas;
 import com.mxgraph.canvas.mxImageCanvas;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGeometry;
+import com.mxgraph.model.mxICell;
 import com.mxgraph.util.mxConstants;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxPoint;
@@ -36,6 +37,8 @@ import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventSource;
 
 import edu.cmu.cs.in.base.INBase;
+import edu.cmu.cs.in.base.INHoopLink;
+import edu.cmu.cs.in.hoop.base.INHoopBase;
 
 /** 
  * @author vvelsen
@@ -368,6 +371,32 @@ public class INHoopVisualGraph extends mxGraph implements mxEventSource.mxIEvent
 					if(cell.isEdge()) 
 					{
 						debug ("Removing edge ...");
+						
+						mxICell source=cell.getSource();
+						
+						// Translate source cell to hoop
+						
+						INHoopBase sourceHoop=INHoopLink.hoopGraphManager.findHoopByReference (source);
+						
+						if (sourceHoop==null)
+						{
+							debug ("Error: unable to find source hoop in graph!");
+							return;
+						}
+												
+						mxICell target=cell.getTarget();
+						
+						// Translate target cell to hoop
+						
+						INHoopBase targetHoop=INHoopLink.hoopGraphManager.findHoopByReference (target);
+						
+						if (targetHoop==null)
+						{
+							debug ("Error: unable to find target hoop in graph!");
+							return;
+						}
+						
+						INHoopLink.hoopGraphManager.disconnectHoops(sourceHoop,targetHoop);						
 					}
 					
 					if (cell.isVertex())
