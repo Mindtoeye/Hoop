@@ -214,7 +214,7 @@ public class INHoopProject extends INHoopProjectFile
 			Element fileElement=new Element ("file");
 			
 			fileElement.setAttribute("name",aFile.getName());
-			fileElement.setAttribute("uri",aFile.getFileURI());
+			//fileElement.setAttribute("uri",aFile.getFileURI());
 			fileElement.setAttribute("basepath",aFile.getBasePath());
 						
 			rootElement.addContent(fileElement);			

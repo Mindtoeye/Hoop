@@ -56,8 +56,9 @@ public class INHoopStopWords extends INHoopProjectFile
 			Element stopElement=new Element ("stopword");
 			
 			stopElement.setAttribute("name",stopEntry);
+			stopElement.setAttribute("selected","true");
 						
-			baseElement.addContent(stopEntry);
+			baseElement.addContent(stopElement);
 		}
 				
 		return (rootElement);

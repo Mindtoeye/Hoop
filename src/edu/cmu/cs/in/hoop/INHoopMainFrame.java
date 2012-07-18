@@ -284,12 +284,21 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
         			if (returnVal==JFileChooser.APPROVE_OPTION) 
         			{
         	           	File file = fc.getSelectedFile();
-
-        	           	debug ("Creating in directory: " + file.getAbsolutePath() + " ...");
+        	           	
+            	       	File testFile=new File (file.getAbsolutePath()+"/.hprj");
+            	       	if (testFile.exists()==true)
+            	       	{
+            	       		alert ("Error: a project already exists in that location");
+            	       		return;
+            	       	}
+            	       	else
+            	       	{
+            	       		debug ("Creating in directory: " + file.getAbsolutePath() + " ...");
         	                   	           		
-        	           	INHoopLink.project.setFileURI(file.getAbsolutePath()+"/.hprj");
+            	       		INHoopLink.project.setFileURI(file.getAbsolutePath()+"/.hprj");
         	           		
-        	           	proj.save();	
+            	       		proj.save();
+            	       	}	
         			} 
         			else 
         			{
@@ -329,10 +338,19 @@ public class INHoopMainFrame extends INHoopMultiViewFrame implements ActionListe
         	       	File file = fc.getSelectedFile();
 
         	       	debug ("Creating in directory: " + file.getAbsolutePath() + " ...");
-        	                   	           		
-        	       	INHoopLink.project.setFileURI(file.getAbsolutePath()+"/.hprj");
-        	           		
-        	       	proj.save();	
+        	                
+        	       	File testFile=new File (file.getAbsolutePath()+"/.hprj");
+        	       	if (testFile.exists()==true)
+        	       	{
+        	       		alert ("Error: a project already exists in that location");
+        	       		return;
+        	       	}
+        	       	else
+        	       	{        	       	
+        	       		INHoopLink.project.setFileURI(file.getAbsolutePath()+"/.hprj");
+        	           		        	       	        	       	
+        	       		proj.save();
+        	       	}	
         		} 
         		else 
         		{

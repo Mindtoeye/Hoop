@@ -25,23 +25,23 @@ import java.util.Map;
 
 import com.mxgraph.canvas.mxICanvas;
 import com.mxgraph.canvas.mxImageCanvas;
+import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGeometry;
 import com.mxgraph.util.mxConstants;
+import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxPoint;
 import com.mxgraph.view.mxCellState;
-import com.mxgraph.view.mxEdgeStyle;
 import com.mxgraph.view.mxGraph;
-import com.mxgraph.model.mxCell;
+import com.mxgraph.util.mxEvent;
+import com.mxgraph.util.mxEventSource;
 
 import edu.cmu.cs.in.base.INBase;
-import edu.cmu.cs.in.base.INHoopLink;
-import edu.cmu.cs.in.hoop.base.INHoopBase;
 
 /** 
  * @author vvelsen
  * A graph that creates new edges from a given template edge.
  */
-public class INHoopVisualGraph extends mxGraph
+public class INHoopVisualGraph extends mxGraph implements mxEventSource.mxIEventListener 
 {	
 	public static final NumberFormat numberFormat = NumberFormat.getInstance();
 	
@@ -61,7 +61,9 @@ public class INHoopVisualGraph extends mxGraph
 				
 		// Sets the default edge style
 		Map<String, Object> style = this.getStylesheet().getDefaultEdgeStyle();
-		style.put (mxConstants.STYLE_STROKECOLOR,"yellow");				
+		style.put (mxConstants.STYLE_STROKECOLOR,"yellow");
+		
+		this.addListener (mxEvent.CELLS_REMOVED,(mxIEventListener) this);				
 	}
 	/**
 	 * 
@@ -344,4 +346,36 @@ public class INHoopVisualGraph extends mxGraph
 		return (null);
 	}
 	*/
+	@Override
+	public void invoke(Object sender, mxEventObject evt) 
+	{
+		debug ("invoke ()");
+		
+		if (evt.getName().equals(mxEvent.CELLS_REMOVED)==true)
+		{		
+			debug ("CELLS_REMOVED");
+			
+			Object[] removedCells = (Object[]) evt.getProperty("cells");
+		 
+			for (int i=0;i<removedCells.length;i++)
+			{
+				Object test=removedCells [i];
+				
+				if (test instanceof mxCell)
+				{
+					mxCell cell=(mxCell) test;
+			 
+					if(cell.isEdge()) 
+					{
+						debug ("Removing edge ...");
+					}
+					
+					if (cell.isVertex())
+					{
+						debug ("Removing node ...");
+					}
+				}	
+			}
+		}
+	}
 }

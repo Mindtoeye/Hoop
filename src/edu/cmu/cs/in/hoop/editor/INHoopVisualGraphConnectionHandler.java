@@ -53,7 +53,7 @@ public class INHoopVisualGraphConnectionHandler extends mxConnectionHandler
 		INBase.debug("INHoopVisualGraphConnectionHandler",aMessage);
 	}
 	/**
-	 * 
+	 * Edge delete happens here!
 	 */
 	public void reset ()
 	{

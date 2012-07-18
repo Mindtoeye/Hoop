@@ -151,9 +151,9 @@ public class INHoopVisualGraphComponent extends mxGraphComponent
 	 */
 	public Component[] createComponents (mxCellState state)
 	{
-		debug ("createComponents ("+state+")");
+		//debug ("createComponents ("+state+")");
 		
-		debug ("Cell: " + state.getCell());
+		//debug ("Cell: " + state.getCell());
 		
 		if (getGraph().getModel().isVertex(state.getCell()))
 		{
