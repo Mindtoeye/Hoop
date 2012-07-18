@@ -28,73 +28,98 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import edu.cmu.cs.in.base.INBase;
-
+import edu.cmu.cs.in.base.kv.INKV;
+import edu.cmu.cs.in.base.kv.INKVInteger;
+import edu.cmu.cs.in.hoop.base.INHoopBase;
+import edu.cmu.cs.in.hoop.base.INHoopInterface;
+import edu.cmu.cs.in.hoop.base.INHoopLoadBase;
+import edu.cmu.cs.in.hoop.properties.types.INHoopStringSerializable;
 
 /**
  * 
  */
-public class INHoopMySQLReader extends INBase
+public class INHoopMySQLReader extends INHoopLoadBase implements INHoopInterface
 {
     /* the default framework is embedded*/
-    private String framework = "embedded";
+    private INHoopStringSerializable framework =null;
     //private String driver = "org.apache.derby.jdbc.EmbeddedDriver";
-    private String driver = "com.mysql.jdbc.Driver";
+    private INHoopStringSerializable driver = null;
     //private String driverAlias="derby";
-    private String driverAlias="mysql";
+    private INHoopStringSerializable driverAlias=null;
     //private String protocol = "jdbc:"+driverAlias+":";
-    private String protocol ="jdbc:"+driverAlias+"://localhost:3306/mysql";
+    private INHoopStringSerializable protocol =null;
     
-    private String username="root";
-    private String password="";
-    private String dbName="Undef";
+    //private String username="root";
+    //private String password="";
+    //private String dbName="Undef";
+    
+    private INHoopStringSerializable username=null;
+    private INHoopStringSerializable password=null;
+    private INHoopStringSerializable dbName=null;
     
     /**
      * 
      */
     public INHoopMySQLReader ()
     {
-    	setClassName ("INHoopMySQLReader");
-    	debug ("INHoopMySQLReader ()");
+		setClassName ("INHoopMySQLReader");
+		debug ("INHoopMySQLReader ()");
+		
+		setHoopDescription ("Load KVs from a MySQL Database");
+
+		removeInPort ("KV");
+    	
+    	username=new INHoopStringSerializable (this,"username","root");
+    	password=new INHoopStringSerializable (this,"password","");
+    	dbName=new INHoopStringSerializable (this,"dbname","undef");
+    	
+    	framework =new INHoopStringSerializable (this,"framework","embedded");
+    	driver =new INHoopStringSerializable (this,"driver","com.mysql.jdbc.Driver");        
+    	driverAlias=new INHoopStringSerializable (this,"driveralias","mysql");        
+    	protocol =new INHoopStringSerializable (this,"protocol","jdbc:"+driverAlias.getValue()+"://localhost:3306/mysql");    	
     }
     /**
      * 
      */
 	public String getUsername() 
 	{
-		return username;
+		return username.getValue();
 	}
     /**
      * 
      */	
-	public void setUsername(String username) 
+	public void setUsername(String aValue) 
 	{
-		this.username = username;
+		this.username.setValue(aValue);
 	}
     /**
      * 
      */	
 	public String getPassword() 
 	{
-		return password;
+		return password.getValue();
 	}
     /**
      * 
      */	
-	public void setPassword(String password) 
+	public void setPassword(String aValue) 
 	{
-		this.password = password;
+		this.password.setValue (aValue);
 	}    
+	/**
+	 * 
+	 * @return
+	 */
 	public String getDbName() 
 	{
-		return dbName;
+		return dbName.getValue();
 	}
 	/**
 	 * 
 	 */
-	public void setDbName(String dbName) 
+	public void setDbName(String aValue) 
 	{
-		this.dbName = dbName;
+		this.dbName.setValue(aValue);
 	}	
     /**
      * <p>
@@ -167,9 +192,9 @@ public class INHoopMySQLReader extends INBase
              * the system property derby.system.home points to, or the current
              * directory (user.dir) if derby.system.home is not set.
              */
-            conn = DriverManager.getConnection (protocol + dbName  + ";create=false", props);
+            conn = DriverManager.getConnection (protocol.getValue() + dbName.getValue()  + ";create=false", props);
 
-            debug ("Connected to and created database " + dbName);
+            debug ("Connected to and created database " + dbName.getValue());
 
             // We want to control transactions manually. Autocommit is on by
             // default in JDBC.
@@ -407,7 +432,7 @@ public class INHoopMySQLReader extends INBase
      * example, if we are in an embedded environment, we load Derby's
      * embedded Driver, <code>org.apache.derby.jdbc.EmbeddedDriver</code>.
      */
-    private void loadDriver() 
+    private Boolean loadDriver() 
     {
     	debug ("loadDriver ()");
     	
@@ -426,25 +451,32 @@ public class INHoopMySQLReader extends INBase
          */
         try 
         {
-            Class.forName(driver).newInstance();
+            Class.forName(driver.getValue()).newInstance();
             debug ("Loaded the appropriate driver");
         } 
         catch (ClassNotFoundException cnfe) 
         {
-            debug ("Unable to load the JDBC driver " + driver);
-            debug ("Please check your CLASSPATH.");
+            debug ("Unable to load the JDBC driver " + driver +". Please check your CLASSPATH.");
+            this.setErrorString("Unable to load the JDBC driver " + driver +". Please check your CLASSPATH.");
             cnfe.printStackTrace(System.err);
+            return (false);
         } 
         catch (InstantiationException ie) 
         {
             debug ("Unable to instantiate the JDBC driver " + driver);
+            this.setErrorString("Unable to instantiate the JDBC driver " + driver);
             ie.printStackTrace(System.err);
+            return (false);
         } 
         catch (IllegalAccessException iae) 
         {
             debug ("Not allowed to access the JDBC driver " + driver);
+            this.setErrorString("Not allowed to access the JDBC driver " + driver);
             iae.printStackTrace(System.err);
+            return (false);
         }
+        
+        return (true);
     }
     /**
      * Reports a data verification failure to System.err with the given message.
@@ -493,6 +525,7 @@ public class INHoopMySQLReader extends INBase
      */
     private void parseArguments(String[] args)
     {
+    	/*
         if (args.length > 0) 
         {
             if (args[0].equalsIgnoreCase("derbyclient"))
@@ -502,7 +535,42 @@ public class INHoopMySQLReader extends INBase
                 protocol = "jdbc:derby://localhost:1527/";
             }
         }
+        */
     }
+	/**
+	 *
+	 */
+	public Boolean runHoop (INHoopBase inHoop)
+	{		
+		debug ("runHoop ()");
+			
+		if (loadDriver()==false)
+		{
+			return (false);
+		}
+		
+		/*
+		textRepresentation=new StringBuffer ();
+		
+		ArrayList <INKV> inData=inHoop.getData();
+		
+		for (int i=0;i<inData.size();i++)
+		{
+			INKVInteger aKV=(INKVInteger) inData.get(i);
+			
+			textRepresentation.append(aKV.getKeyString()+" : " + aKV.getValue() + "\n");
+		}
+		*/		
+				
+		return (true);
+	}	
+	/**
+	 * 
+	 */
+	public INHoopBase copy ()
+	{
+		return (new INHoopMySQLReader ());
+	}		    
     /**
      * 
      * @param args

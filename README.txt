@@ -54,6 +54,10 @@ Used Packages:
 	xml, for example the INHoopXMLTreeView. This package is included in the lib
 	directory but can be separately downloaded and linked to externally if so desired.	
 	http://xerces.apache.org/mirrors.cgi
+	
+- MySQL jdbc driver (not included), provided as a means to load data directly
+	from a database. Please download this package separately and add the jar to your classpath.
+	http://dev.mysql.com/downloads/connector/j/	
 
 Notice!
 

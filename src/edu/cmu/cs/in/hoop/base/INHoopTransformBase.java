@@ -31,7 +31,7 @@ public class INHoopTransformBase extends INHoopBase implements INHoopInterface
 		setClassName ("INHoopTransformBase");
 		debug ("INHoopTransformBase ()");
 		
-		setHoopCategory ("transform");
+		setHoopCategory ("Transform");
 		
 		setHoopDescription ("Abstract Hoop Transformer");		
     }

@@ -25,6 +25,8 @@ import edu.cmu.cs.in.hoop.base.INHoopDisplayBase;
 import edu.cmu.cs.in.hoop.base.INHoopFileLoadBase;
 import edu.cmu.cs.in.hoop.base.INHoopFileSaveBase;
 import edu.cmu.cs.in.hoop.hoops.INHoopArffReader;
+import edu.cmu.cs.in.hoop.hoops.INHoopArffWriter;
+import edu.cmu.cs.in.hoop.hoops.INHoopBerkeleyDBReader;
 import edu.cmu.cs.in.hoop.hoops.INHoopCSVReader;
 import edu.cmu.cs.in.hoop.hoops.INHoopCSVWriter;
 import edu.cmu.cs.in.hoop.hoops.INHoopCleanTokens;
@@ -35,6 +37,7 @@ import edu.cmu.cs.in.hoop.hoops.INHoopHDFSMultiFileOutput;
 import edu.cmu.cs.in.hoop.hoops.INHoopHDFSSingleFileInput;
 import edu.cmu.cs.in.hoop.hoops.INHoopHDFSSingleFileOutput;
 import edu.cmu.cs.in.hoop.hoops.INHoopKV2TXT;
+import edu.cmu.cs.in.hoop.hoops.INHoopMySQLReader;
 import edu.cmu.cs.in.hoop.hoops.INHoopNaiveBayes;
 import edu.cmu.cs.in.hoop.hoops.INHoopPorterStemmer;
 import edu.cmu.cs.in.hoop.hoops.INHoopScheduler;
@@ -142,16 +145,16 @@ public class INHoopManager extends INHoopBase
     {
     	debug ("initHoopTemplates ()");
     	
-    	addTemplate(new INHoopDisplayBase ());
-    	addTemplate(new INHoopFileLoadBase ());
-    	addTemplate(new INHoopFileSaveBase ());   	
-    	addTemplate(new INHoopText2Sentence ());
-    	addTemplate(new INHoopSentence2Tokens ());
-    	addTemplate(new INHoopScheduler ());
-    	addTemplate(new INHoopHDFSSingleFileOutput ());
-    	addTemplate(new INHoopHDFSSingleFileInput ());
-    	addTemplate(new INHoopHDFSMultiFileOutput ());
-    	addTemplate(new INHoopHDFSMultiFileInput ());
+    	addTemplate (new INHoopDisplayBase ());
+    	addTemplate (new INHoopFileLoadBase ());
+    	addTemplate (new INHoopFileSaveBase ());   	
+    	addTemplate (new INHoopText2Sentence ());
+    	addTemplate (new INHoopSentence2Tokens ());
+    	addTemplate (new INHoopScheduler ());
+    	addTemplate (new INHoopHDFSSingleFileOutput ());
+    	addTemplate (new INHoopHDFSSingleFileInput ());
+    	addTemplate (new INHoopHDFSMultiFileOutput ());
+    	addTemplate (new INHoopHDFSMultiFileInput ());
     	addTemplate (new INHoopStdout ());
     	addTemplate (new INHoopStdin ());
     	addTemplate (new INHoopFilterStopWords ());
@@ -165,6 +168,9 @@ public class INHoopManager extends INHoopBase
     	addTemplate (new INHoopCSVReader ());
     	addTemplate (new INHoopNaiveBayes ());
     	addTemplate (new INHoopArffReader ());
+    	addTemplate (new INHoopArffWriter ());
     	addTemplate (new INHoopXML2Features ());
+    	addTemplate (new INHoopMySQLReader ());
+    	addTemplate (new INHoopBerkeleyDBReader ());
     }
 }

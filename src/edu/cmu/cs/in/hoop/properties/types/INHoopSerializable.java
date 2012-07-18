@@ -195,9 +195,13 @@ public class INHoopSerializable extends INXMLBase
 	*/		
 	public String toString()
 	{
+		/*
 		StringBuffer buffer=new StringBuffer();
 		buffer.append(getClassOpen ()+"<name>"+getInstanceName ()+"</name><value fmt=\"text\" type=\"String\">"+value+"</value>"+getClassClose ());
 		return (buffer.toString ());
+		*/
+		
+		return (value);
 	}
 	/**
 	 * 

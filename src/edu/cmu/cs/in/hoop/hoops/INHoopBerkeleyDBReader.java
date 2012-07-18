@@ -18,11 +18,6 @@
 
 package edu.cmu.cs.in.hoop.hoops;
 
-import java.util.ArrayList;
-
-import edu.cmu.cs.in.base.kv.INKV;
-import edu.cmu.cs.in.base.kv.INKVString;
-import edu.cmu.cs.in.base.kv.INKVType;
 import edu.cmu.cs.in.hoop.base.INHoopBase;
 import edu.cmu.cs.in.hoop.base.INHoopInterface;
 import edu.cmu.cs.in.hoop.base.INHoopLoadBase;
@@ -36,8 +31,38 @@ public class INHoopBerkeleyDBReader extends INHoopLoadBase implements INHoopInte
 	{		
 		setClassName ("INHoopBerkeleyDBReader");
 		debug ("INHoopBerkeleyDBReader ()");
-				
-		setHoopDescription ("Read from a Berkeley DB");		
-	}
+		
+		setHoopDescription ("Load KVs from a Berkeley DB");
 
+		removeInPort ("KV");
+	}
+	/**
+	 *
+	 */
+	public Boolean runHoop (INHoopBase inHoop)
+	{		
+		debug ("runHoop ()");
+					
+		/*
+		textRepresentation=new StringBuffer ();
+		
+		ArrayList <INKV> inData=inHoop.getData();
+		
+		for (int i=0;i<inData.size();i++)
+		{
+			INKVInteger aKV=(INKVInteger) inData.get(i);
+			
+			textRepresentation.append(aKV.getKeyString()+" : " + aKV.getValue() + "\n");
+		}
+		*/		
+				
+		return (true);
+	}	
+	/**
+	 * 
+	 */
+	public INHoopBase copy ()
+	{
+		return (new INHoopBerkeleyDBReader ());
+	}	
 }

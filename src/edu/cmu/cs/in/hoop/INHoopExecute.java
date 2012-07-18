@@ -121,7 +121,7 @@ public class INHoopExecute extends INBase implements Runnable
 			INHoopErrorPanel errorPanel=(INHoopErrorPanel) INHoopLink.getWindow("Errors");
 			if (errorPanel!=null)
 			{
-				errorPanel.addError (root.getClassType(),root.getErrorString());
+				errorPanel.addError (root.getClassName(),root.getErrorString());
 			}			
 		}
 		
@@ -159,7 +159,7 @@ public class INHoopExecute extends INBase implements Runnable
 				INHoopErrorPanel errorPanel=(INHoopErrorPanel) INHoopLink.getWindow("Errors");
 				if (errorPanel!=null)
 				{
-					errorPanel.addError (current.getClassType(),current.getErrorString());
+					errorPanel.addError (current.getClassName(),current.getErrorString());
 				}
 				
 				return (false);

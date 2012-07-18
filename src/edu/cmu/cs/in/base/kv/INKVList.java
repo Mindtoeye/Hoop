@@ -54,6 +54,13 @@ public class INKVList extends INKV
     /**
      * 
      */
+    public ArrayList<INKV> getData ()
+    {
+    	return (data);
+    }
+    /**
+     * 
+     */
     public void reset ()
     {
     	data=new ArrayList<INKV> ();
