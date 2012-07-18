@@ -159,8 +159,8 @@ public class INHoopSerializable extends INXMLBase
     public Boolean fromXML (Element anElement)
     {
     	debug ("fromXML ()");
-    	    	  
-    	List children = anElement.getChildren ();
+    	    	    	  
+    	List <?> children =anElement.getChildren ();
     	      
     	if (children==null)
     	{
@@ -208,7 +208,7 @@ public class INHoopSerializable extends INXMLBase
 		
 		Element baseElement=new Element ("name");
 		
-		classElement.setContent(baseElement);
+		classElement.addContent(baseElement);
 		
 		baseElement.setAttribute("class",getInstanceName ());
 		
@@ -216,6 +216,8 @@ public class INHoopSerializable extends INXMLBase
 		valueElement.setAttribute("fmt","text");
 		valueElement.setAttribute("type","String");
 		valueElement.setText(value);
+		
+		classElement.addContent(valueElement);
 		
 		return (classElement);		
 	}

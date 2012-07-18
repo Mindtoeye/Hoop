@@ -388,10 +388,17 @@ public class INHoopTabUI extends BasicTabbedPaneUI
      */
     private class ColorSet 
     {
-        Color topGradColor1;
-        Color topGradColor2;
-        Color bottomGradColor1;
-        Color bottomGradColor2;
+        @SuppressWarnings("unused")
+		public Color topGradColor1=new Color (125,125,125);
+        
+        @SuppressWarnings("unused")
+        public Color topGradColor2=new Color (125,125,125);
+        
+        @SuppressWarnings("unused")
+        public Color bottomGradColor1=new Color (125,125,125);
+        
+        @SuppressWarnings("unused")
+        public Color bottomGradColor2=new Color (125,125,125);
     }
 
     /** 

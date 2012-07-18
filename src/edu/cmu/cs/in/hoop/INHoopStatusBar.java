@@ -18,17 +18,14 @@
 
 package edu.cmu.cs.in.hoop;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JTextField;
-import javax.swing.border.Border;
 
 import edu.cmu.cs.in.controls.base.INJPanel;
 

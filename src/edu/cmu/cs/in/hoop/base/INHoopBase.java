@@ -425,6 +425,13 @@ public class INHoopBase extends INHoopBaseTyped implements INHoopInterface
 		hoopElement.setAttribute("id",this.getHoopID());
 		hoopElement.setAttribute("class",this.getClassName());
 		
+		Element visualElement=new Element ("visual");			
+		visualElement.setAttribute("x",String.format("%d",this.x));
+		visualElement.setAttribute("y",String.format("%d",this.y));		
+		visualElement.setAttribute("width",String.format("%d",this.width));
+		visualElement.setAttribute("height",String.format("%d",this.height));
+		hoopElement.addContent(visualElement);		
+		
 		Element propertiesElement=new Element ("properties");							
 		hoopElement.addContent(propertiesElement);		
 		

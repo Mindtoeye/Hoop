@@ -41,9 +41,7 @@ public class INHoopGraphFile extends INHoopProjectFile
 		setClassName ("INHoopGraphFile");
 		debug ("INHoopGraphFile ()");
 		
-		hoops=new ArrayList<INHoopBase> ();
-		
-		//this.setInstanceName("graph.xml");
+		hoops=new ArrayList<INHoopBase> ();		
 	}		
 	/**
 	 * 
@@ -128,14 +126,23 @@ public class INHoopGraphFile extends INHoopProjectFile
 			{
 				INHoopBase target=list.get(j);
 				
-				Element cElement=new Element ("connection");
-				connElement.addContent(cElement);
-				
-				cElement.setAttribute("from",graphRoot.getHoopID());
-				cElement.setAttribute("to",target.getHoopID());				
+				connElement.addContent(connectionToXML (graphRoot,target));
 			}
 		}
 				
 		return (rootElement);
+	}
+	/**
+	 * 
+	 * @return
+	 */
+	private Element connectionToXML (INHoopBase from,INHoopBase to)
+	{
+		Element cElement=new Element ("connection");
+		
+		cElement.setAttribute("from",from.getHoopID());
+		cElement.setAttribute("to",to.getHoopID());	
+		
+		return (cElement);
 	}
 }

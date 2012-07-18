@@ -20,14 +20,13 @@ package edu.cmu.cs.in.hoop.base;
 
 import java.util.ArrayList;
 
-import edu.cmu.cs.in.base.INBase;
 import edu.cmu.cs.in.base.kv.INKVType;
 import edu.cmu.cs.in.hoop.properties.types.INHoopSerializable;
 
 /**
 *
 */
-public class INHoopBaseTyped extends INBase implements INHoopPropertyContainer
+public class INHoopBaseTyped extends INHoopVisual implements INHoopPropertyContainer
 {    			
 	private ArrayList <INKVType> types=null;
 	private ArrayList <INHoopSerializable> properties=null;

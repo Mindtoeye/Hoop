@@ -188,7 +188,7 @@ public class INHoopStatistics extends INEmbeddedJPanel implements ActionListener
 	{
 		debug ("actionPerformed ()");
 		
-		String act=event.getActionCommand();
+		//String act=event.getActionCommand();
 		JButton button = (JButton)event.getSource();		
 
 		if (button==clearButton)

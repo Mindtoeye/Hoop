@@ -26,7 +26,7 @@ import javax.swing.DefaultListModel;
 
 import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.controls.INJFeatureList;
-import edu.cmu.cs.in.controls.INVisualFeature;
+//import edu.cmu.cs.in.controls.INVisualFeature;
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 //import edu.cmu.cs.in.controls.base.INJInternalFrame;
 

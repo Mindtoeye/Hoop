@@ -206,7 +206,7 @@ public class INBase
 	 */
 	protected Element getClassElement ()
 	{
-		Element classElement=new Element (getClassType ());
+		Element classElement=new Element (getClassName ());
 				
 		return (classElement);
 	}
@@ -215,7 +215,7 @@ public class INBase
 	 */
 	protected Element getClassElement (String aName)
 	{
-		Element classElement=new Element (getClassType ());
+		Element classElement=new Element (getClassName ());
 		
 		classElement.setAttribute("name",aName);
 		
