@@ -45,7 +45,7 @@ import java.util.ArrayList;
 * code you write will have to check first the type of key and the type
 * of value before using the contents of a KV object.
 */
-public class INKV implements INKVInterface
+public class INKV extends INKVType implements INKVInterface
 {    			
 	protected ArrayList <Object> values=null;
 		

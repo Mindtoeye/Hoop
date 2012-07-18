@@ -29,10 +29,11 @@ public class INKVType
 	public static final int STRING=2;
 	public static final int FLOAT=3;
 	public static final int BOOLEAN=4;
-	public static final int TABLE=5;
+	public static final int LIST=5;
+	public static final int TABLE=6;
 	
-	private int type=INT;
-	private String typeValue="String";
+	protected int type=INT;
+	protected String typeValue="String";
 	
 	/**
 	 *

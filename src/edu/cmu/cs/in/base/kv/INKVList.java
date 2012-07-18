@@ -39,71 +39,37 @@ import java.util.ArrayList;
 * Note: this table class does not provide any support for named headers.
 * Instead you should used the INKVClassificationTable class.
 */
-public class INKVTable extends INKV
+public class INKVList extends INKV
 {    			
-	private ArrayList <ArrayList <INKV>>data=null;
-	private int maxRowLength=1; // technically not true but at least not 0
+	private ArrayList <INKV>data=null;
 	
 	/**
 	 *
 	 */
-    public INKVTable () 
+    public INKVList () 
     {
-    	type=INKVType.TABLE;
-    	data=new ArrayList<ArrayList <INKV>> ();
+    	type=INKVType.LIST;
+    	data=new ArrayList<INKV> ();
     }
     /**
      * 
      */
-    public int getRowSize ()
+    public void reset ()
     {
-    	return (maxRowLength);
+    	data=new ArrayList<INKV> ();
     }
     /**
      * 
      */
-    public int getRowCount ()
+    public void addKV (INKV aKV)
     {
-    	return (data.size());
+    	data.add(aKV);
     }
     /**
      * 
      */
-    public ArrayList <INKV> getRow (int aRow)
+    public void removeKV (INKV aKV)
     {
-		ArrayList <INKV> row=(ArrayList <INKV>) data.get (aRow);
-		return (row);
-    }
-    /**
-     * CURRENTLY THIS COULD BE VERY SLOW!!!
-     */
-    public ArrayList <INKV> getColumn (int aCol)
-    {
-    	ArrayList <INKV> aSlice=new ArrayList<INKV> ();
-    	
-    	for (int i=0;i<data.size();i++)
-    	{
-    		ArrayList <INKV> aRow=data.get(i);
-    		
-    		aSlice.add(aRow.get(aCol));
-    	}
-    	
-    	return (aSlice);
-    }
-    /**
-     * 
-     */
-    public INKV getCell (int aCol,int aRow)
-    {
-		ArrayList <INKV> row=(ArrayList <INKV>) data.get (aRow);
-		return (row.get (aCol));
-    }
-    /**
-     * 
-     */
-    public void addRow (ArrayList <INKV> aRow)
-    {
-    	maxRowLength=aRow.size();
-    	data.add(aRow);
+    	data.remove(aKV);
     }
 }

@@ -52,6 +52,8 @@ public class INKVFloat extends INKV implements INKVInterface
 	 */
     public INKVFloat () 
     {
+    	type=INKVType.FLOAT;
+    	
     	// Make sure we have at least one entry for quick access
     	values.add(new String ("0"));
     }
@@ -60,11 +62,13 @@ public class INKVFloat extends INKV implements INKVInterface
 	 */
     public INKVFloat (Float aKey,String aValue) 
     {	   
+    	type=INKVType.FLOAT;
+    	
     	// Make sure we have at least one entry for quick access
     	values.add(new String ("0"));   	
     	
     	setKey (aKey);
-    	setValue (aValue);
+    	setValue (aValue);    	
     }  
 	/**
 	 *

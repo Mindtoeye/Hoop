@@ -52,6 +52,8 @@ public class INKVBoolean extends INKV implements INKVInterface
 	 */
     public INKVBoolean () 
     {
+    	type=INKVType.BOOLEAN;
+    	
     	// Make sure we have at least one entry for quick access
     	values.add(new String ("0"));
     }
@@ -60,11 +62,13 @@ public class INKVBoolean extends INKV implements INKVInterface
 	 */
     public INKVBoolean (Boolean aKey,String aValue) 
     {	   
+    	type=INKVType.BOOLEAN;
+    	
     	// Make sure we have at least one entry for quick access
     	values.add(new String ("0"));
     	
     	setKey (aKey);
-    	setValue (aValue);
+    	setValue (aValue);    	    	
     }  
 	/**
 	 *

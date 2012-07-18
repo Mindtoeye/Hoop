@@ -52,6 +52,8 @@ public class INKVInteger extends INKV implements INKVInterface
 	 */
     public INKVInteger ()
     {
+    	type=INKVType.INT;
+    	
     	// Make sure we have at least one entry for quick access
     	values.add(new String ("0"));
     }
@@ -60,6 +62,8 @@ public class INKVInteger extends INKV implements INKVInterface
 	 */
     public INKVInteger (Integer aKey,String aValue) 
     {	   
+    	type=INKVType.INT;
+    	
     	// Make sure we have at least one entry for quick access
     	values.add(new String ("0"));
     	

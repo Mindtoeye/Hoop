@@ -52,6 +52,8 @@ public class INKVString extends INKV implements INKVInterface
 	 */
     public INKVString () 
     {
+    	type=INKVType.STRING;
+    	
     	// Make sure we have at least one entry for quick access
     	values.add(new String ("0"));
     }
@@ -60,6 +62,8 @@ public class INKVString extends INKV implements INKVInterface
 	 */
     public INKVString (String aKey,String aValue) 
     {	   
+    	type=INKVType.STRING;
+    	
     	// Make sure we have at least one entry for quick access
     	values.add(new String ("0"));  	
     	
