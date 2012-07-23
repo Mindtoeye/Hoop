@@ -29,7 +29,9 @@ import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.controls.HoopSentenceWall;
 //import edu.cmu.cs.in.controls.HoopSentinetPanel;
 //import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
+import edu.cmu.cs.in.hoop.project.HoopGraphFile;
 import edu.cmu.cs.in.hoop.project.HoopProject;
+import edu.cmu.cs.in.hoop.project.HoopProjectFile;
 import edu.cmu.cs.in.hoop.properties.HoopPropertyPanel;
 import edu.cmu.cs.in.hoop.visualizers.HoopCluster;
 import edu.cmu.cs.in.hoop.visualizers.HoopScatterPlot;
@@ -249,6 +251,22 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     	           		HoopLink.project.load(file.getAbsolutePath());
     	           		
     	           		// Do a ton of housekeeping here ...
+    	           		
+    	           		HoopGraphEditor win=(HoopGraphEditor) HoopLink.getWindow("Hoop Editor");
+    	           		
+    	           		if (win==null)
+    	           		{
+    	           			win=new HoopGraphEditor ();
+    	           			addView ("Hoop Editor",win,HoopLink.center);
+    	           		}
+    	           		
+    	           		HoopGraphFile graphFile=(HoopGraphFile) HoopLink.project.getFileByClass ("HoopGraphFile");
+    	           		if (graphFile!=null)
+    	           		{
+    	           			win.instantiateFromFile(graphFile);
+    	           		}
+    	           		else
+    	           			alert ("Unable to find graph file in project");
     	           	}	
     			} 
     			else 

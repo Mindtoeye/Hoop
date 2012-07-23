@@ -18,19 +18,23 @@
 
 package edu.cmu.cs.in.hoop;
 
+import java.util.ArrayList;
+
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.swing.util.mxGraphTransferable;
-import com.mxgraph.util.mxEvent;
+//import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxEventSource.mxIEventListener;
 import com.mxgraph.view.mxGraph;
 
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.hoop.editor.HoopBasicGraphEditor;
-import edu.cmu.cs.in.hoop.editor.HoopEditorPalette;
+//import edu.cmu.cs.in.hoop.editor.HoopEditorPalette;
 import edu.cmu.cs.in.hoop.editor.HoopEditorPalettePanel;
 import edu.cmu.cs.in.hoop.editor.HoopVisualGraph;
 import edu.cmu.cs.in.hoop.editor.HoopVisualGraphComponent;
+import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
+import edu.cmu.cs.in.hoop.project.HoopGraphFile;
 
 public class HoopGraphEditor extends HoopBasicGraphEditor implements mxIEventListener
 {
@@ -47,6 +51,13 @@ public class HoopGraphEditor extends HoopBasicGraphEditor implements mxIEventLis
 		debug ("HoopGraphEditor ()");
 		
 		this.setSingleInstance(true);
+	}
+	/**
+	 * 
+	 */
+	public mxGraph getGraph ()
+	{
+		return (graphComponent.getGraph());
 	}
 	/**
 	 * 
@@ -104,6 +115,30 @@ public class HoopGraphEditor extends HoopBasicGraphEditor implements mxIEventLis
 		
 		HoopLink.toolBoxContainer.remove(HoopLink.toolEditorBar);
 		HoopLink.toolEditorBar=null;
+	}
+	/**
+	 * 
+	 */
+	public void instantiateFromFile (HoopGraphFile aFile)
+	{
+		debug ("instantiateFromFile ()");
+		
+		ArrayList <HoopBase> hoopList=aFile.getHoops();
+		
+		Object parent=graph.getDefaultParent();
+		
+		for (int i=0;i<hoopList.size();i++)
+		{	
+			HoopBase aHoop=hoopList.get(i);
+			
+			Object graphObject=graph.insertVertex (parent, null,aHoop.getClassName(),aHoop.getX(),aHoop.getY(),aHoop.getWidth(),aHoop.getHeight());
+						
+			/*
+			Object v1 = graph.insertVertex (parent, null, "Hello", 20, 20, 80, 30);
+			Object v2 = graph.insertVertex (parent, null, "World!", 240, 150, 80, 30);
+			graph.insertEdge(parent, null, "Edge", v1, v2);
+			*/
+		}	
 	}
 	/**
 	 * 

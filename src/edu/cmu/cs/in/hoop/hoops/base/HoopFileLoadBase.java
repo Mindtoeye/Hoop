@@ -55,7 +55,7 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 		
 		//URI=new HoopURISerializable (this,"File","<PROJECTPATH>/data/MovieReviews-Full.csv");
 		//URI=new HoopURISerializable (this,"File","C:\\Martin\\Echidne\\Hydra (Science)\\Development\\Hoop\\Resources\\ExampleData\\Agatha Christie - The Mysterious Affair at Styles.txt");
-		URI=new HoopURISerializable (this,"<PROJECTPATH>\\Resources\\ExampleData\\Agatha Christie - The Mysterious Affair at Styles.txt");
+		URI=new HoopURISerializable (this,"URI","<PROJECTPATH>\\Resources\\ExampleData\\Agatha Christie - The Mysterious Affair at Styles.txt");
     }
 	/**
 	 *

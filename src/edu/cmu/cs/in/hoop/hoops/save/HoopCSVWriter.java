@@ -26,6 +26,8 @@ import edu.cmu.cs.in.base.kv.HoopKVInteger;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
 import edu.cmu.cs.in.hoop.hoops.base.HoopSaveBase;
+import edu.cmu.cs.in.hoop.properties.types.HoopStringSerializable;
+import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
 
 /**
 * 
@@ -33,8 +35,9 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopSaveBase;
 public class HoopCSVWriter extends HoopSaveBase implements HoopInterface
 {    			
 	private String mode="TAB"; // TAB,COMMA,DASH
-	private String outURI="./HoopOut.csv";
+	//private String outURI="./HoopOut.csv";
 	private HoopFileManager fManager=null;
+	private HoopURISerializable URI=null;
 	
 	/**
 	 *
@@ -47,6 +50,8 @@ public class HoopCSVWriter extends HoopSaveBase implements HoopInterface
 		setHoopDescription ("Save KVs in CSV format");
 		
 		fManager=new HoopFileManager ();
+		
+		URI=new HoopURISerializable (this,"URI","<PROJECTPATH>/HoopOut.csv");
     }  
 	/**
 	 *
@@ -79,7 +84,7 @@ public class HoopCSVWriter extends HoopSaveBase implements HoopInterface
 				formatted.append("\n");
 			}
 			
-			fManager.saveContents (outURI,formatted.toString());
+			fManager.saveContents (URI.getValue(),formatted.toString());
 		}	
 						
 		return (true);

@@ -121,7 +121,7 @@ public class HoopGraphFile extends HoopProjectFile
 				
 				if (hoopsList.isEmpty()==false)
 				{
-					debug ("Parsing 'hoops' ("+hoopsList.size()+") element in graph file");
+					//debug ("Parsing 'hoop' ("+hoopsList.size()+") elements in graph file");
 			
 					for (int i=0; i<hoopsList.size(); i++)
 					{
@@ -130,14 +130,14 @@ public class HoopGraphFile extends HoopProjectFile
 						//>------------------------------------------------------------
 						
 						if (hoopNode.getName().equals("hoops")==true)
-						{						
-							debug ("Parsing hoops element");
-					
+						{											
 							List <?> hoopEntries=hoopNode.getChildren();
+							
+							debug ("Parsing "+hoopEntries.size()+" hoop element(s)");
 							
 							for (int j=0; j<hoopEntries.size(); j++)
 							{
-								Element hoopEntry = (Element) hoopEntries.get(i);
+								Element hoopEntry = (Element) hoopEntries.get(j);
 							
 								if (hoopEntry.getName ().equals("hoop")==true)
 								{

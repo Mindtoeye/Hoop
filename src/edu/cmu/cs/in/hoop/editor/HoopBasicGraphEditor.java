@@ -83,22 +83,6 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel
 	protected mxKeyboardHandler keyboardHandler;
 	
 	/**
-	 * Adds required resources for i18n
-	 */
-	/*
-	static
-	{
-		try
-		{
-			mxResources.add ("src/resources");
-		}
-		catch (Exception e)
-		{
-			// ignore
-		}
-	}
-	*/	
-	/**
 	 * 
 	 */
 	protected mxIEventListener undoHandler = new mxIEventListener()

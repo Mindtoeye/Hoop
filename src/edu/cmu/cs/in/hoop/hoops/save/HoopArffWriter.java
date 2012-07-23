@@ -53,7 +53,7 @@ public class HoopArffWriter extends HoopSaveBase implements HoopInterface
 		
 		fManager=new HoopFileManager ();
 		
-		URI=new HoopURISerializable (this,"URI","./HoopOut.arff");
+		URI=new HoopURISerializable (this,"URI","<PROJECTPATH>/HoopOut.arff");
 		relation=new HoopStringSerializable (this,"relation","DefaultRelation");
     }  
 	/**

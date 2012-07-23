@@ -19,6 +19,7 @@
 package edu.cmu.cs.in.hoop.hoops.base;
 
 import edu.cmu.cs.in.base.io.HoopFileManager;
+import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
 
 /**
 * 
@@ -29,7 +30,8 @@ public class HoopFileSaveBase extends HoopSaveBase implements HoopInterface
 	
 	private HoopFileManager fManager=null;
 	
-	private String outputStreamPath=null;	
+	//private String outputStreamPath=null;	
+	private HoopURISerializable URI=null;
 	
 	/**
 	 *
@@ -40,20 +42,22 @@ public class HoopFileSaveBase extends HoopSaveBase implements HoopInterface
 		debug ("HoopFileSaveBase ()");
 		
 		setHoopDescription ("Save To File");
+		
+		URI=new HoopURISerializable (this,"URI","<PROJECTPATH>\\output.txt");
     }
 	/**
 	 *
 	 */	
 	public void setOutputStreamPath(String outputStreamPath) 
 	{
-		this.outputStreamPath = outputStreamPath;
+		URI.setValue (outputStreamPath);
 	}
 	/**
 	 *
 	 */	
 	public String getOutputStreamPath() 
 	{
-		return outputStreamPath;
+		return URI.getValue();
 	}	    
 	/**
 	 *
@@ -76,7 +80,7 @@ public class HoopFileSaveBase extends HoopSaveBase implements HoopInterface
 	{		
 		debug ("runHoop ()");
 				
-		fManager.saveContents(outputStreamPath, content);
+		fManager.saveContents(URI.getValue(), content);
 				
 		return (true);
 	}		
