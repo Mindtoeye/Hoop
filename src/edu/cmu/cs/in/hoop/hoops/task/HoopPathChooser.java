@@ -18,18 +18,18 @@
 
 package edu.cmu.cs.in.hoop.hoops.task;
 
-//import java.util.ArrayList;
-
-//import edu.cmu.cs.in.base.HoopKV;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
+import edu.cmu.cs.in.hoop.hoops.base.HoopControlBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
-import edu.cmu.cs.in.hoop.hoops.base.HoopTransformBase;
+import edu.cmu.cs.in.hoop.properties.types.HoopStringSerializable;
 
 /**
 * 
 */
-public class HoopPathChooser extends HoopTransformBase implements HoopInterface
-{    					
+public class HoopPathChooser extends HoopControlBase implements HoopInterface
+{    	
+	private HoopStringSerializable activePath=null;
+	
 	/**
 	 *
 	 */
@@ -38,7 +38,9 @@ public class HoopPathChooser extends HoopTransformBase implements HoopInterface
 		setClassName ("HoopPathChooser");
 		debug ("HoopPathChooser ()");
 										
-		//setHoopDescription ("Schedules the Next Hoop");
+		setHoopDescription ("Setup and Control Paths");
+		
+		activePath=new HoopStringSerializable (this,"activePath","");
     }
 	/**
 	 *
@@ -46,6 +48,31 @@ public class HoopPathChooser extends HoopTransformBase implements HoopInterface
 	public Boolean runHoop (HoopBase inHoop)
 	{		
 		debug ("runHoop ()");
+		
+		if (activePath.getValue().isEmpty()==true)
+		{
+			debug ("No path chosen");
+			return (true);
+		}
+		
+		for (int i=0;i<outHoops.size();i++)
+		{
+			HoopBase aHoop=outHoops.get(i);
+			
+			aHoop.setActive(false);
+		}
+		
+		for (int j=0;j<outHoops.size();j++)
+		{
+			HoopBase aHoop=outHoops.get(j);
+			
+			if (aHoop.getHoopID().equals(activePath.getValue())==true)
+			{
+				aHoop.setActive(true);
+			}
+			
+			aHoop.setActive(true);
+		}		
 						
 		return (true);
 	}	

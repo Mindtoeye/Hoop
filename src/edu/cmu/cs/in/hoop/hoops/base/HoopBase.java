@@ -44,7 +44,9 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface
 {    			
 	private Object graphCellReference=null;
 	
-	private ArrayList <HoopBase> outHoops=null;	
+	private Boolean active=true;
+	
+	protected ArrayList <HoopBase> outHoops=null;	
 	private ArrayList <HoopKV> data=null;
 	private HoopKVTable model=null;	
 
@@ -99,6 +101,20 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface
 		addOutPort ("Stats");
 		addOutPort ("Model");
     }
+    /**
+     * 
+     */    
+	public void setActive(Boolean active) 
+	{
+		this.active = active;
+	}
+    /**
+     * 
+     */	
+	public Boolean getActive() 
+	{
+		return active;
+	}    
     /**
      * 
      */    

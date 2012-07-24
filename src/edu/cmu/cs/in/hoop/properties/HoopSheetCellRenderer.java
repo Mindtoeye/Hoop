@@ -66,7 +66,7 @@ class HoopSheetCellRenderer extends DefaultTableCellRenderer
         	    	
 		if (value instanceof String)
 		{    	    	
-			debug ("HoopSTANCE IS STRHoopG NOT SERIALIZABLE OBJECT!");
+			debug ("HoopSTANCE IS STRINGG NOT SERIALIZABLE OBJECT!");
 			
 			String object=(String) value;
 			setText(object);

@@ -16,26 +16,24 @@
  * 
  */
 
-package edu.cmu.cs.in.hoop.hoops.task;
-
-import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
-import edu.cmu.cs.in.hoop.hoops.base.HoopControlBase;
-import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
+package edu.cmu.cs.in.hoop.hoops.base;
 
 /**
 * 
 */
-public class HoopScheduler extends HoopControlBase implements HoopInterface
-{    					
+public class HoopControlBase extends HoopBase implements HoopInterface
+{    				
 	/**
 	 *
 	 */
-    public HoopScheduler () 
+    public HoopControlBase () 
     {
-		setClassName ("HoopScheduler");
-		debug ("HoopScheduler ()");
-										
-		setHoopDescription ("Schedules the Next Hoop");
+		setClassName ("HoopControlBase");
+		debug ("HoopControlBase ()");
+		
+		setHoopCategory ("Control");
+		
+		setHoopDescription ("Control the Excution of Hoops");		
     }
 	/**
 	 *
@@ -45,12 +43,12 @@ public class HoopScheduler extends HoopControlBase implements HoopInterface
 		debug ("runHoop ()");
 						
 		return (true);
-	}	
+	}	 
 	/**
 	 * 
 	 */
 	public HoopBase copy ()
 	{
-		return (new HoopScheduler ());
+		return (new HoopControlBase ());
 	}	
 }
