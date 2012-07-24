@@ -232,7 +232,7 @@ public class HoopVisualGraph extends mxGraph implements mxEventSource.mxIEventLi
 		
 		Object result=super.createVertex(parent,id,value,x,y,width,height,style,something);
 		
-		debug (result.toString());
+		//debug (result.toString());
 		
 		return (result);
 	}	

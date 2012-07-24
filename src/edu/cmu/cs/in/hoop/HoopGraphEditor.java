@@ -20,6 +20,7 @@ package edu.cmu.cs.in.hoop;
 
 import java.util.ArrayList;
 
+import com.mxgraph.model.mxCell;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.swing.util.mxGraphTransferable;
 //import com.mxgraph.util.mxEvent;
@@ -127,18 +128,37 @@ public class HoopGraphEditor extends HoopBasicGraphEditor implements mxIEventLis
 		
 		Object parent=graph.getDefaultParent();
 		
-		for (int i=0;i<hoopList.size();i++)
-		{	
-			HoopBase aHoop=hoopList.get(i);
+		graph.getModel().beginUpdate();
+		
+		// First the nodes ...
+		
+		try
+		{		
+			for (int i=0;i<hoopList.size();i++)
+			{	
+				HoopBase aHoop=hoopList.get(i);
 			
-			Object graphObject=graph.insertVertex (parent, null,aHoop.getClassName(),aHoop.getX(),aHoop.getY(),aHoop.getWidth(),aHoop.getHeight());
-						
-			/*
-			Object v1 = graph.insertVertex (parent, null, "Hello", 20, 20, 80, 30);
-			Object v2 = graph.insertVertex (parent, null, "World!", 240, 150, 80, 30);
-			graph.insertEdge(parent, null, "Edge", v1, v2);
-			*/
-		}	
+				mxCell graphObject=(mxCell) graph.insertVertex (parent, 
+																aHoop.getClassName(),
+																aHoop,
+																aHoop.getX(),
+																aHoop.getY(),
+																aHoop.getWidth(),
+																aHoop.getHeight());
+				
+				graphObject.setValue(aHoop);
+				
+				/*
+				Object v1 = graph.insertVertex (parent, null, "Hello", 20, 20, 80, 30);
+				Object v2 = graph.insertVertex (parent, null, "World!", 240, 150, 80, 30);
+				graph.insertEdge(parent, null, "Edge", v1, v2);
+				 */
+			}		
+		}
+		finally
+		{
+			graph.getModel().endUpdate();
+		}		
 	}
 	/**
 	 * 

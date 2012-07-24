@@ -438,6 +438,10 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface
 				
 				debug ("Hoop visuals: " + xmlX +"," +xmlY + " with: " + xmlWidth + "," + xmlHeight);
 				
+				this.setX(xmlX);
+				this.setY(xmlY);
+				this.setWidth(xmlWidth);
+				this.setHeight(xmlHeight);
 			}
 			
 			if (node.getName().equals("properties")==true)

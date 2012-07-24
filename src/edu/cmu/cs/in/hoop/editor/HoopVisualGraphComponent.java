@@ -19,6 +19,7 @@
 package edu.cmu.cs.in.hoop.editor;
 
 import java.awt.Component;
+import java.awt.Dimension;
 
 import javax.swing.JViewport;
 
@@ -151,9 +152,8 @@ public class HoopVisualGraphComponent extends mxGraphComponent
 	 */
 	public Component[] createComponents (mxCellState state)
 	{
-		//debug ("createComponents ("+state+")");
-		
-		//debug ("Cell: " + state.getCell());
+		debug ("createComponents ("+state+")");		
+		debug ("Cell: " + state.getCell());
 		
 		if (getGraph().getModel().isVertex(state.getCell()))
 		{
@@ -234,7 +234,32 @@ public class HoopVisualGraphComponent extends mxGraphComponent
 						return (createdPanels);
 					}
 					else
-						debug ("Transferable object is not a hoop template string");
+					{
+						if (userObject instanceof HoopBase)
+						{
+							debug ("Assigning pre-configured Hoop to new vertex and panel ...");
+							
+							HoopBase aHoop=(HoopBase) userObject;
+							
+							cell.setValue(aHoop);
+							
+							aHoop.setGraphCellReference(cell);
+													
+							//HoopLink.hoopGraphManager.addHoop (aHoop);
+							
+							HoopNodePanel aPanel=new HoopNodePanel (aHoop,cell, this);
+							aPanel.setLocation(aHoop.getX(),aHoop.getY());
+							aPanel.setPreferredSize(new Dimension (aHoop.getWidth(),aHoop.getHeight()));
+							
+							aHoop.setVisualizer (aPanel);
+																		
+							createdPanels [0]=aPanel;		
+							
+							return (createdPanels);
+						}
+						else
+							debug ("Transferable object is not a hoop template string nor a hoop template");
+					}
 				}
 				else
 					debug ("Cell object is not of type mxCell");

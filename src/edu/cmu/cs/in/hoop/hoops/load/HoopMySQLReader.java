@@ -212,7 +212,7 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
         return (true);
 	}    
 	/**
-	 *
+	 * http://www.kitebird.com/articles/jdbc.html
 	 */
 	public Boolean runHoop (HoopBase inHoop)
 	{		
@@ -347,6 +347,8 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 		return (tables);
 	}
 	/**
+	 * http://www.kitebird.com/articles/jdbc.html
+	 * 
 	 * For example: s.executeQuery ("SELECT id, name, category FROM animal");
 	 */
 	private Boolean runQuery ()
