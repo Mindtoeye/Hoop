@@ -145,25 +145,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     		{
     			debug ("Save ...");
     		
-    			HoopProject proj=HoopLink.project;
-    			
-    			if (proj==null)
-    			{
-    				debug ("Internal error: no project available");
-    				return;
-    			}
-    			
-    			if (proj.getVirginFile()==true)
-    			{    				
-    				if (projectSaveAs ()==false)
-    				{
-    					return;
-    				}
-    			}
-    			else
-    			{
-    				proj.save();
-    			}	
+    			projectSave ();
     		}
     	});
     	
@@ -803,7 +785,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 		HoopLink.popWindow ("Errors");
 	}
 	/**
-	 * 
+	 * http://www.catalysoft.com/articles/busyCursor.html
 	 */
 	private Boolean newProject ()
 	{
@@ -878,11 +860,13 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 		return (true);
 	}
 	/**
-	 * 
+	 * http://www.catalysoft.com/articles/busyCursor.html
 	 */
 	private Boolean openProject ()
 	{
 		debug ("openProject");
+		
+		Container cp = this.getContentPane();
 		
 		if (HoopLink.project!=null)
 		{
@@ -914,7 +898,18 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 								return (false);
 	    				}
 						else
-							HoopLink.project.save();
+						{
+				           	try
+				           	{
+				           		cp.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+				           		
+				           		HoopLink.project.save();
+				           	}
+				           	finally
+				           	{
+				           		cp.setCursor(Cursor.getDefaultCursor());
+				           	}
+						}
 					}
            	
 					if (n==2)
@@ -944,8 +939,17 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 
            	debug ("Loading: " + file.getAbsolutePath() + " ...");
                
-           	HoopLink.project=new HoopProject (); // Blatantly whipe it
-           	HoopLink.project.load(file.getAbsolutePath());
+           	try
+           	{
+           		cp.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+           	
+           		HoopLink.project=new HoopProject (); // Blatantly whipe it
+           		HoopLink.project.load(file.getAbsolutePath());
+           	}
+           	finally
+           	{
+           		cp.setCursor(Cursor.getDefaultCursor());
+           	}	
            		
            	// Do a ton of housekeeping here ...
            		
@@ -978,11 +982,54 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 		return (true);
 	}
 	/**
-	 * 
+	 * http://www.catalysoft.com/articles/busyCursor.html
+	 */
+	private Boolean projectSave ()
+	{
+		debug ("projectSave ()");
+		
+		Container cp = this.getContentPane();
+		
+		HoopProject proj=HoopLink.project;
+		
+		if (proj==null)
+		{
+			debug ("Internal error: no project available");
+			return (false);
+		}
+		
+		if (proj.getVirginFile()==true)
+		{    
+			try
+			{
+				cp.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+			
+				if (projectSaveAs ()==false)
+				{
+					cp.setCursor(Cursor.getDefaultCursor());
+					return (false);
+				}
+			}
+			finally
+			{
+				cp.setCursor(Cursor.getDefaultCursor());
+			}
+		}
+		else
+		{
+			proj.save();
+		}			
+		
+		return (true);
+	}
+	/**
+	 * http://www.catalysoft.com/articles/busyCursor.html
 	 */
 	private Boolean projectSaveAs ()
 	{
 		debug ("projectSaveAs ()");
+		
+		Container cp = this.getContentPane();
 		
 		HoopProject proj=HoopLink.project;
 		
@@ -1014,7 +1061,16 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 	       	{        	       	
 	       		HoopLink.project.setFileURI(file.getAbsolutePath()+"/.hprj");
 	           		        	       	        	       	
-	       		proj.save();
+	           	try
+	           	{
+	           		cp.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+	           		
+	           		proj.save();
+	           	}
+	           	finally
+	           	{
+	           		cp.setCursor(Cursor.getDefaultCursor());
+	           	}
 	       	}	
 		} 
 		else 
