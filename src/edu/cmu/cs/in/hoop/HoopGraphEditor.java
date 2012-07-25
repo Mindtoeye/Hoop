@@ -23,25 +23,22 @@ import java.util.ArrayList;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.swing.util.mxGraphTransferable;
-//import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxEventSource.mxIEventListener;
 import com.mxgraph.view.mxGraph;
 
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.hoop.editor.HoopBasicGraphEditor;
-//import edu.cmu.cs.in.hoop.editor.HoopEditorPalette;
 import edu.cmu.cs.in.hoop.editor.HoopEditorPalettePanel;
 import edu.cmu.cs.in.hoop.editor.HoopVisualGraph;
 import edu.cmu.cs.in.hoop.editor.HoopVisualGraphComponent;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
+import edu.cmu.cs.in.hoop.hoops.base.HoopConnection;
 import edu.cmu.cs.in.hoop.project.HoopGraphFile;
 
 public class HoopGraphEditor extends HoopBasicGraphEditor implements mxIEventListener
 {
 	private static final long serialVersionUID = -1L;
-	//public static final NumberFormat numberFormat = NumberFormat.getInstance();
-	//public static URL url = null;	
 	private mxGraph graph=null;
 
 	public HoopGraphEditor()
@@ -52,6 +49,13 @@ public class HoopGraphEditor extends HoopBasicGraphEditor implements mxIEventLis
 		debug ("HoopGraphEditor ()");
 		
 		this.setSingleInstance(true);
+	}
+	/**
+	 * 
+	 */
+	public void reset ()
+	{
+		graph.removeCells(graph.getChildVertices(graph.getDefaultParent()));		
 	}
 	/**
 	 * 
@@ -125,15 +129,16 @@ public class HoopGraphEditor extends HoopBasicGraphEditor implements mxIEventLis
 		debug ("instantiateFromFile ()");
 		
 		ArrayList <HoopBase> hoopList=aFile.getHoops();
+		ArrayList <HoopConnection> hoopConnections=aFile.getHoopConnections();
 		
 		Object parent=graph.getDefaultParent();
 		
 		graph.getModel().beginUpdate();
-		
-		// First the nodes ...
-		
+				
 		try
-		{		
+		{
+			// First the nodes ...
+			
 			for (int i=0;i<hoopList.size();i++)
 			{	
 				HoopBase aHoop=hoopList.get(i);
@@ -146,14 +151,59 @@ public class HoopGraphEditor extends HoopBasicGraphEditor implements mxIEventLis
 																aHoop.getWidth(),
 																aHoop.getHeight());
 				
-				graphObject.setValue(aHoop);
+				graphObject.setValue(aHoop);				
+			}			
+		}
+		finally
+		{
+			graph.getModel().endUpdate();
+		}		
+		
+		graph.getModel().beginUpdate();
+		
+		try
+		{
+			// Then the connections ...
+			
+			for (int j=0;j<hoopConnections.size();j++)
+			{
+				HoopConnection aConnection=hoopConnections.get(j);
 				
-				/*
-				Object v1 = graph.insertVertex (parent, null, "Hello", 20, 20, 80, 30);
-				Object v2 = graph.insertVertex (parent, null, "World!", 240, 150, 80, 30);
-				graph.insertEdge(parent, null, "Edge", v1, v2);
-				 */
-			}		
+				HoopBase fromHoop=aFile.getByID(aConnection.getFromHoopID());
+				HoopBase toHoop=aFile.getByID(aConnection.getToHoopID());
+								
+				if (fromHoop!=null)
+				{			
+					if (toHoop!=null)
+					{
+						if (fromHoop.getGraphCellReference()==null)
+						{
+							debug ("Error: no mxCell object available in 'from' Hoop");
+						}
+						else				
+						{
+							if (toHoop.getGraphCellReference()==null)
+							{
+								debug ("Error: no mxCell object available in 'to' Hoop");
+							}
+							else
+							{
+								debug ("Inserting new edge ...");
+								
+								graph.insertEdge (parent,
+												  null,
+												  "Edge",
+												  fromHoop.getGraphCellReference(),
+												  toHoop.getGraphCellReference());								
+							}
+						}						
+					}
+					else
+						debug ("Error, can't find target hoop in graph from id: " + aConnection.getToHoopID());
+				}
+				else
+					debug ("Error, can't find source hoop in graph from id: " + aConnection.getFromHoopID());
+			}			
 		}
 		finally
 		{

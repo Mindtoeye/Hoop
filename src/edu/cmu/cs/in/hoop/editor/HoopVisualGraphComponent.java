@@ -153,7 +153,7 @@ public class HoopVisualGraphComponent extends mxGraphComponent
 	public Component[] createComponents (mxCellState state)
 	{
 		debug ("createComponents ("+state+")");		
-		debug ("Cell: " + state.getCell());
+		//debug ("Cell: " + state.getCell());
 		
 		if (getGraph().getModel().isVertex(state.getCell()))
 		{
@@ -244,9 +244,7 @@ public class HoopVisualGraphComponent extends mxGraphComponent
 							cell.setValue(aHoop);
 							
 							aHoop.setGraphCellReference(cell);
-													
-							//HoopLink.hoopGraphManager.addHoop (aHoop);
-							
+																				
 							HoopNodePanel aPanel=new HoopNodePanel (aHoop,cell, this);
 							aPanel.setLocation(aHoop.getX(),aHoop.getY());
 							aPanel.setPreferredSize(new Dimension (aHoop.getWidth(),aHoop.getHeight()));
@@ -267,6 +265,8 @@ public class HoopVisualGraphComponent extends mxGraphComponent
 			else
 				debug ("Error: cell state doesn't contain a cell object");			
 		}
+		else
+			debug ("Cell is not a vertex, skipping component creation");
 		
 		return (null);
 	}	

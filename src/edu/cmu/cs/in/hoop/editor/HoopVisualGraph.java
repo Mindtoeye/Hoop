@@ -189,7 +189,7 @@ public class HoopVisualGraph extends mxGraph implements mxEventSource.mxIEventLi
 							 Object target, 
 							 String style)
 	{
-		//debug ("createEdge ()");
+		debug ("createEdge ()");
 		
 		Object result=super.createEdge(parent,id,value,source,target,style);
 				

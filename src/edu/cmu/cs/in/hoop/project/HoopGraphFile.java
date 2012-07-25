@@ -26,6 +26,7 @@ import org.jdom.Element;
 
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
+import edu.cmu.cs.in.hoop.hoops.base.HoopConnection;
 
 /** 
  * @author Martin van Velsen
@@ -34,6 +35,7 @@ public class HoopGraphFile extends HoopProjectFile
 {
 	private HoopBase graphRoot=null;
 	private ArrayList <HoopBase> hoops=null;
+	private ArrayList <HoopConnection> connections=null;
 	
 	/**
 	 * 
@@ -44,6 +46,7 @@ public class HoopGraphFile extends HoopProjectFile
 		debug ("HoopGraphFile ()");
 		
 		hoops=new ArrayList<HoopBase> ();
+		connections=new ArrayList <HoopConnection> ();
 	}		
 	/**
 	 * 
@@ -54,7 +57,15 @@ public class HoopGraphFile extends HoopProjectFile
 		
 		graphRoot=null;
 		hoops=new ArrayList<HoopBase> ();	
+		connections=new ArrayList <HoopConnection> ();
 	}
+	/** 
+	 * @return
+	 */
+	public ArrayList <HoopConnection> getHoopConnections() 
+	{
+		return connections;
+	}		
 	/**
 	 * 
 	 */
@@ -83,6 +94,24 @@ public class HoopGraphFile extends HoopProjectFile
 	{
 		return graphRoot;
 	}	
+	/**
+	 * 
+	 */
+	public HoopBase getByID (String anID)
+	{
+		debug ("getByID ("+anID+")");
+				
+		for (int i=0;i<hoops.size();i++)
+		{
+			HoopBase aHoop=hoops.get(i);
+			if (aHoop.getHoopID().equals(anID)==true)
+			{
+				return (aHoop);
+			}
+		}
+		
+		return (null);
+	}
 	/**
 	 * 
 	 */
@@ -184,6 +213,12 @@ public class HoopGraphFile extends HoopProjectFile
 									
 									debug ("Found connection from: " + fromHoopID + " to: " + toHoopID);
 									
+									HoopConnection newConnection=new HoopConnection ();
+									
+									newConnection.setFromHoopID(fromHoopID);
+									newConnection.setToHoopID(toHoopID);
+									
+									connections.add(newConnection);
 								}
 							}							
 						}
@@ -196,6 +231,25 @@ public class HoopGraphFile extends HoopProjectFile
 		
 		return (true);
 	}	
+	/**
+	 * 
+	 */
+	private void toConnectionXML (Element aRoot,HoopBase aChecker)
+	{
+		debug ("toConnectionXML ()");
+		
+		ArrayList<HoopBase> list=aChecker.getOutHoops();
+		
+		for (int j=0;j<list.size();j++)
+		{
+			HoopBase target=list.get(j);
+			
+			aRoot.addContent(connectionToXML (aChecker,target));
+			
+			toConnectionXML (aRoot,target);
+		}		
+		
+	}
 	/**
 	*
 	*/	
@@ -231,6 +285,8 @@ public class HoopGraphFile extends HoopProjectFile
 				HoopBase target=list.get(j);
 				
 				connElement.addContent(connectionToXML (graphRoot,target));
+				
+				toConnectionXML (connElement,target);
 			}
 		}
 				

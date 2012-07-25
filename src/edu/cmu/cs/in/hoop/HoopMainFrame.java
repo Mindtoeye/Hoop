@@ -253,12 +253,14 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     	           		// Do a ton of housekeeping here ...
     	           		
     	           		HoopGraphEditor win=(HoopGraphEditor) HoopLink.getWindow("Hoop Editor");
-    	           		
+    	           		    	           		    	           		
     	           		if (win==null)
     	           		{
     	           			win=new HoopGraphEditor ();
     	           			addView ("Hoop Editor",win,HoopLink.center);
     	           		}
+    	           		
+    	           		win.reset();
     	           		
     	           		HoopGraphFile graphFile=(HoopGraphFile) HoopLink.project.getFileByClass ("HoopGraphFile");
     	           		if (graphFile!=null)
