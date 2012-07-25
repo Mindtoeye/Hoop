@@ -108,6 +108,12 @@ public class HoopExecute extends HoopRoot implements Runnable
 		
 		root.setInEditor(inEditor);
 		
+		if (root.getActive()==false)
+		{
+			debug ("Hoop is not active, skipping");
+			return (false);
+		}
+		
 		if (root.runHoopInternal(null)==false)
 		{
 			debug ("Error executing hoop: " + root.getErrorString());
@@ -146,31 +152,34 @@ public class HoopExecute extends HoopRoot implements Runnable
 			current.reset();
 			current.setInEditor(inEditor);
 			
-			if (current.runHoopInternal(aRoot)==false)
-			{
-				debug ("Error executing hoop: " + current.getErrorString());
-				HoopVisualRepresentation panel=current.getVisualizer();
-				
-				if (panel!=null)
-					panel.setState("ERROR");
-				else
-					debug ("No visual representation present to show error result!");
-				
-				HoopErrorPanel errorPanel=(HoopErrorPanel) HoopLink.getWindow("Errors");
-				if (errorPanel!=null)
+			if (root.getActive()==true)
+			{			
+				if (current.runHoopInternal(aRoot)==false)
 				{
-					errorPanel.addError (current.getClassName(),current.getErrorString());
-				}
+					debug ("Error executing hoop: " + current.getErrorString());
+					HoopVisualRepresentation panel=current.getVisualizer();
 				
-				return (false);
-			}
+					if (panel!=null)
+						panel.setState("ERROR");
+					else
+						debug ("No visual representation present to show error result!");
+				
+					HoopErrorPanel errorPanel=(HoopErrorPanel) HoopLink.getWindow("Errors");
+					if (errorPanel!=null)
+					{
+						errorPanel.addError (current.getClassName(),current.getErrorString());
+					}
+				
+					return (false);
+				}
 			
-			/// One of: STOPPED, WAITHoopG, RUNNHoopG, PAUSED, ERROR
-			current.setExecutionState("STOPPED");
+				/// One of: STOPPED, WAITHoopG, RUNNHoopG, PAUSED, ERROR
+				current.setExecutionState("STOPPED");
 			
-			if (current.getOutHoops().size()>0) // quick test before we execute
-			{
-				return (execute (current));
+				if (current.getOutHoops().size()>0) // quick test before we execute
+				{
+					return (execute (current));
+				}
 			}	
 		}
 		
