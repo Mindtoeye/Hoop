@@ -18,10 +18,12 @@
 
 package edu.cmu.cs.in.hoop.hoops.base;
 
+import edu.cmu.cs.in.base.HoopRoot;
+
 /**
 *
 */
-public class HoopConnection extends HoopBase
+public class HoopConnection extends HoopRoot
 {
 	private String fromHoopID=""; 
 	private String toHoopID="";

@@ -229,8 +229,39 @@ public class HoopGraphFile extends HoopProjectFile
 			}				
 		}	
 		
+		processConnections ();
+		
 		return (true);
 	}	
+	/**
+	 * 
+	 */
+	private void processConnections ()
+	{
+		debug ("processConnections ()");
+		
+		for (int i=0;i<connections.size();i++)
+		{
+			HoopConnection aConnection=connections.get(i);
+			
+			HoopBase fromHoop=getByID(aConnection.getFromHoopID());
+			HoopBase toHoop=getByID(aConnection.getToHoopID());
+			
+			if (fromHoop!=null)
+			{
+				if (toHoop!=null)
+				{
+					debug ("Making connection: " + fromHoop.getClassName() + " -> " + toHoop.getClassName());
+					
+					fromHoop.addOutHoop(toHoop);
+				}
+				else
+					debug ("Error: can't find 'to' hoop");
+			}
+			else
+				debug ("Error: can't find 'from' hoop");
+		}
+	}
 	/**
 	 * 
 	 */

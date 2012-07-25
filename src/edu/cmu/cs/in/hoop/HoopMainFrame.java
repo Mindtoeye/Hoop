@@ -188,32 +188,43 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     		{
     			if (HoopLink.project!=null)
     			{
-    				if (HoopLink.project.getVirginFile()==true)
-    				{
-    					debug ("We already have an open project!");
+    				HoopGraphFile graphFile=(HoopGraphFile) HoopLink.project.getFileByClass ("HoopGraphFile");
     				
-    					Object[] options = {"Yes","No","Cancel"};
-    					int n = JOptionPane.showOptionDialog (compReference,
-    	           										  		"You already have a project open, save and close this project first?",
-    	           										  		"Hoop Info Panel",
-    	           										  		JOptionPane.YES_NO_CANCEL_OPTION,
-    	           										  		JOptionPane.QUESTION_MESSAGE,
-    	           										  		null,
-    	           										  		options,
-    	           										  		options[2]);
-    	           	
-    					if (n==0)
-    					{          	
-    						debug ("Saving project ...");
-    	           		
-    						HoopLink.project.save();
-    					}
-    	           	
-    					if (n==2)
+    				if (graphFile!=null)
+    				{
+    					if (graphFile.getHoops().size()>0)
     					{
-    						debug ("Aborting creating new project");
-    						return;
-    					}
+    						debug ("We already have an open project!");
+    				
+    						Object[] options = {"Yes","No","Cancel"};
+    						int n = JOptionPane.showOptionDialog (compReference,
+    															  "You already have a project open, save and close this project first?",
+    															  "Hoop Info Panel",
+    	           									  		  	  JOptionPane.YES_NO_CANCEL_OPTION,
+    	           									  		  	  JOptionPane.QUESTION_MESSAGE,
+    	           									  		  	  null,
+    	           									  		  	  options,
+    	           									  		  	  options[2]);
+    	           	
+    						if (n==0)
+    						{          	
+    							debug ("Saving project ...");
+    	           		
+    							if (HoopLink.project.getVirginFile()==true)
+    		    				{
+    								if (projectSaveAs ()==false)
+    									return;
+    		    				}
+    							else
+    								HoopLink.project.save();
+    						}
+    	           	
+    						if (n==2)
+    						{
+    							debug ("Aborting creating new project");
+    							return;
+    						}    					
+    					}	
     				}	
     			}    			
     			
@@ -230,46 +241,33 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     			int returnVal=fc.showOpenDialog (compReference);
 
     			if (returnVal==JFileChooser.APPROVE_OPTION) 
-    			{
-    				Object[] options = {"Yes","No","Cancel"};
-    	           	int n = JOptionPane.showOptionDialog (compReference,
-    	           										  "Loading a saved set will override any existing selections, do you want to continue?",
-    	           										  "Hoop Info Panel",
-    	           										  JOptionPane.YES_NO_CANCEL_OPTION,
-    	           										  JOptionPane.QUESTION_MESSAGE,
-    	           										  null,
-    	           										  options,
-    	           										  options[2]);
-    	           	
-    	           	if (n==0)
-    	           	{          	
-    	           		File file = fc.getSelectedFile();
+    			{   	
+    	           	File file = fc.getSelectedFile();
 
-    	           		debug ("Loading: " + file.getAbsolutePath() + " ...");
+    	           	debug ("Loading: " + file.getAbsolutePath() + " ...");
     	               
-    	           		HoopLink.project=new HoopProject (); // Blatantly whipe it
-    	           		HoopLink.project.load(file.getAbsolutePath());
+    	           	HoopLink.project=new HoopProject (); // Blatantly whipe it
+    	           	HoopLink.project.load(file.getAbsolutePath());
     	           		
-    	           		// Do a ton of housekeeping here ...
+    	           	// Do a ton of housekeeping here ...
     	           		
-    	           		HoopGraphEditor win=(HoopGraphEditor) HoopLink.getWindow("Hoop Editor");
+    	           	HoopGraphEditor win=(HoopGraphEditor) HoopLink.getWindow("Hoop Editor");
     	           		    	           		    	           		
-    	           		if (win==null)
-    	           		{
-    	           			win=new HoopGraphEditor ();
-    	           			addView ("Hoop Editor",win,HoopLink.center);
-    	           		}
+    	           	if (win==null)
+    	           	{
+    	           		win=new HoopGraphEditor ();
+    	           		addView ("Hoop Editor",win,HoopLink.center);
+    	           	}
     	           		
-    	           		win.reset();
+    	           	win.reset();
     	           		
-    	           		HoopGraphFile graphFile=(HoopGraphFile) HoopLink.project.getFileByClass ("HoopGraphFile");
-    	           		if (graphFile!=null)
-    	           		{
-    	           			win.instantiateFromFile(graphFile);
-    	           		}
-    	           		else
-    	           			alert ("Unable to find graph file in project");
-    	           	}	
+    	           	HoopGraphFile graphFile=(HoopGraphFile) HoopLink.project.getFileByClass ("HoopGraphFile");
+    	           	if (graphFile!=null)
+    	           	{
+    	           		win.instantiateFromFile(graphFile);
+    	           	}
+    	           	else
+    	           		alert ("Unable to find graph file in project");	
     			} 
     			else 
     			{
@@ -306,37 +304,11 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     			}
     			
     			if (proj.getVirginFile()==true)
-    			{
-        			FileNameExtensionFilter filter=new FileNameExtensionFilter ("Target Directories", "Directories");
-        			fc.setFileFilter(filter);    			
-        			fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        			
-        			int returnVal=fc.showSaveDialog (compReference);
-
-        			if (returnVal==JFileChooser.APPROVE_OPTION) 
-        			{
-        	           	File file = fc.getSelectedFile();
-        	           	
-            	       	File testFile=new File (file.getAbsolutePath()+"/.hprj");
-            	       	if (testFile.exists()==true)
-            	       	{
-            	       		alert ("Error: a project already exists in that location");
-            	       		return;
-            	       	}
-            	       	else
-            	       	{
-            	       		debug ("Creating in directory: " + file.getAbsolutePath() + " ...");
-        	                   	           		
-            	       		HoopLink.project.setFileURI(file.getAbsolutePath()+"/.hprj");
-        	           		
-            	       		proj.save();
-            	       	}	
-        			} 
-        			else 
-        			{
-        				debug ("Open command cancelled by user.");
-        				return;
-        			}    				
+    			{    				
+    				if (projectSaveAs ()==false)
+    				{
+    					return;
+    				}
     			}
     			else
     			{
@@ -351,44 +323,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     		{
     			debug ("SaveAs ...");
     		        		
-    			HoopProject proj=HoopLink.project;
-    			
-    			if (proj==null)
-    			{
-    				debug ("Internal error: no project available");
-    				return;
-    			}
-    			
-    			FileNameExtensionFilter filter=new FileNameExtensionFilter ("Target Directories", "Directories");
-        		fc.setFileFilter(filter);    			
-        		fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        			
-        		int returnVal=fc.showSaveDialog (compReference);
-
-        		if (returnVal==JFileChooser.APPROVE_OPTION) 
-        		{
-        	       	File file = fc.getSelectedFile();
-
-        	       	debug ("Creating in directory: " + file.getAbsolutePath() + " ...");
-        	                
-        	       	File testFile=new File (file.getAbsolutePath()+"/.hprj");
-        	       	if (testFile.exists()==true)
-        	       	{
-        	       		alert ("Error: a project already exists in that location");
-        	       		return;
-        	       	}
-        	       	else
-        	       	{        	       	
-        	       		HoopLink.project.setFileURI(file.getAbsolutePath()+"/.hprj");
-        	           		        	       	        	       	
-        	       		proj.save();
-        	       	}	
-        		} 
-        		else 
-        		{
-        			debug ("Open command cancelled by user.");
-        			return;
-        		}	    			
+    			projectSaveAs ();
     		}
     	});
     	
@@ -1016,5 +951,53 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 		}	
 		
 		HoopLink.popWindow ("Errors");
+	}
+	/**
+	 * 
+	 */
+	private Boolean projectSaveAs ()
+	{
+		debug ("projectSaveAs ()");
+		
+		HoopProject proj=HoopLink.project;
+		
+		if (proj==null)
+		{
+			debug ("Internal error: no project available");
+			return (false);
+		}
+		
+		FileNameExtensionFilter filter=new FileNameExtensionFilter ("Target Directories", "Directories");
+		fc.setFileFilter(filter);    			
+		fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+			
+		int returnVal=fc.showSaveDialog (compReference);
+
+		if (returnVal==JFileChooser.APPROVE_OPTION) 
+		{
+	       	File file = fc.getSelectedFile();
+
+	       	debug ("Creating in directory: " + file.getAbsolutePath() + " ...");
+	                
+	       	File testFile=new File (file.getAbsolutePath()+"/.hprj");
+	       	if (testFile.exists()==true)
+	       	{
+	       		alert ("Error: a project already exists in that location");
+	       		return (false);
+	       	}
+	       	else
+	       	{        	       	
+	       		HoopLink.project.setFileURI(file.getAbsolutePath()+"/.hprj");
+	           		        	       	        	       	
+	       		proj.save();
+	       	}	
+		} 
+		else 
+		{
+			debug ("Open command cancelled by user.");
+			return (false);
+		}	    			
+		
+		return (true);
 	}
 }

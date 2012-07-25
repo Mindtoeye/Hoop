@@ -360,10 +360,8 @@ public class HoopInspectablePanel extends HoopJPanel implements ActionListener, 
 			
 			parameterTable.setModel(parameterModel);
 			
-			/*
 	        TableColumn colP = parameterTable.getColumnModel().getColumn(1);
-	        colP.setCellEditor(new CTATSheetCellEditor());
-	        */						
+	        colP.setCellEditor(new HoopSheetCellEditor());	        					
 		}
 		else
 			debug ("Error: no parameter table available for property sheet");

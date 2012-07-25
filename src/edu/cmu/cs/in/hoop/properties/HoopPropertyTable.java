@@ -54,7 +54,7 @@ public class HoopPropertyTable extends HoopJTable
 	 */    
     public TableCellRenderer getCellRenderer(int row, int column) 
     {
-    	debug ("getCellRenderer ("+row+","+column+")");
+    	//debug ("getCellRenderer ("+row+","+column+")");
     	
         if (column==1)
         {
@@ -70,7 +70,7 @@ public class HoopPropertyTable extends HoopJTable
         			
         		if (tester instanceof HoopSerializableTableEntry)
         		{       		
-        			debug ("Table value is HoopSerializable");
+        			//debug ("Table value is HoopSerializable");
         			
         			HoopSerializableTableEntry entry=(HoopSerializableTableEntry) this.getValueAt (row,column);
         			
@@ -78,7 +78,7 @@ public class HoopPropertyTable extends HoopJTable
         	
         			if (object!=null)
         			{
-        				debug ("Cell type: " + object.getType ());
+        				//debug ("Cell type: " + object.getType ());
         			
         				if (object.getType().equals("Color")==true)
         				{
@@ -120,7 +120,7 @@ public class HoopPropertyTable extends HoopJTable
         				
         				return (defaultRenderer);
         			} 
-        			*/       			
+        			*/
       			        			
        				return (defaultRenderer);
         		}	
