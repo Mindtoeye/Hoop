@@ -51,6 +51,15 @@ public class HoopProjectFile extends HoopXMLBase
 	/**
 	 * 
 	 */
+	public void reset ()
+	{
+		debug ("reset ()");
+		
+		// Called when this file already exists and is used for loading new data
+	}
+	/**
+	 * 
+	 */
 	public void setVirginFile(Boolean virginFile) 
 	{
 		this.virginFile = virginFile;

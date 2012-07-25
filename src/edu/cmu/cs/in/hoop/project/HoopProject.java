@@ -259,6 +259,8 @@ public class HoopProject extends HoopProjectFile
 					
 					if (aFile!=null)
 					{
+						aFile.reset();
+						
 						debug ("Loading project file: " + node.getAttributeValue("basepath") + "/" + node.getAttributeValue("instance"));
 						
 						if (aFile.load(node.getAttributeValue("basepath") + "/" + node.getAttributeValue("instance"))==true)
