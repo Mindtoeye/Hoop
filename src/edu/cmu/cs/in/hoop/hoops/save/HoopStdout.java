@@ -26,11 +26,12 @@ import edu.cmu.cs.in.base.kv.HoopKVInteger;
 import edu.cmu.cs.in.hoop.HoopDialogConsole;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
+import edu.cmu.cs.in.hoop.hoops.base.HoopSaveBase;
 
 /**
 * 
 */
-public class HoopStdout extends HoopBase implements HoopInterface
+public class HoopStdout extends HoopSaveBase implements HoopInterface
 {    	
 	private HoopDialogConsole userIO=null;
 	
@@ -41,9 +42,7 @@ public class HoopStdout extends HoopBase implements HoopInterface
     {
 		setClassName ("HoopStdout");
 		debug ("HoopStdout ()");
-										
-		setHoopCategory ("save");
-		
+														
 		setHoopDescription ("Write to Standard Output");
     }
 	/**

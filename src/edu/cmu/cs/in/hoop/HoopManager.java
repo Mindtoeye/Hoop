@@ -31,8 +31,10 @@ import edu.cmu.cs.in.hoop.hoops.load.HoopCSVReader;
 import edu.cmu.cs.in.hoop.hoops.load.HoopMySQLReader;
 import edu.cmu.cs.in.hoop.hoops.load.HoopStdin;
 import edu.cmu.cs.in.hoop.hoops.save.HoopArffWriter;
+import edu.cmu.cs.in.hoop.hoops.save.HoopBerkeleyDBWriter;
 import edu.cmu.cs.in.hoop.hoops.save.HoopCSVWriter;
 import edu.cmu.cs.in.hoop.hoops.save.HoopStdout;
+import edu.cmu.cs.in.hoop.hoops.save.HoopXMLWriter;
 import edu.cmu.cs.in.hoop.hoops.task.HoopPathChooser;
 import edu.cmu.cs.in.hoop.hoops.task.HoopScheduler;
 import edu.cmu.cs.in.hoop.hoops.transform.HoopCleanTokens;
@@ -177,5 +179,7 @@ public class HoopManager extends HoopBase
     	addTemplate (new HoopBerkeleyDBReader ());
     	addTemplate (new HoopPathChooser ());
     	addTemplate (new HoopScheduler ());
+    	addTemplate (new HoopBerkeleyDBWriter ());
+    	addTemplate (new HoopXMLWriter ());
     }
 }
