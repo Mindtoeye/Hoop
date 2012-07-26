@@ -538,6 +538,8 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 					}
 				}
 				
+				//debug ("Entry " + count + " has " + tableKV.getValuesRaw().size() + " values");
+				
 				addKV (tableKV);
 				
 				++count;
@@ -566,7 +568,7 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 			printSQLException (e);
 		}
 		
-		debug (count + " rows were retrieved");
+		debug (count + " rows were retrieved and stored as KV entries");
 		
 		return (true);
 	}

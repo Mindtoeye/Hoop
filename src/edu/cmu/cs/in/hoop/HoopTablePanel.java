@@ -169,14 +169,16 @@ public class HoopTablePanel extends HoopEmbeddedJPanel implements ActionListener
 		ArrayList <HoopKV> content=aHoop.getData();
 					
 		// Convert KV model to table model and show
-		
-		String[] cNames = new String [aHoop.getMaxValues()+1];
-		
+					
 		ArrayList <HoopKVType> types=aHoop.getTypes();
+		
+		String[] cNames = new String [types.size()];
 		
 		for (int n=0;n<types.size();n++)
 		{
 			HoopKVType aType=types.get(n);
+			
+			debug ("Adding column: " + n + " " + aType.getTypeValue() + " ("+aType.typeToString()+")");
 			
 			cNames [n]=aType.getTypeValue()+"("+aType.typeToString()+")";
 		}
@@ -202,7 +204,13 @@ public class HoopTablePanel extends HoopEmbeddedJPanel implements ActionListener
 				
 				for (int i=0;i<p.getValueSize();i++)
 				{
-					rowData [i+1]=p.getValueAsString(i);
+					String aValue=p.getValueAsString(i);
+					if (aValue.length()>100)
+					{
+						rowData [i+1]="*Data too Large*";
+					}
+					else
+						rowData [i+1]=aValue;
 				}
 				
 				model.addRow(rowData);
