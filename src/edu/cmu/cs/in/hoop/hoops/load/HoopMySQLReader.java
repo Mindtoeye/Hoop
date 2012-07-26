@@ -27,6 +27,7 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import edu.cmu.cs.in.base.HoopStringTools;
 import edu.cmu.cs.in.base.kv.HoopKVString;
 import edu.cmu.cs.in.base.kv.HoopKVType;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
@@ -410,13 +411,18 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 			return (false);
 		}
 		
-		/*
 		if (queryColumns.getValue().isEmpty()==true)
 		{
 			debug ("Error: no target columns provided for SQL query");
 			return (false);
 		}
-		*/		
+
+		ArrayList <String> columnList=HoopStringTools.splitComma(queryColumns.getValue());
+		
+		for (int j=0;j<columnList.size();j++)
+		{
+			this.setKVType (j,HoopKVType.STRING,columnList.get(j));
+		}
 		
 		/*
 		 * ID -> int(10) unsigned, 
@@ -429,7 +435,8 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 		 * Title -> varchar(500) 
 		 * Content -> Text 
 		 */
-		
+				
+		/*
 		this.setKVType (0,HoopKVType.INT,"ID");
 		this.setKVType (1,HoopKVType.STRING,"PostedTime");		
 		this.setKVType (2,HoopKVType.INT,"ForumID");
@@ -438,7 +445,8 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 		this.setKVType (5,HoopKVType.STRING,"AuthorName");
 		this.setKVType (6,HoopKVType.INT,"ThreadStarter");
 		this.setKVType (7,HoopKVType.STRING,"Title");
-		this.setKVType (8,HoopKVType.STRING,"Content");		
+		this.setKVType (8,HoopKVType.STRING,"Content");
+		*/		
 		
 		StringBuffer fullQuery=new StringBuffer ();
 		fullQuery.append (query.getValue());
@@ -486,12 +494,49 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 		{
 			while (rs.next ())
 			{
+				/*
 				Integer idVal = rs.getInt ("ID");
 				String nameVal = rs.getString ("PostedTime");
 				
 				HoopKVString tableKV=new HoopKVString ();
 				tableKV.setKey(idVal.toString());
 				tableKV.setValue(nameVal);
+				
+				addKV (tableKV);
+				*/
+				
+				HoopKVString tableKV=new HoopKVString ();
+				
+				ArrayList <HoopKVType> dbTypes=this.getTypes ();
+				
+				for (int i=0;i<dbTypes.size();i++)
+				{
+					HoopKVType aType=dbTypes.get(i);
+					
+					if (aType.getType()==HoopKVType.INT)
+					{
+						Integer idVal = rs.getInt (aType.getTypeValue());
+						
+						if (i==0)
+						{
+							tableKV.setKey(idVal.toString());
+						}
+						else
+							tableKV.setValue(idVal.toString (),i);
+					}
+					
+					if (aType.getType()==HoopKVType.STRING)
+					{						
+						String nameVal = rs.getString (aType.getTypeValue());
+						
+						if (i==0)
+						{
+							tableKV.setKey(nameVal);
+						}
+						else
+							tableKV.setValue(nameVal,i);						
+					}
+				}
 				
 				addKV (tableKV);
 				

@@ -81,6 +81,12 @@ public class HoopBaseTyped extends HoopVisual implements HoopPropertyContainer
      */
     public void setKVType (int anIndex,int aType)
     {
+    	if (anIndex>(types.size()-1))
+    	{
+    		debug ("Attempting to access non existing index ("+anIndex+"->"+aType+"), creating ...");
+    		types.add(new HoopKVType (aType,"Value"));    		
+    	}    	
+    	
     	HoopKVType target=types.get(anIndex);
     	
     	if (target==null)
@@ -96,6 +102,12 @@ public class HoopBaseTyped extends HoopVisual implements HoopPropertyContainer
      */
     public void setKVType (int anIndex,int aType,String aValue)
     {
+    	if (anIndex>(types.size()-1))
+    	{
+    		debug ("Attempting to access non existing index ("+anIndex+"->"+aType+"), creating ...");
+    		types.add(new HoopKVType (aType,"Value"));    		
+    	}
+    	
     	HoopKVType target=types.get(anIndex);
     	
     	if (target==null)

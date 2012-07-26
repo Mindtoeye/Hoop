@@ -75,6 +75,8 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface
 		
 	private int executionCount=0;
 	
+	private Boolean done=true;
+	
 	/**
 	 *
 	 */
@@ -117,6 +119,20 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface
 	{
 		this.executionCount++;
 	}
+    /**
+     * 
+     */	
+	public Boolean getDone() 
+	{
+		return done;
+	}
+    /**
+     * 
+     */	
+	public void setDone(Boolean done) 
+	{
+		this.done = done;
+	}	
     /**
      * 
      */	
@@ -354,6 +370,8 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface
 	 */
 	public Boolean runHoopInternal (HoopBase inHoop)
 	{	
+		debug ("runHoopInternal ()");
+		
 		performance.setMarker ("start");
 		
 		if (inPortExists ("KV")==true)

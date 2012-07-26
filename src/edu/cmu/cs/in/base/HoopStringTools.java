@@ -18,6 +18,7 @@
 
 package edu.cmu.cs.in.base;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -78,6 +79,24 @@ public class HoopStringTools extends HoopRoot
 	
     	return (splitter [splitter.length-1]);
     }    
+	/**
+	 *
+	 */
+    public static ArrayList <String> splitComma (String input)
+    {   	
+    	ArrayList <String> newList=new ArrayList<String> ();
+    	
+    	String [] splitter=input.split("\\,");
+    	
+    	for (int i=0;i<splitter.length;i++)
+    	{
+    		String anEntry=splitter [i];
+    		
+    		newList.add(anEntry.trim());
+    	}
+   	
+    	return (newList);
+    }        
 	/**
 	 *
 	 */    
