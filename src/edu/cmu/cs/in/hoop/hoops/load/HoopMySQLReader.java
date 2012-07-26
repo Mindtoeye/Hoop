@@ -432,13 +432,13 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 		
 		this.setKVType (0,HoopKVType.INT,"ID");
 		this.setKVType (1,HoopKVType.STRING,"PostedTime");		
-		this.setKVType (1,HoopKVType.INT,"ForumID");
-		this.setKVType (1,HoopKVType.INT,"ThreadID");
-		this.setKVType (1,HoopKVType.INT,"AuthorID");
-		this.setKVType (1,HoopKVType.STRING,"AuthorName");
-		this.setKVType (1,HoopKVType.INT,"ThreadStarter");
-		this.setKVType (1,HoopKVType.STRING,"Title");
-		this.setKVType (1,HoopKVType.STRING,"Content");		
+		this.setKVType (2,HoopKVType.INT,"ForumID");
+		this.setKVType (3,HoopKVType.INT,"ThreadID");
+		this.setKVType (4,HoopKVType.INT,"AuthorID");
+		this.setKVType (5,HoopKVType.STRING,"AuthorName");
+		this.setKVType (6,HoopKVType.INT,"ThreadStarter");
+		this.setKVType (7,HoopKVType.STRING,"Title");
+		this.setKVType (8,HoopKVType.STRING,"Content");		
 		
 		StringBuffer fullQuery=new StringBuffer ();
 		fullQuery.append (query.getValue());

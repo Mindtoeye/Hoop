@@ -110,6 +110,13 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface
 	{
 		return executionCount;
 	}
+	/**
+	 * 
+	 */
+	public void incExecutionCount ()
+	{
+		this.executionCount++;
+	}
     /**
      * 
      */	
@@ -377,9 +384,12 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface
 			}
 		}	
 		
-		setExecutionState ("RUNNHoopG");
+		setExecutionState ("RUNNING");
 	
 		Boolean result=runHoop (inHoop);
+		
+		if (result==true)
+			incExecutionCount ();
 		
 		setExecutionState ("STOPPED");
 		

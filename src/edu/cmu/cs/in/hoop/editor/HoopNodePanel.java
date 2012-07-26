@@ -157,7 +157,7 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 		}		
 	}
 	/**
-	 * One of: STOPPED, WAITHoopG, RUNNHoopG, PAUSED, ERROR
+	 * One of: STOPPED, WAITING, RUNNING, PAUSED, ERROR
 	 */
 	@Override
 	public void setState(String aState) 
@@ -174,12 +174,12 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 			icon.setIcon(HoopLink.getImageByName("led-yellow.png"));
 		}
 		
-		if (aState.equals("WAITHoopG")==true)
+		if (aState.equals("WAITING")==true)
 		{
 			icon.setIcon(HoopLink.getImageByName("led-yellow.png"));
 		}
 		
-		if (aState.equals("RUNNHoopG")==true)
+		if (aState.equals("RUNNING")==true)
 		{
 			icon.setIcon(HoopLink.getImageByName("led-green.png"));
 		}		

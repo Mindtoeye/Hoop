@@ -22,7 +22,8 @@ import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.io.HoopFileManager;
 import edu.cmu.cs.in.base.kv.HoopKV;
-import edu.cmu.cs.in.base.kv.HoopKVInteger;
+import edu.cmu.cs.in.base.kv.HoopKVType;
+//import edu.cmu.cs.in.base.kv.HoopKVInteger;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
 import edu.cmu.cs.in.hoop.hoops.base.HoopSaveBase;
@@ -63,12 +64,33 @@ public class HoopCSVWriter extends HoopSaveBase implements HoopInterface
 	{		
 		debug ("runHoop ()");
 		
-		ArrayList <HoopKV> inData=inHoop.getData();
-					
-		if (inData!=null)
-		{
-			StringBuffer formatted=new StringBuffer ();
+		StringBuffer formatted=new StringBuffer ();		
+		
+		if (this.getExecutionCount()==0)
+		{		
+			ArrayList <HoopKVType> types=inHoop.getTypes();
+						
+			for (int n=0;n<types.size();n++)
+			{
+				if (n>0)
+				{
+					formatted.append(",");
+				}	
 			
+				HoopKVType aType=types.get(n);			
+				formatted.append (aType.getTypeValue());
+				formatted.append("(");
+				formatted.append(aType.typeToString());
+				formatted.append(")");
+			}
+		
+			formatted.append("\n");
+		}	
+		
+		ArrayList <HoopKV> inData=inHoop.getData();
+							
+		if (inData!=null)
+		{			
 			for (int t=0;t<inData.size();t++)
 			{
 				HoopKV aKV=inData.get(t);
