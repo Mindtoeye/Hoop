@@ -52,7 +52,7 @@ public class HoopKVInteger extends HoopKV implements HoopKVInterface
 	 */
     public HoopKVInteger ()
     {
-    	type=HoopKVType.HoopT;
+    	type=HoopKVType.INT;
     	
     	// Make sure we have at least one entry for quick access
     	values.add(new String ("0"));
@@ -62,7 +62,7 @@ public class HoopKVInteger extends HoopKV implements HoopKVInterface
 	 */
     public HoopKVInteger (Integer aKey,String aValue) 
     {	   
-    	type=HoopKVType.HoopT;
+    	type=HoopKVType.INT;
     	
     	// Make sure we have at least one entry for quick access
     	values.add(new String ("0"));

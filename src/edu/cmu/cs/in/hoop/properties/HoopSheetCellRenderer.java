@@ -56,7 +56,7 @@ class HoopSheetCellRenderer extends DefaultTableCellRenderer
 	 */
     public void setValue(Object value) 
     {
-    	debug ("setValue ()");
+    	//debug ("setValue ()");
     	
     	if (value==null)
     	{
@@ -74,7 +74,7 @@ class HoopSheetCellRenderer extends DefaultTableCellRenderer
 		
 		if (value instanceof HoopSerializableTableEntry)
 		{
-			debug ("Instance is a HoopSerializableTableEntry");
+			//debug ("Instance is a HoopSerializableTableEntry");
 			
 	    	HoopSerializableTableEntry entry=(HoopSerializableTableEntry) value;
 	    	

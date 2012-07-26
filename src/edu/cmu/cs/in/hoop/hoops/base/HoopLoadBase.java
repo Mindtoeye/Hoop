@@ -21,7 +21,7 @@ package edu.cmu.cs.in.hoop.hoops.base;
 /**
 * 
 */
-public class HoopLoadBase extends HoopBase implements HoopInterface
+public class HoopLoadBase extends HoopIOBase implements HoopInterface
 {    				
 	private String content=null;
 	

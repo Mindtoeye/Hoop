@@ -590,10 +590,16 @@ public class HoopLink extends HoopProperties
 			return (aPath); // Nothing to do
 		}
 		
-		String lastPart=aPath.substring(11); // index of <PROJECTPATH> which is 12 long
+		StringBuffer formatted=new StringBuffer ();
+		
+		String lastPart=aPath.substring(13); // index of <PROJECTPATH> which is 13 long
 		
 		String projectPath=HoopLink.project.getBasePath();
 		
-		return (projectPath+"\\"+lastPart);
+		formatted.append (projectPath);
+		formatted.append("//");
+		formatted.append(lastPart);
+		
+		return (formatted.toString());
 	}
 }

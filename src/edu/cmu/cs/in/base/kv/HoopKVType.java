@@ -25,14 +25,14 @@ package edu.cmu.cs.in.base.kv;
  */
 public class HoopKVType
 {
-	public static final int HoopT=1;
-	public static final int STRHoopG=2;
+	public static final int INT=1;
+	public static final int STRING=2;
 	public static final int FLOAT=3;
 	public static final int BOOLEAN=4;
 	public static final int LIST=5;
 	public static final int TABLE=6;
 	
-	protected int type=HoopT;
+	protected int type=INT;
 	protected String typeValue="String";
 	
 	/**
@@ -71,9 +71,9 @@ public class HoopKVType
 	{
 		switch (type)
 		{
-			case HoopT:
+			case INT:
 							return ("Integer");
-			case STRHoopG:
+			case STRING:
 							return ("String");
 			case FLOAT:
 							return ("Float");

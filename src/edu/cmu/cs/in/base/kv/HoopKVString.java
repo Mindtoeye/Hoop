@@ -52,7 +52,7 @@ public class HoopKVString extends HoopKV implements HoopKVInterface
 	 */
     public HoopKVString () 
     {
-    	type=HoopKVType.STRHoopG;
+    	type=HoopKVType.STRING;
     	
     	// Make sure we have at least one entry for quick access
     	values.add(new String ("0"));
@@ -62,7 +62,7 @@ public class HoopKVString extends HoopKV implements HoopKVInterface
 	 */
     public HoopKVString (String aKey,String aValue) 
     {	   
-    	type=HoopKVType.STRHoopG;
+    	type=HoopKVType.STRING;
     	
     	// Make sure we have at least one entry for quick access
     	values.add(new String ("0"));  	

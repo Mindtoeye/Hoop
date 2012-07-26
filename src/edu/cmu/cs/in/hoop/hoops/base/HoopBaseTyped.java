@@ -40,8 +40,8 @@ public class HoopBaseTyped extends HoopVisual implements HoopPropertyContainer
 		debug ("HoopBaseTyped ()");
 				
 		types=new ArrayList <HoopKVType> ();
-		types.add(new HoopKVType (HoopKVType.STRHoopG,"Key"));
-		types.add(new HoopKVType (HoopKVType.STRHoopG,"Value"));
+		types.add(new HoopKVType (HoopKVType.STRING,"Key"));
+		types.add(new HoopKVType (HoopKVType.STRING,"Value"));
 		
 		properties=new ArrayList<HoopSerializable> ();		
     }

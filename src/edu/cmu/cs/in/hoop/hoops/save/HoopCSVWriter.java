@@ -35,9 +35,11 @@ import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
 public class HoopCSVWriter extends HoopSaveBase implements HoopInterface
 {    			
 	private String mode="TAB"; // TAB,COMMA,DASH
-	//private String outURI="./HoopOut.csv";
+
 	private HoopFileManager fManager=null;
+	
 	private HoopURISerializable URI=null;
+	private HoopStringSerializable writeMode=null; // APPEND, OVERWRITE
 	
 	/**
 	 *
@@ -52,6 +54,7 @@ public class HoopCSVWriter extends HoopSaveBase implements HoopInterface
 		fManager=new HoopFileManager ();
 		
 		URI=new HoopURISerializable (this,"URI","<PROJECTPATH>/HoopOut.csv");
+		writeMode=new HoopStringSerializable (this,"writeMode","APPEND");
     }  
 	/**
 	 *
@@ -68,10 +71,9 @@ public class HoopCSVWriter extends HoopSaveBase implements HoopInterface
 			
 			for (int t=0;t<inData.size();t++)
 			{
-				HoopKVInteger aKV=(HoopKVInteger) inData.get(t);
+				HoopKV aKV=inData.get(t);
 								
 				formatted.append(aKV.getKeyString ());
-				//formatted.append(",");
 				
 				ArrayList<Object> vals=aKV.getValuesRaw();
 				
@@ -84,7 +86,10 @@ public class HoopCSVWriter extends HoopSaveBase implements HoopInterface
 				formatted.append("\n");
 			}
 			
-			fManager.saveContents (URI.getValue(),formatted.toString());
+			if (writeMode.getValue().equals("OVERWRITE")==true)
+				fManager.saveContents (this.projectToFullPath(URI.getValue()),formatted.toString());
+			else
+				fManager.appendContents (this.projectToFullPath(URI.getValue()),formatted.toString());
 		}	
 						
 		return (true);

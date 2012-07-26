@@ -119,7 +119,7 @@ public class HoopArffReader extends HoopTransformBase implements HoopInterface
 			return (false);
 		}
 
-		this.setKVType(attrCounter,HoopKVType.STRHoopG,entries [1]);
+		this.setKVType(attrCounter,HoopKVType.STRING,entries [1]);
 						
 		return (true);
 	}

@@ -488,6 +488,91 @@ public class HoopFileManager extends HoopRoot
 		return (true);
 	}
 	/**
+	 *
+	 */  
+	public boolean appendContents (String aFileURI,String aContents) 
+	{
+		debug ("appendContents ("+aFileURI+")");
+		
+		setURI (aFileURI);
+		
+		File aFile = new File (aFileURI);
+		Writer output =null; 
+		
+		/*
+		if (!aFile.exists()) 
+		{
+			debug ("File does not exist: " + aFile);
+			return (false);
+		}
+						
+		if (!aFile.isFile()) 
+		{
+			debug ("Should not be a directory: " + aFile);
+			return (false);
+		}
+				
+		if (!aFile.canWrite()) 
+		{
+			debug ("File cannot be written: " + aFile);
+			return (false);
+		}
+		*/
+
+		//use buffering
+		try 
+		{			
+			output=new BufferedWriter (new FileWriter(aFile,true));
+		}
+		catch (IOException e) 
+		{
+			debug ("Exception: IOException while opening output file");
+			return (false);			
+		}			
+		
+		try 
+		{
+			// FileWriter always assumes default encoding is OK!
+			output.write (aContents);			
+		}
+		catch (IOException e) 
+		{
+			debug ("Exception: IOException while writing contents to disk");
+			
+			try
+			{
+				output.close();
+			}
+			catch (IOException closeException)
+			{
+				debug ("Exception: closeException while closing file writer");
+				return (false);
+			}
+			
+			return (false);
+		}
+		
+		try
+		{
+			output.flush();
+		}
+		catch (IOException e) 
+		{
+			debug ("Exception: IOException while flushing contents to disk");
+		}
+		
+		try
+		{
+			output.close();
+		}
+		catch (IOException e) 
+		{
+			debug ("Exception: IOException closing output file");
+		}
+		
+		return (true);
+	}	
+	/**
 	 * 
 	 */
 	public void listLines (ArrayList<String> aLines)

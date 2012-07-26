@@ -73,6 +73,8 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface
 	
 	private String helpTopic="hooptemplate";
 		
+	private int executionCount=0;
+	
 	/**
 	 *
 	 */
@@ -101,6 +103,20 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface
 		addOutPort ("Stats");
 		addOutPort ("Model");
     }
+    /**
+     * 
+     */    
+	public int getExecutionCount() 
+	{
+		return executionCount;
+	}
+    /**
+     * 
+     */	
+	public void setExecutionCount(int executionCount) 
+	{
+		this.executionCount = executionCount;
+	}    
     /**
      * 
      */    

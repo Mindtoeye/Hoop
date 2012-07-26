@@ -124,7 +124,7 @@ public class HoopCSVReader extends HoopTransformBase implements HoopInterface
 					{
 						for (int j=0;j<entries.length;j++)
 						{
-							setKVType (j,HoopKVType.STRHoopG,entries [j]);				
+							setKVType (j,HoopKVType.STRING,entries [j]);				
 						}						
 					}
 					else

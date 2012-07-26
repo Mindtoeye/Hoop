@@ -18,53 +18,35 @@
 
 package edu.cmu.cs.in.hoop.hoops.base;
 
+import edu.cmu.cs.in.base.HoopLink;
+
 /**
 * 
 */
-public class HoopSaveBase extends HoopIOBase implements HoopInterface
-{    				
-	private String content=null;
-	
+public class HoopIOBase extends HoopBase implements HoopInterface
+{    					
 	/**
 	 *
 	 */
-    public HoopSaveBase () 
+    public HoopIOBase () 
     {
-		setClassName ("HoopSaveBase");
-		debug ("HoopSaveBase ()");
-		
-		setHoopCategory ("Save");
-		
-		setHoopDescription ("Abstract Hoop Saving");
+		setClassName ("HoopIOBase");
+		debug ("HoopIOBase ()");
+				
+		setHoopDescription ("Abstract Hoop IO Base Class");
     }
-	/**
-	 *
-	 */
-	public void setContent(String content) 
-	{
-		this.content = content;
-	}
-	/**
-	 *
-	 */
-	public String getContent() 
-	{
-		return content;
-	}    
-	/**
-	 *
-	 */
-	public Boolean runHoop (HoopBase inHoop)
-	{		
-		debug ("runHoop ()");
-						
-		return (true);
-	}	
-	/**
-	 * 
-	 */
-	public HoopBase copy ()
-	{
-		return (new HoopSaveBase ());
-	}	
+    /**
+     * 
+     */
+    protected String projectToFullPath (String aURI)
+    {
+    	return (HoopLink.relativeToAbsolute (aURI));
+    }    
+    /**
+     * 
+     */
+    protected String fullPathToProject (String aURI)
+    {
+    	return (aURI);
+    }    
 }
