@@ -45,10 +45,7 @@ public class HoopSheetCellEditor extends AbstractCellEditor implements TableCell
 	private static final long serialVersionUID = 1L;
 	
 	private HoopSerializableTableEntry entry=null;
-
 	private HoopSerializable obj=null;
-	//private HoopSAI          sai=null;
-	//private HoopArgument     arg=null;
 	
 	private JTextField textComponent =null;
 	private JComboBox booleanComponent=null;
@@ -113,27 +110,9 @@ public class HoopSheetCellEditor extends AbstractCellEditor implements TableCell
 			Color color = JColorChooser.showDialog (colorDelegate,"Color Chooser",newColor);
 			
 			if (obj!=null)
-				obj.setValue(HoopColorUtil.toHex(color));
-			
-			/*
-			if (arg!=null)
-				arg.setValue(HoopColorUtil.toHex(color));
-			*/				
+				obj.setValue(HoopColorUtil.toHex(color));			
 		}
-		
-		/*
-		if (actionEvent.getSource ()==arrayDelegate) 
-		{	
-			debug ("Showing argument editor ...");
-			
-			HoopArgumentEditor d = new HoopArgumentEditor(null,"Argument Editor");				
-			d.setSize(200,400);
-			//d.setLocationRelativeTo(null);
-			d.setSAI(sai);
-			d.setVisible(true);
-		}
-		*/		
-		
+					
 		fireEditingStopped();
 	}    
     /**
@@ -157,16 +136,6 @@ public class HoopSheetCellEditor extends AbstractCellEditor implements TableCell
     	
     	if (entry.getEntry()!=null)
     		obj=(HoopSerializable) entry.getEntry();
-    	
-    	/*
-    	if (entry.getArgument()!=null)
-    		arg=entry.getArgument();
-    	*/	
-    	
-    	/*
-    	if (entry.getSAI ()!=null)
-    		sai=entry.getSAI ();
-    	*/	
     	
         // 'value' is value contained in the cell located at (rowIndex, vColIndex)
 
@@ -203,69 +172,7 @@ public class HoopSheetCellEditor extends AbstractCellEditor implements TableCell
         	
         	textComponent.setText (obj.getValue());
         }
-        
-        /*
-        if (arg!=null)
-        {
-        	if (arg.getType().equals("String")==true)
-        	{
-        		textComponent.setText (arg.getValue());
-        	}	
-
-        	if (arg.getType().equals("Boolean")==true)
-        	{
-        		return (booleanComponent);
-        	}
-        
-        	if (arg.getType().equals("Font")==true)
-        	{
-        		return (fontComponent);
-        	}
-        
-        	if (arg.getType().equals("Color")==true)
-        	{
-        		return (colorDelegate);
-        	}
-        	
-        	textComponent.setText (arg.getValue());
-        } 
-        */       
-        	
-        /*
-        if (sai!=null)
-        {
-        	if (sai.getArgumentSize()>1)
-        	{
-        		arrayDelegate.setText (sai.toArgumentString());
-        		return (arrayDelegate);
-        	}
-        	else
-        	{
-            	if (sai.getType().equals("String")==true)
-            	{
-            		textComponent.setText (sai.getValue());
-            	}	
-
-            	if (sai.getType().equals("Boolean")==true)
-            	{
-            		return (booleanComponent);
-            	}
-            
-            	if (sai.getType().equals("Font")==true)
-            	{
-            		return (fontComponent);
-            	}
-            
-            	if (sai.getType().equals("Color")==true)
-            	{
-            		return (colorDelegate);
-            	}
-            	
-            	textComponent.setText (sai.getValue());        		
-        	}
-        }
-        */
-        
+                
         return (textComponent);
     }
     /**
@@ -332,110 +239,7 @@ public class HoopSheetCellEditor extends AbstractCellEditor implements TableCell
     			obj.setValue(textComponent.getText ());
     		}
     	}
-    	
-    	/*
-    	if (arg!=null)
-    	{
-    		debug ("Setting direct value ...");    	
-    		
-    		if (arg.getType().equals("Boolean")==true)
-    		{
-    			debug ("Returning ComboBox selection ...");
-    			arg.setValue((String) booleanComponent.getSelectedItem());
-    			//return (booleanComponent.getSelectedItem());
-    		}
-    	
-    		if (arg.getType().equals("Font")==true)
-    		{
-    			debug ("Returning Font selection ...");
-    			arg.setValue((String) fontComponent.getSelectedItem());
-    			//return (fontComponent.getSelectedItem());
-    		}
-    	
-    		if (arg.getType().equals("Color")==true)
-    		{
-    			debug ("Returning Color string ["+arg.getValue()+"]->["+textComponent.getText()+"]...");
-    			arg.setValue(textComponent.getText());
-    			//return (textComponent.getText()); // REPLACE!
-    		}
-    	
-    		if (arg.getType().equals("Number")==true)
-    		{
-    			debug ("Returning Number ...");
-    			arg.setValue(numberComponent.getText());
-    			//return (numberComponent.getText());
-    		}    	
-    	
-    		if (arg.getType().equals("Enum")==true)
-    		{
-    			debug ("Returning Enumeration ...");
-    			arg.setValue(textComponent.getText());
-    			//return (textComponent.getText()); // REPLACE!
-    		} 
-    		
-    		if (arg.getType().equals ("String")==true)
-    		{
-    			debug ("Returning String ...");
-    			arg.setValue(textComponent.getText ());
-    		}    		
-    	} 
-    	*/   	
-    	
-    	/*
-    	if (sai!=null)
-    	{    	
-    		debug ("Setting sai value(s) ...");
-    		
-    		if (sai.getArgumentSize()>1)
-    		{
-    			debug ("BUILD THIS!!!");
-    		}
-    		else
-    		{
-    			if (sai.getType().equals("Boolean")==true)
-    			{
-    				debug ("Returning ComboBox selection ...");
-    				sai.setValue((String) booleanComponent.getSelectedItem());
-    				//return (booleanComponent.getSelectedItem());
-    			}
-    	
-    			if (sai.getType().equals("Font")==true)
-    			{
-    				debug ("Returning Font selection ...");
-    				sai.setValue((String) fontComponent.getSelectedItem());
-    				//return (fontComponent.getSelectedItem());
-    			}
-    	
-    			if (sai.getType().equals("Color")==true)
-    			{
-    				debug ("Returning Color string ["+sai.getValue()+"]->["+textComponent.getText()+"]...");
-    				sai.setValue(textComponent.getText());
-    				//return (textComponent.getText()); // REPLACE!
-    			}
-    	
-    			if (sai.getType().equals("Number")==true)
-    			{
-    				debug ("Returning Number ...");
-    				sai.setValue(numberComponent.getText());
-    				//return (numberComponent.getText());
-    			}    	
-    	
-    			if (sai.getType().equals("Enum")==true)
-    			{
-    				debug ("Returning Enumeration ...");
-    				sai.setValue(textComponent.getText());
-    				//return (textComponent.getText()); // REPLACE!
-    			}
-    			
-        		if (sai.getType().equals ("String")==true)
-        		{
-        			debug ("Returning String ...");
-        			sai.setValue(textComponent.getText ());
-        		}    			
-    		}	
-    	} 
-    	*/   	
-    	
+    	    	
         return (entry);
     }
     /**
@@ -449,6 +253,7 @@ public class HoopSheetCellEditor extends AbstractCellEditor implements TableCell
         {
             return ((MouseEvent)evt).getClickCount()>=2;
         }
+        
         return true;
     }    
 }

@@ -36,8 +36,7 @@ public class HoopNetworkTools extends HoopRoot
 	public HoopNetworkTools ()
 	{  
     	setClassName ("HoopNetworkTools");
-    	//debug ("CTATNetworkTools ()");
-
+		debug ("HoopNetworkTools ()");
 	}
 	/**
 	*
