@@ -34,6 +34,8 @@ public class HoopLoadBase extends HoopIOBase implements HoopInterface
 		debug ("HoopLoadBase ()");
 		setHoopCategory ("Load");
 		
+		removeInPort ("KV");
+		
 		setHoopDescription ("Abstract Hoop Loader");
     }
 	/**

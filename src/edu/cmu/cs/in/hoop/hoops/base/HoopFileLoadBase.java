@@ -30,7 +30,7 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 {    				
 	private HoopFileManager fManager=null;
 	private HoopKVString fileKV=null;		
-	private HoopURISerializable URI=null;
+	protected HoopURISerializable URI=null;
 	
 	/**
 	 *
@@ -41,8 +41,6 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 		debug ("HoopFileLoadBase ()");
 		
 		setHoopDescription ("Load Text from a File");
-
-		removeInPort ("KV");
 		
 		fManager=new HoopFileManager ();
 		fileKV=new HoopKVString ();						
