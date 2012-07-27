@@ -20,12 +20,6 @@ package edu.cmu.cs.in.hoop;
 
 import edu.cmu.cs.in.base.HoopRoot;
 import edu.cmu.cs.in.base.HoopLink;
-import edu.cmu.cs.in.hoop.hoops.transform.HoopFilterStopWords;
-import edu.cmu.cs.in.hoop.hoops.transform.HoopSentence2Tokens;
-import edu.cmu.cs.in.hoop.hoops.load.HoopStdin;
-import edu.cmu.cs.in.hoop.hoops.save.HoopStdout;
-import edu.cmu.cs.in.hoop.hoops.transform.HoopTokenCaseChange;
-import edu.cmu.cs.in.hoop.hoops.transform.HoopUniqueTerms;
 
 /** 
  * @author Martin van Velsen
@@ -40,24 +34,7 @@ public class HoopExecuteStandalone extends HoopExecute
 		setClassName ("HoopExecuteStandalone");
 		debug ("HoopExecuteStandalone ()");		
 		
-		this.setInEditor(false);
-		
-		/*
-		HoopStdin inp=new HoopStdin ();
-		HoopSentence2Tokens tokenizer=new HoopSentence2Tokens ();
-		HoopTokenCaseChange lowercaser=new HoopTokenCaseChange ();
-		HoopUniqueTerms countUnique=new HoopUniqueTerms ();
-		HoopFilterStopWords removeStops=new HoopFilterStopWords ();
-		HoopStdout outp=new HoopStdout ();
-		
-		inp.addOutHoop(tokenizer);
-		tokenizer.addOutHoop(lowercaser);
-		lowercaser.addOutHoop(countUnique);
-		countUnique.addOutHoop(removeStops);
-		removeStops.addOutHoop(outp);
-		
-		setRoot (inp);
-		*/		
+		this.setInEditor(false);			
 	}	
 	/**
 	 * 

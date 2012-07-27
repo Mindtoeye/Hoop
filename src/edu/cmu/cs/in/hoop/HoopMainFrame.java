@@ -614,7 +614,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     		{
     			debug ("Run Once ...");
     			
-    			showErrorWindow ();
+    			//showErrorWindow ();
     			    			
     			HoopExecuteInEditor runtime=new HoopExecuteInEditor ();
     			runtime.setRoot(HoopLink.hoopGraphManager.getRoot());
@@ -630,7 +630,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     		{
     			debug ("Run N Times ...");
     			
-    			showErrorWindow ();
+    			//showErrorWindow ();
     			    			    			    		
     			HoopExecuteInEditor runtime=new HoopExecuteInEditor ();
     			runtime.setRoot(HoopLink.hoopGraphManager.getRoot());
@@ -646,7 +646,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     		{
     			debug ("Run Forever ...");
     			    			
-    			showErrorWindow ();
+    			//showErrorWindow ();
     			
     			HoopExecuteInEditor runtime=new HoopExecuteInEditor ();
     			runtime.setRoot(HoopLink.hoopGraphManager.getRoot());

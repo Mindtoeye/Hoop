@@ -128,6 +128,7 @@ public class HoopExecute extends HoopRoot implements Runnable
 			if (errorPanel!=null)
 			{
 				errorPanel.addError (root.getClassName(),root.getErrorString());
+				HoopLink.popWindow ("Errors");
 			}			
 		}
 		

@@ -25,18 +25,20 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.List;
 
+import javax.swing.Action;
+import javax.swing.ActionMap;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.InputMap;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JOptionPane;
 import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
@@ -46,10 +48,9 @@ import edu.cmu.cs.in.hoop.hoops.load.HoopStdin;
 import edu.cmu.cs.in.hoop.hoops.save.HoopStdout;
 
 /** 
- * @author vvelsen
  *
  */
-public class HoopDialogConsole extends HoopEmbeddedJPanel implements KeyListener, ActionListener
+public class HoopDialogConsole extends HoopEmbeddedJPanel implements ActionListener, Action
 {	
 	private static final long serialVersionUID = 1L;
 	
@@ -82,12 +83,12 @@ public class HoopDialogConsole extends HoopEmbeddedJPanel implements KeyListener
 		Border blackborder=BorderFactory.createLineBorder(Color.black);
 		
 		entry=new JTextArea ();
+		entry.setEnabled(false);
 		entry.setFont(new Font("Dialog", 1, 10));
 		entry.setBorder(blackborder);
 		entry.setMinimumSize(new Dimension (50,25));
 		entry.setPreferredSize(new Dimension (100,25));		
-		entry.addKeyListener(this);		
-						
+							
 		clearButton=new JButton ();
 		clearButton.setIcon(HoopLink.imageIcons [8]);
 		clearButton.setMargin(new Insets(1, 1, 1, 1));
@@ -178,6 +179,21 @@ public class HoopDialogConsole extends HoopEmbeddedJPanel implements KeyListener
 		this.setBorder(BorderFactory.createEmptyBorder(2,2,2,2));
 		
 		setContentPane (mainBox);					
+		
+		InputMap inputMap = entry.getInputMap();
+		ActionMap actionMap = entry.getActionMap();
+
+		Object transferTextActionKey = "TRANSFER_TEXT";
+		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER,0),transferTextActionKey);
+		//Also add shift+enter binding here if you want
+		actionMap.put(transferTextActionKey,this);		
+	}
+	/**
+	 * 
+	 */
+	public void enableInput ()
+	{
+		entry.setEnabled (true);
 	}
 	/**
 	 * 
@@ -208,71 +224,32 @@ public class HoopDialogConsole extends HoopEmbeddedJPanel implements KeyListener
 		this.outHoop = outHoop;
 	}	
 	/**
-	 * 
-	 */
-	@Override
-	public void keyPressed(KeyEvent event) 
-	{
-	    int key = event.getKeyCode();
-	    
-        if (key == KeyEvent.VK_ENTER)
-        {
-        	processInput ();
-        }  		
-	}
-	/**
-	 * 
-	 */
-	@Override
-	public void keyReleased(KeyEvent arg0) 
-	{
-		// TODO Auto-generated method stub
-		
-	}
-	/**
-	 * 
-	 */
-	@Override
-	public void keyTyped(KeyEvent arg0) 
-	{
-		// TODO Auto-generated method stub
-		
-	}	
-	/**
 	 *
 	 */		
 	public void processOutput (String aString)
 	{
-		textArea.append(aString+"\n");
+		//textArea.append(aString+"\n");
+		textArea.setText(aString);
 	}
 	/**
 	 *
 	 */		
-	private void processInput ()
+	private void processInput (String aText)
 	{
 		debug ("processInput ()");
 				
-		if (entry.getText().isEmpty()==true)
-		{
-			debug ("Please enter a query");
-			JOptionPane.showMessageDialog(null, "Please enter a query");
-			return;
-		}
-		
 		if (inHoop!=null)
 		{
 			List<String> holder=inHoop.getHolder();
 			
 			synchronized (holder) 
 			{
-				holder.add(entry.getText());
+				holder.add(aText);
 				holder.notify();
 			}							
 		}
 		else
-			JOptionPane.showMessageDialog(null, "Error: no input hoop available process request");
-		
-		entry.setText("");
+			alert ("Error: no input hoop available process request");		
 	}
 	/**
 	 * 
@@ -280,7 +257,29 @@ public class HoopDialogConsole extends HoopEmbeddedJPanel implements KeyListener
 	@Override
 	public void actionPerformed(ActionEvent arg0) 
 	{
-		// TODO Auto-generated method stub
+		debug ("actionPerformed ()");
 		
+		processInput (entry.getText ());
+	     
+		entry.setText("");
+		entry.setEnabled(false);		
+	}
+	/**
+	 * 
+	 */
+	@Override
+	public Object getValue(String arg0) 
+	{
+		debug ("getValue ()");
+		
+		return null;
+	}
+	/**
+	 * 
+	 */
+	@Override
+	public void putValue(String arg0, Object arg1) 
+	{
+		debug ("putValue ()");
 	}	
 }

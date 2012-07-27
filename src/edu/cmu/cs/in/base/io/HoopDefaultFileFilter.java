@@ -35,7 +35,7 @@ public class HoopDefaultFileFilter extends FileFilter
 	protected String desc;
 
 	/**
-	 * Constructs a new filter for the specified extension and descpription.
+	 * Constructs a new filter for the specified extension and description.
 	 * 
 	 * @param extension
 	 *            The extension to accept files with.

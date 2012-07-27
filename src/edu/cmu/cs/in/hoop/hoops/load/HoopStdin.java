@@ -29,11 +29,12 @@ import edu.cmu.cs.in.base.kv.HoopKVInteger;
 import edu.cmu.cs.in.hoop.HoopDialogConsole;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
+import edu.cmu.cs.in.hoop.hoops.base.HoopLoadBase;
 
 /**
 * 
 */
-public class HoopStdin extends HoopBase implements HoopInterface
+public class HoopStdin extends HoopLoadBase implements HoopInterface
 {    	
 	public static int lineCounter=0;
     private BufferedReader in=null;		
@@ -48,9 +49,7 @@ public class HoopStdin extends HoopBase implements HoopInterface
     {
 		setClassName ("HoopStdin");
 		debug ("HoopStdin ()");
-								
-		setHoopCategory ("load");
-		
+										
 		setHoopDescription ("Read from Standard Input");
 		
 		in = new BufferedReader(new InputStreamReader(System.in));
@@ -77,9 +76,11 @@ public class HoopStdin extends HoopBase implements HoopInterface
 			if (userIO==null)
 			{
 				HoopLink.addView ("User Dialog",new HoopDialogConsole (),HoopLink.bottom);
-				userIO=(HoopDialogConsole) HoopLink.getWindow("User Dialog");
+				userIO=(HoopDialogConsole) HoopLink.getWindow("User Dialog");				
 			}
 			
+			HoopLink.popWindow("User Dialog");
+			userIO.enableInput ();
 			userIO.setInHoop(this);
 			
 			// create the structures here that will block this method until
