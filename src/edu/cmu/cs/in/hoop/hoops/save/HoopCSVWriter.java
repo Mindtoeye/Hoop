@@ -23,11 +23,10 @@ import java.util.ArrayList;
 import edu.cmu.cs.in.base.io.HoopFileManager;
 import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.base.HoopDataType;
-//import edu.cmu.cs.in.base.kv.HoopKVInteger;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
 import edu.cmu.cs.in.hoop.hoops.base.HoopSaveBase;
-import edu.cmu.cs.in.hoop.properties.types.HoopStringSerializable;
+import edu.cmu.cs.in.hoop.properties.types.HoopEnumSerializable;
 import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
 
 /**
@@ -35,12 +34,11 @@ import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
 */
 public class HoopCSVWriter extends HoopSaveBase implements HoopInterface
 {    			
-	private String mode="TAB"; // TAB,COMMA,DASH
-
 	private HoopFileManager fManager=null;
 	
 	private HoopURISerializable URI=null;
-	private HoopStringSerializable writeMode=null; // APPEND, OVERWRITE
+	private HoopEnumSerializable writeMode=null; // APPEND, OVERWRITE	
+	private HoopEnumSerializable mode=null; // TAB,COMMA,DASH
 	
 	/**
 	 *
@@ -55,14 +53,33 @@ public class HoopCSVWriter extends HoopSaveBase implements HoopInterface
 		fManager=new HoopFileManager ();
 		
 		URI=new HoopURISerializable (this,"URI","<PROJECTPATH>/HoopOut.csv");
-		writeMode=new HoopStringSerializable (this,"writeMode","APPEND");
+		writeMode=new HoopEnumSerializable (this,"writeMode","OVERWRITE,APPEND");
+		mode=new HoopEnumSerializable (this,"mode","TAB,COMMA,DASH");
     }  
+    /**
+     * 
+     */
+    public String getSeparatorChar ()
+    {
+    	if (mode.getValue().equals("TAB"))
+    		return ("\t");
+    	
+    	if (mode.getValue().equals("COMMA"))
+    		return (",");
+    	
+    	if (mode.getValue().equals("DASH"))
+    		return ("-");
+    	
+    	return (",");
+    }
 	/**
 	 *
 	 */
 	public Boolean runHoop (HoopBase inHoop)
 	{		
 		debug ("runHoop ()");
+		
+		String sepChar=getSeparatorChar ();
 		
 		StringBuffer formatted=new StringBuffer ();		
 		
@@ -74,7 +91,7 @@ public class HoopCSVWriter extends HoopSaveBase implements HoopInterface
 			{
 				if (n>0)
 				{
-					formatted.append(",");
+					formatted.append(sepChar);
 				}	
 			
 				HoopDataType aType=types.get(n);			
@@ -101,7 +118,7 @@ public class HoopCSVWriter extends HoopSaveBase implements HoopInterface
 				
 				for (int i=0;i<vals.size();i++)
 				{
-					formatted.append(",");
+					formatted.append(sepChar);
 					formatted.append(vals.get(i));
 				}
 				

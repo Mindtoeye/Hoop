@@ -223,24 +223,7 @@ public class HoopSerializable extends HoopXMLBase
    				debug ("Parsing selection: " + node.getName() + ":"+node.getText());
    				setFormat (node.getText());
    			}      			
-   			
-   			/*
-   			if (node.getName().equals ("name")==true)
-   			{
-   				debug ("Parsing selection: " + node.getName() + ":"+node.getText());
-   				setInstanceName (node.getText());
-   			} 
-   			*/  
-		
-   			/*
-   			if (node.getName().equals ("value")==true)
-   			{
-   				debug ("Parsing selection: " + node.getName() + ":"+node.getText());
-   				setValue (node.getText());				
-   				setType (node.getAttributeValue ("type"));
-   			}
-   			*/
-   			
+   			   			
    			debug ("Setting value to: " + node.getText());
    			
    			this.setValue(node.getText());

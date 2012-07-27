@@ -18,7 +18,13 @@
 
 package edu.cmu.cs.in.hoop.properties.types;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.jdom.Element;
+
 import edu.cmu.cs.in.base.HoopDataType;
+import edu.cmu.cs.in.base.HoopStringTools;
 import edu.cmu.cs.in.hoop.hoops.base.HoopPropertyContainer;
 
 /**
@@ -26,6 +32,8 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopPropertyContainer;
 */
 public class HoopEnumSerializable extends HoopSerializable
 {		
+	private String options="";
+	
 	/**
 	 *
 	 */
@@ -37,7 +45,12 @@ public class HoopEnumSerializable extends HoopSerializable
 		setClassName ("HoopEnumSerializable");
 		debug ("HoopEnumSerializable ()");
   	
-		setValue (aPropValue);
+		options=aPropValue;
+		
+		ArrayList <String> test=getOptions();
+		
+		if (test.size()>0)
+			setValue (test.get(0));
 	}	
 	/**
 	 *
@@ -50,11 +63,32 @@ public class HoopEnumSerializable extends HoopSerializable
     	setClassName ("HoopStringSerializable");
     	debug ("HoopStringSerializable ()");
     	
-    }
+    }    
     /** 
      * @param propValue
      */
-	public void setPropValue(String [] propValue) 
+	public void setPropValue(String propValue) 
+	{
+		this.setValue(propValue);
+	}	
+	/** 
+	 * @return
+	 */
+	public String getPropValue() 
+	{
+		return (getValue ());
+	}
+    /**
+     * @param propValue
+     */
+	public void setOptions(String propValue) 
+	{
+		options=propValue;
+	}
+    /**
+     * @param propValue
+     */
+	public void setOptions(String [] propValue) 
 	{
 		StringBuffer formatter=new StringBuffer ();
 		
@@ -67,19 +101,84 @@ public class HoopEnumSerializable extends HoopSerializable
 		}
 		
 		this.setValue(formatter.toString());
-	}    
-    /** 
-     * @param propValue
-     */
-	public void setPropValue(String propValue) 
+	}
+	/**
+	 * 
+	 */
+	public String getOptionString ()
 	{
-		this.setValue(propValue);
+		return (options);
 	}
 	/** 
 	 * @return
 	 */
-	public String getPropValue() 
+	public ArrayList <String> getOptions() 
+	{		
+		return (HoopStringTools.splitComma(options));
+	}
+	/**
+	 * @return 
+	 *
+	 */
+    public Boolean fromXML (Element anElement)
+    {
+    	debug ("fromXML ()");
+    	
+    	if (super.fromXML(anElement)==false)
+    	{
+    		return (false);
+    	}
+    	    	    	  
+    	List <?> children =anElement.getChildren ("value");
+    	      
+    	if (children==null)
+    	{
+    		debug ("Internal error: children list is null");
+    		return (false);
+    	}
+		
+    	for (int i=0;i<children.size();i++) 
+    	{    		
+    		Element node = (Element) children.get(i);
+            
+   			debug ("Parsing text node ("+node.getName()+")...");
+            
+   			if (node.getName().equals ("format")==true)
+   			{
+   				debug ("Parsing selection: " + node.getName() + ":"+node.getText());
+   				setFormat (node.getText());
+   			}      			
+   			
+   			if (node.getName().equals ("options")==true)
+   			{
+   				debug ("Parsing options: " + node.getName() + ":"+node.getText());
+   				setOptions (node.getText());
+   			}   			
+   			   			
+   			debug ("Setting value to: " + node.getText());
+   			
+   			this.setValue(node.getText());
+   		}
+		
+		return (true);
+    }	
+	/**
+	 * 
+	 */
+	public Element toXML ()
 	{
-		return (getValue ());
-	}    
+		debug ("toXML ()");
+		
+		Element classElement=super.toXML();
+				
+		Element valueElement=new Element ("value");
+		valueElement.setAttribute("format",this.getFormat ());
+		valueElement.setAttribute("type",this.typeToString ());
+		valueElement.setAttribute("options",this.getOptionString ());
+		valueElement.setText(this.getValue());
+		
+		classElement.addContent(valueElement);
+		
+		return (classElement);		
+	}	
 }

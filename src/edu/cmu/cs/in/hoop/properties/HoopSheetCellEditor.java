@@ -25,6 +25,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.EventObject;
 
 import javax.swing.AbstractCellEditor;
@@ -38,6 +39,7 @@ import javax.swing.table.TableCellEditor;
 
 import edu.cmu.cs.in.base.HoopDataType;
 import edu.cmu.cs.in.base.HoopRoot;
+import edu.cmu.cs.in.hoop.properties.types.HoopEnumSerializable;
 import edu.cmu.cs.in.hoop.properties.types.HoopSerializable;
 
 public class HoopSheetCellEditor extends AbstractCellEditor implements TableCellEditor, ActionListener 
@@ -49,6 +51,7 @@ public class HoopSheetCellEditor extends AbstractCellEditor implements TableCell
 	
 	private JTextField textComponent =null;
 	private JComboBox booleanComponent=null;
+	private JComboBox enumComponent=null;
 	private JComboBox fontComponent=null;
 	private HoopSheetCellNumber numberComponent=null;
 	
@@ -119,10 +122,10 @@ public class HoopSheetCellEditor extends AbstractCellEditor implements TableCell
 	 * This method is called when a cell value is edited by the user.
 	 */	     
     public Component getTableCellEditorComponent(JTable table, 
-    											Object anObject,
-    											boolean isSelected, 
-    											int rowIndex, 
-    											int vColIndex) 
+    											 Object anObject,
+    											 boolean isSelected, 
+    											 int rowIndex, 
+    											 int vColIndex) 
     {
     	debug ("getTableCellEditorComponent ()");
     	
@@ -168,6 +171,22 @@ public class HoopSheetCellEditor extends AbstractCellEditor implements TableCell
         	if (obj.getType()==HoopDataType.COLOR)
         	{
         		return (colorDelegate);
+        	}
+        	
+        	if (obj.getType()==HoopDataType.ENUM)
+        	{
+        		HoopEnumSerializable transformer=(HoopEnumSerializable) obj;
+        		
+        		ArrayList <String> enumList=transformer.getOptions();
+        		
+        		String[] array = enumList.toArray(new String[enumList.size()]);
+        		
+        		enumComponent=new JComboBox (array);
+        		enumComponent.setMinimumSize(new Dimension (10,10));
+        		enumComponent.setMaximumSize(new Dimension (5000,5000));
+        		enumComponent.setFont(new Font("Dialog", 1, 10));        		
+        		
+        		return (enumComponent);
         	}
         	
         	textComponent.setText (obj.getValue());
@@ -228,7 +247,7 @@ public class HoopSheetCellEditor extends AbstractCellEditor implements TableCell
     		if (obj.getType()==HoopDataType.ENUM)
     		{
     			debug ("Returning Enumeration ...");
-    			obj.setValue(textComponent.getText());    			
+    			obj.setValue(textComponent.getText());
     			//return (textComponent.getText()); // REPLACE!
     		} 
     		

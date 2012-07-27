@@ -33,6 +33,7 @@ import edu.cmu.cs.in.base.HoopDataType;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
 import edu.cmu.cs.in.hoop.hoops.base.HoopLoadBase;
+import edu.cmu.cs.in.hoop.properties.types.HoopEnumSerializable;
 import edu.cmu.cs.in.hoop.properties.types.HoopStringSerializable;
 
 /**
@@ -57,7 +58,7 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
      * Currently a string but will be replaced by an enum once we can model that
      * as a serializable. Values are one of: TABLEINFO, TABLEDATA
      */
-    public	HoopStringSerializable kvPropagate=null;
+    public	HoopEnumSerializable queryType=null;
     
     private Connection connection = null;
         
@@ -84,7 +85,7 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
     	queryColumns=new HoopStringSerializable (this,"queryColumns","");
     	querySize=new HoopStringSerializable (this,"querySize","100");
     	
-    	kvPropagate=new HoopStringSerializable (this,"kvPropagate","TABLEINFO");
+    	queryType=new HoopEnumSerializable (this,"queryType","TABLEINFO,TABLEDATA");
     }
     /**
      * 
@@ -268,7 +269,7 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 			return (false);
 		}
 		
-		if (kvPropagate.getValue().toLowerCase().equals("tableinfo")==true)
+		if (queryType.getValue().toLowerCase().equals("tableinfo")==true)
 		{
 			getTables ();
 		}
