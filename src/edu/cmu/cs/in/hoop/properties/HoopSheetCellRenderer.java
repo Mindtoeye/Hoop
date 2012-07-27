@@ -30,17 +30,14 @@ import edu.cmu.cs.in.hoop.properties.types.HoopSerializable;
  */	
 class HoopSheetCellRenderer extends DefaultTableCellRenderer 
 {
-	private static final long serialVersionUID = 8503493022905127918L;
+	private static final long serialVersionUID = -1L;
 	private HoopSerializable object=null;
-	//private HoopSAI sai=null;
-	//private HoopArgument arg=null;
 	
     /**
 	 * 
 	 */	
     public HoopSheetCellRenderer() 
-    { 
-    	//super(); 
+    {  
     	debug ("HoopSheetCellRenderer ()");
     	this.setFont(new Font("Dialog", 1, 10));
     }
@@ -73,31 +70,12 @@ class HoopSheetCellRenderer extends DefaultTableCellRenderer
 		}	
 		
 		if (value instanceof HoopSerializableTableEntry)
-		{
-			//debug ("Instance is a HoopSerializableTableEntry");
-			
+		{			
 	    	HoopSerializableTableEntry entry=(HoopSerializableTableEntry) value;
 	    	
 	    	object=(HoopSerializable) entry.getEntry();
     	    if (object!=null)    	    	   
-    	    	setText (object.getValue());
-    	    
-    	    /*
-	    	sai=(HoopSAI) entry.getSAI();
-    	    if (sai!=null)    	    	   
-    	    {
-    	    	if (sai.getArgumentSize()>1)
-    	    		setText (sai.toArgumentString());
-    	    	else
-    	    		setText (sai.getValue ());
-    	    }
-    	    */	
-    	    
-    	    /*
-	    	arg=(HoopArgument) entry.getArgument();
-    	    if (arg!=null)    	    	   
-    	    	setText (arg.getValue());
-    	    */	    	    
+    	    	setText (object.getValue());    	      	    
 		}	
     }
 }

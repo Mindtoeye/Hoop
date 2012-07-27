@@ -20,6 +20,7 @@ package edu.cmu.cs.in.hoop.properties;
 
 import java.awt.Color;
 //import java.awt.Component;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -29,15 +30,18 @@ import java.io.File;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.TableCellRenderer;
 
 import edu.cmu.cs.in.controls.base.HoopJPanel;
+import edu.cmu.cs.in.hoop.properties.types.HoopSerializable;
 import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
 
 /*
  * 
  */
-class HoopSheetPathEditor extends HoopJPanel implements ActionListener
+class HoopSheetPathEditor extends HoopJPanel implements ActionListener, TableCellRenderer 
 {
 	private static final long serialVersionUID = 1L;
 
@@ -93,6 +97,13 @@ class HoopSheetPathEditor extends HoopJPanel implements ActionListener
 	/**
 	 * 
 	 */
+	public String getPath ()
+	{
+		return (pathObject.getValue());
+	}
+	/**
+	 * 
+	 */
 	private void changePath (String aPath)
 	{
 		debug ("changePath ("+aPath+")");
@@ -122,5 +133,38 @@ class HoopSheetPathEditor extends HoopJPanel implements ActionListener
 	       	
 	       	changePath (file.getAbsolutePath());
 		} 	
+	}
+	/**
+	 * 
+	 */
+	@Override
+	public Component getTableCellRendererComponent (JTable table, 
+													Object aValue,
+													boolean isSelected, 
+													boolean hasFocus,
+													int row, 
+													int column) 
+	{
+		debug ("getTableCellRendererComponent ("+aValue.getClass().getName()+")");
+		
+    	if (aValue instanceof String)
+    	{
+    		String safety=(String) aValue;
+    		debug ("For some reason we're now getting a string back, going into safety mode ...");
+        	debug ("Parsing: " + safety);
+        	
+        	changePath (safety);    		
+    	}
+    	else
+    	{
+    		
+    		HoopSerializableTableEntry value=(HoopSerializableTableEntry) aValue;
+    	
+    		HoopSerializable object=(HoopSerializable) value.getEntry();
+    		
+    		changePath (object.getValue());
+    	}	
+		
+		return this;
 	}	
 }

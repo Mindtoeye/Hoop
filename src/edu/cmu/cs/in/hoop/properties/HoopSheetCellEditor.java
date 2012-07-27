@@ -153,25 +153,21 @@ public class HoopSheetCellEditor extends AbstractCellEditor implements TableCell
 
         if (obj!=null)
         {
-        	//if (obj.getType().equals("String")==true)
         	if (obj.getType()==HoopDataType.STRING)
         	{
         		textComponent.setText (obj.getValue());
         	}	
 
-        	//if (obj.getType().equals("Boolean")==true)
         	if (obj.getType()==HoopDataType.BOOLEAN)
         	{
         		return (booleanComponent);
         	}
         
-        	//if (obj.getType().equals("Font")==true)
         	if (obj.getType()==HoopDataType.FONT)
         	{
         		return (fontComponent);
         	}
         
-        	//if (obj.getType().equals("Color")==true)
         	if (obj.getType()==HoopDataType.COLOR)
         	{
         		return (colorDelegate);
@@ -217,34 +213,26 @@ public class HoopSheetCellEditor extends AbstractCellEditor implements TableCell
     	{
     		debug ("Setting direct value ...");
     	
-    		//if (obj.getType().equals("Boolean")==true)
     		if (obj.getType()==HoopDataType.BOOLEAN)
     		{
     			debug ("Returning ComboBox selection ...");
     			obj.setValue((String) booleanComponent.getSelectedItem());
     			textComponent.setText(obj.getValue());
-    			//return (booleanComponent.getSelectedItem());
     		}
     	
-    		//if (obj.getType().equals("Font")==true)
     		if (obj.getType()==HoopDataType.FONT)
     		{
     			debug ("Returning Font selection ...");
     			obj.setValue((String) fontComponent.getSelectedItem());
     			textComponent.setText(obj.getValue());
-    			//return (fontComponent.getSelectedItem());
     		}
     	
-    		//if (obj.getType().equals("Color")==true)
     		if (obj.getType()==HoopDataType.COLOR)
     		{
     			debug ("Returning Color string ["+obj.getValue()+"]->["+textComponent.getText()+"]...");
-    			//obj.setValue(textComponent.getText());
-    			//return (textComponent.getText()); // REPLACE!
     			textComponent.setText(obj.getValue());
     		}
     	
-    		//if (obj.getType().equals("Number")==true)
     		if ((obj.getType()==HoopDataType.INT) || (obj.getType()==HoopDataType.FLOAT))
     		{
     			debug ("Returning Number ...");
@@ -253,20 +241,23 @@ public class HoopSheetCellEditor extends AbstractCellEditor implements TableCell
     			//return (numberComponent.getText());
     		}    	
     	
-    		//if (obj.getType().equals("Enum")==true)
     		if (obj.getType()==HoopDataType.ENUM)
     		{
     			debug ("Returning Enumeration ...");
     			obj.setValue(textComponent.getText());
-    			//return (textComponent.getText()); // REPLACE!
     		} 
     		
-    		//if (obj.getType().equals ("String")==true)
     		if (obj.getType()==HoopDataType.STRING)
     		{
     			debug ("Returning String ...");
     			obj.setValue(textComponent.getText ());
     		}
+    		
+    		if (obj.getType()==HoopDataType.URI)
+    		{
+    			debug ("Returning Path ...");
+    			obj.setValue(pathComponent.getPath ());
+    		}    		
     	}
     	    	
         return (entry);

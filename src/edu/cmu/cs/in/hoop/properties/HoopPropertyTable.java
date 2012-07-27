@@ -23,12 +23,14 @@ import javax.swing.table.TableCellRenderer;
 import edu.cmu.cs.in.base.HoopDataType;
 import edu.cmu.cs.in.controls.base.HoopJTable;
 import edu.cmu.cs.in.hoop.properties.types.HoopSerializable;
+import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
 
 public class HoopPropertyTable extends HoopJTable
 {
 	private static final long serialVersionUID = -1127341907493007641L;
 	private HoopSheetCellRenderer defaultRenderer=null;
 	private HoopSheetCellColor colorRenderer=null;
+	private HoopSheetPathEditor pathRenderer=null;
 		
 	/**
 	 *
@@ -39,6 +41,7 @@ public class HoopPropertyTable extends HoopJTable
     	
     	defaultRenderer=new HoopSheetCellRenderer ();
     	colorRenderer=new HoopSheetCellColor (true);
+    	pathRenderer=new HoopSheetPathEditor ();
     }
 	/**
 	 *
@@ -78,52 +81,23 @@ public class HoopPropertyTable extends HoopJTable
         			HoopSerializable object=entry.getEntry();
         	
         			if (object!=null)
-        			{
-        				//debug ("Cell type: " + object.getType ());
-        			
-        				//if (object.getType().equals("Color")==true)
+        			{        			
         				if (object.getType()==HoopDataType.COLOR)
         				{
         					debug ("Detected a color entry ...");
         					return (colorRenderer);
         				}
         				
-        				return (defaultRenderer);
-        			}
-        			
-        			/*
-        			HoopSAI sai=entry.getSAI();
-        			
-        			if (sai!=null)
-        			{
-        				if (sai.getArgumentSize()==1)
+        				if (object.getType()==HoopDataType.URI)
         				{
-        					if (object.getType().equals("Color")==true)
-        					{
-        						debug ("Detected a color entry ...");
-        						return (colorRenderer);
-        					}
-        				}	
+        					debug ("Detected a URI entry ...");
+        					pathRenderer.setPathObject((HoopURISerializable) object);
+        					return (pathRenderer);
+        				}        				
         				
         				return (defaultRenderer);
         			}
-        			*/
-        			
-        			/*
-        			HoopArgument arg=entry.getArgument();
-        			
-        			if (arg!=null)
-        			{
-       					if (arg.getType().equals("Color")==true)
-       					{
-       						debug ("Detected a color entry ...");
-       						return (colorRenderer);
-       					}
-        				
-        				return (defaultRenderer);
-        			} 
-        			*/
-      			        			
+        			      			        			
        				return (defaultRenderer);
         		}	
         	}	
