@@ -18,6 +18,7 @@
 
 package edu.cmu.cs.in.hoop.properties.types;
 
+import edu.cmu.cs.in.base.HoopDataType;
 import edu.cmu.cs.in.hoop.hoops.base.HoopPropertyContainer;
 
 /**
@@ -32,6 +33,7 @@ public class HoopStringSerializable extends HoopSerializable
 	{
 		super (aParent,aName);
 		
+		setType (HoopDataType.STRING);
 		setClassName ("HoopStringSerializable");
 		debug ("HoopStringSerializable ()");
   	
@@ -44,6 +46,7 @@ public class HoopStringSerializable extends HoopSerializable
     {
     	super (aParent,aName);
     	
+    	setType (HoopDataType.STRING);
     	setClassName ("HoopStringSerializable");
     	debug ("HoopStringSerializable ()");
     	

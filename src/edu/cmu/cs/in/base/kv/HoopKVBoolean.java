@@ -18,6 +18,8 @@
 
 package edu.cmu.cs.in.base.kv;
 
+import edu.cmu.cs.in.base.HoopDataType;
+
 /**
 * Any data created by hoops (HoopBase) will use the KV object in some
 * form. HoopKV objects represent Key/Value pairs and form the most basic
@@ -52,7 +54,7 @@ public class HoopKVBoolean extends HoopKV implements HoopKVInterface
 	 */
     public HoopKVBoolean () 
     {
-    	type=HoopKVType.BOOLEAN;
+    	setType (HoopDataType.BOOLEAN);
     	
     	// Make sure we have at least one entry for quick access
     	values.add(new String ("0"));
@@ -62,7 +64,7 @@ public class HoopKVBoolean extends HoopKV implements HoopKVInterface
 	 */
     public HoopKVBoolean (Boolean aKey,String aValue) 
     {	   
-    	type=HoopKVType.BOOLEAN;
+    	setType (HoopDataType.BOOLEAN);
     	
     	// Make sure we have at least one entry for quick access
     	values.add(new String ("0"));

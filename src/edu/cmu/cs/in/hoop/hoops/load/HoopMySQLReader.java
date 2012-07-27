@@ -29,7 +29,7 @@ import java.sql.SQLException;
 
 import edu.cmu.cs.in.base.HoopStringTools;
 import edu.cmu.cs.in.base.kv.HoopKVString;
-import edu.cmu.cs.in.base.kv.HoopKVType;
+import edu.cmu.cs.in.base.HoopDataType;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
 import edu.cmu.cs.in.hoop.hoops.base.HoopLoadBase;
@@ -72,6 +72,8 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 		setHoopDescription ("Load KVs from a MySQL Database");
 
 		removeInPort ("KV");
+		
+		// Default values ...
     	
     	username=new HoopStringSerializable (this,"username","root");
     	password=new HoopStringSerializable (this,"password","");
@@ -301,8 +303,8 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 			return (null);
 		}
 		
-		this.setKVType (0,HoopKVType.STRING,"Table");
-		this.setKVType (1,HoopKVType.STRING,"Nr. Rows");
+		this.setKVType (0,HoopDataType.STRING,"Table");
+		this.setKVType (1,HoopDataType.STRING,"Nr. Rows");
 		
 		DatabaseMetaData metadata=null;
 		
@@ -335,7 +337,6 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 			while (tableSet.next()) 
 			{
 				String tableType=null;
-				//String tableRows=null;
 				
 				try 
 				{
@@ -419,35 +420,13 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 
 		ArrayList <String> columnList=HoopStringTools.splitComma(queryColumns.getValue());
 		
+		// For now we'll get everything as a string
+		
 		for (int j=0;j<columnList.size();j++)
 		{
-			this.setKVType (j,HoopKVType.STRING,columnList.get(j));
+			this.setKVType (j,HoopDataType.STRING,columnList.get(j));
 		}
-		
-		/*
-		 * ID -> int(10) unsigned, 
-		 * PostedTime -> datetime
-		 * ForumID ->  int(10) unsigned
-		 * ThreadID -> int(10) unsigned 
-		 * AuthorID -> int(10) unsigned 
-		 * AuthorName -> varchar(100)
-		 * ThreadStarter -> tinyint(1) 
-		 * Title -> varchar(500) 
-		 * Content -> Text 
-		 */
 				
-		/*
-		this.setKVType (0,HoopKVType.INT,"ID");
-		this.setKVType (1,HoopKVType.STRING,"PostedTime");		
-		this.setKVType (2,HoopKVType.INT,"ForumID");
-		this.setKVType (3,HoopKVType.INT,"ThreadID");
-		this.setKVType (4,HoopKVType.INT,"AuthorID");
-		this.setKVType (5,HoopKVType.STRING,"AuthorName");
-		this.setKVType (6,HoopKVType.INT,"ThreadStarter");
-		this.setKVType (7,HoopKVType.STRING,"Title");
-		this.setKVType (8,HoopKVType.STRING,"Content");
-		*/		
-		
 		StringBuffer fullQuery=new StringBuffer ();
 		fullQuery.append (query.getValue());
 		fullQuery.append (" limit ");
@@ -493,27 +472,16 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 		try 
 		{
 			while (rs.next ())
-			{
-				/*
-				Integer idVal = rs.getInt ("ID");
-				String nameVal = rs.getString ("PostedTime");
-				
-				HoopKVString tableKV=new HoopKVString ();
-				tableKV.setKey(idVal.toString());
-				tableKV.setValue(nameVal);
-				
-				addKV (tableKV);
-				*/
-				
+			{				
 				HoopKVString tableKV=new HoopKVString ();
 				
-				ArrayList <HoopKVType> dbTypes=this.getTypes ();
+				ArrayList <HoopDataType> dbTypes=this.getTypes ();
 				
 				for (int i=0;i<dbTypes.size();i++)
 				{
-					HoopKVType aType=dbTypes.get(i);
+					HoopDataType aType=dbTypes.get(i);
 					
-					if (aType.getType()==HoopKVType.INT)
+					if (aType.getType()==HoopDataType.INT)
 					{
 						Integer idVal = rs.getInt (aType.getTypeValue());
 						
@@ -525,7 +493,7 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 							tableKV.setValue(idVal.toString (),i);
 					}
 					
-					if (aType.getType()==HoopKVType.STRING)
+					if (aType.getType()==HoopDataType.STRING)
 					{						
 						String nameVal = rs.getString (aType.getTypeValue());
 						

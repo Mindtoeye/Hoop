@@ -22,12 +22,15 @@ import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.base.kv.HoopKVString;
-import edu.cmu.cs.in.base.kv.HoopKVType;
+import edu.cmu.cs.in.base.HoopDataType;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
 import edu.cmu.cs.in.hoop.hoops.base.HoopTransformBase;
 import edu.cmu.cs.in.hoop.properties.types.HoopStringSerializable;
 
+/**
+ * http://stackoverflow.com/questions/769621/dealing-with-commas-in-a-csv-file
+ */
 public class HoopCSVReader extends HoopTransformBase implements HoopInterface
 {
 	//private String mode="COMMA"; // TAB,COMMA,DASH
@@ -124,7 +127,7 @@ public class HoopCSVReader extends HoopTransformBase implements HoopInterface
 					{
 						for (int j=0;j<entries.length;j++)
 						{
-							setKVType (j,HoopKVType.STRING,entries [j]);				
+							setKVType (j,HoopDataType.STRING,entries [j]);				
 						}						
 					}
 					else

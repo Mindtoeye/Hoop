@@ -25,12 +25,16 @@ import edu.cmu.cs.in.base.kv.HoopKVInteger;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
 import edu.cmu.cs.in.hoop.hoops.base.HoopTransformBase;
+import edu.cmu.cs.in.hoop.properties.types.HoopStringSerializable;
 
 /**
 * 
 */
 public class HoopPorterStemmer extends HoopTransformBase implements HoopInterface
-{    				
+{    	
+	
+	public	HoopStringSerializable minChars = null;
+	
 	/**
 	 *
 	 */
@@ -39,7 +43,9 @@ public class HoopPorterStemmer extends HoopTransformBase implements HoopInterfac
 		setClassName ("HoopPorterStemmer");
 		debug ("HoopPorterStemmer ()");
 				
-		setHoopDescription ("Stems input KVs using the Porter Stemmer");		
+		setHoopDescription ("Stems input KVs using the Porter Stemmer");
+		
+		minChars=new HoopStringSerializable (this,"minChars","10");
     }
 	/**
 	 *

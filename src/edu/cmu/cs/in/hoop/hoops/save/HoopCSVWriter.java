@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.io.HoopFileManager;
 import edu.cmu.cs.in.base.kv.HoopKV;
-import edu.cmu.cs.in.base.kv.HoopKVType;
+import edu.cmu.cs.in.base.HoopDataType;
 //import edu.cmu.cs.in.base.kv.HoopKVInteger;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
@@ -31,7 +31,7 @@ import edu.cmu.cs.in.hoop.properties.types.HoopStringSerializable;
 import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
 
 /**
-* 
+* http://stackoverflow.com/questions/769621/dealing-with-commas-in-a-csv-file
 */
 public class HoopCSVWriter extends HoopSaveBase implements HoopInterface
 {    			
@@ -68,7 +68,7 @@ public class HoopCSVWriter extends HoopSaveBase implements HoopInterface
 		
 		if (this.getExecutionCount()==0)
 		{		
-			ArrayList <HoopKVType> types=inHoop.getTypes();
+			ArrayList <HoopDataType> types=inHoop.getTypes();
 						
 			for (int n=0;n<types.size();n++)
 			{
@@ -77,7 +77,7 @@ public class HoopCSVWriter extends HoopSaveBase implements HoopInterface
 					formatted.append(",");
 				}	
 			
-				HoopKVType aType=types.get(n);			
+				HoopDataType aType=types.get(n);			
 				formatted.append (aType.getTypeValue());
 				formatted.append("(");
 				formatted.append(aType.typeToString());

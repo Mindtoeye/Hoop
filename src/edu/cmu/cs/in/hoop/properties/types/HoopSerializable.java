@@ -23,6 +23,7 @@ import java.util.List;
 
 import org.jdom.Element;
 
+import edu.cmu.cs.in.base.HoopDataType;
 import edu.cmu.cs.in.base.HoopXMLBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopPropertyContainer;
 
@@ -32,7 +33,7 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopPropertyContainer;
 public class HoopSerializable extends HoopXMLBase
 {			
 	/// Either one of Boolean, Float, Integer, String where higher level types such as Color and Font will have t be mapped to base types
-	protected String type="";	
+	//protected String type="";	
 	protected String format="Text";
 	protected String value="";
 	
@@ -45,6 +46,7 @@ public class HoopSerializable extends HoopXMLBase
 	 */
 	public HoopSerializable (HoopPropertyContainer aParent) 
 	{
+		setType (HoopDataType.CLASS); // Default anyway but this makes it formal
 		setClassName ("HoopSerializable");
 		setXMLID("serializable");
 		debug ("HoopSerializable ()");
@@ -68,6 +70,7 @@ public class HoopSerializable extends HoopXMLBase
 	 */
 	public HoopSerializable (HoopPropertyContainer aParent,String aName) 
 	{
+		setType (HoopDataType.CLASS); // Default anyway but this makes it formal
 		setClassName ("HoopSerializable");
 		setXMLID("serializable");
 		debug ("HoopSerializable ()");
@@ -159,17 +162,21 @@ public class HoopSerializable extends HoopXMLBase
 	/**
 	 *
 	 */	
+    /*
 	public void setType(String aType) 
 	{
 		this.type = aType;
 	}
+	*/
 	/**
 	 *
-	 */	
+	 */
+    /*
 	public String getType() 
 	{
 		return type;
-	}  
+	} 
+	*/ 
 	/**
 	 *
 	 */	
@@ -252,7 +259,7 @@ public class HoopSerializable extends HoopXMLBase
 				
 		Element valueElement=new Element ("value");
 		valueElement.setAttribute("format",this.getFormat ());
-		valueElement.setAttribute("type",this.getType());
+		valueElement.setAttribute("type",this.typeToString ());
 		valueElement.setText(this.getValue());
 		
 		classElement.addContent(valueElement);

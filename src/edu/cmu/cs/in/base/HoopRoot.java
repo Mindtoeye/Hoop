@@ -30,7 +30,7 @@ import org.jdom.Element;
 import edu.cmu.cs.in.base.HoopFilterBase;
 import edu.cmu.cs.in.base.io.HoopFileManager;
 
-public class HoopRoot
+public class HoopRoot extends HoopDataType
 {
 	private SimpleDateFormat df;	
 	private String instanceName="Undefined";

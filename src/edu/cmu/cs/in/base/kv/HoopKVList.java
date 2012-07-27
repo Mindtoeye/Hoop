@@ -20,6 +20,8 @@ package edu.cmu.cs.in.base.kv;
 
 import java.util.ArrayList;
 
+import edu.cmu.cs.in.base.HoopDataType;
+
 /**
 * Primarily meant for machine learning analsysis, but using key/value pairs,
 * we present the KV table datastructure. There are two ways to think about
@@ -48,7 +50,8 @@ public class HoopKVList extends HoopKV
 	 */
     public HoopKVList () 
     {
-    	type=HoopKVType.LIST;
+    	setType (HoopDataType.ENUM);
+    	
     	data=new ArrayList<HoopKV> ();
     }
     /**

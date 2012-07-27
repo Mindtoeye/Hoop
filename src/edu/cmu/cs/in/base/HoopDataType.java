@@ -16,36 +16,39 @@
  * 
  */
 
-package edu.cmu.cs.in.base.kv;
+package edu.cmu.cs.in.base;
 
 /**
- * 
- * @author vvelsen
- *
+ * IMPORTANT: this class is not derived from HoopRoot because it needs to be small
+ * and compact. We use this class as the base class for objects that are used in
+ * arrays, lists and tables and we can't waste memory.
  */
-public class HoopKVType
+public class HoopDataType
 {
+	public static final int CLASS=0; // This is the default if the class isn't used for a specific type wrapper
 	public static final int INT=1;
 	public static final int STRING=2;
 	public static final int FLOAT=3;
 	public static final int BOOLEAN=4;
-	public static final int LIST=5;
-	public static final int TABLE=6;
+	public static final int ENUM=5;
+	public static final int TABLE=6;	
+	public static final int COLOR=7; // Vague type that is assumed to be captured in a string
+	public static final int FONT=8; // Vague type that is assumed to be captured in a string
 	
-	protected int type=INT;
+	protected int type=CLASS;
 	protected String typeValue="String";
 	
 	/**
 	 *
 	 */
-    public HoopKVType () 
+    public HoopDataType () 
     {
 
     }    
 	/**
 	 *
 	 */
-    public HoopKVType (int aType,String aValue) 
+    public HoopDataType (int aType,String aValue) 
     {
     	type=aType;
     	setTypeValue(aValue);
@@ -71,6 +74,8 @@ public class HoopKVType
 	{
 		switch (type)
 		{
+			case CLASS:
+							return ("Class");		
 			case INT:
 							return ("Integer");
 			case STRING:
@@ -79,11 +84,13 @@ public class HoopKVType
 							return ("Float");
 			case BOOLEAN:
 							return ("Boolean");
+			case ENUM:
+							return ("ENUM");							
 			case TABLE:
-							return ("Table");
+							return ("Table");							
 		}
 		
-		return ("Integer");
+		return ("Class");
 	}
 	/*
 	 * 

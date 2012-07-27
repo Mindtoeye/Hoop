@@ -18,6 +18,7 @@
 
 package edu.cmu.cs.in.hoop.properties.types;
 
+import edu.cmu.cs.in.base.HoopDataType;
 import edu.cmu.cs.in.hoop.hoops.base.HoopPropertyContainer;
 
 /**
@@ -33,6 +34,8 @@ public class HoopBooleanSerializable extends HoopSerializable
 	public HoopBooleanSerializable (HoopPropertyContainer aParent,String aName,Boolean aPropValue) 
 	{
 		super (aParent,aName);
+		
+		setType (HoopDataType.BOOLEAN);
 		setClassName ("HoopBooleanSerializable");
 		debug ("HoopBooleanSerializable ()");
    	
@@ -44,6 +47,8 @@ public class HoopBooleanSerializable extends HoopSerializable
 	public HoopBooleanSerializable (HoopPropertyContainer aParent,String aName) 
 	{
 		super (aParent,aName);
+		
+		setType (HoopDataType.BOOLEAN);
 		setClassName ("HoopBooleanSerializable");
 		debug ("HoopBooleanSerializable ()");  	
 	}	

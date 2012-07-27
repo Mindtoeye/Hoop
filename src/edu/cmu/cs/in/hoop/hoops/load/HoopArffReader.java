@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.base.kv.HoopKVString;
-import edu.cmu.cs.in.base.kv.HoopKVType;
+import edu.cmu.cs.in.base.HoopDataType;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
 import edu.cmu.cs.in.hoop.hoops.base.HoopTransformBase;
@@ -119,7 +119,7 @@ public class HoopArffReader extends HoopTransformBase implements HoopInterface
 			return (false);
 		}
 
-		this.setKVType(attrCounter,HoopKVType.STRING,entries [1]);
+		this.setKVType(attrCounter,HoopDataType.STRING,entries [1]);
 						
 		return (true);
 	}

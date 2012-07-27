@@ -20,7 +20,7 @@ package edu.cmu.cs.in.hoop.hoops.base;
 
 import java.util.ArrayList;
 
-import edu.cmu.cs.in.base.kv.HoopKVType;
+import edu.cmu.cs.in.base.HoopDataType;
 import edu.cmu.cs.in.hoop.properties.types.HoopSerializable;
 
 /**
@@ -28,7 +28,7 @@ import edu.cmu.cs.in.hoop.properties.types.HoopSerializable;
 */
 public class HoopBaseTyped extends HoopVisual implements HoopPropertyContainer
 {    			
-	private ArrayList <HoopKVType> types=null;
+	private ArrayList <HoopDataType> types=null;
 	private ArrayList <HoopSerializable> properties=null;
 	
 	/**
@@ -39,16 +39,16 @@ public class HoopBaseTyped extends HoopVisual implements HoopPropertyContainer
 		setClassName ("HoopBaseTyped");
 		debug ("HoopBaseTyped ()");
 				
-		types=new ArrayList <HoopKVType> ();
-		types.add(new HoopKVType (HoopKVType.STRING,"Key"));
-		types.add(new HoopKVType (HoopKVType.STRING,"Value"));
+		types=new ArrayList <HoopDataType> ();
+		types.add(new HoopDataType (HoopDataType.STRING,"Key"));
+		types.add(new HoopDataType (HoopDataType.STRING,"Value"));
 		
 		properties=new ArrayList<HoopSerializable> ();		
     }
     /**
      *  
      */
-    public ArrayList <HoopKVType> getTypes ()
+    public ArrayList <HoopDataType> getTypes ()
     {
     	return (types);
     }
@@ -84,14 +84,14 @@ public class HoopBaseTyped extends HoopVisual implements HoopPropertyContainer
     	if (anIndex>(types.size()-1))
     	{
     		debug ("Attempting to access non existing index ("+anIndex+"->"+aType+"), creating ...");
-    		types.add(new HoopKVType (aType,"Value"));    		
+    		types.add(new HoopDataType (aType,"Value"));    		
     	}    	
     	
-    	HoopKVType target=types.get(anIndex);
+    	HoopDataType target=types.get(anIndex);
     	
     	if (target==null)
     	{
-    		target=new HoopKVType ();
+    		target=new HoopDataType ();
     		types.set(anIndex, target);
     	}
     	
@@ -105,14 +105,14 @@ public class HoopBaseTyped extends HoopVisual implements HoopPropertyContainer
     	if (anIndex>(types.size()-1))
     	{
     		debug ("Attempting to access non existing index ("+anIndex+"->"+aType+"), creating ...");
-    		types.add(new HoopKVType (aType,"Value"));    		
+    		types.add(new HoopDataType (aType,"Value"));    		
     	}
     	
-    	HoopKVType target=types.get(anIndex);
+    	HoopDataType target=types.get(anIndex);
     	
     	if (target==null)
     	{
-    		target=new HoopKVType ();
+    		target=new HoopDataType ();
     		types.set(anIndex, target);
     	}
     	

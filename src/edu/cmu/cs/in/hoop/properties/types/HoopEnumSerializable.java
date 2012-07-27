@@ -22,49 +22,64 @@ import edu.cmu.cs.in.base.HoopDataType;
 import edu.cmu.cs.in.hoop.hoops.base.HoopPropertyContainer;
 
 /**
-*
+
 */
-public class HoopIntegerSerializable extends HoopSerializable
+public class HoopEnumSerializable extends HoopSerializable
 {		
-	private Integer propValue=0;
-	
 	/**
 	 *
 	 */
-	public HoopIntegerSerializable (HoopPropertyContainer aParent,String aName,Boolean aPropValue) 
+	public HoopEnumSerializable (HoopPropertyContainer aParent,String aName,String aPropValue) 
 	{
 		super (aParent,aName);
 		
-		setType (HoopDataType.INT);
-		setClassName ("HoopIntegerSerializable");
-		debug ("HoopIntegerSerializable ()");
-   	
-		this.setPropValue(propValue);
-	}
-	/**
-	 *
-	 */
-	public HoopIntegerSerializable (HoopPropertyContainer aParent,String aName) 
-	{
-		super (aParent,aName);
-		
-		setType (HoopDataType.INT);
-		setClassName ("HoopIntegerSerializable");
-		debug ("HoopIntegerSerializable ()");
+		setType (HoopDataType.ENUM);
+		setClassName ("HoopEnumSerializable");
+		debug ("HoopEnumSerializable ()");
+  	
+		setValue (aPropValue);
 	}	
+	/**
+	 *
+	 */
+    public HoopEnumSerializable (HoopPropertyContainer aParent,String aName) 
+    {
+    	super (aParent,aName);
+    	
+    	setType (HoopDataType.ENUM);
+    	setClassName ("HoopStringSerializable");
+    	debug ("HoopStringSerializable ()");
+    	
+    }
     /** 
      * @param propValue
      */
-	public void setPropValue(Integer propValue) 
+	public void setPropValue(String [] propValue) 
 	{
-		this.propValue = propValue;
-		this.setValue(propValue.toString ());
+		StringBuffer formatter=new StringBuffer ();
+		
+		for (int i=0;i<propValue.length;i++)
+		{
+			if (i==0)
+				formatter.append(" , ");
+			
+			formatter.append(propValue [i]);
+		}
+		
+		this.setValue(formatter.toString());
+	}    
+    /** 
+     * @param propValue
+     */
+	public void setPropValue(String propValue) 
+	{
+		this.setValue(propValue);
 	}
 	/** 
 	 * @return
 	 */
-	public Integer getPropValue() 
+	public String getPropValue() 
 	{
-		return propValue;
-	}
+		return (getValue ());
+	}    
 }

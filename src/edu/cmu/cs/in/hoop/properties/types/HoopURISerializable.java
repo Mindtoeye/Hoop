@@ -18,6 +18,7 @@
 
 package edu.cmu.cs.in.hoop.properties.types;
 
+import edu.cmu.cs.in.base.HoopDataType;
 import edu.cmu.cs.in.hoop.hoops.base.HoopPropertyContainer;
 
 /**
@@ -31,6 +32,8 @@ public class HoopURISerializable extends HoopSerializable
 	public HoopURISerializable (HoopPropertyContainer aParent,String aName,String aPropValue) 
 	{
 		super (aParent,aName);
+		
+		setType (HoopDataType.STRING);
 		setClassName ("HoopURISerializable");
 		debug ("HoopURISerializable ()");
   	
@@ -42,6 +45,8 @@ public class HoopURISerializable extends HoopSerializable
     public HoopURISerializable (HoopPropertyContainer aParent,String aName) 
     {
     	super (aParent,aName);
+    	
+    	setType (HoopDataType.STRING);
     	setClassName ("HoopURISerializable");
     	debug ("HoopURISerializable ()");
     	

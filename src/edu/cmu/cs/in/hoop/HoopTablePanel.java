@@ -39,8 +39,8 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
+import edu.cmu.cs.in.base.HoopDataType;
 import edu.cmu.cs.in.base.kv.HoopKV;
-import edu.cmu.cs.in.base.kv.HoopKVType;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 import edu.cmu.cs.in.controls.base.HoopJTable;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
@@ -170,13 +170,13 @@ public class HoopTablePanel extends HoopEmbeddedJPanel implements ActionListener
 					
 		// Convert KV model to table model and show
 					
-		ArrayList <HoopKVType> types=aHoop.getTypes();
+		ArrayList <HoopDataType> types=aHoop.getTypes();
 		
 		String[] cNames = new String [types.size()];
 		
 		for (int n=0;n<types.size();n++)
 		{
-			HoopKVType aType=types.get(n);
+			HoopDataType aType=types.get(n);
 			
 			debug ("Adding column: " + n + " " + aType.getTypeValue() + " ("+aType.typeToString()+")");
 			

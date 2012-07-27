@@ -20,6 +20,8 @@ package edu.cmu.cs.in.base.kv;
 
 import java.util.ArrayList;
 
+import edu.cmu.cs.in.base.HoopDataType;
+
 /**
 * Any data created by hoops (HoopBase) will use the KV object in some
 * form. HoopKV objects represent Key/Value pairs and form the most basic
@@ -45,7 +47,7 @@ import java.util.ArrayList;
 * code you write will have to check first the type of key and the type
 * of value before using the contents of a KV object.
 */
-public class HoopKV extends HoopKVType implements HoopKVInterface
+public class HoopKV extends HoopDataType implements HoopKVInterface
 {    			
 	protected ArrayList <Object> values=null;
 		

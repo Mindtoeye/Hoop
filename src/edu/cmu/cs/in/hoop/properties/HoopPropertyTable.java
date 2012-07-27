@@ -20,6 +20,7 @@ package edu.cmu.cs.in.hoop.properties;
 
 import javax.swing.table.TableCellRenderer;
 
+import edu.cmu.cs.in.base.HoopDataType;
 import edu.cmu.cs.in.controls.base.HoopJTable;
 import edu.cmu.cs.in.hoop.properties.types.HoopSerializable;
 
@@ -80,7 +81,8 @@ public class HoopPropertyTable extends HoopJTable
         			{
         				//debug ("Cell type: " + object.getType ());
         			
-        				if (object.getType().equals("Color")==true)
+        				//if (object.getType().equals("Color")==true)
+        				if (object.getType()==HoopDataType.COLOR)
         				{
         					debug ("Detected a color entry ...");
         					return (colorRenderer);
