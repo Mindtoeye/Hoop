@@ -47,7 +47,7 @@ public class HoopCSVReader extends HoopTransformBase implements HoopInterface
 		debug ("HoopCSVReader ()");
 				
 		setHoopDescription ("Convert from a CSV stream");
-		
+				
 		mode=new HoopStringSerializable (this,"mode","COMMA");
 	}
 	/**

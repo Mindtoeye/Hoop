@@ -26,6 +26,8 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopPropertyContainer;
 */
 public class HoopURISerializable extends HoopSerializable
 {
+	private String fileExtension="txt";		
+	
 	/**
 	 *
 	 */
@@ -51,6 +53,20 @@ public class HoopURISerializable extends HoopSerializable
     	debug ("HoopURISerializable ()");
     	
     }
+	/**
+	 * 
+	 */
+	public String getFileExtension() 
+	{
+		return fileExtension;
+	}
+	/**
+	 * 
+	 */	
+	public void setFileExtension(String fileExtension) 
+	{
+		this.fileExtension = fileExtension;
+	}    
     /** 
      * @param propValue
      */

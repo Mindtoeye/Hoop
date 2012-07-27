@@ -24,19 +24,18 @@ import edu.cmu.cs.in.base.io.HoopFileManager;
 import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.base.HoopDataType;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
-import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
-import edu.cmu.cs.in.hoop.hoops.base.HoopSaveBase;
+import edu.cmu.cs.in.hoop.hoops.base.HoopFileSaveBase;
+//import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
+//import edu.cmu.cs.in.hoop.hoops.base.HoopSaveBase;
 import edu.cmu.cs.in.hoop.properties.types.HoopEnumSerializable;
-import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
 
 /**
 * http://stackoverflow.com/questions/769621/dealing-with-commas-in-a-csv-file
 */
-public class HoopCSVWriter extends HoopSaveBase implements HoopInterface
+public class HoopCSVWriter extends HoopFileSaveBase
 {    			
 	private HoopFileManager fManager=null;
 	
-	private HoopURISerializable URI=null;
 	private HoopEnumSerializable writeMode=null; // APPEND, OVERWRITE	
 	private HoopEnumSerializable mode=null; // TAB,COMMA,DASH
 	
@@ -49,12 +48,12 @@ public class HoopCSVWriter extends HoopSaveBase implements HoopInterface
 		debug ("HoopCSVWriter ()");
 				
 		setHoopDescription ("Save KVs in CSV format");
+		setFileExtension ("csv");
 		
 		fManager=new HoopFileManager ();
 		
-		URI=new HoopURISerializable (this,"URI","<PROJECTPATH>/HoopOut.csv");
 		writeMode=new HoopEnumSerializable (this,"writeMode","OVERWRITE,APPEND");
-		mode=new HoopEnumSerializable (this,"mode","TAB,COMMA,DASH");
+		mode=new HoopEnumSerializable (this,"mode","COMMA,TAB,DASH");
     }  
     /**
      * 

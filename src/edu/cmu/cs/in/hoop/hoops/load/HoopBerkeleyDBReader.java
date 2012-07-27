@@ -19,11 +19,10 @@
 package edu.cmu.cs.in.hoop.hoops.load;
 
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
-import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
-import edu.cmu.cs.in.hoop.hoops.base.HoopLoadBase;
+import edu.cmu.cs.in.hoop.hoops.base.HoopFileLoadBase;
 
-public class HoopBerkeleyDBReader extends HoopLoadBase implements HoopInterface
-{	
+public class HoopBerkeleyDBReader extends HoopFileLoadBase
+{
 	/**
 	 *
 	 */ 

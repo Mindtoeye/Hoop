@@ -32,6 +32,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.TableCellRenderer;
 
 import edu.cmu.cs.in.controls.base.HoopJPanel;
@@ -120,11 +121,9 @@ class HoopSheetPathEditor extends HoopJPanel implements ActionListener, TableCel
 		
 	    JFileChooser fc=new JFileChooser ();
 	    
-	    /*
-		FileNameExtensionFilter filter=new FileNameExtensionFilter (".xml rule files", "xml");
+		FileNameExtensionFilter filter=new FileNameExtensionFilter ("."+pathObject.getFileExtension()+" files", pathObject.getFileExtension());
 		fc.setFileFilter(filter);
-		*/	    
-					
+		
 		int returnVal=fc.showSaveDialog (this);
 
 		if (returnVal==JFileChooser.APPROVE_OPTION) 

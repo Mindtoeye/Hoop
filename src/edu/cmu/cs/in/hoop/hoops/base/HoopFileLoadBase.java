@@ -29,12 +29,7 @@ import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
 public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 {    				
 	private HoopFileManager fManager=null;
-	private HoopKVString fileKV=null;
-	
-	//private String inputStreamPath="X:\\Echidne\\Hydra (Science)\\Development\\Hoop\\Resources\\ExampleData\\playtennis.arff";
-	//private String inputStreamPath="X:\\Echidne\\Hydra (Science)\\Development\\Hoop\\Resources\\ExampleData\\MovieReviews-Full.csv";
-	//private String inputStreamPath="C:\\Martin\\Echidne\\Hydra (Science)\\Development\\Hoop\\Resources\\ExampleData\\MovieReviews-Full.csv";
-	
+	private HoopKVString fileKV=null;		
 	private HoopURISerializable URI=null;
 	
 	/**
@@ -53,10 +48,22 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 		fileKV=new HoopKVString ();						
 		addKV (fileKV);		
 		
-		//URI=new HoopURISerializable (this,"File","<PROJECTPATH>/data/MovieReviews-Full.csv");
-		//URI=new HoopURISerializable (this,"File","C:\\Martin\\Echidne\\Hydra (Science)\\Development\\Hoop\\Resources\\ExampleData\\Agatha Christie - The Mysterious Affair at Styles.txt");
-		URI=new HoopURISerializable (this,"URI","<PROJECTPATH>\\Resources\\ExampleData\\Agatha Christie - The Mysterious Affair at Styles.txt");
+		URI=new HoopURISerializable (this,"URI","");
     }
+	/**
+	 * 
+	 */
+	public String getFileExtension() 
+	{
+		return URI.getFileExtension();
+	}
+	/**
+	 * 
+	 */	
+	public void setFileExtension(String fileExtension) 
+	{
+		this.setFileExtension(fileExtension);
+	}    
 	/**
 	 *
 	 */
@@ -126,5 +133,5 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 	public HoopBase copy ()
 	{
 		return (new HoopFileLoadBase ());
-	}	
+	}		
 }

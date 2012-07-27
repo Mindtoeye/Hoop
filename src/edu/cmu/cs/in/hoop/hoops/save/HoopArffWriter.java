@@ -26,19 +26,20 @@ import edu.cmu.cs.in.base.kv.HoopKVClassificationTable;
 //import edu.cmu.cs.in.base.kv.HoopKVInteger;
 import edu.cmu.cs.in.base.kv.HoopKVTable;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
-import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
-import edu.cmu.cs.in.hoop.hoops.base.HoopSaveBase;
+import edu.cmu.cs.in.hoop.hoops.base.HoopFileSaveBase;
+//import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
+//import edu.cmu.cs.in.hoop.hoops.base.HoopSaveBase;
 import edu.cmu.cs.in.hoop.properties.types.HoopStringSerializable;
-import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
+//import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
 
 /**
 * 
 */
-public class HoopArffWriter extends HoopSaveBase implements HoopInterface
+public class HoopArffWriter extends HoopFileSaveBase
 {    			
 	private HoopFileManager fManager=null;
 	
-	private HoopURISerializable URI=null;
+	//private HoopURISerializable URI=null;
 	private HoopStringSerializable relation=null;
 	
 	/**
@@ -53,7 +54,7 @@ public class HoopArffWriter extends HoopSaveBase implements HoopInterface
 		
 		fManager=new HoopFileManager ();
 		
-		URI=new HoopURISerializable (this,"URI","<PROJECTPATH>/HoopOut.arff");
+		//=new HoopURISerializable (this,"URI","<PROJECTPATH>/HoopOut.arff");
 		relation=new HoopStringSerializable (this,"relation","DefaultRelation");
     }  
 	/**

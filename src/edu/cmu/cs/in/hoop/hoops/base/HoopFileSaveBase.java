@@ -31,7 +31,8 @@ public class HoopFileSaveBase extends HoopSaveBase implements HoopInterface
 	private HoopFileManager fManager=null;
 	
 	//private String outputStreamPath=null;	
-	private HoopURISerializable URI=null;
+	protected HoopURISerializable URI=null;	
+	//private String fileExtension="txt";
 	
 	/**
 	 *
@@ -43,7 +44,7 @@ public class HoopFileSaveBase extends HoopSaveBase implements HoopInterface
 		
 		setHoopDescription ("Save To File");
 		
-		URI=new HoopURISerializable (this,"URI","<PROJECTPATH>\\output.txt");
+		URI=new HoopURISerializable (this,"URI","");
     }
 	/**
 	 *
@@ -90,5 +91,19 @@ public class HoopFileSaveBase extends HoopSaveBase implements HoopInterface
 	public HoopBase copy ()
 	{
 		return (new HoopFileSaveBase ());
+	}
+	/**
+	 * 
+	 */
+	public String getFileExtension() 
+	{
+		return URI.getFileExtension();
+	}
+	/**
+	 * 
+	 */	
+	public void setFileExtension(String fileExtension) 
+	{
+		URI.setFileExtension(fileExtension);
 	}	
 }
