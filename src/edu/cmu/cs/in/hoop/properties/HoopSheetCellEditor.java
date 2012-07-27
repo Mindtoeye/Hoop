@@ -41,6 +41,7 @@ import edu.cmu.cs.in.base.HoopDataType;
 import edu.cmu.cs.in.base.HoopRoot;
 import edu.cmu.cs.in.hoop.properties.types.HoopEnumSerializable;
 import edu.cmu.cs.in.hoop.properties.types.HoopSerializable;
+import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
 
 public class HoopSheetCellEditor extends AbstractCellEditor implements TableCellEditor, ActionListener 
 {
@@ -54,6 +55,7 @@ public class HoopSheetCellEditor extends AbstractCellEditor implements TableCell
 	private JComboBox enumComponent=null;
 	private JComboBox fontComponent=null;
 	private HoopSheetCellNumber numberComponent=null;
+	private HoopSheetPathEditor pathComponent=null;
 	
 	private JButton colorDelegate = new JButton();	
 	private JButton arrayDelegate = new JButton();
@@ -87,6 +89,8 @@ public class HoopSheetCellEditor extends AbstractCellEditor implements TableCell
 		numberComponent.setMinimumSize(new Dimension (10,10));
 		numberComponent.setMaximumSize(new Dimension (5000,5000));
 		numberComponent.setFont(new Font("Dialog", 1, 10));		
+		
+		pathComponent=new HoopSheetPathEditor ();
 		
 		colorDelegate.addActionListener (this);
 		arrayDelegate.addActionListener (this);
@@ -187,6 +191,12 @@ public class HoopSheetCellEditor extends AbstractCellEditor implements TableCell
         		enumComponent.setFont(new Font("Dialog", 1, 10));        		
         		
         		return (enumComponent);
+        	}
+        	
+        	if (obj.getType()==HoopDataType.URI)
+        	{
+        		pathComponent.setPathObject((HoopURISerializable) obj);
+        		return (pathComponent);
         	}
         	
         	textComponent.setText (obj.getValue());

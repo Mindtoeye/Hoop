@@ -32,8 +32,11 @@ public class HoopDataType
 	public static final int BOOLEAN=4;
 	public static final int ENUM=5;
 	public static final int TABLE=6;	
+	
 	public static final int COLOR=7; // Vague type that is assumed to be captured in a string
 	public static final int FONT=8; // Vague type that is assumed to be captured in a string
+	public static final int URI=9; // Vague type that is assumed to be captured in a string
+	public static final int URL=10; // Vague type that is assumed to be captured in a string
 	
 	protected int type=CLASS;
 	protected String typeValue="String";
@@ -87,7 +90,15 @@ public class HoopDataType
 			case ENUM:
 							return ("ENUM");							
 			case TABLE:
-							return ("Table");							
+							return ("Table");
+			case FONT:
+							return ("Font");
+			case COLOR:
+							return ("Color");
+			case URI:
+							return ("URI");
+			case URL:
+							return ("URL");				
 		}
 		
 		return ("Class");
