@@ -27,6 +27,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 
 import org.jdesktop.swingx.MultiSplitLayout;
+import org.jdesktop.swingx.MultiSplitNode;
 import org.jdesktop.swingx.MultiSplitPane;
 import org.apache.hadoop.util.VersionInfo;
 
@@ -178,8 +179,19 @@ public class HoopMultiViewFrame extends HoopPreferencesJFrame implements ActionL
 		HoopLink.center=new HoopTabDraggable ();		
 		HoopLink.bottom=new HoopTabDraggable ();
 		
+		/*
+ 			(ROW weight=1.0 
+ 				(LEAF name=left weight=0.2) 
+ 				(COLUMN weight=0.6 
+ 					(LEAF name=middle weight=0.9) 
+ 					(LEAF name=bottom weight=0.1)
+ 				) 
+ 				(LEAF name=right weight=0.2)
+ 			)
+		 */
+		
         String layoutDef = "(ROW weight=1.0 (LEAF name=left weight=0.2) (COLUMN weight=0.6 (LEAF name=middle weight=0.9) (LEAF name=bottom weight=0.1)) (LEAF name=right weight=0.2))";
-        MultiSplitLayout.Node modelRoot = MultiSplitLayout.parseModel(layoutDef);
+        MultiSplitNode modelRoot=MultiSplitLayout.parseModel(layoutDef);
 
         MultiSplitPane multiSplitPane = new MultiSplitPane();
         multiSplitPane.setBackground(new Color (180,180,180));		

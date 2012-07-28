@@ -31,10 +31,9 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import javax.accessibility.AccessibleContext;
 import javax.accessibility.AccessibleRole;
-import javax.swing.JPanel;
 import javax.swing.event.MouseInputAdapter;
-import org.jdesktop.swingx.MultiSplitLayout.Divider;
-import org.jdesktop.swingx.MultiSplitLayout.Node;
+
+import edu.cmu.cs.in.controls.base.HoopJPanel;
 
 /**
  *
@@ -44,7 +43,7 @@ import org.jdesktop.swingx.MultiSplitLayout.Node;
  * 
  * @author Hans Muller
  */
-public class MultiSplitPane extends JPanel 
+public class MultiSplitPane extends HoopJPanel 
 {
 	private static final long serialVersionUID = 3379001167792141242L;
 	
@@ -57,8 +56,12 @@ public class MultiSplitPane extends JPanel
      * to an empty MultiSplitLayout.
      */
     public MultiSplitPane() 
-    {
-    	super(new MultiSplitLayout());
+    {    	
+    	super (new MultiSplitLayout());
+    	
+		setClassName ("MultiSplitPane");
+		debug ("MultiSplitPane ()");	    	
+    	
     	InputHandler inputHandler = new InputHandler();
     	addMouseListener(inputHandler);
     	addMouseMotionListener(inputHandler);
@@ -87,8 +90,10 @@ public class MultiSplitPane extends JPanel
      * @see #getMultiSplitLayout
      * @see MultiSplitLayout#setModel
      */
-    public final void setModel(Node model) 
+    public final void setModel(MultiSplitNode model) 
     {
+    	debug ("setModel ()");
+    	
     	getMultiSplitLayout().setModel(model);
     }
 
@@ -141,7 +146,7 @@ public class MultiSplitPane extends JPanel
      * 
      * @return the Divider that's being moved or null.
      */
-    public Divider activeDivider() 
+    public MultiSplitDivider activeDivider() 
     {
     	return dragDivider;
     }
@@ -161,12 +166,12 @@ public class MultiSplitPane extends JPanel
     	 * 	@param g the Graphics object to paint with
     	 * 	@param divider the Divider to paint
     	 */
-    	public abstract void paint(Graphics g, Divider divider);
+    	public abstract void paint(Graphics g, MultiSplitDivider divider);
     }
 
     private class DefaultDividerPainter extends DividerPainter 
     {
-    	public void paint(Graphics g, Divider divider) 
+    	public void paint(Graphics g, MultiSplitDivider divider) 
     	{
     		if ((divider == activeDivider()) && !isContinuousLayout()) 
     		{
@@ -227,7 +232,7 @@ public class MultiSplitPane extends JPanel
             try 
             {
             	MultiSplitLayout msl = getMultiSplitLayout();
-            	for(Divider divider : msl.dividersThatOverlap(clipR)) 
+            	for(MultiSplitDivider divider : msl.dividersThatOverlap(clipR)) 
             	{
             		dp.paint(dpg, divider);
             	}
@@ -240,7 +245,7 @@ public class MultiSplitPane extends JPanel
     }
 
     private boolean dragUnderway = false;
-    private MultiSplitLayout.Divider dragDivider = null;
+    private MultiSplitDivider dragDivider = null;
     private Rectangle initialDividerBounds = null;
     private boolean oldFloatingDividers = true;
     private int dragOffsetX = 0;
@@ -252,12 +257,12 @@ public class MultiSplitPane extends JPanel
     {
     	requestFocusInWindow();
     	MultiSplitLayout msl = getMultiSplitLayout();
-    	MultiSplitLayout.Divider divider = msl.dividerAt(mx, my);
+    	MultiSplitDivider divider = msl.dividerAt(mx, my);
     	
     	if (divider != null) 
     	{    		
-    		MultiSplitLayout.Node prevNode = divider.previousSibling();
-    		MultiSplitLayout.Node nextNode = divider.nextSibling();
+    		MultiSplitNode prevNode = divider.previousSibling();
+    		MultiSplitNode nextNode = divider.nextSibling();
     		
     		if ((prevNode == null) || (nextNode == null)) 
     		{
@@ -415,7 +420,7 @@ public class MultiSplitPane extends JPanel
     	int cursorID = Cursor.DEFAULT_CURSOR;
     	if (show) 
     	{
-    		MultiSplitLayout.Divider divider = getMultiSplitLayout().dividerAt(x, y);
+    		MultiSplitDivider divider = getMultiSplitLayout().dividerAt(x, y);
     		if (divider != null) 
     		{
     			cursorID  = (divider.isVertical()) ? Cursor.E_RESIZE_CURSOR : Cursor.N_RESIZE_CURSOR;
