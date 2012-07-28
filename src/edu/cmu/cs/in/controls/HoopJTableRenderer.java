@@ -77,6 +77,9 @@ public class HoopJTableRenderer extends JComponent
 	protected mxGraph graph;
 	public JTable table;
 
+	/**
+	 * 
+	 */
 	@SuppressWarnings("serial")
 	public HoopJTableRenderer (final Object cell,final mxGraphComponent graphContainer)
 	{

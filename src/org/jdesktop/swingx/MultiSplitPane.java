@@ -36,7 +36,6 @@ import javax.swing.event.MouseInputAdapter;
 import edu.cmu.cs.in.controls.base.HoopJPanel;
 
 /**
- *
  * <p>
  * All properties in this class are bound: when a properties value
  * is changed, all PropertyChangeListeners are fired.

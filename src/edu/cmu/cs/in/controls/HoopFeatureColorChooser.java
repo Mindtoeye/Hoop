@@ -26,6 +26,9 @@ import javax.swing.JDialog;
 //import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+/**
+ * 
+ */
 public class HoopFeatureColorChooser extends AbstractAction 
 {
 	private static final long serialVersionUID = 1L;
@@ -33,7 +36,7 @@ public class HoopFeatureColorChooser extends AbstractAction
 	JColorChooser chooser;
     JDialog dialog;
     
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
     HoopFeatureColorChooser (JPanel frame, JColorChooser chooser) 
@@ -47,7 +50,7 @@ public class HoopFeatureColorChooser extends AbstractAction
         // Create the dialog that contains the chooser
         dialog = JColorChooser.createDialog (frame, "Hoop Feature Color", modal,chooser,null,null);
     }
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
     public void actionPerformed(ActionEvent evt) 
@@ -58,6 +61,5 @@ public class HoopFeatureColorChooser extends AbstractAction
         // Disable the action; to enable the action when the dialog is closed, see
         // Listening for OK and Cancel Events in a JColorChooser Dialog
         setEnabled(false);
-    }
-	//-------------------------------------------------------------------------------------    
+    }    
 };

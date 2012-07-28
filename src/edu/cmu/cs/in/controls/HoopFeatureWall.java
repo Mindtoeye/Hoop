@@ -34,6 +34,9 @@ import edu.cmu.cs.in.base.HoopRoot;
 
 @SuppressWarnings("serial")
 
+/**
+ * 
+ */
 public class HoopFeatureWall extends JPanel implements HoopVisualFeatureVisualizer
 {	
 	public ArrayList <HoopVisualSentence> texts=null;

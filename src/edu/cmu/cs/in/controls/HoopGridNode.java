@@ -20,6 +20,9 @@ package edu.cmu.cs.in.controls;
 
 import edu.cmu.cs.in.base.HoopRoot;
 
+/**
+ * 
+ */
 public class HoopGridNode extends HoopRoot
 {
 	private int mapperCount=0;

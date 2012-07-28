@@ -49,6 +49,9 @@ import edu.cmu.cs.in.base.io.HoopFileManager;
 
 @SuppressWarnings("serial")
 
+/**
+ * 
+ */
 public class HoopUniqueUnigrams extends JPanel implements ActionListener
 {		
 	private HoopDataCollection HoopData=null;	

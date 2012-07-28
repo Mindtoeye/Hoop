@@ -33,9 +33,10 @@ import javax.swing.JPanel;
 
 import edu.cmu.cs.in.base.HoopRoot;
 import edu.cmu.cs.in.base.HoopLink;
-//import edu.cmu.cs.in.base.HoopLink;
-//import edu.cmu.cs.in.network.HoopStreamedSocket;
 
+/**
+ * 
+ */
 public class HoopGridNodeVisualizer extends JPanel
 {	
 	private static final long serialVersionUID = -4339919593982358362L;
