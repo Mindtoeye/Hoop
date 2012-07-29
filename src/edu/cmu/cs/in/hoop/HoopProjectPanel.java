@@ -42,9 +42,11 @@ import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
 import edu.cmu.cs.in.base.HoopLink;
+import edu.cmu.cs.in.controls.HoopJTreeHoopRenderer;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 import edu.cmu.cs.in.hoop.project.HoopProject;
 import edu.cmu.cs.in.hoop.project.HoopProjectFile;
+import edu.cmu.cs.in.hoop.project.HoopWrapperFile;
 
 /**
  * 
@@ -53,6 +55,7 @@ public class HoopProjectPanel extends HoopEmbeddedJPanel implements MouseListene
 {
 	private static final long serialVersionUID =- 1L;		
 	private JTree tree=null;
+	private HoopJTreeHoopRenderer treeHoopRenderer=null;
 	
 	/**
 	 * 
@@ -65,16 +68,18 @@ public class HoopProjectPanel extends HoopEmbeddedJPanel implements MouseListene
 		this.setSingleInstance(true);
 		
 		Box mainBox = new Box (BoxLayout.Y_AXIS);
+		
+		treeHoopRenderer=new HoopJTreeHoopRenderer ();
 					    				
-		//tree=new JTree(toTreeModel ());
 		tree=new JTree();
 		tree.setFont(new Font("Dialog", 1, 10)); // overwritten by cellrenderer?
 		tree.getSelectionModel().setSelectionMode (TreeSelectionModel.SINGLE_TREE_SELECTION);
 		tree.setRootVisible(true);
 		tree.setBorder(BorderFactory.createEmptyBorder(4,4,4,4));
-		//tree.putClientProperty("JTree.lineStyle", "Horizontal");
+		tree.setCellRenderer (treeHoopRenderer);
 		tree.setDragEnabled(false);
-				
+		tree.addMouseListener (this);
+		
 		JScrollPane scrollPane=new JScrollPane(tree);
 		scrollPane.setBorder(BorderFactory.createEmptyBorder(4,4,4,4));
 				
@@ -105,6 +110,7 @@ public class HoopProjectPanel extends HoopEmbeddedJPanel implements MouseListene
 		}	
 		
     	DefaultMutableTreeNode root = new DefaultMutableTreeNode(proj.getInstanceName());
+    	root.setUserObject(proj);
 		  			
     	ArrayList <HoopProjectFile> files=proj.getFiles();
     	
@@ -113,13 +119,16 @@ public class HoopProjectPanel extends HoopEmbeddedJPanel implements MouseListene
     		HoopProjectFile aFile=files.get(i);
     		
 			DefaultMutableTreeNode catNode = new DefaultMutableTreeNode(aFile.getInstanceName());
-			//catNode.setUserObject(aFile);
+			catNode.setUserObject(aFile);
+			
 			root.add(catNode);
     	}		    	
     	
     	DefaultTreeModel model = new DefaultTreeModel(root);
-    	
+    	    	
     	tree.setModel(model);
+    	
+    	//treeHoopRenderer.setTree(tree);
 	}	
 	/**
 	 *
@@ -185,19 +194,24 @@ public class HoopProjectPanel extends HoopEmbeddedJPanel implements MouseListene
 	public void mousePressed(MouseEvent e) 
 	{
 		debug ("mousePressed ()");
-		
-		int x = (int) e.getPoint().getX();
-        int y = (int) e.getPoint().getY();
-        
-        TreePath path = tree.getPathForLocation(x, y);
-        if (path == null) 
-        {
-            //tree.setCursor(Cursor.getDefaultCursor());
-        } 
-        else 
-        {
-            //tree.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));            		            
-        }								
+	
+		if (e.getClickCount()==2)
+		{				
+			DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+
+			if (node!=null)
+			{
+				if (node.getUserObject()!=null)
+				{
+					if (node.getUserObject() instanceof HoopWrapperFile)
+					{
+						HoopWrapperFile anExternalFile= (HoopWrapperFile) node.getUserObject();
+						
+						alert ("Opening linked file ["+anExternalFile.getInstanceName()+"] with external viewer");
+					}
+				}
+			}
+		}	
 	}
 	/**
 	 * 

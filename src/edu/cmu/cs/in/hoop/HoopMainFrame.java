@@ -31,6 +31,7 @@ import edu.cmu.cs.in.controls.HoopSentenceWall;
 //import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 import edu.cmu.cs.in.hoop.project.HoopGraphFile;
 import edu.cmu.cs.in.hoop.project.HoopProject;
+import edu.cmu.cs.in.hoop.project.HoopWrapperFile;
 //import edu.cmu.cs.in.hoop.project.HoopProjectFile;
 import edu.cmu.cs.in.hoop.properties.HoopPropertyPanel;
 import edu.cmu.cs.in.hoop.visualizers.HoopCluster;
@@ -45,7 +46,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 {
 	private static final long serialVersionUID = -1L;
 
-    private JFileChooser fc=null;
+    //private JFileChooser fc=null;
 	
     static final private String PREVIOUS = "previous";
 	    
@@ -65,15 +66,28 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     	
     	compReference=this;
     	    	
-		fc = new JFileChooser();
-		FileNameExtensionFilter filter=new FileNameExtensionFilter (".xml rule files", "xml");
-		fc.setFileFilter(filter);    	
+		//fc = new JFileChooser();
+		//FileNameExtensionFilter filter=new FileNameExtensionFilter (".xml rule files", "xml");
+		//fc.setFileFilter(filter);    	
     	    
         buildMenus();       
         
         addButtons (this.getToolBar());
                         
         startEditor ();
+    }
+    /**
+     * 
+     */
+    private void updateProjectViews ()
+    {
+    	debug ("updateProjectViews ()");
+    	
+    	HoopProjectPanel projWindow=(HoopProjectPanel) HoopLink.getWindow("Project");
+    	if (projWindow!=null)
+    	{
+    		projWindow.updateContents();
+    	}
     }
 	/**
 	 *
@@ -180,25 +194,13 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     	//>------------------------------------------------------    	
     	
     	JMenuItem imp = new JMenuItem("Import ...");
-    	imp.setEnabled(false);
+    	//imp.setEnabled(false);
     	
     	imp.addActionListener(new ActionListener() 
     	{
     		public void actionPerformed(ActionEvent e) 
     		{
-    			HoopProject proj=HoopLink.project;
-    			
-    			if (proj==null)
-    			{
-    				debug ("Internal error: no project available");
-    				return;
-    			}
-    			
-    			if (proj.getVirginFile()==true)
-    			{
-    				alert ("Please save your project first");
-    				return;
-    			}
+    			importFiles ();
     		}
     	});    	
     	
@@ -379,8 +381,21 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     	    	
     	    	addView ("Sentence Wall",sWallPanel,HoopLink.right);    	    	
     		}
-    	});    	
+    	});
+    	
+    	JMenuItem sTextViewItem=new JMenuItem("Text Viewer");    	
+    	
+    	sTextViewItem.addActionListener(new ActionListener() 
+    	{
+    		public void actionPerformed(ActionEvent e) 
+    		{
+    			HoopTextViewer sTextViewPanel=new HoopTextViewer ();
     	    	
+    	    	addView ("Text Viewer",sTextViewPanel,HoopLink.center);    	    	
+    		}
+    	});    	
+    	    	    	
+    	views.add (sTextViewItem);
     	views.add (documentItem);
     	views.add (documentListItem);
     	views.add (consoleItem);
@@ -819,6 +834,8 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
            	}
 		}
 		
+		JFileChooser fc = new JFileChooser();
+		
 		FileNameExtensionFilter filter=new FileNameExtensionFilter ("Target Directories", "Directories");
 		fc.setFileFilter(filter);    			
 		fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -856,6 +873,8 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 			debug ("Open command cancelled by user.");
 			return (false);
 		}		
+		
+		updateProjectViews ();
 		
 		return (true);
 	}
@@ -927,6 +946,8 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 		fc.setFileSelectionMode (JFileChooser.FILES_ONLY);
 		*/
 		
+		JFileChooser fc = new JFileChooser();
+		
 		FileNameExtensionFilter filter=new FileNameExtensionFilter ("Target Directories", "Directories");
 		fc.setFileFilter(filter);    			
 		fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);    			
@@ -978,6 +999,8 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 		{
 			debug ("Open command cancelled by user.");
 		}
+		
+		updateProjectViews ();
 		
 		return (true);
 	}
@@ -1039,6 +1062,8 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 			return (false);
 		}
 		
+		JFileChooser fc = new JFileChooser();
+		
 		FileNameExtensionFilter filter=new FileNameExtensionFilter ("Target Directories", "Directories");
 		fc.setFileFilter(filter);    			
 		fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -1080,5 +1105,50 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 		}	    			
 		
 		return (true);
+	}
+	/**
+	 * 
+	 */
+	private void importFiles ()
+	{
+		debug ("importFiles ()");
+		
+		HoopProject proj=HoopLink.project;
+			
+		if (proj==null)
+		{
+			debug ("Internal error: no project available");
+			return;
+		}
+		
+		/*
+		if (proj.getVirginFile()==true)
+		{
+			alert ("Please save your project first");
+			return;
+		}
+		*/
+		
+		JFileChooser fc = new JFileChooser();
+					
+		int returnVal=fc.showOpenDialog (compReference);
+
+		if (returnVal==JFileChooser.APPROVE_OPTION) 
+		{
+	       	File file = fc.getSelectedFile();
+	       	
+	       	String fromAbsolute=file.getAbsolutePath();
+	       	String toRelative=proj.getBasePath()+"/"+file.getName();
+	      
+	       	HoopLink.fManager.copyFile(fromAbsolute, toRelative);
+	       	
+	       	HoopWrapperFile wrapper=new HoopWrapperFile ();
+	       	wrapper.setFileURI("<PROJECTPATH>/"+file.getName ());
+	       	
+	       	proj.addFile(wrapper);
+	       	proj.save();
+		}
+		
+		updateProjectViews ();
 	}
 }

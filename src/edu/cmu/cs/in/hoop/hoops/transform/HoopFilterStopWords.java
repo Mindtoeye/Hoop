@@ -59,12 +59,20 @@ public class HoopFilterStopWords extends HoopTransformBase implements HoopInterf
 		
 		if (proj!=null)
 		{
-			vocab=new HoopStopWords ();
-			proj.addFile (vocab);
+			if (proj.getFileByClass("HoopStopWords")==null)
+			{
+				vocab=new HoopStopWords ();
+				proj.addFile (vocab);
 			
-			HoopProjectPanel projectPanel=(HoopProjectPanel) HoopLink.getWindow("Project");
-			if (projectPanel!=null)
-				projectPanel.updateContents();
+				HoopProjectPanel projectPanel=(HoopProjectPanel) HoopLink.getWindow("Project");
+				
+				if (projectPanel!=null)
+				{
+					projectPanel.updateContents();
+				}
+			}	
+			else
+				vocab=(HoopStopWords) proj.getFileByClass("HoopStopWords");
 		}
 		
 		URI=new HoopURISerializable (this,"URI","<PROJECTPATH>/vocabulary.xml");		

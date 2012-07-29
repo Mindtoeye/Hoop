@@ -27,7 +27,7 @@ import org.jdom.Element;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 
 /** 
- * @author Martin van Velsen
+ * 
  */
 public class HoopProject extends HoopProjectFile
 {
@@ -48,6 +48,7 @@ public class HoopProject extends HoopProjectFile
 		addFileTemplate (new HoopGraphFile ());
 		addFileTemplate (new HoopStopWords ());
 		addFileTemplate (new HoopVocabulary ());
+		addFileTemplate (new HoopWrapperFile ());
 	}
 	/**
 	 * 

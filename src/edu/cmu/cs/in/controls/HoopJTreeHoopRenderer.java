@@ -31,6 +31,8 @@ import javax.swing.tree.TreeCellRenderer;
 
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
+import edu.cmu.cs.in.hoop.project.HoopProject;
+import edu.cmu.cs.in.hoop.project.HoopProjectFile;
 
 /**
  *
@@ -84,26 +86,93 @@ public class HoopJTreeHoopRenderer extends JLabel implements TreeCellRenderer
     											   int row, 
     											   boolean hasFocus) 
     {
+    	debug ("getTreeCellRendererComponent ()");
+    	
     	DefaultMutableTreeNode node=(DefaultMutableTreeNode) value;
     	    	
     	Object userObject=node.getUserObject();
     	    	
     	if (userObject!=null)
     	{
+    		debug ("We have a userObject");
+    		
     		if (userObject instanceof String)
     		{
+    			debug ("userObject is instance of String");
+    			
     			setText ((String) userObject);    			
-    			setIcon (HoopLink.getImageByName("gtk-open.png"));
+    			setIcon (HoopLink.getImageByName("unknown_216_16.png"));
     		}
     		else
     		{
-    			HoopBase hoop=(HoopBase) userObject;
-    			setText (hoop.getHoopDescription());
-    			setIcon (HoopLink.getImageByName("hoop.png"));
+    			Boolean found=false;
+    			
+    			//>-----------------------------------------------------------------
+    			
+    			if ((userObject instanceof HoopBase) && (found==false))
+    			{
+    				debug ("userObject is instance of HoopBase");
+    				
+    				HoopBase hoop=(HoopBase) userObject;
+    				setText (hoop.getHoopDescription());
+    				setIcon (HoopLink.getImageByName("hoop.png"));
+    				
+    				found=true;
+    			}
+    			
+    			//>-----------------------------------------------------------------    			
+    			
+    			if ((userObject instanceof HoopProject) && (found==false))
+    			{
+    				HoopProject aFile=(HoopProject) userObject;
+    				setText (aFile.getName());
+   					setIcon (HoopLink.getImageByName("gtk-open.png"));
+   					
+   					found=true;
+    			}
+    			
+    			//>-----------------------------------------------------------------    			
+    			
+    			if ((userObject instanceof HoopProjectFile) && (found==false))
+    			{
+    				debug ("userObject is instance of HoopProjectFile");
+    				
+    				HoopProjectFile aFile=(HoopProjectFile) userObject;
+    				setText (aFile.getName());
+    				
+    				if (aFile.getInstanceName().toLowerCase().indexOf(".xml")!=-1)
+    				{
+    					debug ("userObject represents an xml file");
+    					
+    					setIcon (HoopLink.getImageByName("mime_xml.png"));
+    				}
+    				else
+    				{
+        				if (aFile.getInstanceName().toLowerCase().indexOf(".txt")!=-1)
+        				{
+        					debug ("userObject represents a text file");
+        					
+        					setIcon (HoopLink.getImageByName("text_icon.png"));
+        				}
+        				else
+        				{
+        					debug ("userObject represents a default file");
+        					
+        					setIcon (HoopLink.getImageByName("unknown_216_16.png"));
+        				}
+    				}
+    				
+    				found=true;
+    			}    			
+    			
+    			//>-----------------------------------------------------------------
     		}
     	}
     	else
+    	{
+    		debug ("No user object in node, using toString instead");
     		setText (value.toString());
+    	}
     	
     	if (isSelected==true)
     		this.setBackground(new Color (220,220,220));

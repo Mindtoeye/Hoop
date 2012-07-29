@@ -281,7 +281,10 @@ public class HoopLink extends HoopProperties
 		 							 "player-pause.png", 
 		 							 "player-play.png", 		 							 
 		 							 "player-stop.jpg",
-		 							 "help_icon.png"
+		 							 "help_icon.png",
+		 							 "mime_xml.png",
+		 							 "text_icon.png",
+		 							 "unknown_216_16.png"
 		 							 };
 	
 	public static JFrame mainFrame=null;

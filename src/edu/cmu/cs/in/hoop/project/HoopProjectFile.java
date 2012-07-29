@@ -29,7 +29,7 @@ import edu.cmu.cs.in.base.HoopXMLBase;
 import edu.cmu.cs.in.base.io.HoopFileManager;
 
 /** 
- * @author Martin van Velsen
+ * 
  */
 public class HoopProjectFile extends HoopXMLBase
 {
