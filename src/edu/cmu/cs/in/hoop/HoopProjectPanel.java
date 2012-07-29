@@ -208,6 +208,18 @@ public class HoopProjectPanel extends HoopEmbeddedJPanel implements MouseListene
 						HoopWrapperFile anExternalFile= (HoopWrapperFile) node.getUserObject();
 						
 						alert ("Opening linked file ["+anExternalFile.getInstanceName()+"] with external viewer");
+						
+						HoopTextViewer test=(HoopTextViewer) HoopLink.getWindow("Text Viewer");
+						
+						if (test==null)
+						{
+							HoopLink.addView ("Text Viewer",new HoopTextViewer(),HoopLink.center);
+							test=(HoopTextViewer) HoopLink.getWindow("Text Viewer");
+						}	
+						
+						test.showFile(anExternalFile);
+						
+						HoopLink.popWindow ("Text Viewer");						
 					}
 				}
 			}

@@ -23,58 +23,20 @@
 
 package edu.cmu.cs.in.hoop;
 
-import java.util.ArrayList;
-import java.util.Enumeration;
-
-import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.Transferable;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
-import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.JEditorPane;
 import javax.swing.JViewport;
-//import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-///import javax.swing.JList;
 import javax.swing.JScrollPane;
-//import javax.swing.JTextField;
-import javax.swing.JTree;
-import javax.swing.TransferHandler;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreeNode;
-import javax.swing.tree.TreePath;
-import javax.swing.tree.TreeSelectionModel;
-
-import com.mxgraph.model.mxCell;
-import com.mxgraph.model.mxGeometry;
-import com.mxgraph.swing.util.mxGraphTransferable;
-import com.mxgraph.util.mxEvent;
-import com.mxgraph.util.mxEventObject;
-import com.mxgraph.util.mxEventSource;
-import com.mxgraph.util.mxRectangle;
 
 import edu.cmu.cs.in.base.HoopLink;
-import edu.cmu.cs.in.base.HoopStringTools;
-//import edu.cmu.cs.in.controls.HoopShadowBorder;
-import edu.cmu.cs.in.controls.HoopJTreeHoopRenderer;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
-import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
+import edu.cmu.cs.in.hoop.project.HoopWrapperFile;
 
 /**
  * 
  */
 public class HoopTextViewer extends HoopEmbeddedJPanel
 {	
+	private static final long serialVersionUID = -1L;
 	private JEditorPane textViewer=null;
 	
 	/**
@@ -99,6 +61,17 @@ public class HoopTextViewer extends HoopEmbeddedJPanel
 		
 		setContentPane (scroller);			
     }
+	/**
+	 * 
+	 */
+	public void showFile (HoopWrapperFile aFile)
+	{
+		debug ("showFile ()");
+		
+		String text=HoopLink.fManager.loadContents(aFile.getFileURI());
+		
+		textViewer.setText(text);
+	}
 	/**
 	 * When this method is called we should assume that we have to re-evaluate all existing hoop templates
 	 */	
