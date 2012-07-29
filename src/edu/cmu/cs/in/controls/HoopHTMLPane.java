@@ -21,7 +21,7 @@ package edu.cmu.cs.in.controls;
 import java.awt.Container;
 import java.awt.Cursor;
 import java.io.IOException;
-import java.net.MalformedURLException;
+//import java.net.MalformedURLException;
 import java.net.URL;
 
 import javax.swing.JEditorPane;
@@ -46,30 +46,20 @@ public class HoopHTMLPane extends JScrollPane implements HyperlinkListener
      */    
     public HoopHTMLPane () 
     {    	
-    	try 
-    	{
-    		URL url = getClass().getResource("/assets/help/toc.html");
-    		html = new JEditorPane(url);
-    		html.setEditable(false);
-    		html.addHyperlinkListener(this);
-            html.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES,Boolean.TRUE);
-            JViewport vp = getViewport();
-            vp.add(html);
-    	} 
-    	catch (MalformedURLException e) 
-    	{
-    		System.out.println("Malformed URL: " + e);
-    	} 
-    	catch (IOException e) 
-    	{
-    		System.out.println("IOException: " + e);
-    	}	
+    	html = new JEditorPane();
+    	html.setEditable(false);
+    	html.addHyperlinkListener(this);
+    	html.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES,Boolean.TRUE);
+    	JViewport vp = getViewport();
+    	vp.add(html);	
     }
     /**
      * Notification of a change relative to a hyperlink.
      */
     public void hyperlinkUpdate(HyperlinkEvent e) 
     {
+    	//debug ("hyperlinkUpdate ()");
+    	
     	if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) 
     	{
     		linkActivated(e.getURL());
@@ -154,3 +144,4 @@ public class HoopHTMLPane extends JScrollPane implements HyperlinkListener
     	linkActivated (url);
     }
 }
+
