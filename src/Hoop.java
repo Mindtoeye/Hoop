@@ -27,7 +27,16 @@ import edu.cmu.cs.in.base.io.HoopFileManager;
 import edu.cmu.cs.in.hoop.HoopMainFrame;
 
 /** 
- * 
+ * See here the main entry point for the Hoop application. Only two
+ * tasks are encapsulated here. First of all this class manages the
+ * main frame that holds all the visual tools and editors. Second,
+ * it starts up all the low level abstract tools and class instances.
+ * For example the most important object is created right at the
+ * start, which is the HoopLink class. The HoopLink object, of which
+ * there is only one, can be thought of as a global registory 
+ * containing pointers to objects that need to be persistent and
+ * accessible to every class that needs it for the duration of the
+ * application's execution cycle.
  */
 public class Hoop 
 {
@@ -42,6 +51,8 @@ public class Hoop
 		
 		HoopFileManager fTools=new HoopFileManager ();
 		
+		// Currently the code assumes the plugins directory exists, CHANGE THIS!
+		
 		ArrayList<String> fileList=fTools.listFiles ("./plugins");
 		
 		for (int i=0;i<fileList.size();i++)
@@ -50,7 +61,7 @@ public class Hoop
 			
 			if (aFile.toLowerCase().indexOf(".jar")!=-1)
 			{
-				HoopRoot.debug ("Hoop","Found potential plugin jar ("+aFile+"), examining ...");
+				HoopRoot.debug ("Hoop","["+i+"] Found potential plugin jar ("+aFile+"), examining ...");
 				
 			}
 		}
