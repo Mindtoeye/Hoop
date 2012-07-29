@@ -17,20 +17,44 @@
  */
 
 import java.awt.*;
+import java.util.ArrayList;
+
 import javax.swing.*;
 
 import edu.cmu.cs.in.base.HoopRoot;
 import edu.cmu.cs.in.base.HoopLink;
+import edu.cmu.cs.in.base.io.HoopFileManager;
 import edu.cmu.cs.in.hoop.HoopMainFrame;
 
 /** 
- * @author vvelsen
- *
+ * 
  */
 public class Hoop 
 {
 	public static JFrame frame=null;
 	
+	/**
+	 * 
+	 */
+	public static void loadPlugins ()
+	{
+		HoopRoot.debug ("Hoop","loadPlugins ()");
+		
+		HoopFileManager fTools=new HoopFileManager ();
+		
+		ArrayList<String> fileList=fTools.listFiles ("./plugins");
+		
+		for (int i=0;i<fileList.size();i++)
+		{
+			String aFile=fileList.get(i);
+			
+			if (aFile.toLowerCase().indexOf(".jar")!=-1)
+			{
+				HoopRoot.debug ("Hoop","Found potential plugin jar ("+aFile+"), examining ...");
+				
+			}
+		}
+	}
 	/**
 	 *
 	 */	
@@ -47,8 +71,10 @@ public class Hoop
     	  
     	// run the HoopLink constructor; We need this to have a global settings registry
     	@SuppressWarnings("unused")
-		HoopLink link = new HoopLink();     	    	
+		HoopLink link = new HoopLink();
    	
+    	loadPlugins ();
+    	
     	HoopRoot.debug ("Hoop","main ()");
     	
         UIManager.put ("swing.boldMetal", Boolean.FALSE);

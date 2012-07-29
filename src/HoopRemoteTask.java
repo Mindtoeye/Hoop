@@ -48,8 +48,8 @@ import edu.cmu.cs.in.search.HoopDataSet;
 import edu.cmu.cs.in.base.HoopRoot;
 import edu.cmu.cs.in.base.io.HoopFileManager;
 import edu.cmu.cs.in.base.HoopLink;
-import edu.cmu.cs.in.base.HoopBaseLink;
-import edu.cmu.cs.in.network.HoopSocketServerBase;
+//import edu.cmu.cs.in.base.HoopBaseLink;
+//import edu.cmu.cs.in.network.HoopSocketServerBase;
 import edu.cmu.cs.in.stats.HoopPerformanceMetrics;
 import edu.cmu.cs.in.stats.HoopStatistics;
 import edu.cmu.cs.in.hadoop.HoopHadoopReporter;
@@ -60,7 +60,7 @@ import edu.cmu.cs.in.hadoop.HoopWordCountMapper;
 import edu.cmu.cs.in.hadoop.HoopWordCountReducer;
 import edu.cmu.cs.in.hadoop.HoopWholeFileInputFormat;
 
-import edu.cmu.cs.in.hadoop.HoopPartitioner;
+//import edu.cmu.cs.in.hadoop.HoopPartitioner;
 
 //public class HoopRemoteTask extends HoopSocketServerBase
 public class HoopRemoteTask extends HoopHadoopReporter

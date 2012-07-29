@@ -40,6 +40,9 @@ import edu.cmu.cs.in.network.HoopSocketServerBase;
 import edu.cmu.cs.in.network.HoopMonitorConnection;
 import edu.cmu.cs.in.hadoop.HoopHadoopReporter;
 
+/**
+ * 
+ */
 public class HoopHadoopBroker extends HoopSocketServerBase
 {	
 	public static final String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss";

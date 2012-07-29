@@ -29,6 +29,9 @@ import edu.cmu.cs.in.base.kv.HoopKVInteger;
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.HoopPositionsBase;
 
+/**
+ *
+ */
 public class HoopSorterStats extends HoopRoot
 {    		
 	public static Boolean getTop=false;
@@ -38,6 +41,9 @@ public class HoopSorterStats extends HoopRoot
 	public static Boolean getShowRare=false;
 	public static int rareEntries=5;
 	
+	/**
+	 *
+	 */
 	static class MyComparator implements Comparator
 	{
 		public int compare(Object obj1, Object obj2)
