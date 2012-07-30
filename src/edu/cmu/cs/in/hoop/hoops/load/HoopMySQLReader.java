@@ -50,7 +50,8 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
     public	HoopStringSerializable dbName=null;
     public	HoopStringSerializable dbServer=null;
     
-    public	HoopStringSerializable query=null;
+    //public	HoopStringSerializable query=null;
+    public	HoopStringSerializable queryTable=null;
     public	HoopStringSerializable queryColumns=null;
     public	HoopStringSerializable querySize=null;
     
@@ -61,7 +62,11 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
     public	HoopEnumSerializable queryType=null;
     
     private Connection connection = null;
-        
+    
+    private Integer loadSize=100;
+    private Integer loadMax=100;
+    private Integer loadIndex=0;
+            
     /**
      * 
      */
@@ -81,7 +86,8 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
     	dbName=new HoopStringSerializable (this,"dbName","default");
     	dbServer=new HoopStringSerializable (this,"dbServer","127.0.0.1");
     	    	
-    	query=new HoopStringSerializable (this,"query","");
+    	//query=new HoopStringSerializable (this,"query","");
+    	queryTable=new HoopStringSerializable (this,"queryTable","default");
     	queryColumns=new HoopStringSerializable (this,"queryColumns","");
     	querySize=new HoopStringSerializable (this,"querySize","100");
     	
@@ -258,7 +264,7 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 			this.setErrorString("Please provide a password for the username");
 			return (false);
 		}		
-		
+				
 		if (loadDriver()==false)
 		{
 			return (false);
@@ -275,6 +281,26 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 		}
 		else
 		{
+			if (this.getExecutionCount()==0)
+			{
+				getTables ();
+									
+			    loadMax=100;
+			    loadIndex=0;								
+				loadSize=Integer.parseInt(querySize.getValue());
+				
+				HoopKVString aKV=(HoopKVString) this.getKVFromKey(queryTable.getValue ());
+				
+				loadMax=Integer.parseInt(aKV.getValue());
+				
+				if (loadSize>loadMax)
+				{
+					loadSize=loadMax;
+				}
+				
+				debug ("Loading rows from table " + queryTable.getValue () + " with chunk size: " + loadSize + " for a total of: " + loadMax + " rows");
+			}
+ 			
 			runQuery ();
 		}
 						
@@ -406,37 +432,33 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 			this.setErrorString("Error: no connection to database yet");
 			return (false);
 		}
-		
-		if (query.getValue().isEmpty()==true)
-		{
-			debug ("Error: no SQL query provided");
-			return (false);
-		}
-		
+				
 		if (queryColumns.getValue().isEmpty()==true)
 		{
 			debug ("Error: no target columns provided for SQL query");
 			return (false);
 		}
-
-		ArrayList <String> columnList=HoopStringTools.splitComma(queryColumns.getValue());
 		
-		// For now we'll get everything as a string
-		
-		for (int j=0;j<columnList.size();j++)
+		if (queryTable.getValue().isEmpty()==true)
 		{
-			this.setKVType (j,HoopDataType.STRING,columnList.get(j));
+			debug ("Error: no target table provided for SQL query");
+			return (false);
 		}
+
+		if (this.getExecutionCount()==0)
+		{
+			ArrayList <String> columnList=HoopStringTools.splitComma(queryColumns.getValue());
+			
+			// For now we'll get everything as a string
+		
+			for (int j=0;j<columnList.size();j++)
+			{
+				this.setKVType (j,HoopDataType.STRING,columnList.get(j));
+			}
+		}	
+								
+		String fullQuery=createQuery ();
 				
-		StringBuffer fullQuery=new StringBuffer ();
-		fullQuery.append (query.getValue());
-		fullQuery.append (" limit ");
-		fullQuery.append("0");
-		fullQuery.append (",");
-		fullQuery.append(querySize.getValue());
-		
-		debug ("Executing full query: [" + fullQuery.toString()+"]");
-		
 		Statement s=null;
 		
 		try 
@@ -446,15 +468,17 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 		catch (SQLException e) 
 		{
 			printSQLException (e);
+			return (false);
 		}
 		
 		try 
 		{
-			s.executeQuery (fullQuery.toString());
+			s.executeQuery (fullQuery);
 		} 
 		catch (SQLException e) 
 		{
 			printSQLException (e);
+			return (false);			
 		}
 		
 		ResultSet rs=null;
@@ -466,6 +490,7 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 		catch (SQLException e1) 
 		{		
 			printSQLException (e1);
+			return (false);			
 		}
 		
 		int count = 0;
@@ -517,6 +542,7 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 		catch (SQLException e1) 
 		{		
 			printSQLException (e1);
+			return (false);			
 		}
 
 		try 
@@ -526,6 +552,7 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 		catch (SQLException e) 
 		{		
 			printSQLException (e);
+			return (false);			
 		}
 		
 		try 
@@ -535,11 +562,43 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 		catch (SQLException e) 
 		{
 			printSQLException (e);
+			return (false);			
 		}
 		
 		debug (count + " rows were retrieved and stored as KV entries");
 		
+	    loadIndex+=loadSize;
+	    
+	    if (loadIndex<loadMax)
+	    {
+	    	this.setDone(false);
+	    }
+		
 		return (true);
+	}
+	/**
+	 * 
+	 */
+	private String createQuery ()
+	{
+		debug ("createQuery ()");
+								
+		StringBuffer fullQuery=new StringBuffer ();
+		
+		Integer calcWindow=loadIndex+loadSize;
+		
+		fullQuery.append ("SELECT ");
+		fullQuery.append (queryColumns.getValue());
+		fullQuery.append (" from ");
+		fullQuery.append (queryTable.getValue());
+		fullQuery.append (" limit ");
+		fullQuery.append (loadIndex.toString());
+		fullQuery.append (",");
+		fullQuery.append (calcWindow.toString());
+		
+		debug ("Executing full query: [" + fullQuery.toString() + "]");		
+
+		return (fullQuery.toString());
 	}
 	/**
 	 * 

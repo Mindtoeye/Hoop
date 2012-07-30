@@ -18,16 +18,13 @@
 
 package edu.cmu.cs.in.hoop.hoops.save;
 
-//import java.util.ArrayList;
-
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopSaveBase;
-//import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
 
 /**
 * 
 */
-public class HoopXMLWriter extends HoopSaveBase // implements HoopInterface
+public class HoopXMLWriter extends HoopSaveBase
 {    		
 	/**
 	 *

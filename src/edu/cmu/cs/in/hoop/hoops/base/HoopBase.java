@@ -320,7 +320,43 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface
 	public ArrayList <HoopKV> getData() 
 	{
 		return data;
-	}    
+	}
+	/**
+	 * 
+	 */
+	public HoopKV getKVFromKey (String aKey)
+	{
+		for (int i=0;i<data.size();i++)
+		{
+			HoopKV aKV=data.get(i);
+			
+			if (aKV.getKeyString().toLowerCase().equals(aKey)==true)
+			{
+				return (aKV);
+			}
+		}
+		
+		return (null);
+	}
+	/**
+	 * 
+	 */
+	/*
+	public HoopKV getKVFromKey (int aKey)
+	{
+		for (int i=0;i<data.size();i++)
+		{
+			HoopKV aKV=data.get(i);
+			
+			if (aKV.getKey ()==aKey)
+			{
+				return (aKV);
+			}
+		}
+		
+		return (null);
+	}
+	*/	
 	/**
 	 *
 	 */	

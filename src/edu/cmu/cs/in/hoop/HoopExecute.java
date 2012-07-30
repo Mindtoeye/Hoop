@@ -96,6 +96,7 @@ public class HoopExecute extends HoopRoot implements Runnable
 	/**
 	 * 
 	 */
+	/*
 	public Boolean execute ()
 	{
 		debug ("execute ()");
@@ -134,10 +135,12 @@ public class HoopExecute extends HoopRoot implements Runnable
 		
 		return (execute (root));	
 	}
+	*/
 	/** 
 	 * @param aRoot
 	 * @return
 	 */
+	/*
 	private Boolean execute (HoopBase aRoot)
 	{
 		debug ("execute (HoopBase)");
@@ -174,7 +177,7 @@ public class HoopExecute extends HoopRoot implements Runnable
 					return (false);
 				}
 			
-				/// One of: STOPPED, WAITHoopG, RUNNHoopG, PAUSED, ERROR
+				/// One of: STOPPED, WAITHoopG, RUNNING, PAUSED, ERROR
 				current.setExecutionState("STOPPED");
 			
 				if (current.getOutHoops().size()>0) // quick test before we execute
@@ -185,7 +188,60 @@ public class HoopExecute extends HoopRoot implements Runnable
 		}
 		
 		return (true);
-	}
+	}	
+	*/
+	private Boolean execute (HoopBase aRoot)
+	{
+		debug ("execute (HoopBase)");
+						
+		aRoot.reset();
+		aRoot.setInEditor(inEditor);
+		
+		// Execution phase of the current Hoop ...
+		
+		if (root.getActive()==true)
+		{			
+			if (aRoot.runHoopInternal(aRoot)==false)
+			{
+				debug ("Error executing hoop: " + aRoot.getErrorString());
+				HoopVisualRepresentation panel=aRoot.getVisualizer();
+			
+				if (panel!=null)
+					panel.setState("ERROR");
+				else
+					debug ("No visual representation present to show error result!");
+			
+				HoopErrorPanel errorPanel=(HoopErrorPanel) HoopLink.getWindow("Errors");
+				if (errorPanel!=null)
+				{
+					errorPanel.addError (aRoot.getClassName(),aRoot.getErrorString());
+				}
+			
+				return (false);
+			}
+		
+			/// One of: STOPPED, WAITHoopG, RUNNING, PAUSED, ERROR
+			aRoot.setExecutionState("STOPPED");		
+		}			
+		
+		// Iterate through all the connected Hoops and call execute ...
+		
+		ArrayList<HoopBase> outHoops=aRoot.getOutHoops();
+		
+		debug ("Executing " + outHoops.size() + " hoops ...");
+		
+		for (int i=0;i<outHoops.size();i++)
+		{
+			HoopBase current=outHoops.get(i);
+			
+			if (execute (current)==false)
+				return (false);
+		}
+		
+		// All done
+		
+		return (true);
+	}	
 	@Override
 	public void run() 
 	{	
@@ -197,7 +253,7 @@ public class HoopExecute extends HoopRoot implements Runnable
 		{
 			while (loopExecuting==true)
 			{
-				execute ();
+				execute (root);
 			}	
 		}	
 		else
@@ -206,7 +262,7 @@ public class HoopExecute extends HoopRoot implements Runnable
 			{
 				for (int i=0;i<loopCount;i++)
 				{
-					execute ();
+					execute (root);
 				}
 			}
 			else
