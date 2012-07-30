@@ -75,7 +75,7 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface
 		
 	private int executionCount=0;
 	
-	private Boolean done=true;
+	private Boolean done=false;
 	
 	/**
 	 *
@@ -305,6 +305,8 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface
     	
     	data=new ArrayList<HoopKV> ();
     	
+    	done=false;
+    	
     	setExecutionState ("STOPPED");
     }   
     /**
@@ -409,6 +411,9 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface
 		debug ("runHoopInternal ()");
 		
 		performance.setMarker ("start");
+		
+		// Assume we're done unless the child hoop says we're not
+		this.setDone(true); 
 		
 		if (inPortExists ("KV")==true)
 		{

@@ -96,100 +96,6 @@ public class HoopExecute extends HoopRoot implements Runnable
 	/**
 	 * 
 	 */
-	/*
-	public Boolean execute ()
-	{
-		debug ("execute ()");
-		
-		if (root==null)
-		{
-			debug ("Nothing to execute");
-			return (false);
-		}
-		
-		root.setInEditor(inEditor);
-		
-		if (root.getActive()==false)
-		{
-			debug ("Hoop is not active, skipping");
-			return (false);
-		}
-		
-		if (root.runHoopInternal(null)==false)
-		{
-			debug ("Error executing hoop: " + root.getErrorString());
-			HoopVisualRepresentation panel=root.getVisualizer();
-			
-			if (panel!=null)
-				panel.setState("ERROR");
-			else
-				debug ("No visual representation present to show error result!");
-			
-			HoopErrorPanel errorPanel=(HoopErrorPanel) HoopLink.getWindow("Errors");
-			if (errorPanel!=null)
-			{
-				errorPanel.addError (root.getClassName(),root.getErrorString());
-				HoopLink.popWindow ("Errors");
-			}			
-		}
-		
-		return (execute (root));	
-	}
-	*/
-	/** 
-	 * @param aRoot
-	 * @return
-	 */
-	/*
-	private Boolean execute (HoopBase aRoot)
-	{
-		debug ("execute (HoopBase)");
-						
-		ArrayList<HoopBase> outHoops=aRoot.getOutHoops();
-		
-		debug ("Executing " + outHoops.size() + " hoops ...");
-		
-		for (int i=0;i<outHoops.size();i++)
-		{
-			HoopBase current=outHoops.get(i);
-			
-			current.reset();
-			current.setInEditor(inEditor);
-			
-			if (root.getActive()==true)
-			{			
-				if (current.runHoopInternal(aRoot)==false)
-				{
-					debug ("Error executing hoop: " + current.getErrorString());
-					HoopVisualRepresentation panel=current.getVisualizer();
-				
-					if (panel!=null)
-						panel.setState("ERROR");
-					else
-						debug ("No visual representation present to show error result!");
-				
-					HoopErrorPanel errorPanel=(HoopErrorPanel) HoopLink.getWindow("Errors");
-					if (errorPanel!=null)
-					{
-						errorPanel.addError (current.getClassName(),current.getErrorString());
-					}
-				
-					return (false);
-				}
-			
-				/// One of: STOPPED, WAITHoopG, RUNNING, PAUSED, ERROR
-				current.setExecutionState("STOPPED");
-			
-				if (current.getOutHoops().size()>0) // quick test before we execute
-				{
-					return (execute (current));
-				}
-			}	
-		}
-		
-		return (true);
-	}	
-	*/
 	private Boolean execute (HoopBase aRoot)
 	{
 		debug ("execute (HoopBase)");
@@ -199,8 +105,8 @@ public class HoopExecute extends HoopRoot implements Runnable
 		
 		// Execution phase of the current Hoop ...
 		
-		if (root.getActive()==true)
-		{			
+		while (aRoot.getDone()==false)
+		{		
 			if (aRoot.runHoopInternal(aRoot)==false)
 			{
 				debug ("Error executing hoop: " + aRoot.getErrorString());
@@ -220,22 +126,22 @@ public class HoopExecute extends HoopRoot implements Runnable
 				return (false);
 			}
 		
-			/// One of: STOPPED, WAITHoopG, RUNNING, PAUSED, ERROR
+			/// One of: STOPPED, WAITING, RUNNING, PAUSED, ERROR
 			aRoot.setExecutionState("STOPPED");		
-		}			
 		
-		// Iterate through all the connected Hoops and call execute ...
+			// Iterate through all the connected Hoops and call execute ...
 		
-		ArrayList<HoopBase> outHoops=aRoot.getOutHoops();
+			ArrayList<HoopBase> outHoops=aRoot.getOutHoops();
 		
-		debug ("Executing " + outHoops.size() + " hoops ...");
+			debug ("Executing " + outHoops.size() + " hoops ...");
 		
-		for (int i=0;i<outHoops.size();i++)
-		{
-			HoopBase current=outHoops.get(i);
+			for (int i=0;i<outHoops.size();i++)
+			{
+				HoopBase current=outHoops.get(i);
 			
-			if (execute (current)==false)
-				return (false);
+				if (execute (current)==false)
+					return (false);
+			}
 		}
 		
 		// All done
@@ -246,6 +152,18 @@ public class HoopExecute extends HoopRoot implements Runnable
 	public void run() 
 	{	
 		debug ("run ()");
+		
+		if (root==null)
+		{
+			debug ("Error: no graph root available");
+			return;
+		}
+		
+		if (root.getActive()==false)
+		{
+			debug ("Error: graph root is not active");
+			return;
+		}
 		
 		loopExecuting=true;
 		

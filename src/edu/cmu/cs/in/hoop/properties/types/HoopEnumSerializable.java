@@ -169,7 +169,7 @@ public class HoopEnumSerializable extends HoopSerializable
 	{
 		debug ("toXML ()");
 		
-		Element classElement=super.toXML();
+		Element classElement=toXMLID();
 				
 		Element valueElement=new Element ("value");
 		valueElement.setAttribute("format",this.getFormat ());
