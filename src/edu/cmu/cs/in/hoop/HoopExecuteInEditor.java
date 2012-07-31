@@ -18,6 +18,8 @@
 
 package edu.cmu.cs.in.hoop;
 
+import edu.cmu.cs.in.base.HoopLink;
+
 /** 
  * @author Martin van Velsen
  */
@@ -32,6 +34,25 @@ public class HoopExecuteInEditor extends HoopExecute
 		debug ("HoopExecuteInEditor ()");		
 		
 		this.setInEditor(true);
+	}	
+	/**
+	 * 
+	 */
+	protected void showError (String aClass,String anError)
+	{
+		debug ("ShowError ()");
+		
+		HoopErrorPanel errorPanel=(HoopErrorPanel) HoopLink.getWindow("Errors");
+		
+		if (errorPanel==null)
+		{
+			HoopLink.addView ("Errors",new HoopErrorPanel(),"bottom");
+			errorPanel=(HoopErrorPanel) HoopLink.getWindow("Errors");
+		}	
+				
+		errorPanel.addError (aClass,anError);
+		
+		HoopLink.popWindow("Errors");
 	}	
 }
 

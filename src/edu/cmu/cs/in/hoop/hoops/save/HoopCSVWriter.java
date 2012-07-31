@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import edu.cmu.cs.in.base.io.HoopFileManager;
 import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.base.HoopDataType;
+import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopFileSaveBase;
 //import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
@@ -34,7 +35,7 @@ import edu.cmu.cs.in.hoop.properties.types.HoopEnumSerializable;
 */
 public class HoopCSVWriter extends HoopFileSaveBase
 {    			
-	private HoopFileManager fManager=null;
+	//private HoopFileManager fManager=null;
 	
 	private HoopEnumSerializable writeMode=null; // APPEND, OVERWRITE	
 	private HoopEnumSerializable mode=null; // TAB,COMMA,DASH
@@ -50,7 +51,7 @@ public class HoopCSVWriter extends HoopFileSaveBase
 		setHoopDescription ("Save KVs in CSV format");
 		setFileExtension ("csv");
 		
-		fManager=new HoopFileManager ();
+		//fManager=new HoopFileManager ();
 		
 		writeMode=new HoopEnumSerializable (this,"writeMode","OVERWRITE,APPEND");
 		mode=new HoopEnumSerializable (this,"mode","COMMA,TAB,DASH");
@@ -125,9 +126,13 @@ public class HoopCSVWriter extends HoopFileSaveBase
 			}
 			
 			if (writeMode.getValue().equals("OVERWRITE")==true)
-				fManager.saveContents (this.projectToFullPath(URI.getValue()),formatted.toString());
+			{
+				HoopLink.fManager.saveContents (this.projectToFullPath(URI.getValue()),formatted.toString());
+			}
 			else
-				fManager.appendContents (this.projectToFullPath(URI.getValue()),formatted.toString());
+			{
+				HoopLink.fManager.appendContents (this.projectToFullPath(URI.getValue()),formatted.toString());
+			}
 		}	
 						
 		return (true);

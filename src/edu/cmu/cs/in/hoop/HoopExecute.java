@@ -96,6 +96,15 @@ public class HoopExecute extends HoopRoot implements Runnable
 	/**
 	 * 
 	 */
+	protected void showError (String aClass,String anError)
+	{
+		debug ("ShowError ()");
+		
+		debug ("Hoop: " + aClass+", Error: " + anError);
+	}	
+	/**
+	 * 
+	 */
 	private Boolean execute (HoopBase aRoot)
 	{
 		debug ("execute (HoopBase)");
@@ -117,12 +126,8 @@ public class HoopExecute extends HoopRoot implements Runnable
 				else
 					debug ("No visual representation present to show error result!");
 			
-				HoopErrorPanel errorPanel=(HoopErrorPanel) HoopLink.getWindow("Errors");
-				if (errorPanel!=null)
-				{
-					errorPanel.addError (aRoot.getClassName(),aRoot.getErrorString());
-				}
-			
+				showError (aRoot.getClassName(),aRoot.getErrorString());
+											
 				return (false);
 			}
 		

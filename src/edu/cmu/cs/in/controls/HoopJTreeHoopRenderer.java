@@ -86,7 +86,7 @@ public class HoopJTreeHoopRenderer extends JLabel implements TreeCellRenderer
     											   int row, 
     											   boolean hasFocus) 
     {
-    	debug ("getTreeCellRendererComponent ()");
+    	//debug ("getTreeCellRendererComponent ()");
     	
     	DefaultMutableTreeNode node=(DefaultMutableTreeNode) value;
     	    	
@@ -94,11 +94,11 @@ public class HoopJTreeHoopRenderer extends JLabel implements TreeCellRenderer
     	    	
     	if (userObject!=null)
     	{
-    		debug ("We have a userObject");
+    		//debug ("We have a userObject");
     		
     		if (userObject instanceof String)
     		{
-    			debug ("userObject is instance of String");
+    			//debug ("userObject is instance of String");
     			
     			setText ((String) userObject);    			
     			setIcon (HoopLink.getImageByName("unknown_216_16.png"));
@@ -111,7 +111,7 @@ public class HoopJTreeHoopRenderer extends JLabel implements TreeCellRenderer
     			
     			if ((userObject instanceof HoopBase) && (found==false))
     			{
-    				debug ("userObject is instance of HoopBase");
+    				//debug ("userObject is instance of HoopBase");
     				
     				HoopBase hoop=(HoopBase) userObject;
     				setText (hoop.getHoopDescription());
@@ -135,7 +135,7 @@ public class HoopJTreeHoopRenderer extends JLabel implements TreeCellRenderer
     			
     			if ((userObject instanceof HoopProjectFile) && (found==false))
     			{
-    				debug ("userObject is instance of HoopProjectFile");
+    				//debug ("userObject is instance of HoopProjectFile");
     				
     				HoopProjectFile aFile=(HoopProjectFile) userObject;
     				setText (aFile.getName());
@@ -170,7 +170,7 @@ public class HoopJTreeHoopRenderer extends JLabel implements TreeCellRenderer
     	}
     	else
     	{
-    		debug ("No user object in node, using toString instead");
+    		//debug ("No user object in node, using toString instead");
     		setText (value.toString());
     	}
     	

@@ -72,6 +72,15 @@ public class HoopExecuteStandalone extends HoopExecute
 		}
 	}
 	/**
+	 * 
+	 */
+	protected void showError (String aClass,String anError)
+	{
+		debug ("ShowError ()");
+		
+		debug ("Hoop: " + aClass+", Error: " + anError);
+	}	
+	/**
 	 *
 	 */	
 	public static void main (String[] args) 

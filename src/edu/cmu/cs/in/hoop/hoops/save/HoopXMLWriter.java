@@ -18,14 +18,28 @@
 
 package edu.cmu.cs.in.hoop.hoops.save;
 
+import java.util.ArrayList;
+
+import org.jdom.Document;
+import org.jdom.Element;
+import org.jdom.output.Format;
+import org.jdom.output.XMLOutputter;
+
+import edu.cmu.cs.in.base.HoopDataType;
+import edu.cmu.cs.in.base.HoopLink;
+import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
+import edu.cmu.cs.in.hoop.hoops.base.HoopFileSaveBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopSaveBase;
+import edu.cmu.cs.in.hoop.properties.types.HoopEnumSerializable;
 
 /**
 * 
 */
-public class HoopXMLWriter extends HoopSaveBase
+public class HoopXMLWriter extends HoopFileSaveBase
 {    		
+	private HoopEnumSerializable writeMode=null; // APPEND, OVERWRITE	
+	
 	/**
 	 *
 	 */
@@ -35,6 +49,8 @@ public class HoopXMLWriter extends HoopSaveBase
 		debug ("HoopXMLWriter ()");
 												
 		setHoopDescription ("Write to an XML file");
+		
+		writeMode=new HoopEnumSerializable (this,"writeMode","OVERWRITE,APPEND");
     }
 	/**
 	 *
@@ -42,11 +58,70 @@ public class HoopXMLWriter extends HoopSaveBase
 	public Boolean runHoop (HoopBase inHoop)
 	{		
 		debug ("runHoop ()");
-				
-		//ArrayList <HoopKV> inData=inHoop.getData();
 		
+		ArrayList <HoopKV> inData=inHoop.getData();
+		
+		if (inData==null)
+		{
+			this.setErrorString("Error: no input data to work with");
+			return (false);
+		}
 				
-		return (true);
+		Element fileElement=new Element ("hoopoutput");
+				
+		Element typeElement=new Element ("datatypes");
+		
+		fileElement.addContent(typeElement);
+						
+		ArrayList <HoopDataType> types=inHoop.getTypes();
+						
+		for (int n=0;n<types.size();n++)
+		{			
+			HoopDataType aType=types.get(n);
+			
+			Element aTypeElement=new Element ("type");
+			
+			aTypeElement.setAttribute("type",aType.getTypeValue ());
+			aTypeElement.setAttribute("value",aType.typeToString ());
+						
+			typeElement.addContent(aTypeElement);
+		}		
+										
+		Element dataElement=new Element ("data");
+			
+		for (int t=0;t<inData.size();t++)
+		{
+			HoopKV aKV=inData.get(t);
+								
+			Element keyElement=new Element ("key");
+			keyElement.setText(aKV.getKeyString ());
+							
+			ArrayList<Object> vals=aKV.getValuesRaw();
+				
+			for (int i=0;i<vals.size();i++)
+			{								
+				Element valueElement=new Element ("value");
+				valueElement.setText((String) vals.get(i));
+				keyElement.addContent(valueElement);
+			}
+			
+			dataElement.addContent(keyElement);
+		}	
+					
+		fileElement.addContent (dataElement);
+		
+		Document document = new Document();
+		
+		Element root=this.toXML();
+		
+		document.setContent(root);
+		
+		XMLOutputter outputter = new XMLOutputter(Format.getPrettyFormat());
+        String xmlString = outputter.outputString(document);		
+		
+		HoopLink.fManager.saveContents (this.projectToFullPath(URI.getValue()+"-"+this.getExecutionCount()),xmlString);
+						
+		return (true);							
 	}	
 	/**
 	 * 
