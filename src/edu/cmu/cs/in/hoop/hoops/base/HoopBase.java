@@ -412,8 +412,11 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface
 	{	
 		debug ("runHoopInternal ()");
 		
-		performance.setMarker ("start");
+		Runtime r = Runtime.getRuntime();
+		r.gc();
 		
+		performance.setMarker ("start");
+				
 		// Assume we're done unless the child hoop says we're not
 		this.setDone(true); 
 		

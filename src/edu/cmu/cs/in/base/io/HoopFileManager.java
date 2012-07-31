@@ -405,17 +405,21 @@ public class HoopFileManager extends HoopRoot
 		return (results);
 	}
 	/**
-	 *
-	 */  
-	public boolean saveContents (String aFileURI,String aContents) 
+	 * 
+	 */
+	private boolean checkCreate (String aFileURI)
 	{
-		debug ("saveContents ("+aFileURI+")");
+		debug ("checkCreate ()");
 		
-		setURI (aFileURI);
+		// Check to see if the directory exists yet ...
 		
-		File aFile = new File (aFileURI);
-		Writer output =null; 
+		File checker=new File (aFileURI);
 		
+		String basePath=checker.getParent();
+		
+		if (createDirectory (basePath)==false)
+			return (false);
+
 		/*
 		if (!aFile.exists()) 
 		{
@@ -436,6 +440,24 @@ public class HoopFileManager extends HoopRoot
 		}
 		*/
 
+		
+		return (true);
+	}
+	/**
+	 *
+	 */  
+	public boolean saveContents (String aFileURI,String aContents) 
+	{
+		debug ("saveContents ("+aFileURI+")");
+		
+		setURI (aFileURI);
+		
+		File aFile = new File (aFileURI);
+		Writer output =null; 
+		
+		if (checkCreate (aFileURI)==false)
+			return (false);
+		
 		//use buffering
 		try 
 		{			
@@ -501,25 +523,8 @@ public class HoopFileManager extends HoopRoot
 		File aFile = new File (aFileURI);
 		Writer output =null; 
 		
-		/*
-		if (!aFile.exists()) 
-		{
-			debug ("File does not exist: " + aFile);
+		if (checkCreate (aFileURI)==false)
 			return (false);
-		}
-						
-		if (!aFile.isFile()) 
-		{
-			debug ("Should not be a directory: " + aFile);
-			return (false);
-		}
-				
-		if (!aFile.canWrite()) 
-		{
-			debug ("File cannot be written: " + aFile);
-			return (false);
-		}
-		*/
 
 		//use buffering
 		try 
