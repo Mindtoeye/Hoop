@@ -236,7 +236,7 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 			return (false);
 		}
 
-        debug ("Connected to and created database " + dbName.getValue());
+        debug ("Connected to database " + dbName.getValue());
         
         return (true);
 	}    
@@ -275,8 +275,10 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 			return (false);
 		}
 		
+		debug ("Executing MySQL Hoop with query type: " + queryType.getValue());
+				
 		if (queryType.getValue().toLowerCase().equals("tableinfo")==true)
-		{
+		{					
 			getTables ();
 		}
 		else
@@ -299,12 +301,17 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 				}
 				
 				debug ("Loading rows from table " + queryTable.getValue () + " with chunk size: " + loadSize + " for a total of: " + loadMax + " rows");
+				
+				reset (); // We have the information we wanted, no need to keep it
 			}
  			
 			runQuery ();
 		}
-						
-		close ();
+		
+		if (this.getDone()==true)
+		{
+			close ();
+		}
 		
 		return (true);
 	}	
@@ -509,6 +516,8 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 					
 					if (aType.getType()==HoopDataType.INT)
 					{
+						//debug ("Adding INT type");
+						
 						Integer idVal = rs.getInt (aType.getTypeValue());
 						
 						if (i==0)
@@ -521,6 +530,8 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 					
 					if (aType.getType()==HoopDataType.STRING)
 					{						
+						//debug ("Adding STRING type");
+						
 						String nameVal = rs.getString (aType.getTypeValue());
 						
 						if (i==0)
@@ -565,7 +576,7 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 			return (false);			
 		}
 		
-		debug (count + " rows were retrieved and stored as KV entries");
+		debug (count + " rows were retrieved and stored as KV entries, veryification date size is: " + this.getData().size());
 		
 	    loadIndex+=loadSize;
 	    

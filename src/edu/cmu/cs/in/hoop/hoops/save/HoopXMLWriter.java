@@ -49,6 +49,7 @@ public class HoopXMLWriter extends HoopFileSaveBase
 		debug ("HoopXMLWriter ()");
 												
 		setHoopDescription ("Write to an XML file");
+		setFileExtension ("xml");
 		
 		writeMode=new HoopEnumSerializable (this,"writeMode","OVERWRITE,APPEND");
     }
@@ -100,7 +101,11 @@ public class HoopXMLWriter extends HoopFileSaveBase
 				
 			for (int i=0;i<vals.size();i++)
 			{								
+				HoopDataType aType=types.get(i);
+				
 				Element valueElement=new Element ("value");
+				valueElement.setAttribute("name",aType.getTypeValue());
+				valueElement.setAttribute("type",aType.typeToString());
 				valueElement.setText((String) vals.get(i));
 				keyElement.addContent(valueElement);
 			}
@@ -111,15 +116,15 @@ public class HoopXMLWriter extends HoopFileSaveBase
 		fileElement.addContent (dataElement);
 		
 		Document document = new Document();
-		
-		Element root=this.toXML();
-		
-		document.setContent(root);
+				
+		document.setContent(fileElement);
 		
 		XMLOutputter outputter = new XMLOutputter(Format.getPrettyFormat());
         String xmlString = outputter.outputString(document);		
-		
-		HoopLink.fManager.saveContents (this.projectToFullPath(URI.getValue()+"-"+this.getExecutionCount()),xmlString);
+		        
+        String fullPath=this.projectToFullPath (URI.getValue());
+        
+		HoopLink.fManager.saveContents (HoopLink.fManager.createSequenceFilename(fullPath,this.getExecutionCount()),xmlString);
 						
 		return (true);							
 	}	

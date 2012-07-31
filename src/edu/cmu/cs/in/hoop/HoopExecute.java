@@ -105,20 +105,38 @@ public class HoopExecute extends HoopRoot implements Runnable
 	/**
 	 * 
 	 */
-	private Boolean execute (HoopBase aRoot)
+	private void prepareHoops (HoopBase aRoot)
 	{
-		debug ("execute (HoopBase)");
-						
+		debug ("prepareHoops ("+aRoot.getClassName()+")");
+		
 		aRoot.reset();
 		aRoot.setInEditor(inEditor);
 		
+		ArrayList<HoopBase> outHoops=aRoot.getOutHoops();
+			
+		for (int i=0;i<outHoops.size();i++)
+		{
+			HoopBase current=outHoops.get(i);
+		
+			prepareHoops (current);
+		}		
+	}
+	/**
+	 * 
+	 */
+	private Boolean execute (HoopBase aParent,HoopBase aRoot)
+	{
+		//debug ("execute ("+aParent.getClassName()+","+aRoot.getClassName()+")");
+		debug ("execute ()");
+							
 		// Execution phase of the current Hoop ...
 		
 		while (aRoot.getDone()==false)
 		{		
-			if (aRoot.runHoopInternal(aRoot)==false)
+			if (aRoot.runHoopInternal(aParent)==false)
 			{
-				debug ("Error executing hoop: " + aRoot.getErrorString());
+				debug ("Unable to run hoop: " + aRoot.getErrorString());
+				
 				HoopVisualRepresentation panel=aRoot.getVisualizer();
 			
 				if (panel!=null)
@@ -138,21 +156,26 @@ public class HoopExecute extends HoopRoot implements Runnable
 		
 			ArrayList<HoopBase> outHoops=aRoot.getOutHoops();
 		
-			debug ("Executing " + outHoops.size() + " hoops ...");
+			debug ("Executing " + outHoops.size() + " sub hoops ...");
 		
 			for (int i=0;i<outHoops.size();i++)
 			{
 				HoopBase current=outHoops.get(i);
 			
-				if (execute (current)==false)
+				current.setDone(false);
+				
+				if (execute (aRoot,current)==false)
 					return (false);
 			}
 		}
 		
-		// All done
+		// All done, really done
 		
 		return (true);
 	}	
+	/**
+	 * 
+	 */
 	@Override
 	public void run() 
 	{	
@@ -170,13 +193,15 @@ public class HoopExecute extends HoopRoot implements Runnable
 			return;
 		}
 		
+		prepareHoops (root);
+		
 		loopExecuting=true;
 		
 		if (loopCount==-1)
 		{
 			while (loopExecuting==true)
 			{
-				execute (root);
+				execute (null,root);
 			}	
 		}	
 		else
@@ -185,7 +210,7 @@ public class HoopExecute extends HoopRoot implements Runnable
 			{
 				for (int i=0;i<loopCount;i++)
 				{
-					execute (root);
+					execute (null,root);
 				}
 			}
 			else

@@ -244,19 +244,22 @@ public class HoopSheetCellEditor extends AbstractCellEditor implements TableCell
     		if (obj.getType()==HoopDataType.ENUM)
     		{
     			debug ("Returning Enumeration ...");
-    			obj.setValue(textComponent.getText());
+    			obj.setValue((String) enumComponent.getSelectedItem());
+    			textComponent.setText(obj.getValue());
     		} 
     		
     		if (obj.getType()==HoopDataType.STRING)
     		{
     			debug ("Returning String ...");
     			obj.setValue(textComponent.getText ());
+    			textComponent.setText(obj.getValue());
     		}
     		
     		if (obj.getType()==HoopDataType.URI)
     		{
     			debug ("Returning Path ...");
     			obj.setValue(pathComponent.getPath ());
+    			textComponent.setText(obj.getValue());
     		}    		
     	}
     	    	

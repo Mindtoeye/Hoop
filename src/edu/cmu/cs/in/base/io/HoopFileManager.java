@@ -598,6 +598,16 @@ public class HoopFileManager extends HoopRoot
 	/**
 	 * 
 	 */
+	public String getExtension (String aPath)
+	{
+		int pos = aPath.lastIndexOf('.');
+		String ext = aPath.substring(pos+1);
+		
+		return (ext);
+	}
+	/**
+	 * 
+	 */
 	public ArrayList<String> listFiles (String aPath)
 	{
 		debug ("listFiles ("+aPath+")");
@@ -889,4 +899,20 @@ public class HoopFileManager extends HoopRoot
 		  
 		  return (true);
 	}		
+	/**
+	 * WARNING! This method only works with fully specified paths. You
+	 * can not use it with path that contain <PROJECTPATH>
+	 */
+	public String createSequenceFilename (String aURI,int anIndex)
+	{
+		debug ("createSequenceFilename ("+aURI+","+anIndex+")");
+		
+		StringBuffer formatter=new StringBuffer ();
+		
+		File transformer=new File (aURI);
+		
+		formatter.append(transformer.getParent()+"/"+stripExtension (transformer.getName())+"-"+anIndex+getExtension (transformer.getName()));
+		
+		return (formatter.toString());
+	}
 } 

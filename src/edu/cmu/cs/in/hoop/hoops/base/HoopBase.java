@@ -315,6 +315,8 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface
     public void addKV (HoopKV aKV)
     {    	
     	data.add(aKV);
+    	
+    	//debug ("Data size: " + data.size());
     }    
 	/**
 	 *
