@@ -30,7 +30,6 @@ import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopFileSaveBase;
-import edu.cmu.cs.in.hoop.hoops.base.HoopSaveBase;
 import edu.cmu.cs.in.hoop.properties.types.HoopEnumSerializable;
 
 /**
@@ -39,6 +38,8 @@ import edu.cmu.cs.in.hoop.properties.types.HoopEnumSerializable;
 public class HoopXMLWriter extends HoopFileSaveBase
 {    		
 	private HoopEnumSerializable writeMode=null; // APPEND, OVERWRITE	
+	
+	private Boolean repeatTypes=false;
 	
 	/**
 	 *
@@ -94,18 +95,22 @@ public class HoopXMLWriter extends HoopFileSaveBase
 		{
 			HoopKV aKV=inData.get(t);
 								
-			Element keyElement=new Element ("key");
-			keyElement.setText(aKV.getKeyString ());
+			Element keyElement=new Element ("entry ");
+			keyElement.setAttribute ("key",aKV.getKeyString ());
 							
 			ArrayList<Object> vals=aKV.getValuesRaw();
 				
 			for (int i=0;i<vals.size();i++)
-			{								
-				HoopDataType aType=types.get(i);
-				
+			{												
 				Element valueElement=new Element ("value");
-				valueElement.setAttribute("name",aType.getTypeValue());
-				valueElement.setAttribute("type",aType.typeToString());
+				
+				if (repeatTypes==true)
+				{
+					HoopDataType aType=types.get(i);				
+					valueElement.setAttribute("name",aType.getTypeValue());
+					valueElement.setAttribute("type",aType.typeToString());
+				}
+				
 				valueElement.setText((String) vals.get(i));
 				keyElement.addContent(valueElement);
 			}
