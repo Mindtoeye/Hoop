@@ -49,6 +49,8 @@ import edu.cmu.cs.in.base.HoopDataType;
 */
 public class HoopKVClass extends HoopDataType implements HoopKVInterface
 {    					
+	private String key="undefined";
+	
 	/**
 	 *
 	 */
@@ -59,11 +61,24 @@ public class HoopKVClass extends HoopDataType implements HoopKVInterface
 	/**
 	 *
 	 */
+	public String getKey() 
+	{
+		return key;
+	}
+	/**
+	 *
+	 */
+	public void setKey(String key) 
+	{
+		this.key = key;
+	}    
+	/**
+	 *
+	 */
 	@Override
 	public String getKeyString() 
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return key;
 	}
 	/**
 	 *

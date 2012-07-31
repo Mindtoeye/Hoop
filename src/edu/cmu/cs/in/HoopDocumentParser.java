@@ -28,9 +28,11 @@ public class HoopDocumentParser extends HoopDocument
 	/**
 	 *
 	 */
+	/*
     public HoopDocumentParser () 
     {
 		setClassName ("HoopDocumentParser");
 		debug ("HoopDocumentParser ()");		
     }
+    */
 }

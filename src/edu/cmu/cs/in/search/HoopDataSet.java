@@ -99,7 +99,8 @@ public class HoopDataSet extends HoopRoot
     		else
     		{
     			HoopDocument loader=new HoopDocument ();
-    			loader.setInstanceName(entry);
+    			//loader.setInstanceName(entry);
+    			loader.setKey(entry);
     			
     			// Keep in mind here that we load an entire document all at
     			// once. This is a remnant from how the hadoop code worked,
@@ -122,7 +123,7 @@ public class HoopDataSet extends HoopRoot
     	for (int i=0;i<documents.size();i++)
     	{
     		HoopDocument test=documents.get(i);
-    		debug (test.getInstanceName()+" : " + test.getTokens().size());
+    		debug (test.getKey()+" : " + test.getTokens().size());
     	}
     }
 }

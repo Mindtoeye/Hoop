@@ -22,23 +22,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.cmu.cs.in.base.io.HoopFileManager;
+import edu.cmu.cs.in.base.kv.HoopKVClass;
 import edu.cmu.cs.in.base.HoopPorterStemmerOriginal;
-import edu.cmu.cs.in.base.HoopRoot;
 import edu.cmu.cs.in.base.HoopLink;
-//import edu.cmu.cs.in.base.HoopPorterStemmer;
+import edu.cmu.cs.in.base.HoopRoot;
 import edu.cmu.cs.in.base.HoopSimpleFeatureMaker;
 import edu.cmu.cs.in.base.HoopWikipediaFilter;
 
 /**
-*
+* Our document representation class is directly derived from the Hoop KV abstract
+* class. For now this should suffice but we might have to derive from the KV Table
+* instead to allow for better data modeling.
 */
-public class HoopDocument extends HoopRoot
+public class HoopDocument extends HoopKVClass
 {	
 	private String docID="-1";
 	private long rank=1;
 	private double score=1.0;
-	private HoopPorterStemmerOriginal stemmer=null;
-	private HoopFileManager fManager=null;	
+	
+	private HoopPorterStemmerOriginal stemmer=null;	
 	private List<String> tokens=null;
 	private Boolean includePositions=false;
 	private String summary="empty";
@@ -47,14 +49,19 @@ public class HoopDocument extends HoopRoot
 	 *
 	 */
     public HoopDocument () 
-    {
-		setClassName ("HoopDocument");
+    {	
 		debug ("HoopDocument ()");
 		
 		setStemmer(new HoopPorterStemmerOriginal ());
-		fManager=new HoopFileManager ();
 		
 		tokens=new ArrayList<String>();
+    }
+    /**
+     * 
+     */
+    protected void debug (String aMessage)
+    {
+    	HoopRoot.debug("HoopDocument",aMessage);
     }
     /**
 	 *
@@ -221,8 +228,7 @@ public class HoopDocument extends HoopRoot
     {
     	debug ("loadDocument ("+aPath+")");
     	
-    	//content=fManager.loadContents(aPath);
-    	ArrayList<String> lines=fManager.loadLines (aPath);
+    	ArrayList<String> lines=HoopLink.fManager.loadLines (aPath);
     	
     	if (lines==null)
     	{
@@ -330,7 +336,7 @@ public class HoopDocument extends HoopRoot
 		
 		if (HoopLink.cleanoutput==true)
 		{
-			fManager.saveContents (fManager.stripExtension (fManager.getURI())+"-cleaned.txt",formatted.toString());
+			HoopLink.fManager.saveContents (HoopLink.fManager.stripExtension (HoopLink.fManager.getURI())+"-cleaned.txt",formatted.toString());
 		}
     }
 }
