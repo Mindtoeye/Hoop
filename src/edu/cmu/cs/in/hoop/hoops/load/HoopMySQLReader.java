@@ -50,7 +50,6 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
     public	HoopStringSerializable dbName=null;
     public	HoopStringSerializable dbServer=null;
     
-    //public	HoopStringSerializable query=null;
     public	HoopStringSerializable queryTable=null;
     public	HoopStringSerializable queryColumns=null;
     public	HoopStringSerializable querySize=null;
@@ -86,7 +85,6 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
     	dbName=new HoopStringSerializable (this,"dbName","default");
     	dbServer=new HoopStringSerializable (this,"dbServer","127.0.0.1");
     	    	
-    	//query=new HoopStringSerializable (this,"query","");
     	queryTable=new HoopStringSerializable (this,"queryTable","default");
     	queryColumns=new HoopStringSerializable (this,"queryColumns","");
     	querySize=new HoopStringSerializable (this,"querySize","100");
@@ -466,11 +464,11 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 								
 		String fullQuery=createQuery ();
 				
-		Statement s=null;
+		Statement statement=null;
 		
 		try 
 		{
-			s = connection.createStatement ();
+			statement = connection.createStatement ();
 		} 
 		catch (SQLException e) 
 		{
@@ -480,7 +478,7 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 		
 		try 
 		{
-			s.executeQuery (fullQuery);
+			statement.executeQuery (fullQuery);
 		} 
 		catch (SQLException e) 
 		{
@@ -488,11 +486,11 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 			return (false);			
 		}
 		
-		ResultSet rs=null;
+		ResultSet resultSet=null;
 		
 		try 
 		{
-			rs = s.getResultSet ();
+			resultSet = statement.getResultSet ();
 		} 
 		catch (SQLException e1) 
 		{		
@@ -504,7 +502,7 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 		
 		try 
 		{
-			while (rs.next ())
+			while (resultSet.next ())
 			{				
 				HoopKVString tableKV=new HoopKVString ();
 				
@@ -518,7 +516,7 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 					{
 						//debug ("Adding INT type");
 						
-						Integer idVal = rs.getInt (aType.getTypeValue());
+						Integer idVal = resultSet.getInt (aType.getTypeValue());
 						
 						if (i==0)
 						{
@@ -532,7 +530,7 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 					{						
 						//debug ("Adding STRING type");
 						
-						String nameVal = rs.getString (aType.getTypeValue());
+						String nameVal = resultSet.getString (aType.getTypeValue());
 						
 						if (i==0)
 						{
@@ -558,7 +556,7 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 
 		try 
 		{
-			rs.close ();
+			resultSet.close ();
 		} 
 		catch (SQLException e) 
 		{		
@@ -568,13 +566,16 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 		
 		try 
 		{
-			s.close ();
+			statement.close ();
 		} 
 		catch (SQLException e) 
 		{
 			printSQLException (e);
 			return (false);			
 		}
+		
+		Runtime r = Runtime.getRuntime();
+		r.gc();
 		
 		debug (count + " rows were retrieved and stored as KV entries, veryification date size is: " + this.getData().size());
 		

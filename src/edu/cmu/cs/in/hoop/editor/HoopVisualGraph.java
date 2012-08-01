@@ -191,6 +191,22 @@ public class HoopVisualGraph extends mxGraph implements mxEventSource.mxIEventLi
 	{
 		debug ("createEdge ()");
 		
+		/*
+		Object result=null;
+		
+		if ((source!=null) && (target!=null))
+		{
+			HoopBase aSource=(HoopBase) source;
+			HoopBase aTarget=(HoopBase) target;
+		
+			result=super.createEdge(parent,aSource.getClassName()+"->"+aTarget.getClassName(),value,source,target,style);
+		}
+		else
+		{
+			result=super.createEdge(parent,"Edge",value,source,target,style);
+		}
+		*/
+		
 		Object result=super.createEdge(parent,id,value,source,target,style);
 				
 		return (result);

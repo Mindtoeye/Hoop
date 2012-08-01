@@ -95,7 +95,7 @@ public class HoopXMLWriter extends HoopFileSaveBase
 		{
 			HoopKV aKV=inData.get(t);
 								
-			Element keyElement=new Element ("entry ");
+			Element keyElement=new Element ("entry");
 			keyElement.setAttribute ("key",aKV.getKeyString ());
 							
 			ArrayList<Object> vals=aKV.getValuesRaw();

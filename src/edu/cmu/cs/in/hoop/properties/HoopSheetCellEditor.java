@@ -24,6 +24,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.EventObject;
@@ -43,7 +45,7 @@ import edu.cmu.cs.in.hoop.properties.types.HoopEnumSerializable;
 import edu.cmu.cs.in.hoop.properties.types.HoopSerializable;
 import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
 
-public class HoopSheetCellEditor extends AbstractCellEditor implements TableCellEditor, ActionListener 
+public class HoopSheetCellEditor extends AbstractCellEditor implements TableCellEditor, ActionListener, ItemListener 
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -79,6 +81,7 @@ public class HoopSheetCellEditor extends AbstractCellEditor implements TableCell
 		booleanComponent.setMinimumSize(new Dimension (10,10));
 		booleanComponent.setMaximumSize(new Dimension (5000,5000));
 		booleanComponent.setFont(new Font("Dialog", 1, 10));
+		booleanComponent.addItemListener (this);
 		
 		fontComponent=new JComboBox (fontStrings);
 		fontComponent.setMinimumSize(new Dimension (10,10));
@@ -184,7 +187,8 @@ public class HoopSheetCellEditor extends AbstractCellEditor implements TableCell
         		enumComponent=new JComboBox (array);
         		enumComponent.setMinimumSize(new Dimension (10,10));
         		enumComponent.setMaximumSize(new Dimension (5000,5000));
-        		enumComponent.setFont(new Font("Dialog", 1, 10));        		
+        		enumComponent.setFont(new Font("Dialog", 1, 10));     
+        		enumComponent.addItemListener (this);
         		
         		return (enumComponent);
         	}
@@ -278,5 +282,27 @@ public class HoopSheetCellEditor extends AbstractCellEditor implements TableCell
         }
         
         return true;
-    }    
+    }
+    /**
+     * 
+     */
+	@Override
+	public void itemStateChanged(ItemEvent event) 
+	{
+		debug ("itemStateChanged ()");
+		
+		 JComboBox cb=(JComboBox) event.getSource();
+		 
+		 if (cb==enumComponent)
+		 {
+			 debug ("Assigning selected value to enum object ...");
+			 obj.setValue((String) enumComponent.getSelectedItem());
+		 }
+		 
+		 if (cb==booleanComponent)
+		 {
+			 debug ("Assigning selected value to boolean object ...");
+			 obj.setValue((String) booleanComponent.getSelectedItem());			 
+		 }
+	}    
 }

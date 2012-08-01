@@ -25,6 +25,7 @@ import java.util.List;
 import org.jdom.Element;
 
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
+import edu.cmu.cs.in.hoop.hoops.base.HoopConnection;
 
 /** 
  * 
@@ -139,6 +140,23 @@ public class HoopProject extends HoopProjectFile
 		
 		return (null);
 	}
+	/**
+	 * This is just a shortcut! In no way should the project file revolve around
+	 * hoop graph editing.
+	 */
+	public ArrayList <HoopConnection> getGraphConnections ()
+	{
+		debug ("getGraphConnections ()");
+		
+		HoopGraphFile graphFile=(HoopGraphFile) getFileByClass (new HoopGraphFile ().getClassName());
+		
+		if (graphFile!=null)
+		{
+			return (graphFile.getHoopConnections ());
+		}
+		
+		return (null);
+	}	
 	/**
 	 * This is just a shortcut! In no way should the project file revolve around
 	 * hoop graph editing.

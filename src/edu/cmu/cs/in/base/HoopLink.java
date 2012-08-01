@@ -40,6 +40,7 @@ import edu.cmu.cs.in.hoop.HoopStatusBar;
 import edu.cmu.cs.in.hoop.HoopTabDraggable;
 import edu.cmu.cs.in.hoop.HoopTabPane;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
+import edu.cmu.cs.in.hoop.hoops.base.HoopConnection;
 import edu.cmu.cs.in.hoop.editor.HoopEditorMenuBar;
 import edu.cmu.cs.in.hoop.editor.HoopEditorToolBar;
 import edu.cmu.cs.in.hoop.project.HoopProject;
@@ -583,6 +584,18 @@ public class HoopLink extends HoopProperties
 		
 		return (HoopLink.project.getGraphRoot());
 	}
+	/** 
+	 * @return HoopBase
+	 */
+	public static ArrayList <HoopConnection> getGraphConnections() 
+	{
+		HoopRoot.debug ("HoopLink","getGraphConnections ()");
+		
+		if (HoopLink.project==null)
+			return (null);
+		
+		return (HoopLink.project.getGraphConnections());
+	}	
 	/**
 	 * 
 	 */

@@ -23,6 +23,7 @@ import java.awt.event.MouseEvent;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.swing.handler.mxConnectionHandler;
+import com.mxgraph.view.mxCellState;
 
 import edu.cmu.cs.in.base.HoopRoot;
 import edu.cmu.cs.in.base.HoopLink;
@@ -33,8 +34,8 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
  */
 public class HoopVisualGraphConnectionHandler extends mxConnectionHandler
 {
-	private Object source=null;
-	private	Object target=null;
+	private Object hoopSource=null;
+	private	Object hoopTarget=null;
 	
 	/** 
 	 * @param arg0
@@ -62,7 +63,9 @@ public class HoopVisualGraphConnectionHandler extends mxConnectionHandler
 		
 	}
 	/**
-	 * 
+	 * Notice: we don't create new connections between Hoops in this class
+	 * anymore. Please see the method createComponents in the
+	 * HoopVisualGraphComponent class.
 	 */
 	public void mouseReleased(MouseEvent e)
 	{
@@ -70,10 +73,27 @@ public class HoopVisualGraphConnectionHandler extends mxConnectionHandler
 		
 		super.mouseReleased(e);
 		
-		if ((source!=null) && (target!=null))
+		/*
+		mxCellState aSource=source;
+		
+		if (aSource!=null)
 		{
-			HoopBase sourceHoop=(HoopBase) source;
-			HoopBase targetHoop=(HoopBase) target;
+			debug ("We have a source");
+			
+			if (aSource.getCell()!=null)
+			{
+				debug ("mxCellState has a Cell ...");
+				
+				debug ("Cell: " + aSource.getCell().toString());
+			}
+		}
+		else
+			debug ("Internal mxCellState source is null");
+		
+		if ((hoopSource!=null) && (hoopSource!=null))
+		{
+			HoopBase sourceHoop=(HoopBase) hoopSource;
+			HoopBase targetHoop=(HoopBase) hoopTarget;
 			
 			if ((sourceHoop!=null) && (targetHoop!=null))
 			{
@@ -92,8 +112,9 @@ public class HoopVisualGraphConnectionHandler extends mxConnectionHandler
 		else
 			debug ("Either source or target isn't valid");
 		
-		source=null;
-		target=null;
+		hoopSource=null;
+		hoopTarget=null;
+		*/
 	}	
 	/**
 	 * 
@@ -114,7 +135,7 @@ public class HoopVisualGraphConnectionHandler extends mxConnectionHandler
 			{
 				if (userSourceObject instanceof HoopBase)
 				{
-					source=userSourceObject;
+					hoopSource=userSourceObject;
 				}	
 				//else
 				//	debug ("Source is not HoopBase class, instead: " + userSourceObject.getClass());				
@@ -144,7 +165,7 @@ public class HoopVisualGraphConnectionHandler extends mxConnectionHandler
 			{
 				if (userTargetObject instanceof HoopBase)
 				{
-					target=userTargetObject;
+					hoopTarget=userTargetObject;
 				}	
 				//else
 				//	debug ("Target is not HoopBase class, instead: " + userTargetObject.getClass());

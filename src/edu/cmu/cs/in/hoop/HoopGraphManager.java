@@ -22,8 +22,8 @@ import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
+import edu.cmu.cs.in.hoop.hoops.base.HoopConnection;
 import edu.cmu.cs.in.hoop.project.HoopGraphFile;
-//import edu.cmu.cs.in.hoop.project.HoopProjectFile;
 
 /** 
  * @author Martin van Velsen
@@ -256,6 +256,15 @@ public class HoopGraphManager extends HoopBase
 		
 		aSource.addOutHoop(aTarget);
 		
+		HoopConnection aConnection=new HoopConnection ();
+		
+		aConnection.setFromHoop(aSource);
+		aConnection.setToHoop(aTarget);
+		
+		ArrayList <HoopConnection> conns=HoopLink.project.getGraphConnections();
+		
+		conns.add(aConnection);
+		
 		return (true);
 	}	
 	/** 
@@ -265,10 +274,25 @@ public class HoopGraphManager extends HoopBase
 	public Boolean disconnectHoops(HoopBase aSource,HoopBase aTarget) 
 	{
 		debug ("disconnectHoops ()");
-		
+				
 		ArrayList<HoopBase> list=aSource.getOutHoops();
 		
 		list.remove(aTarget); // We remove it but don't delete it
+		
+		ArrayList <HoopConnection> conns=HoopLink.project.getGraphConnections();
+		
+		for (int i=0;i<conns.size();i++)
+		{
+			HoopConnection aConn=conns.get(i);
+			
+			if ((aConn.getFromHoop()==aSource) && (aConn.getToHoop()==aTarget))
+			{
+				debug ("Found connection in connection list, removing ...");
+				
+				conns.remove(aConn);
+				return (true);
+			}
+		}
 				
 		return (true);
 	}

@@ -215,6 +215,7 @@ public class HoopGraphFile extends HoopProjectFile
 									
 									HoopConnection newConnection=new HoopConnection ();
 									
+									newConnection.setInstanceName(connNode.getAttributeValue("name"));
 									newConnection.setFromHoopID(fromHoopID);
 									newConnection.setToHoopID(toHoopID);
 									
@@ -264,8 +265,36 @@ public class HoopGraphFile extends HoopProjectFile
 	}
 	/**
 	 * 
+	 * @return
 	 */
-	private void toConnectionXML (Element aRoot,HoopBase aChecker)
+	private Element connectionToXML (HoopConnection aConnection)
+	{
+		Element cElement=new Element ("connection");
+		
+		cElement.setAttribute("name",aConnection.getInstanceName());
+		cElement.setAttribute("from",aConnection.getFromHoopID());
+		cElement.setAttribute("to",aConnection.getToHoopID());	
+		
+		return (cElement);
+	}		
+	/**
+	 * 
+	 * @return
+	 */
+	private Element connectionToXML (HoopBase from,HoopBase to)
+	{
+		Element cElement=new Element ("connection");
+		
+		cElement.setAttribute("name","Edge");
+		cElement.setAttribute("from",from.getHoopID());
+		cElement.setAttribute("to",to.getHoopID());	
+		
+		return (cElement);
+	}	
+	/**
+	 * This method will most likely go away when we explicitly model edges
+	 */
+	private void buildConnectionList (Element aRoot,HoopBase aChecker)
 	{
 		debug ("toConnectionXML ()");
 		
@@ -277,9 +306,8 @@ public class HoopGraphFile extends HoopProjectFile
 			
 			aRoot.addContent(connectionToXML (aChecker,target));
 			
-			toConnectionXML (aRoot,target);
-		}		
-		
+			buildConnectionList (aRoot,target);
+		}				
 	}
 	/**
 	*
@@ -287,6 +315,8 @@ public class HoopGraphFile extends HoopProjectFile
 	public Element toXML() 
 	{
 		debug ("toXML ()");
+		
+		//connections=new ArrayList <HoopConnection> ();
 		
 		Element rootElement=super.toXML();
 		
@@ -317,23 +347,10 @@ public class HoopGraphFile extends HoopProjectFile
 				
 				connElement.addContent(connectionToXML (graphRoot,target));
 				
-				toConnectionXML (connElement,target);
+				buildConnectionList (connElement,target);
 			}
 		}
 				
 		return (rootElement);
-	}
-	/**
-	 * 
-	 * @return
-	 */
-	private Element connectionToXML (HoopBase from,HoopBase to)
-	{
-		Element cElement=new Element ("connection");
-		
-		cElement.setAttribute("from",from.getHoopID());
-		cElement.setAttribute("to",to.getHoopID());	
-		
-		return (cElement);
 	}
 }

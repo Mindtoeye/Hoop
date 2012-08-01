@@ -21,12 +21,15 @@ package edu.cmu.cs.in.hoop.hoops.base;
 import edu.cmu.cs.in.base.HoopRoot;
 
 /**
-*
+* We use the instance name to identify the edge
 */
 public class HoopConnection extends HoopRoot
 {
 	private String fromHoopID=""; 
 	private String toHoopID="";
+	
+	private HoopBase fromHoop=null;
+	private HoopBase toHoop=null;
 	
 	/**
 	 *
@@ -64,5 +67,35 @@ public class HoopConnection extends HoopRoot
 	public void setToHoopID(String toHoopID) 
 	{
 		this.toHoopID = toHoopID;
+	}
+	/**
+	 *
+	 */	
+	public HoopBase getFromHoop() 
+	{
+		return fromHoop;
+	}
+	/**
+	 *
+	 */	
+	public void setFromHoop(HoopBase aFromHoop) 
+	{
+		this.fromHoop = aFromHoop;
+		this.fromHoopID=fromHoop.getHoopID();
+	}
+	/**
+	 *
+	 */	
+	public HoopBase getToHoop() 
+	{
+		return toHoop;
+	}
+	/**
+	 *
+	 */	
+	public void setToHoop(HoopBase toHoop) 
+	{
+		this.toHoop = toHoop;
+		this.toHoopID=toHoop.getHoopID();
 	}    
 }

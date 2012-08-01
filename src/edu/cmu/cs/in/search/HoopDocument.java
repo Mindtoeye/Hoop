@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.cmu.cs.in.base.io.HoopFileManager;
-import edu.cmu.cs.in.base.kv.HoopKVClass;
+import edu.cmu.cs.in.base.kv.HoopKVDocument;
 import edu.cmu.cs.in.base.HoopPorterStemmerOriginal;
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.HoopRoot;
@@ -34,11 +34,13 @@ import edu.cmu.cs.in.base.HoopWikipediaFilter;
 * class. For now this should suffice but we might have to derive from the KV Table
 * instead to allow for better data modeling.
 */
-public class HoopDocument extends HoopKVClass
+public class HoopDocument extends HoopKVDocument
 {	
+	/*
 	private String docID="-1";
 	private long rank=1;
 	private double score=1.0;
+	*/
 	
 	private HoopPorterStemmerOriginal stemmer=null;	
 	private List<String> tokens=null;
@@ -76,48 +78,6 @@ public class HoopDocument extends HoopKVClass
 	public void setSummary(String summary) 
 	{
 		this.summary = summary;
-	}    
-    /**
-	 *
-	 */	
-	public long getRank() 
-	{
-		return rank;
-	}
-    /**
-	 *
-	 */	
-	public void setRank(long rank) 
-	{
-		this.rank = rank;
-	}
-	/**
-	 *
-	 */	
-	public void setScore(double score) 
-	{
-		this.score = score;
-	}
-	/**
-	 *
-	 */	
-	public double getScore() 
-	{
-		return score;
-	}	
-	/**
-	 *
-	 */    
-	public String getDocID() 
-	{
-		return docID;
-	}
-	/**
-	 *
-	 */	
-	public void setDocID(String docID) 
-	{
-		this.docID = docID;
 	}    
 	/**
 	 *
