@@ -39,6 +39,7 @@ import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.HoopProperties;
 import edu.cmu.cs.in.controls.HoopJViewport;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
+import edu.cmu.cs.in.hoop.hoops.base.HoopConnection;
 
 /**
  * 
@@ -284,7 +285,7 @@ public class HoopVisualGraphComponent extends mxGraphComponent
 						debug ("We've got an edge cell here, configuring ...");
 						
 						mxCell cell=(mxCell) aCell;
-						
+												
 						if ((cell.getSource()!=null) && (cell.getTarget()!=null))
 						{						
 							Object aSource=cell.getSource().getValue();
@@ -299,13 +300,21 @@ public class HoopVisualGraphComponent extends mxGraphComponent
 							if ((sourceHoop!=null) && (targetHoop!=null))
 							{
 								debug ("We have a valid source and target hoop, linking them together ...");
+
+								HoopConnection newConnection=HoopLink.hoopGraphManager.connectHoops(sourceHoop, targetHoop);
 								
-								if (HoopLink.hoopGraphManager.connectHoops(sourceHoop, targetHoop)==false)
+								if (newConnection==null)
 								{				
 									debug ("Error creating edge");
 								}
 								else
+								{
 									debug ("Edge created");
+									
+									newConnection.setGraphCellReference(cell);
+									
+									//cell.setValue (newConnection);
+								}
 							}			
 							else
 								debug ("Info: no complete edge yet, waiting ...");									

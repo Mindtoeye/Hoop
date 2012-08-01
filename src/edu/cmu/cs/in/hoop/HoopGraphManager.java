@@ -228,35 +228,65 @@ public class HoopGraphManager extends HoopBase
 		
 		return (HoopLink.project.getGraphRoot());
 	}
+	/**
+	 * 
+	 */
+	public HoopConnection getConnection (HoopBase aSource,HoopBase aTarget)
+	{		
+		debug ("getConnection ()");
+		
+		ArrayList <HoopConnection> conns=HoopLink.project.getGraphConnections();
+		
+		for (int i=0;i<conns.size();i++)
+		{
+			HoopConnection aConn=conns.get(i);
+			
+			if ((aConn.getFromHoop()==aSource) && (aConn.getToHoop()==aTarget))
+			{
+				debug ("Found connection in connection list, removing ...");
+				
+				return (aConn);
+			}
+		}
+		
+		return (null);
+	}
 	/** 
 	 * @param aSource
 	 * @param aTarget
 	 */
-	public Boolean connectHoops(HoopBase aSource,HoopBase aTarget) 
+	public HoopConnection connectHoops(HoopBase aSource,HoopBase aTarget) 
 	{
 		debug ("connectHoops ()");
 		
 		if (aSource==null)
 		{
 			debug ("Error: hoop source is null");
-			return (false);
+			return (null);
 		}
 		
 		if (aTarget==null)
 		{
 			debug ("Error: hoop target is null");
-			return (false);
+			return (null);
 		}		
 		
 		if (aSource==aTarget)
 		{
 			setErrorString ("Can't connect a hoop to itself");
-			return (false);
+			return (null);
 		}
 		
+		HoopConnection aConnection=getConnection (aSource,aTarget);
+		if (aConnection!=null)
+		{
+			debug ("Connection already exists, returning found connection");
+			return (aConnection);
+		}
+				
 		aSource.addOutHoop(aTarget);
 		
-		HoopConnection aConnection=new HoopConnection ();
+		aConnection=new HoopConnection ();
 		
 		aConnection.setFromHoop(aSource);
 		aConnection.setToHoop(aTarget);
@@ -265,7 +295,7 @@ public class HoopGraphManager extends HoopBase
 		
 		conns.add(aConnection);
 		
-		return (true);
+		return (aConnection);
 	}	
 	/** 
 	 * @param aSource

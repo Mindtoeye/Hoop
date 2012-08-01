@@ -74,35 +74,7 @@ public class HoopGraphEditor extends HoopBasicGraphEditor implements mxIEventLis
 		setClassName ("HoopGraphEditor");
 		debug ("HoopGraphEditor ()");		
 		
-		graph=graphComponent.getGraph();
-	
-		/*
-		HoopEditorPalette shapesPalette = insertPalette("shapes");
-	
-		// Sets the edge template to be used for creating new edges if an edge
-		// is clicked in the shape palette
-		shapesPalette.addListener(mxEvent.SELECT,this);
-		
-		shapesPalette.addTemplate("Container",HoopLink.getImageByName("swimlane.png"),"swimlane", 280, 280, "Container");
-		shapesPalette.addTemplate("Icon",HoopLink.getImageByName("rounded.png"),"icon;image=/assets/images/wrench.png",70, 70, "Icon");
-		shapesPalette.addTemplate("Label",HoopLink.getImageByName("rounded.png"),"label;image=/assets/images/gear.png",130, 50, "Label");
-		shapesPalette.addTemplate("Rectangle",HoopLink.getImageByName("rectangle.png"),	null, 160, 120, "");
-		shapesPalette.addTemplate("Rounded Rectangle",HoopLink.getImageByName("rounded.png"),"rounded=1", 160, 120, "");
-		shapesPalette.addTemplate("Ellipse",HoopLink.getImageByName("ellipse.png"),"ellipse", 160, 160, "");
-		shapesPalette.addTemplate("Double Ellipse",HoopLink.getImageByName("doubleellipse.png"),"ellipse;shape=doubleEllipse", 160, 160, "");
-		shapesPalette.addTemplate("Triangle",HoopLink.getImageByName("triangle.png"),"triangle", 120, 160, "");
-		shapesPalette.addTemplate("Rhombus",HoopLink.getImageByName("rhombus.png"),"rhombus", 160, 160, "");
-		shapesPalette.addTemplate("Horizontal Line",HoopLink.getImageByName("hline.png"),"line", 160, 10, "");
-		shapesPalette.addTemplate("Hexagon",HoopLink.getImageByName("hexagon.png"),"shape=hexagon", 160, 120, "");
-		shapesPalette.addTemplate("Cylinder",HoopLink.getImageByName("cylinder.png"),"shape=cylinder", 120, 160, "");
-		shapesPalette.addTemplate("Actor",HoopLink.getImageByName("actor.png"),"shape=actor", 120, 160, "");
-		shapesPalette.addTemplate("Cloud",HoopLink.getImageByName("cloud.png"),"ellipse;shape=cloud", 160, 120, "");
-		shapesPalette.addEdgeTemplate("Straight",HoopLink.getImageByName("straight.png"),"straight", 120, 120, "");
-		shapesPalette.addEdgeTemplate("Horizontal Connector",HoopLink.getImageByName("connect.png"),null, 100, 100, "");
-		shapesPalette.addEdgeTemplate("Vertical Connector",HoopLink.getImageByName("vertical.png"),"vertical", 100, 100, "");
-		shapesPalette.addEdgeTemplate("Entity Relation",HoopLink.getImageByName("entity.png"),"entity", 100, 100, "");
-		shapesPalette.addEdgeTemplate("Arrow",HoopLink.getImageByName("arrow.png"),"arrow", 120, 120, "");
-		*/
+		graph=graphComponent.getGraph();	
 	}
 	/**
 	 * 
@@ -192,7 +164,7 @@ public class HoopGraphEditor extends HoopBasicGraphEditor implements mxIEventLis
 								
 								graph.insertEdge (parent,
 												  null,
-												  "Edge",
+												  aConnection.getInstanceName(),
 												  fromHoop.getGraphCellReference(),
 												  toHoop.getGraphCellReference());								
 							}

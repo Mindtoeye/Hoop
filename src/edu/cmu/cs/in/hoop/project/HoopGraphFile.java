@@ -216,8 +216,8 @@ public class HoopGraphFile extends HoopProjectFile
 									HoopConnection newConnection=new HoopConnection ();
 									
 									newConnection.setInstanceName(connNode.getAttributeValue("name"));
-									newConnection.setFromHoopID(fromHoopID);
-									newConnection.setToHoopID(toHoopID);
+									newConnection.setFromHoop(getByID (fromHoopID));
+									newConnection.setToHoop(getByID(toHoopID));
 									
 									connections.add(newConnection);
 								}
@@ -231,6 +231,8 @@ public class HoopGraphFile extends HoopProjectFile
 		}	
 		
 		processConnections ();
+		
+		printHoopData (null);
 		
 		return (true);
 	}	
@@ -352,5 +354,32 @@ public class HoopGraphFile extends HoopProjectFile
 		}
 				
 		return (rootElement);
+	}
+	/**
+	 * 
+	 */
+	public void printHoopData (HoopBase aHoop)
+	{
+		if (aHoop==null)
+			debug ("printHoopData ()");
+		
+		HoopBase target=graphRoot;
+		
+		if (aHoop!=null)
+			target=aHoop;
+				
+		if (target!=null)
+		{			
+			ArrayList<HoopBase> list=target.getOutHoops();
+			
+			for (int j=0;j<list.size();j++)
+			{
+				HoopBase test=list.get(j);
+				
+				System.out.println ("Hoop: " + test.getClassName() + " ("+target.getClassName()+"->"+test.getClassName()+")");
+				
+				printHoopData (test);
+			}
+		}		
 	}
 }

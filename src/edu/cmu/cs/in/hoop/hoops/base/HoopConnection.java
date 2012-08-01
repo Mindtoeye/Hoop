@@ -31,6 +31,8 @@ public class HoopConnection extends HoopRoot
 	private HoopBase fromHoop=null;
 	private HoopBase toHoop=null;
 	
+	private Object graphCellReference=null;
+	
 	/**
 	 *
 	 */
@@ -39,6 +41,7 @@ public class HoopConnection extends HoopRoot
 		setClassName ("HoopConnection");
 		debug ("HoopConnection ()");
 						
+		this.setInstanceName("Edge"); // nicely vague and so not unique
     }
 	/**
 	 *
@@ -97,5 +100,37 @@ public class HoopConnection extends HoopRoot
 	{
 		this.toHoop = toHoop;
 		this.toHoopID=toHoop.getHoopID();
-	}    
+	}
+	/** 
+	 * @return
+	 */
+	public Object getGraphCellReference() 
+	{
+		return graphCellReference;
+	}
+	/** 
+	 * @param graphCellReference
+	 */
+	public void setGraphCellReference(Object graphCellReference) 
+	{
+		this.graphCellReference = graphCellReference;
+	}	
+	/**
+	 * 
+	 */
+	/*
+	public String toString ()
+	{
+		return (this.getInstanceName());
+	}
+	*/
+	/**
+	 * 
+	 */
+	/*
+	public void fromString (String aValue)
+	{
+		this.setInstanceName(aValue);
+	}
+	*/
 }

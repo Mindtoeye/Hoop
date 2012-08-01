@@ -84,6 +84,8 @@ public class HoopXMLBase extends HoopRoot
     {
     	debug ("loadXMLFromString ()");
     	
+    	debug (xml);
+    	
     	xml=xml.trim();
     	
     	if (xml.indexOf ("<?xml")==-1)

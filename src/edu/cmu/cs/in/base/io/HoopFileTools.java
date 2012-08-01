@@ -444,7 +444,7 @@ public class HoopFileTools extends HoopRoot
 		
 		File transformer=new File (aURI);
 		
-		formatter.append(transformer.getParent()+"/"+stripExtension (transformer.getName())+"-"+anIndex+getExtension (transformer.getName()));
+		formatter.append(transformer.getParent()+"/"+stripExtension (transformer.getName())+"-"+anIndex+"."+getExtension (transformer.getName()));
 		
 		return (formatter.toString());
 	}

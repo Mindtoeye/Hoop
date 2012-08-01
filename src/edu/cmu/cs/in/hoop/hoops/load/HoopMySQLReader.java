@@ -28,6 +28,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import edu.cmu.cs.in.base.HoopStringTools;
+import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.base.kv.HoopKVString;
 import edu.cmu.cs.in.base.HoopDataType;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
@@ -500,6 +501,8 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 		
 		int count = 0;
 		
+		resetData ();
+		
 		try 
 		{
 			while (resultSet.next ())
@@ -577,9 +580,9 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 		Runtime r = Runtime.getRuntime();
 		r.gc();
 		
-		debug (count + " rows were retrieved and stored as KV entries, veryification date size is: " + this.getData().size());
+		debug (count + " rows were retrieved, verification date size is: " + this.getData().size() + " from " + loadIndex + " with size: " + loadSize);
 		
-	    loadIndex+=loadSize;
+	    loadIndex+=count;
 	    
 	    if (loadIndex<loadMax)
 	    {
@@ -597,7 +600,7 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 								
 		StringBuffer fullQuery=new StringBuffer ();
 		
-		Integer calcWindow=loadIndex+loadSize;
+		//Integer calcWindow=loadIndex+loadSize;
 		
 		fullQuery.append ("SELECT ");
 		fullQuery.append (queryColumns.getValue());
@@ -606,7 +609,7 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 		fullQuery.append (" limit ");
 		fullQuery.append (loadIndex.toString());
 		fullQuery.append (",");
-		fullQuery.append (calcWindow.toString());
+		fullQuery.append (loadSize.toString());
 		
 		debug ("Executing full query: [" + fullQuery.toString() + "]");		
 

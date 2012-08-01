@@ -299,11 +299,20 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface
 	/**
 	 * 
 	 */
+    public void resetData ()
+    {
+    	debug ("resetData ()");
+    	
+    	data=new ArrayList<HoopKV> ();
+    }	
+	/**
+	 * 
+	 */
     public void reset ()
     {
     	debug ("reset ()");
     	
-    	data=new ArrayList<HoopKV> ();
+    	resetData ();
     	
     	done=false;
     	
