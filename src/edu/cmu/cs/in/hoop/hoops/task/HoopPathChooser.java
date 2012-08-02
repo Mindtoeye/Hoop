@@ -18,6 +18,10 @@
 
 package edu.cmu.cs.in.hoop.hoops.task;
 
+import java.awt.Dimension;
+import javax.swing.JPanel;
+
+import edu.cmu.cs.in.hoop.HoopPathOrderEditor;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopControlBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
@@ -30,6 +34,8 @@ public class HoopPathChooser extends HoopControlBase implements HoopInterface
 {    	
 	private HoopStringSerializable activePath=null;
 	
+	private HoopPathOrderEditor orderEditor=null;
+		
 	/**
 	 *
 	 */
@@ -82,5 +88,39 @@ public class HoopPathChooser extends HoopControlBase implements HoopInterface
 	public HoopBase copy ()
 	{
 		return (new HoopPathChooser ());
+	}	
+	/**
+	 * 
+	 */
+	@Override
+	public JPanel getPropertiesPanel() 
+	{
+		debug ("getPropertiesPanel ()");
+		
+		if (orderEditor==null)
+			orderEditor=new HoopPathOrderEditor ();
+		
+		orderEditor.setController(this);
+				
+		// Doesn't make a difference, probably because there is no vertical glue in the scrollpane
+		
+		orderEditor.setPreferredSize(new Dimension (150,200)); 
+		
+		return (orderEditor);
+	}		
+	/**
+	 * When a graph is saved it will go through each hoop and call this
+	 * method. This will in turn in the panel belonging to that hoop
+	 * call a method that sets all the visual properties back into the
+	 * hoop.
+	 */
+	public void propagateVisualProperties ()
+	{
+		debug ("propagateVisualProperties ()");
+		
+		super.propagateVisualProperties();
+		
+		if (orderEditor!=null)
+			orderEditor.updatePaths ();
 	}	
 }

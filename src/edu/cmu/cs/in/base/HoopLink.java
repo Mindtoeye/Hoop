@@ -326,6 +326,10 @@ public class HoopLink extends HoopProperties
 	// Le data
 	
 	public static HoopProject project=null;
+	
+	// Hoop support variables
+	
+	public static Integer hoopInstanceIndex=1;
 				
 	/**
 	 *

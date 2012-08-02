@@ -412,7 +412,10 @@ public class HoopVisualGraph extends mxGraph implements mxEventSource.mxIEventLi
 							return;
 						}
 						
-						HoopLink.hoopGraphManager.disconnectHoops(sourceHoop,targetHoop);						
+						HoopLink.hoopGraphManager.disconnectHoops(sourceHoop,targetHoop);	
+						
+						sourceHoop.propagateVisualProperties ();
+						targetHoop.propagateVisualProperties ();
 					}
 					
 					if (cell.isVertex())

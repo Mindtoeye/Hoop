@@ -49,8 +49,6 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface
 	protected ArrayList <HoopBase> outHoops=null;	
 	private ArrayList <HoopKV> data=null;
 	private HoopKVTable model=null;	
-
-	private String hoopID="";
 	
 	/// Either one of display,load,save,transform 
 	protected StringBuffer hoopCategory=null; 
@@ -58,8 +56,6 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface
 	
 	/// One of: STOPPED, WAITHoopG, RUNNHoopG, PAUSED, ERROR
 	private String executionState="STOPPED"; 
-	
-	private Boolean inEditor=false;
 		
 	private HoopPerformanceMetrics performance=null;
 	private HoopStatisticsMeasure stats=null;
@@ -70,12 +66,11 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface
 	private HoopVisualRepresentation visualizer=null;
 	
 	private int maxValues=1;
-	
-	private String helpTopic="hooptemplate";
-		
 	private int executionCount=0;
-	
+	private String helpTopic="hooptemplate";
+	private String hoopID="";
 	private Boolean done=false;
+	private Boolean inEditor=false;
 	
 	/**
 	 *
@@ -99,6 +94,8 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface
 		performance=new HoopPerformanceMetrics ();
 				
 		setHoopDescription ("Abstract Hoop");
+		setInstanceName(HoopLink.hoopInstanceIndex.toString());
+		HoopLink.hoopInstanceIndex++;
 		
 		addInPort ("KV");
 		addOutPort ("KV");
@@ -458,6 +455,8 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface
 		}	
 		
 		setExecutionState ("RUNNING");
+		
+		propagateVisualProperties ();
 	
 		Boolean result=runHoop (inHoop);
 		
@@ -465,6 +464,8 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface
 			incExecutionCount ();
 		
 		setExecutionState ("STOPPED");
+		
+		propagateVisualProperties ();
 		
 		Long metric=performance.getMarkerRaw ();
 		
@@ -536,6 +537,15 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface
 		
 		this.setHoopID(anElement.getAttributeValue("id"));
 		
+		if (anElement.getAttribute("name")!=null)
+		{
+			this.setInstanceName(anElement.getAttributeValue("name"));
+			Integer tester=Integer.parseInt(anElement.getAttributeValue ("name"));
+		
+			if (tester>HoopLink.hoopInstanceIndex)
+				HoopLink.hoopInstanceIndex=tester;
+		}	
+		
 		List <?> hoopList=anElement.getChildren ();
 		
 		for (int i = 0; i < hoopList.size(); i++) 
@@ -600,6 +610,7 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface
 		
 		hoopElement.setAttribute("id",this.getHoopID());
 		hoopElement.setAttribute("class",this.getClassName());
+		hoopElement.setAttribute("name",this.getInstanceName());
 		
 		Element visualElement=new Element ("visual");			
 		visualElement.setAttribute("x",String.format("%d",this.getX()));

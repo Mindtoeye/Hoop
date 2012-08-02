@@ -164,7 +164,8 @@ public class HoopGraphEditor extends HoopBasicGraphEditor implements mxIEventLis
 								
 								graph.insertEdge (parent,
 												  null,
-												  aConnection.getInstanceName(),
+												  /*aConnection.getInstanceName(),*/
+												  null,
 												  fromHoop.getGraphCellReference(),
 												  toHoop.getGraphCellReference());								
 							}

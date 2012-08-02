@@ -132,7 +132,7 @@ public class HoopExecute extends HoopRoot implements Runnable
 		// Execution phase of the current Hoop ...
 		
 		while (aRoot.getDone()==false)
-		{		
+		{														
 			if (aRoot.runHoopInternal(aParent)==false)
 			{
 				debug ("Unable to run hoop: " + aRoot.getErrorString());
@@ -145,7 +145,7 @@ public class HoopExecute extends HoopRoot implements Runnable
 					debug ("No visual representation present to show error result!");
 			
 				showError (aRoot.getClassName(),aRoot.getErrorString());
-											
+															
 				return (false);
 			}
 		

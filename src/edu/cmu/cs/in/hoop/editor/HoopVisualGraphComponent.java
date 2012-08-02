@@ -313,6 +313,9 @@ public class HoopVisualGraphComponent extends mxGraphComponent
 									
 									newConnection.setGraphCellReference(cell);
 									
+									sourceHoop.propagateVisualProperties ();
+									targetHoop.propagateVisualProperties ();
+									
 									//cell.setValue (newConnection);
 								}
 							}			
