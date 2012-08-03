@@ -16,25 +16,25 @@
  * 
  */
 
-package edu.cmu.cs.in.hoop.hoops.base;
+package edu.cmu.cs.in.hoop.hoops.task;
+
+import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
+import edu.cmu.cs.in.hoop.hoops.base.HoopControlBase;
 
 /**
 * 
 */
-public class HoopControlBase extends HoopBase implements HoopInterface
-{    				
+public class HoopStart extends HoopControlBase
+{    			
 	/**
 	 *
 	 */
-    public HoopControlBase () 
+    public HoopStart () 
     {
-		setClassName ("HoopControlBase");
-		debug ("HoopControlBase ()");
-		
-		setHoopCategory ("Control");		
-		setHoopDescription ("Control the Excution of Hoops");
-		
-		removeInPort ("KV");
+		setClassName ("HoopStart");
+		debug ("HoopStart ()");
+										
+		setHoopDescription ("Required Start of Graph Hoop");		
     }
 	/**
 	 *
@@ -42,14 +42,14 @@ public class HoopControlBase extends HoopBase implements HoopInterface
 	public Boolean runHoop (HoopBase inHoop)
 	{		
 		debug ("runHoop ()");
-						
+								
 		return (true);
-	}	 
+	}	
 	/**
 	 * 
 	 */
 	public HoopBase copy ()
 	{
-		return (new HoopControlBase ());
-	}	
+		return (new HoopStart ());
+	}		
 }

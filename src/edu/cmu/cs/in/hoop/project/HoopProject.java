@@ -195,6 +195,11 @@ public class HoopProject extends HoopProjectFile
 	{
 		debug ("newProject ("+aURI+")");
 		
+		if (aURI==null)
+		{
+			return (newProject ());
+		}
+		
 		setFileURI (aURI+"/.hprj");
 		
 		HoopGraphFile aGraph=new HoopGraphFile ();

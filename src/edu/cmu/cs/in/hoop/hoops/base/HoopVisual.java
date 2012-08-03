@@ -27,8 +27,8 @@ public class HoopVisual extends HoopRoot
 {
 	protected int x=0;
 	protected int y=0;
-	protected int width=-1; // Means not set yet
-	protected int height=-1; // Means not set yet
+	protected int width=150; 
+	protected int height=100;
 	
 	/**
 	 *

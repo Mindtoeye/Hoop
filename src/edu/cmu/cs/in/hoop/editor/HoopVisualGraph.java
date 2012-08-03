@@ -23,6 +23,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.JOptionPane;
+
 import com.mxgraph.canvas.mxICanvas;
 import com.mxgraph.canvas.mxImageCanvas;
 import com.mxgraph.model.mxCell;
@@ -75,6 +77,13 @@ public class HoopVisualGraph extends mxGraph implements mxEventSource.mxIEventLi
 	{
 		HoopRoot.debug("HoopVisualGraph",aMessage);
 	}
+	/**
+	 * 
+	 */
+	public static void alert (String aMessage)
+	{
+		JOptionPane.showMessageDialog(HoopLink.mainFrame,aMessage);
+	}	
 	/**
 	 * Sets the edge template to be used to inserting edges.
 	 */
@@ -365,6 +374,98 @@ public class HoopVisualGraph extends mxGraph implements mxEventSource.mxIEventLi
 		return (null);
 	}
 	*/
+	/**
+	 * 
+	 */
+	public boolean containsStartHoop (Object [] cells)
+	{
+		debug ("containsStartHoop ()");
+		
+		if (cells==null)
+		{
+			return (false);
+		}
+		
+		for (int i=0;i<cells.length;i++)
+		{
+			Object cellTest=cells [i];
+			
+			if (cellTest instanceof mxCell)
+			{
+				mxCell cell=(mxCell) cellTest;
+				
+				if (cell.getValue() instanceof HoopBase)
+				{
+					debug ("Selection " + i + " contains a hoop");
+					
+					HoopBase testHoop=(HoopBase) cell.getValue();
+					
+					if (testHoop.getClassName().equals("HoopStart")==true)
+					{
+						debug ("One of the hoops is a start node");
+						
+						return (true);
+					}
+				}
+			}
+		}
+		
+		return (false);
+	}
+	/**
+	 * 
+	 */
+	public Object[] removeCells ()
+	{
+		debug ("removeCells ()");
+		
+		if (containsStartHoop (getSelectionCells())==true)
+		{
+			alert ("Can't delete start node");
+			
+			return (null);
+		}
+		
+		Object[] result=super.removeCells();
+		
+		return (result);
+	}
+	/**
+	 * 
+	 */
+	public Object[] removeCells (Object[] cells)
+	{
+		debug ("removeCells (Object[] cells)");
+		
+		if (containsStartHoop (cells)==true)
+		{
+			alert ("Can't delete start node");
+			
+			return (null);
+		}		
+		
+		Object[] result=super.removeCells(cells);
+		
+		return (result);
+	}
+	/**
+	 * 
+	 */
+	public Object[] removeCells (Object[] cells,boolean includeEdges)
+	{
+		debug ("removeCells (Object[] cells,boolean includeEdges)");
+
+		if (containsStartHoop (cells)==true)
+		{
+			alert ("Can't delete start node");
+			
+			return (null);
+		}
+		
+		Object[] result=super.removeCells(cells,includeEdges);
+		
+		return (result);
+	}	
 	@Override
 	public void invoke(Object sender, mxEventObject evt) 
 	{
@@ -424,6 +525,8 @@ public class HoopVisualGraph extends mxGraph implements mxEventSource.mxIEventLi
 						
 						mxCell properCell=cell;
 						
+						HoopBase aHoop=(HoopBase) properCell.getValue();
+												
 						HoopLink.hoopGraphManager.removeHoop((HoopBase) properCell.getValue());
 					}
 				}	

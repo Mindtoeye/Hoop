@@ -25,10 +25,15 @@ import java.io.File;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import com.mxgraph.model.mxCell;
+import com.mxgraph.view.mxGraph;
+
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.controls.HoopSentenceWall;
 //import edu.cmu.cs.in.controls.HoopSentinetPanel;
 //import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
+import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
+import edu.cmu.cs.in.hoop.hoops.task.HoopStart;
 import edu.cmu.cs.in.hoop.project.HoopGraphFile;
 import edu.cmu.cs.in.hoop.project.HoopProject;
 import edu.cmu.cs.in.hoop.project.HoopWrapperFile;
@@ -769,8 +774,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 		HoopGraphEditor editor=new HoopGraphEditor ();
 		addView ("Hoop Editor",editor,HoopLink.center);
 		
-		HoopLink.project=new HoopProject ();
-		HoopLink.project.newProject ();
+		newProjectInternal (null);
 		
 		/*
 		HoopLink.menuBar.create(editor);
@@ -781,6 +785,48 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 		*/
 		
 		projectPanel.updateContents();
+	}
+	/**
+	 * 
+	 */
+	private void newProjectInternal (String aURI)
+	{
+		debug ("newProjectInternal ()");
+		
+		HoopLink.project=new HoopProject ();
+		HoopLink.project.newProject (aURI);
+		
+		HoopGraphEditor editor=(HoopGraphEditor) HoopLink.getWindow("Hoop Editor");
+		if (editor==null)
+		{
+			alert ("Error no graph editor available to create new start node");
+			return;
+		}
+		
+		mxGraph graph=editor.getGraph ();
+		
+		Object parent=graph.getDefaultParent();
+		
+		graph.getModel().beginUpdate();
+		
+		try
+		{
+			HoopStart startNode=new HoopStart ();
+			
+			mxCell graphObject=(mxCell) graph.insertVertex (parent, 
+															startNode.getClassName(),
+															startNode,
+															20,
+															20,
+															startNode.getWidth(),
+															startNode.getHeight());
+			
+			graphObject.setValue(startNode);			
+		}
+		finally
+		{
+			graph.getModel().endUpdate();
+		}												
 	}
 	/**
 	 * 
@@ -860,12 +906,16 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 
            		debug ("Creating in directory: " + file.getAbsolutePath() + " ...");
                    	           		
+           		/*
            		HoopLink.project=new HoopProject ();
            		if (HoopLink.project.newProject (file.getAbsolutePath()))
            		{
            			debug ("Error creating project!");
            			return (false);
            		}
+           		*/
+           		
+           		newProjectInternal (file.getAbsolutePath());
            	}	
 		} 
 		else 
