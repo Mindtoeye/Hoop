@@ -69,7 +69,7 @@ import com.mxgraph.view.mxGraph;
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 
-public class HoopBasicGraphEditor extends HoopEmbeddedJPanel
+public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWheelListener
 {
 	private static final long serialVersionUID = -1L;
 	protected mxGraphComponent graphComponent;
@@ -149,6 +149,7 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel
 		// keystrokes such as F2, Control-C, -V, X, A etc.
 		installHandlers();
 		installListeners();
+				
 		updateTitle();
 	}
 	/** 
@@ -235,7 +236,7 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel
 	/**
 	 * 
 	 */
-	protected void mouseWheelMoved(MouseWheelEvent e)
+	public void mouseWheelMoved(MouseWheelEvent e)
 	{
 		if (e.getWheelRotation() < 0)
 		{
@@ -246,7 +247,7 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel
 			graphComponent.zoomOut();
 		}
 
-		status(mxResources.get("scale") + ": "	+ (int) (100 * graphComponent.getGraph().getView().getScale()) + "%");
+		status("Scale: " + (int) (100 * graphComponent.getGraph().getView().getScale()) + "%");
 	}
 	/**
 	 * 
@@ -262,21 +263,21 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel
 	/**
 	 * 
 	 */
+	/*
 	protected void mouseLocationChanged(MouseEvent e)
 	{
 		status(e.getX() + ", " + e.getY());
 	}
+	*/
 	/**
 	 * 
 	 */
 	protected void installListeners()
 	{
+		/*
 		// Installs mouse wheel listener for zooming
 		MouseWheelListener wheelTracker = new MouseWheelListener()
 		{
-			/**
-			 * 
-			 */
 			public void mouseWheelMoved(MouseWheelEvent e)
 			{
 				if (e.getSource() instanceof mxGraphOutline || e.isControlDown())
@@ -286,6 +287,7 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel
 			}
 
 		};
+		*/
 
 		// Handles mouse wheel events in the outline and graph component
 		/*
@@ -312,28 +314,27 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel
 		});
 		*/
 
-		// Installs the popup menu in the graph component
+		graphComponent.addMouseWheelListener(this);
+		// Installs the popup menu in the graph component		
+		/*
 		graphComponent.getGraphControl().addMouseListener(new MouseAdapter()
 		{
-			/**
-			 * 
-			 */
 			public void mousePressed(MouseEvent e)
 			{
 				// Handles context menu on the Mac where the trigger is on mousepressed
 				mouseReleased(e);
 			}
-			/**
-			 * 
-			 */
+
 			public void mouseReleased(MouseEvent e)
 			{
+
 				if (e.isPopupTrigger())
 				{
 					showGraphPopupMenu(e);
 				}
 			}
 		});
+		*/
 
 		// Installs a mouse motion listener to display the mouse location
 		graphComponent.getGraphControl().addMouseMotionListener (new MouseMotionListener()
@@ -344,7 +345,7 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel
 			 */
 			public void mouseDragged(MouseEvent e)
 			{
-				mouseLocationChanged(e);
+				status(e.getX() + ", " + e.getY());
 			}
 			/*
 			 * (non-Javadoc)
@@ -352,7 +353,7 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel
 			 */
 			public void mouseMoved(MouseEvent e)
 			{
-				mouseDragged(e);
+				status(e.getX() + ", " + e.getY());
 			}
 		});
 	}

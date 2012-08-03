@@ -170,7 +170,7 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface
      */    
 	public void setVisualizer(HoopVisualRepresentation visualizer) 
 	{
-		this.visualizer = visualizer;
+		this.visualizer = visualizer;				
 	}
     /**
      * 
@@ -292,6 +292,11 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface
 	public void setExecutionState(String executionState) 
 	{
 		this.executionState = executionState;
+		
+		if (visualizer!=null)
+		{
+			visualizer.setState(executionState);
+		}
 	}    
 	/**
 	 * 

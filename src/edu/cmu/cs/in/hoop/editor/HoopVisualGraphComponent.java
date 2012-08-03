@@ -20,6 +20,8 @@ package edu.cmu.cs.in.hoop.editor;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 
 import javax.swing.JViewport;
 
@@ -31,6 +33,8 @@ import com.mxgraph.swing.handler.mxConnectionHandler;
 import com.mxgraph.swing.view.mxInteractiveCanvas;
 //import com.mxgraph.util.mxPoint;
 //import com.mxgraph.util.mxRectangle;
+import com.mxgraph.util.mxEvent;
+import com.mxgraph.util.mxRectangle;
 import com.mxgraph.view.mxCellState;
 import com.mxgraph.view.mxGraph;
 
@@ -68,9 +72,28 @@ public class HoopVisualGraphComponent extends mxGraphComponent
 		
 		getGraphHandler().setCloneEnabled(false);
 		getGraphHandler().setImagePreview(false);		
-		
+				
 		setGridVisible(false);
 		setToolTips(true);
+		setPanning(true);
+		
+		//graph.setMinimumGraphSize(new mxRectangle(0, 0, 1200, 1200));
+		
+        //graph.setGridEnabled(true);
+        //graph.setGridSize(10);
+		
+		/*
+		panningHandler.addListener(mxEvent.START, function() 
+		{ 
+			graph.container.style.cursor = "pointer"; 
+		});
+
+		panningHandler.addListener(mxEvent.END, function() 
+		{ 
+			graph.container.style.cursor = "default"; 
+		});
+		*/
+		
 		//getConnectionHandler().setCreateTarget(true);
 
 		// Loads the default stylesheet from an external file
@@ -90,7 +113,7 @@ public class HoopVisualGraphComponent extends mxGraphComponent
 		{
 			JViewport canvas=this.getViewport();		
 			canvas.setBackground(HoopProperties.graphBackgroundColor);
-		}	
+		}			
 	}
 	/**
 	 * 

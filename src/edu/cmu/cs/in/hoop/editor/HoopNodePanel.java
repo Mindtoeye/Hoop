@@ -57,12 +57,15 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 		
 		propPanel=(HoopPropertyPanel) HoopLink.getWindow("Properties");
 					
-		tablePanel=(HoopTablePanel) HoopLink.getWindow("Data View");
-		if (tablePanel==null)
-		{
-			HoopLink.addView("Data View",new HoopTablePanel (),"bottom");
-			tablePanel=(HoopTablePanel) HoopLink.getWindow("Data View");			
-		}
+		if (aHoop.getClassName().equals("StartHoop")==false)
+		{		
+			tablePanel=(HoopTablePanel) HoopLink.getWindow("Data View");
+			if (tablePanel==null)
+			{
+				HoopLink.addView("Data View",new HoopTablePanel (),"bottom");
+				tablePanel=(HoopTablePanel) HoopLink.getWindow("Data View");			
+			}
+		}	
 		
 		setHoop (aHoop);
 				

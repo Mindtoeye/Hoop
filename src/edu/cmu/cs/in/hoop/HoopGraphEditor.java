@@ -18,11 +18,13 @@
 
 package edu.cmu.cs.in.hoop;
 
+import java.awt.event.MouseWheelListener;
 import java.util.ArrayList;
 
 import com.mxgraph.model.mxCell;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.swing.util.mxGraphTransferable;
+import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxEventSource.mxIEventListener;
 import com.mxgraph.view.mxGraph;
@@ -48,7 +50,28 @@ public class HoopGraphEditor extends HoopBasicGraphEditor implements mxIEventLis
 		setClassName ("HoopGraphEditor");
 		debug ("HoopGraphEditor ()");
 		
-		this.setSingleInstance(true);
+		this.setSingleInstance(true);				
+	}
+	/**
+	 * 
+	 */
+	public HoopGraphEditor (String appTitle, mxGraphComponent component)
+	{
+		super (appTitle, component);
+		
+		setClassName ("HoopGraphEditor");
+		debug ("HoopGraphEditor ()");		
+		
+		graph=graphComponent.getGraph();		
+	}	
+	/**
+	 * 
+	 */
+	public void resetView ()
+	{
+		debug ("resetView ()");
+		
+		//graph.view.setTranslate(-bounds.x - (bounds.width - container.clientWidth) / 2,-bounds.y - (bounds.height - container.clientHeight) / 2);		
 	}
 	/**
 	 * 
@@ -63,18 +86,6 @@ public class HoopGraphEditor extends HoopBasicGraphEditor implements mxIEventLis
 	public mxGraph getGraph ()
 	{
 		return (graphComponent.getGraph());
-	}
-	/**
-	 * 
-	 */
-	public HoopGraphEditor (String appTitle, mxGraphComponent component)
-	{
-		super (appTitle, component);
-		
-		setClassName ("HoopGraphEditor");
-		debug ("HoopGraphEditor ()");		
-		
-		graph=graphComponent.getGraph();	
 	}
 	/**
 	 * 
