@@ -23,6 +23,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -34,6 +36,8 @@ import javax.swing.JList;
 import javax.swing.border.Border;
 
 import edu.cmu.cs.in.base.HoopLink;
+import edu.cmu.cs.in.controls.HoopJCheckListItem;
+import edu.cmu.cs.in.controls.HoopVisualFeature;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.task.HoopPathChooser;
@@ -60,7 +64,7 @@ public class HoopPathOrderEditor extends HoopEmbeddedJPanel implements ActionLis
 		setClassName ("HoopPathOrderEditor");
 		debug ("HoopPathOrderEditor ()");    	
     
-		Border border=BorderFactory.createLineBorder(Color.black);
+		//Border border=BorderFactory.createLineBorder(Color.black);
 		Border bevel=BorderFactory.createLoweredBevelBorder();		
 		
 	    Box buttonBox = new Box (BoxLayout.X_AXIS);
@@ -85,10 +89,61 @@ public class HoopPathOrderEditor extends HoopEmbeddedJPanel implements ActionLis
 	    buttonBox.add(Box.createHorizontalGlue());		
 		
 		stopList=new JList ();
+		stopList.setCellRenderer (new HoopJCheckListItem ());
 		stopList.setBorder(bevel);
 		stopList.setMinimumSize(new Dimension (50,5000));
 		stopList.setMaximumSize(new Dimension (5000,5000));
 							
+	    stopList.addMouseListener (new MouseAdapter()
+	    {
+	    	public void mouseClicked (MouseEvent event)
+	    	{
+	    		JList list=(JList) event.getSource();
+ 
+	    		// Get index of item clicked
+	    
+	    		int index=list.locationToIndex(event.getPoint());
+	    		
+	    		Object rep=stopList.getModel().getElementAt(index);
+	    		
+	    		if (event.getClickCount()==1)
+	    		{
+	    			
+	    		}
+	    		
+	    		if (event.getClickCount()==2)
+	    		{	    		
+	    			if (rep instanceof HoopVisualFeature)
+	    			{	    		
+	    				HoopVisualFeature item=(HoopVisualFeature) stopList.getModel().getElementAt(index);
+	     
+	    				// Toggle selected state
+	    
+	    				item.setSelected (!item.isSelected());
+	    
+	    				// Repaint cell
+	    			    		
+	    				list.repaint (list.getCellBounds(index, index));
+	    				//	updateDependends ();
+	    			}
+	    		
+	    			if (rep instanceof HoopBase)
+	    			{	    		
+	    				HoopBase item=(HoopBase) stopList.getModel().getElementAt(index);
+	     
+	    				// Toggle selected state
+	    
+	    				item.setActive(!item.getActive());
+	    
+	    				// Repaint cell
+	    			    		
+	    				list.repaint (list.getCellBounds(index, index));
+	    				//	updateDependends ();
+	    			}
+	    		}	
+	    	}
+	    });  	    	   		
+		
 		Box stopBox = new Box (BoxLayout.Y_AXIS);
 		stopBox.setMinimumSize(new Dimension (50,50));
 		stopBox.setPreferredSize(new Dimension (150,5000));
@@ -132,14 +187,34 @@ public class HoopPathOrderEditor extends HoopEmbeddedJPanel implements ActionLis
         	{
         		HoopBase aHoop=hoopList.get(i);
         		
+        		/*
         		StringBuffer formatter=new StringBuffer ();
-        		formatter.append(aHoop.getClassName()+":"+aHoop.getInstanceName());
+        		formatter.append(i+":"+aHoop.getClassName()+":"+aHoop.getInstanceName());
         		
         		filteredModel.addElement (formatter.toString());
+        		*/
+        		
+        		filteredModel.addElement (aHoop);
         	}
         	
         	stopList.setModel (filteredModel);
 		}
+	}
+	/**
+	 * 
+	 */
+	private HoopBase getSelectedHoop ()
+	{
+		debug ("getSelectedHoop ()");
+		
+		if (stopList.getSelectedIndex ()==-1)
+		{
+			return (null);
+		}
+		
+		HoopBase item=(HoopBase) stopList.getModel().getElementAt(stopList.getSelectedIndex ());
+		
+		return (item);
 	}
 	/**
 	 * 
@@ -154,11 +229,27 @@ public class HoopPathOrderEditor extends HoopEmbeddedJPanel implements ActionLis
 		if (button==moveUp)
 		{
 			debug ("Move path up ...");
+			
+			HoopBase selection=getSelectedHoop ();
+			
+			if (selection==null)
+			{
+				alert ("Please select a hoop first");
+				return;
+			}
 		}
 		
 		if (button==moveDown)
 		{
 			debug ("Move path down ...");
+			
+			HoopBase selection=getSelectedHoop ();
+			
+			if (selection==null)
+			{
+				alert ("Please select a hoop first");
+				return;
+			}			
 		}		
 	}
 }

@@ -126,10 +126,15 @@ public class HoopExecute extends HoopRoot implements Runnable
 	 */
 	private Boolean execute (HoopBase aParent,HoopBase aRoot)
 	{
-		//debug ("execute ("+aParent.getClassName()+","+aRoot.getClassName()+")");
 		debug ("execute ()");
 							
 		// Execution phase of the current Hoop ...
+		
+		if (aRoot.getActive()==false)
+		{
+			debug ("This hoop is not active, skipping execution of connected hoops as well");
+			return (true);
+		}
 		
 		while (aRoot.getDone()==false)
 		{														
@@ -187,11 +192,13 @@ public class HoopExecute extends HoopRoot implements Runnable
 			return;
 		}
 		
+		/*
 		if (root.getActive()==false)
 		{
 			debug ("Error: graph root is not active");
 			return;
 		}
+		*/
 		
 		prepareHoops (root);
 		
