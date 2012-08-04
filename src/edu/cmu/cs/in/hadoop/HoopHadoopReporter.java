@@ -25,10 +25,9 @@ import org.apache.hadoop.mapred.JobConf;
 
 import edu.cmu.cs.in.base.HoopRoot;
 import edu.cmu.cs.in.base.HoopLink;
-//import edu.cmu.cs.in.base.HoopLink;
+import edu.cmu.cs.in.base.io.HoopMessageReceiver;
+import edu.cmu.cs.in.base.io.HoopStreamedSocket;
 import edu.cmu.cs.in.stats.HoopPerformanceMetrics;
-import edu.cmu.cs.in.network.HoopMessageReceiver;
-import edu.cmu.cs.in.network.HoopStreamedSocket;
 
 /**
 *

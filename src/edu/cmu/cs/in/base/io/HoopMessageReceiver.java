@@ -16,7 +16,7 @@
  * 
  */
 
-package edu.cmu.cs.in.network;
+package edu.cmu.cs.in.base.io;
 
 /**
 *

@@ -15,7 +15,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-package edu.cmu.cs.in.network;
+
+package edu.cmu.cs.in.base.io;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -53,13 +54,12 @@ public class HoopStreamedSocket extends HoopRoot implements Runnable
     	debug ("HoopStreamedSocket ()");
 
 	}
-	
 	/**
 	 * To convert the InputStream to String we use the
 	 * Reader.read(char[] buffer) method. We iterate until the
 	 * Reader return -1 which means there's no more data to
 	 * read. We use the StringWriter class to produce the string.
-	*/	
+	 */	
     public String convertStreamToString (InputStream is)
     {
     	debug ("convertStreamToString ()");

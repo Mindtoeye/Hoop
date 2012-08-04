@@ -7,10 +7,18 @@ public class MainClass
 		try
 		{
 			MyClassLoader mcl = new MyClassLoader();
-			Class c = mcl.loadClass("aThingDoer");// load a class that implements interface ThingDoer
-			Object o = c.newInstance();           // call the class's constuctor
-			Method m = c.getMethod("doThings");   // get ready to call method doThings()
-			m.invoke(o);                          // conceptually equivalent to o.doThings();
+			
+			// load a class that implements interface ThingDoer
+			Class c = mcl.loadClass("aThingDoer");
+			
+			// call the class's constuctor
+			Object o = c.newInstance();           
+			
+			// get ready to call method doThings()
+			Method m = c.getMethod("doThings");   
+			
+			// conceptually equivalent to o.doThings();
+			m.invoke(o);                          
 		}
 		catch(Exception e)
 		{

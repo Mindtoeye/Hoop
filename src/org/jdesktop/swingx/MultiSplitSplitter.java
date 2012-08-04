@@ -110,7 +110,6 @@ public class MultiSplitSplitter extends MultiSplitNode
 	    	child.setParent(this);
 	    }
 	}
-
 	/**
 	 * Convenience method that returns the last child whose weight
 	 * is > 0.0.
@@ -119,7 +118,8 @@ public class MultiSplitSplitter extends MultiSplitNode
 	 * @see #getChildren
 	 * @see MultiSplitNode#getWeight
 	 */
-	public final MultiSplitNode lastWeightedChild() {
+	public final MultiSplitNode lastWeightedChild() 
+	{
 	    List<MultiSplitNode> children = getChildren();
 	    MultiSplitNode weightedChild = null;
 	    for(MultiSplitNode child : children) {
@@ -129,8 +129,12 @@ public class MultiSplitSplitter extends MultiSplitNode
 	    }
 	    return weightedChild;
 	}
-
-	public String toString() {
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	public String toString() 
+	{
 	    int nChildren = getChildren().size();
 	    StringBuffer sb = new StringBuffer("MultiSplitSplitter");
 	    sb.append(isRowLayout() ? " ROW [" : " COLUMN [");

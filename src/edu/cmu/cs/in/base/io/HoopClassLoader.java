@@ -24,6 +24,8 @@ import java.util.Hashtable;
 import java.util.jar.JarFile;
 import java.util.jar.JarEntry;
 
+import edu.cmu.cs.in.base.HoopRoot;
+
 /**
  * 
  */
@@ -41,38 +43,68 @@ public class HoopClassLoader extends ClassLoader
 	/**
 	 * 
 	 */
-	public Class loadClass(String name) throws ClassNotFoundException
+	protected void debug (String aMessage)
 	{
-		return loadClass(name, true);
+		HoopRoot.debug("HoopClassLoader",aMessage);
+	}	
+	/**
+	 * 
+	 */
+	public Hashtable<String, Class> getClasses ()
+	{
+		debug ("getClasses ()");
+		
+		return (classes);
 	}
 	/**
 	 * 
 	 */
+	/*
+	public Class loadClass(String name) throws ClassNotFoundException
+	{
+		debug ("loadClass ("+name+")");
+		
+		return loadClass(name, true);
+	}
+	*/
+	/**
+	 * 
+	 */
+	/*
 	public Class loadClass(String name, boolean resolve) throws ClassNotFoundException
 	{
-		/* first check local cache of classes */
+		debug ("loadClass ("+name+","+resolve+")");
+		
+		// first check local cache of classes
 		Class cached = classes.get(name);
 		if(cached != null)
 		{
+			debug ("Found class in cache");
 			return cached;
 		}
 
-		/* special case if we're looking for a "ThingDoer" */
-		if(name.equals("aThingDoer"))
+		// special case if we're looking for a "ThingDoer"
+		if(name.equals("HoopInterface"))
 		{
-			return loadThingDoer(resolve);
+			debug ("Class is a HoopInterface, resolving ...");
+			return loadHoopInterface(resolve);
 		}
 
-		/* check with the system class loader */
+		debug ("Checking system classes ...");
+		
+		// check with the system class loader
 		Class c = super.findSystemClass(name);
 		classes.put(name, c);
 		return c;
 	}
+	*/
 	/**
 	 * 
 	 */
-	private Class loadThingDoer(boolean resolve) throws ClassNotFoundException
+	private Class loadHoopInterface(boolean resolve) throws ClassNotFoundException
 	{
+		debug ("loadHoopInterface ("+resolve+")");
+		
 		JarFile jf;
 		try
 		{
@@ -86,29 +118,8 @@ public class HoopClassLoader extends ClassLoader
 		for(Enumeration<JarEntry> entries = jf.entries(); entries.hasMoreElements(); )
 		{
 			JarEntry entry = entries.nextElement();
-			InputStream is;
-			try
-			{
-				is = jf.getInputStream(entry);
-			}
-			catch(IOException ioe)
-			{
-				throw new ClassNotFoundException();
-			}
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			int b;
-			try
-			{
-				while((b = is.read()) != -1)
-				{
-					baos.write(b);
-				}
-			}
-			catch(IOException e)
-			{
-				throw new ClassNotFoundException();
-			}
-			byte[] bytes = baos.toByteArray();
+			
+			byte[] bytes = jarEntryToBytes (jf,entry);
 
 			/* determine whether this byte array is a class file, and if it is, whether it implements ThingDoer interface */
 			try
@@ -137,7 +148,7 @@ public class HoopClassLoader extends ClassLoader
 						{
 							resolveClass(c);
 						}
-						classes.put("ThingDoer", c);
+						classes.put ("HoopInterface", c);
 						return c;
 					}
 				}
@@ -153,5 +164,132 @@ public class HoopClassLoader extends ClassLoader
 		}
 
 		throw new ClassNotFoundException();
+	}
+	/**
+	 * 
+	 */
+	public Hashtable<String, Class> loadHoopInterfaces (String aJarFile,boolean resolve)
+	{
+		debug ("loadHoopInterfaces ("+aJarFile+","+resolve+")");
+		
+		classes = new Hashtable<String, Class>();
+		
+		JarFile jf=null;
+		
+		try
+		{
+			jf = new JarFile(aJarFile);
+		}
+		catch(IOException ioe)
+		{
+			debug ("Error: jar file not found");
+			return (null);
+		}
+
+		for (Enumeration<JarEntry> entries = jf.entries(); entries.hasMoreElements(); )
+		{
+			JarEntry entry = entries.nextElement();
+			
+			debug ("Examining jar entry: " + entry.getName());
+			
+			if (entry.getName().toLowerCase().indexOf(".class")!=-1)
+			{						
+				byte[] bytes = jarEntryToBytes (jf,entry);
+
+				debug ("Determine whether this byte array is a class file, and if it is, whether it implements HoopInterface interface ...");
+			
+				try
+				{
+					debug ("Check if it implements the interface by defining the class ...");
+				
+					try
+					{
+						debug ("Trying to define class ...");
+					
+						Class c = defineClass (null, bytes, 0, bytes.length);
+						if(c == null)
+						{
+							continue;
+						}
+					
+						debug ("Running namespace check ...");
+					
+						Class[] interfaces = c.getInterfaces();
+						boolean isThingDoer = false;
+					
+						for (Class thisInterface : interfaces)
+						{
+							if (thisInterface.getName().equals("HoopInterface") || thisInterface.getName().endsWith(".HoopInterface"))
+							{
+								debug ("Found interface: " + thisInterface.getName());
+							
+								isThingDoer = true;
+								break;
+							}
+						}
+					
+						debug ("Adding to internal list of classes if resolved ...");
+					
+						if(isThingDoer)
+						{					 
+							if(resolve)
+							{
+								resolveClass(c);
+							}
+						
+							classes.put("HoopInterface", c);
+						}
+					}
+					catch(ClassFormatError cfe)
+					{
+						continue; // move on to the next class in the jar file
+					}
+				}
+				catch(IndexOutOfBoundsException ioobe)
+				{
+					continue; // this file is not long enough to be a class file; move on to the next one
+				}
+			}	
+		}
+		
+		return (classes);
+	}	
+	/**
+	 * 
+	 */
+	private byte[] jarEntryToBytes (JarFile aJar,JarEntry anEntry)
+	{
+		debug ("jarEntryToBytes ()");
+		
+		InputStream is=null;
+		try
+		{
+			is = aJar.getInputStream (anEntry);
+		}
+		catch(IOException ioe)
+		{
+			debug ("Error: unable to open jar entry");
+			return (null);
+		}
+	
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		int b;
+	
+		try
+		{
+			while((b = is.read()) != -1)
+			{
+				baos.write(b);
+			}
+		}
+		catch(IOException e)
+		{
+			debug ("Error IOExceptions");
+			return (null);
+		}
+	
+		byte[] bytes = baos.toByteArray();		
+		
+		return (bytes);
 	}
 }

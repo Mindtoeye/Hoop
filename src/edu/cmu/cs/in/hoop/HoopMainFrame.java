@@ -29,19 +29,15 @@ import com.mxgraph.model.mxCell;
 import com.mxgraph.view.mxGraph;
 
 import edu.cmu.cs.in.base.HoopLink;
+import edu.cmu.cs.in.base.io.HoopMessageReceiver;
 import edu.cmu.cs.in.controls.HoopSentenceWall;
-//import edu.cmu.cs.in.controls.HoopSentinetPanel;
-//import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
-import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.task.HoopStart;
 import edu.cmu.cs.in.hoop.project.HoopGraphFile;
 import edu.cmu.cs.in.hoop.project.HoopProject;
 import edu.cmu.cs.in.hoop.project.HoopWrapperFile;
-//import edu.cmu.cs.in.hoop.project.HoopProjectFile;
 import edu.cmu.cs.in.hoop.properties.HoopPropertyPanel;
 import edu.cmu.cs.in.hoop.visualizers.HoopCluster;
 import edu.cmu.cs.in.hoop.visualizers.HoopScatterPlot;
-import edu.cmu.cs.in.network.HoopMessageReceiver;
 
 /** 
  * @author vvelsen

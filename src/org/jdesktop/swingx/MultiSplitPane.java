@@ -49,6 +49,15 @@ public class MultiSplitPane extends HoopJPanel
 	private AccessibleContext accessibleContext = null;
     private boolean continuousLayout = true;
     private DividerPainter dividerPainter = new DefaultDividerPainter();
+    
+    private boolean dragUnderway = false;
+    private MultiSplitDivider dragDivider = null;
+    private Rectangle initialDividerBounds = null;
+    private boolean oldFloatingDividers = true;
+    private int dragOffsetX = 0;
+    private int dragOffsetY = 0;
+    private int dragMin = -1;
+    private int dragMax = -1;    
 
     /**
      * Creates a MultiSplitPane with it's LayoutManager set to 
@@ -242,16 +251,11 @@ public class MultiSplitPane extends HoopJPanel
             }
     	}
     }
-
-    private boolean dragUnderway = false;
-    private MultiSplitDivider dragDivider = null;
-    private Rectangle initialDividerBounds = null;
-    private boolean oldFloatingDividers = true;
-    private int dragOffsetX = 0;
-    private int dragOffsetY = 0;
-    private int dragMin = -1;
-    private int dragMax = -1;
-    
+    /**
+     * 
+     * @param mx
+     * @param my
+     */
     private void startDrag(int mx, int my) 
     {
     	requestFocusInWindow();

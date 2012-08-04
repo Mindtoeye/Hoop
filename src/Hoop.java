@@ -18,13 +18,18 @@
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.Set;
 
 import javax.swing.*;
 
 import edu.cmu.cs.in.base.HoopRoot;
 import edu.cmu.cs.in.base.HoopLink;
+import edu.cmu.cs.in.base.io.HoopClassLoader;
 import edu.cmu.cs.in.base.io.HoopFileManager;
 import edu.cmu.cs.in.hoop.HoopMainFrame;
+import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 
 /** 
  * See here the main entry point for the Hoop application. Only two
@@ -63,6 +68,47 @@ public class Hoop
 			{
 				HoopRoot.debug ("Hoop","["+i+"] Found potential plugin jar ("+aFile+"), examining ...");
 				
+				HoopClassLoader loader=new HoopClassLoader ();
+				
+				Hashtable<String, Class> classes=loader.loadHoopInterfaces("./plugins/"+aFile,false);
+				
+				if (classes!=null)
+				{
+					HoopRoot.debug ("Hoop","Found " + classes.size() + " classes");
+					
+					Set<String> set = classes.keySet();
+					Iterator it = set.iterator();
+
+					while (it.hasNext()) 
+					{				
+						String interfaceName=(String) it.next ();
+						
+						Class hoopClass=classes.get(interfaceName);
+						
+						if (hoopClass!=null)
+						{
+							HoopRoot.debug ("Hoop","Trying to instantiate interface: " + interfaceName);
+							
+							try 
+							{
+								Object object=hoopClass.newInstance();
+								HoopLink.hoopManager.addTemplate((HoopBase) object);
+							} 
+							catch (InstantiationException e) 
+							{						
+								e.printStackTrace();
+							} 
+							catch (IllegalAccessException e) 
+							{						
+								e.printStackTrace();
+							}
+						}
+						else
+							HoopRoot.debug ("Hoop","Error: hoop class is null in list");
+					}					
+				}
+				else
+					HoopRoot.debug ("Hoop","Error loading jar");
 			}
 		}
 	}

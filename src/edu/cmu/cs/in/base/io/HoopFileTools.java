@@ -32,6 +32,9 @@ import java.util.jar.JarFile;
 
 import edu.cmu.cs.in.base.HoopRoot;
 
+/**
+ *
+ */
 public class HoopFileTools extends HoopRoot
 {	
 	/**

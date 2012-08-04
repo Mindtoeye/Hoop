@@ -22,6 +22,7 @@ import java.net.*;
 import java.io.*;
 
 import edu.cmu.cs.in.base.HoopRoot;
+import edu.cmu.cs.in.base.io.HoopStreamedSocket;
 
 /**
 *

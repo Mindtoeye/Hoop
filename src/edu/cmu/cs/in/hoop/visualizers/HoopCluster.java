@@ -43,10 +43,10 @@ import org.jdom.Element;
 import edu.cmu.cs.in.HoopMessageHandler;
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.HoopXMLBase;
+import edu.cmu.cs.in.base.io.HoopMessageReceiver;
+import edu.cmu.cs.in.base.io.HoopStreamedSocket;
 import edu.cmu.cs.in.controls.HoopGridNodeVisualizer;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
-import edu.cmu.cs.in.network.HoopMessageReceiver;
-import edu.cmu.cs.in.network.HoopStreamedSocket;
 
 /**
  * 

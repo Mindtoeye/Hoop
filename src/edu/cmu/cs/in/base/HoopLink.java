@@ -28,9 +28,9 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
 
-import edu.cmu.cs.in.network.HoopStreamedSocket;
 import edu.cmu.cs.in.search.HoopDataSet;
 import edu.cmu.cs.in.base.io.HoopFileManager;
+import edu.cmu.cs.in.base.io.HoopStreamedSocket;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 import edu.cmu.cs.in.hoop.HoopConsoleInterface;
 import edu.cmu.cs.in.hoop.HoopGraphManager;

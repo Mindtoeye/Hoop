@@ -37,7 +37,6 @@ import org.xml.sax.SAXException;
 
 public class HoopFileManager extends HoopFileTools
 {
-	//private ArrayList<String> files=null;	
 	private String URI="";
 	private StringBuilder contents=null;
 	private String [] lineList=null;
@@ -77,9 +76,7 @@ public class HoopFileManager extends HoopFileTools
 	 *
 	 */	
 	public String readALine (String aFileURI)
-	{    
-		//debug ("loadContents ("+aFileURI+")");
-		
+	{    		
 		if (permInput!=null)
 		{
 			try 
