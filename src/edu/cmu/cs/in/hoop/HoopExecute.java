@@ -191,15 +191,7 @@ public class HoopExecute extends HoopRoot implements Runnable
 			debug ("Error: no graph root available");
 			return;
 		}
-		
-		/*
-		if (root.getActive()==false)
-		{
-			debug ("Error: graph root is not active");
-			return;
-		}
-		*/
-		
+				
 		prepareHoops (root);
 		
 		loopExecuting=true;
