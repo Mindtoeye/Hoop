@@ -18,6 +18,7 @@
 
 package edu.cmu.cs.in.controls;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ItemEvent;
@@ -74,12 +75,12 @@ public class HoopJCheckListItem extends JCheckBox implements ListCellRenderer, I
 		representative=obj;
 		
 		setEnabled(listBox.isEnabled());
-		setFont(listBox.getFont());
-		setBackground(listBox.getBackground());
+		setFont(listBox.getFont());		
 		setForeground(listBox.getForeground());
 		
 		if (obj instanceof HoopVisualFeature)
-		{		
+		{
+			setBackground(listBox.getBackground());
 			setSelected(((HoopVisualFeature)obj).isSelected());
 
 			setText (obj.toString());
@@ -88,6 +89,11 @@ public class HoopJCheckListItem extends JCheckBox implements ListCellRenderer, I
 		if (obj instanceof HoopBase)
 		{		
 			HoopBase aHoop=(HoopBase) obj;
+			
+			if (aHoop.getHighlighted()==true)
+				setBackground(new Color (220,220,220));				
+			else
+				setBackground(listBox.getBackground());
 			
 			setSelected(((HoopBase)obj).getActive());
 

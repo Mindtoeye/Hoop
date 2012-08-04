@@ -75,6 +75,7 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 	protected JLabel icon=null;
 	protected JLabel label=null;
 	protected JLabel titleLabel=null;
+	protected JLabel statusLabel=null;
 	protected JPanel toolBar=null;
 	protected JPanel bottomPanel=null;
 	protected JButton kvExamineButton=null;
@@ -192,6 +193,11 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 		
 		add (contentBox, BorderLayout.CENTER);
 		
+		statusLabel = new JLabel();
+		statusLabel.setText("Ex: ");
+		statusLabel.setFont(new Font("Dialog", 1, 10));
+		statusLabel.setForeground(Color.WHITE);
+		
 		label = new JLabel(HoopLink.getImageByName("resize.png"));
 		label.setCursor(new Cursor(Cursor.NW_RESIZE_CURSOR));
 
@@ -199,6 +205,8 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 		bottomPanel.setLayout(new BorderLayout());
 		bottomPanel.setBackground(HoopProperties.graphPanelColor);
 		bottomPanel.setOpaque(true);
+		
+		bottomPanel.add(statusLabel,BorderLayout.WEST);
 		bottomPanel.add(label, BorderLayout.EAST);
 
 		add(bottomPanel, BorderLayout.SOUTH);
@@ -466,5 +474,12 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 		debug ("examineData ()");
 		
 		// Implement in child class				
+	}
+	/**
+	 * 
+	 */
+	protected void setStatus (String aStatus)
+	{
+		statusLabel.setText(aStatus);
 	}
 }

@@ -18,7 +18,7 @@
 
 package edu.cmu.cs.in.hoop;
 
-import java.awt.Color;
+//import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -26,6 +26,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -108,14 +109,24 @@ public class HoopPathOrderEditor extends HoopEmbeddedJPanel implements ActionLis
 	    		
 	    		if (event.getClickCount()==1)
 	    		{
+	    			unhighlight ();
 	    			
+	    			if (rep instanceof HoopBase)
+	    			{	    			    					    				
+	    				HoopBase item=(HoopBase) rep;
+	     
+	    				item.setHighlighted(true);
+	    				
+	    				list.repaint (list.getCellBounds(index, index));
+	    				//	updateDependends ();
+	    			}	    			
 	    		}
 	    		
 	    		if (event.getClickCount()==2)
 	    		{	    		
 	    			if (rep instanceof HoopVisualFeature)
 	    			{	    		
-	    				HoopVisualFeature item=(HoopVisualFeature) stopList.getModel().getElementAt(index);
+	    				HoopVisualFeature item=(HoopVisualFeature) rep;
 	     
 	    				// Toggle selected state
 	    
@@ -129,7 +140,7 @@ public class HoopPathOrderEditor extends HoopEmbeddedJPanel implements ActionLis
 	    		
 	    			if (rep instanceof HoopBase)
 	    			{	    		
-	    				HoopBase item=(HoopBase) stopList.getModel().getElementAt(index);
+	    				HoopBase item=(HoopBase) rep;
 	     
 	    				// Toggle selected state
 	    
@@ -154,6 +165,25 @@ public class HoopPathOrderEditor extends HoopEmbeddedJPanel implements ActionLis
 		
 		setContentPane (stopBox);		
     }
+	/**
+	 * 
+	 */
+	private void unhighlight ()
+	{
+		debug ("unhighlight");
+		
+		for (int i=0;i<stopList.getModel().getSize();i++)
+		{
+			Object rep=stopList.getModel().getElementAt(i);
+    		
+    		if (rep instanceof HoopBase)
+    		{	    			    					    				
+    			HoopBase item=(HoopBase) rep;
+     
+    			item.setHighlighted(false);
+    		}	
+		}
+	}
 	/**
 	 * 
 	 */
@@ -218,6 +248,28 @@ public class HoopPathOrderEditor extends HoopEmbeddedJPanel implements ActionLis
 	}
 	/**
 	 * 
+	 */
+	private HoopBase getHighlightedHoop ()
+	{
+		debug ("getSelectedHoop ()");
+		
+		for (int i=0;i<stopList.getModel().getSize();i++)
+		{
+			Object rep=stopList.getModel().getElementAt(i);
+    		
+    		if (rep instanceof HoopBase)
+    		{	    			    					    				
+    			HoopBase item=(HoopBase) rep;
+     
+    			if (item.getHighlighted()==true)
+    				return (item);
+    		}	
+		}
+		
+		return (null);
+	}	
+	/**
+	 * 
 	 */	
 	@Override
 	public void actionPerformed(ActionEvent event) 
@@ -230,26 +282,35 @@ public class HoopPathOrderEditor extends HoopEmbeddedJPanel implements ActionLis
 		{
 			debug ("Move path up ...");
 			
-			HoopBase selection=getSelectedHoop ();
+			HoopBase selection=getHighlightedHoop ();
 			
 			if (selection==null)
 			{
 				alert ("Please select a hoop first");
 				return;
 			}
+			
+			ArrayList <HoopBase> switcher=controller.getOutHoops();
+			
+			Collections.swap(switcher,switcher.indexOf(selection), switcher.indexOf(selection)-1);
+
 		}
 		
 		if (button==moveDown)
 		{
 			debug ("Move path down ...");
 			
-			HoopBase selection=getSelectedHoop ();
+			HoopBase selection=getHighlightedHoop ();
 			
 			if (selection==null)
 			{
 				alert ("Please select a hoop first");
 				return;
-			}			
+			}
+			
+			ArrayList <HoopBase> switcher=controller.getOutHoops();
+			
+			Collections.swap(switcher,switcher.indexOf(selection), switcher.indexOf(selection)+1);
 		}		
 	}
 }

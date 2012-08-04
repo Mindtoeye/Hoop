@@ -203,7 +203,9 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 			hoop.setX(this.getX());
 			hoop.setY(this.getY());
 			hoop.setWidth(this.getWidth());
-			hoop.setHeight(this.getHeight());			
+			hoop.setHeight(this.getHeight());
+			
+			setStatus ("Ex: " + hoop.getExecutionCount());
 		}
 	}	
 }

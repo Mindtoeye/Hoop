@@ -30,6 +30,8 @@ public class HoopVisual extends HoopRoot
 	protected int width=150; 
 	protected int height=100;
 	
+	private Boolean highlighted=false; // used by HoopJCheckListItem
+	
 	/**
 	 *
 	 */
@@ -94,5 +96,21 @@ public class HoopVisual extends HoopRoot
 	public void setHeight(int height) 
 	{
 		this.height = height;
+	}
+	/**
+	 * 
+	 * @param highlighted
+	 */
+	public void setHighlighted(Boolean highlighted) 
+	{
+		this.highlighted = highlighted;
+	}
+	/**
+	 * 
+	 * @return
+	 */
+	public Boolean getHighlighted() 
+	{
+		return highlighted;
 	}    
 }
