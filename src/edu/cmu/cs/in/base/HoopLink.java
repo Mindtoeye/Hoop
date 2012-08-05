@@ -285,7 +285,8 @@ public class HoopLink extends HoopProperties
 		 							 "help_icon.png",
 		 							 "mime_xml.png",
 		 							 "text_icon.png",
-		 							 "unknown_216_16.png"
+		 							 "unknown_216_16.png",
+		 							 "link-views.png"
 		 							 };
 	
 	public static JFrame mainFrame=null;

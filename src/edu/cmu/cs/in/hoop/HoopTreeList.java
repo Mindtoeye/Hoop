@@ -107,7 +107,10 @@ public class HoopTreeList extends HoopEmbeddedJPanel implements MouseListener, A
 	    //expandButton.setText("All");
 	    expandButton.setIcon(HoopLink.getImageByName("tree-expand-icon.png"));
 	    expandButton.addActionListener(this);
+
 	    buttonBox.add (expandButton);
+	    buttonBox.add (Box.createRigidArea(new Dimension(2,0)));
+	    
 	    foldButton=new JButton ();
 	    foldButton.setFont(new Font("Dialog", 1, 8));
 	    foldButton.setPreferredSize(new Dimension (20,20));
@@ -115,14 +118,20 @@ public class HoopTreeList extends HoopEmbeddedJPanel implements MouseListener, A
 	    foldButton.setIcon(HoopLink.getImageByName("tree-fold-icon.png"));
 	    //foldButton.setText("None");
 	    foldButton.addActionListener(this);
+	    
 	    buttonBox.add (foldButton);
+	    buttonBox.add (Box.createRigidArea(new Dimension(2,0)));
+	    
 	    inverseButton=new JButton ();
 	    inverseButton.setFont(new Font("Dialog", 1, 8));
 	    inverseButton.setPreferredSize(new Dimension (75,20));
 	    //inverseButton.setMaximumSize(new Dimension (2000,20));
 	    inverseButton.setText("Inverse");
 	    inverseButton.addActionListener(this);
+	    
 	    buttonBox.add (inverseButton);
+	    buttonBox.add (Box.createRigidArea(new Dimension(2,0)));
+	    
 	    selectedButton=new JButton ();
 	    selectedButton.setFont(new Font("Dialog", 1, 8));
 	    selectedButton.setPreferredSize(new Dimension (75,20));
@@ -130,7 +139,9 @@ public class HoopTreeList extends HoopEmbeddedJPanel implements MouseListener, A
 	    selectedButton.setText("Selected");
 	    selectedButton.addActionListener(this);
 	    selectedButton.setEnabled(false);
-	    buttonBox.add (selectedButton);		
+	    
+	    buttonBox.add (selectedButton);
+	    buttonBox.add (Box.createRigidArea(new Dimension(2,0)));
 	    
 	    buttonBox.add(Box.createHorizontalGlue());
 		

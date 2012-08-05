@@ -162,17 +162,28 @@ public class HoopConsole extends HoopEmbeddedJPanel implements HoopConsoleInterf
 		
 		Box controlBox = new Box (BoxLayout.X_AXIS);
 		controlBox.add(clearButton);
+		controlBox.add (Box.createRigidArea(new Dimension(2,0)));
 		controlBox.add(saveButton);
+		controlBox.add (Box.createRigidArea(new Dimension(2,0)));
 		controlBox.add(maxLines);
+		controlBox.add (Box.createRigidArea(new Dimension(2,0)));
 		controlBox.add(setButton);
+		controlBox.add (Box.createRigidArea(new Dimension(2,0)));
 		controlBox.add(inButton);
+		controlBox.add (Box.createRigidArea(new Dimension(2,0)));
 		controlBox.add(outButton);
+		controlBox.add (Box.createRigidArea(new Dimension(2,0)));
 		
 		controlBox.add(pauseButton);
+		controlBox.add (Box.createRigidArea(new Dimension(2,0)));
 		
 		controlBox.add(filterClassCheck);
+		controlBox.add (Box.createRigidArea(new Dimension(2,0)));
 		controlBox.add(filterClass);
+		controlBox.add (Box.createRigidArea(new Dimension(2,0)));
 		controlBox.add(updateClasses);		
+		controlBox.add (Box.createRigidArea(new Dimension(2,0)));
+		
 		controlBox.add(Box.createHorizontalGlue());
 		
 		controlBox.setMinimumSize(new Dimension (150,24));
@@ -190,6 +201,7 @@ public class HoopConsole extends HoopEmbeddedJPanel implements HoopConsoleInterf
 		Box mainBox = new Box (BoxLayout.Y_AXIS);
 		
 		mainBox.add(controlBox);
+		mainBox.add (Box.createRigidArea(new Dimension(0,2)));
 		mainBox.add(consoleContainer);
 								
 		HoopLink.console=this;

@@ -20,25 +20,35 @@ package edu.cmu.cs.in.hoop.properties;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JScrollPane;
+import javax.swing.JToggleButton;
 
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
+import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 
 /** 
  * @author vvelsen
  *
  */
-public class HoopPropertyPanel extends HoopEmbeddedJPanel
+public class HoopPropertyPanel extends HoopEmbeddedJPanel implements ActionListener
 {	
 	private static final long serialVersionUID = 1L;
 		
     private Box hoopPropertyBox=null;
     private JScrollPane contentScroller=null;
     private Box contentBox=null;
+    
+    private JToggleButton linkButton=null;
     	
 	/**
 	 * Creates a new JPanel with a double buffer and a flow layout.
@@ -51,6 +61,18 @@ public class HoopPropertyPanel extends HoopEmbeddedJPanel
 		hoopPropertyBox=new Box (BoxLayout.Y_AXIS);
 		hoopPropertyBox.setMinimumSize(new Dimension (20,20));
 		hoopPropertyBox.setPreferredSize(new Dimension (200,300));
+		
+		linkButton=new JToggleButton ();
+		linkButton.setIcon(HoopLink.getImageByName("link-views.png"));		
+		linkButton.setMargin(new Insets(1, 1, 1, 1));
+		//clearButton.setText("Clear");
+		//linkButton.setFont(new Font("Courier",1,8));
+		linkButton.setPreferredSize(new Dimension (20,20));
+		linkButton.addActionListener(this);		
+		
+		Box controlBox = new Box (BoxLayout.X_AXIS);
+		controlBox.add(linkButton);
+		controlBox.add(Box.createHorizontalGlue());		
                         
 		contentBox=new Box (BoxLayout.Y_AXIS);
 		contentBox.setMinimumSize(new Dimension (20,20));
@@ -59,6 +81,8 @@ public class HoopPropertyPanel extends HoopEmbeddedJPanel
         contentScroller=new JScrollPane (contentBox);
         contentScroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         
+        hoopPropertyBox.add (controlBox);
+        hoopPropertyBox.add (Box.createRigidArea(new Dimension(0,2)));
         hoopPropertyBox.add (contentScroller);
         
         this.add (hoopPropertyBox);        
@@ -109,5 +133,17 @@ public class HoopPropertyPanel extends HoopEmbeddedJPanel
 	{
 		debug ("updateContents ()");
 
+	}
+	@Override
+	public void actionPerformed(ActionEvent event) 
+	{
+		debug ("actionPerformed ()");
+		
+		JComponent control=(JComponent) event.getSource();
+		
+		if (control==linkButton)
+		{
+			debug ("Toggling link views ...");
+		}
 	}	
 }
