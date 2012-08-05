@@ -18,12 +18,14 @@
 
 package edu.cmu.cs.in.hoop.properties;
 
+import java.awt.Component;
 import java.awt.Dimension;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JScrollPane;
 
+import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 
 /** 
@@ -76,12 +78,22 @@ public class HoopPropertyPanel extends HoopEmbeddedJPanel
 	/**
 	 * 
 	 */
-	public void removePropertyPanel (HoopInspectablePanel aPanel)
+	public void removePropertyPanel (HoopBase aHoop)
 	{
 		debug ("removePropertyPanel ()");
 		
-		contentBox.remove(aPanel);
-	}
+		Component [] childList=contentBox.getComponents();
+		
+		for (int i=0;i<childList.length;i++)
+		{
+			HoopInspectablePanel tester=(HoopInspectablePanel) childList [i];
+		
+			if (tester.getHoop ()==aHoop)
+			{
+				contentBox.remove(tester);
+			}
+		}	
+	}	
 	/**
 	 * 
 	 */

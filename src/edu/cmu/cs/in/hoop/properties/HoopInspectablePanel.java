@@ -57,7 +57,7 @@ public class HoopInspectablePanel extends HoopJPanel implements ActionListener, 
 {	
 	private static final long serialVersionUID = 1L;
 	
-	private HoopBase component=null;
+	private HoopBase hoop=null;
 	
 	private FlatButton foldButton=null;
 	private JScrollPane parameterScrollList=null;
@@ -315,20 +315,20 @@ public class HoopInspectablePanel extends HoopJPanel implements ActionListener, 
 	/**
 	 * 
 	 */	
-	public void setComponent(HoopBase component) 
+	public void setHoop(HoopBase aHoop) 
 	{
-		debug ("setComponent ()");
+		debug ("setHoop ()");
 		
-		this.component=component;
+		this.hoop=aHoop;
 				
 		configComponentPanel ();
 	}
 	/**
 	 * 
 	 */	
-	public HoopBase getComponent() 
+	public HoopBase getHoop() 
 	{
-		return component;
+		return hoop;
 	}
 	/**
 	 *
@@ -341,7 +341,7 @@ public class HoopInspectablePanel extends HoopJPanel implements ActionListener, 
 		{						
 			parameterModel=new DefaultTableModel (null,columnNames);
 									
-			ArrayList<HoopSerializable> props=component.getProperties();
+			ArrayList<HoopSerializable> props=hoop.getProperties();
 			
 			for (int i=0;i<props.size();i++)
 			{
@@ -351,7 +351,7 @@ public class HoopInspectablePanel extends HoopJPanel implements ActionListener, 
 				
 				HoopSerializableTableEntry entry2=new HoopSerializableTableEntry (prop.getValue());
 				entry2.setEntry(prop);
-				entry2.setComponent(getComponent());
+				entry2.setComponent(getHoop());
 				
 				HoopSerializableTableEntry[] parameterData = {entry1,entry2};
 				

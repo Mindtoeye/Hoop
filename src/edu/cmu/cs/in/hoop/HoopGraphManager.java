@@ -182,10 +182,8 @@ public class HoopGraphManager extends HoopBase
 		
 		HoopPropertyPanel propPanel=(HoopPropertyPanel) HoopLink.getWindow("Properties");
 
-		/*
-		propPanel.removePropertyPanel(aHoop.getPropertiesPanel());
-		*/
-		
+		propPanel.removePropertyPanel(aHoop);
+				
 		// Next we completely remove the hoop from our main list of hoops ...
 						
 		HoopGraphFile grFile=(HoopGraphFile) HoopLink.project.getFileByClass (new HoopGraphFile ().getClassName());

@@ -123,7 +123,7 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 			rightPortBox.add(Box.createVerticalGlue());
 		}		
 		
-		if (propPanel!=null)
+		if ((propPanel!=null) && (aHoop.getClassName().equals("HoopStart")==false))
 		{
 			propertiesPanel=new HoopInspectablePanel (hoop.getHoopDescription());
 						
@@ -139,7 +139,7 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 			else
 			{
 				debug ("No custom config panel provided, switching to properties panel instead");
-				propertiesPanel.setComponent(aHoop);
+				propertiesPanel.setHoop(aHoop);
 			}						
 		}
 		
