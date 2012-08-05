@@ -38,7 +38,6 @@ import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 
 /** 
  * @author vvelsen
- *
  */
 public class HoopPropertyPanel extends HoopEmbeddedJPanel implements ActionListener
 {	
@@ -48,7 +47,11 @@ public class HoopPropertyPanel extends HoopEmbeddedJPanel implements ActionListe
     private JScrollPane contentScroller=null;
     private Box contentBox=null;
     
+    private JButton expandButton=null;
+    private JButton foldButton=null;
+    
     private JToggleButton linkButton=null;
+    private Boolean viewsLinked=false;
     	
 	/**
 	 * Creates a new JPanel with a double buffer and a flow layout.
@@ -70,9 +73,29 @@ public class HoopPropertyPanel extends HoopEmbeddedJPanel implements ActionListe
 		linkButton.setPreferredSize(new Dimension (20,20));
 		linkButton.addActionListener(this);		
 		
+	    expandButton=new JButton ();
+	    expandButton.setFont(new Font("Dialog", 1, 8));
+	    expandButton.setPreferredSize(new Dimension (20,20));
+	    expandButton.setMaximumSize(new Dimension (20,20));
+	    //expandButton.setText("All");
+	    expandButton.setIcon(HoopLink.getImageByName("tree-expand-icon.png"));
+	    expandButton.addActionListener(this);
+	    
+	    foldButton=new JButton ();
+	    foldButton.setFont(new Font("Dialog", 1, 8));
+	    foldButton.setPreferredSize(new Dimension (20,20));
+	    foldButton.setMaximumSize(new Dimension (20,20));
+	    foldButton.setIcon(HoopLink.getImageByName("tree-fold-icon.png"));
+	    //foldButton.setText("None");
+	    foldButton.addActionListener(this);		
+		
 		Box controlBox = new Box (BoxLayout.X_AXIS);
 		controlBox.add(linkButton);
-		controlBox.add(Box.createHorizontalGlue());		
+		controlBox.add (Box.createRigidArea(new Dimension(2,0)));
+		controlBox.add(expandButton);
+		controlBox.add (Box.createRigidArea(new Dimension(2,0)));
+		controlBox.add(foldButton);			
+		controlBox.add(Box.createHorizontalGlue());
                         
 		contentBox=new Box (BoxLayout.Y_AXIS);
 		contentBox.setMinimumSize(new Dimension (20,20));
@@ -84,7 +107,7 @@ public class HoopPropertyPanel extends HoopEmbeddedJPanel implements ActionListe
         hoopPropertyBox.add (controlBox);
         hoopPropertyBox.add (Box.createRigidArea(new Dimension(0,2)));
         hoopPropertyBox.add (contentScroller);
-        
+                        
         this.add (hoopPropertyBox);        
 	}
 	/**
@@ -121,6 +144,30 @@ public class HoopPropertyPanel extends HoopEmbeddedJPanel implements ActionListe
 	/**
 	 * 
 	 */
+	public void highlightHoop (HoopBase aHoop)
+	{
+		debug ("highlightHoop ()");
+		
+		if (this.viewsLinked==false)
+			return;
+		
+		Component [] childList=contentBox.getComponents();
+		
+		for (int i=0;i<childList.length;i++)
+		{
+			HoopInspectablePanel tester=(HoopInspectablePanel) childList [i];
+		
+			if (tester.getHoop ()==aHoop)
+			{
+				tester.setHighlighted(true);
+			}
+			else
+				tester.setHighlighted(false);				
+		}			
+	}
+	/**
+	 * 
+	 */
 	public void handleCloseEvent ()
 	{
 		debug ("handleCloseEvent ()");
@@ -144,6 +191,55 @@ public class HoopPropertyPanel extends HoopEmbeddedJPanel implements ActionListe
 		if (control==linkButton)
 		{
 			debug ("Toggling link views ...");
+			
+			if (linkButton.isSelected()==true)
+			{
+				this.setViewsLinked(true);
+			}
+			else
+				this.setViewsLinked(false);
 		}
+		
+		if (control==foldButton)
+		{
+			debug ("Folding all ...");
+			
+			Component [] childList=contentBox.getComponents();
+			
+			for (int i=0;i<childList.length;i++)
+			{
+				HoopInspectablePanel tester=(HoopInspectablePanel) childList [i];
+			
+				tester.foldIn();
+			}				
+		}
+		
+		if (control==expandButton)
+		{
+			debug ("Expanding all ...");
+			
+			Component [] childList=contentBox.getComponents();
+			
+			for (int i=0;i<childList.length;i++)
+			{
+				HoopInspectablePanel tester=(HoopInspectablePanel) childList [i];
+			
+				tester.foldOut();
+			}					
+		}
+	}
+	/**
+	 * 
+	 */
+	public void setViewsLinked(Boolean viewsLinked) 
+	{
+		this.viewsLinked = viewsLinked;
+	}
+	/**
+	 * 
+	 */
+	public Boolean getViewsLinked() 
+	{
+		return viewsLinked;
 	}	
 }

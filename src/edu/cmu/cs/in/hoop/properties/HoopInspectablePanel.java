@@ -19,6 +19,7 @@
 package edu.cmu.cs.in.hoop.properties;
 
 import java.awt.BorderLayout;
+//import java.awt.Color;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Insets;
@@ -61,13 +62,13 @@ public class HoopInspectablePanel extends HoopJPanel implements ActionListener, 
 	
 	private FlatButton foldButton=null;
 	private JScrollPane parameterScrollList=null;
-	
-	private JPanel preview=null;
-	
+		
 	Icon close=null;
 	Icon open=null;
 	
+	private Box controlBox=null;
 	private Boolean folded=false;
+	private Boolean highlighted=false;
 	
     private int fixedWidth=200;
     private int fixedHeight=300;	
@@ -140,13 +141,12 @@ public class HoopInspectablePanel extends HoopJPanel implements ActionListener, 
         Box panelBox=new Box (BoxLayout.Y_AXIS);
         this.add (panelBox);
         
-        Box controlBox=Box.createHorizontalBox();
+        controlBox=Box.createHorizontalBox();
         panelBox.add (controlBox);
         
         foldButton=new FlatButton (panelTitle);
         foldButton.setIcon(close);
         foldButton.setBorder(null);
-        //foldButton.setText(panelTitle);
         foldButton.setMargin(new Insets (0,0,0,0));
         foldButton.setFont(new Font("Dialog", 1, 10));
         foldButton.setMinimumSize(new Dimension (20,20));
@@ -156,6 +156,8 @@ public class HoopInspectablePanel extends HoopJPanel implements ActionListener, 
         foldButton.addActionListener (this);
 
         controlBox.add (foldButton);
+        controlBox.setOpaque(true);
+        controlBox.setBackground(new Color (220,220,220));
         controlBox.add(Box.createHorizontalGlue());
                                                 	    
         parameterPanel=new JPanel ();
@@ -196,17 +198,24 @@ public class HoopInspectablePanel extends HoopJPanel implements ActionListener, 
 	}
 	/**
 	 * 
-	 */	
-	public void setPreview(JPanel preview) 
+	 */
+	public void setHighlighted(Boolean highlighted) 
 	{
-		this.preview = preview;
+		this.highlighted = highlighted;
+		
+		if (this.highlighted==true)
+		{
+			controlBox.setBackground(new Color (255,255,220));
+		}
+		else
+			controlBox.setBackground(new Color (220,220,220));
 	}
 	/**
 	 * 
-	 */		
-	public JPanel getPreview() 
+	 */
+	public Boolean getHighlighted() 
 	{
-		return preview;
+		return highlighted;
 	}	
 	/**
 	 * 
@@ -369,6 +378,7 @@ public class HoopInspectablePanel extends HoopJPanel implements ActionListener, 
 	/**
 	 * 
 	 */
+	/*
 	private void untouch ()
 	{
 		debug ("untouch ()");
@@ -387,6 +397,7 @@ public class HoopInspectablePanel extends HoopJPanel implements ActionListener, 
 				debug ("Internal error: item in parameter table is not a Hoop entry");
 		}	
 	}
+	*/
 	/**
 	 * 
 	 */	
@@ -437,11 +448,13 @@ public class HoopInspectablePanel extends HoopJPanel implements ActionListener, 
 			{							
 				debug ("Entry: " + entry.toString());
 				
+				/*
 				HoopBase target=value.getComponent();
 			
 				entry.setTouched(true);
 									
-				entry.setTouched(false);												
+				entry.setTouched(false);
+				*/												
 			}	
 		}		
 	}

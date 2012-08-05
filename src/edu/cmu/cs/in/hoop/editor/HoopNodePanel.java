@@ -18,6 +18,8 @@
 
 package edu.cmu.cs.in.hoop.editor;
 
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.Box;
@@ -38,7 +40,7 @@ import edu.cmu.cs.in.hoop.properties.HoopPropertyPanel;
  * with UI components. See the HoopNodeRenderer class if you feel inclined
  * to subject yourself to Swing GUI management.
  */
-public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualRepresentation
+public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualRepresentation, MouseListener
 {
 	private static final long serialVersionUID = -1L;
 	private HoopPropertyPanel propPanel=null;
@@ -69,6 +71,8 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 		
 		setHoop (aHoop);
 				
+		//this.addMouseListener(this);
+		
 		debug ("HoopNodePanel () done");
 	}
 	/**
@@ -207,5 +211,32 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 			
 			setStatus ("Ex: " + hoop.getExecutionCount());
 		}
+	}
+	@Override
+	public void mouseClicked(MouseEvent arg0) 
+	{
+		// Not implemented, see baseclass
+	}
+	@Override
+	public void mouseEntered(MouseEvent arg0) 
+	{
+		// Not implemented, see baseclass
+	}
+	@Override
+	public void mouseExited(MouseEvent arg0) 
+	{
+		// Not implemented, see baseclass
+	}
+	@Override
+	public void mousePressed(MouseEvent arg0) 
+	{
+		debug ("mousePressed ()");
+		
+		propPanel.highlightHoop(hoop);
+	}
+	@Override
+	public void mouseReleased(MouseEvent arg0) 
+	{
+		// Not implemented, see baseclass
 	}	
 }
