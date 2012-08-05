@@ -76,6 +76,15 @@ public class HoopPropertyPanel extends HoopEmbeddedJPanel
 	/**
 	 * 
 	 */
+	public void removePropertyPanel (HoopInspectablePanel aPanel)
+	{
+		debug ("removePropertyPanel ()");
+		
+		contentBox.remove(aPanel);
+	}
+	/**
+	 * 
+	 */
 	public void handleCloseEvent ()
 	{
 		debug ("handleCloseEvent ()");

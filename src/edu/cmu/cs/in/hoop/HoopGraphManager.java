@@ -24,6 +24,7 @@ import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopConnection;
 import edu.cmu.cs.in.hoop.project.HoopGraphFile;
+import edu.cmu.cs.in.hoop.properties.HoopPropertyPanel;
 
 /** 
  * @author Martin van Velsen
@@ -177,8 +178,13 @@ public class HoopGraphManager extends HoopBase
 			return;
 		}
 		
-		// First disconnect the hoop in our own version of the graph ...
+		// First we remove the properties panel from the properties window ...
 		
+		HoopPropertyPanel propPanel=(HoopPropertyPanel) HoopLink.getWindow("Properties");
+
+		/*
+		propPanel.removePropertyPanel(aHoop.getPropertiesPanel());
+		*/
 		
 		// Next we completely remove the hoop from our main list of hoops ...
 						
