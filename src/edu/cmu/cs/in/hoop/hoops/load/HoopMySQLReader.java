@@ -28,7 +28,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import edu.cmu.cs.in.base.HoopStringTools;
-import edu.cmu.cs.in.base.kv.HoopKV;
+//import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.base.kv.HoopKVString;
 import edu.cmu.cs.in.base.HoopDataType;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;

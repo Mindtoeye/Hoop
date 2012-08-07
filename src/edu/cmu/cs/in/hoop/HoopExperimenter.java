@@ -48,7 +48,7 @@ import com.mxgraph.view.mxGraph;
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.search.HoopQueryOperator;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
-import edu.cmu.cs.in.controls.base.HoopJInternalFrame;
+//import edu.cmu.cs.in.controls.base.HoopJInternalFrame;
 //import edu.cmu.cs.in.controls.HoopVisualFeature;
 import edu.cmu.cs.in.search.HoopTextSearch;
 import edu.cmu.cs.in.stats.HoopPerformanceMetrics;

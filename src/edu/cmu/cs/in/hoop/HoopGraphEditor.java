@@ -18,13 +18,13 @@
 
 package edu.cmu.cs.in.hoop;
 
-import java.awt.event.MouseWheelListener;
+//import java.awt.event.MouseWheelListener;
 import java.util.ArrayList;
 
 import com.mxgraph.model.mxCell;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.swing.util.mxGraphTransferable;
-import com.mxgraph.util.mxEvent;
+//import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxEventSource.mxIEventListener;
 import com.mxgraph.view.mxGraph;

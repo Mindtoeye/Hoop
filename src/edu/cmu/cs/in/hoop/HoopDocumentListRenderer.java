@@ -38,7 +38,7 @@ import javax.swing.border.EtchedBorder;
 import edu.cmu.cs.in.search.HoopDocument;
 //import edu.cmu.cs.in.HoopLemurDocument;
 import edu.cmu.cs.in.base.HoopLink;
-import edu.cmu.cs.in.base.HoopLink;
+//import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.controls.base.HoopJPanel;
   
 class HoopDocumentListRenderer extends HoopJPanel implements ListCellRenderer, ActionListener

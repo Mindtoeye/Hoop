@@ -18,7 +18,7 @@
 
 package edu.cmu.cs.in.stats;
 
-import java.io.Serializable;
+//import java.io.Serializable;
 import java.util.Date;
 
 //import edu.cmu.cs.in.base.HoopBase;
