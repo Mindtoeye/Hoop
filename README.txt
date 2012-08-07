@@ -58,6 +58,10 @@ Used Packages:
 - MySQL jdbc driver (not included), provided as a means to load data directly
 	from a database. Please download this package separately and add the jar to your classpath.
 	http://dev.mysql.com/downloads/connector/j/	
+	
+-BerkeleyDB driver (included), mainly integrated to function as a rapid indexing
+	and retieval backend that lives alongside an XML document tree
+	http://www.oracle.com/technetwork/products/berkeleydb/overview/index.html	
 
 Notice!
 
