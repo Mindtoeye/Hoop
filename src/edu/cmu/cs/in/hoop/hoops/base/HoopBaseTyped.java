@@ -70,12 +70,29 @@ public class HoopBaseTyped extends HoopVisual implements HoopPropertyContainer
     	{
     		HoopSerializable prop=properties.get(i);
     		
-    		if (prop.getInstanceName().equals(anInstance)==true)
+    		if (prop.getInstanceName().equals(anInstance.toLowerCase())==true)
     			return (prop);
     	}
     	
     	return (null);
     }
+    /**
+     * 
+     */
+    public int getPropertyIndex (String anInstance)
+    {
+    	debug ("getProperty ("+anInstance+")");
+    	
+    	for (int i=0;i<properties.size();i++)
+    	{
+    		HoopSerializable prop=properties.get(i);
+    		
+    		if (prop.getInstanceName().equals(anInstance.toLowerCase())==true)
+    			return (i);
+    	}
+    	
+    	return (-1);
+    }    
     /**
      * 
      */

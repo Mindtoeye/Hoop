@@ -18,6 +18,16 @@
 
 package edu.cmu.cs.in.hoop.hoops.save;
 
+import java.util.ArrayList;
+
+import org.jdom.Document;
+import org.jdom.Element;
+import org.jdom.output.Format;
+import org.jdom.output.XMLOutputter;
+
+import edu.cmu.cs.in.base.HoopDataType;
+import edu.cmu.cs.in.base.HoopLink;
+import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 
 /**
@@ -42,11 +52,92 @@ public class HoopXMLDocumentWriter extends HoopXMLWriter
 	{		
 		debug ("runHoop ()");
 		
-		Boolean result=super.runHoop(inHoop);
+		ArrayList <HoopKV> inData=inHoop.getData();
+		
+		if (inData==null)
+		{
+			this.setErrorString("Error: no input data to work with");
+			return (false);
+		}		
+		
+		Element fileElement=new Element ("hoopoutput");
+		
+		Element typeElement=new Element ("datatypes");
+		
+		fileElement.addContent(typeElement);
 						
+		ArrayList <HoopDataType> types=inHoop.getTypes();
+						
+		for (int n=0;n<types.size();n++)
+		{			
+			HoopDataType aType=types.get(n);
+			
+			Element aTypeElement=new Element ("type");
+			
+			aTypeElement.setAttribute("type",aType.getTypeValue ());
+			aTypeElement.setAttribute("value",aType.typeToString ());
+						
+			typeElement.addContent(aTypeElement);
+		}	
 		
+		Element dataElement=new Element ("content");
 		
-		return (result);	
+		fileElement.addContent(dataElement);
+
+		int authorIndex=getPropertyIndex ("Author");
+		int abstractIndex=getPropertyIndex ("Abstract");
+		int descIndex=getPropertyIndex ("Description");
+		if (descIndex==-1)
+			descIndex=getPropertyIndex ("Desc");
+		int contentIndex=getPropertyIndex ("Content");
+		if (contentIndex==-1)			
+			contentIndex=getPropertyIndex ("Text");
+						
+		if (inData!=null)
+		{			
+			for (int t=0;t<inData.size();t++)
+			{
+				HoopKV aKV=inData.get(t);
+				
+				if (authorIndex!=-1)
+				{
+					String author=aKV.getValueAsString(authorIndex);
+					
+					Element authorElement=new Element ("author");
+					authorElement.setText(author);
+					dataElement.addContent(authorElement);
+				}
+				
+				if (abstractIndex!=-1)
+				{
+					String abstr=aKV.getValueAsString(abstractIndex); 
+					
+					Element abstractElement=new Element ("author");
+					abstractElement.setText(abstr);
+					dataElement.addContent(abstractElement);					
+				}
+				
+				if (descIndex!=-1)
+				{
+					String desc=aKV.getValueAsString(descIndex); 
+					
+					Element descElement=new Element ("description");
+					descElement.setText(desc);
+					dataElement.addContent(descElement);					
+				}				
+				
+				if (contentIndex!=-1)
+				{
+					String cont=aKV.getValueAsString(contentIndex);
+					
+					Element textElement=new Element ("text");
+					textElement.setText(cont);
+					dataElement.addContent(textElement);					
+				}				
+			}
+		}	
+		
+		return (saveXML (fileElement));	
 	}	
 	/**
 	 * 

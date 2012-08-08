@@ -120,19 +120,26 @@ public class HoopXMLWriter extends HoopFileSaveBase
 					
 		fileElement.addContent (dataElement);
 		
+		return (saveXML (fileElement));							
+	}	
+	/**
+	 * 
+	 */
+	protected Boolean saveXML (Element aRoot)
+	{
+		debug ("saveXML ()");
+		
 		Document document = new Document();
-				
-		document.setContent(fileElement);
+		
+		document.setContent(aRoot);
 		
 		XMLOutputter outputter = new XMLOutputter(Format.getPrettyFormat());
         String xmlString = outputter.outputString(document);		
 		        
         String fullPath=this.projectToFullPath (URI.getValue());
         
-		HoopLink.fManager.saveContents (HoopLink.fManager.createSequenceFilename(fullPath,this.getExecutionCount()),xmlString);
-						
-		return (true);							
-	}	
+		return (HoopLink.fManager.saveContents (HoopLink.fManager.createSequenceFilename(fullPath,this.getExecutionCount()),xmlString));										
+	}
 	/**
 	 * 
 	 */
