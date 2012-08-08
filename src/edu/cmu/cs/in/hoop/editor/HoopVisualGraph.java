@@ -53,6 +53,8 @@ public class HoopVisualGraph extends mxGraph implements mxEventSource.mxIEventLi
 	/// Holds the edge to be used as a template for inserting new edges.
 	protected Object edgeTemplate;
 
+	private Boolean hardReset=false;
+	
 	/**
 	 * Custom graph that defines the alternate edge style to be used when
 	 * the middle control point of edges is double clicked (flipped).
@@ -83,6 +85,21 @@ public class HoopVisualGraph extends mxGraph implements mxEventSource.mxIEventLi
 	public static void alert (String aMessage)
 	{
 		JOptionPane.showMessageDialog(HoopLink.mainFrame,aMessage);
+	}
+	/**
+	 * 
+	 */
+	public Boolean getHardReset() 
+	{
+		return hardReset;
+	}
+	/**
+	 * 
+	 * @param hardReset
+	 */
+	public void setHardReset(Boolean hardReset) 
+	{
+		this.hardReset = hardReset;
 	}	
 	/**
 	 * Sets the edge template to be used to inserting edges.
@@ -380,6 +397,9 @@ public class HoopVisualGraph extends mxGraph implements mxEventSource.mxIEventLi
 	public boolean containsStartHoop (Object [] cells)
 	{
 		debug ("containsStartHoop ()");
+		
+		if (this.getHardReset()==true)
+			return (false);
 		
 		if (cells==null)
 		{

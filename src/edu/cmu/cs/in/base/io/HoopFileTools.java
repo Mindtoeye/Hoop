@@ -144,18 +144,35 @@ public class HoopFileTools extends HoopRoot
 	/**
 	 * 
 	 */
+	public ArrayList<String> listDirctoryEntries (String aPath)
+	{
+		debug ("listDirctoryEntries ("+aPath+")");
+		
+		ArrayList<String> files=new ArrayList<String> ();
+		
+		File actual = new File(aPath);
+		
+        for( File f : actual.listFiles())
+        {
+        	debug (f.getName());
+       		files.add(f.getName());
+        }		
+        
+        return files;
+	}	
+	/**
+	 * 
+	 */
 	public ArrayList<String> listFiles (String aPath)
 	{
 		debug ("listFiles ("+aPath+")");
 		
 		ArrayList<String> files=new ArrayList<String> ();
 		
-        //File actual = new File(".");
 		File actual = new File(aPath);
 		
         for( File f : actual.listFiles())
-        {
-            //System.out.println( f.getName() );
+        {        
         	if (f.isDirectory()==false)
         		files.add(f.getName());
         }		

@@ -31,6 +31,7 @@ import javax.swing.tree.TreeCellRenderer;
 
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
+import edu.cmu.cs.in.hoop.project.HoopFile;
 import edu.cmu.cs.in.hoop.project.HoopProject;
 import edu.cmu.cs.in.hoop.project.HoopProjectFile;
 
@@ -164,6 +165,27 @@ public class HoopJTreeHoopRenderer extends JLabel implements TreeCellRenderer
     				
     				found=true;
     			}    			
+    			
+    			//>-----------------------------------------------------------------    			
+    			
+    			if ((userObject instanceof HoopFile) && (found==false))
+    			{
+    				debug ("userObject is instance of HoopFile");
+    				
+    				HoopFile fileIcon=(HoopFile) userObject;
+    				setText (fileIcon.getInstanceName());
+    				
+    				if (fileIcon.getIsDir()==true)
+    				{
+    					setIcon (HoopLink.getImageByName("gtk-open.png"));
+    				}
+    				else
+    				{
+    					setIcon (HoopLink.getImageByName("gtk-new.png"));
+    				}
+    				
+    				found=false;
+    			}
     			
     			//>-----------------------------------------------------------------
     		}

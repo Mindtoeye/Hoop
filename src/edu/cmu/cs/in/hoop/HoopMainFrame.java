@@ -809,6 +809,8 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 		{
 			HoopStart startNode=new HoopStart ();
 			
+			HoopLink.hoopGraphManager.addHoop (startNode);
+			
 			mxCell graphObject=(mxCell) graph.insertVertex (parent, 
 															startNode.getClassName(),
 															startNode,
@@ -935,12 +937,14 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 		
 		if (HoopLink.project!=null)
 		{
-			HoopGraphFile graphFile=(HoopGraphFile) HoopLink.project.getFileByClass ("HoopGraphFile");
+			//HoopGraphFile graphFile=(HoopGraphFile) HoopLink.project.getFileByClass ("HoopGraphFile");
 			
-			if (graphFile!=null)
+			//if (graphFile!=null)
+			//{
+				//if (graphFile.getHoops().size()>0)
+				//{
+			if (HoopLink.project.isEmpty()==false)
 			{
-				if (graphFile.getHoops().size()>0)
-				{
 					debug ("We already have an open project!");
 			
 					Object[] options = {"Yes","No","Cancel"};
@@ -981,9 +985,10 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 					{
 						debug ("Aborting creating new project");
 						return (false);
-					}    					
-				}	
-			}	
+					}
+			}		
+				//}	
+			//}	
 		}    			
 		
 		/*

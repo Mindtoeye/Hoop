@@ -39,6 +39,7 @@ import edu.cmu.cs.in.hoop.hoops.save.HoopXMLDocumentWriter;
 import edu.cmu.cs.in.hoop.hoops.save.HoopXMLWriter;
 import edu.cmu.cs.in.hoop.hoops.task.HoopPathChooser;
 import edu.cmu.cs.in.hoop.hoops.task.HoopScheduler;
+import edu.cmu.cs.in.hoop.hoops.task.HoopStart;
 import edu.cmu.cs.in.hoop.hoops.transform.HoopCleanTokens;
 import edu.cmu.cs.in.hoop.hoops.transform.HoopFilterGarbage;
 import edu.cmu.cs.in.hoop.hoops.transform.HoopFilterStopWords;
@@ -134,6 +135,11 @@ public class HoopManager extends HoopBase
 		
 		if (aTemplate==null)
 			return (null);
+		
+		if (aTemplate.equals("HoopStart")==true)
+		{
+			return (new HoopStart ());
+		}
 		
 		for (int i=0;i<hoopTemplates.size();i++)
 		{

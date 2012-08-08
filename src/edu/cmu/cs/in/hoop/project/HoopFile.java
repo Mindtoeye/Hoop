@@ -19,6 +19,7 @@
 package edu.cmu.cs.in.hoop.project;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.HoopXMLBase;
 
@@ -30,13 +31,24 @@ public class HoopFile extends HoopXMLBase
 	private String fileURI="";
 	private Boolean isDir=false;
 	
+	private ArrayList <HoopFile> subEntries=null;
+	
 	/**
 	 * 
 	 */
 	public HoopFile ()
 	{
 		setClassName ("HoopProjectFile");		
-		debug ("HoopProjectFile ()");				
+		debug ("HoopProjectFile ()");
+		
+		subEntries=new ArrayList<HoopFile> ();
+	}
+	/**
+	 * 
+	 */
+	public ArrayList <HoopFile> getSubEntries ()
+	{
+		return (subEntries);
 	}
 	/**
 	 * 

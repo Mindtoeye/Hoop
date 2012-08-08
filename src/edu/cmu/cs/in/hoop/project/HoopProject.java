@@ -33,7 +33,7 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopConnection;
  */
 public class HoopProject extends HoopProjectFile
 {
-	private ArrayList <HoopProjectFile> files=null;
+	private ArrayList <HoopFile> files=null;
 	private ArrayList <HoopProjectFile> fileTemplates=null;
 	
 	/**
@@ -44,13 +44,32 @@ public class HoopProject extends HoopProjectFile
 		setClassName ("HoopProject");
 		debug ("HoopProject ()");
 		
-		files=new ArrayList<HoopProjectFile> ();
+		files=new ArrayList<HoopFile> ();
 		fileTemplates=new ArrayList<HoopProjectFile> ();
 		
 		addFileTemplate (new HoopGraphFile ());
 		addFileTemplate (new HoopStopWords ());
 		addFileTemplate (new HoopVocabulary ());
 		addFileTemplate (new HoopWrapperFile ());
+	}
+	/**
+	 * 
+	 */
+	public Boolean isEmpty ()
+	{
+		debug ("isEmpty ()");
+		
+		HoopGraphFile graphFile=(HoopGraphFile) getFileByClass ("HoopGraphFile");
+		
+		if (graphFile!=null)
+		{
+			if (graphFile.getHoops().size()>1)
+			{
+				return (false);
+			}
+		}	
+		
+		return (true);
 	}
 	/**
 	 * 
@@ -87,7 +106,7 @@ public class HoopProject extends HoopProjectFile
 	{
 		debug ("reset ()");
 		
-		files=new ArrayList<HoopProjectFile> ();
+		files=new ArrayList<HoopFile> ();
 	}
 	/**
 	 * 
@@ -101,20 +120,39 @@ public class HoopProject extends HoopProjectFile
 	/**
 	 * 
 	 */
-	public ArrayList <HoopProjectFile> getFiles ()
+	public ArrayList <HoopFile> getFiles ()
 	{
 		return (files);
 	}
 	/**
 	 * 
 	 */
-	public HoopProjectFile getFileByClass (String aClass)
+	public HoopFile getFileByName (String aFileName)
+	{
+		debug ("getFileByName ("+aFileName+")");
+		
+		for (int i=0;i<files.size();i++)
+		{
+			HoopFile aFile=files.get(i);
+			
+			if (aFile.getInstanceName().toLowerCase().equals(aFileName.toLowerCase())==true)
+			{
+				return (aFile);
+			}
+		}
+		
+		return (null);		
+	}	
+	/**
+	 * 
+	 */
+	public HoopFile getFileByClass (String aClass)
 	{
 		debug ("getFileByClass ("+aClass+")");
 		
 		for (int i=0;i<files.size();i++)
 		{
-			HoopProjectFile aFile=files.get(i);
+			HoopFile aFile=files.get(i);
 			
 			if (aFile.getClassName().toLowerCase().equals(aClass.toLowerCase())==true)
 			{
@@ -219,11 +257,16 @@ public class HoopProject extends HoopProjectFile
 		
 		for (int i=0;i<files.size();i++)
 		{
-			HoopProjectFile tFile=files.get(i);
+			HoopFile tFile=files.get(i);
 			
-			tFile.setFileURI(this.getBasePath ()+"/"+tFile.getInstanceName());
+			if (tFile instanceof HoopProjectFile)
+			{			
+				HoopProjectFile saver=(HoopProjectFile) tFile;
+				
+				saver.setFileURI(this.getBasePath ()+"/"+tFile.getInstanceName());
 			
-			tFile.save();
+				saver.save();
+			}	
 		}		
 		
 		return (super.save());
@@ -321,13 +364,18 @@ public class HoopProject extends HoopProjectFile
 		
 		for (int i=0;i<files.size();i++)
 		{
-			HoopProjectFile aFile=files.get(i);
+			HoopFile aFile=files.get(i);
 			
-			Element fileElement=aFile.toXMLID();
+			if (aFile instanceof HoopProjectFile)
+			{			
+				HoopProjectFile saver=(HoopProjectFile) aFile;
+				
+				Element fileElement=saver.toXMLID();
 			
-			fileElement.setAttribute("basepath",aFile.getBasePath());
+				fileElement.setAttribute("basepath",saver.getBasePath());
 			
-			rootElement.addContent(fileElement);			
+				rootElement.addContent(fileElement);
+			}	
 		}
 	
 		return (rootElement);
@@ -339,28 +387,50 @@ public class HoopProject extends HoopProjectFile
 	{
 		debug ("refresh ()");
 		
-		ArrayList <String> testList=HoopLink.fManager.listFiles(getBasePath ());
+		if (this.getVirginFile()==true)
+		{
+			debug ("Can't refresh a project that hasn't been saved yet");
+			return (false);
+		}
+		
+		ArrayList <String> testList=HoopLink.fManager.listDirctoryEntries(getBasePath ());
 		
 		for (int i=0;i<testList.size();i++)
 		{
 			String aFileString=testList.get(i);
 			
-			if ((aFileString.equals (".")==false) && (aFileString.equals ("..")==false))
+			if ((aFileString.equals(this.getInstanceName())==false) && (aFileString.equals (".")==false) && (aFileString.equals ("..")==false))
 			{
 				File testFile=new File (getBasePath ()+"/"+aFileString);
 				
+				debug ("Testing file: " + aFileString);
+				
 				if (testFile.isDirectory()==true)
 				{
-					
+					if (this.getFileByName(aFileString)==null)
+					{
+						HoopFile aDir=new HoopFile ();
+						aDir.setInstanceName(aFileString);
+						aDir.setIsDir(true);
+						
+						files.add(aDir);
+					}
 				}
 				
 				if (testFile.isFile()==true)
 				{
-					
+					if (this.getFileByName(aFileString)==null)
+					{
+						HoopFile aDir=new HoopFile ();
+						aDir.setInstanceName(aFileString);
+						aDir.setIsDir(false);
+						
+						files.add(aDir);						
+					}					
 				}
 			}
 		}
 		
-		return (false);
+		return (true);
 	}
 }

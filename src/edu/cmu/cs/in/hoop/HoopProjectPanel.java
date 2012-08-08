@@ -30,6 +30,8 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -56,7 +58,7 @@ import edu.cmu.cs.in.hoop.project.HoopWrapperFile;
 /**
  * 
  */
-public class HoopProjectPanel extends HoopEmbeddedJPanel implements MouseListener, ActionListener
+public class HoopProjectPanel extends HoopEmbeddedJPanel implements MouseListener, ActionListener, KeyListener
 {
 	private static final long serialVersionUID =- 1L;		
 	private JTree tree=null;
@@ -78,6 +80,7 @@ public class HoopProjectPanel extends HoopEmbeddedJPanel implements MouseListene
 		debug ("HoopProjectPanel ()");    	
 		
 		this.setSingleInstance(true);
+		this.addKeyListener(this);
 		
 		Box mainBox = new Box (BoxLayout.Y_AXIS);
 		
@@ -183,39 +186,57 @@ public class HoopProjectPanel extends HoopEmbeddedJPanel implements MouseListene
     	DefaultMutableTreeNode root = new DefaultMutableTreeNode(proj.getInstanceName());
     	root.setUserObject(proj);
 		  			
-    	ArrayList <HoopProjectFile> files=proj.getFiles();
+    	ArrayList <HoopFile> files=proj.getFiles();
     	
     	for (int i=0;i<files.size();i++)
     	{
     		HoopFile testFile=files.get(i);
     		
+    		debug ("Visualizing file: " + testFile.getInstanceName());
+    		
     		if (testFile instanceof HoopProjectFile)
     		{
     			HoopProjectFile aFile=(HoopProjectFile) testFile;
     		
-    			DefaultMutableTreeNode catNode = new DefaultMutableTreeNode(aFile.getInstanceName());
-    			catNode.setUserObject(aFile);
+    			DefaultMutableTreeNode projectNode = new DefaultMutableTreeNode(aFile.getInstanceName());
+    			projectNode.setUserObject(aFile);
 			
-    			root.add(catNode);
+    			root.add(projectNode);
     		}
     		else
     		{
     			if (testFile.getIsDir()==true)
     			{
-    				
+        			DefaultMutableTreeNode dirNode = new DefaultMutableTreeNode(testFile.getInstanceName());
+        			dirNode.setUserObject(testFile);
+    			
+        			root.add(dirNode);    				
+        			
+        			ArrayList <HoopFile> subs=testFile.getSubEntries();
+        			
+        			for (int t=0;t<subs.size();t++)
+        			{
+        				HoopFile aSubEntry=subs.get(t);
+        				
+            			DefaultMutableTreeNode subNode = new DefaultMutableTreeNode(aSubEntry.getInstanceName());
+            			subNode.setUserObject(aSubEntry);
+        			
+            			dirNode.add(subNode);        				
+        			}
     			}
     			else
     			{
-    				
+        			DefaultMutableTreeNode catNode = new DefaultMutableTreeNode(testFile.getInstanceName());
+        			catNode.setUserObject(testFile);
+    			
+        			root.add(catNode);    				
     			}
     		}
     	}		    	
     	
     	DefaultTreeModel model = new DefaultTreeModel(root);
     	    	
-    	tree.setModel(model);
-    	
-    	//treeHoopRenderer.setTree(tree);
+    	tree.setModel(model);    	
 	}	
 	/**
 	 *
@@ -366,18 +387,55 @@ public class HoopProjectPanel extends HoopEmbeddedJPanel implements MouseListene
 		
 		if (button==refreshButton)
 		{
-			HoopProject proj=HoopLink.project;
-			
-			if (proj==null)
-			{
-				debug ("Error: no project available yet");
-				return;
-			}	
-			
-			if (proj.refresh ()==true)
-			{
-				updateContents();
-			}
+			refresh ();
 		}
+	}
+	/**
+	 * 
+	 */
+	public void refresh ()
+	{
+		debug ("refresh ()");
+		
+		HoopProject proj=HoopLink.project;
+		
+		if (proj==null)
+		{
+			debug ("Error: no project available yet");
+			return;
+		}	
+		
+		if (proj.refresh ()==true)
+		{
+			updateContents();
+		}		
+	}
+	/**
+	 * 
+	 */
+	@Override
+	public void keyPressed(KeyEvent e) 
+	{
+		
+	}
+	/**
+	 * 
+	 */	
+	@Override
+	public void keyReleased(KeyEvent e) 
+	{
+		if(e.getKeyCode() == KeyEvent.VK_F5)
+		{
+			debug ("F5 pressed");
+			
+			refresh ();
+		}
+	}
+	/**
+	 * 
+	 */	
+	@Override
+	public void keyTyped(KeyEvent e) 
+	{		
 	}		
 }
