@@ -232,7 +232,7 @@ public class HoopConsole extends HoopEmbeddedJPanel implements HoopConsoleInterf
 	{
 		debug ("actionPerformed ()");
 		
-		String act=event.getActionCommand();
+		//String act=event.getActionCommand();
 		JButton button = (JButton)event.getSource();		
 
 		if (button==clearButton)

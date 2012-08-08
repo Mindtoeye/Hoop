@@ -18,23 +18,18 @@
 
 package edu.cmu.cs.in.hoop.project;
 
-import java.io.File;
-
 import org.jdom.Element;
 import org.jdom.output.XMLOutputter;
 import org.jdom.Document;
 import org.jdom.output.Format;
 
-import edu.cmu.cs.in.base.HoopXMLBase;
-import edu.cmu.cs.in.base.io.HoopFileManager;
+import edu.cmu.cs.in.base.HoopLink;
 
 /** 
  * 
  */
-public class HoopProjectFile extends HoopXMLBase
+public class HoopProjectFile extends HoopFile
 {
-	private String fileURI="";
-	protected HoopFileManager fManager=null;
 	private Boolean virginFile=true;
 	
 	/**
@@ -44,9 +39,7 @@ public class HoopProjectFile extends HoopXMLBase
 	{
 		setClassName ("HoopProjectFile");
 		setXMLID("hoopfile");		
-		debug ("HoopProjectFile ()");		
-		
-		fManager=new HoopFileManager ();
+		debug ("HoopProjectFile ()");				
 	}
 	/**
 	 * 
@@ -73,39 +66,6 @@ public class HoopProjectFile extends HoopXMLBase
 	}	
 	/**
 	 * 
-	 */	
-	public void setFileURI(String aURI) 
-	{
-		debug ("setFileURI ("+aURI+")");
-		
-		fileURI = aURI;
-		
-		File transf=new File (fileURI);
-		
-		debug ("Setting instance name to: " + transf.getName());
-		
-		this.setInstanceName(transf.getName());
-	}
-	/**
-	 * 
-	 */	
-	public String getFileURI() 
-	{
-		return fileURI;
-	}
-	/**
-	 * 
-	 */
-	public String getBasePath ()
-	{
-		File transf=new File (fileURI);
-		
-		//int index=fileURI.indexOf(transf.getP)
-		
-		return (transf.getParent());
-	} 
-	/**
-	 * 
 	 */
 	public Boolean save ()
 	{
@@ -122,7 +82,7 @@ public class HoopProjectFile extends HoopXMLBase
 		XMLOutputter outputter = new XMLOutputter(Format.getPrettyFormat());
         String xmlString = outputter.outputString(document);
 		
-		return (fManager.saveContents(fileURI,xmlString));
+		return (HoopLink.fManager.saveContents(getFileURI(),xmlString));
 	}	
 	/**
 	 * 
@@ -144,7 +104,7 @@ public class HoopProjectFile extends HoopXMLBase
 		
 		setFileURI (aURI);
 		
-		String aContent=fManager.loadContents (aURI);
+		String aContent=HoopLink.fManager.loadContents (aURI);
 		
 		Element root=this.fromXMLString (aContent);
 		

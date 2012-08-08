@@ -24,6 +24,7 @@ import java.util.List;
 
 import org.jdom.Element;
 
+import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopConnection;
 
@@ -249,7 +250,7 @@ public class HoopProject extends HoopProjectFile
 			setFileURI (aURI+"/.hprj");
 		}
 		
-		if (fManager.doesFileExist (this.getFileURI())==false)
+		if (HoopLink.fManager.doesFileExist (this.getFileURI())==false)
 		{
 			debug ("Error, file does not exist: " + this.getFileURI());
 			return (false);
@@ -337,6 +338,28 @@ public class HoopProject extends HoopProjectFile
 	public Boolean refresh ()
 	{
 		debug ("refresh ()");
+		
+		ArrayList <String> testList=HoopLink.fManager.listFiles(getBasePath ());
+		
+		for (int i=0;i<testList.size();i++)
+		{
+			String aFileString=testList.get(i);
+			
+			if ((aFileString.equals (".")==false) && (aFileString.equals ("..")==false))
+			{
+				File testFile=new File (getBasePath ()+"/"+aFileString);
+				
+				if (testFile.isDirectory()==true)
+				{
+					
+				}
+				
+				if (testFile.isFile()==true)
+				{
+					
+				}
+			}
+		}
 		
 		return (false);
 	}

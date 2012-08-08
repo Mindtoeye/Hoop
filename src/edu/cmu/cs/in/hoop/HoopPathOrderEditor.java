@@ -233,7 +233,7 @@ public class HoopPathOrderEditor extends HoopEmbeddedJPanel implements ActionLis
 	/**
 	 * 
 	 */
-	private HoopBase getSelectedHoop ()
+	public HoopBase getSelectedHoop ()
 	{
 		debug ("getSelectedHoop ()");
 		

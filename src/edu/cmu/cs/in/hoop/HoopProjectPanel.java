@@ -48,6 +48,7 @@ import javax.swing.tree.TreeSelectionModel;
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.controls.HoopJTreeHoopRenderer;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
+import edu.cmu.cs.in.hoop.project.HoopFile;
 import edu.cmu.cs.in.hoop.project.HoopProject;
 import edu.cmu.cs.in.hoop.project.HoopProjectFile;
 import edu.cmu.cs.in.hoop.project.HoopWrapperFile;
@@ -186,12 +187,28 @@ public class HoopProjectPanel extends HoopEmbeddedJPanel implements MouseListene
     	
     	for (int i=0;i<files.size();i++)
     	{
-    		HoopProjectFile aFile=files.get(i);
+    		HoopFile testFile=files.get(i);
     		
-			DefaultMutableTreeNode catNode = new DefaultMutableTreeNode(aFile.getInstanceName());
-			catNode.setUserObject(aFile);
+    		if (testFile instanceof HoopProjectFile)
+    		{
+    			HoopProjectFile aFile=(HoopProjectFile) testFile;
+    		
+    			DefaultMutableTreeNode catNode = new DefaultMutableTreeNode(aFile.getInstanceName());
+    			catNode.setUserObject(aFile);
 			
-			root.add(catNode);
+    			root.add(catNode);
+    		}
+    		else
+    		{
+    			if (testFile.getIsDir()==true)
+    			{
+    				
+    			}
+    			else
+    			{
+    				
+    			}
+    		}
     	}		    	
     	
     	DefaultTreeModel model = new DefaultTreeModel(root);

@@ -827,7 +827,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 	/**
 	 * 
 	 */
-	private void showErrorWindow ()
+	public void showErrorWindow ()
 	{
 		debug ("showErrorWindow ()");
 		
