@@ -54,6 +54,31 @@ public class HoopXMLWriter extends HoopFileSaveBase
 		
 		writeMode=new HoopEnumSerializable (this,"writeMode","OVERWRITE,APPEND");
     }
+    /**
+     * 
+     */
+    protected Element typesToXML (HoopBase inHoop)
+    {
+    	debug ("typesToXML ()");
+    	
+		Element typeElement=new Element ("datatypes");
+								
+		ArrayList <HoopDataType> types=inHoop.getTypes();
+						
+		for (int n=0;n<types.size();n++)
+		{			
+			HoopDataType aType=types.get(n);
+			
+			Element aTypeElement=new Element ("type");
+			
+			aTypeElement.setAttribute("type",aType.getTypeValue ());
+			aTypeElement.setAttribute("value",aType.typeToString ());
+						
+			typeElement.addContent(aTypeElement);
+		}		
+		
+		return (typeElement);
+    }
 	/**
 	 *
 	 */
@@ -68,26 +93,12 @@ public class HoopXMLWriter extends HoopFileSaveBase
 			this.setErrorString("Error: no input data to work with");
 			return (false);
 		}
+		
+		ArrayList <HoopDataType> types=inHoop.getTypes();
 				
 		Element fileElement=new Element ("hoopoutput");
 				
-		Element typeElement=new Element ("datatypes");
-		
-		fileElement.addContent(typeElement);
-						
-		ArrayList <HoopDataType> types=inHoop.getTypes();
-						
-		for (int n=0;n<types.size();n++)
-		{			
-			HoopDataType aType=types.get(n);
-			
-			Element aTypeElement=new Element ("type");
-			
-			aTypeElement.setAttribute("type",aType.getTypeValue ());
-			aTypeElement.setAttribute("value",aType.typeToString ());
-						
-			typeElement.addContent(aTypeElement);
-		}		
+		fileElement.addContent(typesToXML (inHoop));
 										
 		Element dataElement=new Element ("data");
 			

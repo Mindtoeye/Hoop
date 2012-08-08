@@ -20,13 +20,9 @@ package edu.cmu.cs.in.hoop.hoops.save;
 
 import java.util.ArrayList;
 
-import org.jdom.Document;
 import org.jdom.Element;
-import org.jdom.output.Format;
-import org.jdom.output.XMLOutputter;
 
 import edu.cmu.cs.in.base.HoopDataType;
-import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 
@@ -43,7 +39,7 @@ public class HoopXMLDocumentWriter extends HoopXMLWriter
 		setClassName ("HoopXMLDocumentWriter");
 		debug ("HoopXMLDocumentWriter ()");
 												
-		setHoopDescription ("Write a Hoop Document an XML file");
+		setHoopDescription ("Write a Hoop Document as an XML file");
     }
 	/**
 	 *
@@ -62,23 +58,7 @@ public class HoopXMLDocumentWriter extends HoopXMLWriter
 		
 		Element fileElement=new Element ("hoopoutput");
 		
-		Element typeElement=new Element ("datatypes");
-		
-		fileElement.addContent(typeElement);
-						
-		ArrayList <HoopDataType> types=inHoop.getTypes();
-						
-		for (int n=0;n<types.size();n++)
-		{			
-			HoopDataType aType=types.get(n);
-			
-			Element aTypeElement=new Element ("type");
-			
-			aTypeElement.setAttribute("type",aType.getTypeValue ());
-			aTypeElement.setAttribute("value",aType.typeToString ());
-						
-			typeElement.addContent(aTypeElement);
-		}	
+		fileElement.addContent(typesToXML (inHoop));
 		
 		Element dataElement=new Element ("content");
 		

@@ -25,7 +25,10 @@ package edu.cmu.cs.in.hoop;
 
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -33,6 +36,7 @@ import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -51,12 +55,19 @@ import edu.cmu.cs.in.hoop.project.HoopWrapperFile;
 /**
  * 
  */
-public class HoopProjectPanel extends HoopEmbeddedJPanel implements MouseListener
+public class HoopProjectPanel extends HoopEmbeddedJPanel implements MouseListener, ActionListener
 {
 	private static final long serialVersionUID =- 1L;		
 	private JTree tree=null;
 	private HoopJTreeHoopRenderer treeHoopRenderer=null;
 	
+    private JButton expandButton=null;
+    private JButton foldButton=null;
+    private JButton inverseButton=null;
+    private JButton selectedButton=null;		
+	
+    private JButton refreshButton=null;
+    
 	/**
 	 * 
 	 */
@@ -69,6 +80,64 @@ public class HoopProjectPanel extends HoopEmbeddedJPanel implements MouseListene
 		
 		Box mainBox = new Box (BoxLayout.Y_AXIS);
 		
+	    Box buttonBox = new Box (BoxLayout.X_AXIS);
+	    
+	    expandButton=new JButton ();
+	    expandButton.setFont(new Font("Dialog", 1, 8));
+	    expandButton.setPreferredSize(new Dimension (20,20));
+	    expandButton.setMaximumSize(new Dimension (20,20));
+	    //expandButton.setText("All");
+	    expandButton.setIcon(HoopLink.getImageByName("tree-expand-icon.png"));
+	    expandButton.addActionListener(this);
+
+	    buttonBox.add (expandButton);
+	    buttonBox.add (Box.createRigidArea(new Dimension(2,0)));
+	    
+	    foldButton=new JButton ();
+	    foldButton.setFont(new Font("Dialog", 1, 8));
+	    foldButton.setPreferredSize(new Dimension (20,20));
+	    foldButton.setMaximumSize(new Dimension (20,20));
+	    foldButton.setIcon(HoopLink.getImageByName("tree-fold-icon.png"));
+	    //foldButton.setText("None");
+	    foldButton.addActionListener(this);
+	    
+	    buttonBox.add (foldButton);
+	    buttonBox.add (Box.createRigidArea(new Dimension(2,0)));
+	    
+	    inverseButton=new JButton ();
+	    inverseButton.setFont(new Font("Dialog", 1, 8));
+	    inverseButton.setPreferredSize(new Dimension (75,20));
+	    //inverseButton.setMaximumSize(new Dimension (2000,20));
+	    inverseButton.setText("Inverse");
+	    inverseButton.addActionListener(this);
+	    inverseButton.setEnabled(false);
+	    
+	    buttonBox.add (inverseButton);
+	    buttonBox.add (Box.createRigidArea(new Dimension(2,0)));
+	    
+	    selectedButton=new JButton ();
+	    selectedButton.setFont(new Font("Dialog", 1, 8));
+	    selectedButton.setPreferredSize(new Dimension (75,20));
+	    //selectedButton.setMaximumSize(new Dimension (2000,20));
+	    selectedButton.setText("Selected");
+	    selectedButton.addActionListener(this);
+	    selectedButton.setEnabled(false);
+	    
+	    buttonBox.add (selectedButton);
+	    buttonBox.add (Box.createRigidArea(new Dimension(2,0)));
+	    
+	    refreshButton=new JButton ();
+	    refreshButton.setFont(new Font("Dialog", 1, 8));
+	    refreshButton.setPreferredSize(new Dimension (20,20));
+	    refreshButton.setMaximumSize(new Dimension (20,20));
+	    refreshButton.setIcon(HoopLink.getImageByName("gtk-refresh.png"));
+	    refreshButton.addActionListener(this);
+	    	    
+	    buttonBox.add (refreshButton);
+	    buttonBox.add (Box.createRigidArea(new Dimension(2,0)));	    
+	    
+	    buttonBox.add(Box.createHorizontalGlue());
+				
 		treeHoopRenderer=new HoopJTreeHoopRenderer ();
 					    				
 		tree=new JTree();
@@ -88,6 +157,7 @@ public class HoopProjectPanel extends HoopEmbeddedJPanel implements MouseListene
 				
 		tree.addMouseListener(this);
 		
+		mainBox.add(buttonBox);
 		mainBox.add(scrollPane);
 		
 		setContentPane (mainBox);			
@@ -248,13 +318,49 @@ public class HoopProjectPanel extends HoopEmbeddedJPanel implements MouseListene
 	 *
 	 */	
 	@Override
-	public void componentShown(ComponentEvent arg0) 
+	public void componentShown(ComponentEvent event) 
 	{
 		debug ("componentShown ()");
 		
-		super.componentShown (arg0);
+		super.componentShown (event);
 		
 		debug ("Enabling certain file menu options");
 		
+	}
+	@Override
+	public void actionPerformed(ActionEvent event) 
+	{
+		debug ("actionPerformed ()");
+
+		//String act=event.getActionCommand();
+		JButton button = (JButton)event.getSource();
+		
+		if (button==expandButton)
+		{
+			TreeNode root = (TreeNode) tree.getModel().getRoot();
+			expandAll (tree, new TreePath(root));
+		}		
+		
+		if (button==foldButton)
+		{
+			TreeNode root = (TreeNode) tree.getModel().getRoot();
+			collapseAll (tree, new TreePath(root));
+		}						
+		
+		if (button==refreshButton)
+		{
+			HoopProject proj=HoopLink.project;
+			
+			if (proj==null)
+			{
+				debug ("Error: no project available yet");
+				return;
+			}	
+			
+			if (proj.refresh ()==true)
+			{
+				updateContents();
+			}
+		}
 	}		
 }

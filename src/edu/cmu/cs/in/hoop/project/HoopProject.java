@@ -330,5 +330,14 @@ public class HoopProject extends HoopProjectFile
 		}
 	
 		return (rootElement);
-	}		
+	}
+	/**
+	 * 
+	 */
+	public Boolean refresh ()
+	{
+		debug ("refresh ()");
+		
+		return (false);
+	}
 }
