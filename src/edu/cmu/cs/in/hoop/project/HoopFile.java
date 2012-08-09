@@ -52,6 +52,13 @@ public class HoopFile extends HoopXMLBase
 	}
 	/**
 	 * 
+	 */
+	public void addSubEntry (HoopFile aFile)
+	{
+		subEntries.add(aFile);
+	}
+	/**
+	 * 
 	 */	
 	public void setFileURI(String aURI) 
 	{

@@ -380,6 +380,50 @@ public class HoopProject extends HoopProjectFile
 	
 		return (rootElement);
 	}
+	private void refreshSubDir (HoopFile aFile,String aPath)
+	{
+		debug ("refreshSubDir ()");
+		
+		ArrayList <String> testList=HoopLink.fManager.listDirctoryEntries(getBasePath ()+"/"+aFile.getInstanceName());
+		
+		for (int i=0;i<testList.size();i++)
+		{
+			String aFileString=testList.get(i);
+			
+			if ((aFileString.equals (".")==false) && (aFileString.equals ("..")==false))
+			{
+				File testFile=new File (getBasePath ()+"/"+aFileString);
+				
+				debug ("Testing file: " + aFileString);
+				
+				if (testFile.isDirectory()==true)
+				{
+					if (this.getFileByName(aFileString)==null)
+					{
+						HoopFile aDir=new HoopFile ();
+						aDir.setInstanceName(aFileString);
+						aDir.setIsDir(true);
+						
+						aFile.addSubEntry(aDir);
+						
+						refreshSubDir (aDir,aFile.getBasePath ());
+					}
+				}
+				
+				if (testFile.isFile()==true)
+				{
+					if (this.getFileByName(aFileString)==null)
+					{
+						HoopFile aDirEntry=new HoopFile ();
+						aDirEntry.setInstanceName(aFileString);
+						aDirEntry.setIsDir(false);
+						
+						aFile.addSubEntry(aDirEntry);
+					}					
+				}
+			}		
+		}	
+	}
 	/**
 	 * 
 	 */
@@ -414,6 +458,8 @@ public class HoopProject extends HoopProjectFile
 						aDir.setIsDir(true);
 						
 						files.add(aDir);
+						
+						refreshSubDir (aDir,getBasePath ());
 					}
 				}
 				
