@@ -127,7 +127,7 @@ public class HoopJTreeHoopRenderer extends JLabel implements TreeCellRenderer
     			{
     				HoopProject aFile=(HoopProject) userObject;
     				setText (aFile.getName());
-   					setIcon (HoopLink.getImageByName("gtk-open.png"));
+   					setIcon (HoopLink.getImageByName("folder.png"));
    					
    					found=true;
     			}
@@ -145,10 +145,13 @@ public class HoopJTreeHoopRenderer extends JLabel implements TreeCellRenderer
     				{
     					debug ("userObject represents an xml file");
     					
-    					setIcon (HoopLink.getImageByName("mime_xml.png"));
+    					setIcon (HoopLink.fileToIcon(aFile.getInstanceName()));
     				}
     				else
     				{
+    					setIcon (HoopLink.fileToIcon(aFile.getInstanceName()));
+    					
+    					/*
         				if (aFile.getInstanceName().toLowerCase().indexOf(".txt")!=-1)
         				{
         					debug ("userObject represents a text file");
@@ -161,6 +164,7 @@ public class HoopJTreeHoopRenderer extends JLabel implements TreeCellRenderer
         					
         					setIcon (HoopLink.getImageByName("unknown_216_16.png"));
         				}
+        				*/
     				}
     				
     				found=true;
@@ -177,7 +181,10 @@ public class HoopJTreeHoopRenderer extends JLabel implements TreeCellRenderer
     				
     				if (fileIcon.getIsDir()==true)
     				{
-    					setIcon (HoopLink.getImageByName("gtk-open.png"));
+    					if (fileIcon.getInstanceName().toLowerCase().equals("data")==true)
+    						setIcon (HoopLink.getImageByName("system-folder.png"));
+    					else
+    						setIcon (HoopLink.getImageByName("folder.png"));    					 
     				}
     				else
     				{

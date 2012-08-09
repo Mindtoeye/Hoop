@@ -380,11 +380,15 @@ public class HoopProject extends HoopProjectFile
 	
 		return (rootElement);
 	}
+	/** 
+	 * @param aFile
+	 * @param aPath
+	 */
 	private void refreshSubDir (HoopFile aFile,String aPath)
 	{
 		debug ("refreshSubDir ()");
 		
-		ArrayList <String> testList=HoopLink.fManager.listDirctoryEntries(getBasePath ()+"/"+aFile.getInstanceName());
+		ArrayList <String> testList=HoopLink.fManager.listDirectoryEntries(aPath);
 		
 		for (int i=0;i<testList.size();i++)
 		{
@@ -392,7 +396,7 @@ public class HoopProject extends HoopProjectFile
 			
 			if ((aFileString.equals (".")==false) && (aFileString.equals ("..")==false))
 			{
-				File testFile=new File (getBasePath ()+"/"+aFileString);
+				File testFile=new File (aPath+"/"+aFileString);
 				
 				debug ("Testing file: " + aFileString);
 				
@@ -406,7 +410,7 @@ public class HoopProject extends HoopProjectFile
 						
 						aFile.addSubEntry(aDir);
 						
-						refreshSubDir (aDir,aFile.getBasePath ());
+						refreshSubDir (aDir,aPath+"/"+aFileString);
 					}
 				}
 				
@@ -437,7 +441,7 @@ public class HoopProject extends HoopProjectFile
 			return (false);
 		}
 		
-		ArrayList <String> testList=HoopLink.fManager.listDirctoryEntries(getBasePath ());
+		ArrayList <String> testList=HoopLink.fManager.listDirectoryEntries(getBasePath ());
 		
 		for (int i=0;i<testList.size();i++)
 		{
@@ -459,7 +463,7 @@ public class HoopProject extends HoopProjectFile
 						
 						files.add(aDir);
 						
-						refreshSubDir (aDir,getBasePath ());
+						refreshSubDir (aDir,testFile.getPath());
 					}
 				}
 				

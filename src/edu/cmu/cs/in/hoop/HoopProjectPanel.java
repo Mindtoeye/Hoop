@@ -108,6 +108,16 @@ public class HoopProjectPanel extends HoopEmbeddedJPanel implements MouseListene
 	    buttonBox.add (foldButton);
 	    buttonBox.add (Box.createRigidArea(new Dimension(2,0)));
 	    
+	    refreshButton=new JButton ();
+	    refreshButton.setFont(new Font("Dialog", 1, 8));
+	    refreshButton.setPreferredSize(new Dimension (20,20));
+	    refreshButton.setMaximumSize(new Dimension (20,20));
+	    refreshButton.setIcon(HoopLink.getImageByName("gtk-refresh.png"));
+	    refreshButton.addActionListener(this);
+	    	    
+	    buttonBox.add (refreshButton);
+	    buttonBox.add (Box.createRigidArea(new Dimension(2,0)));	    
+	    
 	    inverseButton=new JButton ();
 	    inverseButton.setFont(new Font("Dialog", 1, 8));
 	    inverseButton.setPreferredSize(new Dimension (75,20));
@@ -129,17 +139,7 @@ public class HoopProjectPanel extends HoopEmbeddedJPanel implements MouseListene
 	    
 	    buttonBox.add (selectedButton);
 	    buttonBox.add (Box.createRigidArea(new Dimension(2,0)));
-	    
-	    refreshButton=new JButton ();
-	    refreshButton.setFont(new Font("Dialog", 1, 8));
-	    refreshButton.setPreferredSize(new Dimension (20,20));
-	    refreshButton.setMaximumSize(new Dimension (20,20));
-	    refreshButton.setIcon(HoopLink.getImageByName("gtk-refresh.png"));
-	    refreshButton.addActionListener(this);
 	    	    
-	    buttonBox.add (refreshButton);
-	    buttonBox.add (Box.createRigidArea(new Dimension(2,0)));	    
-	    
 	    buttonBox.add(Box.createHorizontalGlue());
 				
 		treeHoopRenderer=new HoopJTreeHoopRenderer ();
@@ -168,6 +168,27 @@ public class HoopProjectPanel extends HoopEmbeddedJPanel implements MouseListene
 		
 		updateContents();
     }
+	/**
+	 * 
+	 */
+	private void showSubEntries (DefaultMutableTreeNode aRoot,HoopFile aFile)
+	{
+		debug ("showSubEntries ()");
+		
+		ArrayList <HoopFile> subs=aFile.getSubEntries();
+		
+		for (int t=0;t<subs.size();t++)
+		{
+			HoopFile aSubEntry=subs.get(t);
+			
+			DefaultMutableTreeNode subNode = new DefaultMutableTreeNode(aSubEntry.getInstanceName());
+			subNode.setUserObject(aSubEntry);
+		
+			aRoot.add(subNode);
+			
+			showSubEntries (subNode,aSubEntry);
+		}		
+	}
 	/**
 	 * 
 	 */	
@@ -216,12 +237,16 @@ public class HoopProjectPanel extends HoopEmbeddedJPanel implements MouseListene
         			
         			for (int t=0;t<subs.size();t++)
         			{
+        				debug ("Visualizing sub entries ...");
+        				
         				HoopFile aSubEntry=subs.get(t);
         				
             			DefaultMutableTreeNode subNode = new DefaultMutableTreeNode(aSubEntry.getInstanceName());
             			subNode.setUserObject(aSubEntry);
         			
-            			dirNode.add(subNode);        				
+            			dirNode.add(subNode);
+            			
+            			showSubEntries (subNode,aSubEntry);
         			}
     			}
     			else

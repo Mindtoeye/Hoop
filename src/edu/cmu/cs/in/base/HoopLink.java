@@ -286,7 +286,9 @@ public class HoopLink extends HoopProperties
 		 							 "mime_xml.png",
 		 							 "text_icon.png",
 		 							 "unknown_216_16.png",
-		 							 "link-views.png"
+		 							 "link-views.png",
+		 							 "folder.png",
+		 							 "system-folder.png"
 		 							 };
 	
 	public static JFrame mainFrame=null;
@@ -377,6 +379,25 @@ public class HoopLink extends HoopProperties
     	}
     	
     	return (null);
+    }
+    /**
+     * 
+     */
+    public static ImageIcon fileToIcon (String aName)
+    {
+    	if (aName.toLowerCase().indexOf(".xml")!=-1)
+    	{
+    		return (HoopLink.getImageByName("mime_xml.png"));    		    	
+    	}
+    	
+    	if (aName.toLowerCase().indexOf(".txt")!=-1)
+    	{
+    		return (HoopLink.getImageByName("text_icon.png"));    		
+    	}    	
+    	    	    		    	
+    	//return (HoopLink.getImageByName("gtk-new.png"));
+    	
+    	return (HoopLink.getImageByName("unknown_216_16.png"));    	
     }
 	/**
 	 *

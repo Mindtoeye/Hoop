@@ -144,9 +144,9 @@ public class HoopFileTools extends HoopRoot
 	/**
 	 * 
 	 */
-	public ArrayList<String> listDirctoryEntries (String aPath)
+	public ArrayList<String> listDirectoryEntries (String aPath)
 	{
-		debug ("listDirctoryEntries ("+aPath+")");
+		debug ("listDirectoryEntries ("+aPath+")");
 		
 		ArrayList<String> files=new ArrayList<String> ();
 		

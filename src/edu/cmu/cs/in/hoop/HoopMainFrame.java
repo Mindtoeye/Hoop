@@ -80,6 +80,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     /**
      * 
      */
+    /*
     private void updateProjectViews ()
     {
     	debug ("updateProjectViews ()");
@@ -90,6 +91,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     		projWindow.updateContents();
     	}
     }
+    */
 	/**
 	 *
 	 */	
@@ -922,7 +924,8 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 			return (false);
 		}		
 		
-		updateProjectViews ();
+		//updateProjectViews ();
+		refreshProjectPane ();
 		
 		return (true);
 	}
@@ -1051,7 +1054,8 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 			debug ("Open command cancelled by user.");
 		}
 		
-		updateProjectViews ();
+		//updateProjectViews ();
+		refreshProjectPane ();
 		
 		return (true);
 	}
@@ -1200,6 +1204,20 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 	       	proj.save();
 		}
 		
-		updateProjectViews ();
+		//updateProjectViews ();
+		refreshProjectPane ();
+	}
+	/**
+	 * 
+	 */
+	private void refreshProjectPane ()
+	{
+		debug ("refreshProjectPane ()");
+		
+		HoopProjectPanel projectPane=(HoopProjectPanel) HoopLink.getWindow("Project");
+       	if (projectPane!=null)
+       	{
+       		projectPane.refresh();
+       	}		
 	}
 }
