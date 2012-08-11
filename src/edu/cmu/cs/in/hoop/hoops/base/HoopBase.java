@@ -104,6 +104,16 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface
     }
     /**
      * 
+     */
+    protected String getProjectPath ()
+    {
+    	if (HoopLink.project!=null)
+    		return (".");
+    		
+    	return (HoopLink.project.getBasePath());
+    }
+    /**
+     * 
      */    
 	public int getExecutionCount() 
 	{

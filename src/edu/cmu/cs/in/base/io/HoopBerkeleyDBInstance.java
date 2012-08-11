@@ -43,7 +43,6 @@ public class HoopBerkeleyDBInstance extends HoopRoot
     private Environment             env=null;
     private boolean                 dbDisabled=false;
     private boolean                 create = true;
-    private String                  dbDir  = "./db";
 	
 	/**
 	*
@@ -87,20 +86,6 @@ public class HoopBerkeleyDBInstance extends HoopRoot
 	public void setDbDisabled(boolean dbDisabled) 
 	{
 		this.dbDisabled = dbDisabled;
-	}	
-	/**
-	 * 
-	 */	
-	public String getDbDir() 
-	{
-		return dbDir;
-	}
-	/**
-	 * 
-	 */	
-	public void setDbDir(String dbDir) 
-	{
-		this.dbDir = dbDir;
 	}		
 	/**
 	 * 
@@ -286,7 +271,7 @@ public class HoopBerkeleyDBInstance extends HoopRoot
             System.out.print(".");
         }
         
-        System.out.println (" done");
+        debug (" done");
         
         return (true);
     }            

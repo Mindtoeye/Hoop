@@ -40,13 +40,16 @@ public class HoopBerkeleyDB extends HoopRoot implements TransactionWorker
 
     private boolean dbDisabled=false;
     private boolean create = true;
-    private String dbDir   = "./db";
     public boolean dumpDatabase=false;
+    
+    private String dbDir   = "./db";
     private TransactionRunner runner=null;
     private HoopBerkeleyDBInstance mainDB=null;
-    private HoopBerkeleyDBInstance catalogDb=null;
-    private StoredClassCatalog javaCatalog=null;
+    private HoopBerkeleyDBInstance catalogDb=null;    
     private ArrayList <HoopBerkeleyDBInstance> databases=null;
+    private StoredClassCatalog javaCatalog=null;
+    
+    private Boolean dbStarted=false;
 	    
 	/**
 	*
@@ -58,6 +61,20 @@ public class HoopBerkeleyDB extends HoopRoot implements TransactionWorker
     	
     	databases=new ArrayList<HoopBerkeleyDBInstance> ();
 	}
+    /**
+     * 
+     */	
+	public Boolean getDbStarted() 
+	{
+		return dbStarted;
+	}
+    /**
+     * 
+     */	
+	public void setDbStarted(Boolean dbStarted) 
+	{
+		this.dbStarted = dbStarted;
+	}	
     /**
      * 
      */    
@@ -99,9 +116,12 @@ public class HoopBerkeleyDB extends HoopRoot implements TransactionWorker
 	/**
 	 * 
 	 */
-	public Boolean startDBService ()
+	public Boolean startDBService (String MainDB)
 	{
 		debug ("startDBService ()");
+		
+		if (getDbStarted()==true)
+			return (true);
 		
         // environment is transactional
         envConfig=new EnvironmentConfig();
@@ -117,7 +137,17 @@ public class HoopBerkeleyDB extends HoopRoot implements TransactionWorker
                 
         try 
         {
-			open();
+        	mainDB=findDB (MainDB);
+        	
+        	if (mainDB==null)
+        	{
+        		mainDB=new HoopBerkeleyDBInstance ();
+        		mainDB.setInstanceName(MainDB);
+        		mainDB.setEnvironment(env);
+        		mainDB.openDB(MainDB);
+            
+        		databases.add(mainDB);
+        	}	
 		} 
         catch (Exception e) 
         {
@@ -212,33 +242,19 @@ public class HoopBerkeleyDB extends HoopRoot implements TransactionWorker
     	
     	return (null);
     }
-    /** 
-     * Opens the main database and creates the Map. 
+    /**
+     * 
      */
-    public HoopBerkeleyDBInstance open() throws Exception 
+    public HoopBerkeleyDBInstance getDB (Integer aDB)
     {
-    	debug ("open ()");
+    	debug ("getDB ("+aDB+")");
     	
-    	mainDB=findDB ("TSMonitor");
-    	
-    	if (mainDB==null)
-    	{
-    		mainDB=new HoopBerkeleyDBInstance ();
-    		mainDB.setInstanceName("TSMonitor");
-    		mainDB.setEnvironment(env);
-    		mainDB.openDB("TSMonitor");
-        
-    		databases.add(mainDB);
-    	}	
-                
-        debug ("Database should be open and available");      
-
-        return (mainDB);
-    }  
+    	return (databases.get(aDB));
+    }    
     /** 
      * Find a database by name and if one does not exist, create it
      */
-    public HoopBerkeleyDBInstance accessDB(String aDB) throws Exception 
+    public HoopBerkeleyDBInstance accessDB(String aDB) //throws Exception 
     {
     	debug ("openDB ("+aDB+")");
     	        
@@ -251,7 +267,16 @@ public class HoopBerkeleyDB extends HoopRoot implements TransactionWorker
     		db=new HoopBerkeleyDBInstance ();
     		db.setInstanceName(aDB);
     		db.setEnvironment(env);
-    		db.openDB(aDB);
+    		
+    		try 
+    		{
+				db.openDB(aDB);
+			} 
+    		catch (Exception e) 
+    		{			
+				e.printStackTrace();
+				return (null);
+			}
         
     		databases.add(db);
                 

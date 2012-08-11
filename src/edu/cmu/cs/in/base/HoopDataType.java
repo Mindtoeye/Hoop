@@ -34,10 +34,11 @@ public class HoopDataType
 	public static final int TABLE=6;	
 	public static final int DOCUMENT=7;
 	
-	public static final int COLOR=8; // Vague type that is assumed to be captured in a string
-	public static final int FONT=9; // Vague type that is assumed to be captured in a string
-	public static final int URI=10; // Vague type that is assumed to be captured in a string
-	public static final int URL=11; // Vague type that is assumed to be captured in a string
+	public static final int DATE=9; // Important higher level datatype, can be cast from and to an int
+	public static final int COLOR=10; // Vague type that is assumed to be captured in a string
+	public static final int FONT=11; // Vague type that is assumed to be captured in a string
+	public static final int URI=12; // Vague type that is assumed to be captured in a string
+	public static final int URL=13; // Vague type that is assumed to be captured in a string
 	
 	protected int type=CLASS;
 	protected String typeValue="String";

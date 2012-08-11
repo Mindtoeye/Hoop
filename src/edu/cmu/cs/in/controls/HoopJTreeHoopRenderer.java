@@ -181,7 +181,11 @@ public class HoopJTreeHoopRenderer extends JLabel implements TreeCellRenderer
     				
     				if (fileIcon.getIsDir()==true)
     				{
-    					if (fileIcon.getInstanceName().toLowerCase().equals("data")==true)
+    					if (
+    						 (fileIcon.getInstanceName().toLowerCase().equals("data")==true) ||
+    						 (fileIcon.getInstanceName().toLowerCase().equals("db")==true) ||
+    						 (fileIcon.getInstanceName().toLowerCase().equals("system")==true)
+    						)
     						setIcon (HoopLink.getImageByName("system-folder.png"));
     					else
     						setIcon (HoopLink.getImageByName("folder.png"));    					 

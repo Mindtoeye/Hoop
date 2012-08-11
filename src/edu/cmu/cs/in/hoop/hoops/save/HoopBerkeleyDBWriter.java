@@ -18,16 +18,28 @@
 
 package edu.cmu.cs.in.hoop.hoops.save;
 
-//import java.util.ArrayList;
+import java.util.ArrayList;
 
+import edu.cmu.cs.in.base.HoopDataType;
+import edu.cmu.cs.in.base.HoopLink;
+import edu.cmu.cs.in.base.io.HoopBerkeleyDB;
+import edu.cmu.cs.in.base.io.HoopBerkeleyDBInstance;
+import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopSaveBase;
+import edu.cmu.cs.in.hoop.properties.types.HoopEnumSerializable;
+import edu.cmu.cs.in.hoop.properties.types.HoopStringSerializable;
 
 /**
 * 
 */
 public class HoopBerkeleyDBWriter extends HoopSaveBase
-{    		
+{    			
+	private HoopBerkeleyDB driver=null;
+	
+	private HoopEnumSerializable dbType=null; // DOCS, USERS, CUSTOM	
+	private HoopStringSerializable dbName=null; // Only used with custom db type
+	
 	/**
 	 *
 	 */
@@ -37,6 +49,41 @@ public class HoopBerkeleyDBWriter extends HoopSaveBase
 		debug ("HoopBerkeleyDBWriter ()");
 												
 		setHoopDescription ("Write to a BerkeleyDB");
+		
+		dbType=new HoopEnumSerializable (this,"dbType","DOCS,USERS,CUSTOM");
+		dbName=new HoopStringSerializable (this,"dbName","Database Name");
+		
+		driver=new HoopBerkeleyDB ();		
+    }
+    /**
+     * 
+     */
+    /**
+     * 
+     */
+    protected Boolean typesToDB (HoopBase inHoop)
+    {
+    	debug ("typesToDB ()");
+    	    	
+		ArrayList <HoopDataType> types=inHoop.getTypes();
+						
+		for (int n=0;n<types.size();n++)
+		{			
+			HoopDataType aType=types.get(n);
+			
+			HoopBerkeleyDBInstance dbInstance=driver.accessDB(aType.getTypeValue ());
+									
+			/*
+			Element aTypeElement=new Element ("type");
+			
+			aTypeElement.setAttribute("type",aType.getTypeValue ());
+			aTypeElement.setAttribute("value",aType.typeToString ());
+						
+			typeElement.addContent(aTypeElement);
+			*/
+		}		
+		
+		return (true);
     }
 	/**
 	 *
@@ -44,9 +91,52 @@ public class HoopBerkeleyDBWriter extends HoopSaveBase
 	public Boolean runHoop (HoopBase inHoop)
 	{		
 		debug ("runHoop ()");
-				
-		//ArrayList <HoopKV> inData=inHoop.getData();
 		
+		ArrayList <HoopKV> inData=inHoop.getData();
+		
+		if (inData==null)
+		{
+			this.setErrorString ("Error: no input data to work with");
+			return (false);
+		}		
+		
+		if (dbType.getValue().equals("DOCS"))		
+			driver.setDbDir (getProjectPath ()+"/system/documents");
+		else
+		{
+			if (dbType.getValue().equals("USERS"))
+				driver.setDbDir (getProjectPath ()+"/system/users");
+			else
+			{
+				if (dbName.getValue().isEmpty()==true)
+				{
+					this.setErrorString("Error: please provide the name of a custom database");
+					return (false);
+				}
+				
+				driver.setDbDir (getProjectPath ()+"/system/custom/"+dbName.getValue());
+			}
+		}
+		
+		HoopLink.fManager.createDirectory (driver.getDbDir());
+
+    	driver.startDBService ("Documents");
+		
+		typesToDB (inHoop);	
+		
+		for (int t=0;t<inData.size();t++)
+		{
+			HoopKV aKV=inData.get(t);
+															
+			ArrayList<Object> vals=aKV.getValuesRaw();
+				
+			for (int i=0;i<vals.size();i++)
+			{
+				HoopBerkeleyDBInstance mapped=driver.getDB(i);
+				
+				mapped.writeKV((String) vals.get(i),"Serialized Content");
+			}			
+		}			
 				
 		return (true);
 	}	
