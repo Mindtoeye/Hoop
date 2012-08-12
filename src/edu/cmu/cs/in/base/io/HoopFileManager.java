@@ -37,11 +37,12 @@ import org.xml.sax.SAXException;
 
 public class HoopFileManager extends HoopFileTools
 {
-	private String URI="";
-	private StringBuilder contents=null;
-	private String [] lineList=null;
-	private ArrayList<String> lines=null;
-	private BufferedReader permInput=null;
+	private String 				URI="";
+	private StringBuilder 		contents=null;
+	private String [] 			lineList=null;
+	private ArrayList<String> 	lines=null;
+	private BufferedReader 		permInput=null;
+	private Writer 				streamOut=null;
 	
 	/**
 	 *
@@ -71,6 +72,120 @@ public class HoopFileManager extends HoopFileTools
 	public void setURI(String uRI) 
 	{
 		URI = uRI;
+	}	
+	/**
+	 *
+	 */  
+	public boolean isStreamOpen ()
+	{
+		if (streamOut!=null)
+			return (true);
+		
+		return (false);
+	}
+	/**
+	 *
+	 */  
+	public boolean openStream (String aFileURI) 
+	{
+		debug ("openStream ("+aFileURI+")");
+		
+		if (streamOut!=null)
+		{
+			debug ("Stream already open");
+			return (true);
+		}
+		
+		File aFile=new File (aFileURI);
+		
+		try 
+		{
+			aFile.createNewFile();
+		} 
+		catch (IOException e1) 
+		{		
+			e1.printStackTrace();
+			return (false);
+		} 
+						
+		if (!aFile.exists()) 
+		{
+			debug ("File does not exist: " + aFile);
+			return (false);
+		}
+				
+		if (!aFile.isFile()) 
+		{
+			debug ("Should not be a directory: " + aFile);
+			return (false);
+		}
+				
+		if (!aFile.canWrite()) 
+		{
+			debug ("File cannot be written: " + aFile);
+			return (false);
+		}
+
+		//use buffering
+		try 
+		{			
+			streamOut=new BufferedWriter (new FileWriter(aFile));
+		}
+		catch (IOException e) 
+		{
+			return (false);			
+		}			
+		
+		return (true);
+	}	
+	/**
+	 *
+	 */  
+	public void closeStream ()
+	{
+		debug ("closeStream ()");
+		
+		if (streamOut!=null)
+		{
+			try 
+			{
+				streamOut.close();
+				streamOut=null;
+			} 
+			catch (IOException e) 
+			{
+				e.printStackTrace();
+				debug ("Error closing output stream");
+			}
+		}
+	}
+	/**
+	 *
+	 */ 
+	public void writeToStream (String aContents)
+	{
+		if (streamOut!=null)
+		{
+			try 
+			{
+				streamOut.write (aContents);
+			} 
+			catch (IOException e) 
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			try 
+			{
+				streamOut.flush();
+			} 
+			catch (IOException e) 
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}			
+		}
 	}	
 	/**
 	 *

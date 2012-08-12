@@ -36,6 +36,7 @@ import edu.cmu.cs.in.hoop.project.HoopGraphFile;
 import edu.cmu.cs.in.hoop.project.HoopProject;
 import edu.cmu.cs.in.hoop.project.HoopWrapperFile;
 import edu.cmu.cs.in.hoop.properties.HoopPropertyPanel;
+import edu.cmu.cs.in.hoop.visualizers.HoopBackingDBInspector;
 import edu.cmu.cs.in.hoop.visualizers.HoopCluster;
 import edu.cmu.cs.in.hoop.visualizers.HoopScatterPlot;
 
@@ -386,7 +387,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     		}
     	});
     	
-    	JMenuItem sTextViewItem=new JMenuItem("Text Viewer");    	
+    	JMenuItem sTextViewItem=new JMenuItem("Text Viewer");
     	
     	sTextViewItem.addActionListener(new ActionListener() 
     	{
@@ -396,7 +397,19 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     	    	
     	    	addView ("Text Viewer",sTextViewPanel,HoopLink.center);    	    	
     		}
-    	});    	
+    	});  
+    	
+    	JMenuItem dbViewItem=new JMenuItem("Backing Database Viewer");
+    	
+    	dbViewItem.addActionListener(new ActionListener() 
+    	{
+    		public void actionPerformed(ActionEvent e) 
+    		{
+    			HoopBackingDBInspector dbViewPanel=new HoopBackingDBInspector ();
+    	    	
+    	    	addView ("Backing Database Viewer",dbViewPanel,HoopLink.center);    	    	
+    		}
+    	});      	
     	    	    	
     	views.add (sTextViewItem);
     	views.add (documentItem);
@@ -408,6 +421,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     	views.add (new JSeparator());
     	views.add (propertiesItem);
     	views.add (sWallItem);
+    	views.add (dbViewItem);
     	
     	return (views);
     }
