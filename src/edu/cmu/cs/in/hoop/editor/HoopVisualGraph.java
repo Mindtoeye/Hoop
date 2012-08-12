@@ -545,7 +545,7 @@ public class HoopVisualGraph extends mxGraph implements mxEventSource.mxIEventLi
 						
 						mxCell properCell=cell;
 						
-						HoopBase aHoop=(HoopBase) properCell.getValue();
+						//HoopBase aHoop=(HoopBase) properCell.getValue();
 												
 						HoopLink.hoopGraphManager.removeHoop((HoopBase) properCell.getValue());
 					}

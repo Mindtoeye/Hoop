@@ -18,5 +18,6 @@
 	<classpathentry kind="lib" path="lib/jdom.jar"/>
 	<classpathentry kind="lib" path="lib/je-5.0.34.jar"/>
 	<classpathentry kind="lib" path="lib/jcalendar-1.4.jar"/>
+	<classpathentry kind="var" path="EXTCLASSPATH"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

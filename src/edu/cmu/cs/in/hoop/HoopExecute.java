@@ -137,7 +137,9 @@ public class HoopExecute extends HoopRoot implements Runnable
 		}
 		
 		while (aRoot.getDone()==false)
-		{														
+		{							
+			debug ("Hoop with class " + aRoot.getClassName()+ " is not done yet");
+			
 			if (aRoot.runHoopInternal(aParent)==false)
 			{
 				debug ("Unable to run hoop: " + aRoot.getErrorString());

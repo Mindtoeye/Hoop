@@ -326,8 +326,8 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface
     	
     	resetData ();
     	
-    	done=false;
-    	
+    	setDone(false);    	
+    	setExecutionCount(0);
     	setExecutionState ("STOPPED");
     }   
     /**
@@ -607,7 +607,10 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface
 								prop.fromXML(propNode);
 							}
 							else
-								debug ("Error: unable to find propertie instance " + targetInstance + " in hoop");
+							{
+								debug ("Error: unable to find property instance '" + targetInstance + "' in hoop");
+								//listProperties ();
+							}	
 						}
 					}
 				}
@@ -705,4 +708,20 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface
 		if (visualizer!=null)
 			visualizer.propagateVisualProperties();
 	}
+	/**
+	 * 
+	 */
+	public void listProperties ()
+	{
+		debug ("listProperties ()");
+				
+		ArrayList <HoopSerializable> props=getProperties ();
+		
+		for (int i=0;i<props.size();i++)
+		{
+			HoopSerializable prop=props.get(i);
+				
+			debug ("Property ("+prop.getClassName()+") " + prop.getInstanceName()+" -> "+prop.typeToString () + ":"+ prop.getValue());
+		}								
+	}				
 }

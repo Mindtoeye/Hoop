@@ -13,6 +13,19 @@
  *
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *  Notes:
+ *  
+ * 	TABLE_CAT String => table catalog (may be null)
+ * 	TABLE_SCHEM String => table schema (may be null)
+ * 	TABLE_NAME String => table name
+ * 	TABLE_TYPE String => table type. Typical types are "TABLE", "VIEW", "SYSTEM TABLE", "GLOBAL TEMPORARY", "LOCAL TEMPORARY", "ALIAS", "SYNONYM".
+ * 	REMARKS String => explanatory comment on the table
+ * 	TYPE_CAT String => the types catalog (may be null)
+ * 	TYPE_SCHEM String => the types schema (may be null)
+ * 	TYPE_NAME String => type name (may be null)
+ * 	SELF_REFERENCHoopG_COL_NAME String => name of the designated "identifier" column of a typed table (may be null)
+ * 	REF_GENERATION String => specifies how values in SELF_REFERENCING_COL_NAME are created. Values are "SYSTEM", "USER", "DERIVED". (may be null)
  * 
  */
 
@@ -29,6 +42,7 @@ import java.sql.SQLException;
 
 import edu.cmu.cs.in.base.HoopStringTools;
 //import edu.cmu.cs.in.base.kv.HoopKV;
+import edu.cmu.cs.in.base.kv.HoopKVInteger;
 import edu.cmu.cs.in.base.kv.HoopKVString;
 import edu.cmu.cs.in.base.HoopDataType;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
@@ -83,14 +97,14 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
     	
     	username=new HoopStringSerializable (this,"username","root");
     	password=new HoopStringSerializable (this,"password","");
-    	dbName=new HoopStringSerializable (this,"dbName","default");
+    	dbName=new HoopStringSerializable (this,"dbName","");
     	dbServer=new HoopStringSerializable (this,"dbServer","127.0.0.1");
     	    	
     	queryTable=new HoopStringSerializable (this,"queryTable","default");
     	queryColumns=new HoopStringSerializable (this,"queryColumns","");
     	querySize=new HoopStringSerializable (this,"querySize","100");
     	
-    	queryType=new HoopEnumSerializable (this,"queryType","TABLEINFO,TABLEDATA");
+    	queryType=new HoopEnumSerializable (this,"queryType","TABLEINFO,TABLEDATA,DATABASES");
     }
     /**
      * 
@@ -224,14 +238,15 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 		
         try 
         {
-        	debug ("Connection to: " + protocol + " with username '" + username.getValue() + "' and password: " + password.getValue());
+        	debug ("Connecting to: " + protocol + " with username '" + username.getValue() + "' and password: " + password.getValue());
         	
 			connection = DriverManager.getConnection (protocol,username.getValue(),password.getValue());
 		} 
         catch (SQLException e) 
         {
         	this.setErrorString("Error connecting to database");
-			e.printStackTrace();
+        	printSQLException (e);
+        	debug ("RETURNING FALSE ...");
 			return (false);
 		}
 
@@ -245,13 +260,7 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 	public Boolean runHoop (HoopBase inHoop)
 	{		
 		debug ("runHoop ()");
-			
-		if (dbName.getValue().isEmpty()==true)
-		{
-			this.setErrorString("Please provide a database name");
-			return (false);
-		}
-		
+					
 		if (username.getValue().isEmpty()==true)
 		{
 			this.setErrorString("Please provide a username for the database");
@@ -274,13 +283,25 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 			return (false);
 		}
 		
+		if (dbName.getValue().isEmpty()==true)
+		{
+			return (getDatabases ());
+		}
+		
 		debug ("Executing MySQL Hoop with query type: " + queryType.getValue());
 				
 		if (queryType.getValue().toLowerCase().equals("tableinfo")==true)
 		{					
-			getTables ();
+			getTables ();		
+			return (true);
 		}
-		else
+		
+		if (queryType.getValue().toLowerCase().equals("databases")==true)
+		{
+			return (getDatabases ());
+		}
+		
+		if (queryType.getValue().toLowerCase().equals("tabledata")==true)	
 		{
 			if (this.getExecutionCount()==0)
 			{
@@ -315,16 +336,105 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 		return (true);
 	}	
 	/**
-	 * TABLE_CAT String => table catalog (may be null)
-	 * TABLE_SCHEM String => table schema (may be null)
-	 * TABLE_NAME String => table name
-	 * TABLE_TYPE String => table type. Typical types are "TABLE", "VIEW", "SYSTEM TABLE", "GLOBAL TEMPORARY", "LOCAL TEMPORARY", "ALIAS", "SYNONYM".
-	 * REMARKS String => explanatory comment on the table
-	 * TYPE_CAT String => the types catalog (may be null)
-	 * TYPE_SCHEM String => the types schema (may be null)
-	 * TYPE_NAME String => type name (may be null)
-	 * SELF_REFERENCHoopG_COL_NAME String => name of the designated "identifier" column of a typed table (may be null)
-	 * REF_GENERATION String => specifies how values in SELF_REFERENCHoopG_COL_NAME are created. Values are "SYSTEM", "USER", "DERIVED". (may be null) 
+	 * 
+	 */
+	private Boolean getDatabases ()
+	{
+		debug ("getDatabases ()");
+		
+		if (connection==null)
+		{
+			this.setErrorString("Error: no connection to database yet");
+			return (false);
+		}
+								
+		Statement statement=null;
+		
+		try 
+		{
+			statement = connection.createStatement ();
+		} 
+		catch (SQLException e) 
+		{
+			printSQLException (e);
+			return (false);
+		}
+		
+		try 
+		{
+			statement.executeQuery ("SHOW DATABASES");
+		} 
+		catch (SQLException e) 
+		{
+			printSQLException (e);
+			return (false);			
+		}
+		
+		ResultSet resultSet=null;
+		
+		try 
+		{
+			resultSet = statement.getResultSet ();
+		} 
+		catch (SQLException e1) 
+		{		
+			printSQLException (e1);
+			return (false);			
+		}
+		
+		int count = 0;
+		
+		resetData ();
+		
+		try 
+		{
+			while (resultSet.next ())
+			{				
+				HoopKVInteger tableKV=new HoopKVInteger ();
+								
+				tableKV.setKey(count);
+				tableKV.setValue(resultSet.getString("Database"));
+				
+				addKV (tableKV);
+				
+				++count;
+			}
+		} 
+		catch (SQLException e1) 
+		{		
+			printSQLException (e1);
+			return (false);			
+		}
+
+		try 
+		{
+			resultSet.close ();
+		} 
+		catch (SQLException e) 
+		{		
+			printSQLException (e);
+			return (false);			
+		}
+		
+		try 
+		{
+			statement.close ();
+		} 
+		catch (SQLException e) 
+		{
+			printSQLException (e);
+			return (false);			
+		}
+		
+		Runtime r = Runtime.getRuntime();
+		r.gc();
+		
+		debug (count + " rows were retrieved, verification date size is: " + this.getData().size() + " from " + loadIndex + " with size: " + loadSize);
+				
+		return (true);
+	}	
+	/**
+	 *  
 	 */
 	private ArrayList <String> getTables ()
 	{
@@ -517,6 +627,147 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 					
 					if (aType.getType()==HoopDataType.INT)
 					{
+						debug ("Adding INT type");
+						
+						Integer idVal = resultSet.getInt (aType.getTypeValue());
+						
+						if (i==0)
+						{
+							tableKV.setKey(idVal.toString());
+						}
+						else
+							tableKV.setValue(idVal.toString (),i);
+					}
+					
+					if (aType.getType()==HoopDataType.STRING)
+					{						
+						debug ("Adding STRING type");
+						
+						String nameVal = resultSet.getString (aType.getTypeValue());
+						
+						if (i==0)
+						{
+							tableKV.setKey(nameVal);
+						}
+						else
+							tableKV.setValue(nameVal,i);						
+					}
+				}
+				
+				//debug ("Entry " + count + " has " + tableKV.getValuesRaw().size() + " values");
+				
+				addKV (tableKV);
+				
+				++count;
+			}
+		} 
+		catch (SQLException e1) 
+		{		
+			printSQLException (e1);
+			return (false);			
+		}
+
+		try 
+		{
+			resultSet.close ();
+		} 
+		catch (SQLException e) 
+		{		
+			printSQLException (e);
+			return (false);			
+		}
+		
+		try 
+		{
+			statement.close ();
+		} 
+		catch (SQLException e) 
+		{
+			printSQLException (e);
+			return (false);			
+		}
+		
+		Runtime r = Runtime.getRuntime();
+		r.gc();
+		
+		debug (count + " rows were retrieved, verification date size is: " + this.getData().size() + " from " + loadIndex + " with size: " + loadSize);
+		
+	    loadIndex+=count;
+	    
+	    if (loadIndex<loadMax)
+	    {
+	    	this.setDone(false);
+	    }
+		
+		return (true);
+	}
+	/**
+	 * http://www.kitebird.com/articles/jdbc.html
+	 * 
+	 * For example: s.executeQuery ("SELECT id, name, category FROM animal");
+	 */
+	private Boolean runQuery (String aQuery)
+	{
+		debug ("runQuery (String)");
+		
+		if (connection==null)
+		{
+			this.setErrorString("Error: no connection to database yet");
+			return (false);
+		}
+								
+		Statement statement=null;
+		
+		try 
+		{
+			statement = connection.createStatement ();
+		} 
+		catch (SQLException e) 
+		{
+			printSQLException (e);
+			return (false);
+		}
+		
+		try 
+		{
+			statement.executeQuery (aQuery);
+		} 
+		catch (SQLException e) 
+		{
+			printSQLException (e);
+			return (false);			
+		}
+		
+		ResultSet resultSet=null;
+		
+		try 
+		{
+			resultSet = statement.getResultSet ();
+		} 
+		catch (SQLException e1) 
+		{		
+			printSQLException (e1);
+			return (false);			
+		}
+		
+		int count = 0;
+		
+		resetData ();
+		
+		try 
+		{
+			while (resultSet.next ())
+			{				
+				HoopKVString tableKV=new HoopKVString ();
+								
+				ArrayList <HoopDataType> dbTypes=this.getTypes ();
+				
+				for (int i=0;i<dbTypes.size();i++)
+				{
+					HoopDataType aType=dbTypes.get(i);
+					
+					if (aType.getType()==HoopDataType.INT)
+					{
 						//debug ("Adding INT type");
 						
 						Integer idVal = resultSet.getInt (aType.getTypeValue());
@@ -590,7 +841,7 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 	    }
 		
 		return (true);
-	}
+	}	
 	/**
 	 * 
 	 */
