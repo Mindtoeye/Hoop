@@ -68,8 +68,6 @@ public class HoopPropertyPanel extends HoopEmbeddedJPanel implements ActionListe
 		linkButton=new JToggleButton ();
 		linkButton.setIcon(HoopLink.getImageByName("link-views.png"));		
 		linkButton.setMargin(new Insets(1, 1, 1, 1));
-		//clearButton.setText("Clear");
-		//linkButton.setFont(new Font("Courier",1,8));
 		linkButton.setPreferredSize(new Dimension (20,20));
 		linkButton.addActionListener(this);		
 		
@@ -77,7 +75,6 @@ public class HoopPropertyPanel extends HoopEmbeddedJPanel implements ActionListe
 	    expandButton.setFont(new Font("Dialog", 1, 8));
 	    expandButton.setPreferredSize(new Dimension (20,20));
 	    expandButton.setMaximumSize(new Dimension (20,20));
-	    //expandButton.setText("All");
 	    expandButton.setIcon(HoopLink.getImageByName("tree-expand-icon.png"));
 	    expandButton.addActionListener(this);
 	    
@@ -86,7 +83,6 @@ public class HoopPropertyPanel extends HoopEmbeddedJPanel implements ActionListe
 	    foldButton.setPreferredSize(new Dimension (20,20));
 	    foldButton.setMaximumSize(new Dimension (20,20));
 	    foldButton.setIcon(HoopLink.getImageByName("tree-fold-icon.png"));
-	    //foldButton.setText("None");
 	    foldButton.addActionListener(this);		
 		
 		Box controlBox = new Box (BoxLayout.X_AXIS);
@@ -100,6 +96,7 @@ public class HoopPropertyPanel extends HoopEmbeddedJPanel implements ActionListe
 		contentBox=new Box (BoxLayout.Y_AXIS);
 		contentBox.setMinimumSize(new Dimension (20,20));
 		contentBox.setPreferredSize(new Dimension (200,300));
+		contentBox.add(Box.createVerticalGlue());
         		
         contentScroller=new JScrollPane (contentBox);
         contentScroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -115,10 +112,19 @@ public class HoopPropertyPanel extends HoopEmbeddedJPanel implements ActionListe
 	 */
 	public void addPropertyPanel (HoopInspectablePanel aPanel)
 	{
-		debug ("addPropertyPanel ()");
+		debug ("addPropertyPanel ("+(contentBox.getComponentCount()-1)+")");
+					
+		if (contentBox.getComponentCount()==0) // THIS SHOULD NOT HAPPEN
+		{
+			contentBox.add (aPanel);
+			contentBox.add(Box.createVerticalGlue());
+		}
+		else
+			contentBox.add (aPanel,contentBox.getComponentCount()-1);
 		
-		contentBox.add (aPanel);
-		//contentBox.add(Box.createVerticalGlue());
+		//listViews ();
+		
+		contentBox.revalidate();
 		
 		debug ("addPropertyPanel () done");
 	}
@@ -241,5 +247,21 @@ public class HoopPropertyPanel extends HoopEmbeddedJPanel implements ActionListe
 	public Boolean getViewsLinked() 
 	{
 		return viewsLinked;
-	}	
+	}
+	/**
+	 * 
+	 */
+	public void listViews ()
+	{
+		debug ("listViews ()");
+		
+		Component [] clist=contentBox.getComponents();
+		
+		for (int i=0;i<clist.length;i++)
+		{
+			Component test=clist [i];
+			
+			debug ("Component " + i + " is a: " + test.toString());
+		} 
+	}
 }

@@ -147,6 +147,7 @@ public class HoopInspectablePanel extends HoopJPanel implements ActionListener, 
         foldButton=new FlatButton (panelTitle);
         foldButton.setIcon(close);
         foldButton.setBorder(null);
+        foldButton.setFocusPainted(false);
         foldButton.setMargin(new Insets (0,0,0,0));
         foldButton.setFont(new Font("Dialog", 1, 10));
         foldButton.setMinimumSize(new Dimension (20,20));
