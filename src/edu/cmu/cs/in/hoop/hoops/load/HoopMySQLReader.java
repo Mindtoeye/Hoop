@@ -36,6 +36,7 @@ import java.util.ArrayList;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
+import java.sql.ResultSetMetaData;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -104,7 +105,7 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
     	queryColumns=new HoopStringSerializable (this,"queryColumns","");
     	querySize=new HoopStringSerializable (this,"querySize","100");
     	
-    	queryType=new HoopEnumSerializable (this,"queryType","TABLEINFO,TABLEDATA,DATABASES");
+    	queryType=new HoopEnumSerializable (this,"queryType","TABLEINFO,TABLEDATA,DATABASES,DATABASEINFO");
     }
     /**
      * 
@@ -292,7 +293,7 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 				
 		if (queryType.getValue().toLowerCase().equals("tableinfo")==true)
 		{					
-			getTables ();		
+			getTableRows ();
 			return (true);
 		}
 		
@@ -301,17 +302,34 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 			return (getDatabases ());
 		}
 		
+		if (queryType.getValue().toLowerCase().equals("databaseinfo")==true)
+		{
+			return (getDatabaseInfo ());
+		}
+		
 		if (queryType.getValue().toLowerCase().equals("tabledata")==true)	
 		{
 			if (this.getExecutionCount()==0)
 			{
-				getTables ();
+				getDatabaseInfo ();
+				
+				debug ("Query size for table "+queryTable.getValue()+" is: " + querySize.getValue());
 									
 			    loadMax=100;
 			    loadIndex=0;								
 				loadSize=Integer.parseInt(querySize.getValue());
 				
+				if (loadSize<loadMax)
+					loadMax=loadSize;
+				
 				HoopKVString aKV=(HoopKVString) this.getKVFromKey(queryTable.getValue ());
+				
+				if (aKV==null)
+				{
+					this.setErrorString ("Error: can't obtain key from: " + queryTable.getValue ());
+					debug ("Error: can't obtain key from: " + queryTable.getValue ());
+					return (false);
+				}
 				
 				loadMax=Integer.parseInt(aKV.getValue());
 				
@@ -436,15 +454,17 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 	/**
 	 *  
 	 */
-	private ArrayList <String> getTables ()
+	private Boolean getDatabaseInfo ()
 	{
-		debug ("getTables ()");
+		debug ("getDatabaseInfo ()");
 		
+		/*
 		if (this.getExecutionCount ()>0)
 		{
 			debug ("We've already connected to the database");
-			return (null);
+			return (true);
 		}
+		*/
 		
 		this.setKVType (0,HoopDataType.STRING,"Table");
 		this.setKVType (1,HoopDataType.STRING,"Nr. Rows");
@@ -457,10 +477,9 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 		} 
 		catch (SQLException e) 
 		{
-			//e.printStackTrace();
 			printSQLException (e);
 			this.setErrorString("Error getting metadata from database");
-			return (null);
+			return (false);
 		}
 		
 		ResultSet tableSet=null;
@@ -472,7 +491,7 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 		catch (SQLException e) 
 		{
 			printSQLException (e);
-			return (null);
+			return (false);
 		}
 				
 		try 
@@ -492,6 +511,7 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 					try
 					{
 						Statement st = connection.createStatement();
+						debug ("SELECT COUNT(*) FROM "+ tableType);
 						ResultSet res = st.executeQuery("SELECT COUNT(*) FROM "+ tableType);
 						
 						while (res.next())
@@ -519,7 +539,7 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 		catch (SQLException e1) 
 		{
 			printSQLException (e1);
-			return (null);
+			return (false);
 		}		
 		
 		try 
@@ -529,10 +549,68 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 		catch (SQLException e) 
 		{		
 			printSQLException (e);
-			return (null);
+			return (false);
 		}
 								
-		return (null);
+		return (true);
+	}
+	/**
+	 * 
+	 */
+	private Boolean getTableRows ()
+	{
+		debug ("getTableRows ()");
+				
+		if (connection==null)
+		{
+			this.setErrorString("Error: no connection to database yet");
+			return (false);
+		}
+		
+		if (queryTable.getValue().isEmpty()==true)
+		{
+			this.setErrorString("Error: please provide the name of a table for which to obtain column names");
+			return (false);			
+		}
+		
+		this.setKVType (0,HoopDataType.STRING,"Row Index");
+		this.setKVType (1,HoopDataType.STRING,"Row Name");
+		
+		try
+		{
+			  Statement st = connection.createStatement();
+			  
+			  ResultSet rs = st.executeQuery("SELECT * FROM " + queryTable.getValue());
+			  
+			  ResultSetMetaData md = rs.getMetaData();
+			  
+			  int col = md.getColumnCount();
+			  
+			  debug ("Number of entries : "+ col);
+			  			  
+			  for (int i = 1; i <= col; i++)
+			  {
+				  HoopKVInteger column=new HoopKVInteger ();
+				  
+				  String col_name=md.getColumnName(i);
+
+				  column.setKey(i);
+				  column.setValue(col_name);
+				  
+				  addKV (column);
+			  }			  			  
+			  
+			  st.close ();
+			  
+			  rs.close ();
+		}
+		catch (SQLException s)
+		{
+			printSQLException (s);
+			return (false);
+		}
+		
+		return (true);
 	}
 	/**
 	 * http://www.kitebird.com/articles/jdbc.html
@@ -587,6 +665,8 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 			return (false);
 		}
 		
+		debug ("Executing: " + fullQuery);
+		
 		try 
 		{
 			statement.executeQuery (fullQuery);
@@ -631,6 +711,8 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 						
 						Integer idVal = resultSet.getInt (aType.getTypeValue());
 						
+						debug ("nameVale: " + idVal);
+						
 						if (i==0)
 						{
 							tableKV.setKey(idVal.toString());
@@ -645,6 +727,8 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 						
 						String nameVal = resultSet.getString (aType.getTypeValue());
 						
+						debug ("nameVal: " + nameVal);
+						
 						if (i==0)
 						{
 							tableKV.setKey(nameVal);
@@ -655,6 +739,8 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 				}
 				
 				//debug ("Entry " + count + " has " + tableKV.getValuesRaw().size() + " values");
+				
+				debug ("Key ("+count+"): " + tableKV.getKeyString () + ", Value: " + tableKV.getValue());
 				
 				addKV (tableKV);
 				
@@ -696,8 +782,12 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 	    
 	    if (loadIndex<loadMax)
 	    {
+	    	debug ("loadIndex ("+loadIndex+") < loadMax ("+loadMax+")");
+	    	
 	    	this.setDone(false);
 	    }
+	    else
+	    	debug ("And ........ we're done here");
 		
 		return (true);
 	}
@@ -706,6 +796,7 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 	 * 
 	 * For example: s.executeQuery ("SELECT id, name, category FROM animal");
 	 */
+	/*
 	private Boolean runQuery (String aQuery)
 	{
 		debug ("runQuery (String)");
@@ -841,7 +932,8 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 	    }
 		
 		return (true);
-	}	
+	}
+	*/	
 	/**
 	 * 
 	 */

@@ -325,8 +325,7 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface
     	debug ("reset ()");
     	
     	resetData ();
-    	
-    	setDone(false);    	
+    	 
     	setExecutionCount(0);
     	setExecutionState ("STOPPED");
     }   

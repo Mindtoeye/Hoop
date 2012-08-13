@@ -126,7 +126,7 @@ public class HoopExecute extends HoopRoot implements Runnable
 	 */
 	private Boolean execute (HoopBase aParent,HoopBase aRoot)
 	{
-		debug ("execute ()");
+		debug ("execute () push");
 							
 		// Execution phase of the current Hoop ...
 		
@@ -138,7 +138,9 @@ public class HoopExecute extends HoopRoot implements Runnable
 		
 		while (aRoot.getDone()==false)
 		{							
-			debug ("Hoop with class " + aRoot.getClassName()+ " is not done yet");
+			debug ("Hoop "+aRoot.getInstanceName()+" with class " + aRoot.getClassName()+ " is not done yet");
+			
+			aRoot.setDone(true);
 			
 			if (aRoot.runHoopInternal(aParent)==false)
 			{
@@ -163,20 +165,27 @@ public class HoopExecute extends HoopRoot implements Runnable
 		
 			ArrayList<HoopBase> outHoops=aRoot.getOutHoops();
 		
-			debug ("Executing " + outHoops.size() + " sub hoops ...");
-		
-			for (int i=0;i<outHoops.size();i++)
+			if (outHoops.size()>0)
 			{
-				HoopBase current=outHoops.get(i);
-			
-				current.setDone(false);
+				debug ("Executing " + outHoops.size() + " sub hoops ...");
+		
+				for (int i=0;i<outHoops.size();i++)
+				{
+					debug ("Running sub hoop: " + i);
 				
-				if (execute (aRoot,current)==false)
-					return (false);
-			}
+					HoopBase current=outHoops.get(i);
+							
+					if (execute (aRoot,current)==false)
+						return (false);
+				}
+				
+				debug ("Done executing sub hoops");
+			}							
 		}
 		
 		// All done, really done
+		
+		debug ("execute () pop");
 		
 		return (true);
 	}	

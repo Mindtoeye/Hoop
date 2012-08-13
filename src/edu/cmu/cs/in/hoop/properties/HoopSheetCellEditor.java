@@ -295,13 +295,13 @@ public class HoopSheetCellEditor extends AbstractCellEditor implements TableCell
 		 
 		 if (cb==enumComponent)
 		 {
-			 debug ("Assigning selected value to enum object ...");
+			 debug ("Assigning selected value ("+(String) enumComponent.getSelectedItem()+") to enum object ...");
 			 obj.setValue((String) enumComponent.getSelectedItem());
 		 }
 		 
 		 if (cb==booleanComponent)
 		 {
-			 debug ("Assigning selected value to boolean object ...");
+			 debug ("Assigning selected value ("+(String) booleanComponent.getSelectedItem()+") to boolean object ...");
 			 obj.setValue((String) booleanComponent.getSelectedItem());			 
 		 }
 	}    
