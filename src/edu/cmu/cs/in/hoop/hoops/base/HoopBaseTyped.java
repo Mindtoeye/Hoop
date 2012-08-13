@@ -141,6 +141,24 @@ public class HoopBaseTyped extends HoopVisual implements HoopPropertyContainer
     /**
      * 
      */
+    public String getKVTypeName (int anIndex)
+    {
+    	HoopDataType target=types.get(anIndex);
+    	
+    	return (target.getTypeValue());
+    }
+    /**
+     * 
+     */
+    public Object getKVTypeValue (int anIndex)
+    {
+    	HoopDataType target=types.get(anIndex);
+    	
+    	return (target.getTypeValue());
+    }
+    /**
+     * 
+     */
 	@Override
 	public HoopBaseTyped getPropParent() 
 	{	

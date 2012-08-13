@@ -41,6 +41,7 @@ import edu.cmu.cs.in.hoop.hoops.task.HoopPathChooser;
 import edu.cmu.cs.in.hoop.hoops.task.HoopScheduler;
 import edu.cmu.cs.in.hoop.hoops.task.HoopStart;
 import edu.cmu.cs.in.hoop.hoops.transform.HoopCleanTokens;
+import edu.cmu.cs.in.hoop.hoops.transform.HoopColumnRenamer;
 import edu.cmu.cs.in.hoop.hoops.transform.HoopFilterGarbage;
 import edu.cmu.cs.in.hoop.hoops.transform.HoopFilterStopWords;
 import edu.cmu.cs.in.hoop.hoops.transform.HoopKV2TXT;
@@ -191,5 +192,6 @@ public class HoopManager extends HoopBase
     	addTemplate (new HoopXMLWriter ());
     	addTemplate (new HoopURLReader ());
     	addTemplate (new HoopXMLDocumentWriter ());
+    	addTemplate (new HoopColumnRenamer ());
     }
 }

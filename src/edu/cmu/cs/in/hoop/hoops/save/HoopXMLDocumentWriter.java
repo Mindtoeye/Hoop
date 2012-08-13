@@ -25,12 +25,21 @@ import org.jdom.Element;
 import edu.cmu.cs.in.base.HoopDataType;
 import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
+import edu.cmu.cs.in.hoop.properties.types.HoopStringSerializable;
 
 /**
 * 
 */
 public class HoopXMLDocumentWriter extends HoopXMLWriter
 {    			
+	private HoopStringSerializable authorTag=null;
+	private HoopStringSerializable titleTag=null;
+	private HoopStringSerializable abstractTag=null;
+	private HoopStringSerializable createDateTag=null;
+	private HoopStringSerializable descriptionTag=null;
+	private HoopStringSerializable textTag=null;
+	private HoopStringSerializable keywordsTag=null;
+	
 	/**
 	 *
 	 */
@@ -40,6 +49,14 @@ public class HoopXMLDocumentWriter extends HoopXMLWriter
 		debug ("HoopXMLDocumentWriter ()");
 												
 		setHoopDescription ("Write a Hoop Document as an XML file");
+		
+		authorTag=new HoopStringSerializable (this,"authorTag","author");
+		titleTag=new HoopStringSerializable (this,"titleTag","title");
+		abstractTag=new HoopStringSerializable (this,"abstractTag","abstract");
+		createDateTag=new HoopStringSerializable (this,"createTag","date created");
+		descriptionTag=new HoopStringSerializable (this,"descriptionTag","description");
+		textTag=new HoopStringSerializable (this,"textTag","text");
+		keywordsTag=new HoopStringSerializable (this,"keywordsTag","keywords");		
     }
 	/**
 	 *
@@ -63,56 +80,33 @@ public class HoopXMLDocumentWriter extends HoopXMLWriter
 		Element dataElement=new Element ("content");
 		
 		fileElement.addContent(dataElement);
-
-		int authorIndex=getPropertyIndex ("Author");
-		int abstractIndex=getPropertyIndex ("Abstract");
-		int descIndex=getPropertyIndex ("Description");
-		if (descIndex==-1)
-			descIndex=getPropertyIndex ("Desc");
-		int contentIndex=getPropertyIndex ("Content");
-		if (contentIndex==-1)			
-			contentIndex=getPropertyIndex ("Text");
 						
 		if (inData!=null)
 		{			
 			for (int t=0;t<inData.size();t++)
 			{
 				HoopKV aKV=inData.get(t);
+												
+				Element keyElement=new Element ("key");
+				keyElement.setText(aKV.getKeyString());
+				dataElement.addContent(keyElement);
 				
-				if (authorIndex!=-1)
-				{
-					String author=aKV.getValueAsString(authorIndex);
-					
-					Element authorElement=new Element ("author");
-					authorElement.setText(author);
-					dataElement.addContent(authorElement);
-				}
+				ArrayList <Object> vals=aKV.getValuesRaw ();
 				
-				if (abstractIndex!=-1)
+				for (int j=0;j<vals.size();j++)
 				{
-					String abstr=aKV.getValueAsString(abstractIndex); 
+					String aTypeName=this.getKVTypeName (j);
 					
-					Element abstractElement=new Element ("author");
-					abstractElement.setText(abstr);
-					dataElement.addContent(abstractElement);					
-				}
-				
-				if (descIndex!=-1)
-				{
-					String desc=aKV.getValueAsString(descIndex); 
+					HoopStringSerializable mapper=(HoopStringSerializable) this.getProperty(aTypeName);
 					
-					Element descElement=new Element ("description");
-					descElement.setText(desc);
-					dataElement.addContent(descElement);					
-				}				
-				
-				if (contentIndex!=-1)
-				{
-					String cont=aKV.getValueAsString(contentIndex);
-					
-					Element textElement=new Element ("text");
-					textElement.setText(cont);
-					dataElement.addContent(textElement);					
+					if (mapper!=null)
+					{
+						Element documentElement=new Element (mapper.getInstanceName());
+						documentElement.setText(aKV.getValueAsString(j));
+						dataElement.addContent(documentElement);
+					}
+					else
+						debug ("Document property " + aTypeName + " could not be mapped");
 				}				
 			}
 		}	

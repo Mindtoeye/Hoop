@@ -93,7 +93,7 @@ public class HoopKV extends HoopDataType implements HoopKVInterface
 	@Override
 	public Object getValue(int anIndex) 
 	{
-		return new String ("abstract");
+		return (values.get(anIndex));
 	}
 	/**
 	 * 
@@ -101,7 +101,7 @@ public class HoopKV extends HoopDataType implements HoopKVInterface
 	@Override
 	public String getValueAsString() 
 	{
-		return new String ("abstract");
+		return (String) (values.get(0));
 	}
 	/**
 	 * 
@@ -109,6 +109,6 @@ public class HoopKV extends HoopDataType implements HoopKVInterface
 	@Override
 	public String getValueAsString(int anIndex) 
 	{
-		return new String ("abstract");
+		return (String) (values.get(anIndex));
 	}
 }

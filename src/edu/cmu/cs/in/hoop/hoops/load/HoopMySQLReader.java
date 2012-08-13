@@ -340,7 +340,7 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 				
 				debug ("Loading rows from table " + queryTable.getValue () + " with chunk size: " + loadSize + " for a total of: " + loadMax + " rows");
 				
-				reset (); // We have the information we wanted, no need to keep it
+				resetData (); // We have the information we wanted, no need to keep it
 			}
  			
 			runQuery ();
