@@ -107,7 +107,12 @@ class HoopSheetPathEditor extends HoopJPanel implements ActionListener, TableCel
 	 */
 	private void changePath (String aPath)
 	{
-		debug ("changePath ("+aPath+")");
+		//debug ("changePath ("+aPath+")");
+		
+		if (pathObject.getValue().equals(aPath)==true)
+		{
+			return;
+		}
 		
 		pathObject.setValue(aPath);
 		chosenPath.setText(aPath);
@@ -144,7 +149,7 @@ class HoopSheetPathEditor extends HoopJPanel implements ActionListener, TableCel
 													int row, 
 													int column) 
 	{
-		debug ("getTableCellRendererComponent ("+aValue.getClass().getName()+")");
+		//debug ("getTableCellRendererComponent ("+aValue.getClass().getName()+")");
 		
     	if (aValue instanceof String)
     	{

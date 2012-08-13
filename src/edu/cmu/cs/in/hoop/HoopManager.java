@@ -46,6 +46,7 @@ import edu.cmu.cs.in.hoop.hoops.transform.HoopColumnRenamer;
 import edu.cmu.cs.in.hoop.hoops.transform.HoopFilterGarbage;
 import edu.cmu.cs.in.hoop.hoops.transform.HoopFilterStopWords;
 import edu.cmu.cs.in.hoop.hoops.transform.HoopKV2TXT;
+import edu.cmu.cs.in.hoop.hoops.transform.HoopKeySort;
 import edu.cmu.cs.in.hoop.hoops.transform.HoopPorterStemmer;
 import edu.cmu.cs.in.hoop.hoops.transform.HoopSentence2Tokens;
 import edu.cmu.cs.in.hoop.hoops.transform.HoopText2Sentence;
@@ -195,5 +196,6 @@ public class HoopManager extends HoopBase
     	addTemplate (new HoopXMLDocumentWriter ());
     	addTemplate (new HoopColumnRenamer ());
     	addTemplate (new HoopTextFileSave ());
+    	addTemplate (new HoopKeySort ());
     }
 }
