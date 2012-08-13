@@ -104,7 +104,7 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 		if (hoop!=null)					
 		{
 			this.setTitle (hoop.getClassName());
-			this.setDescription (hoop.getHoopDescription());
+			//this.setDescription (hoop.getHoopDescription());
 			
 			leftPortBox.removeAll();
 			rightPortBox.removeAll();

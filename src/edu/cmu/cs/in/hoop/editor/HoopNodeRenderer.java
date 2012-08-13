@@ -35,6 +35,7 @@ import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -70,7 +71,7 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 	protected mxGraph graph=null;
 	
 	//protected JPanel contentArea=null;	
-	protected JTextArea contentArea=null;
+	protected JLabel contentArea=null;
 	protected JPanel titleBar=null;
 	protected JLabel icon=null;
 	protected JLabel label=null;
@@ -177,13 +178,18 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 		rightPortBox.setMinimumSize(new Dimension(50,20));		
 		rightPortBox.setPreferredSize(new Dimension(50,100));		
 		
-		contentArea=new JTextArea ();
-		contentArea.setFont(new Font("Dialog", 1, 10));
+		contentArea=new JLabel ();
+		//contentArea.setFont(new Font("Dialog", 1, 10));
 		//contentArea.setForeground(Color.WHITE);
-		contentArea.setLineWrap(true);
-		contentArea.setWrapStyleWord(true);
-		contentArea.setEditable(false);
-		contentArea.setBackground(HoopProperties.graphPanelContent);
+		//contentArea.setLineWrap(true);
+		//contentArea.setWrapStyleWord(true);
+		//contentArea.setEditable(false);
+		
+		ImageIcon icon=HoopLink.getImageByName("wait_animated.gif");
+		contentArea.setIcon(icon);
+		icon.setImageObserver(contentArea);
+			
+		//contentArea.setBackground(HoopProperties.graphPanelContent);
 		//contentArea.setBorder(BorderFactory.createLoweredBevelBorder());
 				
 		contentBox.add(leftPortBox);
@@ -344,11 +350,13 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 	/**
 	 * 
 	 */	
+	/*
 	public void setDescription (String aDescription)
 	{
 		if (contentArea!=null)
 			contentArea.setText(aDescription);
-	}	
+	}
+	*/	
 	/**
 	 * 
 	 */	

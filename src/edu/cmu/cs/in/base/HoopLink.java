@@ -288,7 +288,8 @@ public class HoopLink extends HoopProperties
 		 							 "unknown_216_16.png",
 		 							 "link-views.png",
 		 							 "folder.png",
-		 							 "system-folder.png"
+		 							 "system-folder.png",
+		 							 "wait_animated.gif"
 		 							 };
 	
 	public static JFrame mainFrame=null;
