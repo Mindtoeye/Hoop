@@ -338,6 +338,13 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface
     	
     	//debug ("Data size: " + data.size());
     }    
+    /**
+     * BE VERY CAREFUL WITH THIS ONE!
+     */
+    public void setData (ArrayList<HoopKV> aList)
+    {
+    	data=aList;
+    }
 	/**
 	 *
 	 */    

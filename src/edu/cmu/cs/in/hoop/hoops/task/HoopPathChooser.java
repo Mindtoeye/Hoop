@@ -61,6 +61,10 @@ public class HoopPathChooser extends HoopControlBase implements HoopInterface
 			return (true);
 		}
 		
+		this.setData(inHoop.getData()); // Should work as a pass-through
+		
+		// First reset all hoops to non-active
+		
 		for (int i=0;i<outHoops.size();i++)
 		{
 			HoopBase aHoop=outHoops.get(i);
@@ -68,16 +72,16 @@ public class HoopPathChooser extends HoopControlBase implements HoopInterface
 			aHoop.setActive(false);
 		}
 		
+		// Then make those active the user has selected
+		
 		for (int j=0;j<outHoops.size();j++)
 		{
 			HoopBase aHoop=outHoops.get(j);
 			
 			if (aHoop.getHoopID().equals(activePath.getValue())==true)
-			{
+			{								
 				aHoop.setActive(true);
-			}
-			
-			aHoop.setActive(true);
+			}					
 		}		
 						
 		return (true);
