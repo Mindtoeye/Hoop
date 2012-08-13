@@ -139,12 +139,17 @@ public class HoopPropertyPanel extends HoopEmbeddedJPanel implements ActionListe
 		
 		for (int i=0;i<childList.length;i++)
 		{
-			HoopInspectablePanel tester=(HoopInspectablePanel) childList [i];
-		
-			if (tester.getHoop ()==aHoop)
+			Object tester=childList [i];
+			
+			if (tester instanceof HoopInspectablePanel)
 			{
-				contentBox.remove(tester);
-			}
+				HoopInspectablePanel panel=(HoopInspectablePanel) childList [i];
+		
+				if (panel.getHoop ()==aHoop)
+				{
+					contentBox.remove(panel);
+				}
+			}	
 		}	
 	}	
 	/**

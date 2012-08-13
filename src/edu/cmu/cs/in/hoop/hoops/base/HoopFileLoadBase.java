@@ -43,9 +43,7 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 		setHoopDescription ("Load Text from a File");
 		
 		fManager=new HoopFileManager ();
-		fileKV=new HoopKVString ();						
-		addKV (fileKV);		
-		
+			
 		URI=new HoopURISerializable (this,"URI","");
     }
 	/**
@@ -106,8 +104,12 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 			return (false);
 		}	
 		
+		fileKV=new HoopKVString ();
+		
 		fileKV.setKeyString(fManager.getURI());
 		fileKV.setValue(contents);
+								
+		addKV (fileKV);			
 		
 		return (true);
 	}	

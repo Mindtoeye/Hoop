@@ -72,8 +72,12 @@ public class HoopErrorPanel extends HoopEmbeddedJPanel implements ActionListener
 	public void addError (String aHoop,String anError)
 	{
 		debug ("addError ()");
+		
+		debug ("Hoop: " + aHoop + ", " + anError);
 					
 		errorData.addRow(new Object[]{aHoop, anError});
+		
+		table.revalidate();
 	}
 	/**
 	 * 

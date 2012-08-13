@@ -98,9 +98,9 @@ public class HoopExecute extends HoopRoot implements Runnable
 	 */
 	protected void showError (String aClass,String anError)
 	{
-		debug ("ShowError ()");
+		debug ("showError ()");
 		
-		debug ("Hoop: " + aClass+", Error: " + anError);
+		debug ("Hoop: " + aClass + ", Error: " + anError);
 	}	
 	/**
 	 * 

@@ -40,12 +40,16 @@ public class HoopExecuteInEditor extends HoopExecute
 	 */
 	protected void showError (String aClass,String anError)
 	{
-		debug ("ShowError ()");
+		debug ("showError ()");
+		
+		debug ("Hoop: " + aClass + ", Error: " + anError);
 		
 		HoopErrorPanel errorPanel=(HoopErrorPanel) HoopLink.getWindow("Errors");
 		
 		if (errorPanel==null)
 		{
+			debug ("No error panel yet, creating ...");
+			
 			HoopLink.addView ("Errors",new HoopErrorPanel(),"bottom");
 			errorPanel=(HoopErrorPanel) HoopLink.getWindow("Errors");
 		}	
