@@ -179,21 +179,22 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 		rightPortBox.setPreferredSize(new Dimension(50,100));		
 		
 		contentArea=new JLabel ();
+		contentArea.setOpaque(false);
 		//contentArea.setFont(new Font("Dialog", 1, 10));
 		//contentArea.setForeground(Color.WHITE);
 		//contentArea.setLineWrap(true);
 		//contentArea.setWrapStyleWord(true);
 		//contentArea.setEditable(false);
 		
-		ImageIcon icon=HoopLink.getImageByName("wait_animated.gif");
-		contentArea.setIcon(icon);
-		icon.setImageObserver(contentArea);
+		//ImageIcon icon=HoopLink.getImageByName("wait_animated.gif");
+		//contentArea.setIcon(icon);
+		//icon.setImageObserver(contentArea);
 			
 		//contentArea.setBackground(HoopProperties.graphPanelContent);
 		//contentArea.setBorder(BorderFactory.createLoweredBevelBorder());
 				
 		contentBox.add(leftPortBox);
-		//contentBox.add(contentArea);
+		contentBox.add(contentArea);
 		contentBox.add(Box.createHorizontalGlue());
 		contentBox.add(rightPortBox);
 		

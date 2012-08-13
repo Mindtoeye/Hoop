@@ -75,7 +75,7 @@ public class HoopFileTools extends HoopRoot
 		}
 		else
 		{
-		    boolean success = (new File(aDirURI)).mkdir();
+		    boolean success = (new File(aDirURI)).mkdirs();
 		    if (!success) 
 		    {
 		    	debug ("Unable to create directory");

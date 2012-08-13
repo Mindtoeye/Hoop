@@ -100,6 +100,8 @@ public class HoopBerkeleyDBWriter extends HoopSaveBase
 			return (false);
 		}		
 		
+		debug ("Mapping project path ("+getProjectPath ()+") to db dir ...");
+		
 		if (dbType.getValue().equals("DOCS"))		
 			driver.setDbDir (getProjectPath ()+"/system/documents");
 		else
@@ -118,9 +120,13 @@ public class HoopBerkeleyDBWriter extends HoopSaveBase
 			}
 		}
 		
-		HoopLink.fManager.createDirectory (driver.getDbDir());
+		if (HoopLink.fManager.createDirectory (driver.getDbDir())==false)
+		{
+			this.setErrorString("Error creating database directory: "+driver.getDbDir());
+			return (false);
+		}
 
-    	driver.startDBService ("Documents");
+		driver.startDBService (dbType.getValue());
 		
 		typesToDB (inHoop);	
 		
