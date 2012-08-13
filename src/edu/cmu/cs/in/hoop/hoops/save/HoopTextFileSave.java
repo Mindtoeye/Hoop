@@ -21,23 +21,19 @@ package edu.cmu.cs.in.hoop.hoops.save;
 import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.HoopLink;
-import edu.cmu.cs.in.base.io.HoopFileManager;
 import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopFileSaveBase;
-import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
 
 /**
 * 
 */
 public class HoopTextFileSave extends HoopFileSaveBase
 {    				
-	private String content=null;
-	
-	private HoopFileManager fManager=null;
-	
+	//private String content=null;	
+	//private HoopFileManager fManager=null;	
 	//private String outputStreamPath=null;	
-	protected HoopURISerializable URI=null;	
+	//protected HoopURISerializable URI=null;	
 	//private String fileExtension="txt";
 	
 	/**
@@ -80,7 +76,17 @@ public class HoopTextFileSave extends HoopFileSaveBase
 				formatted.append("\n");
 			}
 			
-			HoopLink.fManager.saveContents (this.projectToFullPath(URI.getValue()),formatted.toString());
+			debug ("Saving to: " + URI.getValue());
+			
+			String fullPath=this.projectToFullPath(URI.getValue());
+			
+			if (fullPath==null)
+			{
+				this.setErrorString("Error: unable to convert relative path to project path: " + URI.getValue ());
+				return (false);
+			}
+			
+			HoopLink.fManager.saveContents (fullPath,formatted.toString());
 
 		}	
 						

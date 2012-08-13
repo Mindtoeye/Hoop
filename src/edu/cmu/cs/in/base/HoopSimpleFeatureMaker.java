@@ -120,7 +120,7 @@ public class HoopSimpleFeatureMaker extends HoopRoot implements HoopFeatureMaker
 	 */	
 	public List<String> unigramTokenizeBasic (String aSource)
 	{
-		debug ("unigramTokenizeBasic (String)");
+		//debug ("unigramTokenizeBasic (String)");
 		
 		String cleaned=aSource;
 				
@@ -147,7 +147,7 @@ public class HoopSimpleFeatureMaker extends HoopRoot implements HoopFeatureMaker
 	 */	
 	public List<String> unigramTokenize (String aSource)
 	{
-		debug ("unigramTokenize (String)");
+		//debug ("unigramTokenize (String)");
 		
 		String cleaned=aSource;
 				
