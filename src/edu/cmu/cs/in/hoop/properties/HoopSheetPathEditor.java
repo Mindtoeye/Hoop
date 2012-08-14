@@ -126,17 +126,35 @@ class HoopSheetPathEditor extends HoopJPanel implements ActionListener, TableCel
 		
 	    JFileChooser fc=new JFileChooser ();
 	    
-		FileNameExtensionFilter filter=new FileNameExtensionFilter ("."+pathObject.getFileExtension()+" files", pathObject.getFileExtension());
-		fc.setFileFilter(filter);
-		
-		int returnVal=fc.showSaveDialog (this);
+	    if (pathObject.getSingleFile()==true)
+	    {
+			FileNameExtensionFilter filter=new FileNameExtensionFilter ("."+pathObject.getFileExtension()+" files", pathObject.getFileExtension());
+			fc.setFileFilter(filter);
+			
+			int returnVal=fc.showOpenDialog (this);
 
-		if (returnVal==JFileChooser.APPROVE_OPTION) 
-		{
-	       	File file = fc.getSelectedFile();
-	       	
-	       	changePath (file.getAbsolutePath());
-		} 	
+			if (returnVal==JFileChooser.APPROVE_OPTION) 
+			{
+		       	File file = fc.getSelectedFile();
+		       	
+		       	changePath (file.getAbsolutePath());
+			}	    	
+	    }	 
+	    else
+	    {			
+			FileNameExtensionFilter filter=new FileNameExtensionFilter ("Target Directories", "Directories");
+			fc.setFileFilter(filter);    			
+			fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);	    	
+	    	
+			int returnVal=fc.showOpenDialog (this);
+
+			if (returnVal==JFileChooser.APPROVE_OPTION) 
+			{
+		       	File file = fc.getSelectedFile();
+		       	
+		       	changePath (file.getAbsolutePath());
+			}	    	
+	    }
 	}
 	/**
 	 * 

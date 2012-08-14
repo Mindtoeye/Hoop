@@ -26,7 +26,8 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopPropertyContainer;
 */
 public class HoopURISerializable extends HoopSerializable
 {
-	private String fileExtension="txt";		
+	private String fileExtension="txt";
+	private Boolean singleFile=true;
 	
 	/**
 	 *
@@ -80,5 +81,19 @@ public class HoopURISerializable extends HoopSerializable
 	public String getPropValue() 
 	{
 		return (getValue ());
+	}
+	/**
+	 * 
+	 */
+	public Boolean getSingleFile() 
+	{
+		return singleFile;
+	}
+	/**
+	 * 
+	 */	
+	public void setSingleFile(Boolean singleFile) 
+	{
+		this.singleFile = singleFile;
 	}      
 }

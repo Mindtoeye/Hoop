@@ -18,9 +18,12 @@
 
 package edu.cmu.cs.in.hoop.hoops.base;
 
+import java.io.File;
+import java.util.ArrayList;
+
 import edu.cmu.cs.in.base.HoopLink;
-import edu.cmu.cs.in.base.io.HoopFileManager;
 import edu.cmu.cs.in.base.kv.HoopKVString;
+import edu.cmu.cs.in.hoop.properties.types.HoopEnumSerializable;
 import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
 
 /**
@@ -28,9 +31,13 @@ import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
 */
 public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 {    				
-	private HoopFileManager fManager=null;
-	private HoopKVString fileKV=null;		
+	//private HoopFileManager fManager=null;
+	protected HoopKVString fileKV=null;		
 	protected HoopURISerializable URI=null;
+	protected HoopEnumSerializable fileMode=null; // SINGLE,MULTIPLE
+	
+	private int fileIndex=0;
+	private ArrayList <String> files=null;
 	
 	/**
 	 *
@@ -40,11 +47,10 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 		setClassName ("HoopFileLoadBase");
 		debug ("HoopFileLoadBase ()");
 		
-		setHoopDescription ("Load Text from a File");
-		
-		fManager=new HoopFileManager ();
-			
+		setHoopDescription ("Load Text File(s)");
+					
 		URI=new HoopURISerializable (this,"URI","");
+		fileMode=new HoopEnumSerializable (this,"fileMode","SINGLE,MULTIPLE");		
     }
 	/**
 	 * 
@@ -96,23 +102,82 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 			}
 		}	
 		
-		String contents=fManager.loadContents(HoopLink.relativeToAbsolute(URI.getValue()));
+		if (fileMode.getValue().equals("SINGLE")==true)
+			URI.setSingleFile(true);
+		else
+			URI.setSingleFile(false);
 		
-		if (contents==null)
+		if (fileMode.getValue().equals("SINGLE")==true)
+		{				
+			if (processSingleFile (HoopLink.relativeToAbsolute(URI.getValue()))==false)
+				return (false);
+		}
+		
+		if (fileMode.getValue().equals("MULTIPLE")==true)
 		{
-			this.setErrorString(fManager.getErrorString());
-			return (false);
-		}	
-		
-		fileKV=new HoopKVString ();
-		
-		fileKV.setKeyString(fManager.getURI());
-		fileKV.setValue(contents);
-								
-		addKV (fileKV);			
+			if (files==null)
+			{
+				files=new ArrayList<String> ();
+				
+				ArrayList <String> tempList=HoopLink.fManager.listFiles(URI.getValue());
+				
+				for (int i=0;i<tempList.size ();i++)
+				{
+					String testEntry=tempList.get(i);
+					
+					if ((testEntry.equals(".")==false) && (testEntry.equals("..")==false))
+					{
+						File finalTest=new File (testEntry);
+						
+						if (finalTest.isDirectory()==false)
+						{
+							files.add(testEntry);
+						}
+					}
+				}
+			}
+
+			String nextFile=files.get(fileIndex);
+			
+			if (processSingleFile (URI.getValue()+"/"+nextFile)==false)
+			{
+				return (false);
+			}
+			
+			fileIndex++;
+			
+			if (fileIndex<files.size())
+			{
+				this.setDone(false);
+			}
+		}
 		
 		return (true);
 	}	
+	/**
+	 * 
+	 */
+	private Boolean processSingleFile (String aPath)
+	{
+		debug ("processSingleFile ("+aPath+")");
+		
+		String contents=HoopLink.fManager.loadContents(aPath);
+		
+		if (contents==null)
+		{
+			this.setErrorString(HoopLink.fManager.getErrorString());
+			return (false);
+		}
+		
+		fileKV=new HoopKVString ();
+	
+		fileKV.setKeyString(HoopLink.fManager.getURI());
+		fileKV.setValue(contents);
+							
+		addKV (fileKV);
+		
+		return (true);
+	}
 	/**
 	 *
 	 */	
