@@ -60,17 +60,32 @@ public class HoopUniqueTerms extends HoopTransformBase implements HoopInterface
 			for (int i=0;i<inData.size();i++)
 			{
 				HoopKVInteger aKV=(HoopKVInteger) inData.get(i);
-				
-				uniqueHash.put(aKV.getValue(),i);					
+								
+				if (uniqueHash.containsKey (aKV.getValue())==true)
+				{
+					Integer count=(Integer) uniqueHash.get(aKV.getValue());
+					count++;
+					uniqueHash.put(aKV.getValue(),count);
+				}
+				else								
+					uniqueHash.put(aKV.getValue(),1);
 			}						
 			
 			Iterator<Map.Entry<String, Integer>> it = uniqueHash.entrySet().iterator();
 
+			int index=0;
+			
 			while (it.hasNext()) 
 			{
 			  Map.Entry<String, Integer> entry = it.next();
 
-			  addKV (new HoopKVInteger (entry.getValue (),entry.getKey()));			  
+			  HoopKVInteger newKV=new HoopKVInteger (index,entry.getKey());
+			  
+			  newKV.setValue(entry.getValue().toString(),1);
+			  
+			  addKV (newKV);			  
+			  
+			  index++;
 			} 			
 		}
 		else

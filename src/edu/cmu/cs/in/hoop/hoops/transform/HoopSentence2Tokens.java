@@ -27,12 +27,18 @@ import edu.cmu.cs.in.base.HoopSimpleFeatureMaker;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
 import edu.cmu.cs.in.hoop.hoops.base.HoopTransformBase;
+import edu.cmu.cs.in.hoop.properties.types.HoopBooleanSerializable;
+import edu.cmu.cs.in.hoop.properties.types.HoopEnumSerializable;
+import edu.cmu.cs.in.hoop.properties.types.HoopStringSerializable;
 
 /**
 * 
 */
 public class HoopSentence2Tokens extends HoopTransformBase implements HoopInterface
-{    					
+{    						
+	private HoopBooleanSerializable removePunctuation=null; // TRUE,FALSE	
+	private HoopStringSerializable splitRegEx=null;
+	
 	/**
 	 *
 	 */
@@ -42,6 +48,9 @@ public class HoopSentence2Tokens extends HoopTransformBase implements HoopInterf
 		debug ("HoopSentence2Tokens ()");
 										
 		setHoopDescription ("Parse Sentences into Tokens");
+		
+		removePunctuation=new HoopBooleanSerializable (this,"removePunctuation",true);
+		splitRegEx=new HoopStringSerializable (this,"splitRegEx","\\W");
     }
 	/**
 	 *
@@ -64,7 +73,14 @@ public class HoopSentence2Tokens extends HoopTransformBase implements HoopInterf
 				for (int j=0;j<tokens.size();j++)
 				{				
 					String aToken=tokens.get(j);
-					addKV (new HoopKVInteger (j,aToken));
+					
+					if (removePunctuation.getPropValue ()==true)					
+					{
+						String strippedInput = aToken.replaceAll(splitRegEx.getValue(), "");
+						addKV (new HoopKVInteger (j,strippedInput));
+					}
+					else
+						addKV (new HoopKVInteger (j,aToken));
 				}									
 			}						
 		}

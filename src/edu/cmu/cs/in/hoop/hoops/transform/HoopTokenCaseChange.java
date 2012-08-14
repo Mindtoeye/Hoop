@@ -25,13 +25,15 @@ import edu.cmu.cs.in.base.kv.HoopKVInteger;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
 import edu.cmu.cs.in.hoop.hoops.base.HoopTransformBase;
+import edu.cmu.cs.in.hoop.properties.types.HoopBooleanSerializable;
+import edu.cmu.cs.in.hoop.properties.types.HoopEnumSerializable;
 
 /**
 * 
 */
 public class HoopTokenCaseChange extends HoopTransformBase implements HoopInterface
 {    					
-	private Boolean toLower=true;
+	private HoopEnumSerializable changeMode=null; // NONE,TOLOWER,TOUPPER
 	
 	/**
 	 *
@@ -42,21 +44,9 @@ public class HoopTokenCaseChange extends HoopTransformBase implements HoopInterf
 		debug ("HoopTokenCaseChange ()");
 										
 		setHoopDescription ("Change tokens to upper or lower case");
-    }
-    /*
-     * 
-     */
-	public void setToLower(Boolean toLower) 
-	{
-		this.toLower = toLower;
-	}
-	/*
-	 * 
-	 */
-	public Boolean getToLower() 
-	{
-		return toLower;
-	}	    
+		
+		changeMode=new HoopEnumSerializable (this,"changeMode","NONE,TOLOWER,TOUPPER");
+    }	    
 	/**
 	 *
 	 */
@@ -71,10 +61,14 @@ public class HoopTokenCaseChange extends HoopTransformBase implements HoopInterf
 			{
 				HoopKVInteger aKV=(HoopKVInteger) inData.get(i);
 				
-				if (toLower==true)
+				if (changeMode.getValue().equals("NONE")==true)
+					addKV (new HoopKVInteger (i,aKV.getValue()));
+				
+				if (changeMode.getValue().equals("TOLOWER")==true)
 					addKV (new HoopKVInteger (i,aKV.getValue().toLowerCase()));
-				else
-					addKV (new HoopKVInteger (i,aKV.getValue().toUpperCase()));
+				
+				if (changeMode.getValue().equals("TOUPPER")==true)
+					addKV (new HoopKVInteger (i,aKV.getValue().toUpperCase()));				
 			}						
 		}
 		else

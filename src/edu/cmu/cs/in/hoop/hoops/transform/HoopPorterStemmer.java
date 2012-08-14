@@ -20,6 +20,7 @@ package edu.cmu.cs.in.hoop.hoops.transform;
 
 import java.util.ArrayList;
 
+import edu.cmu.cs.in.base.HoopPorterStemmerOriginal;
 import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.base.kv.HoopKVInteger;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
@@ -34,6 +35,7 @@ public class HoopPorterStemmer extends HoopTransformBase implements HoopInterfac
 {    	
 	
 	public	HoopStringSerializable minChars = null;
+	private HoopPorterStemmerOriginal stemmer=null;
 	
 	/**
 	 *
@@ -45,7 +47,8 @@ public class HoopPorterStemmer extends HoopTransformBase implements HoopInterfac
 				
 		setHoopDescription ("Stems input KVs using the Porter Stemmer");
 		
-		minChars=new HoopStringSerializable (this,"minChars","10");
+		stemmer=new HoopPorterStemmerOriginal ();
+		minChars=new HoopStringSerializable (this,"minChars","5");		
     }
 	/**
 	 *
@@ -53,6 +56,8 @@ public class HoopPorterStemmer extends HoopTransformBase implements HoopInterfac
 	public Boolean runHoop (HoopBase inHoop)
 	{		
 		debug ("runHoop ()");
+		
+		Integer minCheck=Integer.parseInt(minChars.getValue());
 				
 		ArrayList <HoopKV> inData=inHoop.getData();
 		if (inData!=null)
@@ -61,7 +66,12 @@ public class HoopPorterStemmer extends HoopTransformBase implements HoopInterfac
 			{
 				HoopKVInteger aKV=(HoopKVInteger) inData.get(i);
 				
-				addKV (new HoopKVInteger (i,aKV.getValue()));
+				if (aKV.getValue().length()>=minCheck)
+				{
+					addKV (new HoopKVInteger (i,stemmer.stem(aKV.getValue())));
+				}
+				else
+					addKV (new HoopKVInteger (i,aKV.getValue()));
 			}						
 		}
 		else
