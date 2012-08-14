@@ -652,7 +652,9 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     			runtime.setRoot(HoopLink.hoopGraphManager.getRoot());
     			runtime.setLoopCount(1);
     			
-    			new Thread(runtime).start();    			
+    			Thread runner=new Thread (runtime);
+    			runner.setUncaughtExceptionHandler(new HoopExecuteExceptionHandler ());    			
+    			runner.start();
     		}
     	});
     	
@@ -668,7 +670,9 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     			runtime.setRoot(HoopLink.hoopGraphManager.getRoot());
     			runtime.setLoopCount(10);
     			
-    			new Thread(runtime).start();    			
+    			Thread runner=new Thread (runtime);
+    			runner.setUncaughtExceptionHandler(new HoopExecuteExceptionHandler ());    			
+    			runner.start();   			
     		}
     	});
     	
@@ -684,7 +688,9 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     			runtime.setRoot(HoopLink.hoopGraphManager.getRoot());
     			runtime.setLoopCount(-1);
     			
-    			new Thread(runtime).start();    			
+    			Thread runner=new Thread (runtime);
+    			runner.setUncaughtExceptionHandler(new HoopExecuteExceptionHandler ());    			
+    			runner.start();   			
     		}
     	});    	
 

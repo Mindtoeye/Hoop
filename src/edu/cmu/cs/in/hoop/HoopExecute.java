@@ -42,7 +42,7 @@ public class HoopExecute extends HoopRoot implements Runnable
 	public HoopExecute () 
 	{
 		setClassName ("HoopExecute");
-		debug ("HoopExecute ()");					
+		debug ("HoopExecute ()");		
 	}	
 	/**
 	 * 
