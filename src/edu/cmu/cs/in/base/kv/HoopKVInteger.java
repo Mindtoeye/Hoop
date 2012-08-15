@@ -19,6 +19,7 @@
 package edu.cmu.cs.in.base.kv;
 
 import edu.cmu.cs.in.base.HoopDataType;
+import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 
 /**
 * Any data created by hoops (HoopBase) will use the KV object in some
@@ -85,6 +86,15 @@ public class HoopKVInteger extends HoopKV implements HoopKVInterface
 	public void setKey(Integer key) 
 	{
 		this.key = key;
+	}
+	/**
+	 * 
+	 */
+	public void incKey ()
+	{
+		//HoopBase.debug("HoopKVInteger","Inc " + this.key + " for: " +this.getValue());
+		
+		this.key++;
 	}
 	/**
 	 *

@@ -65,13 +65,20 @@ public class HoopPorterStemmer extends HoopTransformBase implements HoopInterfac
 			for (int i=0;i<inData.size();i++)
 			{
 				HoopKVInteger aKV=(HoopKVInteger) inData.get(i);
+				HoopKVInteger newKV=new HoopKVInteger ();
 				
 				if (aKV.getValue().length()>=minCheck)
 				{
-					addKV (new HoopKVInteger (i,stemmer.stem(aKV.getValue())));
+					newKV.setKey(i);
+					newKV.setValue(stemmer.stem(aKV.getValue()));
+					// Keep a copy of the original in the first extra value slot
+					newKV.setValue(aKV.getValue(),1); 
+					addKV (newKV);
 				}
 				else
+				{
 					addKV (new HoopKVInteger (i,aKV.getValue()));
+				}
 			}						
 		}
 		else

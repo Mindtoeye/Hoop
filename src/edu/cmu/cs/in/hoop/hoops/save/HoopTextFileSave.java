@@ -30,12 +30,6 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopFileSaveBase;
 */
 public class HoopTextFileSave extends HoopFileSaveBase
 {    				
-	//private String content=null;	
-	//private HoopFileManager fManager=null;	
-	//private String outputStreamPath=null;	
-	//protected HoopURISerializable URI=null;	
-	//private String fileExtension="txt";
-	
 	/**
 	 *
 	 */
@@ -44,7 +38,7 @@ public class HoopTextFileSave extends HoopFileSaveBase
 		setClassName ("HoopTextFileSave");
 		debug ("HoopTextFileSave ()");
 		
-		setHoopDescription ("Save to a Text File");		
+		setHoopDescription ("Save Text File (s)");		
     }
 	/**
 	 *

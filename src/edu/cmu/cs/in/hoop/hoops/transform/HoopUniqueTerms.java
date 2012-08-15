@@ -19,7 +19,7 @@
 package edu.cmu.cs.in.hoop.hoops.transform;
 
 import java.util.ArrayList;
-import java.util.Enumeration;
+//import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
@@ -53,46 +53,72 @@ public class HoopUniqueTerms extends HoopTransformBase implements HoopInterface
 		debug ("runHoop ()");
 								
 		ArrayList <HoopKV> inData=inHoop.getData();
+		
 		if (inData!=null)
 		{
-			Hashtable<String,Integer> uniqueHash = new Hashtable<String,Integer>();
-					
+			Hashtable<String,HoopKVInteger> uniqueHash = new Hashtable<String,HoopKVInteger>();
+
 			for (int i=0;i<inData.size();i++)
 			{
 				HoopKVInteger aKV=(HoopKVInteger) inData.get(i);
-								
+
+				/* Right now we're assuming that a previous hoop has turned
+				 * all the entries to lowercase. We might have to make this
+				 * an option for this hoop to first do a transform.				 
+				 */
+				
 				if (uniqueHash.containsKey (aKV.getValue())==true)
 				{
-					Integer count=(Integer) uniqueHash.get(aKV.getValue());
-					count++;
-					uniqueHash.put(aKV.getValue(),count);
+					HoopKVInteger temper=uniqueHash.get(aKV.getValue());
+					temper.incKey();
+					
+					ArrayList<Object> unStemmed=aKV.getValuesRaw();
+					
+					for (int t=0;t<unStemmed.size();t++)
+					{
+						String original=(String) unStemmed.get(t);
+						temper.addValueAsUniqueString(original);
+					}					
 				}
 				else								
-					uniqueHash.put(aKV.getValue(),1);
-			}						
+				{
+					aKV.setKey(1);
+					uniqueHash.put(aKV.getValue(),aKV);
+				}
+			}
 			
-			Iterator<Map.Entry<String, Integer>> it = uniqueHash.entrySet().iterator();
+			Iterator<Map.Entry<String,HoopKVInteger>> it = uniqueHash.entrySet().iterator();
 
 			int index=0;
 			
 			while (it.hasNext()) 
 			{
-			  Map.Entry<String, Integer> entry = it.next();
-
-			  HoopKVInteger newKV=new HoopKVInteger (index,entry.getKey());
+				Map.Entry<String, HoopKVInteger> entry = it.next();
+								
+				HoopKVInteger newKV=new HoopKVInteger (index,entry.getKey());
+				Integer termCount=entry.getValue().getKey();
+				newKV.setValue(entry.getValue().getValue());								
+				newKV.setValue(termCount.toString(),1);
+				
+				ArrayList<Object> stemmers=entry.getValue().getValuesRaw();
+				
+				for (int j=1;j<stemmers.size();j++)
+				{					
+					String original=(String) stemmers.get(j);
+										
+					newKV.addValueAsUniqueString(original);
+				}				
+							  
+				addKV (newKV);			  
 			  
-			  newKV.setValue(entry.getValue().toString(),1);
-			  
-			  addKV (newKV);			  
-			  
-			  index++;
+				index++;
 			} 			
 		}
 		else
 			return (false);		
 				
 		return (true);
-	}	 
+	}	 	
 	/**
 	 * 
 	 */

@@ -18,6 +18,8 @@
 
 package edu.cmu.cs.in.hoop;
 
+import java.awt.Container;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.ArrayList;
@@ -84,4 +86,23 @@ public class HoopPreferencesJFrame extends HoopJFrame
         
         System.exit(0);		
 	}
+	/**
+	 * 
+	 */
+	protected void startWaitCursor() 
+	{
+		//Container cp = this.getContentPane();			
+	    //this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+	    this.getGlassPane().setCursor(java.awt.Cursor.getPredefinedCursor(java.awt.Cursor.WAIT_CURSOR));
+	}
+	/**
+	 * 
+	 */
+	protected void endWaitCursor() 
+	{
+		//Container cp = this.getContentPane();
+			
+	    //this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+		this.getGlassPane().setCursor(java.awt.Cursor.getPredefinedCursor(java.awt.Cursor.DEFAULT_CURSOR));
+	}		
 }

@@ -30,6 +30,11 @@ public interface HoopVisualRepresentation
 	public void setState (String aState);
 	
 	/**
+	 * 
+	 */
+	public void setExecutionInfo (String aMessage);
+		
+	/**
 	 * When a graph is saved it will go through each hoop and call this
 	 * method. This will in turn in the panel belonging to that hoop
 	 * call a method that sets all the visual properties back into the

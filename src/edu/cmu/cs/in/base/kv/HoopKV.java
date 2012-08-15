@@ -111,4 +111,26 @@ public class HoopKV extends HoopDataType implements HoopKVInterface
 	{
 		return (String) (values.get(anIndex));
 	}
+	/**
+	 * 
+	 */
+	public void addValueAsUniqueString (String aString)
+	{
+		Boolean found=false;
+		
+		for (int i=0;i<values.size();i++)
+		{
+			String tester=(String) values.get(i);
+			
+			if (tester.equalsIgnoreCase(aString)==true)
+			{
+				found=true;
+			}
+		}
+		
+		if (found==false)
+		{
+			values.add(aString);
+		}
+	}
 }

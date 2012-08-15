@@ -153,7 +153,7 @@ public class HoopMultiViewFrame extends HoopPreferencesJFrame implements ActionL
 				
 		HoopLink.toolBar=new JToolBar ("Still draggable");
 		HoopLink.toolBar.setMinimumSize(new Dimension (50,24));
-		HoopLink.toolBar.setPreferredSize(new Dimension (200,24));
+		HoopLink.toolBar.setPreferredSize(new Dimension (150,24));
 		
 		HoopLink.toolBoxContainer=new JPanel ();
 		HoopLink.toolBoxContainer.setLayout(new BoxLayout (HoopLink.toolBoxContainer,BoxLayout.X_AXIS));
@@ -211,23 +211,20 @@ public class HoopMultiViewFrame extends HoopPreferencesJFrame implements ActionL
 	/**
 	 *
 	 */    
-    protected JButton makeNavigationButton(String imageName,
-    									   String actionCommand,
-    									   String toolTipText,
-    									   String altText,
+    protected JButton makeNavigationButton(String actionCommand,
+    									   String toolTipText,    									   
     									   ImageIcon icon) 
     {
     	//Create and initialize the button.
     	JButton button = new JButton();
-    	button.setBorder (null);
-    	button.setMinimumSize(new Dimension (26,22));
-    	button.setPreferredSize(new Dimension (50,22));
+    	//button.setBorder (null);
+    	button.setMinimumSize(new Dimension (22,22));
+    	button.setPreferredSize(new Dimension (22,22));
     	button.setActionCommand(actionCommand);
-    	button.setToolTipText(toolTipText);
+    	button.setToolTipText (toolTipText);
     	button.addActionListener(this);
     	button.setIcon(icon);
     	button.setBorder(BorderFactory.createEmptyBorder(2,2,2,2));
-    	//button.setText(altText);
 
     	return button;
     }         
@@ -238,6 +235,8 @@ public class HoopMultiViewFrame extends HoopPreferencesJFrame implements ActionL
 	public void actionPerformed (ActionEvent event) 
 	{
 		debug("actionPerformed ()");
+		
+		
 	}
 	/** 
 	 * @param aTitle

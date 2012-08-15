@@ -77,6 +77,7 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 	protected JLabel label=null;
 	protected JLabel titleLabel=null;
 	protected JLabel statusLabel=null;
+	protected JLabel statusPanel=null;
 	protected JPanel toolBar=null;
 	protected JPanel bottomPanel=null;
 	protected JButton kvExamineButton=null;
@@ -205,6 +206,11 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 		statusLabel.setFont(new Font("Dialog", 1, 10));
 		statusLabel.setForeground(Color.WHITE);
 		
+		statusPanel = new JLabel();
+		statusPanel.setText("");
+		statusPanel.setFont(new Font("Dialog", 1, 10));
+		statusPanel.setForeground(Color.WHITE);		
+		
 		label = new JLabel(HoopLink.getImageByName("resize.png"));
 		label.setCursor(new Cursor(Cursor.NW_RESIZE_CURSOR));
 
@@ -214,6 +220,8 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 		bottomPanel.setOpaque(true);
 		
 		bottomPanel.add(statusLabel,BorderLayout.WEST);
+		//bottomPanel.add(statusPanel,BorderLayout.WEST);
+		bottomPanel.add(statusPanel);
 		bottomPanel.add(label, BorderLayout.EAST);
 
 		add(bottomPanel, BorderLayout.SOUTH);
@@ -240,7 +248,21 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 		debug ("removeAllInPorts ()");
 		
 		leftPortBox.removeAll();
+	}
+	/**
+	 * 
+	 */
+	protected void setStatus (String aStatus)
+	{
+		statusLabel.setText(aStatus);
 	}	
+	/**
+	 * 
+	 */
+	public void setExecutionInfo (String aStatus)
+	{
+		statusPanel.setText(aStatus);
+	}
 	/**
 	 * 
 	 */
@@ -483,12 +505,5 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 		debug ("examineData ()");
 		
 		// Implement in child class				
-	}
-	/**
-	 * 
-	 */
-	protected void setStatus (String aStatus)
-	{
-		statusLabel.setText(aStatus);
 	}
 }

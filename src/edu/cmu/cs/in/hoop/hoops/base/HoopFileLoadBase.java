@@ -31,7 +31,6 @@ import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
 */
 public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 {    				
-	//private HoopFileManager fManager=null;
 	protected HoopKVString fileKV=null;		
 	protected HoopURISerializable URI=null;
 	protected HoopEnumSerializable fileMode=null; // SINGLE,MULTIPLE
@@ -50,7 +49,7 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 		setHoopDescription ("Load Text File(s)");
 					
 		URI=new HoopURISerializable (this,"URI","");
-		fileMode=new HoopEnumSerializable (this,"fileMode","SINGLE,MULTIPLE");		
+		fileMode=new HoopEnumSerializable (this,"fileMode","SINGLE,MULTIPLE");
     }
 	/**
 	 * 
@@ -143,6 +142,8 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 			{
 				return (false);
 			}
+			
+			getVisualizer ().setExecutionInfo (fileIndex + " out of " + files.size());
 			
 			fileIndex++;
 			

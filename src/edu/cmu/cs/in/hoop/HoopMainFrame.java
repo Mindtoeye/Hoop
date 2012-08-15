@@ -702,11 +702,11 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     		}
     	});
 
-       runMenu.add(runOnceItem);
-       runMenu.add(runNTimesItem);
-       runMenu.add(runForeverItem);
+       runMenu.add (runOnceItem);
+       runMenu.add (runNTimesItem);
+       runMenu.add (runForeverItem);
        runMenu.add (new JSeparator());
-       runMenu.add(debugItem);
+       runMenu.add (debugItem);
 
        return runMenu;
     }    
@@ -715,33 +715,23 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 	 */    
     protected void addButtons(JToolBar toolBar) 
     {
-        JButton runButton = makeNavigationButton("RUN", 
-        							  			 PREVIOUS,
-        							  			 "Run Once",
-        							  			 "Run Once",
-        							  			 HoopLink.getImageByName("run-once.png"));                
-        toolBar.add(runButton);
-        
-        JButton runNButton = makeNavigationButton("RUN N", 
-	  			 								  PREVIOUS,
-	  			 								  "Run N Times",
-	  			 								  "Run N Times",
-	  			 								  HoopLink.getImageByName("run-n.png"));                
-        toolBar.add(runNButton);
-
-        JButton runForeverButton = makeNavigationButton("RUN FOREVER", 
-        												PREVIOUS,
-        												"Run Forever",
-        												"Run Forever",
-        												HoopLink.getImageByName("run-forever.png"));                
-        toolBar.add(runForeverButton);
-        
+        JButton runButton = makeNavigationButton (PREVIOUS,"Run Once",HoopLink.getImageByName("run-once.png"));                        
+        JButton runNButton = makeNavigationButton (PREVIOUS,"Run N Times",HoopLink.getImageByName("run-n.png"));                
+        JButton runForeverButton = makeNavigationButton (PREVIOUS,"Run Forever",HoopLink.getImageByName("run-forever.png"));                
         
         JSeparator sep=new JSeparator(SwingConstants.VERTICAL);
         sep.setMinimumSize(new Dimension (5,5));
         sep.setMaximumSize(new Dimension (5,50));
         
-        toolBar.add(sep);                
+        JButton stopButton = makeNavigationButton (PREVIOUS,"Stop",HoopLink.getImageByName("run-stopped.png"));                
+        
+        toolBar.add (runButton);        
+        toolBar.add (Box.createRigidArea(new Dimension(2,0)));
+        toolBar.add (runNButton);
+        toolBar.add (Box.createRigidArea(new Dimension(2,0)));
+        toolBar.add (runForeverButton);
+        toolBar.add (sep);
+        toolBar.add (stopButton);                                
     }     
 	/**
 	 *
@@ -955,9 +945,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 	private Boolean openProject ()
 	{
 		debug ("openProject");
-		
-		Container cp = this.getContentPane();
-		
+				
 		if (HoopLink.project!=null)
 		{
 			//HoopGraphFile graphFile=(HoopGraphFile) HoopLink.project.getFileByClass ("HoopGraphFile");
@@ -993,13 +981,13 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 						{
 				           	try
 				           	{
-				           		cp.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+				           		startWaitCursor ();
 				           		
 				           		HoopLink.project.save();
 				           	}
 				           	finally
 				           	{
-				           		cp.setCursor(Cursor.getDefaultCursor());
+				           		endWaitCursor ();
 				           	}
 						}
 					}
@@ -1036,14 +1024,14 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
                
            	try
            	{
-           		cp.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+           		startWaitCursor ();
            	
            		HoopLink.project=new HoopProject (); // Blatantly whipe it
            		HoopLink.project.load(file.getAbsolutePath());
            	}
            	finally
            	{
-           		cp.setCursor(Cursor.getDefaultCursor());
+           		endWaitCursor ();
            	}	
            		
            	// Do a ton of housekeeping here ...
@@ -1085,9 +1073,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 	private Boolean projectSave ()
 	{
 		debug ("projectSave ()");
-		
-		Container cp = this.getContentPane();
-		
+				
 		HoopProject proj=HoopLink.project;
 		
 		if (proj==null)
@@ -1100,17 +1086,17 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 		{    
 			try
 			{
-				cp.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+				startWaitCursor ();
 			
 				if (projectSaveAs ()==false)
 				{
-					cp.setCursor(Cursor.getDefaultCursor());
+					endWaitCursor ();
 					return (false);
 				}
 			}
 			finally
 			{
-				cp.setCursor(Cursor.getDefaultCursor());
+				endWaitCursor ();
 			}
 		}
 		else
@@ -1126,9 +1112,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 	private Boolean projectSaveAs ()
 	{
 		debug ("projectSaveAs ()");
-		
-		Container cp = this.getContentPane();
-		
+				
 		HoopProject proj=HoopLink.project;
 		
 		if (proj==null)
@@ -1163,13 +1147,13 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 	           		        	       	        	       	
 	           	try
 	           	{
-	           		cp.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+	           		startWaitCursor ();
 	           		
 	           		proj.save();
 	           	}
 	           	finally
 	           	{
-	           		cp.setCursor(Cursor.getDefaultCursor());
+	           		endWaitCursor ();
 	           	}
 	       	}	
 		} 
