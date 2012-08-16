@@ -47,8 +47,6 @@ import edu.cmu.cs.in.hoop.visualizers.HoopScatterPlot;
 public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener, HoopMessageReceiver
 {
 	private static final long serialVersionUID = -1L;
-
-    //private JFileChooser fc=null;
 	
     static final private String PREVIOUS = "previous";
 	    
@@ -66,12 +64,10 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     	setClassName ("HoopMainFrame");
     	debug ("HoopMainFrame ()");
     	
+    	this.setIconImage (HoopLink.getImageByName("hoop.png").getImage());
+    	
     	compReference=this;
-    	    	
-		//fc = new JFileChooser();
-		//FileNameExtensionFilter filter=new FileNameExtensionFilter (".xml rule files", "xml");
-		//fc.setFileFilter(filter);    	
-    	    
+    	    	    	    
         buildMenus();       
         
         addButtons (this.getToolBar());

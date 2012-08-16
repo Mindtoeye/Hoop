@@ -39,7 +39,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
 import javax.swing.JTextArea;
+import javax.swing.SwingConstants;
 //import javax.swing.SwingUtilities;
 import javax.swing.border.BevelBorder;
 
@@ -207,7 +209,7 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 		statusLabel.setForeground(Color.WHITE);
 		
 		statusPanel = new JLabel();
-		statusPanel.setText("");
+		statusPanel.setText(" R: ");
 		statusPanel.setFont(new Font("Dialog", 1, 10));
 		statusPanel.setForeground(Color.WHITE);		
 		
@@ -220,8 +222,9 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 		bottomPanel.setOpaque(true);
 		
 		bottomPanel.add(statusLabel,BorderLayout.WEST);
-		//bottomPanel.add(statusPanel,BorderLayout.WEST);
-		bottomPanel.add(statusPanel);
+		//bottomPanel.add (Box.createRigidArea(new Dimension(4,0)));
+		//bottomPanel.add(new JSeparator(SwingConstants.VERTICAL));
+		bottomPanel.add(statusPanel,BorderLayout.CENTER);
 		bottomPanel.add(label, BorderLayout.EAST);
 
 		add(bottomPanel, BorderLayout.SOUTH);
@@ -261,6 +264,7 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 	 */
 	public void setExecutionInfo (String aStatus)
 	{
+		debug ("setExecutionInfo ("+aStatus+")");
 		statusPanel.setText(aStatus);
 	}
 	/**

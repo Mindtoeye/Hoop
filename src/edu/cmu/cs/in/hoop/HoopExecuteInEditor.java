@@ -58,5 +58,18 @@ public class HoopExecuteInEditor extends HoopExecute
 		
 		HoopLink.popWindow("Errors");
 	}	
+	/**
+	 * 
+	 */
+	protected void updateDependencies ()
+	{
+		debug ("updateDependencies ()");
+		
+		HoopProjectPanel projectPane=(HoopProjectPanel) HoopLink.getWindow("Project");
+       	if (projectPane!=null)
+       	{
+       		projectPane.refresh();
+       	}		
+	}	
 }
 

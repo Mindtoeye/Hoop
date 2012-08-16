@@ -83,6 +83,8 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 	{		
 		debug ("runHoop ()");
 		
+		this.resetData();
+		
 		if (URI.getValue().indexOf("<PROJECTPATH>")!=-1)
 		{
 			if (HoopLink.project==null)
@@ -139,9 +141,18 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 				return (false);
 			}
 			
-			String aStatus=(fileIndex + " out of " + files.size());
+			StringBuffer aStatus=new StringBuffer ();
 			
-			getVisualizer ().setExecutionInfo (aStatus);
+			Integer runCount=fileIndex+1;
+			
+			aStatus.append (" R: ");
+			aStatus.append (runCount.toString());
+			aStatus.append (" out of ");
+			aStatus.append (String.format("%d",files.size()));
+			
+			debug (aStatus.toString ());
+			
+			getVisualizer ().setExecutionInfo (aStatus.toString ());
 			
 			fileIndex++;
 			

@@ -124,7 +124,7 @@ public class HoopExecute extends HoopRoot implements Runnable
 	/**
 	 * 
 	 */
-	private Boolean execute (HoopBase aParent,HoopBase aRoot)
+	protected Boolean execute (HoopBase aParent,HoopBase aRoot)
 	{
 		debug ("execute () push");
 							
@@ -141,6 +141,8 @@ public class HoopExecute extends HoopRoot implements Runnable
 			debug ("Hoop "+aRoot.getInstanceName()+" with class " + aRoot.getClassName()+ " is not done yet");
 			
 			aRoot.setDone(true);
+			
+			setSubTreeDone (aRoot,false);
 			
 			if (aRoot.runHoopInternal(aParent)==false)
 			{
@@ -174,13 +176,15 @@ public class HoopExecute extends HoopRoot implements Runnable
 					debug ("Running sub hoop: " + i);
 				
 					HoopBase current=outHoops.get(i);
-							
+												
 					if (execute (aRoot,current)==false)
 						return (false);
 				}
 				
 				debug ("Done executing sub hoops");
-			}							
+			}
+			else
+				debug ("No sub hoops, all done");
 		}
 		
 		// All done, really done
@@ -216,6 +220,7 @@ public class HoopExecute extends HoopRoot implements Runnable
 			while (loopExecuting==true)
 			{
 				execute (null,root);
+				updateDependencies ();
 			}	
 		}	
 		else
@@ -225,6 +230,7 @@ public class HoopExecute extends HoopRoot implements Runnable
 				for (int i=0;i<loopCount;i++)
 				{
 					execute (null,root);
+					updateDependencies ();
 				}
 			}
 			else
@@ -232,6 +238,16 @@ public class HoopExecute extends HoopRoot implements Runnable
 		}
 		
 		loopExecuting=false;
+	}
+	/**
+	 * 
+	 */
+	protected void updateDependencies ()
+	{
+		debug ("updateDependencies ()");
+		
+		// Implement in child class if any visual dependencies need to
+		// be updated or informed
 	}
 	/**
 	 * 
@@ -252,6 +268,25 @@ public class HoopExecute extends HoopRoot implements Runnable
 				HoopBase current=outHoops.get(i);
 				
 				showHoopTree (aRoot,current);
+			}				
+		}								
+	}
+	/**
+	 * 
+	 */
+	private void setSubTreeDone (HoopBase aParent,Boolean aValue)
+	{																									
+		ArrayList<HoopBase> outHoops=aParent.getOutHoops();
+		
+		if (outHoops.size()>0)
+		{		
+			for (int i=0;i<outHoops.size();i++)
+			{						
+				HoopBase current=outHoops.get(i);
+				
+				current.setDone(aValue);
+
+				setSubTreeDone (current,aValue);
 			}				
 		}								
 	}
