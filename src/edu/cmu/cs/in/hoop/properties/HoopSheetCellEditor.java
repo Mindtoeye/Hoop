@@ -22,6 +22,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+//import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -38,6 +39,7 @@ import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableCellRenderer;
 
 import edu.cmu.cs.in.base.HoopDataType;
 import edu.cmu.cs.in.base.HoopRoot;
@@ -57,10 +59,12 @@ public class HoopSheetCellEditor extends AbstractCellEditor implements TableCell
 	private JComboBox enumComponent=null;
 	private JComboBox fontComponent=null;
 	private HoopSheetCellNumber numberComponent=null;
-	private HoopSheetPathEditor pathComponent=null;
+	//private HoopSheetPathEditor pathComponent=null;
 	
 	private JButton colorDelegate = new JButton();	
 	private JButton arrayDelegate = new JButton();
+	
+	private HoopSheetPathRenderer currentPathEditor=null;
 	
 	String[] booleanStrings = {"TRUE","FALSE"};
 	String[] fontStrings = {"Arial","Helvetica","Verdana","Times","Times New Roman"};
@@ -93,7 +97,7 @@ public class HoopSheetCellEditor extends AbstractCellEditor implements TableCell
 		numberComponent.setMaximumSize(new Dimension (5000,5000));
 		numberComponent.setFont(new Font("Dialog", 1, 10));		
 		
-		pathComponent=new HoopSheetPathEditor ();
+		//pathComponent=new HoopSheetPathEditor ();
 		
 		colorDelegate.addActionListener (this);
 		arrayDelegate.addActionListener (this);
@@ -195,8 +199,22 @@ public class HoopSheetCellEditor extends AbstractCellEditor implements TableCell
         	
         	if (obj.getType()==HoopDataType.URI)
         	{
-        		pathComponent.setPathObject((HoopURISerializable) obj);
-        		return (pathComponent);
+    			TableCellRenderer renderer=table.getCellRenderer (rowIndex,vColIndex);
+				
+    			if (renderer instanceof HoopSheetPathRenderer)
+    			{								
+    				HoopSheetPathRenderer pathRenderer=(HoopSheetPathRenderer) renderer;
+    				
+    				currentPathEditor=pathRenderer;
+    				    				
+    				return (textComponent);
+    			}
+        		
+        		//pathComponent.setPathObject((HoopURISerializable) obj);
+        		        		        		
+        		//return (pathComponent.getPathEditor ());
+        		
+        		//return (null);
         	}
         	
         	textComponent.setText (obj.getValue());
@@ -262,8 +280,13 @@ public class HoopSheetCellEditor extends AbstractCellEditor implements TableCell
     		if (obj.getType()==HoopDataType.URI)
     		{
     			debug ("Returning Path ...");
-    			obj.setValue(pathComponent.getPath ());
-    			textComponent.setText(obj.getValue());
+    			
+    			if (currentPathEditor!=null)    				
+    				currentPathEditor.getPathEditor ().setText(textComponent.getText());
+    			else
+    				debug ("Internal error: path editor is null!");
+    			
+    			obj.setValue(textComponent.getText());    			
     		}    		
     	}
     	    	
@@ -276,12 +299,28 @@ public class HoopSheetCellEditor extends AbstractCellEditor implements TableCell
 	 */    
     public boolean isCellEditable(EventObject evt) 
     {
-        if (evt instanceof MouseEvent) 
+        if (evt instanceof MouseEvent)
         {
-            return ((MouseEvent)evt).getClickCount()>=2;
+        	MouseEvent event=(MouseEvent) evt;
+        	
+        	if (event.getClickCount()==1)
+        	{
+        		if (obj instanceof HoopURISerializable)        			        		
+        			return (true);
+        		else
+        			return (false);
+        	}
+        	
+        	if (event.getClickCount()==2)
+        	{
+        		if (obj instanceof HoopURISerializable)        			        		
+        			return (false);
+        		else
+        			return (true);
+        	}        	
         }
-        
-        return true;
+                
+        return false;
     }
     /**
      * 

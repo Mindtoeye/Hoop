@@ -18,25 +18,67 @@
 
 package edu.cmu.cs.in.hoop.properties;
 
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.TableCellRenderer;
 
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.controls.base.HoopJPanel;
+import edu.cmu.cs.in.hoop.properties.types.HoopSerializable;
 import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
 
 /*
  * 
  */
-class HoopSheetPathEditor extends HoopJPanel implements ActionListener
+class HoopSheetPathRenderer extends HoopJPanel implements TableCellRenderer, ActionListener 
 {
-	private static final long serialVersionUID = 1L;		
+	private static final long serialVersionUID = 1L;
+
+	private JButton chooser = null;
+	//private Color savedColor;
+	private JTextField chosenPath;
+		
 	private HoopURISerializable pathObject=null;
 	
+	/**
+	 *
+	 */  
+	public HoopSheetPathRenderer() 
+	{		
+		setClassName ("HoopSheetPathRenderer");
+		debug ("HoopSheetPathRenderer ()");
+		
+		this.setLayout(new BoxLayout (this,BoxLayout.X_AXIS));
+		
+		chosenPath=new JTextField ();
+		
+		chooser = new JButton();
+		//chooser.setText("...");
+		//chooser.setFont(new Font("Dialog", 1, 10));	
+		chooser.setIcon(HoopLink.getImageByName("gtk-new.png"));
+		chooser.setBorder(BorderFactory.createEmptyBorder(1,0,1,0));
+		chooser.setMargin(new Insets (0,0,0,0));
+		chooser.setOpaque(false);
+		chooser.setPreferredSize(new Dimension (20,22));
+		chooser.setMaximumSize(new Dimension (20,22));
+		
+		chooser.addActionListener(this);
+
+		this.add(chosenPath);
+		this.add(chooser);				
+	}
 	/**
 	 * 
 	 */
@@ -61,10 +103,15 @@ class HoopSheetPathEditor extends HoopJPanel implements ActionListener
 	/**
 	 * 
 	 */
+	public JTextField getPathEditor ()
+	{
+		return (chosenPath);
+	}
+	/**
+	 * 
+	 */
 	private void changePath (String aPath)
 	{
-		//debug ("changePath ("+aPath+")");
-		
 		if (pathObject.getValue().equals(aPath)==true)
 		{
 			// Already set
@@ -73,14 +120,62 @@ class HoopSheetPathEditor extends HoopJPanel implements ActionListener
 		
 		String translated=HoopLink.absoluteToRelative(aPath);
 		
+		chosenPath.setText (translated);	
 		pathObject.setValue (translated);
 		
-		debug ("New path set to: " + pathObject.getValue());
+		debug ("New path set to: " + pathObject.getValue());			
 	}
 	/**
 	 * 
 	 */
-	public void actionPerformed(ActionEvent actionEvent) 
+	public void processMouseclick (int anX,int anY)
+	{
+		debug ("processMouseClick ("+anX+","+anY+")");
+		
+		if (anX<chosenPath.getWidth())		
+		{
+			
+		}
+		else		
+			chooser.doClick();
+	}
+	/**
+	 * 
+	 */
+	@Override
+	public Component getTableCellRendererComponent (JTable table, 
+													Object aValue,
+													boolean isSelected, 
+													boolean hasFocus,
+													int row, 
+													int column) 
+	{
+		//debug ("getTableCellRendererComponent ("+aValue.getClass().getName()+")");
+		
+    	if (aValue instanceof String)
+    	{
+    		String safety=(String) aValue;
+    		debug ("For some reason we're now getting a string back, going into safety mode ...");
+        	debug ("Parsing: " + safety);
+        	
+        	changePath (safety);    		
+    	}
+    	else
+    	{
+    		
+    		HoopSerializableTableEntry value=(HoopSerializableTableEntry) aValue;
+    	
+    		HoopSerializable object=(HoopSerializable) value.getEntry();
+    		
+    		debug ("Setting path to: " + object.getValue());
+    		
+    		changePath (object.getValue());
+    	}	
+		
+		return this;
+	}
+	@Override	
+	public void actionPerformed(ActionEvent arg0) 
 	{
 		debug ("actionPerformed ()");
 		
@@ -114,6 +209,6 @@ class HoopSheetPathEditor extends HoopJPanel implements ActionListener
 		       	
 		       	changePath (file.getAbsolutePath());
 			}	    	
-	    }
+	    }		
 	}	
 }

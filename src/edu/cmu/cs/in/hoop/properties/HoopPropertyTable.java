@@ -18,6 +18,11 @@
 
 package edu.cmu.cs.in.hoop.properties;
 
+import java.awt.Rectangle;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 
 import edu.cmu.cs.in.base.HoopDataType;
@@ -27,10 +32,42 @@ import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
 
 public class HoopPropertyTable extends HoopJTable
 {
+	public static class JTableButtonMouseListener extends MouseAdapter 
+	{
+		private final JTable table;
+		
+		public JTableButtonMouseListener(JTable table) 
+		{
+			this.table = table;
+		}
+				
+		public void mouseClicked(MouseEvent e) 
+		{			
+			int row = table.rowAtPoint(e.getPoint());
+			int col = table.columnAtPoint(e.getPoint());
+			
+			//System.out.println ("mouseClicked ("+row+","+col+")");
+			
+			TableCellRenderer renderer=table.getCellRenderer (row,col);
+						
+			if (renderer instanceof HoopSheetPathRenderer)
+			{								
+				HoopSheetPathRenderer pathRenderer=(HoopSheetPathRenderer) renderer;
+				
+				Rectangle cellRect=table.getCellRect (row,col,true);
+				
+				//System.out.println ("x: " + e.getX() + ", y:" + e.getY());
+				//System.out.println ("X: " + cellRect.x + ", Y:" + cellRect.y);
+				
+				pathRenderer.processMouseclick (e.getX()-cellRect.x,e.getY()-cellRect.y);
+			}
+		}
+	}	
+	
 	private static final long serialVersionUID = -1127341907493007641L;
 	private HoopSheetCellRenderer defaultRenderer=null;
 	private HoopSheetCellColor colorRenderer=null;
-	private HoopSheetPathEditor pathRenderer=null;
+	private HoopSheetPathRenderer pathRenderer=null;
 		
 	/**
 	 *
@@ -41,7 +78,9 @@ public class HoopPropertyTable extends HoopJTable
     	
     	defaultRenderer=new HoopSheetCellRenderer ();
     	colorRenderer=new HoopSheetCellColor (true);
-    	pathRenderer=new HoopSheetPathEditor ();
+    	pathRenderer=new HoopSheetPathRenderer ();
+    	
+    	this.addMouseListener(new JTableButtonMouseListener(this));
     }
 	/**
 	 *
@@ -84,13 +123,13 @@ public class HoopPropertyTable extends HoopJTable
         			{        			
         				if (object.getType()==HoopDataType.COLOR)
         				{
-        					debug ("Detected a color entry ...");
+        					//debug ("Detected a color entry ...");
         					return (colorRenderer);
         				}
         				
         				if (object.getType()==HoopDataType.URI)
         				{
-        					debug ("Detected a URI entry ...");
+        					//debug ("Detected a URI entry ...");
         					pathRenderer.setPathObject((HoopURISerializable) object);
         					return (pathRenderer);
         				}        				

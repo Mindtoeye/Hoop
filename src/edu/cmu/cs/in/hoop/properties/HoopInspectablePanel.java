@@ -38,6 +38,7 @@ import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.event.TableModelEvent;
@@ -170,6 +171,7 @@ public class HoopInspectablePanel extends HoopJPanel implements ActionListener, 
         parameterTable=new HoopPropertyTable ();
         //parameterTable.setBorder(BorderFactory.createLineBorder(Color.black));
         parameterTable.setModel(parameterModel);
+        parameterTable.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
                                 
         parameterScrollList=new JScrollPane (parameterTable);        
         //parameterScrollList=new JScrollPane ();
@@ -369,6 +371,7 @@ public class HoopInspectablePanel extends HoopJPanel implements ActionListener, 
 			}
 			
 			parameterTable.setModel(parameterModel);
+			parameterTable.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
 			
 	        TableColumn colP = parameterTable.getColumnModel().getColumn(1);
 	        colP.setCellEditor(new HoopSheetCellEditor());	        					

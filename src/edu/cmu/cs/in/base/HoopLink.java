@@ -630,11 +630,15 @@ public class HoopLink extends HoopProperties
 	 */
 	public static String relativeToAbsolute (String aPath)
 	{		
-		if (aPath.indexOf("<PROJECTPATH>")==-1)
-		{
+		if (HoopLink.project==null)
 			return (aPath); // Nothing to do
-		}
+
+		if (HoopLink.project.getVirginFile()==true)
+			return (aPath);
 		
+		if (aPath.indexOf("<PROJECTPATH>")==-1)
+			return (aPath); // Nothing to do
+				
 		StringBuffer formatted=new StringBuffer ();
 		
 		String lastPart=aPath.substring(13); // index of <PROJECTPATH> which is 13 long
@@ -647,4 +651,30 @@ public class HoopLink extends HoopProperties
 		
 		return (formatted.toString());
 	}
+	/**
+	 * 
+	 */
+	public static String absoluteToRelative (String aPath)
+	{				
+		if (HoopLink.project==null)
+			return (aPath);
+		
+		if (HoopLink.project.getVirginFile()==true)
+			return (aPath);
+		
+		String projectPath=HoopLink.project.getBasePath();
+		
+		if (aPath.indexOf(projectPath)==-1)
+			return (aPath);
+		
+		String remainder=aPath.substring(HoopLink.project.getBasePath().length());
+		
+		StringBuffer formatted=new StringBuffer ();
+		
+		formatted.append("<PROJECTPATH>");
+		formatted.append("/");
+		formatted.append(remainder);
+		
+		return (formatted.toString());
+	}	
 }
