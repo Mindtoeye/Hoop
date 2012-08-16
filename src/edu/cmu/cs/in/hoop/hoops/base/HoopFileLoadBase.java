@@ -23,7 +23,6 @@ import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.kv.HoopKVString;
-import edu.cmu.cs.in.hoop.properties.types.HoopEnumSerializable;
 import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
 
 /**
@@ -33,9 +32,8 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 {    				
 	protected HoopKVString fileKV=null;		
 	protected HoopURISerializable URI=null;
-	//protected HoopEnumSerializable fileMode=null; // SINGLE,MULTIPLE
 	
-	private int fileIndex=0;
+	private Integer fileIndex=0;
 	private ArrayList <String> files=null;
 	
 	/**
@@ -49,7 +47,6 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 		setHoopDescription ("Load Text File(s)");
 					
 		URI=new HoopURISerializable (this,"URI","");
-		//fileMode=new HoopEnumSerializable (this,"fileMode","SINGLE,MULTIPLE");
     }
 	/**
 	 * 
@@ -111,10 +108,12 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 		{
 			if (files==null)
 			{
+				fileIndex=0;
+				
 				files=new ArrayList<String> ();
 				
 				ArrayList <String> tempList=HoopLink.fManager.listFiles(URI.getValue());
-				
+								
 				for (int i=0;i<tempList.size ();i++)
 				{
 					String testEntry=tempList.get(i);
@@ -129,6 +128,8 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 						}
 					}
 				}
+				
+				showFiles ();				
 			}
 
 			String nextFile=files.get(fileIndex);
@@ -138,7 +139,9 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 				return (false);
 			}
 			
-			getVisualizer ().setExecutionInfo (fileIndex + " out of " + files.size());
+			String aStatus=(fileIndex + " out of " + files.size());
+			
+			getVisualizer ().setExecutionInfo (aStatus);
 			
 			fileIndex++;
 			
@@ -195,4 +198,18 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 	{
 		return (new HoopFileLoadBase ());
 	}		
+	/**
+	 * 
+	 */
+	public void showFiles ()
+	{
+		debug ("showFiles ()");
+		
+		for (int i=0;i<files.size();i++)
+		{
+			String aFile=files.get(i);
+			
+			debug ("File: " + aFile);
+		}
+	}
 }

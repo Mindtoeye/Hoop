@@ -20,6 +20,7 @@ package edu.cmu.cs.in.hoop.properties;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -63,6 +64,7 @@ class HoopSheetPathRenderer extends HoopJPanel implements TableCellRenderer, Act
 		this.setLayout(new BoxLayout (this,BoxLayout.X_AXIS));
 		
 		chosenPath=new JTextField ();
+		chosenPath.setFont(new Font("Dialog", 1, 10));
 		
 		chooser = new JButton();
 		chooser.setIcon(HoopLink.getImageByName("gtk-new.png"));

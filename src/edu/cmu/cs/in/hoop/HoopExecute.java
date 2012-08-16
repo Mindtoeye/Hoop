@@ -167,7 +167,7 @@ public class HoopExecute extends HoopRoot implements Runnable
 		
 			if (outHoops.size()>0)
 			{
-				debug ("Executing " + outHoops.size() + " sub hoops ...");
+				debug ("Executing " + outHoops.size() + " sub hoops for " + aRoot.getClassName() + " ...");
 		
 				for (int i=0;i<outHoops.size();i++)
 				{
@@ -203,7 +203,11 @@ public class HoopExecute extends HoopRoot implements Runnable
 			return;
 		}
 				
+		showHoopTree (null,root);
+		
 		prepareHoops (root);
+		
+		showHoopTree (null,root);
 		
 		loopExecuting=true;
 		
@@ -228,6 +232,28 @@ public class HoopExecute extends HoopRoot implements Runnable
 		}
 		
 		loopExecuting=false;
+	}
+	/**
+	 * 
+	 */
+	private void showHoopTree (HoopBase aParent,HoopBase aRoot)
+	{									
+		if (aParent!=null)
+			debug ("+ "+aParent.getInstanceName()+" with class " + aParent.getClassName() + " -> " + aRoot.getInstanceName() + " with class " + aRoot.getClassName());
+		else
+			debug ("+ "+aRoot.getInstanceName()+" with class " + aRoot.getClassName());
+																
+		ArrayList<HoopBase> outHoops=aRoot.getOutHoops();
+		
+		if (outHoops.size()>0)
+		{		
+			for (int i=0;i<outHoops.size();i++)
+			{						
+				HoopBase current=outHoops.get(i);
+				
+				showHoopTree (aRoot,current);
+			}				
+		}								
 	}
 }
 

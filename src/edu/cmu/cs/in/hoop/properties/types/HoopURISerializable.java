@@ -18,6 +18,10 @@
 
 package edu.cmu.cs.in.hoop.properties.types;
 
+import java.util.List;
+
+import org.jdom.Element;
+
 import edu.cmu.cs.in.base.HoopDataType;
 import edu.cmu.cs.in.hoop.hoops.base.HoopPropertyContainer;
 
@@ -27,7 +31,6 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopPropertyContainer;
 public class HoopURISerializable extends HoopSerializable
 {
 	private String fileExtension="txt";
-	//private Boolean singleFile=true;
 	private Boolean dirsOnly=false;
 	
 	/**
@@ -86,24 +89,6 @@ public class HoopURISerializable extends HoopSerializable
 	/**
 	 * 
 	 */
-	/*
-	public Boolean getSingleFile() 
-	{
-		return singleFile;
-	}
-	*/
-	/**
-	 * 
-	 */
-	/*
-	public void setSingleFile(Boolean singleFile) 
-	{
-		this.singleFile = singleFile;
-	}
-	*/
-	/**
-	 * 
-	 */
 	public Boolean getDirsOnly() 
 	{
 		return dirsOnly;
@@ -115,4 +100,83 @@ public class HoopURISerializable extends HoopSerializable
 	{
 		this.dirsOnly = dirsOnly;
 	}      
+	/**
+	 * @return 
+	 *
+	 */
+    public Boolean fromXML (Element anElement)
+    {
+    	debug ("fromXML ("+anElement.getName()+")");
+    	
+    	/*
+    	if (super.fromXML(anElement)==false)
+    	{
+    		return (false);
+    	}
+    	*/
+    	
+		if (anElement.getName().equals(this.getXMLID())==false)
+		{
+			debug ("Error: element name is not " + this.getXMLID());
+			return (false);			
+		}
+		
+		this.setInstanceName (anElement.getAttributeValue("instance"));    	
+    	    	    	  
+    	List <?> children=anElement.getChildren ("value");
+    	      
+    	if (children==null)
+    	{
+    		debug ("Internal error: children list is null");
+    		return (false);
+    	}
+		    	
+    	for (int i=0;i<children.size();i++) 
+    	{    		
+    		Element node = (Element) children.get(i);
+            
+   			debug ("Parsing text node ("+node.getName()+")...");
+   			
+   			debug ("format: " + node.getAttributeValue("format"));
+   		
+   	    	setFormat (node.getAttributeValue("format"));
+   	    	
+   	    	debug ("fileExtension: " + node.getAttributeValue("fileExtension"));
+   	    	
+   			setFileExtension (node.getAttributeValue("fileExtension"));
+   				
+   			debug ("dirsOnly: " + node.getAttributeValue("dirsOnly"));
+   				   			   				
+   			if (node.getAttributeValue("dirsOnly").equalsIgnoreCase("true")==true)
+   				dirsOnly=true;
+   			else
+   				dirsOnly=false;   			
+   			
+   			debug ("Setting value to: " + node.getText());
+   			
+   			this.setValue(node.getText());
+   		}
+		
+		return (true);
+    }
+	/**
+	 * 
+	 */
+	public Element toXML ()
+	{
+		debug ("toXML ()");
+				
+		Element classElement=toXMLID();
+						
+		Element valueElement=new Element ("value");
+		valueElement.setAttribute("format",this.getFormat ());
+		valueElement.setAttribute("type",this.typeToString ());
+		valueElement.setAttribute ("fileExtension",fileExtension);
+		valueElement.setAttribute ("dirsOnly",dirsOnly.toString());
+		valueElement.setText(this.getValue());
+		
+		classElement.addContent(valueElement);
+		
+		return (classElement);		
+	}	
 }

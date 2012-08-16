@@ -79,8 +79,10 @@ public class HoopTextFileSave extends HoopFileSaveBase
 				this.setErrorString("Error: unable to convert relative path to project path: " + URI.getValue ());
 				return (false);
 			}
+						
+			//HoopLink.fManager.saveContents (fullPath,formatted.toString());
 			
-			HoopLink.fManager.saveContents (fullPath,formatted.toString());
+			return (HoopLink.fManager.saveContents (HoopLink.fManager.createSequenceFilename(fullPath,this.getExecutionCount()),formatted.toString()));
 
 		}	
 						
