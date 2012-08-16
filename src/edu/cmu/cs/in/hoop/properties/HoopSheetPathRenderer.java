@@ -47,7 +47,7 @@ class HoopSheetPathRenderer extends HoopJPanel implements TableCellRenderer, Act
 	private static final long serialVersionUID = 1L;
 
 	private JButton chooser = null;
-	//private Color savedColor;
+	private JButton dirChooser = null;
 	private JTextField chosenPath;
 		
 	private HoopURISerializable pathObject=null;
@@ -65,19 +65,26 @@ class HoopSheetPathRenderer extends HoopJPanel implements TableCellRenderer, Act
 		chosenPath=new JTextField ();
 		
 		chooser = new JButton();
-		//chooser.setText("...");
-		//chooser.setFont(new Font("Dialog", 1, 10));	
 		chooser.setIcon(HoopLink.getImageByName("gtk-new.png"));
 		chooser.setBorder(BorderFactory.createEmptyBorder(1,0,1,0));
 		chooser.setMargin(new Insets (0,0,0,0));
 		chooser.setOpaque(false);
 		chooser.setPreferredSize(new Dimension (20,22));
-		chooser.setMaximumSize(new Dimension (20,22));
-		
+		chooser.setMaximumSize(new Dimension (20,22));		
 		chooser.addActionListener(this);
 
-		this.add(chosenPath);
-		this.add(chooser);				
+		dirChooser = new JButton();
+		dirChooser.setIcon(HoopLink.getImageByName("folder.png"));
+		dirChooser.setBorder(BorderFactory.createEmptyBorder(1,0,1,0));
+		dirChooser.setMargin(new Insets (0,0,0,0));
+		dirChooser.setOpaque(false);
+		dirChooser.setPreferredSize(new Dimension (20,22));
+		dirChooser.setMaximumSize(new Dimension (20,22));		
+		dirChooser.addActionListener(this);		
+		
+		this.add (chosenPath);
+		this.add (chooser);
+		this.add (dirChooser);
 	}
 	/**
 	 * 
@@ -92,6 +99,7 @@ class HoopSheetPathRenderer extends HoopJPanel implements TableCellRenderer, Act
 	public void setPathObject(HoopURISerializable pathObject) 
 	{
 		this.pathObject = pathObject;
+		chosenPath.setText(pathObject.getValue());
 	}
 	/**
 	 * 
@@ -136,8 +144,19 @@ class HoopSheetPathRenderer extends HoopJPanel implements TableCellRenderer, Act
 		{
 			
 		}
-		else		
-			chooser.doClick();
+		else
+		{
+			if ((anX>chosenPath.getWidth()) && (anX<(chosenPath.getWidth()+chooser.getWidth())))
+			{
+				pathObject.setDirsOnly(false);
+				chooser.doClick();
+			}
+			else
+			{
+				pathObject.setDirsOnly(true);
+				dirChooser.doClick();
+			}
+		}
 	}
 	/**
 	 * 
@@ -174,6 +193,9 @@ class HoopSheetPathRenderer extends HoopJPanel implements TableCellRenderer, Act
 		
 		return this;
 	}
+	/**
+	 * 
+	 */
 	@Override	
 	public void actionPerformed(ActionEvent arg0) 
 	{
@@ -181,7 +203,7 @@ class HoopSheetPathRenderer extends HoopJPanel implements TableCellRenderer, Act
 		
 	    JFileChooser fc=new JFileChooser ();
 	    
-	    if (pathObject.getSingleFile()==true)
+	    if (pathObject.getDirsOnly()==false)
 	    {
 			FileNameExtensionFilter filter=new FileNameExtensionFilter ("."+pathObject.getFileExtension()+" files", pathObject.getFileExtension());
 			fc.setFileFilter(filter);

@@ -163,5 +163,14 @@ public class HoopBaseTyped extends HoopVisual implements HoopPropertyContainer
 	public HoopBaseTyped getPropParent() 
 	{	
 		return this;
+	}
+	/**
+	 * 
+	 */
+	@Override
+	public void propertyChanged() 
+	{
+		// TODO Auto-generated method stub
+		
 	}    
 }

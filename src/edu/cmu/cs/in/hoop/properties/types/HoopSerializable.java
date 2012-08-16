@@ -39,7 +39,7 @@ public class HoopSerializable extends HoopXMLBase
 	
 	private Boolean touched=false;
 	
-	private HoopPropertyContainer propParent=null;
+	protected HoopPropertyContainer propParent=null;
 	
 	/**
 	 *

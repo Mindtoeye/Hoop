@@ -86,7 +86,7 @@ class HoopSheetPathEditor extends HoopJPanel implements ActionListener
 		
 	    JFileChooser fc=new JFileChooser ();
 	    
-	    if (pathObject.getSingleFile()==true)
+	    if (pathObject.getDirsOnly()==false)
 	    {
 			FileNameExtensionFilter filter=new FileNameExtensionFilter ("."+pathObject.getFileExtension()+" files", pathObject.getFileExtension());
 			fc.setFileFilter(filter);

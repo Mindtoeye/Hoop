@@ -33,7 +33,7 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 {    				
 	protected HoopKVString fileKV=null;		
 	protected HoopURISerializable URI=null;
-	protected HoopEnumSerializable fileMode=null; // SINGLE,MULTIPLE
+	//protected HoopEnumSerializable fileMode=null; // SINGLE,MULTIPLE
 	
 	private int fileIndex=0;
 	private ArrayList <String> files=null;
@@ -49,7 +49,7 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 		setHoopDescription ("Load Text File(s)");
 					
 		URI=new HoopURISerializable (this,"URI","");
-		fileMode=new HoopEnumSerializable (this,"fileMode","SINGLE,MULTIPLE");
+		//fileMode=new HoopEnumSerializable (this,"fileMode","SINGLE,MULTIPLE");
     }
 	/**
 	 * 
@@ -100,19 +100,14 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 				return (false);
 			}
 		}	
-		
-		if (fileMode.getValue().equals("SINGLE")==true)
-			URI.setSingleFile(true);
-		else
-			URI.setSingleFile(false);
-		
-		if (fileMode.getValue().equals("SINGLE")==true)
+				
+		if (URI.getDirsOnly()==false)
 		{				
 			if (processSingleFile (HoopLink.relativeToAbsolute(URI.getValue()))==false)
 				return (false);
 		}
 		
-		if (fileMode.getValue().equals("MULTIPLE")==true)
+		if (URI.getDirsOnly()==true)
 		{
 			if (files==null)
 			{

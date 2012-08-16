@@ -27,7 +27,8 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopPropertyContainer;
 public class HoopURISerializable extends HoopSerializable
 {
 	private String fileExtension="txt";
-	private Boolean singleFile=true;
+	//private Boolean singleFile=true;
+	private Boolean dirsOnly=false;
 	
 	/**
 	 *
@@ -85,15 +86,33 @@ public class HoopURISerializable extends HoopSerializable
 	/**
 	 * 
 	 */
+	/*
 	public Boolean getSingleFile() 
 	{
 		return singleFile;
 	}
+	*/
 	/**
 	 * 
-	 */	
+	 */
+	/*
 	public void setSingleFile(Boolean singleFile) 
 	{
 		this.singleFile = singleFile;
+	}
+	*/
+	/**
+	 * 
+	 */
+	public Boolean getDirsOnly() 
+	{
+		return dirsOnly;
+	}
+	/**
+	 * 
+	 */
+	public void setDirsOnly(Boolean dirsOnly) 
+	{
+		this.dirsOnly = dirsOnly;
 	}      
 }

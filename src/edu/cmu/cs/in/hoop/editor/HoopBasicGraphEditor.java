@@ -148,9 +148,7 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 		// Installs rubberband selection and handling for some special
 		// keystrokes such as F2, Control-C, -V, X, A etc.
 		installHandlers();
-		installListeners();
-				
-		updateTitle();
+		installListeners();				
 	}
 	/** 
 	 * @return JTabbedPane
@@ -366,11 +364,6 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 		currentFile = file;
 
 		firePropertyChange("currentFile", oldValue, file);
-
-		if (oldValue != file)
-		{
-			updateTitle();
-		}
 	}
 	/**
 	 * 
@@ -389,11 +382,6 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 		this.modified = modified;
 
 		firePropertyChange("modified", oldValue, modified);
-
-		if (oldValue != modified)
-		{
-			updateTitle();
-		}
 	}
 	/**
 	 * 
@@ -451,27 +439,6 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 	public void status(String msg)
 	{
 		HoopLink.statusBar.setStatus(msg);
-	}
-	/**
-	 * 
-	 */
-	public void updateTitle()
-	{
-		/*
-		JFrame frame = (JFrame) SwingUtilities.windowForComponent(this);
-
-		if (frame != null)
-		{
-			String title = (currentFile != null) ? currentFile.getAbsolutePath() : mxResources.get("newDiagram");
-
-			if (modified)
-			{
-				title += "*";
-			}
-
-			frame.setTitle(title + " - " + appTitle);
-		}
-		*/
 	}
 	/**
 	 * 

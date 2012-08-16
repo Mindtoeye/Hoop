@@ -41,4 +41,10 @@ public interface HoopPropertyContainer
 	 * 
 	 */
 	public String getFieldName(Object aReference);
+	
+	/**
+	 * 
+	 */
+	public void propertyChanged ();
+
 }
