@@ -160,7 +160,8 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 		
 		if (panel!=null)
 		{
-			panel.showHoop(hoop);
+			HoopLink.popWindow("Data View");
+			panel.showHoop(hoop);			
 		}		
 	}
 	/**
