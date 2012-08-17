@@ -219,9 +219,14 @@ public class HoopPropertyPanel extends HoopEmbeddedJPanel implements ActionListe
 			
 			for (int i=0;i<childList.length;i++)
 			{
-				HoopInspectablePanel tester=(HoopInspectablePanel) childList [i];
+				Object checker=childList [i];
+				
+				if (checker instanceof HoopInspectablePanel)
+				{
+					HoopInspectablePanel tester=(HoopInspectablePanel) checker;
 			
-				tester.foldIn();
+					tester.foldIn();
+				}	
 			}				
 		}
 		
@@ -233,9 +238,14 @@ public class HoopPropertyPanel extends HoopEmbeddedJPanel implements ActionListe
 			
 			for (int i=0;i<childList.length;i++)
 			{
-				HoopInspectablePanel tester=(HoopInspectablePanel) childList [i];
+				Object checker=childList [i];
+				
+				if (checker instanceof HoopInspectablePanel)
+				{
+					HoopInspectablePanel tester=(HoopInspectablePanel) checker;
 			
-				tester.foldOut();
+					tester.foldOut();
+				}
 			}					
 		}
 	}

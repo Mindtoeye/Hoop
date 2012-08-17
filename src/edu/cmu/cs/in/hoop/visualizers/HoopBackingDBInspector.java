@@ -58,7 +58,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 
-import com.sleepycat.bind.tuple.LongBinding;
+//import com.sleepycat.bind.tuple.LongBinding;
 import com.sleepycat.bind.tuple.StringBinding;
 import com.sleepycat.collections.StoredSortedMap;
 

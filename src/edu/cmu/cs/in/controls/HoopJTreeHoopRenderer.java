@@ -139,33 +139,15 @@ public class HoopJTreeHoopRenderer extends JLabel implements TreeCellRenderer
     				//debug ("userObject is instance of HoopProjectFile");
     				
     				HoopProjectFile aFile=(HoopProjectFile) userObject;
-    				setText (aFile.getName());
     				
-    				if (aFile.getInstanceName().toLowerCase().indexOf(".xml")!=-1)
-    				{
-    					debug ("userObject represents an xml file");
-    					
-    					setIcon (HoopLink.fileToIcon(aFile.getInstanceName()));
-    				}
+    				if (HoopLink.fileToIcon(aFile.getInstanceName())!=null)
+    				{    				    			
+    					setText (aFile.getName());
+    				    					
+    					setIcon (HoopLink.fileToIcon(aFile.getInstanceName()));    				    					
+    				}	
     				else
-    				{
-    					setIcon (HoopLink.fileToIcon(aFile.getInstanceName()));
-    					
-    					/*
-        				if (aFile.getInstanceName().toLowerCase().indexOf(".txt")!=-1)
-        				{
-        					debug ("userObject represents a text file");
-        					
-        					setIcon (HoopLink.getImageByName("text_icon.png"));
-        				}
-        				else
-        				{
-        					debug ("userObject represents a default file");
-        					
-        					setIcon (HoopLink.getImageByName("unknown_216_16.png"));
-        				}
-        				*/
-    				}
+    					setIcon (HoopLink.getImageByName("gtk-new.png"));
     				
     				found=true;
     			}    			
@@ -192,7 +174,12 @@ public class HoopJTreeHoopRenderer extends JLabel implements TreeCellRenderer
     				}
     				else
     				{
-    					setIcon (HoopLink.getImageByName("gtk-new.png"));
+        				if (HoopLink.fileToIcon(fileIcon.getInstanceName())!=null)
+        				{    				    			        				    					
+        					setIcon (HoopLink.fileToIcon(fileIcon.getInstanceName()));        				
+        				}	
+        				else
+        					setIcon (HoopLink.getImageByName("gtk-new.png"));
     				}
     				
     				found=false;

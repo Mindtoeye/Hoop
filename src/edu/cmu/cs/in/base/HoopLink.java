@@ -291,7 +291,9 @@ public class HoopLink extends HoopProperties
 		 							 "system-folder.png",
 		 							 "wait_animated.gif",
 		 							 "run-stopped.png",
-		 							 "run-running.png"
+		 							 "run-running.png",
+		 							 "csv.png",
+		 							 "weka.png"
 		 							 };
 	
 	public static JFrame mainFrame=null;
@@ -396,11 +398,21 @@ public class HoopLink extends HoopProperties
     	if (aName.toLowerCase().indexOf(".txt")!=-1)
     	{
     		return (HoopLink.getImageByName("text_icon.png"));    		
-    	}    	
-    	    	    		    	
-    	//return (HoopLink.getImageByName("gtk-new.png"));
+    	}
     	
-    	return (HoopLink.getImageByName("unknown_216_16.png"));    	
+    	if (aName.toLowerCase().indexOf(".arrf")!=-1)
+    	{
+    		return (HoopLink.getImageByName("weka.png"));    		
+    	}
+    	
+    	if (aName.toLowerCase().indexOf(".csv")!=-1)
+    	{
+    		return (HoopLink.getImageByName("csv.png"));    		
+    	}
+    	    	    		    	    	
+    	//return (HoopLink.getImageByName("unknown_216_16.png"));
+    	
+    	return (null);
     }
 	/**
 	 *

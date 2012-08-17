@@ -261,10 +261,10 @@ public class HoopInspectablePanel extends HoopJPanel implements ActionListener, 
 	public void itemStateChanged(ItemEvent e) 
 	{
 		debug ("itenStateChanged ()");
-		
+
+		/*
 	    Object source=e.getItemSelectable();
 
-	    /*
 	    if (source==componentShow) 
 	    	checkComponent ();
 	    */	

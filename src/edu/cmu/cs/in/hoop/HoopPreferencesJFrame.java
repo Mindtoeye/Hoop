@@ -18,8 +18,6 @@
 
 package edu.cmu.cs.in.hoop;
 
-import java.awt.Container;
-import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.ArrayList;
