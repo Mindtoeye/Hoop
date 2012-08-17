@@ -25,6 +25,7 @@ import org.jdom.Element;
 import edu.cmu.cs.in.base.HoopDataType;
 import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
+import edu.cmu.cs.in.hoop.properties.types.HoopSerializable;
 import edu.cmu.cs.in.hoop.properties.types.HoopStringSerializable;
 
 /**
@@ -92,27 +93,45 @@ public class HoopXMLDocumentWriter extends HoopXMLWriter
 				dataElement.addContent(keyElement);
 				
 				ArrayList <Object> vals=aKV.getValuesRaw ();
-				
+								
 				for (int j=0;j<vals.size();j++)
 				{
 					String aTypeName=this.getKVTypeName (j);
 					
-					HoopStringSerializable mapper=(HoopStringSerializable) this.getProperty(aTypeName);
+					debug ("Mapping: " + aTypeName);
 					
-					if (mapper!=null)
-					{
-						Element documentElement=new Element (mapper.getInstanceName());
-						documentElement.setText(aKV.getValueAsString(j));
-						dataElement.addContent(documentElement);
-					}
-					else
-						debug ("Document property " + aTypeName + " could not be mapped");
+					String remapped=mapType (aTypeName);
+										
+					Element documentElement=new Element (remapped);
+					documentElement.setText(aKV.getValueAsString(j));
+					dataElement.addContent(documentElement);
 				}				
 			}
 		}	
 		
 		return (saveXML (fileElement));	
 	}	
+	/**
+	 * 
+	 */
+	private String mapType (String aTypeName)
+	{
+		ArrayList <HoopSerializable> props=getProperties ();
+		
+		for (int i=0;i<props.size();i++)
+		{
+			HoopSerializable aProp=props.get(i);
+			
+			if (aProp.getValue().equalsIgnoreCase(aTypeName)==true)
+			{
+				debug ("Mapped " + aTypeName + " to: " + aProp.getInstanceName());
+				
+				return (aProp.getInstanceName());
+			}
+		}
+						
+		return ("Default");
+	}
 	/**
 	 * 
 	 */

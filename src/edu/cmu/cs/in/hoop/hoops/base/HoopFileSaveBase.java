@@ -18,6 +18,7 @@
 
 package edu.cmu.cs.in.hoop.hoops.base;
 
+import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.io.HoopFileManager;
 import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
 
@@ -26,13 +27,9 @@ import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
 */
 public class HoopFileSaveBase extends HoopSaveBase implements HoopInterface
 {    				
-	private String content=null;
-	
-	private HoopFileManager fManager=null;
-	
-	//private String outputStreamPath=null;	
+	private String content=null;	
+	private HoopFileManager fManager=null;		
 	protected HoopURISerializable URI=null;	
-	//private String fileExtension="txt";
 	
 	/**
 	 *
@@ -106,4 +103,22 @@ public class HoopFileSaveBase extends HoopSaveBase implements HoopInterface
 	{
 		URI.setFileExtension(fileExtension);
 	}	
+	/**
+	 * 
+	 */
+	protected Boolean saveContents (String aContents)
+	{
+        String absPath=this.projectToFullPath (URI.getValue());
+        
+        if (URI.getDirsOnly()==true)
+        {
+        	String fullPath=absPath+"/output."+URI.getFileExtension();
+        	
+        	String aFileName=HoopLink.fManager.createSequenceFilename(fullPath,this.getExecutionCount());
+        
+        	return (HoopLink.fManager.saveContents (aFileName,aContents));
+        }
+                
+        return (HoopLink.fManager.saveContents (absPath,aContents));
+	}
 }

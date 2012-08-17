@@ -82,8 +82,9 @@ public class HoopTextFileSave extends HoopFileSaveBase
 						
 			//HoopLink.fManager.saveContents (fullPath,formatted.toString());
 			
-			return (HoopLink.fManager.saveContents (HoopLink.fManager.createSequenceFilename(fullPath,this.getExecutionCount()),formatted.toString()));
+			//return (HoopLink.fManager.saveContents (HoopLink.fManager.createSequenceFilename(fullPath,this.getExecutionCount()),formatted.toString()));
 
+			return (saveContents (formatted.toString()));
 		}	
 						
 		return (true);

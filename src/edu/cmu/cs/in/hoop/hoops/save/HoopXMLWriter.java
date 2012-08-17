@@ -147,9 +147,7 @@ public class HoopXMLWriter extends HoopFileSaveBase
 		XMLOutputter outputter = new XMLOutputter(Format.getPrettyFormat());
         String xmlString = outputter.outputString(document);		
 		        
-        String fullPath=this.projectToFullPath (URI.getValue());
-        
-		return (HoopLink.fManager.saveContents (HoopLink.fManager.createSequenceFilename(fullPath,this.getExecutionCount()),xmlString));										
+        return (saveContents (xmlString));
 	}
 	/**
 	 * 

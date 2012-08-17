@@ -454,7 +454,7 @@ public class HoopFileTools extends HoopRoot
 	}		
 	/**
 	 * WARNING! This method only works with fully specified paths. You
-	 * can not use it with path that contain <PROJECTPATH>
+	 * can not use it with path that contains <PROJECTPATH>
 	 */
 	public String createSequenceFilename (String aURI,int anIndex)
 	{

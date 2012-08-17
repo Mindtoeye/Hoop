@@ -634,7 +634,7 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 			debug ("Error: no target columns provided for SQL query");
 			return (false);
 		}
-		
+				
 		if (queryTable.getValue().isEmpty()==true)
 		{
 			debug ("Error: no target table provided for SQL query");
@@ -643,6 +643,7 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 
 		if (this.getExecutionCount()==0)
 		{
+			/*
 			ArrayList <String> columnList=HoopStringTools.splitComma(queryColumns.getValue());
 			
 			// For now we'll get everything as a string
@@ -651,6 +652,9 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 			{
 				this.setKVType (j,HoopDataType.STRING,columnList.get(j));
 			}
+			*/
+
+			queryColumnsToTypes ();
 		}	
 								
 		String fullQuery=createQuery ();
@@ -794,149 +798,6 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 		return (true);
 	}
 	/**
-	 * http://www.kitebird.com/articles/jdbc.html
-	 * 
-	 * For example: s.executeQuery ("SELECT id, name, category FROM animal");
-	 */
-	/*
-	private Boolean runQuery (String aQuery)
-	{
-		debug ("runQuery (String)");
-		
-		if (connection==null)
-		{
-			this.setErrorString("Error: no connection to database yet");
-			return (false);
-		}
-								
-		Statement statement=null;
-		
-		try 
-		{
-			statement = connection.createStatement ();
-		} 
-		catch (SQLException e) 
-		{
-			printSQLException (e);
-			return (false);
-		}
-		
-		try 
-		{
-			statement.executeQuery (aQuery);
-		} 
-		catch (SQLException e) 
-		{
-			printSQLException (e);
-			return (false);			
-		}
-		
-		ResultSet resultSet=null;
-		
-		try 
-		{
-			resultSet = statement.getResultSet ();
-		} 
-		catch (SQLException e1) 
-		{		
-			printSQLException (e1);
-			return (false);			
-		}
-		
-		int count = 0;
-		
-		resetData ();
-		
-		try 
-		{
-			while (resultSet.next ())
-			{				
-				HoopKVString tableKV=new HoopKVString ();
-								
-				ArrayList <HoopDataType> dbTypes=this.getTypes ();
-				
-				for (int i=0;i<dbTypes.size();i++)
-				{
-					HoopDataType aType=dbTypes.get(i);
-					
-					if (aType.getType()==HoopDataType.INT)
-					{
-						//debug ("Adding INT type");
-						
-						Integer idVal = resultSet.getInt (aType.getTypeValue());
-						
-						if (i==0)
-						{
-							tableKV.setKey(idVal.toString());
-						}
-						else
-							tableKV.setValue(idVal.toString (),i);
-					}
-					
-					if (aType.getType()==HoopDataType.STRING)
-					{						
-						//debug ("Adding STRING type");
-						
-						String nameVal = resultSet.getString (aType.getTypeValue());
-						
-						if (i==0)
-						{
-							tableKV.setKey(nameVal);
-						}
-						else
-							tableKV.setValue(nameVal,i);						
-					}
-				}
-				
-				//debug ("Entry " + count + " has " + tableKV.getValuesRaw().size() + " values");
-				
-				addKV (tableKV);
-				
-				++count;
-			}
-		} 
-		catch (SQLException e1) 
-		{		
-			printSQLException (e1);
-			return (false);			
-		}
-
-		try 
-		{
-			resultSet.close ();
-		} 
-		catch (SQLException e) 
-		{		
-			printSQLException (e);
-			return (false);			
-		}
-		
-		try 
-		{
-			statement.close ();
-		} 
-		catch (SQLException e) 
-		{
-			printSQLException (e);
-			return (false);			
-		}
-		
-		Runtime r = Runtime.getRuntime();
-		r.gc();
-		
-		debug (count + " rows were retrieved, verification date size is: " + this.getData().size() + " from " + loadIndex + " with size: " + loadSize);
-		
-	    loadIndex+=count;
-	    
-	    if (loadIndex<loadMax)
-	    {
-	    	this.setDone(false);
-	    }
-		
-		return (true);
-	}
-	*/	
-	/**
 	 * 
 	 */
 	private String createQuery ()
@@ -982,6 +843,24 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 		}
 		
 		return (true);
+	}
+	/**
+	 * 
+	 */
+	private void queryColumnsToTypes ()
+	{
+		debug ("queryColumnsToTypes ()");
+		
+		ArrayList <String> columnList=HoopStringTools.splitComma(queryColumns.getValue());
+		
+		// For now we'll get everything as a string
+	
+		for (int j=0;j<columnList.size();j++)
+		{
+			debug ("Setting column " + j + " (String) to: " + columnList.get(j));
+			
+			this.setKVType (j,HoopDataType.STRING,columnList.get(j));
+		}
 	}
 	/**
 	 * 

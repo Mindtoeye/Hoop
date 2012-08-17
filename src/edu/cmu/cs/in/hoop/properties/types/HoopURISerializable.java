@@ -137,20 +137,35 @@ public class HoopURISerializable extends HoopSerializable
             
    			debug ("Parsing text node ("+node.getName()+")...");
    			
-   			debug ("format: " + node.getAttributeValue("format"));
+   			if (node.getAttribute("format")!=null)
+   			{
+   				debug ("format: " + node.getAttributeValue("format"));
    		
-   	    	setFormat (node.getAttributeValue("format"));
-   	    	
-   	    	debug ("fileExtension: " + node.getAttributeValue("fileExtension"));
-   	    	
-   			setFileExtension (node.getAttributeValue("fileExtension"));
-   				
-   			debug ("dirsOnly: " + node.getAttributeValue("dirsOnly"));
-   				   			   				
-   			if (node.getAttributeValue("dirsOnly").equalsIgnoreCase("true")==true)
-   				dirsOnly=true;
+   				setFormat (node.getAttributeValue("format"));
+   			}
    			else
-   				dirsOnly=false;   			
+   				debug ("Attribute format not found in serialible property");
+   	    	
+   	    	if (node.getAttribute("fileExtension")!=null)
+   	    	{
+   	    		debug ("fileExtension: " + node.getAttributeValue("fileExtension"));
+   	    		
+   	    		setFileExtension (node.getAttributeValue("fileExtension"));
+   	    	}	
+   	    	else
+   				debug ("Attribute fileExtension not found in serialible property");
+   				
+   			if (node.getAttribute ("dirsOnly")!=null)
+   			{   			
+   				debug ("dirsOnly: " + node.getAttributeValue("dirsOnly"));
+   				   			   				
+   				if (node.getAttributeValue("dirsOnly").equalsIgnoreCase("true")==true)
+   					dirsOnly=true;
+   				else
+   					dirsOnly=false;
+   			}	
+   			else
+   				debug ("Attribute dirsOnly not found in serialible property");
    			
    			debug ("Setting value to: " + node.getText());
    			
