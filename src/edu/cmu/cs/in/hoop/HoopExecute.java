@@ -20,6 +20,7 @@ package edu.cmu.cs.in.hoop;
 
 import java.util.ArrayList;
 
+import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.HoopRoot;
 //import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
@@ -35,6 +36,8 @@ public class HoopExecute extends HoopRoot implements Runnable
 	private int loopCount=-1; 
 	private Boolean loopExecuting=false;
 	private Boolean inEditor=false;
+	
+	private HoopBase currentRunner=null;
 		
 	/**
 	 *
@@ -42,7 +45,9 @@ public class HoopExecute extends HoopRoot implements Runnable
 	public HoopExecute () 
 	{
 		setClassName ("HoopExecute");
-		debug ("HoopExecute ()");		
+		debug ("HoopExecute ()");	
+		
+		HoopLink.runner=this;
 	}	
 	/**
 	 * 
@@ -65,6 +70,23 @@ public class HoopExecute extends HoopRoot implements Runnable
 	{
 		loopExecuting=false;
 	}
+	/**
+	 * 
+	 */
+	public void stopExecutionError ()
+	{
+		stopExecution ();
+		
+		if (currentRunner!=null)
+		{
+			HoopVisualRepresentation panel=currentRunner.getVisualizer();
+		
+			if (panel!=null)
+				panel.setState("ERROR");
+			else
+				debug ("No visual representation present to show error result!");
+		}	
+	}	
 	/**
 	 * 
 	 */    
@@ -144,8 +166,12 @@ public class HoopExecute extends HoopRoot implements Runnable
 			
 			setSubTreeDone (aRoot,false);
 			
+			currentRunner=aRoot;
+			
 			if (aRoot.runHoopInternal(aParent)==false)
 			{
+				currentRunner=null;
+				
 				debug ("Unable to run hoop: " + aRoot.getErrorString());
 				
 				HoopVisualRepresentation panel=aRoot.getVisualizer();
@@ -159,6 +185,8 @@ public class HoopExecute extends HoopRoot implements Runnable
 															
 				return (false);
 			}
+			
+			currentRunner=null;
 		
 			/// One of: STOPPED, WAITING, RUNNING, PAUSED, ERROR
 			aRoot.setExecutionState("STOPPED");		
@@ -200,6 +228,8 @@ public class HoopExecute extends HoopRoot implements Runnable
 	public void run() 
 	{	
 		debug ("run ()");
+		
+		currentRunner=null;
 		
 		if (root==null)
 		{

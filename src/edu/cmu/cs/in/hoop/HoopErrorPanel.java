@@ -47,14 +47,13 @@ public class HoopErrorPanel extends HoopEmbeddedJPanel implements ActionListener
 	
 	private HoopJTable table=null;
 	private HoopMultiLineCellRenderer textCellRenderer=null;
-	private int lines=3;
 	
 	private String[] columnNames = {"Key","Value"};
 	
 	private ArrayList <HoopErrorObject> errors=null;
 	
 	/**
-	 * http://stackoverflow.com/questions/965023/how-to-wrap-lines-in-a-jtable-cell
+	 * 
 	 */	
 	public HoopErrorPanel ()
 	{
@@ -100,6 +99,24 @@ public class HoopErrorPanel extends HoopEmbeddedJPanel implements ActionListener
 		
 		if (errors.size()>0)
 		{
+			/*
+				//get metrics from the graphics
+				
+				FontMetrics metrics = graphics.getFontMetrics(font);
+				
+				// get the height of a line of text in this font and render context
+				 * 
+				int hgt = metrics.getHeight();
+				
+				// get the advance of my text in this font and render context
+				 * 
+				int adv = metrics.stringWidth(text);
+				
+				// calculate the size of a box to hold the text with some padding.
+
+				Dimension size = new Dimension(adv+2, hgt+2); 
+			 */
+			
 			int rowHeight = table.getRowHeight();
 			
 			int lineCount=countLines (anError);
@@ -134,15 +151,6 @@ public class HoopErrorPanel extends HoopEmbeddedJPanel implements ActionListener
 	{
 		return table;
 	}
-	/**
-	 * 
-	 */
-	/*
-	public JTable getTable() 
-	{
-		return table;
-	}
-	*/	
 	/**
 	 * 
 	 */

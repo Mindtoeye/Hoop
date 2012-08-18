@@ -33,6 +33,7 @@ import edu.cmu.cs.in.base.io.HoopFileManager;
 import edu.cmu.cs.in.base.io.HoopStreamedSocket;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 import edu.cmu.cs.in.hoop.HoopConsoleInterface;
+import edu.cmu.cs.in.hoop.HoopExecute;
 import edu.cmu.cs.in.hoop.HoopGraphManager;
 import edu.cmu.cs.in.hoop.HoopHelp;
 import edu.cmu.cs.in.hoop.HoopManager;
@@ -330,6 +331,10 @@ public class HoopLink extends HoopProperties
 	
 	public static HoopManager hoopManager=null;
 	public static HoopGraphManager hoopGraphManager=null;
+	
+	// Execution access
+	
+	public static HoopExecute runner=null;
 	
 	// Le data
 	
