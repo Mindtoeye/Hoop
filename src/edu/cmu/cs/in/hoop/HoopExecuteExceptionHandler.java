@@ -37,12 +37,33 @@ public class HoopExecuteExceptionHandler implements Thread.UncaughtExceptionHand
 			HoopLink.addView ("Errors",new HoopErrorPanel(),"bottom");
 			errorPanel=(HoopErrorPanel) HoopLink.getWindow("Errors");
 		}	
-				
-		errorPanel.addError (th.getName(),ex.toString());
+						
+		HoopLink.popWindow("Errors");
 		
-		HoopLink.popWindow("Errors");    	
+		errorPanel.addError (th.getName(),ex.toString());				
+		errorPanel.addError (th.getName (),getTrace (ex));		
+    }
+    /**
+     * 
+     */
+    private String getTrace (Throwable ex)
+    {
+    	StringBuffer formatted=new StringBuffer ();
     	
-        //System.out.println("You crashed thread " + th.getName());
-        //System.out.println("Exception was: " + ex.toString());
+    	StackTraceElement [] lines=ex.getStackTrace();
+    	
+    	for (int i=0;i<lines.length;i++)
+    	{
+    		if (i>0)
+    		{
+    			formatted.append(System.getProperty("line.separator"));
+    		}	
+    		
+    		StackTraceElement aLine=lines [i];
+    		
+    		formatted.append (aLine.toString());
+    	}
+    	
+    	return (formatted.toString());
     }
 }

@@ -28,7 +28,7 @@ import edu.cmu.cs.in.hoop.properties.types.HoopSerializable;
 /**
  * 
  */	
-class HoopSheetCellRenderer extends DefaultTableCellRenderer 
+public class HoopSheetCellRenderer extends DefaultTableCellRenderer 
 {
 	private static final long serialVersionUID = -1L;
 	private HoopSerializable object=null;

@@ -54,9 +54,9 @@ public class HoopExecuteInEditor extends HoopExecute
 			errorPanel=(HoopErrorPanel) HoopLink.getWindow("Errors");
 		}	
 				
-		errorPanel.addError (aClass,anError);
-		
 		HoopLink.popWindow("Errors");
+		
+		errorPanel.addError (aClass,anError);		
 	}	
 	/**
 	 * 

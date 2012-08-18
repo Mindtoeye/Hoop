@@ -20,14 +20,14 @@ package edu.cmu.cs.in.hoop;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 
+import edu.cmu.cs.in.controls.HoopMultiLineCellRenderer;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 import edu.cmu.cs.in.controls.base.HoopJTable;
 
@@ -37,30 +37,45 @@ import edu.cmu.cs.in.controls.base.HoopJTable;
  */
 public class HoopErrorPanel extends HoopEmbeddedJPanel implements ActionListener
 {	
-	private static final long serialVersionUID = 1L;			
-	private HoopJTable table=null;		
-	private DefaultTableModel errorData=null;
-	private int primColWidth=100;
+	private class HoopErrorObject
+	{
+		public String aSource="";
+		public String anError="";
+	}
+	
+	private static final long serialVersionUID = 1L;
+	
+	private HoopJTable table=null;
+	private HoopMultiLineCellRenderer textCellRenderer=null;
+	private int lines=3;
+	
+	private String[] columnNames = {"Key","Value"};
+	
+	private ArrayList <HoopErrorObject> errors=null;
 	
 	/**
 	 * http://stackoverflow.com/questions/965023/how-to-wrap-lines-in-a-jtable-cell
 	 */	
 	public HoopErrorPanel ()
 	{
-		setClassName ("HoopTablePanel");
-		debug ("HoopTablePanel ()");
+		setClassName ("HoopErrorPanel");
+		debug ("HoopErrorPanel ()");
 		
     	Box holder = new Box (BoxLayout.Y_AXIS);    	
 
-    	errorData = new DefaultTableModel();    
-    	errorData.addColumn("Hoop");  
-    	errorData.addColumn("Error/Warning");      	
-    			
-		table=new HoopJTable (errorData);
+    	errors=new ArrayList<HoopErrorObject> ();
+    	    			
+    	textCellRenderer=new HoopMultiLineCellRenderer ();
+    	
+		// We need some empty data because Java crashes when you provide a null parameter in the constructor
+		Object[][] data ={}; 
+    	
+		table=new HoopJTable (data,columnNames);
+		table.setGlobalRenderer(textCellRenderer);
 		
 		JScrollPane scrollPane = new JScrollPane(table);
-		table.setFillsViewportHeight(true);		
-		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		//table.setFillsViewportHeight(true);		
+		//table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		
 		holder.add (scrollPane);
 		
@@ -74,10 +89,43 @@ public class HoopErrorPanel extends HoopEmbeddedJPanel implements ActionListener
 		debug ("addError ()");
 		
 		debug ("Hoop: " + aHoop + ", " + anError);
-					
-		errorData.addRow(new Object[]{aHoop, anError});
 		
-		table.revalidate();
+		HoopErrorObject anErrorObject=new HoopErrorObject ();
+		anErrorObject.aSource=aHoop;
+		anErrorObject.anError=anError;
+		
+		errors.add(anErrorObject);
+		
+		showErrors ();
+		
+		if (errors.size()>0)
+		{
+			int rowHeight = table.getRowHeight();
+			
+			int lineCount=countLines (anError);
+			
+			debug ("Setting new row " + (errors.size()-1) + " to height: " + (lineCount*rowHeight));
+			
+			table.setRowHeight(errors.size()-1,(lineCount*rowHeight));
+		}			
+	}
+	/**
+	 * 
+	 */
+	private void showErrors ()
+	{
+		debug ("showErrors ()");
+		
+		DefaultTableModel model=new DefaultTableModel (null,columnNames);
+		
+		for (int i=0;i<errors.size();i++)
+		{		
+			HoopErrorObject anError=errors.get(i);
+			
+			model.addRow (new Object[]{anError.aSource,anError.anError});
+		}	
+		
+		table.setModel(model);		
 	}
 	/**
 	 * 
@@ -86,6 +134,15 @@ public class HoopErrorPanel extends HoopEmbeddedJPanel implements ActionListener
 	{
 		return table;
 	}
+	/**
+	 * 
+	 */
+	/*
+	public JTable getTable() 
+	{
+		return table;
+	}
+	*/	
 	/**
 	 * 
 	 */
@@ -105,6 +162,7 @@ public class HoopErrorPanel extends HoopEmbeddedJPanel implements ActionListener
 	/**
 	 *
 	 */	
+	/*
 	public void updateSize() 
 	{
 		debug ("updateSize ()");
@@ -118,7 +176,8 @@ public class HoopErrorPanel extends HoopEmbeddedJPanel implements ActionListener
 		
 		TableColumn col2 = table.getColumnModel().getColumn(1);
 		col2.setPreferredWidth(this.getWidth()-primColWidth);		
-	}	
+	}
+	*/	
 	/**
 	 * 
 	 */
@@ -127,5 +186,15 @@ public class HoopErrorPanel extends HoopEmbeddedJPanel implements ActionListener
 	{
 		debug ("actionPerformed ()");
 		
+	}	
+	/** 
+	 * @param str
+	 * @return
+	 */
+	private int countLines (String str)
+	{
+		String[] lines = str.split("\r\n|\r|\n");
+		
+		return (lines.length);
 	}	
 }

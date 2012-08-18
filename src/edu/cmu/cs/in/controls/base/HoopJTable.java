@@ -22,7 +22,9 @@ import java.awt.Font;
 import java.util.Vector;
 
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 
@@ -33,6 +35,8 @@ public class HoopJTable extends JTable
 {
 	private static final long serialVersionUID = -1127341907493007641L;
 		
+	private TableCellRenderer globalRenderer=null;
+	
 	/**
     *
     */
@@ -41,7 +45,7 @@ public class HoopJTable extends JTable
 		debug ("HoopJTable ()");
 		
 		autoCreateColumnsFromModel=true;
-    	    	
+    	    			
 		this.setFont(new Font("Dialog", 1, 10));
 	}	
 	/**
@@ -131,4 +135,29 @@ public class HoopJTable extends JTable
 	{
 		HoopRoot.alert(aMessage);
 	}    
+	/**
+	 *
+	 */    
+	public TableCellRenderer getCellRenderer (int row, int column) 
+	{
+		if (globalRenderer!=null)
+			return (globalRenderer);
+		
+		return (getDefaultRenderer (getColumnClass (column)));
+	}	
+	/**
+	 * 
+	 * @param globalRenderer
+	 */
+	public void setGlobalRenderer(TableCellRenderer globalRenderer) 
+	{
+		this.globalRenderer = globalRenderer;
+	}
+	/**
+	 * 
+	 */
+	public TableCellRenderer getGlobalRenderer() 
+	{
+		return globalRenderer;
+	}
 }

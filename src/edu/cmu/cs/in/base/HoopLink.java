@@ -493,6 +493,7 @@ public class HoopLink extends HoopProperties
   		for (int i=0;i<windows.size();i++)
   		{
   			HoopEmbeddedJPanel aWindow=windows.get(i);
+  			
   			if (aWindow.getInstanceName().toLowerCase().equals(aTitle.toLowerCase())==true)
   			{
   				aWindow.updateContents ();
@@ -500,7 +501,11 @@ public class HoopLink extends HoopProperties
   				JTabbedPane pane=aWindow.getHost();
   				
   				if (pane!=null)
+  				{
   					pane.setSelectedComponent (aWindow);
+  				}
+  				else
+  					HoopRoot.debug ("HoopLink","Error unable to find window with title: " + aTitle);
   			}
   		}   
    }    

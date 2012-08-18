@@ -188,7 +188,7 @@ class HoopSheetPathRenderer extends HoopJPanel implements TableCellRenderer, Act
     	
     		HoopSerializable object=(HoopSerializable) value.getEntry();
     		
-    		debug ("Setting path to: " + object.getValue());
+    		//debug ("Setting path to: " + object.getValue());
     		
     		changePath (object.getValue());
     	}	
