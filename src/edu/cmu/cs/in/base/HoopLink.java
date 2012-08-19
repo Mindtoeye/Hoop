@@ -334,6 +334,10 @@ public class HoopLink extends HoopProperties
 	
 	// Execution access
 	
+	/*
+	 * This static reference should ideally be a parent class of HoopExecute or an
+	 * interface. Java allows cyclic imports but it's better not to do this.
+	 */
 	public static HoopExecute runner=null;
 	
 	// Le data

@@ -1,6 +1,82 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project default="javadoc">
-    <target name="javadoc">
-        <javadoc access="public" author="true" classpath="lib/commons-logging-1.1.1.jar;lib/commons-cli-1.2.jar;lib/hadoop-core-1.0.0.jar;lib/cobra.jar;lib/weka.jar;lib/hadoop-tools-1.0.0.jar;lib/jgraphx.jar;lib/hadoop-ant-1.0.0.jar" destdir="doc" doctitle="Hoop Software Documentation" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="edu.cmu.cs.in.controls,edu.cmu.cs.in,edu.cmu.cs.in.network,edu.cmu.cs.in.base.io,edu.cmu.cs.in.ml.quickbayes,edu.cmu.cs.in.hoop.hoops,edu.cmu.cs.in.stats,org.jdesktop.swingx,edu.cmu.cs.in.hoop.properties,edu.cmu.cs.in.controls.map,edu.cmu.cs.in.search,edu.cmu.cs.in.hoop,edu.cmu.cs.in.hoop.base,edu.cmu.cs.in.base,edu.cmu.cs.in.hoop.editor,edu.cmu.cs.in.hadoop,edu.cmu.cs.in.controls.base" source="1.6" sourcefiles="src/INSorterStats.java,src/INHoopHadoopBroker.java,src/INHoopRemoteTask.java,src/INHoop.java" sourcepath="src" splitindex="true" stylesheetfile="Resources\Documentation\stylesheet.css" use="true" version="true"/>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. --><project basedir="." default="build" name="Hoop">
+    <property environment="env"/>
+    <property name="HoopMiscClasses.location" value="../HoopMiscClasses"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.6"/>
+    <property name="source" value="1.6"/>
+    <path id="Hoop.classpath">
+        <pathelement location="bin"/>
+        <pathelement location="lib/cobra.jar"/>
+        <pathelement location="lib/jgraphx.jar"/>
+        <pathelement location="lib/weka.jar"/>
+        <pathelement location="lib/commons-cli-1.2.jar"/>
+        <pathelement location="lib/commons-logging-1.1.1.jar"/>
+        <pathelement location="lib/hadoop-ant-1.0.0.jar"/>
+        <pathelement location="lib/hadoop-core-1.0.0.jar"/>
+        <pathelement location="lib/hadoop-tools-1.0.0.jar"/>
+        <pathelement location="lib/resolver.jar"/>
+        <pathelement location="lib/serializer.jar"/>
+        <pathelement location="lib/xercesImpl.jar"/>
+        <pathelement location="lib/xercesSamples.jar"/>
+        <pathelement location="lib/xml-apis.jar"/>
+        <pathelement location="lib/jdom.jar"/>
+        <pathelement location="lib/je-5.0.34.jar"/>
+        <pathelement location="lib/jcalendar-1.4.jar"/>
+    </path>
+    <path id="run.INHoop.classpath">
+        <path refid="Hoop.classpath"/>
+        <pathelement location="../mysql-connector-java-5.1.21/mysql-connector-java-5.1.21-bin.jar"/>
+    </path>
+    <target name="init">
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+    <target depends="clean" name="cleanall"/>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects"/>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="Hoop.classpath"/>
+        </javac>
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects">
+        <ant antfile="build.xml" dir="${HoopMiscClasses.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${HoopMiscClasses.location}" inheritAll="false" target="build"/>
+    </target>
+    <target name="INHoop">
+        <java classname="Hoop" failonerror="true" fork="yes">
+            <classpath refid="run.INHoop.classpath"/>
+        </java>
+    </target>
+    <target name="INHoopExecuteStandalone">
+        <java classname="edu.cmu.cs.in.hoop.INHoopExecuteStandalone" failonerror="true" fork="yes">
+            <arg line="-nodebug -execute 1"/>
+            <classpath refid="Hoop.classpath"/>
+        </java>
+    </target>
+    <target name="INHoopMySQLReader">
+        <java classname="edu.cmu.cs.in.hoop.hoops.INHoopMySQLReader" failonerror="true" fork="yes">
+            <classpath refid="Hoop.classpath"/>
+        </java>
+    </target>
+    <target name="INZoomedJPanel">
+        <java classname="edu.cmu.cs.in.controls.base.INZoomedJPanel" failonerror="true" fork="yes">
+            <classpath refid="Hoop.classpath"/>
+        </java>
     </target>
 </project>

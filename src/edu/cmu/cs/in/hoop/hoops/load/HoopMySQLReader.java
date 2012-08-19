@@ -345,7 +345,8 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 				resetData (); // We have the information we wanted, no need to keep it
 			}
  			
-			runQuery ();
+			if (runQuery ()==false)
+				return (false);
 		}
 		
 		if (this.getDone()==true)
@@ -526,6 +527,7 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 					catch (SQLException s)
 					{
 						printSQLException (s);
+						return (false);
 					}					
 					
 					tableKV.setValue(rowCount.toString());
@@ -535,6 +537,7 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 				catch (SQLException e) 
 				{
 					printSQLException (e);
+					return (false);
 				}				
 			}
 		} 
@@ -887,10 +890,9 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
             debug ("  Error Code: " + e.getErrorCode());
             debug ("  Message:    " + e.getMessage());
             
-            this.setErrorString("SQL State: " + e.getSQLState() + ", Error Code: " + e.getErrorCode()+ ", Message: " + e.getMessage());
+            this.setErrorString ("SQL State: " + e.getSQLState() + ", Error Code: " + e.getErrorCode()+ ", Message: " + e.getMessage());
             
-            // for stack traces, refer to derby.log or uncomment this:
-            e.printStackTrace(System.err);
+            e.printStackTrace (System.err);
             e = e.getNextException();
         }
     }	   

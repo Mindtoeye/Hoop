@@ -26,7 +26,7 @@ import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 
 import edu.cmu.cs.in.base.HoopDataType;
-import edu.cmu.cs.in.base.HoopLink;
+//import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopFileSaveBase;
@@ -149,6 +149,22 @@ public class HoopXMLWriter extends HoopFileSaveBase
 		        
         return (saveContents (xmlString));
 	}
+	/**
+	 * 
+	 */
+	protected Boolean saveXML (Element aRoot,int aSequence)
+	{
+		debug ("saveXML ()");
+		
+		Document document = new Document();
+		
+		document.setContent(aRoot);
+		
+		XMLOutputter outputter = new XMLOutputter(Format.getPrettyFormat());
+        String xmlString = outputter.outputString(document);		
+		        
+        return (saveContents (xmlString,aSequence));
+	}	
 	/**
 	 * 
 	 */

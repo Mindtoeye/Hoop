@@ -18,6 +18,10 @@
 
 package edu.cmu.cs.in.hoop.hoops.base;
 
+import java.io.File;
+
+import javax.swing.JOptionPane;
+
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.io.HoopFileManager;
 import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
@@ -30,6 +34,7 @@ public class HoopFileSaveBase extends HoopSaveBase implements HoopInterface
 	private String content=null;	
 	private HoopFileManager fManager=null;		
 	protected HoopURISerializable URI=null;	
+	private Boolean alwaysOverwrite=false;
 	
 	/**
 	 *
@@ -43,6 +48,20 @@ public class HoopFileSaveBase extends HoopSaveBase implements HoopInterface
 		
 		URI=new HoopURISerializable (this,"URI","");
     }
+	/**
+	 *
+	 */
+	public void setAlwaysOverwrite(Boolean alwaysOverwrite) 
+	{
+		this.alwaysOverwrite = alwaysOverwrite;
+	}
+	/**
+	 *
+	 */
+	public Boolean getAlwaysOverwrite() 
+	{
+		return alwaysOverwrite;
+	}
 	/**
 	 *
 	 */	
@@ -115,10 +134,63 @@ public class HoopFileSaveBase extends HoopSaveBase implements HoopInterface
         	String fullPath=absPath+"/output."+URI.getFileExtension();
         	
         	String aFileName=HoopLink.fManager.createSequenceFilename(fullPath,this.getExecutionCount());
+        	
+        	File checker=new File (aFileName);
         
+        	if ((checker.exists()==true) && (getAlwaysOverwrite ()==false))
+        	{        		
+                int result = JOptionPane.showConfirmDialog(null,"The file exists, overwrite?","Existing file",JOptionPane.YES_NO_CANCEL_OPTION);
+                
+                switch(result)
+                {
+                    case JOptionPane.YES_OPTION:
+                    								setAlwaysOverwrite (true);
+                               						break;
+                    case JOptionPane.NO_OPTION:
+                        							return (true);
+                    case JOptionPane.CANCEL_OPTION:
+                        							return (false);
+                }                		
+        	}
+        	
         	return (HoopLink.fManager.saveContents (aFileName,aContents));
         }
                 
         return (HoopLink.fManager.saveContents (absPath,aContents));
 	}
+	/**
+	 * 
+	 */
+	protected Boolean saveContents (String aContents,int aSequence)
+	{
+        String absPath=this.projectToFullPath (URI.getValue());
+        
+        if (URI.getDirsOnly()==true)
+        {
+        	String fullPath=absPath+"/output."+URI.getFileExtension();
+        	
+        	String aFileName=HoopLink.fManager.createSequenceFilename(fullPath,aSequence);
+        	
+        	File checker=new File (aFileName);
+        
+        	if (checker.exists()==true)
+        	{        		
+                int result = JOptionPane.showConfirmDialog(null,"The file exists, overwrite?","Existing file",JOptionPane.YES_NO_CANCEL_OPTION);
+                
+                switch(result)
+                {
+                    case JOptionPane.YES_OPTION:
+                               						break;
+                    case JOptionPane.NO_OPTION:
+                        							return (true);
+                    case JOptionPane.CANCEL_OPTION:
+                        							return (false);
+                }                		
+        	}
+        	
+        	return (HoopLink.fManager.saveContents (aFileName,aContents));
+        }
+                
+        return (HoopLink.fManager.saveContents (absPath,aContents));
+	}	
 }

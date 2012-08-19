@@ -59,12 +59,11 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface
 		
 	private HoopPerformanceMetrics performance=null;
 	private HoopStatisticsMeasure stats=null;
+	private HoopVisualRepresentation visualizer=null;
 	
 	private ArrayList <String>inPorts=null;
 	private ArrayList <String>outPorts=null;
-	
-	private HoopVisualRepresentation visualizer=null;
-	
+		
 	private int maxValues=1;
 	private int executionCount=0;
 	private String helpTopic="hooptemplate";

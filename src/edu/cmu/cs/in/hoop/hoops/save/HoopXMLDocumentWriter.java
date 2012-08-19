@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 import org.jdom.Element;
 
-import edu.cmu.cs.in.base.HoopDataType;
+//import edu.cmu.cs.in.base.HoopDataType;
 import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.properties.types.HoopSerializable;
@@ -33,13 +33,20 @@ import edu.cmu.cs.in.hoop.properties.types.HoopStringSerializable;
 */
 public class HoopXMLDocumentWriter extends HoopXMLWriter
 {    			
-	private HoopStringSerializable authorTag=null;
-	private HoopStringSerializable titleTag=null;
-	private HoopStringSerializable abstractTag=null;
-	private HoopStringSerializable createDateTag=null;
-	private HoopStringSerializable descriptionTag=null;
-	private HoopStringSerializable textTag=null;
-	private HoopStringSerializable keywordsTag=null;
+	@SuppressWarnings("unused")
+	private HoopStringSerializable author=null;
+	@SuppressWarnings("unused")
+	private HoopStringSerializable title=null;
+	@SuppressWarnings("unused")
+	private HoopStringSerializable abstr=null;
+	@SuppressWarnings("unused")
+	private HoopStringSerializable createDate=null;
+	@SuppressWarnings("unused")
+	private HoopStringSerializable description=null;
+	@SuppressWarnings("unused")
+	private HoopStringSerializable text=null;
+	@SuppressWarnings("unused")
+	private HoopStringSerializable keywords=null;
 	
 	/**
 	 *
@@ -51,13 +58,13 @@ public class HoopXMLDocumentWriter extends HoopXMLWriter
 												
 		setHoopDescription ("Write a Hoop Document as an XML file");
 		
-		authorTag=new HoopStringSerializable (this,"authorTag","author");
-		titleTag=new HoopStringSerializable (this,"titleTag","title");
-		abstractTag=new HoopStringSerializable (this,"abstractTag","abstract");
-		createDateTag=new HoopStringSerializable (this,"createTag","date created");
-		descriptionTag=new HoopStringSerializable (this,"descriptionTag","description");
-		textTag=new HoopStringSerializable (this,"textTag","text");
-		keywordsTag=new HoopStringSerializable (this,"keywordsTag","keywords");		
+		author=new HoopStringSerializable (this,"author","author");
+		title=new HoopStringSerializable (this,"title","title");
+		abstr=new HoopStringSerializable (this,"abstr","abstr");
+		createDate=new HoopStringSerializable (this,"create","date created");
+		description=new HoopStringSerializable (this,"description","description");
+		text=new HoopStringSerializable (this,"text","text");
+		keywords=new HoopStringSerializable (this,"keywords","keywords");		
     }
 	/**
 	 *
@@ -74,43 +81,80 @@ public class HoopXMLDocumentWriter extends HoopXMLWriter
 			return (false);
 		}		
 		
-		Element fileElement=new Element ("hoopoutput");
+		if (URI.getDirsOnly()==false)
+		{
+			Element fileElement=new Element ("hoopoutput");
 		
-		fileElement.addContent(typesToXML (inHoop));
+			fileElement.addContent(typesToXML (inHoop));
 		
-		Element dataElement=new Element ("content");
+			Element dataElement=new Element ("content");
 		
-		fileElement.addContent(dataElement);
-						
-		if (inData!=null)
-		{			
+			fileElement.addContent(dataElement);
+								
 			for (int t=0;t<inData.size();t++)
 			{
 				HoopKV aKV=inData.get(t);
 												
-				Element keyElement=new Element ("key");
-				keyElement.setText(aKV.getKeyString());
-				dataElement.addContent(keyElement);
-				
-				ArrayList <Object> vals=aKV.getValuesRaw ();
-								
-				for (int j=0;j<vals.size();j++)
-				{
-					String aTypeName=this.getKVTypeName (j);
-					
-					debug ("Mapping: " + aTypeName);
-					
-					String remapped=mapType (aTypeName);
-										
-					Element documentElement=new Element (remapped);
-					documentElement.setText(aKV.getValueAsString(j));
-					dataElement.addContent(documentElement);
-				}				
+				dataElement.addContent(kvToElement (inHoop,aKV));
 			}
+			
+			return (saveXML (fileElement));	
 		}	
+		else
+		{							
+			for (int t=0;t<inData.size();t++)
+			{
+				HoopKV aKV=inData.get(t);
+					
+				Element fileElement=new Element ("hoopoutput");
+					
+				fileElement.addContent (typesToXML (inHoop));
+				
+				Element dataElement=new Element ("content");
+				
+				fileElement.addContent(dataElement);					
+												
+				dataElement.addContent(kvToElement (inHoop,aKV));
+								
+				Boolean result=saveXML (fileElement,t);
+					
+				if (result==false)
+					return (false);
+			}
+		}
 		
-		return (saveXML (fileElement));	
+		return (true);	
 	}	
+	/**
+	 * 
+	 */
+	private Element kvToElement (HoopBase inHoop,HoopKV aKV)
+	{		
+		debug ("kvToElement ()");
+		
+		Element documentElement=new Element ("document");
+		
+		Element keyElement=new Element ("key");
+		keyElement.setText(aKV.getKeyString());
+		documentElement.addContent(keyElement);
+		
+		ArrayList <Object> vals=aKV.getValuesRaw ();
+						
+		for (int j=0;j<vals.size();j++)
+		{
+			String aTypeName=inHoop.getKVTypeName (j);
+			
+			//debug ("Mapping: " + aTypeName);
+			
+			String remapped=mapType (aTypeName);
+								
+			Element subElement=new Element (remapped);
+			subElement.setText(aKV.getValueAsString(j));
+			documentElement.addContent(subElement);
+		}				
+		
+		return (documentElement);
+	}
 	/**
 	 * 
 	 */
@@ -124,13 +168,13 @@ public class HoopXMLDocumentWriter extends HoopXMLWriter
 			
 			if (aProp.getValue().equalsIgnoreCase(aTypeName)==true)
 			{
-				debug ("Mapped " + aTypeName + " to: " + aProp.getInstanceName());
+				//debug ("Mapped " + aTypeName + " to: " + aProp.getInstanceName());
 				
 				return (aProp.getInstanceName());
 			}
 		}
 						
-		return ("Default");
+		return (aTypeName);
 	}
 	/**
 	 * 
