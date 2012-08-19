@@ -22,7 +22,6 @@ import java.util.ArrayList;
 
 import org.jdom.Element;
 
-//import edu.cmu.cs.in.base.HoopDataType;
 import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.properties.types.HoopSerializable;
@@ -61,7 +60,7 @@ public class HoopXMLDocumentWriter extends HoopXMLWriter
 		author=new HoopStringSerializable (this,"author","author");
 		title=new HoopStringSerializable (this,"title","title");
 		abstr=new HoopStringSerializable (this,"abstr","abstr");
-		createDate=new HoopStringSerializable (this,"create","date created");
+		createDate=new HoopStringSerializable (this,"createDate","date created");
 		description=new HoopStringSerializable (this,"description","description");
 		text=new HoopStringSerializable (this,"text","text");
 		keywords=new HoopStringSerializable (this,"keywords","keywords");		
@@ -85,17 +84,17 @@ public class HoopXMLDocumentWriter extends HoopXMLWriter
 		{
 			Element fileElement=new Element ("hoopoutput");
 		
-			fileElement.addContent(typesToXML (inHoop));
+			if (getIncludeIndex ()==true)
+				fileElement.addContent(typesToXML (inHoop));
 		
-			Element dataElement=new Element ("content");
-		
-			fileElement.addContent(dataElement);
+			//Element dataElement=new Element ("content");		
+			//fileElement.addContent(dataElement);
 								
 			for (int t=0;t<inData.size();t++)
 			{
 				HoopKV aKV=inData.get(t);
 												
-				dataElement.addContent(kvToElement (inHoop,aKV));
+				fileElement.addContent(kvToElement (inHoop,aKV));
 			}
 			
 			return (saveXML (fileElement));	
@@ -108,13 +107,13 @@ public class HoopXMLDocumentWriter extends HoopXMLWriter
 					
 				Element fileElement=new Element ("hoopoutput");
 					
-				fileElement.addContent (typesToXML (inHoop));
+				if (getIncludeIndex ()==true)
+					fileElement.addContent(typesToXML (inHoop));
 				
-				Element dataElement=new Element ("content");
-				
-				fileElement.addContent(dataElement);					
+				//Element dataElement=new Element ("content");				
+				//fileElement.addContent(dataElement);					
 												
-				dataElement.addContent(kvToElement (inHoop,aKV));
+				fileElement.addContent(kvToElement (inHoop,aKV));
 								
 				Boolean result=saveXML (fileElement,t);
 					
@@ -165,6 +164,8 @@ public class HoopXMLDocumentWriter extends HoopXMLWriter
 		for (int i=0;i<props.size();i++)
 		{
 			HoopSerializable aProp=props.get(i);
+			
+			//debug ("Comparing " + aProp.getValue() + " to " + aTypeName);
 			
 			if (aProp.getValue().equalsIgnoreCase(aTypeName)==true)
 			{

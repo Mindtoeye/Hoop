@@ -30,6 +30,7 @@ import edu.cmu.cs.in.base.HoopDataType;
 import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopFileSaveBase;
+import edu.cmu.cs.in.hoop.properties.types.HoopBooleanSerializable;
 import edu.cmu.cs.in.hoop.properties.types.HoopEnumSerializable;
 
 /**
@@ -37,7 +38,8 @@ import edu.cmu.cs.in.hoop.properties.types.HoopEnumSerializable;
 */
 public class HoopXMLWriter extends HoopFileSaveBase
 {    		
-	private HoopEnumSerializable writeMode=null; // APPEND, OVERWRITE	
+	private HoopEnumSerializable writeMode=null; // APPEND, OVERWRITE
+	private HoopBooleanSerializable includeIndex=null;
 	
 	private Boolean repeatTypes=false;
 	
@@ -53,6 +55,21 @@ public class HoopXMLWriter extends HoopFileSaveBase
 		setFileExtension ("xml");
 		
 		writeMode=new HoopEnumSerializable (this,"writeMode","OVERWRITE,APPEND");
+		includeIndex=new HoopBooleanSerializable (this,"includeIndex",false);
+    }
+    /**
+     * 
+     */
+    public void setIncludeIndex (Boolean aVal)
+    {
+    	includeIndex.setPropValue(aVal);
+    }
+    /**
+     * 
+     */
+    public Boolean getIncludeIndex ()
+    {
+    	return (includeIndex.getPropValue());
     }
     /**
      * 
@@ -94,11 +111,15 @@ public class HoopXMLWriter extends HoopFileSaveBase
 			return (false);
 		}
 		
+		if (writeMode.getValue().equalsIgnoreCase("OVERWRITE")==true)
+			this.setAlwaysOverwrite(true);
+		
 		ArrayList <HoopDataType> types=inHoop.getTypes();
 				
 		Element fileElement=new Element ("hoopoutput");
 				
-		fileElement.addContent(typesToXML (inHoop));
+		if (getIncludeIndex ()==true)
+			fileElement.addContent(typesToXML (inHoop));
 										
 		Element dataElement=new Element ("data");
 			
