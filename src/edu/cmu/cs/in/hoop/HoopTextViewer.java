@@ -66,12 +66,23 @@ public class HoopTextViewer extends HoopEmbeddedJPanel
 	 */
 	public void showFile (HoopWrapperFile aFile)
 	{
-		debug ("showFile ()");
+		debug ("showFile (HoopWrapperFile)");
 		
 		String text=HoopLink.fManager.loadContents(aFile.getFileURI());
 		
 		textViewer.setText(text);
 	}
+	/**
+	 * 
+	 */
+	public void showFile (String aFile)
+	{
+		debug ("showFile (String)");
+		
+		String text=HoopLink.fManager.loadContents(aFile);
+		
+		textViewer.setText(text);
+	}	
 	/**
 	 * When this method is called we should assume that we have to re-evaluate all existing hoop templates
 	 */	

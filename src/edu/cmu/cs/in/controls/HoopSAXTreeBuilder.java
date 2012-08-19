@@ -31,7 +31,7 @@ import org.xml.sax.helpers.DefaultHandler;
 /**
  *
  */
-class HoopSAXTreeBuilder extends DefaultHandler
+public class HoopSAXTreeBuilder extends DefaultHandler
 {      
 	private DefaultMutableTreeNode currentNode = null;
 	private DefaultMutableTreeNode previousNode = null;

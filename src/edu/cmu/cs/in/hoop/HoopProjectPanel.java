@@ -342,18 +342,73 @@ public class HoopProjectPanel extends HoopEmbeddedJPanel implements MouseListene
 						
 						alert ("Opening linked file ["+anExternalFile.getInstanceName()+"] with external viewer");
 						
-						HoopTextViewer test=(HoopTextViewer) HoopLink.getWindow("Text Viewer");
-						
-						if (test==null)
+						if (anExternalFile.getInstanceName().indexOf(".txt")!=-1)
 						{
-							HoopLink.addView ("Text Viewer",new HoopTextViewer(),HoopLink.center);
-							test=(HoopTextViewer) HoopLink.getWindow("Text Viewer");
+							HoopTextViewer test=(HoopTextViewer) HoopLink.getWindow("Text Viewer");
+						
+							if (test==null)
+							{
+								HoopLink.addView ("Text Viewer",new HoopTextViewer(),HoopLink.center);
+								test=(HoopTextViewer) HoopLink.getWindow("Text Viewer");
+							}	
+						
+							test.showFile(anExternalFile);
+						
+							HoopLink.popWindow ("Text Viewer");
+						}
+						
+						if (anExternalFile.getInstanceName().indexOf(".xml")!=-1)
+						{
+							HoopXMLFileViewer test=(HoopXMLFileViewer) HoopLink.getWindow("XML Viewer");
+						
+							if (test==null)
+							{
+								HoopLink.addView ("XML Viewer",new HoopXMLFileViewer(),HoopLink.center);
+								test=(HoopXMLFileViewer) HoopLink.getWindow("XML Viewer");
+							}	
+						
+							test.showFile(HoopLink.project.getBasePath()+"/"+anExternalFile.getInstanceName());
+						
+							HoopLink.popWindow ("XML Viewer");
+						}						
+					}
+					
+					if (node.getUserObject() instanceof HoopFile)
+					{
+						HoopFile anExternalFile= (HoopFile) node.getUserObject();
+						
+						alert ("Opening linked file ["+anExternalFile.getInstanceName()+"] with external viewer");
+						
+						if (anExternalFile.getInstanceName().indexOf(".txt")!=-1)
+						{
+							HoopTextViewer test=(HoopTextViewer) HoopLink.getWindow("Text Viewer");
+						
+							if (test==null)
+							{
+								HoopLink.addView ("Text Viewer",new HoopTextViewer(),HoopLink.center);
+								test=(HoopTextViewer) HoopLink.getWindow("Text Viewer");
+							}	
+						
+							test.showFile(HoopLink.project.getBasePath()+"/"+anExternalFile.getInstanceName());
+						
+							HoopLink.popWindow ("Text Viewer");
 						}	
 						
-						test.showFile(anExternalFile);
+						if (anExternalFile.getInstanceName().indexOf(".xml")!=-1)
+						{
+							HoopXMLFileViewer test=(HoopXMLFileViewer) HoopLink.getWindow("XML Viewer");
 						
-						HoopLink.popWindow ("Text Viewer");						
-					}
+							if (test==null)
+							{
+								HoopLink.addView ("XML Viewer",new HoopXMLFileViewer(),HoopLink.center);
+								test=(HoopXMLFileViewer) HoopLink.getWindow("XML Viewer");
+							}	
+						
+							test.showFile(HoopLink.project.getBasePath()+"/"+anExternalFile.getInstanceName());
+						
+							HoopLink.popWindow ("XML Viewer");
+						}						
+					}					
 				}
 			}
 		}	
