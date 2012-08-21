@@ -18,6 +18,7 @@
 
 package edu.cmu.cs.in.base.kv;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -27,10 +28,10 @@ import java.util.ArrayList;
  * table structure. By default column 0 or the first feature is assumed
  * to be the class, unless otherwise specified.
  */
-public class HoopKVClassificationTable extends HoopKVTable
+public class HoopKVClassificationTable extends HoopKVTable implements Serializable
 {    	
-	private int classColumn=0;
-	
+	private static final long serialVersionUID = -3962054128703412134L;
+	private int classColumn=0;	
 	private ArrayList <String> features=null;
 	
 	/**

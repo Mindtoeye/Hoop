@@ -44,9 +44,9 @@ public class HoopBerkeleyDB extends HoopRoot implements TransactionWorker
     
     private String dbDir   = "./db";
     private TransactionRunner runner=null;
-    private HoopBerkeleyDBInstance mainDB=null;
+    private HoopBerkeleyDBBase mainDB=null;
     private HoopBerkeleyDBInstance catalogDb=null;    
-    private ArrayList <HoopBerkeleyDBInstance> databases=null;
+    private ArrayList <HoopBerkeleyDBBase> databases=null;
     private StoredClassCatalog javaCatalog=null;
     
     private Boolean dbStarted=false;
@@ -59,8 +59,15 @@ public class HoopBerkeleyDB extends HoopRoot implements TransactionWorker
     	setClassName ("HoopBerkeleyDB");
     	debug ("HoopBerkeleyDB ()");
     	
-    	databases=new ArrayList<HoopBerkeleyDBInstance> ();
+    	databases=new ArrayList<HoopBerkeleyDBBase> ();
 	}
+    /**
+     * Return the class catalog.
+     */
+    public final StoredClassCatalog getClassCatalog() 
+    {    	
+        return javaCatalog;
+    }		
     /**
      * 
      */	
@@ -165,7 +172,9 @@ public class HoopBerkeleyDB extends HoopRoot implements TransactionWorker
                         	  
         try 
         {
-			catalogDb=this.accessDB("java_class_catalog");
+        	catalogDb=new HoopBerkeleyDBInstance ();
+        	catalogDb.setInstanceName("java_class_catalog");
+			this.accessDB(catalogDb);
 		} 
         catch (Exception e) 
         {
@@ -178,13 +187,66 @@ public class HoopBerkeleyDB extends HoopRoot implements TransactionWorker
         
         return (true);
 	}
-    /**
-     * Return the class catalog.
-     */
-    public final StoredClassCatalog getClassCatalog() 
-    {    	
-        return javaCatalog;
-    }	
+	/**
+	 * 
+	 */
+	public Boolean startDBService (HoopBerkeleyDBBase aDB)
+	{
+		debug ("startDBService ()");
+		
+		if (getDbStarted()==true)
+			return (true);
+		
+        // environment is transactional
+        envConfig=new EnvironmentConfig();
+        envConfig.setTransactional(true);
+        
+        if (create==true) 
+        {
+        	debug ("EnvironmentConfig.setAllowCreate(true);");
+            envConfig.setAllowCreate(true);
+        }
+        
+        env=new Environment(new File(dbDir), envConfig);
+                
+        try 
+        {
+        	aDB.setEnvironment(env);
+        	aDB.openDB();
+            
+        	databases.add(aDB);	
+		} 
+        catch (Exception e) 
+        {
+			e.printStackTrace();
+			debug ("Caught a database exception whilst opening the db, aborting main server ...");
+			env.toString();
+			return (false);
+		}	        
+        
+        if (dbDisabled==true)
+        {
+        	debug ("Error: database is not open or disabled, aborting");
+        	return (false);
+        }
+                        	  
+        try 
+        {
+        	catalogDb=new HoopBerkeleyDBInstance ();
+        	catalogDb.setInstanceName("java_class_catalog");
+			this.accessDB(catalogDb);
+		} 
+        catch (Exception e) 
+        {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return (false);
+		}        
+        
+        javaCatalog=new StoredClassCatalog(catalogDb.getDB());        
+        
+        return (true);
+	}	
 	/**
 	 * 
 	 */
@@ -229,13 +291,13 @@ public class HoopBerkeleyDB extends HoopRoot implements TransactionWorker
     /**
      * 
      */
-    public HoopBerkeleyDBInstance findDB (String aDB)
+    public HoopBerkeleyDBBase findDB (String aDB)
     {
     	debug ("findDB ("+aDB+")");
     	
     	for (int i=0;i<databases.size();i++)
     	{
-    		HoopBerkeleyDBInstance db=databases.get(i);
+    		HoopBerkeleyDBBase db=databases.get(i);
     		if (db.getInstanceName().toLowerCase().equals(aDB))
     			return (db);
     	}
@@ -245,7 +307,7 @@ public class HoopBerkeleyDB extends HoopRoot implements TransactionWorker
     /**
      * 
      */
-    public HoopBerkeleyDBInstance getDB (Integer aDB)
+    public HoopBerkeleyDBBase getDB (Integer aDB)
     {
     	debug ("getDB ("+aDB+")");
     	
@@ -254,19 +316,20 @@ public class HoopBerkeleyDB extends HoopRoot implements TransactionWorker
     /** 
      * Find a database by name and if one does not exist, create it
      */
-    public HoopBerkeleyDBInstance accessDB(String aDB) //throws Exception 
+    public HoopBerkeleyDBBase accessDB(String aDB) //throws Exception 
     {
     	debug ("openDB ("+aDB+")");
     	        
-    	HoopBerkeleyDBInstance db=findDB (aDB);
+    	HoopBerkeleyDBBase db=findDB (aDB);
     	
     	if (db==null)
     	{
     		debug ("Database does not exist yet, creating ...");
     		
-    		db=new HoopBerkeleyDBInstance ();
+    		db=new HoopBerkeleyDBBase ();
     		db.setInstanceName(aDB);
     		db.setEnvironment(env);
+    		db.setJavaCatalog(javaCatalog);
     		
     		try 
     		{
@@ -286,6 +349,32 @@ public class HoopBerkeleyDB extends HoopRoot implements TransactionWorker
         return (db);
     }        
     /** 
+     * Find a database by name and if one does not exist, create it
+     */
+    public Boolean accessDB(HoopBerkeleyDBBase aDB) //throws Exception 
+    {
+    	debug ("openDB ("+aDB+")");
+    	            	    		
+    	aDB.setEnvironment(env);
+    	aDB.setJavaCatalog(javaCatalog);
+    		
+    	try 
+    	{
+			aDB.openDB();
+		} 
+    	catch (Exception e) 
+    	{			
+			e.printStackTrace();
+			return (false);
+		}
+        
+    	databases.add(aDB);
+                
+    	debug ("Database should be open and available");
+    	        
+        return (true);
+    }            
+    /** 
      * Closes the database. 
      */
     public void close() throws Exception 
@@ -298,7 +387,7 @@ public class HoopBerkeleyDB extends HoopRoot implements TransactionWorker
                         
         for (int i=0;i<databases.size();i++)
         {
-        	HoopBerkeleyDBInstance db=databases.get(i);
+        	HoopBerkeleyDBBase db=databases.get(i);
         	if (db!=null)
         	{
         		debug ("Closing: " + db.getInstanceName());

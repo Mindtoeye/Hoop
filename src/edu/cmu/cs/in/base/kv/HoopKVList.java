@@ -18,6 +18,7 @@
 
 package edu.cmu.cs.in.base.kv;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.HoopDataType;
@@ -41,8 +42,12 @@ import edu.cmu.cs.in.base.HoopDataType;
 * Note: this table class does not provide any support for named headers.
 * Instead you should used the HoopKVClassificationTable class.
 */
-public class HoopKVList extends HoopKV
+public class HoopKVList extends HoopKV implements Serializable
 {    			
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3998865824653058196L;
 	private ArrayList <HoopKV>data=null;
 	
 	/**

@@ -16,22 +16,22 @@
  * 
  */
 
-package edu.cmu.cs.in.hoop.hoops.save;
+package edu.cmu.cs.in.hoop.hoops.transform;
 
 import java.util.ArrayList;
 
-import org.jdom.Element;
-
 import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
+import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
+import edu.cmu.cs.in.hoop.hoops.base.HoopTransformBase;
 import edu.cmu.cs.in.hoop.properties.types.HoopSerializable;
 import edu.cmu.cs.in.hoop.properties.types.HoopStringSerializable;
 
 /**
 * 
 */
-public class HoopXMLDocumentWriter extends HoopXMLWriter
-{    			
+public class HoopMap2Document extends HoopTransformBase implements HoopInterface
+{    					
 	@SuppressWarnings("unused")
 	private HoopStringSerializable author=null;
 	@SuppressWarnings("unused")
@@ -54,12 +54,12 @@ public class HoopXMLDocumentWriter extends HoopXMLWriter
 	/**
 	 *
 	 */
-    public HoopXMLDocumentWriter () 
+    public HoopMap2Document () 
     {
-		setClassName ("HoopXMLDocumentWriter");
-		debug ("HoopXMLDocumentWriter ()");
-												
-		setHoopDescription ("Write a XML Document(s)");
+		setClassName ("HoopMap2Document");
+		debug ("HoopMap2Document ()");
+										
+		setHoopDescription ("Map KV types to Document Types");
 		
 		author=new HoopStringSerializable (this,"author","author");
 		title=new HoopStringSerializable (this,"title","title");
@@ -84,74 +84,22 @@ public class HoopXMLDocumentWriter extends HoopXMLWriter
 		{
 			this.setErrorString("Error: no input data to work with");
 			return (false);
-		}		
-		
-		if (URI.getDirsOnly()==false)
-		{
-			Element fileElement=new Element ("hoopoutput");
-		
-			if (getIncludeIndex ()==true)
-				fileElement.addContent(typesToXML (inHoop));
-										
-			for (int t=0;t<inData.size();t++)
-			{
-				HoopKV aKV=inData.get(t);
-												
-				fileElement.addContent(kvToElement (inHoop,aKV));
-			}
-			
-			return (saveXML (fileElement));	
-		}	
-		else
-		{							
-			for (int t=0;t<inData.size();t++)
-			{
-				HoopKV aKV=inData.get(t);
-					
-				Element fileElement=new Element ("hoopoutput");
-					
-				if (getIncludeIndex ()==true)
-					fileElement.addContent(typesToXML (inHoop));
-				
-				fileElement.addContent(kvToElement (inHoop,aKV));
-								
-				Boolean result=saveXML (fileElement,t);
-					
-				if (result==false)
-					return (false);
-			}
-		}
-		
-		return (true);	
-	}	
-	/**
-	 * 
-	 */
-	private Element kvToElement (HoopBase inHoop,HoopKV aKV)
-	{		
-		debug ("kvToElement ()");
-		
-		Element documentElement=new Element ("document");
-		
-		Element keyElement=new Element ("key");
-		keyElement.setText(aKV.getKeyString());
-		documentElement.addContent(keyElement);
-		
-		ArrayList <Object> vals=aKV.getValuesRaw ();
-						
-		for (int j=0;j<vals.size();j++)
-		{
-			String aTypeName=inHoop.getKVTypeName (j);
-						
-			String remapped=mapType (aTypeName);
-								
-			Element subElement=new Element (remapped);
-			subElement.setText(aKV.getValueAsString(j));
-			documentElement.addContent(subElement);
 		}				
+				
+		for (int t=0;t<inData.size();t++)
+		{
+			HoopKV aKV=inData.get(t);
+			
+			ArrayList <Object> vals=aKV.getValuesRaw ();
+			
+			for (int j=0;j<vals.size();j++)
+			{
+				
+			}
+		}	
 		
-		return (documentElement);
-	}
+		return (true);
+	}	
 	/**
 	 * 
 	 */
@@ -162,24 +110,20 @@ public class HoopXMLDocumentWriter extends HoopXMLWriter
 		for (int i=0;i<props.size();i++)
 		{
 			HoopSerializable aProp=props.get(i);
-			
-			//debug ("Comparing " + aProp.getValue() + " to " + aTypeName);
-			
+						
 			if (aProp.getValue().equalsIgnoreCase(aTypeName)==true)
 			{
-				//debug ("Mapped " + aTypeName + " to: " + aProp.getInstanceName());
-				
 				return (aProp.getInstanceName());
 			}
 		}
 						
 		return (aTypeName);
-	}
+	}	
 	/**
 	 * 
 	 */
 	public HoopBase copy ()
 	{
-		return (new HoopXMLDocumentWriter ());
+		return (new HoopMap2Document ());
 	}		
 }

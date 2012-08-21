@@ -18,6 +18,7 @@
 
 package edu.cmu.cs.in.base.kv;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.HoopDataType;
@@ -47,8 +48,9 @@ import edu.cmu.cs.in.base.HoopDataType;
 * code you write will have to check first the type of key and the type
 * of value before using the contents of a KV object.
 */
-public class HoopKV extends HoopDataType implements HoopKVInterface
+public class HoopKV extends HoopDataType implements HoopKVInterface, Serializable
 {    			
+	private static final long serialVersionUID = -120610909596827250L;
 	protected ArrayList <Object> values=null;
 		
 	/**

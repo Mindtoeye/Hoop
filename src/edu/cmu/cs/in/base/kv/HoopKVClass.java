@@ -18,6 +18,9 @@
 
 package edu.cmu.cs.in.base.kv;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+
 import edu.cmu.cs.in.base.HoopDataType;
 
 /**
@@ -30,16 +33,34 @@ import edu.cmu.cs.in.base.HoopDataType;
  * and parent variables since the meaning can change depending on how
  * KV Class objects are used.
  */
-public class HoopKVClass extends HoopKV implements HoopKVInterface
+public class HoopKVClass extends HoopKV implements HoopKVInterface, Serializable
 {    					
+	private static final long serialVersionUID = -562572734161851194L;
 	private String key="undefined";
+	private ArrayList<HoopKV> variables=null;
 	
 	/**
 	 *
 	 */
     public HoopKVClass ()
     {
-    	setType (HoopDataType.CLASS);    
+    	setType (HoopDataType.CLASS);
+    	
+    	variables=new ArrayList<HoopKV> ();
+    }    
+    /**
+     * 
+     */
+    public void addVariable (HoopKV aVar)
+    {
+    	variables.add(aVar);
+    }
+    /*
+     * 
+     */
+    public ArrayList<HoopKV> getVariables ()
+    {
+    	return (variables);
     }
 	/**
 	 *

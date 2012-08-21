@@ -35,16 +35,15 @@ import javax.swing.ListCellRenderer;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 
-import edu.cmu.cs.in.search.HoopDocument;
-//import edu.cmu.cs.in.HoopLemurDocument;
 import edu.cmu.cs.in.base.HoopLink;
-//import edu.cmu.cs.in.base.HoopLink;
+import edu.cmu.cs.in.base.kv.HoopKVDocument;
+
 import edu.cmu.cs.in.controls.base.HoopJPanel;
   
-class HoopDocumentListRenderer extends HoopJPanel implements ListCellRenderer, ActionListener
+public class HoopDocumentListRenderer extends HoopJPanel implements ListCellRenderer, ActionListener
 {
 	private static final long serialVersionUID = 1L;
-	private HoopDocument aDoc=null;
+	private HoopKVDocument aDoc=null;
 	private JLabel docLabel=null;
 	private JButton linker=null;
 	private Border border=null;
@@ -129,7 +128,7 @@ class HoopDocumentListRenderer extends HoopJPanel implements ListCellRenderer, A
 		
 		setEnabled(listBox.isEnabled());
 
-		aDoc=(HoopDocument) obj;
+		aDoc=(HoopKVDocument) obj;
 		
 		docLabel.setText("Rank: "+(aDoc.getRank()+1)+" Evaluation: " + aDoc.getScore());
 		

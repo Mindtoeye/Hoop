@@ -24,6 +24,7 @@ import edu.cmu.cs.in.search.HoopDataSet;
 import edu.cmu.cs.in.search.HoopDocument;
 import edu.cmu.cs.in.base.HoopRoot;
 import edu.cmu.cs.in.base.HoopLink;
+import edu.cmu.cs.in.base.kv.HoopKVDocument;
 import edu.cmu.cs.in.search.HoopTextSearch;
 import edu.cmu.cs.in.stats.HoopStatsBase;
 
@@ -121,7 +122,7 @@ public class HoopTrecEval extends HoopStatsBase
 											
 			if (docs!=null)
 			{
-				ArrayList<HoopDocument> docList=docs.getDocuments();
+				ArrayList<HoopKVDocument> docList=docs.getDocuments();
 				
 				overview.append("Report ("+i+") generated for " + docList.size() + " documents\n");
 				
@@ -144,7 +145,7 @@ public class HoopTrecEval extends HoopStatsBase
 					
 					for (int j=0;j<docList.size();j++)
 					{
-						HoopDocument aDoc=docList.get(j);
+						HoopKVDocument aDoc=docList.get(j);
 						
 						formatted.append(aSearch.getInstanceName());
 						formatted.append("\t");
@@ -218,7 +219,7 @@ public class HoopTrecEval extends HoopStatsBase
 											
 			if (docs!=null)
 			{
-				ArrayList<HoopDocument> docList=docs.getDocuments();
+				ArrayList<HoopKVDocument> docList=docs.getDocuments();
 				
 				overview.append("Report ("+i+") generated for " + docList.size() + " documents\n");
 				
@@ -226,7 +227,7 @@ public class HoopTrecEval extends HoopStatsBase
 				{										
 					for (int j=0;j<docList.size();j++)
 					{
-						HoopDocument aDoc=docList.get(j);
+						HoopKVDocument aDoc=docList.get(j);
 						
 						formatted.append(aSearch.getInstanceName());
 						formatted.append("\t");

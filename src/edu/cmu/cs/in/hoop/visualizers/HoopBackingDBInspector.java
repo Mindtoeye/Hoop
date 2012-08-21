@@ -66,6 +66,7 @@ import com.toedter.calendar.JDateChooser;
 
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.io.HoopBerkeleyDB;
+import edu.cmu.cs.in.base.io.HoopBerkeleyDBBase;
 import edu.cmu.cs.in.base.io.HoopBerkeleyDBInstance;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 
@@ -460,7 +461,7 @@ public class HoopBackingDBInspector extends HoopEmbeddedJPanel implements MouseL
 			
 			try 
 			{
-				inst = driver.accessDB (item.toString());
+				inst = (HoopBerkeleyDBInstance) driver.accessDB (item.toString());
 			} 
 			catch (Exception e1) 
 			{
@@ -476,7 +477,7 @@ public class HoopBackingDBInspector extends HoopEmbeddedJPanel implements MouseL
 					
 					try 
 					{
-						dummyDB=driver.accessDB(item.toString());
+						dummyDB=(HoopBerkeleyDBInstance) driver.accessDB(item.toString());
 					} 
 					catch (Exception e1) 
 					{

@@ -29,12 +29,14 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopFileSaveBase;
 import edu.cmu.cs.in.hoop.hoops.load.HoopArffReader;
 import edu.cmu.cs.in.hoop.hoops.load.HoopBerkeleyDBReader;
 import edu.cmu.cs.in.hoop.hoops.load.HoopCSVReader;
+import edu.cmu.cs.in.hoop.hoops.load.HoopDocumentReader;
 import edu.cmu.cs.in.hoop.hoops.load.HoopMySQLReader;
 import edu.cmu.cs.in.hoop.hoops.load.HoopStdin;
 import edu.cmu.cs.in.hoop.hoops.load.HoopURLReader;
 import edu.cmu.cs.in.hoop.hoops.save.HoopArffWriter;
 import edu.cmu.cs.in.hoop.hoops.save.HoopBerkeleyDBWriter;
 import edu.cmu.cs.in.hoop.hoops.save.HoopCSVWriter;
+import edu.cmu.cs.in.hoop.hoops.save.HoopDocumentWriter;
 import edu.cmu.cs.in.hoop.hoops.save.HoopStdout;
 import edu.cmu.cs.in.hoop.hoops.save.HoopTextFileSave;
 import edu.cmu.cs.in.hoop.hoops.save.HoopXMLDocumentWriter;
@@ -48,6 +50,7 @@ import edu.cmu.cs.in.hoop.hoops.transform.HoopFilterGarbage;
 import edu.cmu.cs.in.hoop.hoops.transform.HoopFilterStopWords;
 import edu.cmu.cs.in.hoop.hoops.transform.HoopKV2TXT;
 import edu.cmu.cs.in.hoop.hoops.transform.HoopKeySort;
+import edu.cmu.cs.in.hoop.hoops.transform.HoopMap2Document;
 import edu.cmu.cs.in.hoop.hoops.transform.HoopPorterStemmer;
 import edu.cmu.cs.in.hoop.hoops.transform.HoopSentence2Tokens;
 import edu.cmu.cs.in.hoop.hoops.transform.HoopText2Sentence;
@@ -199,5 +202,8 @@ public class HoopManager extends HoopBase
     	addTemplate (new HoopTextFileSave ());
     	addTemplate (new HoopKeySort ());
     	addTemplate (new HoopKVStats ());
+    	addTemplate (new HoopMap2Document ());
+    	addTemplate (new HoopDocumentReader ());
+    	addTemplate (new HoopDocumentWriter ());
     }
 }

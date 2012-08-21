@@ -18,22 +18,29 @@
 
 package edu.cmu.cs.in.search;
 
-import java.util.ArrayList;
+import java.io.File;
+
+import com.sleepycat.bind.serial.SerialBinding;
+import com.sleepycat.bind.tuple.StringBinding;
+import com.sleepycat.collections.StoredMap;
 
 import edu.cmu.cs.in.base.HoopRoot;
+import edu.cmu.cs.in.base.io.HoopBerkeleyDB;
+import edu.cmu.cs.in.base.io.HoopBerkeleyDocumentDB;
 import edu.cmu.cs.in.base.io.HoopFileManager;
+import edu.cmu.cs.in.base.kv.HoopKVDocument;
 import edu.cmu.cs.in.base.HoopLink;
 
 /** 
- * @author vvelsen
- *
  * There's not much to this class, it holds a list of documents
- * (HoopDocument) so that we can easily retrieve them
+ * (HoopKVDocument) so that we can easily retrieve them
  *
  */
 public class HoopDataSet extends HoopRoot
-{
-	private ArrayList<HoopDocument> documents=null;
+{	
+	private HoopBerkeleyDB driver=null;
+	private HoopBerkeleyDocumentDB documentDriver=null;
+    private StoredMap<String,HoopKVDocument> map=null;
 	
 	/**
 	 *
@@ -50,35 +57,76 @@ public class HoopDataSet extends HoopRoot
 		if (HoopLink.fManager==null)
 			HoopLink.fManager=new HoopFileManager ();
 		
-		setDocuments(new ArrayList<HoopDocument> ());
+		//setDocuments(new ArrayList<HoopKVDocument> ());		
+		//checkDB ();
+    } 
+    /**
+     * 
+     */
+    public StoredMap<String,HoopKVDocument> getData ()
+    {
+    	return (map);
     }
 	/**
 	 *
-	 */    
-	public ArrayList<HoopDocument> getDocuments() 
+	 */
+	public void addDocument (HoopKVDocument anInstance)
 	{
-		return documents;
+		//documents.add(anInstance);
+	}
+	/**
+	 * 
+	 */
+	public void checkDB ()
+	{
+		if (driver==null)
+		{				
+			File checker=new File (HoopLink.project.getBasePath()+"/system/documents");
+			
+			if (checker.exists()==false)
+			{
+				return;
+			}
+			
+			driver=new HoopBerkeleyDB ();
+			driver.setDbDir (HoopLink.project.getBasePath()+"/system/documents");			
+			
+			if (HoopLink.fManager.createDirectory (driver.getDbDir())==false)
+			{
+				debug ("Error creating database directory: "+driver.getDbDir());
+				return;
+			}
+
+			documentDriver=new HoopBerkeleyDocumentDB ();
+			documentDriver.setInstanceName("documents");
+			
+			if (driver.startDBService (documentDriver)==false)
+			{
+				this.setErrorString("Error: unable to start database");
+				driver=null; // reset
+				return;
+			}
+			
+			StringBinding keyBinding = new StringBinding();
+			SerialBinding <HoopKVDocument> dataBinding=new SerialBinding<HoopKVDocument> (documentDriver.getJavaCatalog(),HoopKVDocument.class);
+			
+	        // create a map view of the database
+	        this.map=new StoredMap<String, HoopKVDocument> (documentDriver.getDB(),keyBinding,dataBinding,true);
+		        
+	        if (this.map==null)
+	        {
+	        	debug ("Error creating StoredMap from database");
+	        	return;
+	        }        			 			
+		}		
 	}
 	/**
 	 *
-	 */	
-	public void setDocuments(ArrayList<HoopDocument> documents) 
-	{
-		this.documents = documents;
-	}  
-	/**
-	 *
 	 */
-	public void addDocument (HoopDocument anInstance)
-	{
-		documents.add(anInstance);
-	}
-	/**
-	 *
-	 */
-    public Boolean loadDocuments (String aPath)
+	/*
+    public Boolean loadDocumentsAsFiles (String aPath)
     {
-    	debug ("loadDocuments ("+aPath+")");
+    	debug ("loadDocumentsAsFiles ("+aPath+")");
     	
     	ArrayList<String> files=HoopLink.fManager.listFiles (aPath);
     	
@@ -98,7 +146,7 @@ public class HoopDataSet extends HoopRoot
     		}
     		else
     		{
-    			HoopDocument loader=new HoopDocument ();
+    			HoopKVDocument loader=new HoopKVDocument ();
     			//loader.setInstanceName(entry);
     			loader.setKey(entry);
     			
@@ -113,17 +161,20 @@ public class HoopDataSet extends HoopRoot
     	
     	return (true);
     }
+    */
 	/**
 	 * Nice to have debug method to see what was loaded
 	 */
+    /*
     public void printStats ()
     {
     	debug ("printStats ()");
     	
     	for (int i=0;i<documents.size();i++)
     	{
-    		HoopDocument test=documents.get(i);
+    		HoopKVDocument test=documents.get(i);
     		debug (test.getKey()+" : " + test.getTokens().size());
     	}
     }
+    */
 }

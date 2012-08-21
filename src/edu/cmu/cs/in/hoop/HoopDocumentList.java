@@ -18,52 +18,122 @@
 
 package edu.cmu.cs.in.hoop;
 
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 
-import edu.cmu.cs.in.search.HoopDocument;
+import com.sleepycat.collections.StoredMap;
+
 import edu.cmu.cs.in.base.HoopLink;
-//import edu.cmu.cs.in.controls.HoopVisualFeature;
+import edu.cmu.cs.in.base.kv.HoopKVDocument;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
-//import edu.cmu.cs.in.controls.base.HoopJInternalFrame;
+import edu.cmu.cs.in.search.HoopDataSet;
 
 /** 
  * @author vvelsen
  *
  */
-public class HoopDocumentList extends HoopEmbeddedJPanel
+public class HoopDocumentList extends HoopEmbeddedJPanel implements ActionListener
 {	
 	private static final long serialVersionUID = 2319368351656283482L;
 	private JList docList=null;
 	
+    private JButton expandButton=null;
+    private JButton foldButton=null;
+    private JButton inverseButton=null;
+    private JButton selectedButton=null;	
+    
+    private JButton refreshButton=null;
+	
+    private int maxShown=20;
+    
 	/**
 	 * Constructs a new frame that is initially invisible.
 	 */	
 	public HoopDocumentList()
-	{
-    	//super("Document Set Viewer", true, true, true, true);
-		
+	{		
 		setClassName ("HoopDocumentList");
 		debug ("HoopDocumentList ()");
 		
 	   	Box holder = new Box (BoxLayout.Y_AXIS);
-	   	
+	   		   	
+	    Box buttonBox = new Box (BoxLayout.X_AXIS);
+	    
+	    expandButton=new JButton ();
+	    expandButton.setFont(new Font("Dialog", 1, 8));
+	    expandButton.setPreferredSize(new Dimension (20,20));
+	    expandButton.setMaximumSize(new Dimension (20,20));
+	    //expandButton.setText("All");
+	    expandButton.setIcon(HoopLink.getImageByName("tree-expand-icon.png"));
+	    expandButton.addActionListener(this);
+
+	    buttonBox.add (expandButton);
+	    buttonBox.add (Box.createRigidArea(new Dimension(2,0)));
+	    
+	    foldButton=new JButton ();
+	    foldButton.setFont(new Font("Dialog", 1, 8));
+	    foldButton.setPreferredSize(new Dimension (20,20));
+	    foldButton.setMaximumSize(new Dimension (20,20));
+	    foldButton.setIcon(HoopLink.getImageByName("tree-fold-icon.png"));
+	    //foldButton.setText("None");
+	    foldButton.addActionListener(this);
+	    
+	    buttonBox.add (foldButton);
+	    buttonBox.add (Box.createRigidArea(new Dimension(2,0)));
+	    
+	    refreshButton=new JButton ();
+	    refreshButton.setFont(new Font("Dialog", 1, 8));
+	    refreshButton.setPreferredSize(new Dimension (20,20));
+	    refreshButton.setMaximumSize(new Dimension (20,20));
+	    refreshButton.setIcon(HoopLink.getImageByName("gtk-refresh.png"));
+	    refreshButton.addActionListener(this);
+	    	    
+	    buttonBox.add (refreshButton);
+	    buttonBox.add (Box.createRigidArea(new Dimension(2,0)));	    
+	    
+	    inverseButton=new JButton ();
+	    inverseButton.setFont(new Font("Dialog", 1, 8));
+	    inverseButton.setPreferredSize(new Dimension (75,20));
+	    //inverseButton.setMaximumSize(new Dimension (2000,20));
+	    inverseButton.setText("Inverse");
+	    inverseButton.addActionListener(this);
+	    inverseButton.setEnabled(false);
+	    
+	    buttonBox.add (inverseButton);
+	    buttonBox.add (Box.createRigidArea(new Dimension(2,0)));
+	    
+	    selectedButton=new JButton ();
+	    selectedButton.setFont(new Font("Dialog", 1, 8));
+	    selectedButton.setPreferredSize(new Dimension (75,20));
+	    //selectedButton.setMaximumSize(new Dimension (2000,20));
+	    selectedButton.setText("Selected");
+	    selectedButton.addActionListener(this);
+	    selectedButton.setEnabled(false);
+	    
+	    buttonBox.add (selectedButton);
+	    buttonBox.add (Box.createRigidArea(new Dimension(2,0)));
+	    	    
+	    buttonBox.add(Box.createHorizontalGlue());	   	
+	   		   	
 	   	docList=new JList ();	   	
 		docList.setCellRenderer (new HoopDocumentListRenderer ());
 		
 	    JScrollPane docScrollList = new JScrollPane (docList);	   
 
+	    holder.add(buttonBox);
 	    holder.add (docScrollList);
 	   	
 		setContentPane (holder);
-		//setSize (325,200);
-		//setLocation (75,75);	   	
-		
+   			
 		updateContents(); // Just in case we already have something
 	}
 	/**
@@ -75,19 +145,57 @@ public class HoopDocumentList extends HoopEmbeddedJPanel
 
 		if (HoopLink.dataSet==null)
 		{
-			return;
+			HoopLink.dataSet=new HoopDataSet ();
+			HoopLink.dataSet.checkDB();
 		}
 		
-		ArrayList<HoopDocument> docs=HoopLink.dataSet.getDocuments();		
+		//ArrayList<HoopKVDocument> docs=HoopLink.dataSet.getDocuments();
+		StoredMap<String,HoopKVDocument> docs=HoopLink.dataSet.getData();
 		
 		DefaultListModel mdl=new DefaultListModel ();
 		
-		for (int i=0;i<docs.size();i++)
+		if (docs.size()<maxShown)
 		{
-			HoopDocument doc=docs.get(i);						
-			mdl.addElement(doc);
+			for (int i=0;i<docs.size();i++)
+			{
+				HoopKVDocument doc=docs.get(i);						
+				mdl.addElement(doc);
+			}
+		}
+		else
+		{
+			for (int i=0;i<maxShown;i++)
+			{
+				HoopKVDocument doc=docs.get(i);						
+				mdl.addElement(doc);
+			}			
 		}
 		
 		docList.setModel (mdl);		
+	}
+	@Override
+	public void actionPerformed(ActionEvent event) 
+	{
+		debug ("actionPerformed ()");
+
+		//String act=event.getActionCommand();
+		JButton button = (JButton)event.getSource();
+		
+		if (button==expandButton)
+		{
+			//TreeNode root = (TreeNode) tree.getModel().getRoot();
+			//expandAll (tree, new TreePath(root));
+		}		
+		
+		if (button==foldButton)
+		{
+			//TreeNode root = (TreeNode) tree.getModel().getRoot();
+			//collapseAll (tree, new TreePath(root));
+		}						
+		
+		if (button==refreshButton)
+		{
+			updateContents();
+		}
 	}			
 }

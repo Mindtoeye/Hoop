@@ -71,7 +71,9 @@ public class HoopBerkeleyDBWriter extends HoopSaveBase
 		{			
 			HoopDataType aType=types.get(n);
 			
-			HoopBerkeleyDBInstance dbInstance=driver.accessDB(aType.getTypeValue ());
+			HoopBerkeleyDBInstance dbInstance=new HoopBerkeleyDBInstance ();
+			dbInstance.setInstanceName(aType.getTypeValue ());
+			driver.accessDB(dbInstance);
 									
 			/*
 			Element aTypeElement=new Element ("type");
@@ -138,7 +140,7 @@ public class HoopBerkeleyDBWriter extends HoopSaveBase
 				
 			for (int i=0;i<vals.size();i++)
 			{
-				HoopBerkeleyDBInstance mapped=driver.getDB(i);
+				HoopBerkeleyDBInstance mapped=(HoopBerkeleyDBInstance) driver.getDB(i);
 				
 				mapped.writeKV((String) vals.get(i),"Serialized Content");
 			}			

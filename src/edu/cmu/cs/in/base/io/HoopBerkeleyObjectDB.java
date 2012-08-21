@@ -18,49 +18,73 @@
 
 package edu.cmu.cs.in.base.io;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
+
+import com.sleepycat.bind.tuple.StringBinding;
+import com.sleepycat.bind.tuple.TupleBinding;
 import com.sleepycat.collections.StoredMap;
-
-//import com.sleepycat.bind.serial.StoredClassCatalog;
-//import com.sleepycat.bind.tuple.StringBinding;
-//import com.sleepycat.bind.tuple.StringBinding;
-//import com.sleepycat.collections.StoredMap;
-import com.sleepycat.je.Database;
-import com.sleepycat.je.DatabaseConfig;
-import com.sleepycat.je.Environment;
-
-import edu.cmu.cs.in.base.HoopRoot;
 
 /**
 *
 */
-public class HoopBerkeleyDBInstance extends HoopBerkeleyDBBase
+public class HoopBerkeleyObjectDB extends HoopBerkeleyDBBase
 {
-    private StoredMap<String, String> map=null;
+    private StoredMap<String, ArrayList<Object>> map=null;
  	
 	/**
 	*
 	*/	
-	public HoopBerkeleyDBInstance ()
+	public HoopBerkeleyObjectDB ()
 	{  
-    	setClassName ("HoopBerkeleyDBInstance");
-    	debug ("HoopBerkeleyDBInstance ()");    	    	    	
-	}		
+    	setClassName ("HoopBerkeleyObjectDB");
+    	debug ("HoopBerkeleyObjectDB ()");    	    	    	
+	}
 	/**
 	 * 
 	 */
-	public StoredMap<String, String> getData ()
+	public StoredMap<String, ArrayList<Object>> getData ()
 	{
 		return map;
 	}
 	/**
 	 * 
 	 */
-	public void assignMap (StoredMap<String, String> aMap)
+	public void assignMap (StoredMap<String, ArrayList<Object>> aMap)
 	{
+		debug ("assignMap ()");
+		
 		map=aMap;
 	}	
+	/**
+	 * 
+	 */
+	public void bind ()
+	{
+
+	}
+    /**
+     * 
+     */
+	/*
+    public void assignMap (Map aMap)
+    {
+    	debug ("assignMap ()");
+    	
+        StringBinding keyBinding = new StringBinding();
+        StringBinding dataBinding = new StringBinding();        
+        
+        // create a map view of the database
+        this.map=new StoredMap<String, String> (db, keyBinding, dataBinding, true);
+        
+        if (this.map==null)
+        {
+        	debug ("Error creating StoredMap from database");
+        	setDbDisabled (true);
+        }        	    	
+    }
+    */
     /** 
      * Closes the database. 
      */
@@ -81,9 +105,9 @@ public class HoopBerkeleyDBInstance extends HoopBerkeleyDBBase
     }
     /** 
      * @param aKey String
-     * @param aValue String
+     * @param aValue ArrayList<Object>
      */
-    public boolean writeKV (String aKey,String aValue)
+    public boolean writeKV (String aKey,ArrayList<Object> aValue)
     {
     	debug ("writeKV (key:"+aKey+", value:"+aValue+")");
     	
@@ -114,7 +138,7 @@ public class HoopBerkeleyDBInstance extends HoopBerkeleyDBBase
     	{
     		debug ("Error: database is not open or disabled, aborting");
     		return;
-    	}    	
+    	}
     	
     	if (map==null)
     	{
@@ -124,7 +148,7 @@ public class HoopBerkeleyDBInstance extends HoopBerkeleyDBBase
     	
         debug ("Map size: " + map.size() + " entries");
             
-        Iterator<Map.Entry<String, String>> iter=null;
+        Iterator<Map.Entry<String, ArrayList<Object>>> iter=null;
         
 		try
 		{
@@ -139,7 +163,7 @@ public class HoopBerkeleyDBInstance extends HoopBerkeleyDBBase
                 
         while (iter.hasNext()) 
         {
-            Map.Entry<String, String> entry = iter.next();
+            Map.Entry<String, ArrayList<Object>> entry = iter.next();
             debug (entry.getKey().toString() + ' ' +  entry.getValue());
         }    	
     }
@@ -150,6 +174,12 @@ public class HoopBerkeleyDBInstance extends HoopBerkeleyDBBase
     {
     	debug ("checkDB ()");
     	
+    	if (this.isDbDisabled()==true)
+    	{
+    		debug ("Error: database is not open or disabled, aborting");
+    		return (false);
+    	}
+    	
     	if (map==null)
     	{
     		debug ("No map available to read from, aborting ..");
@@ -158,7 +188,7 @@ public class HoopBerkeleyDBInstance extends HoopBerkeleyDBBase
     	
         debug ("Checking: " + map.size() + " entries");
             
-        Iterator<Map.Entry<String, String>> iter=null;
+        Iterator<Map.Entry<String, ArrayList<Object>>> iter=null;
         
 		try
 		{
@@ -173,7 +203,7 @@ public class HoopBerkeleyDBInstance extends HoopBerkeleyDBBase
         while (iter.hasNext()) 
         {
             @SuppressWarnings("unused")
-			Map.Entry<String, String> entry = iter.next();
+			Map.Entry<String, ArrayList<Object>> entry = iter.next();
             //debug (entry.getKey().toString() + ' ' +  entry.getValue());
             System.out.print(".");
         }

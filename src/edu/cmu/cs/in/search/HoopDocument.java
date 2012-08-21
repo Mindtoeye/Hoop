@@ -35,13 +35,7 @@ import edu.cmu.cs.in.base.HoopWikipediaFilter;
 * instead to allow for better data modeling.
 */
 public class HoopDocument extends HoopKVDocument
-{	
-	/*
-	private String docID="-1";
-	private long rank=1;
-	private double score=1.0;
-	*/
-	
+{		
 	private HoopPorterStemmerOriginal stemmer=null;	
 	private List<String> tokens=null;
 	private Boolean includePositions=false;

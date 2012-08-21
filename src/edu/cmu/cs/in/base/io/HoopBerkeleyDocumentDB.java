@@ -20,47 +20,66 @@ package edu.cmu.cs.in.base.io;
 
 import java.util.Iterator;
 import java.util.Map;
+
+import com.sleepycat.bind.serial.SerialBinding;
+import com.sleepycat.bind.tuple.StringBinding;
 import com.sleepycat.collections.StoredMap;
 
-//import com.sleepycat.bind.serial.StoredClassCatalog;
-//import com.sleepycat.bind.tuple.StringBinding;
-//import com.sleepycat.bind.tuple.StringBinding;
-//import com.sleepycat.collections.StoredMap;
-import com.sleepycat.je.Database;
-import com.sleepycat.je.DatabaseConfig;
-import com.sleepycat.je.Environment;
-
-import edu.cmu.cs.in.base.HoopRoot;
+import edu.cmu.cs.in.base.kv.HoopKVDocument;
 
 /**
 *
 */
-public class HoopBerkeleyDBInstance extends HoopBerkeleyDBBase
+public class HoopBerkeleyDocumentDB extends HoopBerkeleyDBBase
 {
-    private StoredMap<String, String> map=null;
+    private StoredMap<String,HoopKVDocument> map=null;
  	
 	/**
 	*
 	*/	
-	public HoopBerkeleyDBInstance ()
+	public HoopBerkeleyDocumentDB ()
 	{  
-    	setClassName ("HoopBerkeleyDBInstance");
-    	debug ("HoopBerkeleyDBInstance ()");    	    	    	
-	}		
+    	setClassName ("HoopBerkeleyDocumentDB");
+    	debug ("HoopBerkeleyDocumentDB ()");    	    	    	
+	}
 	/**
 	 * 
 	 */
-	public StoredMap<String, String> getData ()
+	public StoredMap<String,HoopKVDocument> getData ()
 	{
 		return map;
 	}
 	/**
 	 * 
 	 */
-	public void assignMap (StoredMap<String, String> aMap)
+	public void assignMap (StoredMap<String,HoopKVDocument> aMap)
 	{
+		debug ("assignMap ()");
+		
 		map=aMap;
 	}	
+	/**
+	 * 
+	 */
+	public Boolean bind ()
+	{
+		debug ("bind ()");
+		
+		StringBinding keyBinding = new StringBinding();
+		SerialBinding <HoopKVDocument> dataBinding=new SerialBinding<HoopKVDocument> (this.getJavaCatalog(),HoopKVDocument.class);
+		
+        // create a map view of the database
+        this.map=new StoredMap<String, HoopKVDocument> (this.getDB(),keyBinding,dataBinding,true);
+	        
+        if (this.map==null)
+        {
+        	debug ("Error creating StoredMap from database");
+        	setDbDisabled (true);
+        	return (false);
+        }        			 
+        
+        return (true);
+	}
     /** 
      * Closes the database. 
      */
@@ -81,9 +100,9 @@ public class HoopBerkeleyDBInstance extends HoopBerkeleyDBBase
     }
     /** 
      * @param aKey String
-     * @param aValue String
+     * @param aValue ArrayList<Object>
      */
-    public boolean writeKV (String aKey,String aValue)
+    public boolean writeKV (String aKey,HoopKVDocument aValue)
     {
     	debug ("writeKV (key:"+aKey+", value:"+aValue+")");
     	
@@ -91,7 +110,7 @@ public class HoopBerkeleyDBInstance extends HoopBerkeleyDBBase
     	{
     		debug ("Error: database is not open or disabled, aborting");
     		return (false);
-    	}	
+    	}
     	
     	if (map==null)
     	{
@@ -100,7 +119,7 @@ public class HoopBerkeleyDBInstance extends HoopBerkeleyDBBase
     	}
     	
     	map.put (aKey,aValue);
-    	    	
+
     	return (true);
     }
     /**
@@ -114,7 +133,7 @@ public class HoopBerkeleyDBInstance extends HoopBerkeleyDBBase
     	{
     		debug ("Error: database is not open or disabled, aborting");
     		return;
-    	}    	
+    	}
     	
     	if (map==null)
     	{
@@ -124,7 +143,7 @@ public class HoopBerkeleyDBInstance extends HoopBerkeleyDBBase
     	
         debug ("Map size: " + map.size() + " entries");
             
-        Iterator<Map.Entry<String, String>> iter=null;
+        Iterator<Map.Entry<String,HoopKVDocument>> iter=null;
         
 		try
 		{
@@ -139,7 +158,7 @@ public class HoopBerkeleyDBInstance extends HoopBerkeleyDBBase
                 
         while (iter.hasNext()) 
         {
-            Map.Entry<String, String> entry = iter.next();
+            Map.Entry<String,HoopKVDocument> entry = iter.next();
             debug (entry.getKey().toString() + ' ' +  entry.getValue());
         }    	
     }
@@ -150,6 +169,12 @@ public class HoopBerkeleyDBInstance extends HoopBerkeleyDBBase
     {
     	debug ("checkDB ()");
     	
+    	if (this.isDbDisabled()==true)
+    	{
+    		debug ("Error: database is not open or disabled, aborting");
+    		return (false);
+    	}
+    	
     	if (map==null)
     	{
     		debug ("No map available to read from, aborting ..");
@@ -158,7 +183,7 @@ public class HoopBerkeleyDBInstance extends HoopBerkeleyDBBase
     	
         debug ("Checking: " + map.size() + " entries");
             
-        Iterator<Map.Entry<String, String>> iter=null;
+        Iterator<Map.Entry<String,HoopKVDocument>> iter=null;
         
 		try
 		{
@@ -173,7 +198,7 @@ public class HoopBerkeleyDBInstance extends HoopBerkeleyDBBase
         while (iter.hasNext()) 
         {
             @SuppressWarnings("unused")
-			Map.Entry<String, String> entry = iter.next();
+			Map.Entry<String,HoopKVDocument> entry = iter.next();
             //debug (entry.getKey().toString() + ' ' +  entry.getValue());
             System.out.print(".");
         }

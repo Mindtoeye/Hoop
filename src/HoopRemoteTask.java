@@ -85,10 +85,11 @@ public class HoopRemoteTask extends HoopHadoopReporter
     {
     	debug ("indexDocuments ()");
     	
+    	/*
     	data=new HoopDataSet ();
-    	data.loadDocuments(HoopLink.datapath);
-    	
+    	data.loadDocuments(HoopLink.datapath);    	
         data.printStats ();
+        */
     	
     	return (true);
     }

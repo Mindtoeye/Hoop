@@ -18,6 +18,8 @@
 
 package edu.cmu.cs.in.base.kv;
 
+import java.io.Serializable;
+
 import edu.cmu.cs.in.base.HoopDataType;
 
 /**
@@ -27,31 +29,62 @@ import edu.cmu.cs.in.base.HoopDataType;
  * known member variables, such as rank and score. You can freely use 
  * this class as a KV Class and even as an entry in a KV List if so desired.
  * 
- * Our document representation class is directly derived from the Hoop KV abstract
- * class. For now this should suffice but we might have to derive from the KV Table
- * instead to allow for better data modeling.
+ * Our document representation class is directly derived from the Hoop KV 
+ * abstract class. For now this should suffice but we might have to derive 
+ * from the KV Table instead to allow for better data modeling.
  * 
  */
-public class HoopKVDocument extends HoopKVClass implements HoopKVInterface
+public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Serializable
 {    						
+	private static final long serialVersionUID = -239882069750434354L;
 	private HoopKVInteger rank=null;
 	private HoopKVFloat score=null;
 	
 	private HoopKVString description=null;
-	private HoopKVString author=null;
-	
+	private HoopKVString author=null;	
+	private HoopKVString title=null;
+	private HoopKVString abstr=null;
+	private HoopKVString createDate=null;
+	private HoopKVString modifiedDate=null;
+	private HoopKVString keywords=null;
+	private HoopKVString url=null;
+			
 	/**
 	 *
 	 */
     public HoopKVDocument ()
     {
     	setType (HoopDataType.CLASS);
+    	    	
+    	description=new HoopKVString ();
+    	addVariable (description);
+    	
+    	author=new HoopKVString ();
+    	addVariable (author);
+    	
+       	title=new HoopKVString ();
+       	addVariable (title);
+       	
+    	abstr=new HoopKVString ();
+    	addVariable (abstr);
+    	
+    	createDate=new HoopKVString ();
+    	addVariable (createDate);
+    	
+    	modifiedDate=new HoopKVString ();
+    	addVariable (modifiedDate);
+    	
+    	keywords=new HoopKVString ();
+    	addVariable (keywords);
+    	
+    	url=new HoopKVString ();
+    	addVariable (url);
     	
     	rank=new HoopKVInteger (1,"1");
-    	score=new HoopKVFloat ((float) 1.0,"1.0");
+    	addVariable (rank);
     	
-    	description=new HoopKVString ();
-    	author=new HoopKVString ();
+    	score=new HoopKVFloat ((float) 1.0,"1.0");
+    	addVariable (score);    	
     }
 	/**
 	 *
@@ -98,37 +131,59 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface
 	/**
 	 *
 	 */
-	@Override
-	public Object getValue() 
+	public String getValue() 
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return (String) (values.get(0));
 	}
 	/**
 	 *
 	 */
-	@Override
-	public Object getValue(int anIndex) 
+	public String getValue(int anIndex) 
 	{
-		// TODO Auto-generated method stub
-		return null;
+		if (anIndex>values.size())
+			return ("0");
+		
+		return (String) (values.get(anIndex));
 	}
 	/**
 	 *
 	 */
-	@Override
 	public String getValueAsString() 
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return (String) (values.get(0));
 	}
 	/**
 	 *
 	 */
-	@Override
 	public String getValueAsString(int anIndex) 
 	{
-		// TODO Auto-generated method stub
-		return null;
+		if (anIndex>values.size())
+			return ("0");
+		
+		return (String) (values.get(anIndex));
+	}		
+	/**
+	 *
+	 */
+	public void setValue(String value) 
+	{
+		values.set(0,value);
 	}
+	/**
+	 *
+	 */
+	public void setValue(String value, int anIndex) 
+	{
+		if (anIndex>(values.size()-1))
+		{
+			// fill with bogus data up to the requested element
+			
+			for (int i=(values.size ()-1);i<anIndex;i++)
+			{
+				values.add(new String ("0"));
+			}
+		}
+		
+		values.set(anIndex,value);
+	}	
 }
