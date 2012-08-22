@@ -19,6 +19,9 @@
 package edu.cmu.cs.in.search;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+
+import com.sleepycat.collections.StoredMap;
 
 import edu.cmu.cs.in.search.HoopDataSet;
 import edu.cmu.cs.in.search.HoopDocument;
@@ -121,13 +124,15 @@ public class HoopTrecEval extends HoopStatsBase
 			HoopDataSet docs=HoopLink.dataSet;
 											
 			if (docs!=null)
-			{
-				ArrayList<HoopKVDocument> docList=docs.getDocuments();
+			{				
+				StoredMap<String,HoopKVDocument> map=HoopLink.dataSet.getData();
 				
-				overview.append("Report ("+i+") generated for " + docList.size() + " documents\n");
-				
-				if (docList!=null)
+				Iterator<HoopKVDocument> iterator = map.values().iterator();
+												
+				if (map!=null)
 				{
+					overview.append("Report ("+i+") generated for " + map.size() + " documents\n");
+					
 					StringBuffer formatted=new StringBuffer ();
 					
 					formatted.append("QueryID");
@@ -143,9 +148,11 @@ public class HoopTrecEval extends HoopStatsBase
 					formatted.append("RunID");
 					formatted.append("\n");
 					
-					for (int j=0;j<docList.size();j++)
+					int j=0;
+					
+					while (iterator.hasNext()) 
 					{
-						HoopKVDocument aDoc=docList.get(j);
+						HoopKVDocument aDoc=(HoopKVDocument) iterator.next();
 						
 						formatted.append(aSearch.getInstanceName());
 						formatted.append("\t");
@@ -159,6 +166,8 @@ public class HoopTrecEval extends HoopStatsBase
 						formatted.append("\t");
 						formatted.append("run-"+j);
 						formatted.append("\n");
+						
+						j++;
 					}
 					
 					HoopLink.fManager.saveContents(outputPath+"/"+"TrecEval-Log-Exp"+HoopLink.experimentNr+"-Query"+i+"-"+HoopRoot.generateFileTimestamp ()+".txt", formatted.toString());
@@ -219,15 +228,15 @@ public class HoopTrecEval extends HoopStatsBase
 											
 			if (docs!=null)
 			{
-				ArrayList<HoopKVDocument> docList=docs.getDocuments();
+				StoredMap<String,HoopKVDocument> map=HoopLink.dataSet.getData();
 				
-				overview.append("Report ("+i+") generated for " + docList.size() + " documents\n");
-				
-				if (docList!=null)
-				{										
-					for (int j=0;j<docList.size();j++)
+				Iterator<HoopKVDocument> iterator = map.values().iterator();
+												
+				if (map!=null)
+				{					
+					while (iterator.hasNext()) 
 					{
-						HoopKVDocument aDoc=docList.get(j);
+						HoopKVDocument aDoc=(HoopKVDocument) iterator.next();
 						
 						formatted.append(aSearch.getInstanceName());
 						formatted.append("\t");

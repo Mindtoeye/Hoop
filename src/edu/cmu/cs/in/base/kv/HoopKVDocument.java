@@ -40,14 +40,14 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 	private HoopKVInteger rank=null;
 	private HoopKVFloat score=null;
 	
-	private HoopKVString description=null;
-	private HoopKVString author=null;	
-	private HoopKVString title=null;
-	private HoopKVString abstr=null;
-	private HoopKVString createDate=null;
-	private HoopKVString modifiedDate=null;
-	private HoopKVString keywords=null;
-	private HoopKVString url=null;
+	public HoopKVString description=null;
+	public HoopKVString author=null;	
+	public HoopKVString title=null;
+	public HoopKVString abstr=null;
+	public HoopKVString createDate=null;
+	public HoopKVString modifiedDate=null;
+	public HoopKVString keywords=null;
+	public HoopKVString url=null;
 			
 	/**
 	 *
@@ -56,28 +56,28 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
     {
     	setType (HoopDataType.CLASS);
     	    	
-    	description=new HoopKVString ();
+    	description=new HoopKVString ("description","undefined");
     	addVariable (description);
     	
-    	author=new HoopKVString ();
+    	author=new HoopKVString ("author","undefined");
     	addVariable (author);
     	
-       	title=new HoopKVString ();
+       	title=new HoopKVString ("title","undefined");
        	addVariable (title);
        	
-    	abstr=new HoopKVString ();
+    	abstr=new HoopKVString ("abstr","undefined");
     	addVariable (abstr);
     	
-    	createDate=new HoopKVString ();
+    	createDate=new HoopKVString ("createDate","undefined");
     	addVariable (createDate);
     	
-    	modifiedDate=new HoopKVString ();
+    	modifiedDate=new HoopKVString ("modifiedDate","undefined");
     	addVariable (modifiedDate);
     	
-    	keywords=new HoopKVString ();
+    	keywords=new HoopKVString ("keywords","undefined");
     	addVariable (keywords);
     	
-    	url=new HoopKVString ();
+    	url=new HoopKVString ("url","undefined");
     	addVariable (url);
     	
     	rank=new HoopKVInteger (1,"1");

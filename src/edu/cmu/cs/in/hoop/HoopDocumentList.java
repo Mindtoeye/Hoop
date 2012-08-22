@@ -23,6 +23,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -149,28 +150,32 @@ public class HoopDocumentList extends HoopEmbeddedJPanel implements ActionListen
 			HoopLink.dataSet.checkDB();
 		}
 		
-		//ArrayList<HoopKVDocument> docs=HoopLink.dataSet.getDocuments();
 		StoredMap<String,HoopKVDocument> docs=HoopLink.dataSet.getData();
 		
 		DefaultListModel mdl=new DefaultListModel ();
 		
-		if (docs.size()<maxShown)
-		{
-			for (int i=0;i<docs.size();i++)
-			{
-				HoopKVDocument doc=docs.get(i);						
-				mdl.addElement(doc);
-			}
-		}
-		else
-		{
-			for (int i=0;i<maxShown;i++)
-			{
-				HoopKVDocument doc=docs.get(i);						
-				mdl.addElement(doc);
-			}			
-		}
+		StoredMap<String,HoopKVDocument> map=HoopLink.dataSet.getData();
 		
+		Iterator<HoopKVDocument> iterator = map.values().iterator();
+
+		int index=0;
+		int count=maxShown;
+		
+		if (docs.size()<maxShown)
+			count=docs.size ();
+										
+		if (map!=null)
+		{
+			while ((iterator.hasNext()) && (index<count)) 
+			{
+				HoopKVDocument aDoc=(HoopKVDocument) iterator.next();
+				
+				mdl.addElement(aDoc);
+				
+				index++;
+			}	
+		}
+				
 		docList.setModel (mdl);		
 	}
 	@Override

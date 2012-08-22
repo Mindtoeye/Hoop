@@ -20,6 +20,7 @@ package edu.cmu.cs.in.hoop.hoops.save;
 
 import java.util.ArrayList;
 
+import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.base.kv.HoopKVDocument;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
@@ -33,10 +34,7 @@ import edu.cmu.cs.in.search.HoopDataSet;
 */
 public class HoopDocumentWriter extends HoopSaveBase
 {    			
-	//private HoopBerkeleyDB driver=null;
-	private HoopDataSet data=null;
-	//private HoopBerkeleyDocumentDB data=null;
-	//private HoopBerkeleyDocumentDB typesDB=null;
+	//private HoopDataSet data=null;
 	
 	@SuppressWarnings("unused")
 	private HoopStringSerializable author=null;
@@ -77,47 +75,6 @@ public class HoopDocumentWriter extends HoopSaveBase
 		keywords=new HoopStringSerializable (this,"keywords","keywords");
 		url=new HoopStringSerializable (this,"url","url");		
     }
-    /**
-     * 
-     */
-    /*
-    protected Boolean typesToDB (HoopBase inHoop)
-    {
-    	debug ("typesToDB ()");
-    	
-    	if (driver==null)
-    		return (false);
-    	
-    	if (typesDB!=null)
-    	{
-    		return (true);
-    	}
-    	    	
-    	typesDB=new HoopBerkeleyDocumentDB ();
-    	typesDB.setInstanceName("types");
-    	driver.accessDB(typesDB);
-    	
-		ArrayList <HoopDataType> types=inHoop.getTypes();
-						
-		for (int n=0;n<types.size();n++)
-		{			
-			HoopDataType aType=types.get(n);
-			
-			aType.getTypeValue ();
-			
-			Integer transformer=n;
-			
-			ArrayList <Object> content=new ArrayList<Object>();
-			//content.add(aType.getTypeValue ());
-			content.add(mapType (aType.getTypeValue ()));
-			content.add(aType.typeToString ());
-			
-			typesDB.writeKV(transformer.toString(),content);									
-		}		
-		
-		return (true);
-    }
-    */
 	/**
 	 * 
 	 */
@@ -153,40 +110,11 @@ public class HoopDocumentWriter extends HoopSaveBase
 		}		
 		
 		debug ("Mapping project path ("+getProjectPath ()+") to db dir ...");
-		
-		/*
-		if (driver==null)
-		{
-			driver=new HoopBerkeleyDB ();
-			driver.setDbDir (getProjectPath ()+"/system/documents");
 				
-			if (HoopLink.fManager.createDirectory (driver.getDbDir())==false)
-			{
-				this.setErrorString("Error creating database directory: "+driver.getDbDir());
-				return (false);
-			}
-
-			data=new HoopBerkeleyDocumentDB ();
-			data.setInstanceName("documents");
-			
-			if (driver.startDBService (data)==false)
-			{
-				this.setErrorString("Error: unable to start database");
-				return (false);
-			}
-			
-			if (data.bind()==false)
-			{
-				this.setErrorString("Error: unable to bind data representation to database");
-				return (false);				
-			}		
-		}	
-		*/
-		
-		if (data==null)
+		if (HoopLink.dataSet==null)
 		{
-			data=new HoopDataSet ();
-			data.checkDB ();
+			HoopLink.dataSet=new HoopDataSet ();
+			HoopLink.dataSet.checkDB ();
 		}
 		
 		for (int t=0;t<inData.size();t++)
@@ -199,10 +127,43 @@ public class HoopDocumentWriter extends HoopSaveBase
 			
 			newDocument.setKey(indexTransformer.toString());
 			
-
+			ArrayList <Object>docElements=aKV.getValuesRaw();
 			
-						
-			data.getData().put(indexTransformer.toString(),newDocument);			
+			for (int i=0;i<docElements.size();i++)
+			{
+				String aTypeName=inHoop.getKVTypeName (i);
+				
+				String remapped=mapType (aTypeName);
+				
+				if (remapped.equalsIgnoreCase("author")==true)
+					newDocument.author.setValue((String) docElements.get(i));
+				
+				if (remapped.equalsIgnoreCase("title")==true)
+					newDocument.title.setValue((String) docElements.get(i));
+				
+				if (remapped.equalsIgnoreCase("abstr")==true)
+					newDocument.abstr.setValue((String) docElements.get(i));
+				
+				if (remapped.equalsIgnoreCase("createDate")==true)
+					newDocument.createDate.setValue((String) docElements.get(i));
+				
+				if (remapped.equalsIgnoreCase("modifiedDate")==true)
+					newDocument.modifiedDate.setValue((String) docElements.get(i));
+
+				if (remapped.equalsIgnoreCase("description")==true)
+					newDocument.description.setValue((String) docElements.get(i));				
+
+				if (remapped.equalsIgnoreCase("text")==true)
+					newDocument.setValue((String) docElements.get(i));
+
+				if (remapped.equalsIgnoreCase("keywords")==true)
+					newDocument.keywords.setValue((String) docElements.get(i));
+
+				if (remapped.equalsIgnoreCase("url")==true)
+					newDocument.url.setValue((String) docElements.get(i));														
+			}
+			
+			HoopLink.dataSet.getData().put(indexTransformer.toString(),newDocument);			
 		}			
 				
 		return (true);
