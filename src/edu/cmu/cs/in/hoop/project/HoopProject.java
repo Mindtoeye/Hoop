@@ -27,6 +27,7 @@ import org.jdom.Element;
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopConnection;
+import edu.cmu.cs.in.search.HoopDataSet;
 
 /** 
  * 
@@ -50,7 +51,7 @@ public class HoopProject extends HoopProjectFile
 		addFileTemplate (new HoopGraphFile ());
 		addFileTemplate (new HoopStopWords ());
 		addFileTemplate (new HoopVocabulary ());
-		addFileTemplate (new HoopWrapperFile ());
+		addFileTemplate (new HoopWrapperFile ());			
 	}
 	/**
 	 * 
@@ -440,6 +441,18 @@ public class HoopProject extends HoopProjectFile
 			debug ("Can't refresh a project that hasn't been saved yet");
 			return (false);
 		}
+		
+		// First check and refresh our local database ...
+		
+		if (HoopLink.dataSet==null)
+		{
+			HoopLink.dataSet=new HoopDataSet ();
+			HoopLink.dataSet.checkDB();
+		}
+		else
+			HoopLink.dataSet.checkDB();			
+		
+		// Then scan the project directory for any new files ...
 		
 		ArrayList <String> testList=HoopLink.fManager.listDirectoryEntries(getBasePath ());
 		

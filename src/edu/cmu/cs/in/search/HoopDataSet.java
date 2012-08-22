@@ -27,7 +27,6 @@ import com.sleepycat.collections.StoredMap;
 import edu.cmu.cs.in.base.HoopRoot;
 import edu.cmu.cs.in.base.io.HoopBerkeleyDB;
 import edu.cmu.cs.in.base.io.HoopBerkeleyDocumentDB;
-import edu.cmu.cs.in.base.io.HoopFileManager;
 import edu.cmu.cs.in.base.kv.HoopKVDocument;
 import edu.cmu.cs.in.base.HoopLink;
 
@@ -49,16 +48,6 @@ public class HoopDataSet extends HoopRoot
     {
 		setClassName ("HoopDataSet");
 		debug ("HoopDataSet ()");		
-				
-		// For fast and easy access we re-use the file manager from
-		// the registry. Makes a huge difference when you're doing
-		// loops since it's a costly object to create
-		
-		if (HoopLink.fManager==null)
-			HoopLink.fManager=new HoopFileManager ();
-		
-		//setDocuments(new ArrayList<HoopKVDocument> ());		
-		//checkDB ();
     } 
     /**
      * 
@@ -72,7 +61,14 @@ public class HoopDataSet extends HoopRoot
 	 */
 	public void addDocument (HoopKVDocument anInstance)
 	{
-		//documents.add(anInstance);
+		if (map==null)
+		{
+			return;
+		}
+
+		Integer indexString=map.size();
+		
+		map.put(indexString.toString(),anInstance);
 	}
 	/**
 	 * 
@@ -81,21 +77,39 @@ public class HoopDataSet extends HoopRoot
 	{
 		debug ("checkDB ()");
 		
+		if (HoopLink.project==null)
+		{
+			debug ("No project yet, aborting db boot");
+			return;
+		}
+		
+		if (HoopLink.project.getVirginFile()==true)
+		{
+			debug ("Project hasn't been saved yet, aborting db boot");
+			return;
+		}		
+		
 		if (driver==null)
 		{				
-			File checker=new File (HoopLink.project.getBasePath()+"/system/documents");
+			debug ("Driver is null, starting db boot process ...");
+			
+			String dbPath=HoopLink.project.getBasePath()+"/system/documents";
+			
+			File checker=new File (dbPath);
 			
 			if (checker.exists()==false)
 			{
-				if (HoopLink.fManager.createDirectory (HoopLink.project.getBasePath()+"/system/documents")==false)
+				if (HoopLink.fManager.createDirectory (dbPath)==false)
 				{
-					debug ("Error creating database directory: "+HoopLink.project.getBasePath()+"/system/documents");
+					debug ("Error creating database directory: " + dbPath);
 					return;
 				}
 			}
+			else
+				debug ("Document database directory exists, excellent");
 			
 			driver=new HoopBerkeleyDB ();
-			driver.setDbDir (HoopLink.project.getBasePath()+"/system/documents");			
+			driver.setDbDir (dbPath);			
 			
 			documentDriver=new HoopBerkeleyDocumentDB ();
 			documentDriver.setInstanceName("documents");
@@ -118,7 +132,9 @@ public class HoopDataSet extends HoopRoot
 	        	debug ("Error creating StoredMap from database");
 	        	return;
 	        }        			 			
-		}		
+		}
+		else
+			debug ("Driver exists, assuming that the database has been initialized");
 	}
 	/**
 	 *

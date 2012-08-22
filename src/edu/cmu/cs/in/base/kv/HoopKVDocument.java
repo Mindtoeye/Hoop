@@ -21,6 +21,7 @@ package edu.cmu.cs.in.base.kv;
 import java.io.Serializable;
 
 import edu.cmu.cs.in.base.HoopDataType;
+import edu.cmu.cs.in.base.HoopRoot;
 
 /**
  * Perhaps the most important data structure in the Hoop system is the
@@ -48,6 +49,8 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 	public HoopKVString modifiedDate=null;
 	public HoopKVString keywords=null;
 	public HoopKVString url=null;
+	
+	private int abstrSize=50; // 50 characters for now, CHANGE THIS TO WHOLE TERMS!
 			
 	/**
 	 *
@@ -88,6 +91,16 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
     	
     	// Make sure we have an entry for our text
     	values.add(new String ("0"));
+    }
+    /**
+     * Notice that this is the only KV class that has a debug method. All
+     * the parent classes do not derive from HoopBase since there will be
+     * large amounts of them and the base class does have a decent memory
+     * footprint.
+     */
+    private void debug (String aMessage)
+    {
+    	HoopRoot.debug("HoopKVDocument",aMessage);
     }
 	/**
 	 *
@@ -188,5 +201,22 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 		}
 		
 		values.set(anIndex,value);
-	}	
+	}
+	/**
+	 * 
+	 */
+	public void postProcess ()
+	{
+		debug ("postProcess ()");
+		
+		if (abstr.getValue().isEmpty()==true)
+		{
+			if (this.getValue().length()>abstrSize)
+			{
+				abstr.setValue(this.getValue().substring(0,abstrSize));
+			}
+			else
+				abstr.setValue(this.getValue());
+		}
+	}
 }

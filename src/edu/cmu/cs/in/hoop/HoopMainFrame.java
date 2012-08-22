@@ -1058,9 +1058,15 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 			debug ("Open command cancelled by user.");
 		}
 		
-		//updateProjectViews ();
 		refreshProjectPane ();
 		
+		HoopDocumentList docList=(HoopDocumentList) HoopLink.getWindow("Document List");
+		
+		if (docList!=null)
+			docList.updateContents();
+		
+		//updateAllWindows ();
+			
 		return (true);
 	}
 	/**

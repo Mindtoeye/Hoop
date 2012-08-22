@@ -155,17 +155,19 @@ public class HoopDocumentWriter extends HoopSaveBase
 				if (remapped.equalsIgnoreCase("description")==true)
 					newDocument.description.setValue((String) docElements.get(i));				
 
-				if (remapped.equalsIgnoreCase("text")==true)
-					newDocument.setValue((String) docElements.get(i));
-
 				if (remapped.equalsIgnoreCase("keywords")==true)
 					newDocument.keywords.setValue((String) docElements.get(i));
 
 				if (remapped.equalsIgnoreCase("url")==true)
-					newDocument.url.setValue((String) docElements.get(i));														
+					newDocument.url.setValue((String) docElements.get(i));
+				
+				if (remapped.equalsIgnoreCase("text")==true)
+					newDocument.setValue((String) docElements.get(i));				
 			}
 			
-			HoopLink.dataSet.getData().put(indexTransformer.toString(),newDocument);			
+			newDocument.postProcess();
+			
+			HoopLink.dataSet.getData().put(indexTransformer.toString(),newDocument);
 		}			
 				
 		return (true);

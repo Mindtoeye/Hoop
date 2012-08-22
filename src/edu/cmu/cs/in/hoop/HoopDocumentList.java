@@ -22,7 +22,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Iterator;
 
 import javax.swing.Box;
@@ -54,6 +53,7 @@ public class HoopDocumentList extends HoopEmbeddedJPanel implements ActionListen
     private JButton selectedButton=null;	
     
     private JButton refreshButton=null;
+    private JButton configureButton=null;
 	
     private int maxShown=20;
     
@@ -99,7 +99,17 @@ public class HoopDocumentList extends HoopEmbeddedJPanel implements ActionListen
 	    refreshButton.addActionListener(this);
 	    	    
 	    buttonBox.add (refreshButton);
-	    buttonBox.add (Box.createRigidArea(new Dimension(2,0)));	    
+	    buttonBox.add (Box.createRigidArea(new Dimension(2,0)));	 
+	    
+	    configureButton=new JButton ();
+	    configureButton.setFont(new Font("Dialog", 1, 8));
+	    configureButton.setPreferredSize(new Dimension (20,20));
+	    configureButton.setMaximumSize(new Dimension (20,20));
+	    configureButton.setIcon(HoopLink.getImageByName("gtk-preferences.png"));
+	    configureButton.addActionListener(this);
+	    	    
+	    buttonBox.add (configureButton);
+	    buttonBox.add (Box.createRigidArea(new Dimension(2,0)));	 	    
 	    
 	    inverseButton=new JButton ();
 	    inverseButton.setFont(new Font("Dialog", 1, 8));
@@ -145,9 +155,13 @@ public class HoopDocumentList extends HoopEmbeddedJPanel implements ActionListen
 		debug ("updateContents ()");
 
 		if (HoopLink.dataSet==null)
-		{
 			HoopLink.dataSet=new HoopDataSet ();
-			HoopLink.dataSet.checkDB();
+
+		HoopLink.dataSet.checkDB();
+		
+		if (HoopLink.dataSet.getData()==null)
+		{
+			return;
 		}
 		
 		StoredMap<String,HoopKVDocument> docs=HoopLink.dataSet.getData();
@@ -178,6 +192,9 @@ public class HoopDocumentList extends HoopEmbeddedJPanel implements ActionListen
 				
 		docList.setModel (mdl);		
 	}
+	/**
+	 * 
+	 */
 	@Override
 	public void actionPerformed(ActionEvent event) 
 	{
@@ -202,5 +219,10 @@ public class HoopDocumentList extends HoopEmbeddedJPanel implements ActionListen
 		{
 			updateContents();
 		}
+		
+		if (button==configureButton)
+		{
+			//updateContents();
+		}		
 	}			
 }
