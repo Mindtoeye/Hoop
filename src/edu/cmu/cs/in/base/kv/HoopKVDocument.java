@@ -85,6 +85,9 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
     	
     	score=new HoopKVFloat ((float) 1.0,"1.0");
     	addVariable (score);    	
+    	
+    	// Make sure we have an entry for our text
+    	values.add(new String ("0"));
     }
 	/**
 	 *

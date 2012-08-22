@@ -79,24 +79,24 @@ public class HoopDataSet extends HoopRoot
 	 */
 	public void checkDB ()
 	{
+		debug ("checkDB ()");
+		
 		if (driver==null)
 		{				
 			File checker=new File (HoopLink.project.getBasePath()+"/system/documents");
 			
 			if (checker.exists()==false)
 			{
-				return;
+				if (HoopLink.fManager.createDirectory (HoopLink.project.getBasePath()+"/system/documents")==false)
+				{
+					debug ("Error creating database directory: "+HoopLink.project.getBasePath()+"/system/documents");
+					return;
+				}
 			}
 			
 			driver=new HoopBerkeleyDB ();
 			driver.setDbDir (HoopLink.project.getBasePath()+"/system/documents");			
 			
-			if (HoopLink.fManager.createDirectory (driver.getDbDir())==false)
-			{
-				debug ("Error creating database directory: "+driver.getDbDir());
-				return;
-			}
-
 			documentDriver=new HoopBerkeleyDocumentDB ();
 			documentDriver.setInstanceName("documents");
 			

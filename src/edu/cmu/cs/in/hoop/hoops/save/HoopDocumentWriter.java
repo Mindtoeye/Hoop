@@ -116,6 +116,8 @@ public class HoopDocumentWriter extends HoopSaveBase
 			HoopLink.dataSet=new HoopDataSet ();
 			HoopLink.dataSet.checkDB ();
 		}
+		else
+			HoopLink.dataSet.checkDB ();
 		
 		for (int t=0;t<inData.size();t++)
 		{

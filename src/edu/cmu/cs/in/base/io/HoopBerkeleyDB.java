@@ -183,7 +183,9 @@ public class HoopBerkeleyDB extends HoopRoot implements TransactionWorker
 			return (false);
 		}        
         
-        javaCatalog=new StoredClassCatalog(catalogDb.getDB());        
+        javaCatalog=new StoredClassCatalog(catalogDb.getDB());
+        
+        mainDB.setJavaCatalog(javaCatalog);
         
         return (true);
 	}
@@ -244,6 +246,8 @@ public class HoopBerkeleyDB extends HoopRoot implements TransactionWorker
 		}        
         
         javaCatalog=new StoredClassCatalog(catalogDb.getDB());        
+        
+        aDB.setJavaCatalog(javaCatalog);
         
         return (true);
 	}	
