@@ -70,6 +70,11 @@ public class HoopExecuteInEditor extends HoopExecute
        	{
        		projectPane.refresh();
        	}		
+       	
+		HoopDocumentList docList=(HoopDocumentList) HoopLink.getWindow("Document List");
+		
+		if (docList!=null)
+			docList.updateContents();
 	}	
 }
 

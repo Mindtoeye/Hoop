@@ -46,6 +46,13 @@ public class HoopBaseTyped extends HoopVisual implements HoopPropertyContainer
 		properties=new ArrayList<HoopSerializable> ();		
     }
     /**
+     * 
+     */
+    public int getTypesSize ()
+    {
+    	return (types.size());
+    }
+    /**
      *  
      */
     public ArrayList <HoopDataType> getTypes ()

@@ -22,7 +22,10 @@ import java.util.ArrayList;
 
 import org.jdom.Element;
 
+import edu.cmu.cs.in.base.HoopDataType;
+import edu.cmu.cs.in.base.HoopHTML2Text;
 import edu.cmu.cs.in.base.kv.HoopKV;
+import edu.cmu.cs.in.base.kv.HoopKVString;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.properties.types.HoopSerializable;
 import edu.cmu.cs.in.hoop.properties.types.HoopStringSerializable;
@@ -50,6 +53,8 @@ public class HoopXMLDocumentWriter extends HoopXMLWriter
 	private HoopStringSerializable keywords=null;
 	@SuppressWarnings("unused")
 	private HoopStringSerializable url=null;	
+	
+	private int abstrSize=50; // 50 characters for now, CHANGE THIS TO WHOLE TERMS!
 	
 	/**
 	 *
@@ -113,7 +118,9 @@ public class HoopXMLDocumentWriter extends HoopXMLWriter
 				if (getIncludeIndex ()==true)
 					fileElement.addContent(typesToXML (inHoop));
 				
-				fileElement.addContent(kvToElement (inHoop,aKV));
+				HoopKVString newKV=storeDocument (inHoop,aKV);
+				
+				fileElement.addContent(kvToElement (inHoop,newKV));
 								
 				Boolean result=saveXML (fileElement,t);
 					
@@ -124,6 +131,32 @@ public class HoopXMLDocumentWriter extends HoopXMLWriter
 		
 		return (true);	
 	}	
+	/**
+	 * 
+	 */
+	private HoopKVString storeDocument (HoopBase inHoop,HoopKV aKV)
+	{
+		debug ("storeDocument ()");
+		
+		HoopKVString newKV=new HoopKVString ();
+				
+		ArrayList <Object> vals=aKV.getValuesRaw ();
+		
+		for (int j=0;j<vals.size();j++)
+		{
+			String aTypeName=inHoop.getKVTypeName (j);
+						
+			String remapped=mapType (aTypeName);
+			
+			this.setKVType(j,HoopDataType.STRING,remapped);
+			
+			newKV.setValue(aKV.getValueAsString(j),j);			
+		}				
+		
+		postProcess (newKV);
+		
+		return (newKV);
+	}
 	/**
 	 * 
 	 */
@@ -141,15 +174,13 @@ public class HoopXMLDocumentWriter extends HoopXMLWriter
 						
 		for (int j=0;j<vals.size();j++)
 		{
-			String aTypeName=inHoop.getKVTypeName (j);
-						
-			String remapped=mapType (aTypeName);
-								
-			Element subElement=new Element (remapped);
+			String aTypeName=this.getKVTypeName (j);
+														
+			Element subElement=new Element (aTypeName);
 			subElement.setText(aKV.getValueAsString(j));
 			documentElement.addContent(subElement);
 		}				
-		
+				
 		return (documentElement);
 	}
 	/**
@@ -174,6 +205,38 @@ public class HoopXMLDocumentWriter extends HoopXMLWriter
 		}
 						
 		return (aTypeName);
+	}
+	/**
+	 * 
+	 */
+	private void postProcess (HoopKV aKV)
+	{
+		debug ("postProcess ()");
+		
+		HoopHTML2Text parser=new HoopHTML2Text ();
+			
+		String originalText=(String) getValueFromName (aKV,"text");
+		String abstrCleaned="";
+		
+		if (originalText!=null)
+		{
+			/*
+			if (originalText.length()>abstrSize)
+			{
+				parser.parse(originalText.substring(0,abstrSize));
+			}	
+			else
+				parser.parse(originalText);
+			*/
+			
+			parser.parse(originalText);
+			
+			abstrCleaned=parser.getText();
+			
+			setValueByName (aKV,abstrCleaned,"abstr");
+		}
+		else
+			debug ("Error: unable to find main text of document");		
 	}
 	/**
 	 * 

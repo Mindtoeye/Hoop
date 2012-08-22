@@ -21,6 +21,7 @@ package edu.cmu.cs.in.base.kv;
 import java.io.Serializable;
 
 import edu.cmu.cs.in.base.HoopDataType;
+import edu.cmu.cs.in.base.HoopHTML2Text;
 import edu.cmu.cs.in.base.HoopRoot;
 
 /**
@@ -211,12 +212,20 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 		
 		if (abstr.getValue().isEmpty()==true)
 		{
+			HoopHTML2Text parser=new HoopHTML2Text ();
+						
 			if (this.getValue().length()>abstrSize)
 			{
-				abstr.setValue(this.getValue().substring(0,abstrSize));
+				parser.parse(this.getValue().substring(0,abstrSize));
+				
+				abstr.setValue(parser.getText());
 			}
 			else
-				abstr.setValue(this.getValue());
+			{
+				parser.parse(this.getValue());
+				
+				abstr.setValue(parser.getText());
+			}
 		}
 	}
 }

@@ -28,8 +28,10 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 
 import com.sleepycat.collections.StoredMap;
 
@@ -49,11 +51,15 @@ public class HoopDocumentList extends HoopEmbeddedJPanel implements ActionListen
 	
     private JButton expandButton=null;
     private JButton foldButton=null;
-    private JButton inverseButton=null;
-    private JButton selectedButton=null;	
-    
+	    
     private JButton refreshButton=null;
     private JButton configureButton=null;
+    
+    private JButton prevButton=null;
+    private JTextField windowSize=null;
+    private JButton nextButton=null;
+    
+    private JLabel dbInfo=null;
 	
     private int maxShown=20;
     
@@ -109,30 +115,38 @@ public class HoopDocumentList extends HoopEmbeddedJPanel implements ActionListen
 	    configureButton.addActionListener(this);
 	    	    
 	    buttonBox.add (configureButton);
-	    buttonBox.add (Box.createRigidArea(new Dimension(2,0)));	 	    
-	    
-	    inverseButton=new JButton ();
-	    inverseButton.setFont(new Font("Dialog", 1, 8));
-	    inverseButton.setPreferredSize(new Dimension (75,20));
-	    //inverseButton.setMaximumSize(new Dimension (2000,20));
-	    inverseButton.setText("Inverse");
-	    inverseButton.addActionListener(this);
-	    inverseButton.setEnabled(false);
-	    
-	    buttonBox.add (inverseButton);
-	    buttonBox.add (Box.createRigidArea(new Dimension(2,0)));
-	    
-	    selectedButton=new JButton ();
-	    selectedButton.setFont(new Font("Dialog", 1, 8));
-	    selectedButton.setPreferredSize(new Dimension (75,20));
-	    //selectedButton.setMaximumSize(new Dimension (2000,20));
-	    selectedButton.setText("Selected");
-	    selectedButton.addActionListener(this);
-	    selectedButton.setEnabled(false);
-	    
-	    buttonBox.add (selectedButton);
 	    buttonBox.add (Box.createRigidArea(new Dimension(2,0)));
 	    	    
+	    prevButton=new JButton ();
+	    prevButton.setPreferredSize(new Dimension (20,20));
+	    prevButton.setMaximumSize(new Dimension (20,20));
+	    prevButton.setIcon(HoopLink.getImageByName("gtk-go-back-ltr.png"));
+	    prevButton.addActionListener(this);
+	    
+	    buttonBox.add (prevButton);
+	    buttonBox.add (Box.createRigidArea(new Dimension(2,0)));
+	    
+	    windowSize=new JTextField ();
+	    windowSize.setFont(new Font("Dialog", 1, 8));
+	    windowSize.setPreferredSize(new Dimension (50,20));
+	    windowSize.setMaximumSize(new Dimension (50,20));
+	    
+	    buttonBox.add (windowSize);
+	    buttonBox.add (Box.createRigidArea(new Dimension(2,0)));
+	    
+	    nextButton=new JButton ();
+	    nextButton.setPreferredSize(new Dimension (20,20));
+	    nextButton.setMaximumSize(new Dimension (20,20));
+	    nextButton.setIcon(HoopLink.getImageByName("gtk-go-forward-ltr.png"));
+	    nextButton.addActionListener(this);
+	    
+	    buttonBox.add (nextButton);
+	    buttonBox.add (Box.createRigidArea(new Dimension(2,0)));	    
+	    
+	    dbInfo=new JLabel ();
+	    dbInfo.setFont(new Font("Dialog", 1, 8));
+	    buttonBox.add(dbInfo);
+	    	    	    
 	    buttonBox.add(Box.createHorizontalGlue());	   	
 	   		   	
 	   	docList=new JList ();	   	
@@ -164,19 +178,23 @@ public class HoopDocumentList extends HoopEmbeddedJPanel implements ActionListen
 			return;
 		}
 		
-		StoredMap<String,HoopKVDocument> docs=HoopLink.dataSet.getData();
-		
+		//StoredMap<String,HoopKVDocument> docs=HoopLink.dataSet.getData();
+						
 		DefaultListModel mdl=new DefaultListModel ();
 		
 		StoredMap<String,HoopKVDocument> map=HoopLink.dataSet.getData();
+		
+		Integer sizeTransformer=map.size();
+		
+		dbInfo.setText(sizeTransformer.toString()+" Entries");
 		
 		Iterator<HoopKVDocument> iterator = map.values().iterator();
 
 		int index=0;
 		int count=maxShown;
 		
-		if (docs.size()<maxShown)
-			count=docs.size ();
+		if (map.size()<maxShown)
+			count=map.size ();
 										
 		if (map!=null)
 		{

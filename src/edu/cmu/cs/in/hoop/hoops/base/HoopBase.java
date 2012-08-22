@@ -372,6 +372,38 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface
 	/**
 	 * 
 	 */
+	public Object getValueFromName (HoopKV aKV,String aLabel)	
+	{
+		for (int i=0;i<getTypesSize ();i++)
+		{
+			String aType=getKVTypeName (i);
+			
+			if (aType.equalsIgnoreCase(aLabel)==true)
+			{
+				return (aKV.getValue(i));
+			}
+		}
+		
+		return (null);
+	}
+	/**
+	 * 
+	 */
+	public void setValueByName (HoopKV aKV,Object aValue,String aLabel)
+	{
+		for (int i=0;i<getTypesSize ();i++)
+		{
+			String aType=getKVTypeName (i);
+			
+			if (aType.equalsIgnoreCase(aLabel)==true)
+			{
+				aKV.setValue(aValue, i);
+			}
+		}		
+	}
+	/**
+	 * 
+	 */
 	/*
 	public HoopKV getKVFromKey (int aKey)
 	{
