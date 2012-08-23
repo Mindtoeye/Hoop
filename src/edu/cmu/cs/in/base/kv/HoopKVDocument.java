@@ -50,7 +50,9 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 	public HoopKVString modifiedDate=null;
 	public HoopKVString keywords=null;
 	public HoopKVString url=null;
-	
+		
+	public HoopKVString additional=null; // Any other attributes that should be stored
+		
 	private int abstrSize=250; // 250 characters for now, CHANGE THIS TO WHOLE TERMS!
 			
 	/**
@@ -60,28 +62,28 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
     {
     	setType (HoopDataType.CLASS);
     	    	
-    	description=new HoopKVString ("description","undefined");
+    	description=new HoopKVString ("description","");
     	addVariable (description);
     	
-    	author=new HoopKVString ("author","undefined");
+    	author=new HoopKVString ("author","");
     	addVariable (author);
     	
-       	title=new HoopKVString ("title","undefined");
+       	title=new HoopKVString ("title","");
        	addVariable (title);
        	
-    	abstr=new HoopKVString ("abstr","undefined");
+    	abstr=new HoopKVString ("abstr","");
     	addVariable (abstr);
     	
-    	createDate=new HoopKVString ("createDate","undefined");
+    	createDate=new HoopKVString ("createDate","");
     	addVariable (createDate);
     	
-    	modifiedDate=new HoopKVString ("modifiedDate","undefined");
+    	modifiedDate=new HoopKVString ("modifiedDate","");
     	addVariable (modifiedDate);
     	
-    	keywords=new HoopKVString ("keywords","undefined");
+    	keywords=new HoopKVString ("keywords","");
     	addVariable (keywords);
     	
-    	url=new HoopKVString ("url","undefined");
+    	url=new HoopKVString ("url","");
     	addVariable (url);
     	
     	rank=new HoopKVInteger (1,"1");
@@ -92,6 +94,10 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
     	
     	// Make sure we have an entry for our text
     	values.add(new String ("0"));
+    	
+    	// Extra stuff ...    	
+    	additional=new HoopKVString ("additional","");
+    	addVariable (additional);
     }
     /**
      * Notice that this is the only KV class that has a debug method. All
@@ -180,6 +186,13 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 		return (String) (values.get(anIndex));
 	}		
 	/**
+	 * Insert a new value and move all the other existing values down
+	 */
+	public void bump(String value) 
+	{				
+		values.set (0,value);
+	}	
+	/**
 	 *
 	 */
 	public void setValue(String value) 
@@ -257,6 +270,11 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 		formatter.append("Text: \n\n");
 		formatter.append(getValue());
 		
+		formatter.append("\n\n");
+		
+		formatter.append("Keywords: " + keywords.getValue() + "\n");
+		formatter.append("URL: " + url.getValue() + "\n");
+						
 		return (formatter.toString());
 	}
 }

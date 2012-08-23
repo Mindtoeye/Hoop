@@ -114,6 +114,13 @@ public class HoopKV extends HoopDataType implements HoopKVInterface, Serializabl
 		return (String) (values.get(anIndex));
 	}
 	/**
+	 * Insert a new value and move all the other existing values down
+	 */
+	public void bump(Object value) 
+	{				
+		values.set (0,value);
+	}			
+	/**
 	 *
 	 */
 	public void setValue(Object value, int anIndex) 
