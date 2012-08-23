@@ -33,9 +33,7 @@ import edu.cmu.cs.in.search.HoopDataSet;
 * 
 */
 public class HoopDocumentWriter extends HoopSaveBase
-{    			
-	//private HoopDataSet data=null;
-	
+{    				
 	@SuppressWarnings("unused")
 	private HoopStringSerializable author=null;
 	@SuppressWarnings("unused")

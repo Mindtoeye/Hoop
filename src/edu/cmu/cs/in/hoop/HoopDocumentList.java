@@ -22,6 +22,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Iterator;
 
 import javax.swing.Box;
@@ -44,7 +46,7 @@ import edu.cmu.cs.in.search.HoopDataSet;
  * @author vvelsen
  *
  */
-public class HoopDocumentList extends HoopEmbeddedJPanel implements ActionListener
+public class HoopDocumentList extends HoopEmbeddedJPanel implements ActionListener, MouseListener
 {	
 	private static final long serialVersionUID = 2319368351656283482L;
 	private JList docList=null;
@@ -151,6 +153,7 @@ public class HoopDocumentList extends HoopEmbeddedJPanel implements ActionListen
 	   		   	
 	   	docList=new JList ();	   	
 		docList.setCellRenderer (new HoopDocumentListRenderer ());
+		docList.addMouseListener(this);
 		
 	    JScrollPane docScrollList = new JScrollPane (docList);	   
 
@@ -242,5 +245,69 @@ public class HoopDocumentList extends HoopEmbeddedJPanel implements ActionListen
 		{
 			//updateContents();
 		}		
+	}
+	/**
+	 * 
+	 */
+	@Override
+	public void mouseClicked(MouseEvent event) 
+	{
+		debug ("mouseClicked ()");
+		
+		if (event.getClickCount()==2)
+		{
+            int index = docList.locationToIndex(event.getPoint());
+            
+            debug ("Double clicked on Item " + index);
+            
+            HoopKVDocument aDoc=(HoopKVDocument) docList.getModel().getElementAt(index);
+            
+            if (aDoc!=null)
+            {
+    			HoopTextViewer test=(HoopTextViewer) HoopLink.getWindow("Text Viewer");
+    			
+    			if (test==null)
+    			{
+    				HoopLink.addView ("Text Viewer",new HoopTextViewer(),HoopLink.center);
+    				test=(HoopTextViewer) HoopLink.getWindow("Text Viewer");
+    			}	
+    		    			
+    			test.showText(aDoc.toText ());
+    		
+    			HoopLink.popWindow ("Text Viewer");
+            }
+		}
+	}
+	/**
+	 * 
+	 */	
+	@Override
+	public void mouseEntered(MouseEvent arg0) 
+	{
+		
+	}
+	/**
+	 * 
+	 */	
+	@Override
+	public void mouseExited(MouseEvent arg0) 
+	{
+		
+	}
+	/**
+	 * 
+	 */	
+	@Override
+	public void mousePressed(MouseEvent arg0) 
+	{
+		
+	}
+	/**
+	 * 
+	 */	
+	@Override
+	public void mouseReleased(MouseEvent arg0) 
+	{
+		
 	}			
 }

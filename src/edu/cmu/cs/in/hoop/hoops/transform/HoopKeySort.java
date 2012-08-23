@@ -19,7 +19,7 @@
 package edu.cmu.cs.in.hoop.hoops.transform;
 
 import java.util.ArrayList;
-import java.util.Enumeration;
+//import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;

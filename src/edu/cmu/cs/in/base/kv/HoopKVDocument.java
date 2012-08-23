@@ -51,7 +51,7 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 	public HoopKVString keywords=null;
 	public HoopKVString url=null;
 	
-	private int abstrSize=50; // 50 characters for now, CHANGE THIS TO WHOLE TERMS!
+	private int abstrSize=250; // 250 characters for now, CHANGE THIS TO WHOLE TERMS!
 			
 	/**
 	 *
@@ -227,5 +227,26 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 				abstr.setValue(parser.getText());
 			}
 		}
+	}
+	/**
+	 * 
+	 */
+	public String toText ()
+	{
+		debug ("toText ()");
+		
+		StringBuffer formatter=new StringBuffer ();
+		
+		formatter.append("Title: " + title.getValue());
+
+		formatter.append("\n\n");
+		formatter.append("Abstract: \n\n");
+		formatter.append(abstr.getValue());
+		
+		formatter.append("\n\n");
+		formatter.append("Text: \n\n");
+		formatter.append(getValue());
+		
+		return (formatter.toString());
 	}
 }

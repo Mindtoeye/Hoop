@@ -37,6 +37,7 @@ import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
+import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.kv.HoopKVDocument;
 
 import edu.cmu.cs.in.controls.base.HoopJPanel;
@@ -82,6 +83,17 @@ public class HoopDocumentListRenderer extends HoopJPanel implements ListCellRend
 		buttonBox.add(docLabel);
 		buttonBox.add(Box.createHorizontalGlue());
 		
+		/*
+		linker=new JButton ();
+		linker.setIcon(HoopLink.getImageByName("preview.gif"));
+		linker.setFont(new Font("Dialog",1,8));
+		linker.setPreferredSize(new Dimension (18,18));
+		linker.setMaximumSize(new Dimension (18,18));
+		linker.addActionListener(this);
+		
+		buttonBox.add(linker);
+		*/
+		
 		text=new JTextArea ();
 		text.setLineWrap(true);
 		text.setWrapStyleWord(true);
@@ -122,7 +134,7 @@ public class HoopDocumentListRenderer extends HoopJPanel implements ListCellRend
 	 * 
 	 */
 	private void fixBorder (Boolean hasFocus)
-	{
+	{		
 		if (aDoc==null)
 		{
 			this.setBorder (BorderFactory.createTitledBorder (selectedBorder,
@@ -132,11 +144,16 @@ public class HoopDocumentListRenderer extends HoopJPanel implements ListCellRend
 															  new Font("Dialog", 1, 10)));
 			return;
 		}
+	
+		String fixedTitle=aDoc.title.getValue();
+
+		if (fixedTitle.length()>20)
+			fixedTitle=aDoc.title.getValue().substring(0,20)+"...";
 		
 		if (hasFocus)
 		{
 			this.setBorder (BorderFactory.createTitledBorder (border,
-															  aDoc.getDocID() +" : " + aDoc.title.getValue(),
+															  aDoc.getDocID() +" : " + fixedTitle,
 															  TitledBorder.LEFT, 
 															  TitledBorder.TOP,
 															  new Font("Dialog", 1, 10)));
@@ -144,7 +161,7 @@ public class HoopDocumentListRenderer extends HoopJPanel implements ListCellRend
 		else
 		{
 			this.setBorder (BorderFactory.createTitledBorder (selectedBorder,
-															  aDoc.getDocID() +" : " + aDoc.title.getValue(),
+															  aDoc.getDocID() +" : " + fixedTitle,
 															  TitledBorder.LEFT, 
 															  TitledBorder.TOP,
 															  new Font("Dialog", 1, 10)));			
@@ -166,7 +183,7 @@ public class HoopDocumentListRenderer extends HoopJPanel implements ListCellRend
 			
 			//HoopLemurDocument loader=new HoopLemurDocument ();
 			//loader.setDocID(aDoc.getDocID());
-			//loader.loadDocument();
+			//loader.loadDocument();			
 		}
 	}	
 }

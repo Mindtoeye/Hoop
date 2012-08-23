@@ -21,7 +21,7 @@ package edu.cmu.cs.in.base.kv;
 import java.io.Serializable;
 
 import edu.cmu.cs.in.base.HoopDataType;
-import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
+//import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 
 /**
 * Any data created by hoops (HoopBase) will use the KV object in some

@@ -64,6 +64,15 @@ public class HoopTextViewer extends HoopEmbeddedJPanel
 	/**
 	 * 
 	 */
+	public void showText (String aText)
+	{
+		debug ("showText ()");
+				
+		textViewer.setText(aText);
+	}	
+	/**
+	 * 
+	 */
 	public void showFile (HoopWrapperFile aFile)
 	{
 		debug ("showFile (HoopWrapperFile)");
