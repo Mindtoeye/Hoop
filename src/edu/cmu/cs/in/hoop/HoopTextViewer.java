@@ -69,6 +69,7 @@ public class HoopTextViewer extends HoopEmbeddedJPanel
 		debug ("showText ()");
 				
 		textViewer.setText(aText);
+		textViewer.setCaretPosition(0);
 	}	
 	/**
 	 * 
@@ -80,6 +81,7 @@ public class HoopTextViewer extends HoopEmbeddedJPanel
 		String text=HoopLink.fManager.loadContents(aFile.getFileURI());
 		
 		textViewer.setText(text);
+		textViewer.setCaretPosition(0);
 	}
 	/**
 	 * 
@@ -91,6 +93,7 @@ public class HoopTextViewer extends HoopEmbeddedJPanel
 		String text=HoopLink.fManager.loadContents(aFile);
 		
 		textViewer.setText(text);
+		textViewer.setCaretPosition(0);
 	}	
 	/**
 	 * When this method is called we should assume that we have to re-evaluate all existing hoop templates

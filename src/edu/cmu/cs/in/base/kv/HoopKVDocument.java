@@ -227,6 +227,11 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 				abstr.setValue(parser.getText());
 			}
 		}
+		
+		if (modifiedDate.getValue().isEmpty()==true)
+		{
+			modifiedDate.setValue(createDate.getValue());
+		}
 	}
 	/**
 	 * 
@@ -238,7 +243,12 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 		StringBuffer formatter=new StringBuffer ();
 		
 		formatter.append("Title: " + title.getValue());
-
+		
+		formatter.append("\n\n");
+		
+		formatter.append("Created: " + createDate.getValue ()+"\n");
+		formatter.append("Modified: " + modifiedDate.getValue ()+"\n");
+		
 		formatter.append("\n\n");
 		formatter.append("Abstract: \n\n");
 		formatter.append(abstr.getValue());

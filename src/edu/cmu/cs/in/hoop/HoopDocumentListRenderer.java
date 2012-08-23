@@ -22,27 +22,23 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ListCellRenderer;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.kv.HoopKVDocument;
-
 import edu.cmu.cs.in.controls.base.HoopJPanel;
   
-public class HoopDocumentListRenderer extends HoopJPanel implements ListCellRenderer, ActionListener
+public class HoopDocumentListRenderer extends HoopJPanel implements ListCellRenderer
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -50,9 +46,9 @@ public class HoopDocumentListRenderer extends HoopJPanel implements ListCellRend
 	
 	private JTextArea text=null;
 	private JLabel docLabel=null;
-	private JButton linker=null;
-	private Border border=null;
+	//private Border border=null;
 	private Border selectedBorder=null;
+	private Border defaultBorder=null;
 	
 	private int prefHeight=100;
 	
@@ -67,8 +63,9 @@ public class HoopDocumentListRenderer extends HoopJPanel implements ListCellRend
 		this.setOpaque(true);		
 		this.setBackground(new Color (0xF5F5E3));
 		
-		border=BorderFactory.createLineBorder(Color.black);		
+		//border=BorderFactory.createLineBorder(Color.black);		
 		selectedBorder=BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
+		defaultBorder=BorderFactory.createEtchedBorder(EtchedBorder.RAISED);
 		
 		this.setLayout(new BoxLayout (this,BoxLayout.Y_AXIS));
 		this.setMinimumSize(new Dimension (100,prefHeight));
@@ -77,31 +74,24 @@ public class HoopDocumentListRenderer extends HoopJPanel implements ListCellRend
 		Box buttonBox = new Box (BoxLayout.X_AXIS);
 		
 		docLabel=new JLabel ();
-		docLabel.setBorder(border);
+		//docLabel.setBorder(border);
 		docLabel.setFont(new Font("Dialog", 1, 10));
 		
 		buttonBox.add(docLabel);
 		buttonBox.add(Box.createHorizontalGlue());
-		
-		/*
-		linker=new JButton ();
-		linker.setIcon(HoopLink.getImageByName("preview.gif"));
-		linker.setFont(new Font("Dialog",1,8));
-		linker.setPreferredSize(new Dimension (18,18));
-		linker.setMaximumSize(new Dimension (18,18));
-		linker.addActionListener(this);
-		
-		buttonBox.add(linker);
-		*/
-		
+				
 		text=new JTextArea ();
 		text.setLineWrap(true);
-		text.setWrapStyleWord(true);
-		//text.setOpaque(true);		
-		text.setFont(new Font("Dialog", 1, 10));		
+		text.setWrapStyleWord(true);		
+		text.setFont(new Font("Dialog", 1, 10));
+		text.setEditable(false);
+		
+		JScrollPane scrollPane = new JScrollPane(text);
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
 		
 		this.add (buttonBox);
-		this.add (text);
+		this.add (scrollPane);
+		this.add (Box.createRigidArea(new Dimension(0,4)));
 	}
 	/**
 	 * 
@@ -117,27 +107,25 @@ public class HoopDocumentListRenderer extends HoopJPanel implements ListCellRend
 			debug ("Internal error: object is null");
 			return this;
 		}	
-		
-		setEnabled(listBox.isEnabled());
-
+	
 		aDoc=(HoopKVDocument) obj;
-		
+								
 		docLabel.setText("Rank: "+(aDoc.getRank()+1)+" Evaluation: " + aDoc.getScore());
 		
 		text.setText(aDoc.abstr.getValue());
-				
-		fixBorder (hasFocus);
+		
+		showSelection (hasFocus);
 
 		return this;
 	}
 	/**
 	 * 
 	 */
-	private void fixBorder (Boolean hasFocus)
+	private void showSelection (Boolean hasFocus)
 	{		
 		if (aDoc==null)
 		{
-			this.setBorder (BorderFactory.createTitledBorder (selectedBorder,
+			this.setBorder (BorderFactory.createTitledBorder (defaultBorder,
 															  "Document",
 															  TitledBorder.LEFT, 
 															  TitledBorder.TOP,
@@ -149,41 +137,26 @@ public class HoopDocumentListRenderer extends HoopJPanel implements ListCellRend
 
 		if (fixedTitle.length()>20)
 			fixedTitle=aDoc.title.getValue().substring(0,20)+"...";
-		
+				
 		if (hasFocus)
 		{
-			this.setBorder (BorderFactory.createTitledBorder (border,
-															  aDoc.getDocID() +" : " + fixedTitle,
+			text.setBackground(new Color (255,255,220));
+			this.setBorder (BorderFactory.createTitledBorder (defaultBorder,
+															  aDoc.getDocID() +" : " + fixedTitle,	
 															  TitledBorder.LEFT, 
 															  TitledBorder.TOP,
-															  new Font("Dialog", 1, 10)));
+															  new Font("Dialog", 1, 10))); 
 		}
 		else
 		{
+			text.setBackground(new Color (255,255,255));
 			this.setBorder (BorderFactory.createTitledBorder (selectedBorder,
-															  aDoc.getDocID() +" : " + fixedTitle,
+															  aDoc.getDocID() +" : " + fixedTitle,	
 															  TitledBorder.LEFT, 
 															  TitledBorder.TOP,
-															  new Font("Dialog", 1, 10)));			
+															  new Font("Dialog", 1, 10)));
 		}		
+		
+		text.setCaretPosition(0);
 	}
-	/**
-	 * 
-	 */	
-	@Override
-	public void actionPerformed(ActionEvent event) 
-	{
-		debug ("actionPerformed ()");
-		
-		JButton button = (JButton) event.getSource();
-		
-		if (button==linker)
-		{
-			debug ("Loading document ...");
-			
-			//HoopLemurDocument loader=new HoopLemurDocument ();
-			//loader.setDocID(aDoc.getDocID());
-			//loader.loadDocument();			
-		}
-	}	
 }

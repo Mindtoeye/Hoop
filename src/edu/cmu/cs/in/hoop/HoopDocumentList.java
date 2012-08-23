@@ -34,6 +34,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 
 import com.sleepycat.collections.StoredMap;
 
@@ -155,7 +156,8 @@ public class HoopDocumentList extends HoopEmbeddedJPanel implements ActionListen
 		docList.setCellRenderer (new HoopDocumentListRenderer ());
 		docList.addMouseListener(this);
 		
-	    JScrollPane docScrollList = new JScrollPane (docList);	   
+	    JScrollPane docScrollList = new JScrollPane (docList);
+	    docScrollList.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
 	    holder.add(buttonBox);
 	    holder.add (docScrollList);
