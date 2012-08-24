@@ -361,13 +361,15 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 		documentElement.addContent(urlElement);
 		
 		Element abstractElement=new Element ("abstract");
-		abstractElement.setText(abstr.getValue());
+		Element contentElement=new Element ("content");
+		contentElement.setText(abstr.getValue());
+		abstractElement.addContent(contentElement);
 		
 		for (int j=0;j<abstr.getValuesRaw().size();j++)
 		{
 			if (j>0)
 			{
-				Element altAbstractElement=new Element ("alternative");
+				Element altAbstractElement=new Element ("original");
 				altAbstractElement.setText(abstr.getValue(j));
 				abstractElement.addContent(altAbstractElement);
 			}
@@ -376,13 +378,15 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 		documentElement.addContent(abstractElement);				
 		
 		Element textElement=new Element ("text");
-		textElement.setText(this.getValue());
-		
+		Element contentTElement=new Element ("content");
+		contentTElement.setText(this.getValue());
+		textElement.addContent(contentTElement);
+				
 		for (int i=0;i<this.getValuesRaw().size();i++)
 		{
 			if (i>0)
 			{
-				Element altTextElement=new Element ("alternative");
+				Element altTextElement=new Element ("original");
 				altTextElement.setText(this.getValue(i));
 				textElement.addContent(altTextElement);
 			}

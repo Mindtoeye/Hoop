@@ -105,7 +105,13 @@ public class HoopXMLDocumentWriter extends HoopXMLWriter
 												
 				HoopKVString newKV=storeDocument (inHoop,aKV);
 				
-				HoopKVDocument newDocument=KVToDocument (inHoop,newKV);
+				HoopKVDocument newDocument=KVToDocument (newKV);
+				
+				Integer indexTransformer=t;
+				
+				newDocument.setKey(indexTransformer.toString());
+				
+				newDocument.postProcess();
 				
 				fileElement.addContent(newDocument.toXML());
 			}
@@ -125,7 +131,13 @@ public class HoopXMLDocumentWriter extends HoopXMLWriter
 				
 				HoopKVString newKV=storeDocument (inHoop,aKV);
 				
-				HoopKVDocument newDocument=KVToDocument (inHoop,newKV);
+				HoopKVDocument newDocument=KVToDocument (newKV);
+				
+				Integer indexTransformer=t;
+				
+				newDocument.setKey(indexTransformer.toString());
+				
+				newDocument.postProcess();
 				
 				fileElement.addContent(newDocument.toXML());
 								
@@ -160,26 +172,29 @@ public class HoopXMLDocumentWriter extends HoopXMLWriter
 			
 			newKV.setValue(aKV.getValueAsString(j),j);			
 		}				
-		
-		//postProcess (newKV);
-		
+				
 		return (newKV);
 	}
 	/**
 	 * 
 	 */
-	private HoopKVDocument KVToDocument (HoopBase inHoop,HoopKV aKV)
+	private HoopKVDocument KVToDocument (HoopKV aKV)
 	{
+		debug ("KVToDocument ()");
+		
 		HoopKVDocument newDocument=new HoopKVDocument ();
 		
 		ArrayList <Object> vals=aKV.getValuesRaw ();
 		
 		for (int j=0;j<vals.size();j++)
 		{
-			String aTypeName=inHoop.getKVTypeName (j);
+			String aTypeName=this.getKVTypeName (j);
 						
 			if (aTypeName.equalsIgnoreCase("author")==true)
 				newDocument.author.setValue((String) vals.get(j));
+			
+			if (aTypeName.equalsIgnoreCase("title")==true)
+				newDocument.title.setValue((String) vals.get(j));			
 			
 			if (aTypeName.equalsIgnoreCase("abstract")==true)
 				newDocument.abstr.setValue((String) vals.get(j));
@@ -192,15 +207,15 @@ public class HoopXMLDocumentWriter extends HoopXMLWriter
 			
 			if (aTypeName.equalsIgnoreCase("description")==true)
 				newDocument.description.setValue((String) vals.get(j));
-			
-			if (aTypeName.equalsIgnoreCase("text")==true)
-				newDocument.setValue((String) vals.get(j));
-			
+						
 			if (aTypeName.equalsIgnoreCase("keywords")==true)
 				newDocument.keywords.setValue((String) vals.get(j));
 			
 			if (aTypeName.equalsIgnoreCase("url")==true)
-				newDocument.url.setValue((String) vals.get(j));			
+				newDocument.url.setValue((String) vals.get(j));
+			
+			if (aTypeName.equalsIgnoreCase("text")==true)
+				newDocument.setValue((String) vals.get(j));			
 		}						
 		
 		return (newDocument);
@@ -224,31 +239,6 @@ public class HoopXMLDocumentWriter extends HoopXMLWriter
 						
 		return (aTypeName);
 	}
-	/**
-	 * 
-	 */
-	/*
-	private void postProcess (HoopKV aKV)
-	{
-		debug ("postProcess ()");
-		
-		HoopHTML2Text parser=new HoopHTML2Text ();
-			
-		String originalText=(String) getValueFromName (aKV,"text");
-		String abstrCleaned="";
-		
-		if (originalText!=null)
-		{			
-			parser.parse(originalText);
-			
-			abstrCleaned=parser.getText();
-			
-			setValueByName (aKV,abstrCleaned,"abstr");
-		}
-		else
-			debug ("Error: unable to find main text of document");		
-	}
-	*/
 	/**
 	 * 
 	 */
