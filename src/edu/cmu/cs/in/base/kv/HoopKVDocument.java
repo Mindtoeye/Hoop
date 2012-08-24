@@ -261,29 +261,7 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 	{
 		debug ("toText ()");
 		
-		StringBuffer formatter=new StringBuffer ();
-		
-		formatter.append("Title: " + title.getValue());
-		
-		formatter.append("\n\n");
-		
-		formatter.append("Created: " + createDate.getValue ()+"\n");
-		formatter.append("Modified: " + modifiedDate.getValue ()+"\n");
-		
-		formatter.append("\n\n");
-		formatter.append("Abstract: \n\n");
-		formatter.append(abstr.getValue());
-		
-		formatter.append("\n\n");
-		formatter.append("Text: \n\n");
-		formatter.append(getValue());
-		
-		formatter.append("\n\n");
-		
-		formatter.append("Keywords: " + keywords.getValue() + "\n");
-		formatter.append("URL: " + url.getValue() + "\n");
-						
-		return (formatter.toString());
+		return (toText (0));
 	}
 	/**
 	 * 

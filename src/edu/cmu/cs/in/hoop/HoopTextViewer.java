@@ -58,7 +58,7 @@ import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 import edu.cmu.cs.in.hoop.project.HoopWrapperFile;
 
 /**
- * 
+ * http://docs.oracle.com/javase/tutorial/uiswing/components/text.html
  */
 public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener, MouseInputListener, DocumentListener, FocusListener, ItemListener
 {	
@@ -71,8 +71,11 @@ public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener
 	
 	private JCheckBox wordWrap=null;
 	private JComboBox filterText=null;
+	private JComboBox renderType=null;
 	
 	private int fontSize=10;
+	
+	String[] renderTypes = { "TEXT", "HTML", "XML"};
 	
 	private HoopKVDocument internalDocument=null;
 	
@@ -126,6 +129,12 @@ public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener
 		filterText.setMaximumSize(new Dimension (150,20));
 		filterText.addActionListener(this);
 		
+		renderType=new JComboBox(renderTypes);
+		renderType.setFont(new Font("Courier",1,9));
+		renderType.setPreferredSize(new Dimension (150,20));
+		renderType.setMaximumSize(new Dimension (150,20));
+		renderType.addActionListener(this);		
+		
 		controlBox.add (inButton);
 		controlBox.add (Box.createRigidArea(new Dimension(2,0)));
 		controlBox.add (outButton);
@@ -133,6 +142,8 @@ public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener
 		controlBox.add (wordWrap);
 		controlBox.add (Box.createRigidArea(new Dimension(2,0)));
 		controlBox.add (filterText);
+		controlBox.add (Box.createRigidArea(new Dimension(2,0)));
+		controlBox.add (renderType);
 		controlBox.add (Box.createRigidArea(new Dimension(2,0)));		
 					
 		controlBox.add(Box.createHorizontalGlue());		
@@ -141,6 +152,7 @@ public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener
 		textViewer.setEditable(false);
 		textViewer.setFont(new Font("Dialog", 1, fontSize));
 		textViewer.getDocument().addDocumentListener (this);
+		textViewer.setMargin(new Insets(4,4,4,4)); 
 		
 		highlighter = textViewer.getHighlighter();
 
@@ -149,7 +161,8 @@ public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener
 		lines.setFont(new Font("Dialog", 1, fontSize));
 		lines.setEditable(false);
 		lines.addMouseListener(this);
-		lines.addFocusListener(this);		
+		lines.addFocusListener(this);
+		lines.setMargin(new Insets(4,4,4,4)); 
 		
 		JScrollPane scroller=new JScrollPane ();
 		scroller.getViewport().add(textViewer);
@@ -254,11 +267,23 @@ public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener
 		{
 		     JComboBox cb = (JComboBox) controlTest;
 		     
-		     String aChoice=(String)cb.getSelectedItem();
+		     if (cb==filterText)
+		     {
+		    	 String aChoice=(String)filterText.getSelectedItem();
 		     
-		     Integer newView=Integer.parseInt(aChoice);
+		    	 Integer newView=Integer.parseInt(aChoice);
+		    	 
+		    	 if (internalDocument!=null)
+		    	 {
+		    		 showText (internalDocument.toText (newView));
+		    	 }		    	 
+		     }
 		     
-		     
+		     if (cb==renderType)
+		     {
+		    	 //String aChoice=(String)renderType.getSelectedItem();
+		    	 
+		     }		     
 		}
 	}
 	/**
@@ -358,26 +383,13 @@ public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener
 		debug ("fillTextFilterCombo ()");
 		
 		filterText.removeAllItems();
-		//filterText.addItem ("ALL");
 		
 		for (int i=0;i<internalDocument.getValueSize ();i++)
 		{
 			Integer fauxLabel=i;
 			
 			filterText.addItem(fauxLabel.toString());
-		}
-		
-		/*
-		Enumeration<String> names; 
-		names = classTable.keys();
-		
-		while(names.hasMoreElements()) 
-		{
-			String str = (String) names.nextElement();
-			//System.out.println(str + ": " +	names.get(str));
-			filterClass.addItem (str);
-		}
-		*/
+		}	
 	}
 	/**
 	 * 
@@ -399,7 +411,6 @@ public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener
 	    	else
 	    	{
 	    		textViewer.setLineWrap (false);
-	    		//textViewer.setWrapStyleWord(false);
 	    	}
 	    }
 	}	
