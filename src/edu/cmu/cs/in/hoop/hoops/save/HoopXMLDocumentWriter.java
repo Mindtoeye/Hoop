@@ -23,8 +23,9 @@ import java.util.ArrayList;
 import org.jdom.Element;
 
 import edu.cmu.cs.in.base.HoopDataType;
-import edu.cmu.cs.in.base.HoopHTML2Text;
+//import edu.cmu.cs.in.base.HoopHTML2Text;
 import edu.cmu.cs.in.base.kv.HoopKV;
+import edu.cmu.cs.in.base.kv.HoopKVDocument;
 import edu.cmu.cs.in.base.kv.HoopKVString;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.properties.types.HoopSerializable;
@@ -102,7 +103,11 @@ public class HoopXMLDocumentWriter extends HoopXMLWriter
 			{
 				HoopKV aKV=inData.get(t);
 												
-				fileElement.addContent(kvToElement (inHoop,aKV));
+				HoopKVString newKV=storeDocument (inHoop,aKV);
+				
+				HoopKVDocument newDocument=KVToDocument (inHoop,newKV);
+				
+				fileElement.addContent(newDocument.toXML());
 			}
 			
 			return (saveXML (fileElement));	
@@ -120,7 +125,9 @@ public class HoopXMLDocumentWriter extends HoopXMLWriter
 				
 				HoopKVString newKV=storeDocument (inHoop,aKV);
 				
-				fileElement.addContent(kvToElement (inHoop,newKV));
+				HoopKVDocument newDocument=KVToDocument (inHoop,newKV);
+				
+				fileElement.addContent(newDocument.toXML());
 								
 				Boolean result=saveXML (fileElement,t);
 					
@@ -132,7 +139,8 @@ public class HoopXMLDocumentWriter extends HoopXMLWriter
 		return (true);	
 	}	
 	/**
-	 * 
+	 * Map the incoming KV types to document types and return
+	 * the new KV object
 	 */
 	private HoopKVString storeDocument (HoopBase inHoop,HoopKV aKV)
 	{
@@ -153,35 +161,49 @@ public class HoopXMLDocumentWriter extends HoopXMLWriter
 			newKV.setValue(aKV.getValueAsString(j),j);			
 		}				
 		
-		postProcess (newKV);
+		//postProcess (newKV);
 		
 		return (newKV);
 	}
 	/**
 	 * 
 	 */
-	private Element kvToElement (HoopBase inHoop,HoopKV aKV)
-	{		
-		debug ("kvToElement ()");
-		
-		Element documentElement=new Element ("document");
-		
-		Element keyElement=new Element ("key");
-		keyElement.setText(aKV.getKeyString());
-		documentElement.addContent(keyElement);
+	private HoopKVDocument KVToDocument (HoopBase inHoop,HoopKV aKV)
+	{
+		HoopKVDocument newDocument=new HoopKVDocument ();
 		
 		ArrayList <Object> vals=aKV.getValuesRaw ();
-						
+		
 		for (int j=0;j<vals.size();j++)
 		{
-			String aTypeName=this.getKVTypeName (j);
-														
-			Element subElement=new Element (aTypeName);
-			subElement.setText(aKV.getValueAsString(j));
-			documentElement.addContent(subElement);
-		}				
-				
-		return (documentElement);
+			String aTypeName=inHoop.getKVTypeName (j);
+						
+			if (aTypeName.equalsIgnoreCase("author")==true)
+				newDocument.author.setValue((String) vals.get(j));
+			
+			if (aTypeName.equalsIgnoreCase("abstract")==true)
+				newDocument.abstr.setValue((String) vals.get(j));
+			
+			if (aTypeName.equalsIgnoreCase("createDate")==true)
+				newDocument.createDate.setValue((String) vals.get(j));
+			
+			if (aTypeName.equalsIgnoreCase("modifiedDate")==true)
+				newDocument.modifiedDate.setValue((String) vals.get(j));
+			
+			if (aTypeName.equalsIgnoreCase("description")==true)
+				newDocument.description.setValue((String) vals.get(j));
+			
+			if (aTypeName.equalsIgnoreCase("text")==true)
+				newDocument.setValue((String) vals.get(j));
+			
+			if (aTypeName.equalsIgnoreCase("keywords")==true)
+				newDocument.keywords.setValue((String) vals.get(j));
+			
+			if (aTypeName.equalsIgnoreCase("url")==true)
+				newDocument.url.setValue((String) vals.get(j));			
+		}						
+		
+		return (newDocument);
 	}
 	/**
 	 * 
@@ -193,13 +215,9 @@ public class HoopXMLDocumentWriter extends HoopXMLWriter
 		for (int i=0;i<props.size();i++)
 		{
 			HoopSerializable aProp=props.get(i);
-			
-			//debug ("Comparing " + aProp.getValue() + " to " + aTypeName);
-			
+						
 			if (aProp.getValue().equalsIgnoreCase(aTypeName)==true)
-			{
-				//debug ("Mapped " + aTypeName + " to: " + aProp.getInstanceName());
-				
+			{				
 				return (aProp.getInstanceName());
 			}
 		}
@@ -209,6 +227,7 @@ public class HoopXMLDocumentWriter extends HoopXMLWriter
 	/**
 	 * 
 	 */
+	/*
 	private void postProcess (HoopKV aKV)
 	{
 		debug ("postProcess ()");
@@ -219,16 +238,7 @@ public class HoopXMLDocumentWriter extends HoopXMLWriter
 		String abstrCleaned="";
 		
 		if (originalText!=null)
-		{
-			/*
-			if (originalText.length()>abstrSize)
-			{
-				parser.parse(originalText.substring(0,abstrSize));
-			}	
-			else
-				parser.parse(originalText);
-			*/
-			
+		{			
 			parser.parse(originalText);
 			
 			abstrCleaned=parser.getText();
@@ -238,6 +248,7 @@ public class HoopXMLDocumentWriter extends HoopXMLWriter
 		else
 			debug ("Error: unable to find main text of document");		
 	}
+	*/
 	/**
 	 * 
 	 */

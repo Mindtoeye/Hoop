@@ -29,34 +29,62 @@ import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.MouseEvent;
+//import java.util.Enumeration;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JEditorPane;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+//import javax.swing.JEditorPane;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.event.MouseInputListener;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Element;
+import javax.swing.text.Highlighter;
 
 import edu.cmu.cs.in.base.HoopLink;
+import edu.cmu.cs.in.base.kv.HoopKVDocument;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 import edu.cmu.cs.in.hoop.project.HoopWrapperFile;
 
 /**
  * 
  */
-public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener
+public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener, MouseInputListener, DocumentListener, FocusListener, ItemListener
 {	
 	private static final long serialVersionUID = -1L;
-	private JEditorPane textViewer=null;
+	private JTextArea textViewer=null;
 	private JTextArea lines=null;
 	
 	private JButton inButton=null;
-	private JButton outButton=null;	
+	private JButton outButton=null;
+	
+	private JCheckBox wordWrap=null;
+	private JComboBox filterText=null;
 	
 	private int fontSize=10;
+	
+	private HoopKVDocument internalDocument=null;
+	
+	public class MyHighlighter extends DefaultHighlighter.DefaultHighlightPainter 
+	{
+		public MyHighlighter(Color c) 
+		{
+			super(c);
+		}
+	}	
+	
+	private Highlighter highlighter=null;
 	
 	/**
 	 * 
@@ -86,21 +114,42 @@ public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener
 		outButton.setPreferredSize(new Dimension (20,20));
 		outButton.addActionListener(this);		
 		
-		controlBox.add(inButton);
+		wordWrap=new JCheckBox ();
+		wordWrap.setText("Word Wrap");
+		wordWrap.setFont(new Font("Dialog",1,10));
+		wordWrap.setPreferredSize(new Dimension (100,20));
+		wordWrap.addItemListener(this);
+		
+		filterText=new JComboBox();
+		filterText.setFont(new Font("Courier",1,9));
+		filterText.setPreferredSize(new Dimension (150,20));
+		filterText.setMaximumSize(new Dimension (150,20));
+		filterText.addActionListener(this);
+		
+		controlBox.add (inButton);
 		controlBox.add (Box.createRigidArea(new Dimension(2,0)));
-		controlBox.add(outButton);
+		controlBox.add (outButton);
 		controlBox.add (Box.createRigidArea(new Dimension(2,0)));
-			
+		controlBox.add (wordWrap);
+		controlBox.add (Box.createRigidArea(new Dimension(2,0)));
+		controlBox.add (filterText);
+		controlBox.add (Box.createRigidArea(new Dimension(2,0)));		
+					
 		controlBox.add(Box.createHorizontalGlue());		
 									    
-		textViewer = new JEditorPane();
+		textViewer = new JTextArea();
 		textViewer.setEditable(false);
 		textViewer.setFont(new Font("Dialog", 1, fontSize));
+		textViewer.getDocument().addDocumentListener (this);
+		
+		highlighter = textViewer.getHighlighter();
 
 		lines = new JTextArea("1");		 
 		lines.setBackground(Color.LIGHT_GRAY);
 		lines.setFont(new Font("Dialog", 1, fontSize));
 		lines.setEditable(false);
+		lines.addMouseListener(this);
+		lines.addFocusListener(this);		
 		
 		JScrollPane scroller=new JScrollPane ();
 		scroller.getViewport().add(textViewer);
@@ -110,44 +159,19 @@ public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener
     	mainBox.add(controlBox);
     	mainBox.add(scroller);
 		
-		setContentPane (mainBox);
-		
-		textViewer.getDocument().addDocumentListener(new DocumentListener()
-		{
-			public String getText()
-			{
-				int caretPosition = textViewer.getDocument().getLength();
-				Element root = textViewer.getDocument().getDefaultRootElement();
-				String text = "1" + System.getProperty ("line.separator");
-				
-				for(int i = 2; i < root.getElementIndex( caretPosition ) + 2; i++)
-				{
-					text += i + System.getProperty("line.separator");
-				}
-				
-				return text;
-			}
-			
-			@Override
-			public void changedUpdate(DocumentEvent de) 
-			{
-				lines.setText(getText());
-			}
- 
-			@Override
-			public void insertUpdate(DocumentEvent de) 
-			{
-				lines.setText(getText());
-			}
- 
-			@Override
-			public void removeUpdate(DocumentEvent de) 
-			{
-				lines.setText(getText());
-			}
- 
-		});
+		setContentPane (mainBox);		
     }
+	/**
+	 * 
+	 */
+	public void showDocument (HoopKVDocument aDocument)
+	{
+		internalDocument=aDocument;
+		
+		showText (internalDocument.toText ());
+	
+		fillTextFilterCombo ();
+	}
 	/**
 	 * 
 	 */
@@ -197,29 +221,186 @@ public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener
 	{
 		debug ("actionPerformed ()");
 		
-		//String act=event.getActionCommand();
-		JButton button = (JButton) event.getSource();	
+		Object controlTest=event.getSource();
 		
-		if (button==inButton)
+		if (controlTest instanceof JButton)
 		{
-			fontSize++;
+			JButton button = (JButton) controlTest;	
+		
+			if (button==inButton)
+			{
+				fontSize++;
 			
-			if (fontSize>23)
-				fontSize=23;
+				if (fontSize>23)
+					fontSize=23;
 			
-			textViewer.setFont(new Font("Dialog", 1, fontSize));
-			lines.setFont(new Font("Dialog", 1, fontSize));
+				textViewer.setFont(new Font("Dialog", 1, fontSize));
+				lines.setFont(new Font("Dialog", 1, fontSize));
+			}
+		
+			if (button==outButton)
+			{
+				fontSize--;
+			
+				if (fontSize<1)
+					fontSize=1;
+			
+				textViewer.setFont(new Font("Dialog", 1, fontSize));
+				lines.setFont(new Font("Dialog", 1, fontSize));
+			}
 		}
 		
-		if (button==outButton)
+		if (controlTest instanceof JComboBox)
 		{
-			fontSize--;
+		     JComboBox cb = (JComboBox) controlTest;
+		     
+		     String aChoice=(String)cb.getSelectedItem();
+		     
+		     Integer newView=Integer.parseInt(aChoice);
+		     
+		     
+		}
+	}
+	/**
+	 * 
+	 */
+	public String getText()
+	{
+		int caretPosition = textViewer.getDocument().getLength();
+		
+		Element root = textViewer.getDocument().getDefaultRootElement();
+		
+		String text = "1" + System.getProperty ("line.separator");
+		
+		for (int i = 2; i < root.getElementIndex (caretPosition) + 2; i++)
+		{
+			text += i + System.getProperty("line.separator");
+		}
+		
+		return text;
+	}
+	/**
+	 * 
+	 */	
+	@Override
+	public void changedUpdate(DocumentEvent de) 
+	{
+		lines.setText(getText());
+	}
+	/**
+	 * 
+	 */
+	@Override
+	public void insertUpdate(DocumentEvent de) 
+	{
+		lines.setText(getText());
+	}
+	/**
+	 * 
+	 */
+	@Override
+	public void removeUpdate(DocumentEvent de) 
+	{
+		lines.setText(getText());
+	}
+	/**
+	 * 
+	 */
+	@Override
+	public void mouseClicked(MouseEvent me) 
+	{
+		debug ("mouseClicked ()");
+		
+		if(me.getClickCount() == 2)
+		{
+			try 
+			{
+				int caretPos = lines.getCaretPosition();
+				int lineOffset = lines.getLineOfOffset(caretPos);
+				
+				if(lines.getText().charAt(caretPos-1) == '\n')
+					lineOffset--;
+				
+				highlighter.addHighlight(textViewer.getLineStartOffset(lineOffset),
+										 textViewer.getLineEndOffset(lineOffset), 
+										 new MyHighlighter(Color.cyan));
+			} 
+			catch (BadLocationException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+	}
+	@Override
+	public void mouseEntered(MouseEvent arg0) {}
+	@Override
+	public void mouseExited(MouseEvent arg0) {}
+	@Override
+	public void mousePressed(MouseEvent arg0) {}
+	@Override
+	public void mouseReleased(MouseEvent arg0) {}
+	@Override
+	public void mouseDragged(MouseEvent arg0) {}
+	@Override
+	public void mouseMoved(MouseEvent arg0) {}
+	@Override
+	public void focusGained(FocusEvent e) {}
+	@Override
+	public void focusLost(FocusEvent e) 
+	{
+		highlighter.removeAllHighlights();		
+	}
+	/**
+	 * 
+	 */	
+	private void fillTextFilterCombo ()
+	{
+		debug ("fillTextFilterCombo ()");
+		
+		filterText.removeAllItems();
+		//filterText.addItem ("ALL");
+		
+		for (int i=0;i<internalDocument.getValueSize ();i++)
+		{
+			Integer fauxLabel=i;
 			
-			if (fontSize<1)
-				fontSize=1;
-			
-			textViewer.setFont(new Font("Dialog", 1, fontSize));
-			lines.setFont(new Font("Dialog", 1, fontSize));
-		}		
-	}	    
+			filterText.addItem(fauxLabel.toString());
+		}
+		
+		/*
+		Enumeration<String> names; 
+		names = classTable.keys();
+		
+		while(names.hasMoreElements()) 
+		{
+			String str = (String) names.nextElement();
+			//System.out.println(str + ": " +	names.get(str));
+			filterClass.addItem (str);
+		}
+		*/
+	}
+	/**
+	 * 
+	 */
+	@Override
+	public void itemStateChanged(ItemEvent e) 
+	{
+		debug ("itemStateChanged ()");
+		
+	    Object source = e.getItemSelectable();
+
+	    if (source == wordWrap) 
+	    {
+	    	if (wordWrap.isSelected()==true)
+	    	{
+	    		textViewer.setLineWrap (true);
+	    		textViewer.setWrapStyleWord(true);
+	    	}
+	    	else
+	    	{
+	    		textViewer.setLineWrap (false);
+	    		//textViewer.setWrapStyleWord(false);
+	    	}
+	    }
+	}	
 }

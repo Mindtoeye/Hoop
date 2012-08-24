@@ -274,7 +274,7 @@ public class HoopDocumentList extends HoopEmbeddedJPanel implements ActionListen
     				test=(HoopTextViewer) HoopLink.getWindow("Text Viewer");
     			}	
     		    			
-    			test.showText(aDoc.toText ());
+    			test.showDocument(aDoc);
     		
     			HoopLink.popWindow ("Text Viewer");
             }

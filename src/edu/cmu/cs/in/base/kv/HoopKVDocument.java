@@ -20,6 +20,8 @@ package edu.cmu.cs.in.base.kv;
 
 import java.io.Serializable;
 
+import org.jdom.Element;
+
 import edu.cmu.cs.in.base.HoopDataType;
 import edu.cmu.cs.in.base.HoopHTML2Text;
 import edu.cmu.cs.in.base.HoopRoot;
@@ -188,9 +190,13 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 	/**
 	 * Insert a new value and move all the other existing values down
 	 */
-	public void bump(String value) 
+	public void bump(String value,String aLabel) 
 	{				
-		values.set (0,value);
+		// PROCESS NEW LABEL AND MOVE THE OLD ONE UP!
+		
+		//String aLabel=getKVTypeValue (0);
+		
+		values.add (0,value);
 	}	
 	/**
 	 *
@@ -222,22 +228,24 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 	public void postProcess ()
 	{
 		debug ("postProcess ()");
+
+		HoopHTML2Text parser=new HoopHTML2Text ();
+		
+		parser.parse(this.getValue());
+		
+		String cleanText=parser.getText();
+		
+		this.bump(cleanText,"Cleaned");
 		
 		if (abstr.getValue().isEmpty()==true)
-		{
-			HoopHTML2Text parser=new HoopHTML2Text ();
-						
+		{						
 			if (this.getValue().length()>abstrSize)
 			{
-				parser.parse(this.getValue().substring(0,abstrSize));
-				
-				abstr.setValue(parser.getText());
+				abstr.setValue(cleanText.substring(0,abstrSize));
 			}
 			else
 			{
-				parser.parse(this.getValue());
-				
-				abstr.setValue(parser.getText());
+				abstr.setValue(cleanText);
 			}
 		}
 		
@@ -277,4 +285,111 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 						
 		return (formatter.toString());
 	}
+	/**
+	 * 
+	 */
+	public String toText (int perspIndex)
+	{
+		debug ("toText ("+perspIndex+")");
+		
+		StringBuffer formatter=new StringBuffer ();
+		
+		formatter.append("Title: " + title.getValue());
+		
+		formatter.append("\n\n");
+		
+		formatter.append("Created: " + createDate.getValue ()+"\n");
+		formatter.append("Modified: " + modifiedDate.getValue ()+"\n");
+		
+		formatter.append("\n\n");
+		formatter.append("Abstract: \n\n");
+		formatter.append(abstr.getValue());
+		
+		formatter.append("\n\n");
+		formatter.append("Text: \n\n");
+		formatter.append(getValue(perspIndex));
+		
+		formatter.append("\n\n");
+		
+		formatter.append("Keywords: " + keywords.getValue() + "\n");
+		formatter.append("URL: " + url.getValue() + "\n");
+						
+		return (formatter.toString());
+	}	
+	/**
+	 * 
+	 */
+	public void fromXML (Element aRoot)
+	{
+		
+	}
+	/**
+	 * 
+	 */
+	public Element toXML ()
+	{
+		debug ("toXML ()");
+		
+		Element documentElement=new Element ("document");
+		
+		Element keyElement=new Element ("key");
+		keyElement.setText(this.getKeyString());
+		documentElement.addContent(keyElement);
+				
+		Element titleElement=new Element ("title");
+		titleElement.setText(title.getValue());
+		documentElement.addContent(titleElement);
+		
+		Element descElement=new Element ("description");
+		descElement.setText(description.getValue());
+		documentElement.addContent(descElement);		
+		
+		Element createElement=new Element ("createDate");
+		createElement.setText(createDate.getValue());
+		documentElement.addContent(createElement);
+		
+		Element modifiedElement=new Element ("modifiedDate");
+		modifiedElement.setText(modifiedDate.getValue());
+		documentElement.addContent(modifiedElement);		
+						
+		Element keywordsElement=new Element ("keywords");
+		keywordsElement.setText(keywords.getValue());
+		documentElement.addContent(keywordsElement);
+		
+		Element urlElement=new Element ("url");
+		urlElement.setText(url.getValue());
+		documentElement.addContent(urlElement);
+		
+		Element abstractElement=new Element ("abstract");
+		abstractElement.setText(abstr.getValue());
+		
+		for (int j=0;j<abstr.getValuesRaw().size();j++)
+		{
+			if (j>0)
+			{
+				Element altAbstractElement=new Element ("alternative");
+				altAbstractElement.setText(abstr.getValue(j));
+				abstractElement.addContent(altAbstractElement);
+			}
+		}		
+		
+		documentElement.addContent(abstractElement);				
+		
+		Element textElement=new Element ("text");
+		textElement.setText(this.getValue());
+		
+		for (int i=0;i<this.getValuesRaw().size();i++)
+		{
+			if (i>0)
+			{
+				Element altTextElement=new Element ("alternative");
+				altTextElement.setText(this.getValue(i));
+				textElement.addContent(altTextElement);
+			}
+		}
+		
+		documentElement.addContent(textElement);
+		
+		return (documentElement);
+	}		
 }
