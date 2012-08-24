@@ -293,6 +293,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     {
     	JMenu views = new JMenu("Window");
 
+    	/*
     	JMenuItem documentItem = new JMenuItem("Document Viewer");
 
     	documentItem.addActionListener(new ActionListener() 
@@ -302,6 +303,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     			addView ("Document",new HoopDocumentViewer(),"right");
     		}
     	});
+    	*/
     	
     	JMenuItem documentListItem=new JMenuItem("Document Set Viewer");    	
     	
@@ -408,7 +410,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     	});      	
     	    	    	
     	views.add (sTextViewItem);
-    	views.add (documentItem);
+    	//views.add (documentItem);
     	views.add (documentListItem);
     	views.add (consoleItem);
     	views.add (errorItem);

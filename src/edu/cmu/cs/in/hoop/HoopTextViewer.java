@@ -41,16 +41,20 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JTextPane;
 //import javax.swing.JEditorPane;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
+import javax.swing.event.CaretEvent;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.MouseInputListener;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
+import javax.swing.text.Document;
 import javax.swing.text.Element;
 import javax.swing.text.Highlighter;
+import javax.swing.text.JTextComponent;
 
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.kv.HoopKVDocument;
@@ -63,7 +67,8 @@ import edu.cmu.cs.in.hoop.project.HoopWrapperFile;
 public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener, MouseInputListener, DocumentListener, FocusListener, ItemListener
 {	
 	private static final long serialVersionUID = -1L;
-	private JTextArea textViewer=null;
+	//private JTextArea textViewer=null;
+	private JTextPane textViewer=null;
 	private JTextArea lines=null;
 	
 	private JButton inButton=null;
@@ -75,7 +80,7 @@ public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener
 	
 	private int fontSize=10;
 	
-	String[] renderTypes = { "TEXT", "HTML", "XML"};
+	String[] renderTypes = { "TEXT", "HTML", "XML", "RTF"};
 	
 	private HoopKVDocument internalDocument=null;
 	
@@ -148,7 +153,8 @@ public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener
 					
 		controlBox.add(Box.createHorizontalGlue());		
 									    
-		textViewer = new JTextArea();
+		//textViewer = new JTextArea();
+		textViewer = new JTextPane();
 		textViewer.setEditable(false);
 		textViewer.setFont(new Font("Dialog", 1, fontSize));
 		textViewer.getDocument().addDocumentListener (this);
@@ -281,8 +287,21 @@ public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener
 		     
 		     if (cb==renderType)
 		     {
-		    	 //String aChoice=(String)renderType.getSelectedItem();
+		    	 String aChoice=(String)renderType.getSelectedItem();
 		    	 
+		    	 if (aChoice.equalsIgnoreCase("txt")==true)
+		    		 textViewer.setContentType("text/text");
+		    	 
+		    	 if (aChoice.equalsIgnoreCase("html")==true)
+		    		 textViewer.setContentType("text/html");
+		    	 
+		    	 if (aChoice.equalsIgnoreCase("rtf")==true)
+		    		 textViewer.setContentType("text/rtf");
+		    	 
+		    	 if (aChoice.equalsIgnoreCase("xml")==true)
+		    	 {
+		    		 
+		    	 }
 		     }		     
 		}
 	}
@@ -346,9 +365,15 @@ public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener
 				if(lines.getText().charAt(caretPos-1) == '\n')
 					lineOffset--;
 				
+				/*
 				highlighter.addHighlight(textViewer.getLineStartOffset(lineOffset),
 										 textViewer.getLineEndOffset(lineOffset), 
 										 new MyHighlighter(Color.cyan));
+				*/
+				
+				highlighter.addHighlight(getLineStartOffset(textViewer,lineOffset),
+						 				getLineEndOffset(textViewer,lineOffset), 
+						 				new MyHighlighter(Color.cyan));				
 			} 
 			catch (BadLocationException e) 
 			{
@@ -405,13 +430,96 @@ public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener
 	    {
 	    	if (wordWrap.isSelected()==true)
 	    	{
+	    		/*
 	    		textViewer.setLineWrap (true);
 	    		textViewer.setWrapStyleWord(true);
+	    		*/
 	    	}
 	    	else
 	    	{
+	    		/*
 	    		textViewer.setLineWrap (false);
+	    		*/
 	    	}
 	    }
+	}
+	/**
+	 * 
+	 * @param comp
+	 * @param offset
+	 * @return
+	 * @throws BadLocationException
+	 */
+	static int getLineEndOffset(JTextComponent comp, int offset) throws BadLocationException 
+	{
+	    Document doc = comp.getDocument();
+	    if (offset < 0) 
+	    {
+	        throw new BadLocationException("Can't translate offset to line", -1);
+	    } 
+	    else if (offset > doc.getLength()) 
+	    {
+	        throw new BadLocationException("Can't translate offset to line", doc.getLength() + 1);
+	    } 
+	    else 
+	    {
+	        Element map = doc.getDefaultRootElement();
+	        return map.getElementIndex(offset);
+	    }
+	}
+	/**
+	 * 
+	 * @param comp
+	 * @param line
+	 * @return
+	 * @throws BadLocationException
+	 */
+	static int getLineStartOffset(JTextComponent comp, int line) throws BadLocationException 
+	{
+	    Element map = comp.getDocument().getDefaultRootElement();
+	    
+	    if (line < 0) 
+	    {
+	        throw new BadLocationException("Negative line", -1);
+	    } 
+	    else if (line >= map.getElementCount()) 
+	    {
+	        throw new BadLocationException("No such line", comp.getDocument().getLength() + 1);
+	    } 
+	    else 
+	    {
+	        Element lineElem = map.getElement(line);
+	        return lineElem.getStartOffset();
+	    }
+	}
+	/**
+	 * 
+	 * @param e
+	 */
+	public void caretUpdate(CaretEvent e) 
+	{
+	    int dot = e.getDot();
+	    int line=0;
+	    int positionInLine=0;
+	    
+		try 
+		{
+			line = getLineEndOffset (textViewer, dot);
+		} 
+		catch (BadLocationException e1) 
+		{
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+	    try 
+	    {
+			positionInLine = dot - getLineStartOffset(textViewer, line);
+		}
+	    catch (BadLocationException e1) 
+	    {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}	
 }
