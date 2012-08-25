@@ -18,11 +18,14 @@
 
 package edu.cmu.cs.in.controls;
 
+import java.awt.Color;
 import java.awt.Dimension;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JComponent;
+import javax.swing.JScrollPane;
 
 import edu.cmu.cs.in.controls.base.HoopJPanel;
 
@@ -38,6 +41,9 @@ public class HoopButtonBox extends HoopJPanel
 
 	private int direction=HORIZONTAL;
 	
+	private Box buttonBox=null;
+	private JScrollPane scroller=null;
+	
 	/**
 	 * 
 	 */
@@ -46,7 +52,19 @@ public class HoopButtonBox extends HoopJPanel
 		setClassName ("HoopButtonBox");
 		debug ("HoopButtonBox ()");
 		
+		//this.setBorder (BorderFactory.createLineBorder(Color.red));		
 		this.setLayout(new BoxLayout (this,BoxLayout.X_AXIS));
+		
+		buttonBox=new Box (BoxLayout.X_AXIS);
+		buttonBox.add (Box.createHorizontalGlue());
+		
+		scroller=new JScrollPane (buttonBox);
+		//scroller.setBorder (BorderFactory.createLineBorder(Color.black));
+		scroller.setBorder(BorderFactory.createEmptyBorder());
+		scroller.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		scroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+		
+		this.add(scroller);
 	}
 	/**
 	 * 
@@ -57,9 +75,29 @@ public class HoopButtonBox extends HoopJPanel
 		debug ("HoopButtonBox ()");
 		
 		if (aDirection==HoopButtonBox.HORIZONTAL)
+		{
 			this.setLayout(new BoxLayout (this,BoxLayout.X_AXIS));
+			
+			buttonBox = new Box (BoxLayout.X_AXIS);
+			
+			buttonBox.add(Box.createHorizontalGlue());
+			
+			scroller=new JScrollPane (buttonBox);
+			
+			this.add(scroller);
+		}
 		else
-			this.setLayout(new BoxLayout (this,BoxLayout.Y_AXIS));
+		{
+			this.setLayout(new BoxLayout (this,BoxLayout.X_AXIS));
+			
+			buttonBox = new Box (BoxLayout.Y_AXIS);
+			
+			buttonBox.add(Box.createVerticalGlue());
+			
+			scroller=new JScrollPane (buttonBox);
+			
+			this.add(scroller);
+		}
 	}		
 	/**
 	 * 
@@ -82,11 +120,11 @@ public class HoopButtonBox extends HoopJPanel
 	{
 		debug ("addComponent ()");
 		
-		this.add(aComponent);
+		buttonBox.add(aComponent,buttonBox.getComponents().length-1);
 		
 		if (direction==HORIZONTAL)
-			this.add (Box.createRigidArea(new Dimension(0,2)));
+			buttonBox.add (Box.createRigidArea(new Dimension(2,0)),buttonBox.getComponents().length-1);
 		else
-			this.add (Box.createRigidArea(new Dimension(2,0)));		
+			buttonBox.add (Box.createRigidArea(new Dimension(0,2)),buttonBox.getComponents().length-1);		
 	}
 }

@@ -745,8 +745,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 	@Override
 	public void handleIncomingData(String data) 
 	{
-		// TODO Auto-generated method stub
-		
+		debug ("handleIncomingData ()");
 	}
 	/**
 	 *
@@ -754,7 +753,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 	@Override
 	public void handleConnectionClosed() 
 	{
-		// TODO Auto-generated method stub
+		debug ("handleConnectionClosed ()");
 		
 	}      
 	/**

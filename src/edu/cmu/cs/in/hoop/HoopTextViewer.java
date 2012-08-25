@@ -80,7 +80,7 @@ public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener
 	
 	private int fontSize=10;
 	
-	String[] renderTypes = { "TEXT", "HTML", "XML", "RTF"};
+	String[] renderTypes = { "TEXT", "HTML", "XML", "RTF", "TOKENS"};
 	
 	private HoopKVDocument internalDocument=null;
 	
@@ -302,6 +302,11 @@ public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener
 		    	 {
 		    		 
 		    	 }
+		    	 
+		    	 if (aChoice.equalsIgnoreCase("tokens")==true)
+		    	 {
+		    		 
+		    	 }		    	 
 		     }		     
 		}
 	}

@@ -52,6 +52,8 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 	public HoopKVString modifiedDate=null;
 	public HoopKVString keywords=null;
 	public HoopKVString url=null;
+	
+	public HoopKVString tokens=null;
 		
 	public HoopKVString additional=null; // Any other attributes that should be stored
 		
