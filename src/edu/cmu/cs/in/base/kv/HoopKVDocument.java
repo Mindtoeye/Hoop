@@ -53,7 +53,7 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 	public HoopKVString keywords=null;
 	public HoopKVString url=null;
 	
-	public HoopKVString tokens=null;
+	public HoopKVString tokens=null; // Tokenized version(s) of the text
 		
 	public HoopKVString additional=null; // Any other attributes that should be stored
 		
@@ -98,6 +98,9 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
     	
     	// Make sure we have an entry for our text
     	values.add(new String ("0"));
+    	
+    	tokens=new HoopKVString ("tokens","");
+    	addVariable (tokens);
     	
     	// Extra stuff ...    	
     	additional=new HoopKVString ("additional","");
@@ -296,6 +299,37 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 						
 		return (formatter.toString());
 	}	
+	/**
+	 * 
+	 */
+	public String toTokens ()
+	{
+		debug ("toTokens ()");
+		
+		StringBuffer formatter=new StringBuffer ();
+		
+		formatter.append("Title: " + title.getValue());
+		
+		formatter.append("\n\n");
+		
+		formatter.append("Created: " + createDate.getValue ()+"\n");
+		formatter.append("Modified: " + modifiedDate.getValue ()+"\n");
+		
+		formatter.append("\n\n");
+		formatter.append("Abstract: \n\n");
+		formatter.append(abstr.getValue());
+		
+		formatter.append("\n\n");
+		formatter.append("Text: \n\n");
+		formatter.append(getValue());
+		
+		formatter.append("\n\n");
+		
+		formatter.append("Keywords: " + keywords.getValue() + "\n");
+		formatter.append("URL: " + url.getValue() + "\n");
+						
+		return (formatter.toString());
+	}		
 	/**
 	 * 
 	 */

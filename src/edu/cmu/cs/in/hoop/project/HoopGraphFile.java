@@ -283,6 +283,7 @@ public class HoopGraphFile extends HoopProjectFile
 	 * 
 	 * @return
 	 */
+	/*
 	private Element connectionToXML (HoopBase from,HoopBase to)
 	{
 		Element cElement=new Element ("connection");
@@ -292,10 +293,12 @@ public class HoopGraphFile extends HoopProjectFile
 		cElement.setAttribute("to",to.getHoopID());	
 		
 		return (cElement);
-	}	
+	}
+	*/	
 	/**
 	 * This method will most likely go away when we explicitly model edges
 	 */
+	/*
 	private void buildConnectionList (Element aRoot,HoopBase aChecker)
 	{
 		debug ("toConnectionXML ()");
@@ -311,6 +314,7 @@ public class HoopGraphFile extends HoopProjectFile
 			buildConnectionList (aRoot,target);
 		}				
 	}
+	*/
 	/**
 	*
 	*/	
@@ -338,7 +342,15 @@ public class HoopGraphFile extends HoopProjectFile
 		
 		Element connElement=new Element ("connections");
 		hoopElement.addContent(connElement);
-				
+			
+		for (int t=0;t<connections.size();t++)
+		{
+			HoopConnection aConn=connections.get(t);
+			
+			connElement.addContent(connectionToXML (aConn));
+		}
+		
+		/*
 		if (graphRoot!=null)
 		{			
 			ArrayList<HoopBase> list=graphRoot.getOutHoops();
@@ -352,6 +364,7 @@ public class HoopGraphFile extends HoopProjectFile
 				buildConnectionList (connElement,target);
 			}
 		}
+		*/
 				
 		return (rootElement);
 	}

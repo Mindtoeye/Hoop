@@ -38,6 +38,7 @@ public class HoopKVClass extends HoopKV implements HoopKVInterface, Serializable
 	private static final long serialVersionUID = -562572734161851194L;
 	private String key="undefined";
 	private ArrayList<HoopKV> variables=null;
+	private ArrayList<String> primaryLabels=null;
 	
 	/**
 	 *
@@ -47,6 +48,7 @@ public class HoopKVClass extends HoopKV implements HoopKVInterface, Serializable
     	setType (HoopDataType.CLASS);
     	
     	variables=new ArrayList<HoopKV> ();
+    	primaryLabels=new ArrayList<String> ();
     }    
     /**
      * 
