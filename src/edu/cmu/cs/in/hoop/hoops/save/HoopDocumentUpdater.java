@@ -16,45 +16,59 @@
  * 
  */
 
-package edu.cmu.cs.in.hoop.hoops.load;
+package edu.cmu.cs.in.hoop.hoops.save;
+
+import java.util.ArrayList;
 
 import com.sleepycat.collections.StoredMap;
 
 import edu.cmu.cs.in.base.HoopLink;
+import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.base.kv.HoopKVDocument;
 import edu.cmu.cs.in.base.kv.HoopKVString;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
-import edu.cmu.cs.in.hoop.hoops.base.HoopFileLoadBase;
+import edu.cmu.cs.in.hoop.hoops.base.HoopSaveBase;
 import edu.cmu.cs.in.hoop.properties.types.HoopEnumSerializable;
+import edu.cmu.cs.in.hoop.properties.types.HoopSerializable;
+import edu.cmu.cs.in.hoop.properties.types.HoopStringSerializable;
 import edu.cmu.cs.in.search.HoopDataSet;
 
-public class HoopDocumentReader extends HoopFileLoadBase
-{
+/**
+* 
+*/
+public class HoopDocumentUpdater extends HoopSaveBase
+{    						
 	private HoopEnumSerializable selectedField=null;
 	
 	/**
 	 *
-	 */ 
-	public HoopDocumentReader () 
-	{		
-		setClassName ("HoopDocumentReader");
-		debug ("HoopDocumentReader ()");
-		
-		setHoopDescription ("Load KVs from Document DB");
+	 */
+    public HoopDocumentUpdater () 
+    {
+		setClassName ("HoopDocumentUpdater");
+		debug ("HoopDocumentUpdater ()");
+												
+		setHoopDescription ("Update Document Attributes from KVs");
 				
-		removeInPort ("KV");
-		
-		selectedField=new HoopEnumSerializable (this,"selectedField","title,author,abstr,text,createDate,modifiedDate,keywords,url,description");
-	}
+		selectedField=new HoopEnumSerializable (this,"selectedField","title,author,abstr,text,createDate,modifiedDate,keywords,url,description");		
+    }  
 	/**
 	 *
 	 */
 	public Boolean runHoop (HoopBase inHoop)
 	{		
 		debug ("runHoop ()");
-					
-		debug ("Mapping project path ("+getProjectPath ()+") to db dir ...");
 		
+		ArrayList <HoopKV> inData=inHoop.getData();
+		
+		if (inData==null)
+		{
+			this.setErrorString ("Error: no input data to work with");
+			return (false);
+		}		
+		
+		debug ("Mapping project path ("+getProjectPath ()+") to db dir ...");
+				
 		if (HoopLink.dataSet==null)
 		{
 			HoopLink.dataSet=new HoopDataSet ();
@@ -65,91 +79,67 @@ public class HoopDocumentReader extends HoopFileLoadBase
 		
 		StoredMap<String, HoopKVDocument> inp=HoopLink.dataSet.getData();
 		
-		for (int i=0;i<inp.size();i++)
+		for (int t=0;t<inData.size();t++)
 		{
-			Integer anInt=i;
+			HoopKV aKV=inData.get(t);
 			
-			String transformer=anInt.toString();
+			String aDocumentKey=aKV.getKeyString();
 			
-			HoopKVDocument aDocument=inp.get(transformer);
+			HoopKVDocument aDocument=inp.get(aDocumentKey);
 			
 			if (selectedField.getValue().equalsIgnoreCase("title")==true)
 			{
-				this.addKV(new HoopKVString (aDocument.getKeyString(),aDocument.title.getValue()));
+				aDocument.title.setValue((String) aKV.getValue());
 			}
 			
 			if (selectedField.getValue().equalsIgnoreCase("author")==true)
 			{
-				this.addKV(new HoopKVString (aDocument.getKeyString(),aDocument.author.getValue()));
+				aDocument.author.setValue((String) aKV.getValue());
 			}
 			
 			if (selectedField.getValue().equalsIgnoreCase("description")==true)
 			{
-				this.addKV(new HoopKVString (aDocument.getKeyString(),aDocument.description.getValue()));
+				aDocument.description.setValue((String) aKV.getValue());
 			}
 			
 			if (selectedField.getValue().equalsIgnoreCase("createDate")==true)
 			{
-				this.addKV(new HoopKVString (aDocument.getKeyString(),aDocument.createDate.getValue()));
+				aDocument.createDate.setValue((String) aKV.getValue());
 			}
 			
 			if (selectedField.getValue().equalsIgnoreCase("modifiedDate")==true)
 			{
-				this.addKV(new HoopKVString (aDocument.getKeyString(),aDocument.modifiedDate.getValue()));
+				aDocument.modifiedDate.setValue((String) aKV.getValue());
 			}
 			
 			if (selectedField.getValue().equalsIgnoreCase("text")==true)
 			{
-				HoopKVString textContent=new HoopKVString (aDocument.getKeyString(),aDocument.getValue());
-				
-				// Copy all other versions of the text into the new document (if available)
-				
-				for (int j=0;j<aDocument.getValuesRaw().size();j++)
-				{
-					if (j>0)
-					{
-						textContent.setValue(aDocument.getValue(j),j);
-					}
-				}
-				
-				this.addKV(textContent);
+				aDocument.bump((String) aKV.getValue(),"transformed");
 			}
 			
 			if (selectedField.getValue().equalsIgnoreCase("abstr")==true)
 			{
-				HoopKVString textContent=new HoopKVString (aDocument.abstr.getKeyString(),aDocument.getValue());
-				
-				// Copy all other versions of the abstract into the new document (if available)
-				
-				for (int j=0;j<aDocument.abstr.getValuesRaw().size();j++)
-				{
-					if (j>0)
-					{
-						textContent.setValue(aDocument.abstr.getValue(j),j);
-					}
-				}
-				
-				this.addKV(textContent);
+				aDocument.abstr.setValue((String) aKV.getValue());
 			}	
 			
 			if (selectedField.getValue().equalsIgnoreCase("keywords")==true)
 			{
-				this.addKV(new HoopKVString (aDocument.getKeyString(),aDocument.keywords.getValue()));
+				aDocument.keywords.setValue((String) aKV.getValue());
 			}
 			
 			if (selectedField.getValue().equalsIgnoreCase("url")==true)
 			{
-				this.addKV(new HoopKVString (aDocument.getKeyString(),aDocument.url.getValue()));
+				aDocument.url.setValue((String) aKV.getValue());
 			}			
-		}
-						
+		}			
+				
 		return (true);
-	}	
+	}		
 	/**
 	 * 
 	 */
 	public HoopBase copy ()
 	{
-		return (new HoopDocumentReader ());
-	}	
+		return (new HoopDocumentUpdater ());
+	}		
 }

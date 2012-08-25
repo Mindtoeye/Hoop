@@ -36,6 +36,7 @@ import edu.cmu.cs.in.hoop.hoops.load.HoopURLReader;
 import edu.cmu.cs.in.hoop.hoops.save.HoopArffWriter;
 import edu.cmu.cs.in.hoop.hoops.save.HoopBerkeleyDBWriter;
 import edu.cmu.cs.in.hoop.hoops.save.HoopCSVWriter;
+import edu.cmu.cs.in.hoop.hoops.save.HoopDocumentUpdater;
 import edu.cmu.cs.in.hoop.hoops.save.HoopDocumentWriter;
 import edu.cmu.cs.in.hoop.hoops.save.HoopStdout;
 import edu.cmu.cs.in.hoop.hoops.save.HoopTextFileSave;
@@ -205,5 +206,6 @@ public class HoopManager extends HoopBase
     	addTemplate (new HoopMap2Document ());
     	addTemplate (new HoopDocumentReader ());
     	addTemplate (new HoopDocumentWriter ());
+    	addTemplate (new HoopDocumentUpdater ());
     }
 }

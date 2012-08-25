@@ -60,6 +60,7 @@ public class HoopDocumentList extends HoopEmbeddedJPanel implements ActionListen
     private JButton configureButton=null;
     
     private JButton prevButton=null;
+    private JTextField startIndex=null;
     private JTextField windowSize=null;
     private JButton nextButton=null;
     
@@ -67,7 +68,8 @@ public class HoopDocumentList extends HoopEmbeddedJPanel implements ActionListen
     
     private HoopButtonBox buttonBox=null;
 	
-    private int maxShown=20;
+    private Integer start=0;
+    private Integer maxShown=20;
     
 	/**
 	 * Constructs a new frame that is initially invisible.
@@ -79,40 +81,27 @@ public class HoopDocumentList extends HoopEmbeddedJPanel implements ActionListen
 		
 	   	Box holder = new Box (BoxLayout.Y_AXIS);
 	   		   	
-	   	//Box stupidBox=new Box (BoxLayout.X_AXIS);
-	   	//stupidBox.setMinimumSize(new Dimension (100,24));
-	   	//stupidBox.setPreferredSize(new Dimension (200,24));
-	   	
-	    //Box buttonBox = new Box (BoxLayout.X_AXIS);
 	   	buttonBox=new HoopButtonBox ();
 	   	buttonBox.setMinimumSize(new Dimension (100,24));
 	   	buttonBox.setPreferredSize(new Dimension (200,24));
 	   	buttonBox.setMaximumSize(new Dimension (2000,24));
-	   	
-	   	//stupidBox.add(buttonBox);
-	    
+	   		    
 	    expandButton=new JButton ();
 	    expandButton.setFont(new Font("Dialog", 1, 8));
 	    expandButton.setPreferredSize(new Dimension (20,20));
 	    expandButton.setMaximumSize(new Dimension (20,20));
-	    //expandButton.setText("All");
 	    expandButton.setIcon(HoopLink.getImageByName("tree-expand-icon.png"));
 	    expandButton.addActionListener(this);
 
 	    buttonBox.addComponent(expandButton);
-	    //buttonBox.add (expandButton);
-	    //buttonBox.add (Box.createRigidArea(new Dimension(2,0)));
 	    
 	    foldButton=new JButton ();
 	    foldButton.setFont(new Font("Dialog", 1, 8));
 	    foldButton.setPreferredSize(new Dimension (20,20));
 	    foldButton.setMaximumSize(new Dimension (20,20));
 	    foldButton.setIcon(HoopLink.getImageByName("tree-fold-icon.png"));
-	    //foldButton.setText("None");
 	    foldButton.addActionListener(this);
 	    
-	    //buttonBox.add (foldButton);
-	    //buttonBox.add (Box.createRigidArea(new Dimension(2,0)));
 	    buttonBox.addComponent(foldButton);
 	    
 	    refreshButton=new JButton ();
@@ -122,8 +111,6 @@ public class HoopDocumentList extends HoopEmbeddedJPanel implements ActionListen
 	    refreshButton.setIcon(HoopLink.getImageByName("gtk-refresh.png"));
 	    refreshButton.addActionListener(this);
 	    	    
-	    //buttonBox.add (refreshButton);
-	    //buttonBox.add (Box.createRigidArea(new Dimension(2,0)));
 	    buttonBox.addComponent(refreshButton);
 	    
 	    configureButton=new JButton ();
@@ -133,8 +120,6 @@ public class HoopDocumentList extends HoopEmbeddedJPanel implements ActionListen
 	    configureButton.setIcon(HoopLink.getImageByName("gtk-preferences.png"));
 	    configureButton.addActionListener(this);
 	    	    
-	    //buttonBox.add (configureButton);
-	    //buttonBox.add (Box.createRigidArea(new Dimension(2,0)));
 	    buttonBox.addComponent(configureButton);	    
 	    	    
 	    prevButton=new JButton ();
@@ -143,17 +128,34 @@ public class HoopDocumentList extends HoopEmbeddedJPanel implements ActionListen
 	    prevButton.setIcon(HoopLink.getImageByName("gtk-go-back-ltr.png"));
 	    prevButton.addActionListener(this);
 	    
-	    //buttonBox.add (prevButton);
-	    //buttonBox.add (Box.createRigidArea(new Dimension(2,0)));
 	    buttonBox.addComponent(prevButton);
 	    
+	    JLabel startLabel=new JLabel ();
+	    startLabel.setFont(new Font("Dialog", 1, 8));
+	    startLabel.setText("From: ");
+	    
+	    buttonBox.addComponent(startLabel);
+	    
+	    startIndex=new JTextField ();
+	    startIndex.setText(start.toString());
+	    startIndex.setFont(new Font("Dialog", 1, 8));
+	    startIndex.setPreferredSize(new Dimension (50,20));
+	    startIndex.setMaximumSize(new Dimension (50,20));	    
+	    
+	    buttonBox.addComponent(startIndex);
+	    
+	    JLabel withLabel=new JLabel ();
+	    withLabel.setFont(new Font("Dialog", 1, 8));
+	    withLabel.setText("show: ");
+	    
+	    buttonBox.addComponent(withLabel);	    
+	    
 	    windowSize=new JTextField ();
+	    windowSize.setText(maxShown.toString());
 	    windowSize.setFont(new Font("Dialog", 1, 8));
 	    windowSize.setPreferredSize(new Dimension (50,20));
 	    windowSize.setMaximumSize(new Dimension (50,20));
 	    
-	    //buttonBox.add (windowSize);
-	    //buttonBox.add (Box.createRigidArea(new Dimension(2,0)));
 	    buttonBox.addComponent(windowSize);
 	    
 	    nextButton=new JButton ();
@@ -162,19 +164,13 @@ public class HoopDocumentList extends HoopEmbeddedJPanel implements ActionListen
 	    nextButton.setIcon(HoopLink.getImageByName("gtk-go-forward-ltr.png"));
 	    nextButton.addActionListener(this);
 	    
-	    //buttonBox.add (nextButton);
-	    //buttonBox.add (Box.createRigidArea(new Dimension(2,0)));
 	    buttonBox.addComponent(nextButton);
 	    
 	    dbInfo=new JLabel ();
 	    dbInfo.setFont(new Font("Dialog", 1, 8));
-	    //buttonBox.add(dbInfo);
 	    	
 	    buttonBox.addComponent(dbInfo);
-	    
-	    //buttonBox.add(Box.createHorizontalGlue());
-	    //buttonBox.addComponent(Box.createHorizontalGlue());
-	   		   	
+	    	   		   	
 	   	docList=new JList ();	   	
 		docList.setCellRenderer (new HoopDocumentListRenderer ());
 		docList.addMouseListener(this);
@@ -182,8 +178,7 @@ public class HoopDocumentList extends HoopEmbeddedJPanel implements ActionListen
 	    JScrollPane docScrollList = new JScrollPane (docList);
 	    docScrollList.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
-	    holder.add (buttonBox);
-	    //holder.add (stupidBox);
+	    holder.add (buttonBox);	   
 	    holder.add (docScrollList);
 	   	
 		setContentPane (holder);
