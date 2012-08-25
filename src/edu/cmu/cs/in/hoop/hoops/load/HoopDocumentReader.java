@@ -44,7 +44,7 @@ public class HoopDocumentReader extends HoopFileLoadBase
 				
 		removeInPort ("KV");
 		
-		selectedField=new HoopEnumSerializable (this,"selectedField","title,author,abstr,text,createDate,modifiedDate,keywords,url,description");
+		selectedField=new HoopEnumSerializable (this,"selectedField","title,author,abstr,text,createDate,modifiedDate,keywords,url,description,tokens");
 	}
 	/**
 	 *

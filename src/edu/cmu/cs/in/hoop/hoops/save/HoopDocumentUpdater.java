@@ -25,12 +25,9 @@ import com.sleepycat.collections.StoredMap;
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.base.kv.HoopKVDocument;
-import edu.cmu.cs.in.base.kv.HoopKVString;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopSaveBase;
 import edu.cmu.cs.in.hoop.properties.types.HoopEnumSerializable;
-import edu.cmu.cs.in.hoop.properties.types.HoopSerializable;
-import edu.cmu.cs.in.hoop.properties.types.HoopStringSerializable;
 import edu.cmu.cs.in.search.HoopDataSet;
 
 /**
@@ -50,7 +47,7 @@ public class HoopDocumentUpdater extends HoopSaveBase
 												
 		setHoopDescription ("Update Document Attributes from KVs");
 				
-		selectedField=new HoopEnumSerializable (this,"selectedField","title,author,abstr,text,createDate,modifiedDate,keywords,url,description");		
+		selectedField=new HoopEnumSerializable (this,"selectedField","title,author,abstr,text,createDate,modifiedDate,keywords,url,description,tokens");		
     }  
 	/**
 	 *
@@ -130,6 +127,11 @@ public class HoopDocumentUpdater extends HoopSaveBase
 			if (selectedField.getValue().equalsIgnoreCase("url")==true)
 			{
 				aDocument.url.setValue((String) aKV.getValue());
+			}
+			
+			if (selectedField.getValue().equalsIgnoreCase("tokens")==true)
+			{
+				// ????
 			}			
 		}			
 				
