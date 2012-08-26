@@ -37,6 +37,28 @@ import edu.cmu.cs.in.base.HoopRoot;
  * abstract class. For now this should suffice but we might have to derive 
  * from the KV Table instead to allow for better data modeling.
  * 
+ * try 
+ * {
+ *     	// Some examples
+ *     	DateFormat formatter = new SimpleDateFormat("MM/dd/yy");
+ *     	Date date = (Date)formatter.parse("01/29/02");
+ * 
+ *     	formatter = new SimpleDateFormat("dd-MMM-yy");
+ *     	date = (Date)formatter.parse("29-Jan-02");
+ * 
+ *     	// Parse a date and time; see also
+ *     	// Parsing the Time Using a Custom Format
+ *     	formatter = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
+ *     	date = (Date)formatter.parse("2002.01.29.08.36.33");
+ * 
+ *     	formatter = new SimpleDateFormat("E, dd MMM yyyy HH:mm:ss Z");
+ *     	date = (Date)formatter.parse("Tue, 29 Jan 2002 22:14:02 -0500");
+ * 	} 
+ * 	catch (ParseException e) 
+ * 	{
+ * 	
+ * 	}
+ * 
  */
 public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Serializable
 {    						
@@ -48,8 +70,11 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 	public HoopKVString author=null;	
 	public HoopKVString title=null;
 	public HoopKVString abstr=null;
+	
+	public HoopKVString dateFormat=null;
 	public HoopKVString createDate=null;
 	public HoopKVString modifiedDate=null;
+	
 	public HoopKVString keywords=null;
 	public HoopKVString url=null;
 	
@@ -77,6 +102,9 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
        	
     	abstr=new HoopKVString ("abstr","");
     	addVariable (abstr);
+    	
+    	dateFormat=new HoopKVString ("dateFormat","yyyy-MM-dd HH:mm:ss.S");
+    	addVariable (dateFormat);
     	
     	createDate=new HoopKVString ("createDate","");
     	addVariable (createDate);

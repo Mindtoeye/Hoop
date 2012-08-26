@@ -43,7 +43,9 @@ public class HoopKeySort extends HoopTransformBase implements HoopInterface
 		setClassName ("HoopKeySort");
 		debug ("HoopKeySort ()");
 				
-		setHoopDescription ("Sort the keys into a new order");		
+		setHoopDescription ("Sort entries by key");		
+		
+		this.reKey.setEnabled(false);
     }
 	/**
 	 * http://mrtextminer.wordpress.com/2007/09/14/java-hashtable-sorted-by-values/

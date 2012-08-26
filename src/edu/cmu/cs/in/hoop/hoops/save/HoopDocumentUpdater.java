@@ -131,7 +131,13 @@ public class HoopDocumentUpdater extends HoopSaveBase
 			
 			if (selectedField.getValue().equalsIgnoreCase("tokens")==true)
 			{
-				// ????
+				// Copy all tokens from the incoming KV to the token field
+				// in the document
+				
+				for (int i=0;i<aKV.getValuesRaw().size();i++)
+				{
+					aDocument.tokens.setValue(aKV.getValue(i),i);
+				}
 			}			
 		}			
 				

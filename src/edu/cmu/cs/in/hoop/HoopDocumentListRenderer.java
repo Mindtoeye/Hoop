@@ -35,6 +35,7 @@ import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
+import edu.cmu.cs.in.base.HoopDateTools;
 import edu.cmu.cs.in.base.kv.HoopKVDocument;
 import edu.cmu.cs.in.controls.base.HoopJPanel;
   
@@ -49,8 +50,9 @@ public class HoopDocumentListRenderer extends HoopJPanel implements ListCellRend
 	//private Border border=null;
 	private Border selectedBorder=null;
 	private Border defaultBorder=null;
+	private HoopDateTools dTools=null;
 	
-	private int prefHeight=100;
+	private int prefHeight=120;
 	
 	/**
 	 * 
@@ -59,7 +61,7 @@ public class HoopDocumentListRenderer extends HoopJPanel implements ListCellRend
 	{		
 		setClassName ("HoopDocumentListRenderer");
 		debug ("HoopDocumentListRenderer ()");
-		
+				
 		this.setOpaque(true);		
 		this.setBackground(new Color (0xF5F5E3));
 		
@@ -110,7 +112,21 @@ public class HoopDocumentListRenderer extends HoopJPanel implements ListCellRend
 	
 		aDoc=(HoopKVDocument) obj;
 								
-		docLabel.setText("Rank: "+(aDoc.getRank()+1)+" Evaluation: " + aDoc.getScore());
+		docLabel.setText("Rank: "+(aDoc.getRank()+1)+" Evaluation: " + aDoc.getScore() + " | " + aDoc.createDate.getValue());
+		
+		/*
+		Long timeStamp=(long) -1;
+		
+		if ((dTools==null) && (aDoc.dateFormat!=null))
+		{
+			dTools=new HoopDateTools ();
+			dTools.setDateFormat(aDoc.dateFormat.getValue()); // This way we only do it once
+		}
+
+		timeStamp=dTools.StringToDate(aDoc.createDate.getValue());
+					
+		text.setText(timeStamp.toString() + " - " + aDoc.abstr.getValue());
+		*/
 		
 		text.setText(aDoc.abstr.getValue());
 		
