@@ -40,6 +40,8 @@ public class HoopDocumentWriter extends HoopSaveBase
 	private HoopStringSerializable title=null;
 	@SuppressWarnings("unused")
 	private HoopStringSerializable abstr=null;
+	//@SuppressWarnings("unused")
+	private HoopStringSerializable dateFormat=null;	
 	@SuppressWarnings("unused")
 	private HoopStringSerializable createDate=null;
 	@SuppressWarnings("unused")
@@ -66,6 +68,7 @@ public class HoopDocumentWriter extends HoopSaveBase
 		author=new HoopStringSerializable (this,"author","author");
 		title=new HoopStringSerializable (this,"title","title");
 		abstr=new HoopStringSerializable (this,"abstr","abstr");
+		dateFormat=new HoopStringSerializable (this,"dateFormat","yyyy-MM-dd HH:mm:ss.S");
 		createDate=new HoopStringSerializable (this,"createDate","date created");
 		modifiedDate=new HoopStringSerializable (this,"modifiedDate","date modified");
 		description=new HoopStringSerializable (this,"description","description");
@@ -123,9 +126,10 @@ public class HoopDocumentWriter extends HoopSaveBase
 			
 			HoopKVDocument newDocument=new HoopKVDocument ();
 			
-			Integer indexTransformer=t;
+			//Integer indexTransformer=t;
 			
-			newDocument.setKey(indexTransformer.toString());
+			//newDocument.setKey(indexTransformer.toString());
+			newDocument.setKey((long) t);
 			
 			ArrayList <Object>docElements=aKV.getValuesRaw();
 			
@@ -143,6 +147,8 @@ public class HoopDocumentWriter extends HoopSaveBase
 				
 				if (remapped.equalsIgnoreCase("abstr")==true)
 					newDocument.abstr.setValue((String) docElements.get(i));
+				
+				newDocument.dateFormat.setValue(this.dateFormat.getPropValue());
 				
 				if (remapped.equalsIgnoreCase("createDate")==true)
 					newDocument.createDate.setValue((String) docElements.get(i));
@@ -165,7 +171,8 @@ public class HoopDocumentWriter extends HoopSaveBase
 			
 			newDocument.postProcess();
 			
-			HoopLink.dataSet.getData().put(indexTransformer.toString(),newDocument);
+			//HoopLink.dataSet.getData().put(indexTransformer.toString(),newDocument);
+			HoopLink.dataSet.getData().put((long) t,newDocument);
 		}			
 				
 		return (true);

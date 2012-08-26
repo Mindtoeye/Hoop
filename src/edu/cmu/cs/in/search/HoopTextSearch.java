@@ -169,7 +169,8 @@ public class HoopTextSearch extends HoopRoot
 			HoopPositionEntry entry=docIDs.get(i);
 			
 			HoopDocument newDocument=new HoopDocument ();
-			newDocument.setDocID(String.format("%d",entry.getDocID()));
+			//newDocument.setDocID(String.format("%d",entry.getDocID()));
+			newDocument.setKey(entry.getDocID());
 			newDocument.setRank(i);				
 			newDocument.setScore(entry.getEvaluation());
 			

@@ -49,7 +49,7 @@ import java.util.Date;
  */
 public class HoopDateTools extends HoopRoot
 {
-	private String dateFormat="yyyy.MM.dd HH.mm.ss";
+	private String dateFormat="yyyy-MM-dd HH:mm:ss.S";
 	
 	/**
 	 * 

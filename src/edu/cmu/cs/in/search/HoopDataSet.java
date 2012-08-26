@@ -21,7 +21,8 @@ package edu.cmu.cs.in.search;
 import java.io.File;
 
 import com.sleepycat.bind.serial.SerialBinding;
-import com.sleepycat.bind.tuple.StringBinding;
+import com.sleepycat.bind.tuple.LongBinding;
+//import com.sleepycat.bind.tuple.StringBinding;
 import com.sleepycat.collections.StoredMap;
 
 import edu.cmu.cs.in.base.HoopRoot;
@@ -39,7 +40,7 @@ public class HoopDataSet extends HoopRoot
 {	
 	private HoopBerkeleyDB driver=null;
 	private HoopBerkeleyDocumentDB documentDriver=null;
-    private StoredMap<String,HoopKVDocument> map=null;
+    private StoredMap<Long,HoopKVDocument> map=null;
 	
 	/**
 	 *
@@ -52,7 +53,7 @@ public class HoopDataSet extends HoopRoot
     /**
      * 
      */
-    public StoredMap<String,HoopKVDocument> getData ()
+    public StoredMap<Long,HoopKVDocument> getData ()
     {
     	return (map);
     }
@@ -66,9 +67,9 @@ public class HoopDataSet extends HoopRoot
 			return;
 		}
 
-		Integer indexString=map.size();
+		Long aSize=(long) map.size();
 		
-		map.put(indexString.toString(),anInstance);
+		map.put(aSize,anInstance);
 	}
 	/**
 	 * 
@@ -121,11 +122,12 @@ public class HoopDataSet extends HoopRoot
 				return;
 			}
 			
-			StringBinding keyBinding = new StringBinding();
+			//StringBinding keyBinding = new StringBinding();
+			LongBinding keyBinding = new LongBinding();
 			SerialBinding <HoopKVDocument> dataBinding=new SerialBinding<HoopKVDocument> (documentDriver.getJavaCatalog(),HoopKVDocument.class);
 			
 	        // create a map view of the database
-	        this.map=new StoredMap<String, HoopKVDocument> (documentDriver.getDB(),keyBinding,dataBinding,true);
+	        this.map=new StoredMap<Long, HoopKVDocument> (documentDriver.getDB(),keyBinding,dataBinding,true);
 		        
 	        if (this.map==null)
 	        {

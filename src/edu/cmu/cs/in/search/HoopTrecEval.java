@@ -18,13 +18,11 @@
 
 package edu.cmu.cs.in.search;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 
 import com.sleepycat.collections.StoredMap;
 
 import edu.cmu.cs.in.search.HoopDataSet;
-import edu.cmu.cs.in.search.HoopDocument;
 import edu.cmu.cs.in.base.HoopRoot;
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.kv.HoopKVDocument;
@@ -125,7 +123,7 @@ public class HoopTrecEval extends HoopStatsBase
 											
 			if (docs!=null)
 			{				
-				StoredMap<String,HoopKVDocument> map=HoopLink.dataSet.getData();
+				StoredMap<Long,HoopKVDocument> map=HoopLink.dataSet.getData();
 				
 				Iterator<HoopKVDocument> iterator = map.values().iterator();
 												
@@ -158,7 +156,8 @@ public class HoopTrecEval extends HoopStatsBase
 						formatted.append("\t");
 						formatted.append("Q0");
 						formatted.append("\t");
-						formatted.append(aDoc.getDocID());
+						//formatted.append(aDoc.getDocID());
+						formatted.append(aDoc.getKeyString());
 						formatted.append("\t");
 						formatted.append(aDoc.getRank()+1); // trec_eval starts at 1
 						formatted.append("\t");
@@ -228,7 +227,7 @@ public class HoopTrecEval extends HoopStatsBase
 											
 			if (docs!=null)
 			{
-				StoredMap<String,HoopKVDocument> map=HoopLink.dataSet.getData();
+				StoredMap<Long,HoopKVDocument> map=HoopLink.dataSet.getData();
 				
 				Iterator<HoopKVDocument> iterator = map.values().iterator();
 												
@@ -242,7 +241,8 @@ public class HoopTrecEval extends HoopStatsBase
 						formatted.append("\t");
 						formatted.append("Q0");
 						formatted.append("\t");
-						formatted.append(aDoc.getDocID());
+						//formatted.append(aDoc.getDocID());
+						formatted.append(aDoc.getKeyString());
 						formatted.append("\t");
 						formatted.append(aDoc.getRank()+1); // trec_eval starts at 1
 						formatted.append("\t");

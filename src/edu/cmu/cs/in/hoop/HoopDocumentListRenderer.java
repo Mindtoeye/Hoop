@@ -158,7 +158,7 @@ public class HoopDocumentListRenderer extends HoopJPanel implements ListCellRend
 		{
 			text.setBackground(new Color (255,255,220));
 			this.setBorder (BorderFactory.createTitledBorder (defaultBorder,
-															  aDoc.getDocID() +" : " + fixedTitle,	
+															  aDoc.getKeyString() +" : " + fixedTitle,	
 															  TitledBorder.LEFT, 
 															  TitledBorder.TOP,
 															  new Font("Dialog", 1, 10))); 
@@ -167,7 +167,7 @@ public class HoopDocumentListRenderer extends HoopJPanel implements ListCellRend
 		{
 			text.setBackground(new Color (255,255,255));
 			this.setBorder (BorderFactory.createTitledBorder (selectedBorder,
-															  aDoc.getDocID() +" : " + fixedTitle,	
+															  aDoc.getKeyString() +" : " + fixedTitle,	
 															  TitledBorder.LEFT, 
 															  TitledBorder.TOP,
 															  new Font("Dialog", 1, 10)));

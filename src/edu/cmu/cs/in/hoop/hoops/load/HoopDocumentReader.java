@@ -63,7 +63,7 @@ public class HoopDocumentReader extends HoopFileLoadBase
 		else
 			HoopLink.dataSet.checkDB ();
 		
-		StoredMap<String, HoopKVDocument> inp=HoopLink.dataSet.getData();
+		StoredMap<Long, HoopKVDocument> inp=HoopLink.dataSet.getData();
 		
 		for (int i=0;i<inp.size();i++)
 		{

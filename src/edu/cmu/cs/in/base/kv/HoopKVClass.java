@@ -36,7 +36,7 @@ import edu.cmu.cs.in.base.HoopDataType;
 public class HoopKVClass extends HoopKV implements HoopKVInterface, Serializable
 {    					
 	private static final long serialVersionUID = -562572734161851194L;
-	private String key="undefined";
+	private Long key=(long) -1;
 	private ArrayList<HoopKV> variables=null;
 	private ArrayList<String> primaryLabels=null;
 	
@@ -67,14 +67,14 @@ public class HoopKVClass extends HoopKV implements HoopKVInterface, Serializable
 	/**
 	 *
 	 */
-	public String getKey() 
+	public Long getKey() 
 	{
 		return key;
 	}
 	/**
 	 *
 	 */
-	public void setKey(String key) 
+	public void setKey(Long key) 
 	{
 		this.key = key;
 	}    
@@ -84,7 +84,7 @@ public class HoopKVClass extends HoopKV implements HoopKVInterface, Serializable
 	@Override
 	public String getKeyString() 
 	{
-		return key;
+		return key.toString();
 	}
 	/**
 	 *

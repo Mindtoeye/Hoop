@@ -22,6 +22,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import com.sleepycat.bind.serial.SerialBinding;
+import com.sleepycat.bind.tuple.LongBinding;
 import com.sleepycat.bind.tuple.StringBinding;
 import com.sleepycat.collections.StoredMap;
 
@@ -32,7 +33,7 @@ import edu.cmu.cs.in.base.kv.HoopKVDocument;
 */
 public class HoopBerkeleyDocumentDB extends HoopBerkeleyDBBase
 {
-    private StoredMap<String,HoopKVDocument> map=null;
+    private StoredMap<Long,HoopKVDocument> map=null;
  	
 	/**
 	*
@@ -45,14 +46,14 @@ public class HoopBerkeleyDocumentDB extends HoopBerkeleyDBBase
 	/**
 	 * 
 	 */
-	public StoredMap<String,HoopKVDocument> getData ()
+	public StoredMap<Long,HoopKVDocument> getData ()
 	{
 		return map;
 	}
 	/**
 	 * 
 	 */
-	public void assignMap (StoredMap<String,HoopKVDocument> aMap)
+	public void assignMap (StoredMap<Long,HoopKVDocument> aMap)
 	{
 		debug ("assignMap ()");
 		
@@ -65,11 +66,12 @@ public class HoopBerkeleyDocumentDB extends HoopBerkeleyDBBase
 	{
 		debug ("bind ()");
 		
-		StringBinding keyBinding = new StringBinding();
+		//StringBinding keyBinding = new StringBinding();
+		LongBinding keyBinding = new LongBinding();
 		SerialBinding <HoopKVDocument> dataBinding=new SerialBinding<HoopKVDocument> (this.getJavaCatalog(),HoopKVDocument.class);
 		
         // create a map view of the database
-        this.map=new StoredMap<String, HoopKVDocument> (this.getDB(),keyBinding,dataBinding,true);
+        this.map=new StoredMap<Long, HoopKVDocument> (this.getDB(),keyBinding,dataBinding,true);
 	        
         if (this.map==null)
         {
@@ -102,7 +104,7 @@ public class HoopBerkeleyDocumentDB extends HoopBerkeleyDBBase
      * @param aKey String
      * @param aValue ArrayList<Object>
      */
-    public boolean writeKV (String aKey,HoopKVDocument aValue)
+    public boolean writeKV (Long aKey,HoopKVDocument aValue)
     {
     	debug ("writeKV (key:"+aKey+", value:"+aValue+")");
     	
@@ -143,7 +145,7 @@ public class HoopBerkeleyDocumentDB extends HoopBerkeleyDBBase
     	
         debug ("Map size: " + map.size() + " entries");
             
-        Iterator<Map.Entry<String,HoopKVDocument>> iter=null;
+        Iterator<Map.Entry<Long,HoopKVDocument>> iter=null;
         
 		try
 		{
@@ -158,7 +160,7 @@ public class HoopBerkeleyDocumentDB extends HoopBerkeleyDBBase
                 
         while (iter.hasNext()) 
         {
-            Map.Entry<String,HoopKVDocument> entry = iter.next();
+            Map.Entry<Long,HoopKVDocument> entry = iter.next();
             debug (entry.getKey().toString() + ' ' +  entry.getValue());
         }    	
     }
@@ -183,7 +185,7 @@ public class HoopBerkeleyDocumentDB extends HoopBerkeleyDBBase
     	
         debug ("Checking: " + map.size() + " entries");
             
-        Iterator<Map.Entry<String,HoopKVDocument>> iter=null;
+        Iterator<Map.Entry<Long,HoopKVDocument>> iter=null;
         
 		try
 		{
@@ -198,7 +200,7 @@ public class HoopBerkeleyDocumentDB extends HoopBerkeleyDBBase
         while (iter.hasNext()) 
         {
             @SuppressWarnings("unused")
-			Map.Entry<String,HoopKVDocument> entry = iter.next();
+			Map.Entry<Long,HoopKVDocument> entry = iter.next();
             //debug (entry.getKey().toString() + ' ' +  entry.getValue());
             System.out.print(".");
         }

@@ -64,9 +64,13 @@ public class HoopDocumentList extends HoopEmbeddedJPanel implements ActionListen
     private JTextField windowSize=null;
     private JButton nextButton=null;
     
+    private JButton searchButton=null;
+    private JButton sortButton=null;
+    
     private JLabel dbInfo=null;
     
     private HoopButtonBox buttonBox=null;
+    private HoopButtonBox searchBox=null;
 	
     private Integer start=0;
     private Integer maxShown=20;
@@ -170,7 +174,28 @@ public class HoopDocumentList extends HoopEmbeddedJPanel implements ActionListen
 	    dbInfo.setFont(new Font("Dialog", 1, 8));
 	    	
 	    buttonBox.addComponent(dbInfo);
+	    
+	   	searchBox=new HoopButtonBox ();
+	   	searchBox.setMinimumSize(new Dimension (100,24));
+	   	searchBox.setPreferredSize(new Dimension (200,24));
+	   	searchBox.setMaximumSize(new Dimension (2000,24));
+	   	
+	    searchButton=new JButton ();
+	    searchButton.setPreferredSize(new Dimension (20,20));
+	    searchButton.setMaximumSize(new Dimension (20,20));
+	    searchButton.setIcon(HoopLink.getImageByName("gtk-find-and-replace.png"));
+	    searchButton.addActionListener(this);
+	    
+	    searchBox.addComponent(searchButton);
+	    
+	    sortButton=new JButton ();
+	    sortButton.setPreferredSize(new Dimension (20,20));
+	    sortButton.setMaximumSize(new Dimension (20,20));
+	    sortButton.setIcon(HoopLink.getImageByName("alphab_sort_icon.png"));
+	    sortButton.addActionListener(this);	    
 	    	   		   	
+	    searchBox.addComponent(sortButton);
+	    
 	   	docList=new JList ();	   	
 		docList.setCellRenderer (new HoopDocumentListRenderer ());
 		docList.addMouseListener(this);
@@ -179,6 +204,7 @@ public class HoopDocumentList extends HoopEmbeddedJPanel implements ActionListen
 	    docScrollList.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
 	    holder.add (buttonBox);	   
+	    holder.add (searchBox);
 	    holder.add (docScrollList);
 	   	
 		setContentPane (holder);
@@ -206,7 +232,7 @@ public class HoopDocumentList extends HoopEmbeddedJPanel implements ActionListen
 						
 		DefaultListModel mdl=new DefaultListModel ();
 		
-		StoredMap<String,HoopKVDocument> map=HoopLink.dataSet.getData();
+		StoredMap<Long,HoopKVDocument> map=HoopLink.dataSet.getData();
 		
 		Integer sizeTransformer=map.size();
 		
@@ -266,6 +292,26 @@ public class HoopDocumentList extends HoopEmbeddedJPanel implements ActionListen
 		{
 			//updateContents();
 		}		
+		
+		if (button==searchButton)
+		{
+			HoopSearch test=(HoopSearch) HoopLink.getWindow("Search");
+			
+			if (test==null)
+			{
+				HoopLink.addView ("Search",new HoopSearch(),HoopLink.center);
+				test=(HoopSearch) HoopLink.getWindow("Search");
+			}	
+		    			
+			//test.showDocument(aDoc);
+		
+			HoopLink.popWindow ("Search");
+		}
+		
+		if (button==sortButton)
+		{
+			
+		}
 	}
 	/**
 	 * 

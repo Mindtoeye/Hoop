@@ -43,6 +43,8 @@ public class HoopXMLDocumentWriter extends HoopXMLWriter
 	@SuppressWarnings("unused")
 	private HoopStringSerializable abstr=null;
 	@SuppressWarnings("unused")
+	private HoopStringSerializable dateFormat=null;	
+	@SuppressWarnings("unused")
 	private HoopStringSerializable createDate=null;
 	@SuppressWarnings("unused")
 	private HoopStringSerializable modifiedDate=null;	
@@ -70,6 +72,7 @@ public class HoopXMLDocumentWriter extends HoopXMLWriter
 		author=new HoopStringSerializable (this,"author","author");
 		title=new HoopStringSerializable (this,"title","title");
 		abstr=new HoopStringSerializable (this,"abstr","abstr");
+		dateFormat=new HoopStringSerializable (this,"dateFormat","yyyy-MM-dd HH:mm:ss.S");
 		createDate=new HoopStringSerializable (this,"createDate","date created");
 		modifiedDate=new HoopStringSerializable (this,"modifiedDate","date modified");
 		description=new HoopStringSerializable (this,"description","description");
@@ -107,9 +110,10 @@ public class HoopXMLDocumentWriter extends HoopXMLWriter
 				
 				HoopKVDocument newDocument=KVToDocument (newKV);
 				
-				Integer indexTransformer=t;
+				//Integer indexTransformer=t;				
+				//newDocument.setKey(indexTransformer.toString());
 				
-				newDocument.setKey(indexTransformer.toString());
+				newDocument.setKey((long) t);
 				
 				newDocument.postProcess();
 				
@@ -133,9 +137,10 @@ public class HoopXMLDocumentWriter extends HoopXMLWriter
 				
 				HoopKVDocument newDocument=KVToDocument (newKV);
 				
-				Integer indexTransformer=t;
+				//Integer indexTransformer=t;
+				//newDocument.setKey(indexTransformer.toString());
 				
-				newDocument.setKey(indexTransformer.toString());
+				newDocument.setKey((long) t);
 				
 				newDocument.postProcess();
 				
@@ -198,6 +203,8 @@ public class HoopXMLDocumentWriter extends HoopXMLWriter
 			
 			if (aTypeName.equalsIgnoreCase("abstract")==true)
 				newDocument.abstr.setValue((String) vals.get(j));
+			
+			newDocument.dateFormat.setValue(this.dateFormat.getPropValue());
 			
 			if (aTypeName.equalsIgnoreCase("createDate")==true)
 				newDocument.createDate.setValue((String) vals.get(j));

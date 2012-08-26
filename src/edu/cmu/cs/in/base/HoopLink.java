@@ -294,7 +294,8 @@ public class HoopLink extends HoopProperties
 		 							 "run-stopped.png",
 		 							 "run-running.png",
 		 							 "csv.png",
-		 							 "weka.png"
+		 							 "weka.png",
+		 							 "alphab_sort_icon.png"
 		 							 };
 	
 	public static JFrame mainFrame=null;

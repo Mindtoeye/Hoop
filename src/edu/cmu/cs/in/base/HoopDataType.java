@@ -27,12 +27,13 @@ public class HoopDataType
 {
 	public static final int CLASS=0; // This is the default if the class isn't used for a specific type wrapper
 	public static final int INT=1;
-	public static final int STRING=2;
-	public static final int FLOAT=3;
-	public static final int BOOLEAN=4;
-	public static final int ENUM=5;
-	public static final int TABLE=6;	
-	public static final int DOCUMENT=7;
+	public static final int LONG=2;
+	public static final int STRING=3;
+	public static final int FLOAT=4;
+	public static final int BOOLEAN=5;
+	public static final int ENUM=6;
+	public static final int TABLE=7;	
+	public static final int DOCUMENT=8;
 	
 	public static final int DATE=9; // Important higher level datatype, can be cast from and to an int
 	public static final int COLOR=10; // Vague type that is assumed to be captured in a string

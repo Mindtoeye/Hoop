@@ -25,6 +25,8 @@ import com.sleepycat.collections.StoredMap;
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.base.kv.HoopKVDocument;
+import edu.cmu.cs.in.base.kv.HoopKVInteger;
+import edu.cmu.cs.in.base.kv.HoopKVLong;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopSaveBase;
 import edu.cmu.cs.in.hoop.properties.types.HoopEnumSerializable;
@@ -74,71 +76,76 @@ public class HoopDocumentUpdater extends HoopSaveBase
 		else
 			HoopLink.dataSet.checkDB ();
 		
-		StoredMap<String, HoopKVDocument> inp=HoopLink.dataSet.getData();
+		StoredMap<Long, HoopKVDocument> inp=HoopLink.dataSet.getData();
 		
 		for (int t=0;t<inData.size();t++)
 		{
-			HoopKV aKV=inData.get(t);
+			HoopKV testKV=inData.get(t);
 			
-			String aDocumentKey=aKV.getKeyString();
-			
-			HoopKVDocument aDocument=inp.get(aDocumentKey);
-			
-			if (selectedField.getValue().equalsIgnoreCase("title")==true)
+			if ((testKV instanceof HoopKVLong) || (testKV instanceof HoopKVInteger))
 			{
-				aDocument.title.setValue((String) aKV.getValue());
-			}
+				HoopKVLong aKV=(HoopKVLong) inData.get(t);
 			
-			if (selectedField.getValue().equalsIgnoreCase("author")==true)
-			{
-				aDocument.author.setValue((String) aKV.getValue());
-			}
+				//String aDocumentKey=aKV.getKeyString();
 			
-			if (selectedField.getValue().equalsIgnoreCase("description")==true)
-			{
-				aDocument.description.setValue((String) aKV.getValue());
-			}
+				HoopKVDocument aDocument=inp.get(aKV.getKey ());
 			
-			if (selectedField.getValue().equalsIgnoreCase("createDate")==true)
-			{
-				aDocument.createDate.setValue((String) aKV.getValue());
-			}
-			
-			if (selectedField.getValue().equalsIgnoreCase("modifiedDate")==true)
-			{
-				aDocument.modifiedDate.setValue((String) aKV.getValue());
-			}
-			
-			if (selectedField.getValue().equalsIgnoreCase("text")==true)
-			{
-				aDocument.bump((String) aKV.getValue(),"transformed");
-			}
-			
-			if (selectedField.getValue().equalsIgnoreCase("abstr")==true)
-			{
-				aDocument.abstr.setValue((String) aKV.getValue());
-			}	
-			
-			if (selectedField.getValue().equalsIgnoreCase("keywords")==true)
-			{
-				aDocument.keywords.setValue((String) aKV.getValue());
-			}
-			
-			if (selectedField.getValue().equalsIgnoreCase("url")==true)
-			{
-				aDocument.url.setValue((String) aKV.getValue());
-			}
-			
-			if (selectedField.getValue().equalsIgnoreCase("tokens")==true)
-			{
-				// Copy all tokens from the incoming KV to the token field
-				// in the document
-				
-				for (int i=0;i<aKV.getValuesRaw().size();i++)
+				if (selectedField.getValue().equalsIgnoreCase("title")==true)
 				{
-					aDocument.tokens.setValue(aKV.getValue(i),i);
+					aDocument.title.setValue((String) aKV.getValue());
 				}
-			}			
+			
+				if (selectedField.getValue().equalsIgnoreCase("author")==true)
+				{
+					aDocument.author.setValue((String) aKV.getValue());
+				}
+			
+				if (selectedField.getValue().equalsIgnoreCase("description")==true)
+				{
+					aDocument.description.setValue((String) aKV.getValue());
+				}
+			
+				if (selectedField.getValue().equalsIgnoreCase("createDate")==true)
+				{
+					aDocument.createDate.setValue((String) aKV.getValue());
+				}
+			
+				if (selectedField.getValue().equalsIgnoreCase("modifiedDate")==true)
+				{
+					aDocument.modifiedDate.setValue((String) aKV.getValue());
+				}
+			
+				if (selectedField.getValue().equalsIgnoreCase("text")==true)
+				{
+					aDocument.bump((String) aKV.getValue(),"transformed");
+				}
+			
+				if (selectedField.getValue().equalsIgnoreCase("abstr")==true)
+				{
+					aDocument.abstr.setValue((String) aKV.getValue());
+				}	
+			
+				if (selectedField.getValue().equalsIgnoreCase("keywords")==true)
+				{
+					aDocument.keywords.setValue((String) aKV.getValue());
+				}
+			
+				if (selectedField.getValue().equalsIgnoreCase("url")==true)
+				{
+					aDocument.url.setValue((String) aKV.getValue());
+				}
+			
+				if (selectedField.getValue().equalsIgnoreCase("tokens")==true)
+				{
+					// Copy all tokens from the incoming KV to the token field
+					// in the document
+				
+					for (int i=0;i<aKV.getValuesRaw().size();i++)
+					{
+						aDocument.tokens.setValue(aKV.getValue(i),i);
+					}
+				}
+			}	
 		}			
 				
 		return (true);

@@ -99,7 +99,8 @@ public class HoopInvertedListMapper extends HoopHadoopReporter implements Mapper
 		String line = value.toString(); // We assume here we're getting one file at a time
 								
 		HoopDocumentParser parser=new HoopDocumentParser ();
-		parser.setDocID(key.toString());
+		//parser.setDocID(key.toString());
+		parser.setKey(key.get());
 		parser.setIncludePositions(true);
 		parser.loadDocumentFromData(line); // Tokenization happens here
 		
