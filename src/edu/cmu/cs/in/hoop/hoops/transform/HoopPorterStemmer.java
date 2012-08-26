@@ -48,7 +48,9 @@ public class HoopPorterStemmer extends HoopTransformBase implements HoopInterfac
 		setHoopDescription ("Stems input KVs using the Porter Stemmer");
 		
 		stemmer=new HoopPorterStemmerOriginal ();
-		minChars=new HoopStringSerializable (this,"minChars","5");		
+		minChars=new HoopStringSerializable (this,"minChars","5");
+		
+		this.reKey.setEnabled(false);
     }
 	/**
 	 *
@@ -69,7 +71,7 @@ public class HoopPorterStemmer extends HoopTransformBase implements HoopInterfac
 				
 				if (aKV.getValue().length()>=minCheck)
 				{
-					newKV.setKey(i);
+					newKV.setKey(i);					
 					newKV.setValue(stemmer.stem(aKV.getValue()));
 					// Keep a copy of the original in the first extra value slot
 					newKV.setValue(aKV.getValue(),1); 

@@ -77,10 +77,19 @@ public class HoopSentence2Tokens extends HoopTransformBase implements HoopInterf
 					if (removePunctuation.getPropValue ()==true)					
 					{
 						String strippedInput = aToken.replaceAll(splitRegEx.getValue(), "");
-						addKV (new HoopKVInteger (j,strippedInput));
+						
+						if (this.reKey.getPropValue()==false)						
+							addKV (new HoopKVInteger (j,strippedInput));
+						else
+							addKV (new HoopKVInteger (i,strippedInput));
 					}
 					else
-						addKV (new HoopKVInteger (j,aToken));
+					{
+						if (this.reKey.getPropValue()==false)
+							addKV (new HoopKVInteger (j,aToken));
+						else
+							addKV (new HoopKVInteger (i,aToken));
+					}
 				}									
 			}						
 		}

@@ -76,7 +76,12 @@ public class HoopText2Sentence extends HoopTransformBase implements HoopInterfac
 					for (int i=0;i<lines.length;i++)
 					{					
 						HoopKVInteger sentenceKV=new HoopKVInteger ();
-						sentenceKV.setKey((t+1)*(i+1));
+						
+						if (this.reKey.getPropValue()==true)
+							sentenceKV.setKey((t+1)*(i+1));
+						else
+							sentenceKV.setKey(t);
+						
 						sentenceKV.setValue(lines [i]);
 				
 						addKV (sentenceKV);

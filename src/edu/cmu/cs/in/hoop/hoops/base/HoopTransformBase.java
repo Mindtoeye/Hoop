@@ -18,11 +18,15 @@
 
 package edu.cmu.cs.in.hoop.hoops.base;
 
+import edu.cmu.cs.in.hoop.properties.types.HoopBooleanSerializable;
+
 /**
 * 
 */
 public class HoopTransformBase extends HoopBase implements HoopInterface
 {    				
+	public HoopBooleanSerializable reKey=null;	
+	
 	/**
 	 *
 	 */
@@ -31,9 +35,10 @@ public class HoopTransformBase extends HoopBase implements HoopInterface
 		setClassName ("HoopTransformBase");
 		debug ("HoopTransformBase ()");
 		
-		setHoopCategory ("Transform");
+		setHoopCategory ("Transform");		
+		setHoopDescription ("Abstract Hoop Transformer");
 		
-		setHoopDescription ("Abstract Hoop Transformer");		
+		reKey=new HoopBooleanSerializable (this,"reKey",false);
     }
 	/**
 	 *

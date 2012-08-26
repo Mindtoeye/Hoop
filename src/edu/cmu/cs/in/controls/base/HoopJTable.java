@@ -22,7 +22,7 @@ import java.awt.Font;
 import java.util.Vector;
 
 import javax.swing.JTable;
-import javax.swing.JTextArea;
+//import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;

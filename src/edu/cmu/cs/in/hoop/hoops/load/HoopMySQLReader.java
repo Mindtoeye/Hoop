@@ -70,6 +70,8 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
     public	HoopStringSerializable queryColumns=null;
     public	HoopStringSerializable querySize=null;
     
+    public	HoopStringSerializable queryMax=null;
+    
     /**
      * Currently a string but will be replaced by an enum once we can model that
      * as a serializable. Values are one of: TABLEINFO, TABLEDATA
@@ -104,6 +106,8 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
     	queryTable=new HoopStringSerializable (this,"queryTable","default");
     	queryColumns=new HoopStringSerializable (this,"queryColumns","");
     	querySize=new HoopStringSerializable (this,"querySize","100");
+    	
+    	queryMax=new HoopStringSerializable (this,"queryMax","");
     	
     	queryType=new HoopEnumSerializable (this,"queryType","TABLEINFO,TABLEDATA,DATABASES,DATABASEINFO");
     }

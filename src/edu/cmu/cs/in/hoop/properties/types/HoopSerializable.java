@@ -34,9 +34,10 @@ public class HoopSerializable extends HoopXMLBase
 {			
 	/// Either one of Boolean, Float, Integer, String where higher level types such as Color and Font will have t be mapped to base types
 	//protected String type="";	
+	
 	protected String format="Text";
 	protected String value="";
-	
+	private Boolean enabled=true;
 	private Boolean touched=false;
 	
 	protected HoopPropertyContainer propParent=null;
@@ -116,6 +117,20 @@ public class HoopSerializable extends HoopXMLBase
 			debug ("Unable to find my instance name");
 			this.setInstanceName("undefined");
 		}
+	}
+	/**
+	 *
+	 */	
+	public void setEnabled(Boolean enabled) 
+	{
+		this.enabled = enabled;
+	}
+	/**
+	 *
+	 */	
+	public Boolean getEnabled() 
+	{
+		return enabled;
 	}
 	/**
 	 *

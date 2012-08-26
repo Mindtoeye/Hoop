@@ -684,7 +684,10 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface
 		{
 			HoopSerializable prop=props.get(i);
 			
-			propertiesElement.addContent(prop.toXML());			
+			if (prop.getEnabled()==true)
+			{
+				propertiesElement.addContent(prop.toXML());
+			}	
 		}		
 				
 		return (hoopElement);

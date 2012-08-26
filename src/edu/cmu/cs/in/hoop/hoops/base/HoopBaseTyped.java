@@ -101,7 +101,14 @@ public class HoopBaseTyped extends HoopVisual implements HoopPropertyContainer
     	}
     	
     	return (-1);
-    }    
+    }   
+    /**
+     * 
+     */
+    public void enableProperty (HoopSerializable aProperty,Boolean aVal)
+    {
+    	aProperty.setEnabled (aVal);
+    }
     /**
      * 
      */

@@ -358,16 +358,19 @@ public class HoopInspectablePanel extends HoopJPanel implements ActionListener, 
 			for (int i=0;i<props.size();i++)
 			{
 				HoopSerializable prop=props.get(i);
-								
-				HoopSerializableTableEntry entry1=new HoopSerializableTableEntry (prop.getName());				
 				
-				HoopSerializableTableEntry entry2=new HoopSerializableTableEntry (prop.getValue());
-				entry2.setEntry(prop);
-				entry2.setComponent(getHoop());
+				if (prop.getEnabled()==true)
+				{							
+					HoopSerializableTableEntry entry1=new HoopSerializableTableEntry (prop.getName());				
 				
-				HoopSerializableTableEntry[] parameterData = {entry1,entry2};
+					HoopSerializableTableEntry entry2=new HoopSerializableTableEntry (prop.getValue());
+					entry2.setEntry(prop);
+					entry2.setComponent(getHoop());
 				
-				parameterModel.addRow (parameterData);				
+					HoopSerializableTableEntry[] parameterData = {entry1,entry2};
+				
+					parameterModel.addRow (parameterData);
+				}	
 			}
 			
 			parameterTable.setModel(parameterModel);
