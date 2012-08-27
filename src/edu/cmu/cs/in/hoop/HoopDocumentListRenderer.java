@@ -50,7 +50,7 @@ public class HoopDocumentListRenderer extends HoopJPanel implements ListCellRend
 	//private Border border=null;
 	private Border selectedBorder=null;
 	private Border defaultBorder=null;
-	private HoopDateTools dTools=null;
+	//private HoopDateTools dTools=null;
 	
 	private int prefHeight=120;
 	
@@ -151,14 +151,14 @@ public class HoopDocumentListRenderer extends HoopJPanel implements ListCellRend
 	
 		String fixedTitle=aDoc.title.getValue();
 
-		if (fixedTitle.length()>20)
-			fixedTitle=aDoc.title.getValue().substring(0,20)+"...";
+		if (fixedTitle.length()>25)
+			fixedTitle=aDoc.title.getValue().substring(0,25)+"...";
 				
 		if (hasFocus)
 		{
 			text.setBackground(new Color (255,255,220));
 			this.setBorder (BorderFactory.createTitledBorder (defaultBorder,
-															  aDoc.getKeyString() +" : " + fixedTitle,	
+															  aDoc.getRank() +" : " + fixedTitle,
 															  TitledBorder.LEFT, 
 															  TitledBorder.TOP,
 															  new Font("Dialog", 1, 10))); 
@@ -167,7 +167,7 @@ public class HoopDocumentListRenderer extends HoopJPanel implements ListCellRend
 		{
 			text.setBackground(new Color (255,255,255));
 			this.setBorder (BorderFactory.createTitledBorder (selectedBorder,
-															  aDoc.getKeyString() +" : " + fixedTitle,	
+															  aDoc.getRank() +" : " + fixedTitle,
 															  TitledBorder.LEFT, 
 															  TitledBorder.TOP,
 															  new Font("Dialog", 1, 10)));

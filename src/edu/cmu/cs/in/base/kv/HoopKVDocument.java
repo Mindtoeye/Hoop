@@ -23,6 +23,7 @@ import java.io.Serializable;
 import org.jdom.Element;
 
 import edu.cmu.cs.in.base.HoopDataType;
+import edu.cmu.cs.in.base.HoopDateTools;
 import edu.cmu.cs.in.base.HoopHTML2Text;
 import edu.cmu.cs.in.base.HoopRoot;
 
@@ -265,7 +266,19 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 	public void postProcess ()
 	{
 		debug ("postProcess ()");
+		
+		// First re-key from the default incremental long to a timestamp
+		
+		if (this.createDate.getValue().isEmpty()==false)
+		{
+			HoopDateTools dTools=new HoopDateTools ();
+			dTools.setDateFormat(this.dateFormat.getValue());		
+			this.setKey(dTools.StringToDate(this.createDate.getValue()));
+		}
 
+		// Then clean the text in case it contains any html or other non 
+		// standard characters 
+		
 		HoopHTML2Text parser=new HoopHTML2Text ();
 		
 		parser.parse(this.getValue());
@@ -285,6 +298,9 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 				abstr.setValue(cleanText);
 			}
 		}
+		
+		// If there is a create date but no modified date,
+		// then make the modified date the create date
 		
 		if (modifiedDate.getValue().isEmpty()==true)
 		{
@@ -390,6 +406,10 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 		descElement.setText(description.getValue());
 		documentElement.addContent(descElement);		
 		
+		Element formatElement=new Element ("dateFormat");
+		formatElement.setText(dateFormat.getValue());
+		documentElement.addContent(formatElement);
+		
 		Element createElement=new Element ("createDate");
 		createElement.setText(createDate.getValue());
 		documentElement.addContent(createElement);
@@ -406,6 +426,14 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 		urlElement.setText(url.getValue());
 		documentElement.addContent(urlElement);
 		
+		Element scoreElement=new Element ("score");
+		scoreElement.setText(String.format("%f",this.getScore()));
+		documentElement.addContent(scoreElement);
+		
+		Element rankElement=new Element ("rank");
+		rankElement.setText(String.format("%d",this.getRank()));
+		documentElement.addContent(rankElement);
+		
 		Element abstractElement=new Element ("abstract");
 		Element contentElement=new Element ("content");
 		contentElement.setText(abstr.getValue());
@@ -421,7 +449,7 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 			}
 		}		
 		
-		documentElement.addContent(abstractElement);				
+		documentElement.addContent(abstractElement);
 		
 		Element textElement=new Element ("text");
 		Element contentTElement=new Element ("content");

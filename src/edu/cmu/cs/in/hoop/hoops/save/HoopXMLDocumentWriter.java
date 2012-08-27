@@ -141,6 +141,7 @@ public class HoopXMLDocumentWriter extends HoopXMLWriter
 				//newDocument.setKey(indexTransformer.toString());
 				
 				newDocument.setKey((long) t);
+				newDocument.setRank(t);
 				
 				newDocument.postProcess();
 				

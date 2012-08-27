@@ -126,10 +126,10 @@ public class HoopDocumentWriter extends HoopSaveBase
 			
 			HoopKVDocument newDocument=new HoopKVDocument ();
 			
-			//Integer indexTransformer=t;
-			
-			//newDocument.setKey(indexTransformer.toString());
+			// make it the index for now, might be replaced by create date
+			// when we run the post process routine
 			newDocument.setKey((long) t);
+			newDocument.setRank(t);
 			
 			ArrayList <Object>docElements=aKV.getValuesRaw();
 			
@@ -172,7 +172,7 @@ public class HoopDocumentWriter extends HoopSaveBase
 			newDocument.postProcess();
 			
 			//HoopLink.dataSet.getData().put(indexTransformer.toString(),newDocument);
-			HoopLink.dataSet.getData().put((long) t,newDocument);
+			HoopLink.dataSet.getData().put(newDocument.getKey(),newDocument);
 		}			
 				
 		return (true);
