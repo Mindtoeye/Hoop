@@ -18,13 +18,22 @@
 
 package edu.cmu.cs.in.hoop;
 
+import javax.swing.JComponent;
+
+import org.jdesktop.jxlayer.JXLayer;
+import org.jdesktop.jxlayer.plaf.effect.BufferedImageOpEffect;
+import org.jdesktop.jxlayer.plaf.ext.LockableUI;
+
+import com.jhlabs.image.BlurFilter;
+
 import edu.cmu.cs.in.base.HoopLink;
+import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 
 /** 
  * @author Martin van Velsen
  */
 public class HoopExecuteInEditor extends HoopExecute
-{		
+{			
 	/**
 	 *
 	 */
@@ -75,6 +84,45 @@ public class HoopExecuteInEditor extends HoopExecute
 		
 		if (docList!=null)
 			docList.updateContents();
+	}	
+	/**
+	 * 
+	 */
+	protected Boolean execute (HoopBase aParent,HoopBase aRoot)
+	{
+		debug ("execute ()");
+				
+		HoopGraphEditor editor=(HoopGraphEditor) HoopLink.getWindow("Hoop Editor");
+		
+		if (editor!=null)
+		{
+			//editor.setEnabled(false);
+			editor.setLocked(true);
+		}	
+		
+		HoopTreeList hoopWindow=(HoopTreeList) HoopLink.getWindow("Hoop List");
+		
+		if (hoopWindow!=null)
+		{
+			//hoopWindow.setEnabled(false);
+			hoopWindow.setLocked(true);
+		}
+		
+		Boolean result=super.execute(aParent, aRoot);
+		
+		if (editor!=null)
+		{
+			//editor.setEnabled(false);
+			editor.setLocked(false);
+		}	
+				
+		if (hoopWindow!=null)
+		{
+			//hoopWindow.setEnabled(false);
+			hoopWindow.setLocked(false);
+		}
+				
+		return (result);
 	}	
 }
 

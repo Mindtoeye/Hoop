@@ -26,14 +26,14 @@ import java.awt.Container;
 import javax.swing.*;
 import javax.swing.border.Border;
 
-import org.jdesktop.swingx.MultiSplitLayout;
-import org.jdesktop.swingx.MultiSplitNode;
-import org.jdesktop.swingx.MultiSplitPane;
 import org.apache.hadoop.util.VersionInfo;
 
 import edu.cmu.cs.in.base.io.HoopFileManager;
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
+import edu.cmu.cs.in.controls.splitpanel.HoopMultiSplitLayout;
+import edu.cmu.cs.in.controls.splitpanel.HoopMultiSplitNode;
+import edu.cmu.cs.in.controls.splitpanel.HoopMultiSplitPane;
 import edu.cmu.cs.in.hoop.editor.HoopEditorMenuBar;
 
 /** 
@@ -191,9 +191,9 @@ public class HoopMultiViewFrame extends HoopPreferencesJFrame implements ActionL
 		 */
 		
         String layoutDef = "(ROW weight=1.0 (LEAF name=left weight=0.2) (COLUMN weight=0.6 (LEAF name=middle weight=0.9) (LEAF name=bottom weight=0.1)) (LEAF name=right weight=0.2))";
-        MultiSplitNode modelRoot=MultiSplitLayout.parseModel(layoutDef);
+        HoopMultiSplitNode modelRoot=HoopMultiSplitLayout.parseModel(layoutDef);
 
-        MultiSplitPane multiSplitPane = new MultiSplitPane();
+        HoopMultiSplitPane multiSplitPane = new HoopMultiSplitPane();
         multiSplitPane.setBackground(new Color (180,180,180));		
         multiSplitPane.setDividerSize(5);
         multiSplitPane.getMultiSplitLayout().setModel(modelRoot);

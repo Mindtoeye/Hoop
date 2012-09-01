@@ -25,7 +25,14 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.JComponent;
 import javax.swing.JTabbedPane;
+
+import org.jdesktop.jxlayer.JXLayer;
+import org.jdesktop.jxlayer.plaf.effect.BufferedImageOpEffect;
+import org.jdesktop.jxlayer.plaf.ext.LockableUI;
+
+import com.jhlabs.image.BlurFilter;
 //import javax.swing.table.TableColumn;
 
 //import javax.swing.BorderFactory;
@@ -47,7 +54,10 @@ public class HoopEmbeddedJPanel extends HoopJPanel implements ComponentListener
 	private Boolean singleInstance=true;
 	
 	private JTabbedPane host=null;
-		
+	
+	private LockableUI blurUI = new LockableUI(new BufferedImageOpEffect(new BlurFilter()));
+	private JXLayer<JComponent> layer=null;
+	
 	/**
 	 * Creates a new JPanel with a double buffer and a flow layout.
 	 */	
@@ -59,6 +69,13 @@ public class HoopEmbeddedJPanel extends HoopJPanel implements ComponentListener
 		this.setBorder(BorderFactory.createEmptyBorder(HoopProperties.tabPadding,HoopProperties.tabPadding,HoopProperties.tabPadding,HoopProperties.tabPadding));		
 		this.setLayout(new BorderLayout(2,2));
 		this.addComponentListener(this);
+
+		/*
+		layer=new JXLayer<JComponent>(this);
+		layer.setUI (blurUI);
+	        
+		HoopLink.mainFrame.add(layer);
+		*/								
 	}
 	/**
 	 * 
@@ -168,4 +185,16 @@ public class HoopEmbeddedJPanel extends HoopJPanel implements ComponentListener
 		
 		updateSize();
 	}	
+	/**
+	 * 
+	 */
+	public void setLocked (Boolean aVal)
+	{
+		debug ("setLocked ()");
+		
+		/*
+		if (blurUI!=null)
+			blurUI.setLocked (aVal);
+		*/
+	}
 }
