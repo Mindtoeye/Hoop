@@ -35,7 +35,11 @@ import edu.cmu.cs.in.search.HoopDataSet;
 public class HoopDocumentWriter extends HoopSaveBase
 {    				
 	@SuppressWarnings("unused")
+	private HoopStringSerializable documentID=null;	
+	@SuppressWarnings("unused")
 	private HoopStringSerializable author=null;
+	@SuppressWarnings("unused")
+	private HoopStringSerializable authorID=null;	
 	@SuppressWarnings("unused")
 	private HoopStringSerializable title=null;
 	@SuppressWarnings("unused")
@@ -51,6 +55,8 @@ public class HoopDocumentWriter extends HoopSaveBase
 	@SuppressWarnings("unused")
 	private HoopStringSerializable text=null;
 	@SuppressWarnings("unused")
+	private HoopStringSerializable threadID=null;	
+	@SuppressWarnings("unused")
 	private HoopStringSerializable keywords=null;
 	@SuppressWarnings("unused")
 	private HoopStringSerializable url=null;		
@@ -65,13 +71,16 @@ public class HoopDocumentWriter extends HoopSaveBase
 												
 		setHoopDescription ("Write KVs to Document DB");
 				
+		documentID=new HoopStringSerializable (this,"documentID","documentID");		
 		author=new HoopStringSerializable (this,"author","author");
+		authorID=new HoopStringSerializable (this,"authorID","authorID");
 		title=new HoopStringSerializable (this,"title","title");
 		abstr=new HoopStringSerializable (this,"abstr","abstr");
 		dateFormat=new HoopStringSerializable (this,"dateFormat","yyyy-MM-dd HH:mm:ss.S");
 		createDate=new HoopStringSerializable (this,"createDate","date created");
 		modifiedDate=new HoopStringSerializable (this,"modifiedDate","date modified");
 		description=new HoopStringSerializable (this,"description","description");
+		threadID=new HoopStringSerializable (this,"threadID","threadID");
 		text=new HoopStringSerializable (this,"text","text");
 		keywords=new HoopStringSerializable (this,"keywords","keywords");
 		url=new HoopStringSerializable (this,"url","url");		
@@ -139,8 +148,14 @@ public class HoopDocumentWriter extends HoopSaveBase
 				
 				String remapped=mapType (aTypeName);
 				
+				if (remapped.equalsIgnoreCase("documentID")==true)
+					newDocument.documentID.setValue((String) docElements.get(i));				
+				
 				if (remapped.equalsIgnoreCase("author")==true)
 					newDocument.author.setValue((String) docElements.get(i));
+				
+				if (remapped.equalsIgnoreCase("authorID")==true)
+					newDocument.authorID.setValue((String) docElements.get(i));				
 				
 				if (remapped.equalsIgnoreCase("title")==true)
 					newDocument.title.setValue((String) docElements.get(i));
@@ -157,7 +172,10 @@ public class HoopDocumentWriter extends HoopSaveBase
 					newDocument.modifiedDate.setValue((String) docElements.get(i));
 
 				if (remapped.equalsIgnoreCase("description")==true)
-					newDocument.description.setValue((String) docElements.get(i));				
+					newDocument.description.setValue((String) docElements.get(i));
+				
+				if (remapped.equalsIgnoreCase("threadID")==true)
+					newDocument.threadID.setValue((String) docElements.get(i));				
 
 				if (remapped.equalsIgnoreCase("keywords")==true)
 					newDocument.keywords.setValue((String) docElements.get(i));

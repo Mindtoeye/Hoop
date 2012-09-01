@@ -60,6 +60,7 @@ public class HoopConsole extends HoopEmbeddedJPanel implements HoopConsoleInterf
 	private JButton outButton=null;	
 	
 	private JButton pauseButton=null;
+	private JButton silentButton=null;
 	
 	private JCheckBox filterClassCheck=null;
 	private JComboBox filterClass=null;
@@ -139,7 +140,15 @@ public class HoopConsole extends HoopEmbeddedJPanel implements HoopConsoleInterf
 		pauseButton.setMargin(new Insets(1, 1, 1, 1));
 		pauseButton.setFont(new Font("Courier",1,8));
 		pauseButton.setPreferredSize(new Dimension (20,20));
-		pauseButton.addActionListener(this);		
+		pauseButton.addActionListener(this);
+		
+		silentButton=new JButton ();
+		//setButton.setText("Set");
+		silentButton.setIcon(HoopLink.getImageByName("player-stop.png"));
+		silentButton.setMargin(new Insets(1, 1, 1, 1));
+		silentButton.setFont(new Font("Courier",1,8));
+		silentButton.setPreferredSize(new Dimension (20,20));
+		silentButton.addActionListener(this);		
 		
 		filterClassCheck=new JCheckBox ();
 		filterClassCheck.setText("Filter on class name:");
@@ -176,7 +185,9 @@ public class HoopConsole extends HoopEmbeddedJPanel implements HoopConsoleInterf
 		
 		controlBox.add(pauseButton);
 		controlBox.add (Box.createRigidArea(new Dimension(2,0)));
-		
+		controlBox.add(silentButton);
+		controlBox.add (Box.createRigidArea(new Dimension(2,0)));		
+				
 		controlBox.add(filterClassCheck);
 		controlBox.add (Box.createRigidArea(new Dimension(2,0)));
 		controlBox.add(filterClass);
@@ -288,6 +299,24 @@ public class HoopConsole extends HoopEmbeddedJPanel implements HoopConsoleInterf
 				pauseButton.setIcon(HoopLink.getImageByName("player-play.png"));
 			}	
 		}
+		
+		if (button==silentButton)
+		{
+			if (HoopLink.nodebug==true)
+			{
+				HoopLink.nodebug=false;
+				silentButton.setIcon(HoopLink.getImageByName("player-stop.png"));
+				pauseButton.setEnabled(true);
+				//pauseButton.setIcon(HoopLink.getImageByName("player-pause.png"));
+			}
+			else
+			{
+				HoopLink.nodebug=true;
+				silentButton.setIcon(HoopLink.getImageByName("player-play.png"));
+				pauseButton.setEnabled(false);
+				//pauseButton.setIcon(HoopLink.getImageByName("player-play.png"));
+			}	
+		}		
 	}
 	/**
 	 * 

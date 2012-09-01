@@ -67,8 +67,11 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 	private HoopKVInteger rank=null;
 	private HoopKVFloat score=null;
 	
+	public HoopKVString documentID=null;
+	
 	public HoopKVString description=null;
 	public HoopKVString author=null;	
+	public HoopKVString authorID=null;
 	public HoopKVString title=null;
 	public HoopKVString abstr=null;
 	
@@ -76,6 +79,7 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 	public HoopKVString createDate=null;
 	public HoopKVString modifiedDate=null;
 	
+	public HoopKVString threadID=null;
 	public HoopKVString keywords=null;
 	public HoopKVString url=null;
 	
@@ -91,12 +95,18 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
     public HoopKVDocument ()
     {
     	setType (HoopDataType.CLASS);
-    	    	
+    	
+    	documentID=new HoopKVString ("documentID","-1");
+    	addVariable (documentID);
+    	
     	description=new HoopKVString ("description","");
     	addVariable (description);
     	
     	author=new HoopKVString ("author","");
     	addVariable (author);
+    	
+    	authorID=new HoopKVString ("authorID","");
+    	addVariable (authorID);    	
     	
        	title=new HoopKVString ("title","");
        	addVariable (title);
@@ -112,6 +122,9 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
     	
     	modifiedDate=new HoopKVString ("modifiedDate","");
     	addVariable (modifiedDate);
+    	
+    	threadID=new HoopKVString ("threadID","");
+    	addVariable (threadID);    	
     	
     	keywords=new HoopKVString ("keywords","");
     	addVariable (keywords);
@@ -325,9 +338,11 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 		
 		StringBuffer formatter=new StringBuffer ();
 		
-		formatter.append("Title: " + title.getValue());
+		formatter.append("Title: " + title.getValue()+"\n");
+		formatter.append("Author: " + author.getValue()+"\n");
+		formatter.append("AuthorID: " + authorID.getValue()+"\n");
 		
-		formatter.append("\n\n");
+		formatter.append("\n");
 		
 		formatter.append("Created: " + createDate.getValue ()+"\n");
 		formatter.append("Modified: " + modifiedDate.getValue ()+"\n");
@@ -342,6 +357,8 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 		
 		formatter.append("\n\n");
 		
+		formatter.append("DocumentID: " + documentID.getValue() + "\n");
+		formatter.append("ThreadID: " + threadID.getValue() + "\n");
 		formatter.append("Keywords: " + keywords.getValue() + "\n");
 		formatter.append("URL: " + url.getValue() + "\n");
 						
@@ -357,6 +374,8 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 		StringBuffer formatter=new StringBuffer ();
 		
 		formatter.append("Title: " + title.getValue());
+		formatter.append("Author: " + author.getValue()+"\n");
+		formatter.append("AuthorID: " + authorID.getValue()+"\n");		
 		
 		formatter.append("\n\n");
 		
@@ -373,6 +392,8 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 		
 		formatter.append("\n\n");
 		
+		formatter.append("DocumentID: " + documentID.getValue() + "\n");
+		formatter.append("ThreadID: " + threadID.getValue() + "\n");		
 		formatter.append("Keywords: " + keywords.getValue() + "\n");
 		formatter.append("URL: " + url.getValue() + "\n");
 						
@@ -397,10 +418,22 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 		Element keyElement=new Element ("key");
 		keyElement.setText(this.getKeyString());
 		documentElement.addContent(keyElement);
+		
+		Element documentIDElement=new Element ("documentID");
+		documentIDElement.setText(documentID.getValue());
+		documentElement.addContent(documentIDElement);		
 				
 		Element titleElement=new Element ("title");
 		titleElement.setText(title.getValue());
 		documentElement.addContent(titleElement);
+		
+		Element authorElement=new Element ("author");
+		authorElement.setText(author.getValue());
+		documentElement.addContent(authorElement);
+		
+		Element authorIDElement=new Element ("authorID");
+		authorIDElement.setText(author.getValue());
+		documentElement.addContent(authorIDElement);		
 		
 		Element descElement=new Element ("description");
 		descElement.setText(description.getValue());
@@ -418,6 +451,10 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 		modifiedElement.setText(modifiedDate.getValue());
 		documentElement.addContent(modifiedElement);		
 						
+		Element threadIDElement=new Element ("threadID");
+		threadIDElement.setText(threadID.getValue());
+		documentElement.addContent(threadIDElement);		
+		
 		Element keywordsElement=new Element ("keywords");
 		keywordsElement.setText(keywords.getValue());
 		documentElement.addContent(keywordsElement);

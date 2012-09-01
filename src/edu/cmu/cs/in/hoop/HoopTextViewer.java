@@ -111,14 +111,14 @@ public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener
 		inButton=new JButton ();
 		inButton.setIcon(HoopLink.imageIcons [72]);
 		inButton.setMargin(new Insets(1, 1, 1, 1));
-		inButton.setFont(new Font("Courier",1,8));
+		inButton.setFont(new Font("Dialog",1,10));
 		inButton.setPreferredSize(new Dimension (20,20));
 		inButton.addActionListener(this);
 		
 		outButton=new JButton ();
 		outButton.setIcon(HoopLink.imageIcons [73]);
 		outButton.setMargin(new Insets(1, 1, 1, 1));
-		outButton.setFont(new Font("Courier",1,8));
+		outButton.setFont(new Font("Dialog",1,10));
 		outButton.setPreferredSize(new Dimension (20,20));
 		outButton.addActionListener(this);		
 		
@@ -129,13 +129,13 @@ public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener
 		wordWrap.addItemListener(this);
 		
 		filterText=new JComboBox();
-		filterText.setFont(new Font("Courier",1,9));
+		filterText.setFont(new Font("Dialog",1,10));
 		filterText.setPreferredSize(new Dimension (150,20));
 		filterText.setMaximumSize(new Dimension (150,20));
 		filterText.addActionListener(this);
 		
 		renderType=new JComboBox(renderTypes);
-		renderType.setFont(new Font("Courier",1,9));
+		renderType.setFont(new Font("Dialog",1,10));
 		renderType.setPreferredSize(new Dimension (150,20));
 		renderType.setMaximumSize(new Dimension (150,20));
 		renderType.addActionListener(this);		

@@ -36,12 +36,13 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+//import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSeparator;
-import javax.swing.JTextArea;
-import javax.swing.SwingConstants;
+//import javax.swing.JSeparator;
+//import javax.swing.JTextArea;
+//import javax.swing.SwingConstants;
 //import javax.swing.SwingUtilities;
 import javax.swing.border.BevelBorder;
 
@@ -189,9 +190,10 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 		//contentArea.setWrapStyleWord(true);
 		//contentArea.setEditable(false);
 		
-		//ImageIcon icon=HoopLink.getImageByName("wait_animated.gif");
-		//contentArea.setIcon(icon);
-		//icon.setImageObserver(contentArea);
+		ImageIcon icon=HoopLink.getImageByName("wait_animated.gif");
+		contentArea.setIcon(icon);
+		contentArea.setVisible(false);
+		icon.setImageObserver(contentArea);
 			
 		//contentArea.setBackground(HoopProperties.graphPanelContent);
 		//contentArea.setBorder(BorderFactory.createLoweredBevelBorder());
@@ -509,5 +511,15 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 		debug ("examineData ()");
 		
 		// Implement in child class				
+	}
+	/**
+	 * 
+	 */
+	protected void setWaiting (Boolean aVal)
+	{
+		if (aVal==true)
+			contentArea.setVisible(false);
+		else
+			contentArea.setVisible(true);
 	}
 }

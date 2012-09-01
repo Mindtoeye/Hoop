@@ -174,22 +174,26 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 		
 		if (aState.equals("ERROR")==true)
 		{
-			icon.setIcon(HoopLink.getImageByName("led-red.png"));	
+			icon.setIcon(HoopLink.getImageByName("led-red.png"));
+			setWaiting (false);
 		}
 		
 		if (aState.equals("STOPPED")==true)
 		{
 			icon.setIcon(HoopLink.getImageByName("led-yellow.png"));
+			setWaiting (false);
 		}
 		
 		if (aState.equals("WAITING")==true)
 		{
 			icon.setIcon(HoopLink.getImageByName("led-yellow.png"));
+			setWaiting (false);
 		}
 		
 		if (aState.equals("RUNNING")==true)
 		{
 			icon.setIcon(HoopLink.getImageByName("led-green.png"));
+			setWaiting (true);
 		}		
 	}
 	/**

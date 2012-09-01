@@ -32,18 +32,10 @@
 package edu.cmu.cs.in.controls.map;
 
 import java.awt.BorderLayout;
-//import java.awt.Color;
-//import java.awt.Component;
-
 import javax.media.j3d.Canvas3D;
 import javax.swing.JPopupMenu;
 
 import com.sun.j3d.utils.universe.SimpleUniverse;
-//import javax.swing.BorderFactory;
-//import javax.swing.BoxLayout;
-//import javax.swing.border.Border;
-
-//import edu.cmu.cs.in.base.INHoopLink;
 import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 
 /** 

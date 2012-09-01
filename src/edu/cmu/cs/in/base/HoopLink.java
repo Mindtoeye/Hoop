@@ -53,7 +53,7 @@ import edu.cmu.cs.in.stats.HoopStatistics;
 *
 */
 public class HoopLink extends HoopProperties
-{    		    		
+{    		    			
 	public static Preferences preferences=null;
 	
 	public static HoopConsoleInterface console=null;	
@@ -282,7 +282,7 @@ public class HoopLink extends HoopProperties
 		 							 "checkbox.jpg", 
 		 							 "player-pause.png", 
 		 							 "player-play.png", 		 							 
-		 							 "player-stop.jpg",
+		 							 "player-stop.png",
 		 							 "help_icon.png",
 		 							 "mime_xml.png",
 		 							 "text_icon.png",

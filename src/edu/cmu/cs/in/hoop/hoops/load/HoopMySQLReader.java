@@ -702,7 +702,7 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 			return (false);			
 		}
 		
-		int count = 0;
+		int count=0;
 		
 		resetData ();
 		
@@ -790,6 +790,8 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 		r.gc();
 		
 		debug (count + " rows were retrieved, verification date size is: " + this.getData().size() + " from " + loadIndex + " with size: " + loadSize);
+		
+		getVisualizer ().setExecutionInfo (" R: " + (loadIndex+1) + " out of " + loadMax);
 		
 	    loadIndex+=count;
 	    
