@@ -514,7 +514,8 @@ public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener
 	{
 	    int dot = e.getDot();
 	    int line=0;
-	    int positionInLine=0;
+	    @SuppressWarnings("unused")
+		int positionInLine=0;
 	    
 		try 
 		{
