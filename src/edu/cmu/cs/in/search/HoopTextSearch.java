@@ -174,7 +174,8 @@ public class HoopTextSearch extends HoopRoot
 			newDocument.setRank(i);				
 			newDocument.setScore(entry.getEvaluation());
 			
-			localDataSet.addDocument (newDocument);						
+			//localDataSet.addDocument (newDocument);
+			localDataSet.writeKV (entry.getDocID(),newDocument);
 		}
 		
 		HoopLink.dataSet=localDataSet;

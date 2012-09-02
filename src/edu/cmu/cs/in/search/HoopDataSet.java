@@ -20,15 +20,19 @@ package edu.cmu.cs.in.search;
 
 import java.io.File;
 
-import com.sleepycat.bind.serial.SerialBinding;
-import com.sleepycat.bind.tuple.LongBinding;
+//import com.sleepycat.bind.serial.SerialBinding;
+//import com.sleepycat.bind.tuple.LongBinding;
 //import com.sleepycat.bind.tuple.StringBinding;
 import com.sleepycat.collections.StoredMap;
 
 import edu.cmu.cs.in.base.HoopRoot;
+import edu.cmu.cs.in.base.HoopStringTools;
+import edu.cmu.cs.in.base.io.HoopBerkeleyAltDocumentDB;
 import edu.cmu.cs.in.base.io.HoopBerkeleyDB;
 import edu.cmu.cs.in.base.io.HoopBerkeleyDocumentDB;
+import edu.cmu.cs.in.base.io.HoopBerkeleyThreadDB;
 import edu.cmu.cs.in.base.kv.HoopKVDocument;
+import edu.cmu.cs.in.base.kv.HoopKVLong;
 import edu.cmu.cs.in.base.HoopLink;
 
 /** 
@@ -40,7 +44,10 @@ public class HoopDataSet extends HoopRoot
 {	
 	private HoopBerkeleyDB driver=null;
 	private HoopBerkeleyDocumentDB documentDriver=null;
-    private StoredMap<Long,HoopKVDocument> map=null;
+	private HoopBerkeleyThreadDB threadDriver=null;
+	private HoopBerkeleyAltDocumentDB altDocumentDriver=null;
+		
+    //private StoredMap<Long,HoopKVDocument> map=null;
 	
 	/**
 	 *
@@ -55,11 +62,52 @@ public class HoopDataSet extends HoopRoot
      */
     public StoredMap<Long,HoopKVDocument> getData ()
     {
-    	return (map);
+    	if (documentDriver!=null)
+    		return (documentDriver.getData());
+    	
+    	return (null);
+    }
+    /**
+     * 
+     */
+    public StoredMap<Long,HoopKVLong> getThreads ()
+    {
+    	return (threadDriver.getData());
+    }  
+    /**
+    * @param aKey String
+    * @param aValue ArrayList<Object>
+    */
+    public boolean writeKV (Long aKey,HoopKVDocument aValue)
+    {
+    	if (documentDriver==null)
+    		return (false);
+    	
+    	Boolean result=documentDriver.writeKV(aKey, aValue);
+    	
+    	if (result==false)
+    		return (false);
+    	
+    	if (aValue.documentID.getValue().isEmpty()==false)
+    	{    	
+    		debug ("Processing document id: " + aValue.documentID.getValue());
+    		
+    		if (HoopStringTools.isLong(aValue.documentID.getValue())==true)
+    		{
+    			Long testID=Long.parseLong(aValue.documentID.getValue());
+    				
+    			result=altDocumentDriver.writeKV(testID, aValue);
+    		}	
+    	}
+    	else
+    		debug ("Info: document has no explicit document ID");
+    	
+    	return (true);
     }
 	/**
 	 *
 	 */
+    /*
 	public void addDocument (HoopKVDocument anInstance)
 	{
 		if (map==null)
@@ -71,6 +119,7 @@ public class HoopDataSet extends HoopRoot
 		
 		map.put(aSize,anInstance);
 	}
+	*/
 	/**
 	 * 
 	 */
@@ -122,18 +171,34 @@ public class HoopDataSet extends HoopRoot
 				return;
 			}
 			
-			//StringBinding keyBinding = new StringBinding();
+			//>---------------------------------------------------------
+			
+			/*
 			LongBinding keyBinding = new LongBinding();
 			SerialBinding <HoopKVDocument> dataBinding=new SerialBinding<HoopKVDocument> (documentDriver.getJavaCatalog(),HoopKVDocument.class);
 			
-	        // create a map view of the database
 	        this.map=new StoredMap<Long, HoopKVDocument> (documentDriver.getDB(),keyBinding,dataBinding,true);
 		        
 	        if (this.map==null)
 	        {
 	        	debug ("Error creating StoredMap from database");
 	        	return;
-	        }        			 			
+	        }
+	        */
+			
+			documentDriver.bind();
+	        
+			//>---------------------------------------------------------
+	        
+	        threadDriver=new HoopBerkeleyThreadDB ();
+	        threadDriver.setInstanceName("documenthreads");
+	        driver.accessDB(threadDriver);
+	        threadDriver.bind();
+	        
+	        altDocumentDriver=new HoopBerkeleyAltDocumentDB ();
+	        altDocumentDriver.setInstanceName("altdocumenttable");
+	        driver.accessDB(altDocumentDriver);
+	        altDocumentDriver.bind();	        
 		}
 		else
 			debug ("Driver exists, assuming that the database has been initialized");

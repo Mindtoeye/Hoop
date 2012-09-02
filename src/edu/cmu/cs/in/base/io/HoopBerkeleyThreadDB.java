@@ -26,35 +26,35 @@ import com.sleepycat.bind.tuple.LongBinding;
 //import com.sleepycat.bind.tuple.StringBinding;
 import com.sleepycat.collections.StoredMap;
 
-import edu.cmu.cs.in.base.kv.HoopKVDocument;
+//import edu.cmu.cs.in.base.kv.HoopKVDocument;
+import edu.cmu.cs.in.base.kv.HoopKVLong;
 
 /**
 *
 */
-public class HoopBerkeleyDocumentDB extends HoopBerkeleyDBBase
+public class HoopBerkeleyThreadDB extends HoopBerkeleyDBBase
 {
-	// Maps a timestamp (or long) to a document
-    private StoredMap<Long,HoopKVDocument> map=null;
-    
+    private StoredMap<Long,HoopKVLong> map=null;
+ 	
 	/**
 	*
 	*/	
-	public HoopBerkeleyDocumentDB ()
+	public HoopBerkeleyThreadDB ()
 	{  
-    	setClassName ("HoopBerkeleyDocumentDB");
-    	debug ("HoopBerkeleyDocumentDB ()");    	    	    	
+    	setClassName ("HoopBerkeleyThreadDB");
+    	debug ("HoopBerkeleyThreadDB ()");    	    	    	
 	}
 	/**
 	 * 
 	 */
-	public StoredMap<Long,HoopKVDocument> getData ()
+	public StoredMap<Long,HoopKVLong> getData ()
 	{
 		return map;
 	}
 	/**
 	 * 
 	 */
-	public void assignMap (StoredMap<Long,HoopKVDocument> aMap)
+	public void assignMap (StoredMap<Long,HoopKVLong> aMap)
 	{
 		debug ("assignMap ()");
 		
@@ -67,25 +67,19 @@ public class HoopBerkeleyDocumentDB extends HoopBerkeleyDBBase
 	{
 		debug ("bind ()");
 		
-		// First one
-		
 		LongBinding keyBinding = new LongBinding();
-		SerialBinding <HoopKVDocument> dataBinding=new SerialBinding<HoopKVDocument> (this.getJavaCatalog(),HoopKVDocument.class);
+		SerialBinding <HoopKVLong> dataBinding=new SerialBinding<HoopKVLong> (this.getJavaCatalog(),HoopKVLong.class);
 		
-        this.map=new StoredMap<Long, HoopKVDocument> (this.getDB(),keyBinding,dataBinding,true);
+        // create a map view of the database
+        this.map=new StoredMap<Long, HoopKVLong> (this.getDB(),keyBinding,dataBinding,true);
 	        
         if (this.map==null)
         {
         	debug ("Error creating StoredMap from database");
         	setDbDisabled (true);
         	return (false);
-        }
+        }        			 
         
-        // Second one
-        
-		LongBinding keyIDBinding = new LongBinding();
-		SerialBinding <HoopKVDocument> dataIDBinding=new SerialBinding<HoopKVDocument> (this.getJavaCatalog(),HoopKVDocument.class);
-		        
         return (true);
 	}
     /** 
@@ -110,7 +104,7 @@ public class HoopBerkeleyDocumentDB extends HoopBerkeleyDBBase
      * @param aKey String
      * @param aValue ArrayList<Object>
      */
-    public boolean writeKV (Long aKey,HoopKVDocument aValue)
+    public boolean writeKV (Long aKey,HoopKVLong aValue)
     {
     	debug ("writeKV (key:"+aKey+", value:"+aValue+")");
     	
@@ -127,7 +121,7 @@ public class HoopBerkeleyDocumentDB extends HoopBerkeleyDBBase
     	}
     	
     	map.put (aKey,aValue);
-    	    	
+
     	return (true);
     }
     /**
@@ -151,7 +145,7 @@ public class HoopBerkeleyDocumentDB extends HoopBerkeleyDBBase
     	
         debug ("Map size: " + map.size() + " entries");
             
-        Iterator<Map.Entry<Long,HoopKVDocument>> iter=null;
+        Iterator<Map.Entry<Long,HoopKVLong>> iter=null;
         
 		try
 		{
@@ -166,7 +160,7 @@ public class HoopBerkeleyDocumentDB extends HoopBerkeleyDBBase
                 
         while (iter.hasNext()) 
         {
-            Map.Entry<Long,HoopKVDocument> entry = iter.next();
+            Map.Entry<Long,HoopKVLong> entry = iter.next();
             debug (entry.getKey().toString() + ' ' +  entry.getValue());
         }    	
     }
@@ -191,7 +185,7 @@ public class HoopBerkeleyDocumentDB extends HoopBerkeleyDBBase
     	
         debug ("Checking: " + map.size() + " entries");
             
-        Iterator<Map.Entry<Long,HoopKVDocument>> iter=null;
+        Iterator<Map.Entry<Long,HoopKVLong>> iter=null;
         
 		try
 		{
@@ -206,7 +200,7 @@ public class HoopBerkeleyDocumentDB extends HoopBerkeleyDBBase
         while (iter.hasNext()) 
         {
             @SuppressWarnings("unused")
-			Map.Entry<Long,HoopKVDocument> entry = iter.next();
+			Map.Entry<Long,HoopKVLong> entry = iter.next();
             //debug (entry.getKey().toString() + ' ' +  entry.getValue());
             System.out.print(".");
         }

@@ -190,10 +190,10 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 		//contentArea.setWrapStyleWord(true);
 		//contentArea.setEditable(false);
 		
-		ImageIcon icon=HoopLink.getImageByName("wait_animated.gif");
-		contentArea.setIcon(icon);
-		contentArea.setVisible(false);
-		icon.setImageObserver(contentArea);
+		//ImageIcon icon=HoopLink.getImageByName("wait_animated.gif");
+		//contentArea.setIcon(icon);
+		//contentArea.setVisible(false);
+		//icon.setImageObserver(contentArea);
 			
 		//contentArea.setBackground(HoopProperties.graphPanelContent);
 		//contentArea.setBorder(BorderFactory.createLoweredBevelBorder());
@@ -517,9 +517,11 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 	 */
 	protected void setWaiting (Boolean aVal)
 	{
+		/*
 		if (aVal==true)
 			contentArea.setVisible(false);
 		else
 			contentArea.setVisible(true);
+		*/	
 	}
 }

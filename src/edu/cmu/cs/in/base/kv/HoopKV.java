@@ -121,6 +121,15 @@ public class HoopKV extends HoopDataType implements HoopKVInterface, Serializabl
 		// PROCESS NEW LABEL AND MOVE THE OLD ONE UP!
 		
 		values.set (0,value);
+	}		
+	/**
+	 * Insert a new value and move all the other existing values down
+	 */
+	public void bump(Object value) 
+	{				
+		// PROCESS NEW LABEL AND MOVE THE OLD ONE UP!
+		
+		values.set (0,value);
 	}			
 	/**
 	 *

@@ -720,11 +720,11 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 					
 					if (aType.getType()==HoopDataType.INT)
 					{
-						debug ("Adding INT type");
+						//debug ("Adding INT type");
 						
 						Integer idVal = resultSet.getInt (aType.getTypeValue());
 						
-						debug ("nameVale: " + idVal);
+						//debug ("nameVal: " + idVal);
 						
 						if (i==0)
 						{
@@ -736,7 +736,7 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 					
 					if (aType.getType()==HoopDataType.STRING)
 					{						
-						debug ("Adding STRING type");
+						//debug ("Adding STRING type");
 						
 						String nameVal = resultSet.getString (aType.getTypeValue());
 						
@@ -745,6 +745,7 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 						if (i==0)
 						{
 							tableKV.setKey(nameVal);
+							tableKV.setValue(nameVal,i);
 						}
 						else
 							tableKV.setValue(nameVal,i);						
@@ -753,7 +754,7 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 				
 				//debug ("Entry " + count + " has " + tableKV.getValuesRaw().size() + " values");
 				
-				debug ("Key ("+count+"): " + tableKV.getKeyString () + ", Value: " + tableKV.getValue());
+				//debug ("Key ("+count+"): " + tableKV.getKeyString () + ", Value: " + tableKV.getValue());
 				
 				addKV (tableKV);
 				
@@ -803,6 +804,12 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 	    }
 	    else
 	    	debug ("And ........ we're done here");
+	    
+	    if (reachedMax ()==true)
+	    {
+	    	debug ("Regardless if we're done or not, we've reached our max and so we're quitting ...");
+	    	this.setDone(true);
+	    }
 		
 		return (true);
 	}
@@ -901,5 +908,20 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
             e.printStackTrace (System.err);
             e = e.getNextException();
         }
-    }	   
+    }	 
+    /**
+     * 
+     */
+    private Boolean reachedMax ()
+    {
+    	if (queryMax.getValue().isEmpty()==false)
+    	{
+    		Integer testValue=Integer.parseInt(queryMax.getValue());
+    		
+    		if (loadIndex>testValue)
+    			return (true);
+    	}
+    	
+    	return (false);
+    }
 }

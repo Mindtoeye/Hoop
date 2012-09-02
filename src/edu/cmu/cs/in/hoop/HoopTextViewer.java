@@ -36,12 +36,15 @@ import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 //import java.util.Enumeration;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JSplitPane;
 import javax.swing.JTextPane;
+import javax.swing.JTree;
 //import javax.swing.JEditorPane;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
@@ -55,9 +58,15 @@ import javax.swing.text.Document;
 import javax.swing.text.Element;
 import javax.swing.text.Highlighter;
 import javax.swing.text.JTextComponent;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeSelectionModel;
+
+import com.sleepycat.collections.StoredMap;
 
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.kv.HoopKVDocument;
+import edu.cmu.cs.in.base.kv.HoopKVLong;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 import edu.cmu.cs.in.hoop.project.HoopWrapperFile;
 
@@ -78,6 +87,8 @@ public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener
 	private JCheckBox showThread=null;
 	private JComboBox filterText=null;
 	private JComboBox renderType=null;
+	
+	private JTree threadTree=null;
 	
 	private int fontSize=10;
 	
@@ -184,8 +195,28 @@ public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener
 		scroller.setRowHeaderView (lines);		
 		scroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 				    	
+		threadTree=new JTree();
+		threadTree.setFont(new Font("Dialog", 1, 10)); // overwritten by cellrenderer?
+		threadTree.getSelectionModel().setSelectionMode (TreeSelectionModel.SINGLE_TREE_SELECTION);
+		threadTree.setRootVisible(true);
+		threadTree.setBorder(BorderFactory.createEmptyBorder(4,4,4,4));
+		//threadTree.setCellRenderer (treeHoopRenderer);
+		threadTree.setDragEnabled(false);
+		threadTree.addMouseListener (this);		
+		
+		JScrollPane treeScroller=new JScrollPane (threadTree);		
+		treeScroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		
+		JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT,scroller, treeScroller);
+		splitPane.setOneTouchExpandable(true);
+		splitPane.setDividerLocation(250);
+		
+		Box splitBox = new Box (BoxLayout.X_AXIS);
+		
+		splitBox.add(splitPane);
+		
     	mainBox.add(controlBox);
-    	mainBox.add(scroller);
+    	mainBox.add(splitBox);
 		
 		setContentPane (mainBox);		
     }
@@ -199,6 +230,8 @@ public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener
 		showText (internalDocument.toText ());
 	
 		fillTextFilterCombo ();
+		
+		showDocumentThread (aDocument);
 	}
 	/**
 	 * 
@@ -536,5 +569,53 @@ public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-	}	
+	}
+	/**
+	 * 
+	 */
+	private void showDocumentThread (HoopKVDocument aDocument)
+	{
+		debug ("showDocumentThread ()");
+
+		if (HoopLink.dataSet==null)
+		{
+			return;
+		}
+		
+		StoredMap<Long,HoopKVLong> threadData=HoopLink.dataSet.getThreads();
+		
+		if (threadData==null)
+		{
+			debug ("Error: no thread data available");
+			return;
+		}		
+		
+		if (aDocument.threadID.getValue().isEmpty()==true)
+		{
+			debug ("Error: document does not contain a thread ID");
+			return;
+		}
+
+    	DefaultMutableTreeNode root=new DefaultMutableTreeNode (aDocument.threadID.getValue());
+    	root.setUserObject (aDocument.documentID.getValue());
+    	
+    	Long newThreadID=Long.parseLong(aDocument.threadID.getValue());
+    	
+    	HoopKVLong threadRoot=threadData.get(newThreadID);
+    	    	    	
+    	for (int i=0;i<threadRoot.getValueSize();i++)
+    	{    		
+    		Long IDTest=Long.parseLong((String) threadRoot.getValuesRaw().get(i));
+    		
+    		debug ("Adding ID: " + IDTest.toString());
+    		    		
+        	DefaultMutableTreeNode aNode=new DefaultMutableTreeNode (IDTest.toString());
+        	aNode.setUserObject (IDTest);
+        	root.add(aNode);
+    	}
+    	
+    	DefaultTreeModel model = new DefaultTreeModel(root);
+
+    	threadTree.setModel(model);
+	}
 }

@@ -20,9 +20,13 @@ package edu.cmu.cs.in.hoop.hoops.save;
 
 import java.util.ArrayList;
 
+import com.sleepycat.collections.StoredMap;
+
 import edu.cmu.cs.in.base.HoopLink;
+import edu.cmu.cs.in.base.HoopStringTools;
 import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.base.kv.HoopKVDocument;
+import edu.cmu.cs.in.base.kv.HoopKVLong;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopSaveBase;
 import edu.cmu.cs.in.hoop.properties.types.HoopSerializable;
@@ -55,7 +59,9 @@ public class HoopDocumentWriter extends HoopSaveBase
 	@SuppressWarnings("unused")
 	private HoopStringSerializable text=null;
 	@SuppressWarnings("unused")
-	private HoopStringSerializable threadID=null;	
+	private HoopStringSerializable threadID=null;
+	@SuppressWarnings("unused")
+	private HoopStringSerializable threadStarter=null;	
 	@SuppressWarnings("unused")
 	private HoopStringSerializable keywords=null;
 	@SuppressWarnings("unused")
@@ -81,6 +87,7 @@ public class HoopDocumentWriter extends HoopSaveBase
 		modifiedDate=new HoopStringSerializable (this,"modifiedDate","date modified");
 		description=new HoopStringSerializable (this,"description","description");
 		threadID=new HoopStringSerializable (this,"threadID","threadID");
+		threadStarter=new HoopStringSerializable (this,"threadStarter","threadStarter");
 		text=new HoopStringSerializable (this,"text","text");
 		keywords=new HoopStringSerializable (this,"keywords","keywords");
 		url=new HoopStringSerializable (this,"url","url");		
@@ -175,7 +182,10 @@ public class HoopDocumentWriter extends HoopSaveBase
 					newDocument.description.setValue((String) docElements.get(i));
 				
 				if (remapped.equalsIgnoreCase("threadID")==true)
-					newDocument.threadID.setValue((String) docElements.get(i));				
+					newDocument.threadID.setValue((String) docElements.get(i));
+				
+				if (remapped.equalsIgnoreCase("threadStarter")==true)
+					newDocument.threadStarter.setValue((String) docElements.get(i));				
 
 				if (remapped.equalsIgnoreCase("keywords")==true)
 					newDocument.keywords.setValue((String) docElements.get(i));
@@ -188,13 +198,82 @@ public class HoopDocumentWriter extends HoopSaveBase
 			}
 			
 			newDocument.postProcess();
+						
+			// This call will associate a timestamp with a document, but
+			// through an alternative table also use a unique ID to link
+			// to a document. But only if the documentID field is not blank
+			// and contains a long value.
 			
-			//HoopLink.dataSet.getData().put(indexTransformer.toString(),newDocument);
-			HoopLink.dataSet.getData().put(newDocument.getKey(),newDocument);
+			HoopLink.dataSet.writeKV(newDocument.getKey(),newDocument);
+			
+			processThreadData (newDocument);
 		}			
 				
 		return (true);
 	}		
+	/**
+	 * 
+	 */
+	private void processThreadData (HoopKVDocument aDocument)
+	{
+		debug ("processThreadData ("+aDocument.toString()+")");
+		
+		if (HoopLink.dataSet==null)
+		{
+			debug ("No dataset, can't process thread data");
+			return;
+		}
+		
+		StoredMap<Long,HoopKVLong> threadData=HoopLink.dataSet.getThreads();
+		
+		if (threadData==null)
+		{
+			debug ("Error: no thread database available, can't process thread data");
+			return;
+		}
+		
+		if (aDocument.threadID.getValue().isEmpty()==false)
+		{						
+			if (HoopStringTools.isLong (aDocument.threadID.getValue())==true)
+			{
+				Long newThreadID=Long.parseLong(aDocument.threadID.getValue());
+				
+				HoopKVLong testThread=threadData.get(newThreadID);
+				
+				if (testThread==null)
+				{
+					debug ("No thread entry found for ID:" + newThreadID + " creating ...");
+					
+					HoopKVLong newThread=new HoopKVLong ();
+					newThread.setKey(newThreadID);
+					newThread.setValue(aDocument.documentID.getValue());
+					threadData.put(newThreadID,newThread);
+				}
+				else
+				{
+					if (aDocument.threadStarter.getValue().isEmpty()==false)
+					{
+						if (
+							(aDocument.threadStarter.getValue().equalsIgnoreCase("1")==true) ||
+							(aDocument.threadStarter.getValue().equalsIgnoreCase("true")==true) ||
+							(aDocument.threadStarter.getValue().equalsIgnoreCase("yes")==true)
+						   )
+						{
+
+						}
+						else
+						{
+							testThread.bump(aDocument.documentID.getValue());
+						}
+					}
+					else
+					{
+						testThread.bump(aDocument.documentID.getValue());
+					}
+				}
+			}
+		}		
+	}
 	/**
 	 * 
 	 */

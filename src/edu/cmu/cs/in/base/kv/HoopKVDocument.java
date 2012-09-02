@@ -80,6 +80,7 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 	public HoopKVString modifiedDate=null;
 	
 	public HoopKVString threadID=null;
+	public HoopKVString threadStarter=null;
 	public HoopKVString keywords=null;
 	public HoopKVString url=null;
 	
@@ -124,7 +125,10 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
     	addVariable (modifiedDate);
     	
     	threadID=new HoopKVString ("threadID","");
-    	addVariable (threadID);    	
+    	addVariable (threadID);
+    	
+    	threadStarter=new HoopKVString ("threadStarter","");
+    	addVariable (threadStarter);    	
     	
     	keywords=new HoopKVString ("keywords","");
     	addVariable (keywords);
@@ -358,7 +362,7 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 		formatter.append("\n\n");
 		
 		formatter.append("DocumentID: " + documentID.getValue() + "\n");
-		formatter.append("ThreadID: " + threadID.getValue() + "\n");
+		formatter.append("ThreadID: " + threadID.getValue() + " : " + threadStarter.getValue() + "\n");
 		formatter.append("Keywords: " + keywords.getValue() + "\n");
 		formatter.append("URL: " + url.getValue() + "\n");
 						
@@ -393,7 +397,7 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 		formatter.append("\n\n");
 		
 		formatter.append("DocumentID: " + documentID.getValue() + "\n");
-		formatter.append("ThreadID: " + threadID.getValue() + "\n");		
+		formatter.append("ThreadID: " + threadID.getValue() + " : " + threadStarter.getValue() + "\n");		
 		formatter.append("Keywords: " + keywords.getValue() + "\n");
 		formatter.append("URL: " + url.getValue() + "\n");
 						
@@ -453,7 +457,11 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 						
 		Element threadIDElement=new Element ("threadID");
 		threadIDElement.setText(threadID.getValue());
-		documentElement.addContent(threadIDElement);		
+		documentElement.addContent(threadIDElement);
+		
+		Element threadStarterElement=new Element ("threadStarter");
+		threadStarterElement.setText(threadStarter.getValue());
+		documentElement.addContent(threadStarterElement);		
 		
 		Element keywordsElement=new Element ("keywords");
 		keywordsElement.setText(keywords.getValue());

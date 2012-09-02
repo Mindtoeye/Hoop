@@ -112,4 +112,19 @@ public class HoopStringTools extends HoopRoot
           return false;  
        }  
     }      
+	/**
+	 *
+	 */    
+   public static boolean isLong (String input)  
+   {  
+      try  
+      {  
+         Long.parseLong(input);
+         return true;  
+      }  
+      catch(Exception e)  
+      {  
+         return false;  
+      }  
+   }          
 }

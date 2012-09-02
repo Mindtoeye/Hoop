@@ -31,25 +31,25 @@ import edu.cmu.cs.in.base.kv.HoopKVDocument;
 /**
 *
 */
-public class HoopBerkeleyDocumentDB extends HoopBerkeleyDBBase
+public class HoopBerkeleyAltDocumentDB extends HoopBerkeleyDBBase
 {
-	// Maps a timestamp (or long) to a document
-    private StoredMap<Long,HoopKVDocument> map=null;
+	// Maps a custom unique ID (or long) to a document
+    private StoredMap<Long,HoopKVDocument> mapByID=null;
     
 	/**
 	*
 	*/	
-	public HoopBerkeleyDocumentDB ()
+	public HoopBerkeleyAltDocumentDB ()
 	{  
-    	setClassName ("HoopBerkeleyDocumentDB");
-    	debug ("HoopBerkeleyDocumentDB ()");    	    	    	
+    	setClassName ("HoopBerkeleyAltDocumentDB");
+    	debug ("HoopBerkeleyAltDocumentDB ()");    	    	    	
 	}
 	/**
 	 * 
 	 */
 	public StoredMap<Long,HoopKVDocument> getData ()
 	{
-		return map;
+		return mapByID;
 	}
 	/**
 	 * 
@@ -58,7 +58,7 @@ public class HoopBerkeleyDocumentDB extends HoopBerkeleyDBBase
 	{
 		debug ("assignMap ()");
 		
-		map=aMap;
+		mapByID=aMap;
 	}	
 	/**
 	 * 
@@ -72,20 +72,15 @@ public class HoopBerkeleyDocumentDB extends HoopBerkeleyDBBase
 		LongBinding keyBinding = new LongBinding();
 		SerialBinding <HoopKVDocument> dataBinding=new SerialBinding<HoopKVDocument> (this.getJavaCatalog(),HoopKVDocument.class);
 		
-        this.map=new StoredMap<Long, HoopKVDocument> (this.getDB(),keyBinding,dataBinding,true);
+        this.mapByID=new StoredMap<Long, HoopKVDocument> (this.getDB(),keyBinding,dataBinding,true);
 	        
-        if (this.map==null)
+        if (this.mapByID==null)
         {
         	debug ("Error creating StoredMap from database");
         	setDbDisabled (true);
         	return (false);
         }
-        
-        // Second one
-        
-		LongBinding keyIDBinding = new LongBinding();
-		SerialBinding <HoopKVDocument> dataIDBinding=new SerialBinding<HoopKVDocument> (this.getJavaCatalog(),HoopKVDocument.class);
-		        
+                
         return (true);
 	}
     /** 
@@ -100,7 +95,7 @@ public class HoopBerkeleyDocumentDB extends HoopBerkeleyDBBase
     	                         
         debug("Resetting map ...");
         
-        this.map=null;
+        this.mapByID=null;
         
         debug("Database successfully shutdown");
         
@@ -120,13 +115,13 @@ public class HoopBerkeleyDocumentDB extends HoopBerkeleyDBBase
     		return (false);
     	}
     	
-    	if (map==null)
+    	if (mapByID==null)
     	{
     		debug ("No map available to write to, aborting ..");
     		return (false);
     	}
     	
-    	map.put (aKey,aValue);
+    	mapByID.put (aKey,aValue);
     	    	
     	return (true);
     }
@@ -143,19 +138,19 @@ public class HoopBerkeleyDocumentDB extends HoopBerkeleyDBBase
     		return;
     	}
     	
-    	if (map==null)
+    	if (mapByID==null)
     	{
     		debug ("No map available to read from, aborting ..");
     		return;
     	}    	
     	
-        debug ("Map size: " + map.size() + " entries");
+        debug ("Map size: " + mapByID.size() + " entries");
             
         Iterator<Map.Entry<Long,HoopKVDocument>> iter=null;
         
 		try
 		{
-			iter=map.entrySet().iterator();
+			iter=mapByID.entrySet().iterator();
 		}
 		catch (IndexOutOfBoundsException e)
 		{
@@ -183,19 +178,19 @@ public class HoopBerkeleyDocumentDB extends HoopBerkeleyDBBase
     		return (false);
     	}
     	
-    	if (map==null)
+    	if (mapByID==null)
     	{
     		debug ("No map available to read from, aborting ..");
     		return (false);
     	}    	
     	
-        debug ("Checking: " + map.size() + " entries");
+        debug ("Checking: " + mapByID.size() + " entries");
             
         Iterator<Map.Entry<Long,HoopKVDocument>> iter=null;
         
 		try
 		{
-			iter=map.entrySet().iterator();
+			iter=mapByID.entrySet().iterator();
 		}
 		catch (IndexOutOfBoundsException e)
 		{
