@@ -18,14 +18,6 @@
 
 package edu.cmu.cs.in.hoop;
 
-import javax.swing.JComponent;
-
-import org.jdesktop.jxlayer.JXLayer;
-import org.jdesktop.jxlayer.plaf.effect.BufferedImageOpEffect;
-import org.jdesktop.jxlayer.plaf.ext.LockableUI;
-
-import com.jhlabs.image.BlurFilter;
-
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 

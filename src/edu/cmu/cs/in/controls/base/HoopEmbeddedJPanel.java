@@ -70,12 +70,8 @@ public class HoopEmbeddedJPanel extends HoopJPanel implements ComponentListener
 		this.setLayout(new BorderLayout(2,2));
 		this.addComponentListener(this);
 
-		/*
-		layer=new JXLayer<JComponent>(this);
-		layer.setUI (blurUI);
-	        
-		HoopLink.mainFrame.add(layer);
-		*/								
+		//layer=new JXLayer<JComponent>(this);
+		//layer.setUI (blurUI);	        								
 	}
 	/**
 	 * 
