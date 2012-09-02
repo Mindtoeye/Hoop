@@ -20,6 +20,23 @@ over and over again. Hence the creation of a modular toolkit
 called hoops in which those building blocks are pre-packaged for
 you and can be easily customized.
 
+Goals
+
+Within large complex language analysis systems we often focus on
+analyzing our results statistically without examining the correctness
+of the individual steps. Even worse, we tend to not look at those
+cases that get rejected by parsers or have been mis-classified by 
+machine learning classifiers. Hoop attempts to provide a means whereby
+each hoop in a transformation process or analysis step can be examined
+and interrogated as it is doing its job. All in all Hoop attempts to
+provide:
+
+- Inspectability
+
+- Explainability
+
+- Repeatability
+
 History
 
 Initially written as a set of support code for graduate classes
@@ -29,12 +46,7 @@ is slowly growing to encompass a larger text-based data mining framework.
 This source set includes code written for other various graduate 
 courses and is part of a larger research effort in the field of
 interactive narrative (IN). Language Technologies (CMU, LTI 
-http://www.lti.cs.cmu.edu/) Courses that have contribute to this 
-source base are:
- 
-05-834 Applied Machine Learning
-11-719 Computational Models of Discourse Analysis
-11-741 Information Retrieval
+http://www.lti.cs.cmu.edu/)
 
 Used Packages:
 
@@ -52,11 +64,13 @@ Used Packages:
 	
 - Apache Xerces (included), used to populate certain swing controls from 
 	xml, for example the INHoopXMLTreeView. This package is included in the lib
-	directory but can be separately downloaded and linked to externally if so desired.	
+	directory but can be separately downloaded and linked to externally if so 
+	desired.	
 	http://xerces.apache.org/mirrors.cgi
 	
 - MySQL jdbc driver (not included), provided as a means to load data directly
-	from a database. Please download this package separately and add the jar to your classpath.
+	from a database. Please download this package separately and add the jar to 
+	your classpath.
 	http://dev.mysql.com/downloads/connector/j/	
 	
 -BerkeleyDB driver (included), mainly integrated to function as a rapid indexing
