@@ -24,12 +24,15 @@ import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 
 //import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
@@ -49,7 +52,7 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
  * @author vvelsen
  *
  */
-public class HoopTablePanel extends HoopEmbeddedJPanel implements ActionListener
+public class HoopTablePanel extends HoopEmbeddedJPanel implements ActionListener, ItemListener
 {	
 	private static final long serialVersionUID = 1L;
 			
@@ -61,6 +64,7 @@ public class HoopTablePanel extends HoopEmbeddedJPanel implements ActionListener
     private JButton setRange=null;    
     private JButton previousSet=null;
     private JButton nextSet=null;	
+	private JCheckBox autoUpdate=null;
     
 	private int primColWidth=100;
 	
@@ -79,11 +83,19 @@ public class HoopTablePanel extends HoopEmbeddedJPanel implements ActionListener
 		
 		//Border border=BorderFactory.createLineBorder(Color.black);
 		
+		autoUpdate=new JCheckBox ();
+		autoUpdate.setText("Auto Update");
+		autoUpdate.setFont(new Font("Dialog",1,10));
+		autoUpdate.setPreferredSize(new Dimension (50,20));
+		autoUpdate.addItemListener(this);	
+		controlBox.add(autoUpdate);
+		
 	    minRange=new JTextField ();
 	    minRange.setText("0");
 	    minRange.setFont(new Font("Dialog", 1, 10));
-	    minRange.setMinimumSize(new Dimension (50,18));
-	    minRange.setPreferredSize(new Dimension (50,18));
+	    minRange.setMinimumSize(new Dimension (30,18));
+	    minRange.setPreferredSize(new Dimension (30,18));
+	    minRange.setMaximumSize(new Dimension (30,18));
 	    controlBox.add(minRange);
 	    	    	    	    
 	    maxRange=new JTextField ();
@@ -91,6 +103,7 @@ public class HoopTablePanel extends HoopEmbeddedJPanel implements ActionListener
 	    maxRange.setFont(new Font("Dialog", 1, 10));
 	    maxRange.setMinimumSize(new Dimension (50,20));
 	    maxRange.setPreferredSize(new Dimension (50,20));
+	    maxRange.setMaximumSize(new Dimension (30,18));
 	    controlBox.add(maxRange);
 	    	    
 	    setRange=new JButton ();
@@ -172,7 +185,9 @@ public class HoopTablePanel extends HoopEmbeddedJPanel implements ActionListener
 					
 		ArrayList <HoopDataType> types=aHoop.getTypes();
 		
-		String[] cNames = new String [types.size()];
+		String[] cNames = new String [types.size()+1];
+		
+		cNames [0]="Key";
 		
 		for (int n=0;n<types.size();n++)
 		{
@@ -180,13 +195,15 @@ public class HoopTablePanel extends HoopEmbeddedJPanel implements ActionListener
 			
 			debug ("Adding column: " + n + " " + aType.getTypeValue() + " ("+aType.typeToString()+")");
 			
-			cNames [n]=aType.getTypeValue()+"("+aType.typeToString()+")";
+			cNames [n+1]=aType.getTypeValue()+"("+aType.typeToString()+")";
 		}
 		
+		/*
 		for (int w=0;w<(aHoop.getMaxValues()-2);w++)
 		{
 			cNames [w+2]="V"+w;
 		}
+		*/
 		
 		DefaultTableModel model=new DefaultTableModel (null,cNames);
 				
@@ -283,5 +300,14 @@ public class HoopTablePanel extends HoopEmbeddedJPanel implements ActionListener
 		
 		TableColumn col2 = table.getColumnModel().getColumn(1);
 		col2.setPreferredWidth(this.getWidth()-primColWidth);		
+	}
+	/**
+	 * 
+	 */
+	@Override
+	public void itemStateChanged(ItemEvent arg0) 
+	{
+		
+		
 	}	
 }

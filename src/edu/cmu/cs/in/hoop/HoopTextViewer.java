@@ -75,6 +75,7 @@ public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener
 	private JButton outButton=null;
 	
 	private JCheckBox wordWrap=null;
+	private JCheckBox showThread=null;
 	private JComboBox filterText=null;
 	private JComboBox renderType=null;
 	
@@ -128,6 +129,12 @@ public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener
 		wordWrap.setPreferredSize(new Dimension (100,20));
 		wordWrap.addItemListener(this);
 		
+		showThread=new JCheckBox ();
+		showThread.setText("Show Document Thread");
+		showThread.setFont(new Font("Dialog",1,10));
+		showThread.setPreferredSize(new Dimension (150,20));
+		showThread.addItemListener(this);		
+		
 		filterText=new JComboBox();
 		filterText.setFont(new Font("Dialog",1,10));
 		filterText.setPreferredSize(new Dimension (150,20));
@@ -146,6 +153,8 @@ public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener
 		controlBox.add (Box.createRigidArea(new Dimension(2,0)));
 		controlBox.add (wordWrap);
 		controlBox.add (Box.createRigidArea(new Dimension(2,0)));
+		controlBox.add (showThread);
+		controlBox.add (Box.createRigidArea(new Dimension(2,0)));						
 		controlBox.add (filterText);
 		controlBox.add (Box.createRigidArea(new Dimension(2,0)));
 		controlBox.add (renderType);
