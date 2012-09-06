@@ -30,7 +30,7 @@ public class HoopExecuteExceptionHandler implements Thread.UncaughtExceptionHand
 	 */
     public void uncaughtException (Thread th, Throwable ex) 
     {
-    	HoopLink.runner.stopExecutionError();
+    	HoopLink.runner.stopError();
     	
 		HoopErrorPanel errorPanel=(HoopErrorPanel) HoopLink.getWindow("Errors");
 		

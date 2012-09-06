@@ -88,6 +88,8 @@ public class HoopExecuteInEditor extends HoopExecute implements ActionListener
 	protected Boolean execute (HoopBase aParent,HoopBase aRoot)
 	{
 		debug ("execute ()");
+		
+		HoopLink.runner=this;
 				
 		HoopGraphEditor editor=(HoopGraphEditor) HoopLink.getWindow("Hoop Editor");
 		
@@ -134,7 +136,7 @@ public class HoopExecuteInEditor extends HoopExecute implements ActionListener
 		if (act.equalsIgnoreCase("stop")==true)
 		{
 			JButton button = (JButton)event.getSource();
-			stop ();
+			stopExecution ();
 			button.setEnabled(false);
 		}
 		

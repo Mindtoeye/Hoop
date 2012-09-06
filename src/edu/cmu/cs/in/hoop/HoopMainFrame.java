@@ -595,7 +595,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     	{
     		public void actionPerformed(ActionEvent e) 
     		{
-    			// Fill in later
+    			buildProject ();
     		}
     	});
 
@@ -604,6 +604,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     		public void actionPerformed(ActionEvent e) 
     		{
     			// Fill in later
+    			cleanProject ();
     		}
     	});
 
@@ -647,7 +648,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     			
     			runtime.setRoot(HoopLink.hoopGraphManager.getRoot());
     			runtime.setLoopCount(1);
-    			
+    			    			
     			Thread runner=new Thread (runtime);
     			runner.setUncaughtExceptionHandler(new HoopExecuteExceptionHandler ());    			
     			runner.start();
@@ -1233,5 +1234,33 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 	public void actionPerformed(ActionEvent e) 
 	{
 		debug ("actionPerformed ()");
+	}
+	/**
+	 * 
+	 */
+	private void buildProject ()
+	{
+		debug ("buildProject ()");
+	
+		if (HoopLink.project.getVirginFile()==true)
+		{
+			alert ("Please save your project first");
+			return;
+		}
+		
+		HoopLink.fManager.createDirectory(HoopLink.project.getBasePath()+"/bin");
+	}
+	/**
+	 * 
+	 */
+	private void cleanProject ()
+	{
+		debug ("cleanProject ()");
+		
+		if (HoopLink.project.getVirginFile()==true)
+		{
+			alert ("Please save your project first");
+			return;
+		}		
 	}
 }

@@ -207,7 +207,7 @@ public class HoopExecute extends HoopRoot implements Runnable
 	/**
 	 * 
 	 */
-	public void stop ()
+	public void stopExecution ()
 	{
 		loopExecuting=false;
 	}
@@ -216,7 +216,7 @@ public class HoopExecute extends HoopRoot implements Runnable
 	 */
 	public void stopError ()
 	{
-		stop ();
+		stopExecution ();
 		
 		if (currentRunner!=null)
 		{
