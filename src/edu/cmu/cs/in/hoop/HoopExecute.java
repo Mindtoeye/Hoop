@@ -22,12 +22,11 @@ import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.HoopRoot;
-//import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.editor.HoopVisualRepresentation;
 
 /** 
- * @author Martin van Velsen
+ *
  */
 public class HoopExecute extends HoopRoot implements Runnable 
 {
@@ -330,4 +329,3 @@ public class HoopExecute extends HoopRoot implements Runnable
 		}								
 	}
 }
-

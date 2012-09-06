@@ -27,7 +27,7 @@ import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 
 /** 
- * @author Martin van Velsen
+ * 
  */
 public class HoopExecuteInEditor extends HoopExecute implements ActionListener
 {			
@@ -140,20 +140,32 @@ public class HoopExecuteInEditor extends HoopExecute implements ActionListener
 		
 		if (act.equalsIgnoreCase("run")==true)
 		{
-			//JButton button = (JButton)event.getSource();
-			//button.setEnabled(false);
+			setRoot(HoopLink.hoopGraphManager.getRoot());
+			setLoopCount(1);
+			
+			Thread runner=new Thread (this);
+			runner.setUncaughtExceptionHandler(new HoopExecuteExceptionHandler ());    			
+			runner.start();
 		}
 		
 		if (act.equalsIgnoreCase("runN")==true)
 		{
-			//JButton button = (JButton)event.getSource();
-			//button.setEnabled(false);
+			setRoot(HoopLink.hoopGraphManager.getRoot());
+			setLoopCount(10);
+			
+			Thread runner=new Thread (this);
+			runner.setUncaughtExceptionHandler(new HoopExecuteExceptionHandler ());    			
+			runner.start();
 		}
 		
 		if (act.equalsIgnoreCase("runForever")==true)
 		{
-			//JButton button = (JButton)event.getSource();
-			//button.setEnabled(false);
+			setRoot(HoopLink.hoopGraphManager.getRoot());
+			setLoopCount(-1);
+			
+			Thread runner=new Thread (this);
+			runner.setUncaughtExceptionHandler(new HoopExecuteExceptionHandler ());    			
+			runner.start();
 		}				
 	}	
 }
