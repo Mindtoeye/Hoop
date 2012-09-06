@@ -41,12 +41,12 @@ public class HoopJFeatureList extends HoopJPanel implements ActionListener, Mous
 {
 	private static final long serialVersionUID = 1L;
 	
-	private JList coreList;
+	private JList<HoopVisualFeature> coreList;
 	private JLabel coreLabel;
 	private JTextField coreFilter;
 	
-	private DefaultListModel originalModel;
-	private DefaultListModel filteredModel;
+	private DefaultListModel<HoopVisualFeature> originalModel;
+	private DefaultListModel<HoopVisualFeature> filteredModel;
 	
     private JButton allButton=null;
     private JButton noneButton=null;
@@ -96,7 +96,7 @@ public class HoopJFeatureList extends HoopJPanel implements ActionListener, Mous
 		
 		this.setLayout(new BoxLayout (this,BoxLayout.Y_AXIS));
 				
-		coreList = new JList ();
+		coreList = new JList<HoopVisualFeature> ();
 		coreList.setCellRenderer (new HoopJCheckListItem ());
 	    JScrollPane posScrollList = new JScrollPane (coreList);
 	    

@@ -40,7 +40,7 @@ import edu.cmu.cs.in.hoop.editor.HoopEditorMenuBar;
  * @author vvelsen
  *
  */
-public class HoopMultiViewFrame extends HoopPreferencesJFrame implements ActionListener
+public class HoopMultiViewFrame extends HoopPreferencesJFrame
 {
 	private static final long serialVersionUID = -1;
 			
@@ -222,7 +222,7 @@ public class HoopMultiViewFrame extends HoopPreferencesJFrame implements ActionL
     	button.setPreferredSize(new Dimension (22,22));
     	button.setActionCommand(actionCommand);
     	button.setToolTipText (toolTipText);
-    	button.addActionListener(this);
+    	//button.addActionListener(this);
     	button.setIcon(icon);
     	button.setBorder(BorderFactory.createEmptyBorder(2,2,2,2));
 
@@ -230,7 +230,8 @@ public class HoopMultiViewFrame extends HoopPreferencesJFrame implements ActionL
     }         
 	/**
 	 *
-	 */	
+	 */
+    /*
 	@Override
 	public void actionPerformed (ActionEvent event) 
 	{
@@ -238,6 +239,7 @@ public class HoopMultiViewFrame extends HoopPreferencesJFrame implements ActionL
 		
 		
 	}
+	*/
 	/** 
 	 * @param aTitle
 	 * @param aContent

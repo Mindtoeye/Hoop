@@ -38,7 +38,7 @@ public class HoopExecute extends HoopRoot implements Runnable
 	private Boolean inEditor=false;
 	
 	private HoopBase currentRunner=null;
-		
+			
 	/**
 	 *
 	 */
@@ -63,30 +63,6 @@ public class HoopExecute extends HoopRoot implements Runnable
 	{
 		return (root);
 	}
-	/**
-	 * 
-	 */
-	public void stopExecution ()
-	{
-		loopExecuting=false;
-	}
-	/**
-	 * 
-	 */
-	public void stopExecutionError ()
-	{
-		stopExecution ();
-		
-		if (currentRunner!=null)
-		{
-			HoopVisualRepresentation panel=currentRunner.getVisualizer();
-		
-			if (panel!=null)
-				panel.setState("ERROR");
-			else
-				debug ("No visual representation present to show error result!");
-		}	
-	}	
 	/**
 	 * 
 	 */    
@@ -150,6 +126,9 @@ public class HoopExecute extends HoopRoot implements Runnable
 	{
 		debug ("execute () push");
 							
+		if (loopExecuting==false)
+			return (true);
+		
 		// Execution phase of the current Hoop ...
 		
 		if (aRoot.getActive()==false)
@@ -158,7 +137,7 @@ public class HoopExecute extends HoopRoot implements Runnable
 			return (true);
 		}
 		
-		while (aRoot.getDone()==false)
+		while ((aRoot.getDone()==false) && (loopExecuting==true))
 		{							
 			debug ("Hoop "+aRoot.getInstanceName()+" with class " + aRoot.getClassName()+ " is not done yet");
 			
@@ -184,6 +163,11 @@ public class HoopExecute extends HoopRoot implements Runnable
 				showError (aRoot.getClassName(),aRoot.getErrorString());
 															
 				return (false);
+			}
+			else
+			{
+				if (loopExecuting==false)
+					return (true);
 			}
 			
 			currentRunner=null;
@@ -224,11 +208,36 @@ public class HoopExecute extends HoopRoot implements Runnable
 	/**
 	 * 
 	 */
+	public void stop ()
+	{
+		loopExecuting=false;
+	}
+	/**
+	 * 
+	 */
+	public void stopError ()
+	{
+		stop ();
+		
+		if (currentRunner!=null)
+		{
+			HoopVisualRepresentation panel=currentRunner.getVisualizer();
+		
+			if (panel!=null)
+				panel.setState("ERROR");
+			else
+				debug ("No visual representation present to show error result!");
+		}	
+	}		
+	/**
+	 * 
+	 */
 	@Override
 	public void run() 
 	{	
 		debug ("run ()");
 		
+		loopExecuting=true;
 		currentRunner=null;
 		
 		if (root==null)

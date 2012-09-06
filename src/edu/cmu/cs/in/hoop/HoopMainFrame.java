@@ -47,14 +47,14 @@ import edu.cmu.cs.in.hoop.visualizers.HoopScatterPlot;
 public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener, HoopMessageReceiver
 {
 	private static final long serialVersionUID = -1L;
-	
-    static final private String PREVIOUS = "previous";
-	    
+		    
     private HoopScatterPlot plotter=null;
 	private HoopConsole console=null;
 	private HoopPropertyPanel propPanel=null;
 	
 	private Component compReference=null;
+	
+	private	HoopExecuteInEditor runtime=null;
 			
 	/**
 	 *
@@ -67,6 +67,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     	this.setIconImage (HoopLink.getImageByName("hoop.png").getImage());
     	
     	compReference=this;
+    	runtime=new HoopExecuteInEditor ();
     	    	    	    
         buildMenus();       
         
@@ -646,7 +647,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     			
     			//showErrorWindow ();
     			    			
-    			HoopExecuteInEditor runtime=new HoopExecuteInEditor ();
+    			//HoopExecuteInEditor runtime=new HoopExecuteInEditor ();
     			runtime.setRoot(HoopLink.hoopGraphManager.getRoot());
     			runtime.setLoopCount(1);
     			
@@ -664,7 +665,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     			
     			//showErrorWindow ();
     			    			    			    		
-    			HoopExecuteInEditor runtime=new HoopExecuteInEditor ();
+    			//HoopExecuteInEditor runtime=new HoopExecuteInEditor ();
     			runtime.setRoot(HoopLink.hoopGraphManager.getRoot());
     			runtime.setLoopCount(10);
     			
@@ -682,7 +683,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     			    			
     			//showErrorWindow ();
     			
-    			HoopExecuteInEditor runtime=new HoopExecuteInEditor ();
+    			//HoopExecuteInEditor runtime=new HoopExecuteInEditor ();
     			runtime.setRoot(HoopLink.hoopGraphManager.getRoot());
     			runtime.setLoopCount(-1);
     			
@@ -713,15 +714,21 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 	 */    
     protected void addButtons(JToolBar toolBar) 
     {
-        JButton runButton = makeNavigationButton (PREVIOUS,"Run Once",HoopLink.getImageByName("run-once.png"));                        
-        JButton runNButton = makeNavigationButton (PREVIOUS,"Run N Times",HoopLink.getImageByName("run-n.png"));                
-        JButton runForeverButton = makeNavigationButton (PREVIOUS,"Run Forever",HoopLink.getImageByName("run-forever.png"));                
+    	debug ("addButtons ()");
+    	
+        JButton runButton = makeNavigationButton ("run","Run Once",HoopLink.getImageByName("run-once.png"));
+        runButton.addActionListener(runtime);
+        JButton runNButton = makeNavigationButton ("runN","Run N Times",HoopLink.getImageByName("run-n.png"));
+        runNButton.addActionListener(runtime);
+        JButton runForeverButton = makeNavigationButton ("runForever","Run Forever",HoopLink.getImageByName("run-forever.png"));
+        runForeverButton.addActionListener(runtime);
         
         JSeparator sep=new JSeparator(SwingConstants.VERTICAL);
         sep.setMinimumSize(new Dimension (5,5));
         sep.setMaximumSize(new Dimension (5,50));
         
-        JButton stopButton = makeNavigationButton (PREVIOUS,"Stop",HoopLink.getImageByName("run-stopped.png"));                
+        JButton stopButton = makeNavigationButton ("Stop","Stop",HoopLink.getImageByName("run-stopped.png"));
+        stopButton.addActionListener(runtime);
         
         toolBar.add (runButton);        
         toolBar.add (Box.createRigidArea(new Dimension(2,0)));
@@ -1226,5 +1233,14 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
        	{
        		projectPane.refresh();
        	}		
+	}
+	/*
+	 * (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
+	@Override
+	public void actionPerformed(ActionEvent e) 
+	{
+		debug ("actionPerformed ()");
 	}
 }

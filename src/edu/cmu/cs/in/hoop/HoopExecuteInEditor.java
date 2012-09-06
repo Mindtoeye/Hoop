@@ -18,13 +18,18 @@
 
 package edu.cmu.cs.in.hoop;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 
 /** 
  * @author Martin van Velsen
  */
-public class HoopExecuteInEditor extends HoopExecute
+public class HoopExecuteInEditor extends HoopExecute implements ActionListener
 {			
 	/**
 	 *
@@ -115,6 +120,41 @@ public class HoopExecuteInEditor extends HoopExecute
 		}
 				
 		return (result);
+	}
+	/**
+	 * 
+	 */
+	@Override
+	public void actionPerformed(ActionEvent event) 
+	{		
+		debug ("actionPerformed ("+event.getActionCommand()+")");
+		
+		String act=event.getActionCommand();
+		
+		if (act.equalsIgnoreCase("stop")==true)
+		{
+			JButton button = (JButton)event.getSource();
+			stop ();
+			button.setEnabled(false);
+		}
+		
+		if (act.equalsIgnoreCase("run")==true)
+		{
+			//JButton button = (JButton)event.getSource();
+			//button.setEnabled(false);
+		}
+		
+		if (act.equalsIgnoreCase("runN")==true)
+		{
+			//JButton button = (JButton)event.getSource();
+			//button.setEnabled(false);
+		}
+		
+		if (act.equalsIgnoreCase("runForever")==true)
+		{
+			//JButton button = (JButton)event.getSource();
+			//button.setEnabled(false);
+		}				
 	}	
 }
 
