@@ -19,6 +19,10 @@
 package edu.cmu.cs.in.hoop.hoops.save;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+
+//import javax.swing.tree.DefaultMutableTreeNode;
+//import javax.swing.tree.DefaultTreeModel;
 
 import com.sleepycat.collections.StoredMap;
 
@@ -216,7 +220,7 @@ public class HoopDocumentWriter extends HoopSaveBase
 	 */
 	private void processThreadData (HoopKVDocument aDocument)
 	{
-		debug ("processThreadData ("+aDocument.toString()+")");
+		debug ("processThreadData ("+aDocument.documentID.getValue()+","+aDocument.getKeyString()+")");
 		
 		if (HoopLink.dataSet==null)
 		{
@@ -234,23 +238,34 @@ public class HoopDocumentWriter extends HoopSaveBase
 		
 		if (aDocument.threadID.getValue().isEmpty()==false)
 		{						
+			debug ("Procedding thread ID: " + aDocument.threadID.getValue() + " for document: " + aDocument.documentID.getValue());
+			
 			if (HoopStringTools.isLong (aDocument.threadID.getValue())==true)
 			{
+				debug ("Thread ID is of type Long");
+				
 				Long newThreadID=Long.parseLong(aDocument.threadID.getValue());
 				
 				HoopKVLong testThread=threadData.get(newThreadID);
 				
 				if (testThread==null)
 				{
-					debug ("No thread entry found for ID:" + newThreadID + " creating ...");
+					debug ("No thread entry found for ID:" + newThreadID + " for document "+aDocument.documentID.getValue()+", creating ...");
+										
+					testThread=new HoopKVLong ();
+					testThread.setKey(newThreadID);
+					testThread.setValue(aDocument.createDate.getValue());
+					threadData.put(newThreadID,testThread);
 					
-					HoopKVLong newThread=new HoopKVLong ();
-					newThread.setKey(newThreadID);
-					newThread.setValue(aDocument.documentID.getValue());
-					threadData.put(newThreadID,newThread);
+					//showThreadDB ();
 				}
 				else
 				{
+					debug ("Thread ID is already in our database, updating ...");
+					debug ("Check >");
+					showThread (testThread);
+					debug ("Check <");
+					
 					if (aDocument.threadStarter.getValue().isEmpty()==false)
 					{
 						if (
@@ -259,21 +274,108 @@ public class HoopDocumentWriter extends HoopSaveBase
 							(aDocument.threadStarter.getValue().equalsIgnoreCase("yes")==true)
 						   )
 						{
-
+							debug ("Potential conflict, thread ID already exists but document indicates it's a thread starter");
 						}
 						else
 						{
-							testThread.bump(aDocument.documentID.getValue());
+							debug ("Bumping thread ID ("+newThreadID+") with document: "+aDocument.createDate.getValue()+" ...");
+							
+							//testThread.add(aDocument.createDate.getValue());
+							
+							testThread.bump(aDocument.createDate.getValue());
+							
+							threadData.put(newThreadID,testThread);
+							
+							//showThreadDB ();
 						}
 					}
 					else
 					{
-						testThread.bump(aDocument.documentID.getValue());
+						debug ("Bumping thread ID ("+newThreadID+") with document: "+aDocument.createDate.getValue()+" ...");
+						
+						//testThread.add(aDocument.createDate.getValue());
+						testThread.bump(aDocument.createDate.getValue());
+						
+						threadData.put(newThreadID,testThread);
+						
+						//showThreadDB ();
 					}
-				}
+				}								
 			}
 		}		
 	}
+	/**
+	 * 
+	 */
+	private void showThreadDB ()
+	{
+		debug ("showThreadDB ()");
+
+		StoredMap<Long,HoopKVLong> threadData=HoopLink.dataSet.getThreads();
+		
+		if (threadData==null)
+		{
+			debug ("Error: no thread data available");
+			return;
+		}		
+		
+		StoredMap<Long,HoopKVDocument> map=HoopLink.dataSet.getData();
+		
+		if (map==null)
+		{
+			debug ("Error: no document data available");
+			return;
+		}		
+		   	
+    	Integer totalShown=100;
+    	
+    	int dSize=threadData.size();
+    	
+    	if (dSize<totalShown)
+    		totalShown=dSize;
+    	
+    	debug ("Thread data size: " + dSize + " adjusted: " + totalShown);
+    	    	
+		Iterator<HoopKVLong> iterator = threadData.values().iterator();
+
+		int index=0;
+		int count=100;
+		
+		if (threadData.size()<100)
+			count=threadData.size ();
+		
+		debug ("Thread data size: " + dSize + " adjusted: " + count);
+												
+		while ((iterator.hasNext()) && (index<count)) 
+		{
+			HoopKVLong aThread=(HoopKVLong) iterator.next();
+								
+			showThread (aThread);
+    			
+			index++;
+		}	    			
+	}
+	/**
+	 * 
+	 */
+	private void showThread (HoopKVLong aThread)
+	{
+		debug ("showThread ("+aThread.getKeyString()+","+aThread.getValueSize()+")");
+		
+		ArrayList <Object> docIDs=aThread.getValuesRaw();
+		
+		StringBuffer docList=new StringBuffer ();
+		
+		for (int i=0;i<docIDs.size();i++)
+		{
+			if (i>0)
+				docList.append (", ");
+			
+			docList.append(docIDs.get (i));
+		}
+		
+		debug ("Doc list: " + docList.toString());
+	}	
 	/**
 	 * 
 	 */

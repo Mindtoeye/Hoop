@@ -24,8 +24,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.Iterator;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
@@ -33,13 +35,19 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+import javax.swing.JTree;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeSelectionModel;
 
 import com.sleepycat.collections.StoredMap;
 
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.kv.HoopKVDocument;
+import edu.cmu.cs.in.base.kv.HoopKVLong;
 import edu.cmu.cs.in.controls.HoopButtonBox;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 import edu.cmu.cs.in.search.HoopDataSet;
@@ -74,6 +82,8 @@ public class HoopDocumentList extends HoopEmbeddedJPanel implements ActionListen
 	
     private Integer start=0;
     private Integer maxShown=20;
+    
+    private JTree threadTree=null;
     
 	/**
 	 * Constructs a new frame that is initially invisible.
@@ -206,8 +216,28 @@ public class HoopDocumentList extends HoopEmbeddedJPanel implements ActionListen
 	    holder.add (buttonBox);	   
 	    holder.add (searchBox);
 	    holder.add (docScrollList);
+	    
+	    JTabbedPane tabbedPane = new JTabbedPane();
+	    
+	    tabbedPane.addTab ("Document View", 
+	    				   HoopLink.getImageByName("text_icon.png"), 
+	    				   holder,
+	                       "Document View");
+	    
+	    threadTree=new JTree ();
+		threadTree.setFont(new Font("Dialog", 1, 10)); // overwritten by cellrenderer?
+		threadTree.getSelectionModel().setSelectionMode (TreeSelectionModel.SINGLE_TREE_SELECTION);
+		threadTree.setRootVisible(false);
+		threadTree.setBorder(BorderFactory.createEmptyBorder(4,4,4,4));
+		threadTree.setDragEnabled(false);
+		threadTree.addMouseListener (this);
 	   	
-		setContentPane (holder);
+	    tabbedPane.addTab ("Thread View", 
+				   		   HoopLink.getImageByName("tree.gif"), 
+				   		   threadTree,
+                		   "Thread View");	    
+	    
+		setContentPane (tabbedPane);
    			
 		updateContents(); // Just in case we already have something
 	}
@@ -222,18 +252,16 @@ public class HoopDocumentList extends HoopEmbeddedJPanel implements ActionListen
 			HoopLink.dataSet=new HoopDataSet ();
 
 		HoopLink.dataSet.checkDB();
+
+		StoredMap<Long,HoopKVDocument> map=HoopLink.dataSet.getData();
 		
-		if (HoopLink.dataSet.getData()==null)
+		if (map==null)
 		{
 			return;
 		}
-		
-		//StoredMap<String,HoopKVDocument> docs=HoopLink.dataSet.getData();
-						
+								
 		DefaultListModel mdl=new DefaultListModel ();
-		
-		StoredMap<Long,HoopKVDocument> map=HoopLink.dataSet.getData();
-		
+				
 		Integer sizeTransformer=map.size();
 		
 		dbInfo.setText(sizeTransformer.toString()+" Entries");
@@ -258,8 +286,84 @@ public class HoopDocumentList extends HoopEmbeddedJPanel implements ActionListen
 			}	
 		}
 				
-		docList.setModel (mdl);		
+		docList.setModel (mdl);			
+		
+		showDocumentThreads ();
 	}
+	/**
+	 * 
+	 */
+	private void showDocumentThreads ()
+	{
+		debug ("showDocumentThreads ()");
+
+		if (HoopLink.dataSet==null)
+		{
+			return;
+		}
+		
+		StoredMap<Long,HoopKVLong> threadData=HoopLink.dataSet.getThreads();
+		
+		if (threadData==null)
+		{
+			debug ("Error: no thread data available");
+			return;
+		}		
+		
+		StoredMap<Long,HoopKVDocument> map=HoopLink.dataSet.getData();
+		
+		if (map==null)
+		{
+			debug ("Error: no document data available");
+			return;
+		}		
+		   	
+    	Integer totalShown=maxShown;
+    	
+    	int dSize=threadData.size();
+    	
+    	if (dSize<totalShown)
+    		totalShown=dSize;
+    	
+    	debug ("Thread data size: " + dSize + " adjusted: " + totalShown);
+    	    	
+		Iterator<HoopKVLong> iterator = threadData.values().iterator();
+
+		int index=0;
+		int count=maxShown;
+		
+		if (threadData.size()<maxShown)
+			count=threadData.size ();
+		
+	   	DefaultMutableTreeNode root = new DefaultMutableTreeNode("Threads");	   	
+    	root.setUserObject("Threads");
+		
+	   	DefaultTreeModel model = new DefaultTreeModel(root);
+										
+		while ((iterator.hasNext()) && (index<count)) 
+		{
+			HoopKVLong aThread=(HoopKVLong) iterator.next();
+				
+   			DefaultMutableTreeNode aNode=new DefaultMutableTreeNode (aThread.getKeyString ());
+   			root.add(aNode);   
+				
+       		ArrayList <Object> threadContents=aThread.getValuesRaw();
+            	
+       		debug ("Thread with id " +aThread.getKeyString() + " has " + aThread.getValuesRaw().size() + " entries");
+        		
+       		for (int j=0;j<threadContents.size();j++)
+       		{
+       			String docID=(String) threadContents.get(j);
+        		
+           		DefaultMutableTreeNode threadNode=new DefaultMutableTreeNode (docID);
+           		aNode.add(threadNode); 
+       		}     			
+    			
+			index++;
+		}	
+		  		    
+    	threadTree.setModel(model);
+	}	
 	/**
 	 * 
 	 */
@@ -321,29 +425,36 @@ public class HoopDocumentList extends HoopEmbeddedJPanel implements ActionListen
 	{
 		debug ("mouseClicked ()");
 		
-		if (event.getClickCount()==2)
+		if (event.getSource()==threadTree)
 		{
-            int index = docList.locationToIndex(event.getPoint());
-            
-            debug ("Double clicked on Item " + index);
-            
-            HoopKVDocument aDoc=(HoopKVDocument) docList.getModel().getElementAt(index);
-            
-            if (aDoc!=null)
-            {
-    			HoopTextViewer test=(HoopTextViewer) HoopLink.getWindow("Text Viewer");
-    			
-    			if (test==null)
-    			{
-    				HoopLink.addView ("Text Viewer",new HoopTextViewer(),HoopLink.center);
-    				test=(HoopTextViewer) HoopLink.getWindow("Text Viewer");
-    			}	
-    		    			
-    			test.showDocument(aDoc);
-    		
-    			HoopLink.popWindow ("Text Viewer");
-            }
+			debug ("Can't process thread tree double click yet");
 		}
+		else
+		{
+			if (event.getClickCount()==2)
+			{
+				int index = docList.locationToIndex(event.getPoint());
+            
+				debug ("Double clicked on Item " + index);
+            
+				HoopKVDocument aDoc=(HoopKVDocument) docList.getModel().getElementAt(index);
+            
+				if (aDoc!=null)
+				{
+					HoopTextViewer test=(HoopTextViewer) HoopLink.getWindow("Text Viewer");
+    			
+					if (test==null)
+					{
+						HoopLink.addView ("Text Viewer",new HoopTextViewer(),HoopLink.center);
+						test=(HoopTextViewer) HoopLink.getWindow("Text Viewer");
+					}	
+    		    
+					test.showDocument(aDoc);
+    		
+					HoopLink.popWindow ("Text Viewer");
+				}
+			}
+		}	
 	}
 	/**
 	 * 

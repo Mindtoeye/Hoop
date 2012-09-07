@@ -60,6 +60,13 @@ public class HoopDataSet extends HoopRoot
     /**
      * 
      */
+    public HoopKVDocument getDocumentFromDate (Long dateID)
+    {
+    	return (documentDriver.getData().get(dateID));    	
+    }
+    /**
+     * 
+     */
     public StoredMap<Long,HoopKVDocument> getData ()
     {
     	if (documentDriver!=null)

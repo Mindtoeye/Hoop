@@ -596,8 +596,10 @@ public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener
 			return;
 		}
 
-    	DefaultMutableTreeNode root=new DefaultMutableTreeNode (aDocument.threadID.getValue());
-    	root.setUserObject (aDocument.documentID.getValue());
+		String threadLabel=(aDocument.threadID.getValue() + " : " + aDocument.title.getValue());
+		
+    	DefaultMutableTreeNode root=new DefaultMutableTreeNode (threadLabel);
+    	//root.setUserObject (aDocument.documentID.getValue());
     	
     	Long newThreadID=Long.parseLong(aDocument.threadID.getValue());
     	
@@ -605,13 +607,18 @@ public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener
     	    	    	
     	for (int i=0;i<threadRoot.getValueSize();i++)
     	{    		
-    		Long IDTest=Long.parseLong((String) threadRoot.getValuesRaw().get(i));
+    		String tmpDateString=(String) threadRoot.getValuesRaw().get(i);
     		
-    		debug ("Adding ID: " + IDTest.toString());
-    		    		
-        	DefaultMutableTreeNode aNode=new DefaultMutableTreeNode (IDTest.toString());
-        	aNode.setUserObject (IDTest);
-        	root.add(aNode);
+    		debug ("Adding ID: " + tmpDateString);
+    		  
+    		HoopKVDocument threadDocument=HoopLink.dataSet.getDocumentFromDate (aDocument.dateStringToLong (tmpDateString));
+    		
+    		if (threadDocument!=null)
+    		{
+        		DefaultMutableTreeNode aNode=new DefaultMutableTreeNode (threadDocument.author.getValue());
+        		//aNode.setUserObject (threadDocument);
+        		root.add(aNode);        		
+    		}
     	}
     	
     	DefaultTreeModel model = new DefaultTreeModel(root);

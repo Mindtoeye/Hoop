@@ -918,7 +918,7 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
     	{
     		Integer testValue=Integer.parseInt(queryMax.getValue());
     		
-    		if (loadIndex>testValue)
+    		if (loadIndex>=testValue)
     			return (true);
     	}
     	
