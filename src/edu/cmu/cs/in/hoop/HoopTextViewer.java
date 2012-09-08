@@ -611,7 +611,8 @@ public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener
     		
     		debug ("Adding ID: " + tmpDateString);
     		  
-    		HoopKVDocument threadDocument=HoopLink.dataSet.getDocumentFromDate (aDocument.dateStringToLong (tmpDateString));
+    		//HoopKVDocument threadDocument=HoopLink.dataSet.getDocumentFromDate (aDocument.dateStringToLong (tmpDateString));
+    		HoopKVDocument threadDocument=HoopLink.dataSet.getDocumentFromDate (HoopLink.fManager.dateStringToLong (tmpDateString,aDocument.dateFormat.getValue()));
     		
     		if (threadDocument!=null)
     		{

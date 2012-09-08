@@ -155,6 +155,23 @@ public class HoopBaseTyped extends HoopVisual implements HoopPropertyContainer
     /**
      * 
      */
+    public void setKVLabel (int anIndex,String aValue)
+    {
+    	debug ("setKVLabel ()");
+    	
+    	HoopDataType target=types.get(anIndex);
+    	
+    	if (target==null)
+    	{
+    		target=new HoopDataType ();
+    		types.set(anIndex, target);
+    	}
+    	
+		target.setTypeValue (aValue);    	
+    }
+    /**
+     * 
+     */
     public String getKVTypeName (int anIndex)
     {
     	HoopDataType target=types.get(anIndex);

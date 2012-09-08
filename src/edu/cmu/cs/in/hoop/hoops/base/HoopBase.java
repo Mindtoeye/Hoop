@@ -54,7 +54,7 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface
 	protected StringBuffer hoopCategory=null; 
 	protected String hoopDescription="Undefined";
 	
-	/// One of: STOPPED, WAITHoopG, RUNNHoopG, PAUSED, ERROR
+	/// One of: STOPPED, WAITING, RUNNING, PAUSED, ERROR
 	private String executionState="STOPPED"; 
 		
 	private HoopPerformanceMetrics performance=null;

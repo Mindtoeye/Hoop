@@ -28,6 +28,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ListCellRenderer;
@@ -35,10 +36,11 @@ import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-import edu.cmu.cs.in.base.HoopDateTools;
+//import edu.cmu.cs.in.base.HoopDateTools;
 import edu.cmu.cs.in.base.kv.HoopKVDocument;
 import edu.cmu.cs.in.controls.base.HoopJPanel;
   
+//public class HoopDocumentListRenderer extends HoopJPanel implements ListCellRenderer<Object>
 public class HoopDocumentListRenderer extends HoopJPanel implements ListCellRenderer
 {
 	private static final long serialVersionUID = 1L;
@@ -47,10 +49,14 @@ public class HoopDocumentListRenderer extends HoopJPanel implements ListCellRend
 	
 	private JTextArea text=null;
 	private JLabel docLabel=null;
-	//private Border border=null;
+	private Border border=null;
 	private Border selectedBorder=null;
 	private Border defaultBorder=null;
 	//private HoopDateTools dTools=null;
+	
+    private JPanel colorPicker=null;
+    
+    private Color color = Color.BLACK;
 	
 	private int prefHeight=120;
 	
@@ -65,7 +71,7 @@ public class HoopDocumentListRenderer extends HoopJPanel implements ListCellRend
 		this.setOpaque(true);		
 		this.setBackground(new Color (0xF5F5E3));
 		
-		//border=BorderFactory.createLineBorder(Color.black);		
+		border=BorderFactory.createLineBorder(Color.black);		
 		selectedBorder=BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
 		defaultBorder=BorderFactory.createEtchedBorder(EtchedBorder.RAISED);
 		
@@ -81,6 +87,16 @@ public class HoopDocumentListRenderer extends HoopJPanel implements ListCellRend
 		
 		buttonBox.add(docLabel);
 		buttonBox.add(Box.createHorizontalGlue());
+		
+	    colorPicker=new JPanel ();
+	    colorPicker.setBackground(color);
+	    colorPicker.setBorder(border);
+	    colorPicker.setMinimumSize(new Dimension (20,20));
+	    colorPicker.setPreferredSize(new Dimension (20,20));
+	    colorPicker.setMaximumSize(new Dimension (20,20));
+	    //colorPicker.addMouseListener(this);
+	    
+	    buttonBox.add(colorPicker);
 				
 		text=new JTextArea ();
 		text.setLineWrap(true);

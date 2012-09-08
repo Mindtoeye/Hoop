@@ -86,7 +86,7 @@ public class HoopDocumentWriter extends HoopSaveBase
 		authorID=new HoopStringSerializable (this,"authorID","authorID");
 		title=new HoopStringSerializable (this,"title","title");
 		abstr=new HoopStringSerializable (this,"abstr","abstr");
-		dateFormat=new HoopStringSerializable (this,"dateFormat","yyyy-MM-dd HH:mm:ss.S");
+		dateFormat=new HoopStringSerializable (this,"dateFormat",HoopLink.dateFormat);
 		createDate=new HoopStringSerializable (this,"createDate","date created");
 		modifiedDate=new HoopStringSerializable (this,"modifiedDate","date modified");
 		description=new HoopStringSerializable (this,"description","description");

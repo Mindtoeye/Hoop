@@ -51,6 +51,7 @@ import edu.cmu.cs.in.hoop.hoops.transform.HoopFilterGarbage;
 import edu.cmu.cs.in.hoop.hoops.transform.HoopFilterStopWords;
 import edu.cmu.cs.in.hoop.hoops.transform.HoopKV2TXT;
 import edu.cmu.cs.in.hoop.hoops.transform.HoopKeySort;
+import edu.cmu.cs.in.hoop.hoops.transform.HoopLabelKV;
 import edu.cmu.cs.in.hoop.hoops.transform.HoopMap2Document;
 import edu.cmu.cs.in.hoop.hoops.transform.HoopPorterStemmer;
 import edu.cmu.cs.in.hoop.hoops.transform.HoopSentence2Tokens;
@@ -207,5 +208,6 @@ public class HoopManager extends HoopBase
     	addTemplate (new HoopDocumentReader ());
     	addTemplate (new HoopDocumentWriter ());
     	addTemplate (new HoopDocumentUpdater ());
+    	addTemplate (new HoopLabelKV ());
     }
 }

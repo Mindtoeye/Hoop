@@ -19,10 +19,6 @@
 package edu.cmu.cs.in.base.kv;
 
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import org.jdom.Element;
 
@@ -519,26 +515,4 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 		
 		return (documentElement);
 	}		
-	/**
-	 * 
-	 */
-	public Long dateStringToLong (String aDate)
-	{
-		debug ("dateStringToLong ("+aDate+")");
-		
-    	DateFormat formatter = new SimpleDateFormat(dateFormat.getValue());
-    	
-      	Date date=null;
-      	
-		try 
-		{
-			date = (Date) formatter.parse(aDate);
-		} catch (ParseException e) 
-		{
-			e.printStackTrace();
-			return (long) (0);
-		}
-      	
-		return date.getTime();
-	}
 }

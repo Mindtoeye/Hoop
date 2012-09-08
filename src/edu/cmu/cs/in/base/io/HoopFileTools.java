@@ -25,11 +25,16 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
+import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.HoopRoot;
 
 /**
@@ -201,7 +206,8 @@ public class HoopFileTools extends HoopRoot
 	{
 		debug ("extractJarToDisk ("+aJarFile+","+aDest+")");
 		
-		JarFile jar;
+		JarFile jar=null;
+		
 		try 
 		{
 			jar = new JarFile(aJarFile);
@@ -259,6 +265,9 @@ public class HoopFileTools extends HoopRoot
 			catch (IOException e2) 
 			{		
 				e2.printStackTrace();
+				
+				try {jar.close ();} catch (IOException e3) {e3.printStackTrace();}
+				
 				return (false);
 			}
 			
@@ -272,6 +281,9 @@ public class HoopFileTools extends HoopRoot
 				catch (IOException e1) 
 				{
 					e1.printStackTrace();
+					
+					try {jar.close ();} catch (IOException e2) {e2.printStackTrace();}
+					
 					return (false);
 				}
 				
@@ -282,6 +294,9 @@ public class HoopFileTools extends HoopRoot
 				catch (IOException e1) 
 				{				
 					e1.printStackTrace();
+					
+					try {jar.close ();} catch (IOException e2) {e2.printStackTrace();}
+					
 					return (false);
 				}
 			}
@@ -294,6 +309,9 @@ public class HoopFileTools extends HoopRoot
 			{
 				debug ("Error, unable to close file output stream");
 				e1.printStackTrace();
+								
+				try {jar.close ();} catch (IOException e2) {e2.printStackTrace();}
+				
 				return (false);
 			}
 			
@@ -305,9 +323,14 @@ public class HoopFileTools extends HoopRoot
 			{
 				debug ("Error, unable to close file input stream");
 				e1.printStackTrace();
+				
+				try {jar.close ();} catch (IOException e2) {e2.printStackTrace();}
+				
 				return (false);
 			}
 		}
+		
+		try {jar.close ();} catch (IOException e1) {e1.printStackTrace();}
 		
 		return (true);
 	}		
@@ -352,7 +375,7 @@ public class HoopFileTools extends HoopRoot
 				} 
 									
 				String entryContents=convertStreamToString (is);
-						
+								
 				try 
 				{
 					is.close();
@@ -363,9 +386,29 @@ public class HoopFileTools extends HoopRoot
 					e1.printStackTrace();
 					return (null);
 				}
+				
+				try 
+				{
+					jar.close();
+				} 
+				catch (IOException e1) 
+				{
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			
 				return (entryContents);
 			}	
+		}
+		
+		try 
+		{
+			jar.close();
+		} 
+		catch (IOException e1) 
+		{
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 		
 		return (null);
@@ -468,4 +511,68 @@ public class HoopFileTools extends HoopRoot
 		
 		return (formatter.toString());
 	}
+	/**
+	 * 
+	 */
+	public long getFileTime (String aURI)
+	{
+		File checker=new File (aURI);
+		
+		return (checker.lastModified ());
+	}
+	/**
+	 * 
+	 */
+	public String getFileTimeString (Long aTimeStamp)
+	{
+        Date dateNow = new Date (aTimeStamp);
+        
+        SimpleDateFormat dateformatYYYYMMDD = new SimpleDateFormat(HoopLink.dateFormat);
+        
+        return (dateformatYYYYMMDD.format(dateNow));       
+	}
+	/**
+	 * 
+	 */
+	public Long dateStringToLong (String aDate,String aFormat)
+	{
+		debug ("dateStringToLong ("+aDate+")");
+		
+    	DateFormat formatter = new SimpleDateFormat(aFormat);
+    	
+      	Date date=null;
+      	
+		try 
+		{
+			date = (Date) formatter.parse(aDate);
+		} catch (ParseException e) 
+		{
+			e.printStackTrace();
+			return (long) (0);
+		}
+      	
+		return date.getTime();
+	}
+	/**
+	 * 
+	 */
+	public Long dateStringToLong (String aDate)
+	{
+		debug ("dateStringToLong ("+aDate+")");
+		
+    	DateFormat formatter = new SimpleDateFormat(HoopLink.dateFormat);
+    	
+      	Date date=null;
+      	
+		try 
+		{
+			date = (Date) formatter.parse(aDate);
+		} catch (ParseException e) 
+		{
+			e.printStackTrace();
+			return (long) (0);
+		}
+      	
+		return date.getTime();
+	}	
 } 

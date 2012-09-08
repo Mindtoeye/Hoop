@@ -181,8 +181,14 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 		
 		fileKV=new HoopKVString ();
 	
-		fileKV.setKeyString(HoopLink.fManager.getURI());
-		fileKV.setValue(contents);
+		Long stringStamp=HoopLink.fManager.getFileTime(aPath);
+		
+		fileKV.setKey (HoopLink.fManager.getFileTimeString(stringStamp));
+		fileKV.setValue (contents);
+		fileKV.add (HoopLink.fManager.getURI());
+		
+		File namer=new File (aPath);
+		fileKV.add(namer.getName());
 							
 		addKV (fileKV);
 		

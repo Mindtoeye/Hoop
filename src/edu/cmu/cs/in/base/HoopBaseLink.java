@@ -30,6 +30,8 @@ public class HoopBaseLink extends HoopRoot
 {    		    	
 	public static int debugLine=0;
 	
+	public static String dateFormat="yyyy-MM-dd HH:mm:ss.SSS";
+	
 	public static boolean useHadoop=false;
 	public static boolean casefold=true;
 	public static boolean stopwords=true;	
@@ -60,7 +62,7 @@ public class HoopBaseLink extends HoopRoot
 			 							 	
 	public static HoopEnvironment environment=null;
 	public static HoopFileManager fManager=null;	
-		
+			
 	public static String crossDomainPolicy = "<?xml version=\"1.0\"?>\n" +
 	"<!DOCTYPE cross-domain-policy SYSTEM \"http://www.macromedia.com/xml/dtds/cross-domain-policy.dtd\">\n" + 
 	"<cross-domain-policy>\n" + 

@@ -1182,13 +1182,11 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 			return;
 		}
 		
-		/*
 		if (proj.getVirginFile()==true)
 		{
 			alert ("Please save your project first");
 			return;
 		}
-		*/
 		
 		JFileChooser fc = new JFileChooser();
 					
