@@ -1211,16 +1211,17 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 	      
 				HoopLink.fManager.copyFile(fromAbsolute, toRelative);
 	       	
+				/*
 				HoopWrapperFile wrapper=new HoopWrapperFile ();
 				wrapper.setFileURI("<PROJECTPATH>/data/"+file.getName ());
 	       	
 				proj.addFile(wrapper);
+				*/
 			}
 			
-	       	proj.save();
+	       	//proj.save();
 		}
 		
-		//updateProjectViews ();
 		refreshProjectPane ();
 	}
 	/**

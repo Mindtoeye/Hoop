@@ -130,7 +130,7 @@ public class HoopProject extends HoopProjectFile
 	 */
 	public HoopFile getFileByName (String aFileName)
 	{
-		debug ("getFileByName ("+aFileName+")");
+		//debug ("getFileByName ("+aFileName+")");
 		
 		for (int i=0;i<files.size();i++)
 		{
@@ -403,7 +403,7 @@ public class HoopProject extends HoopProjectFile
 			{
 				File testFile=new File (aPath+"/"+aFileString);
 				
-				debug ("Testing file: " + aFileString);
+				//debug ("Testing file: " + aFileString);
 				
 				if (testFile.isDirectory()==true)
 				{

@@ -47,7 +47,7 @@ public class HoopXMLBase extends HoopRoot
 	public HoopXMLBase ()
 	{  
     	setClassName ("HoopXMLBase");
-    	debug ("HoopXMLBase ()");
+    	//debug ("HoopXMLBase ()");
 	}
 	/**
 	 * 

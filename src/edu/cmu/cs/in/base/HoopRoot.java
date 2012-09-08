@@ -46,7 +46,7 @@ public class HoopRoot extends HoopDataType
 	public HoopRoot () 
 	{
 		setClassName ("HoopRoot");
-		debug ("HoopRoot ()");
+		//debug ("HoopRoot ()");
 		
 		df=new SimpleDateFormat ("HH:mm:ss.SSS");
 		filters=new ArrayList<HoopFilterBase> ();
