@@ -114,7 +114,7 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 				
 				files=new ArrayList<String> ();
 				
-				ArrayList <String> tempList=HoopLink.fManager.listFiles(URI.getValue());
+				ArrayList <String> tempList=HoopLink.fManager.listFiles(HoopLink.relativeToAbsolute(URI.getValue()));
 								
 				for (int i=0;i<tempList.size ();i++)
 				{
@@ -136,7 +136,7 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 
 			String nextFile=files.get(fileIndex);
 			
-			if (processSingleFile (URI.getValue()+"/"+nextFile)==false)
+			if (processSingleFile (HoopLink.relativeToAbsolute(URI.getValue())+"/"+nextFile)==false)
 			{
 				return (false);
 			}

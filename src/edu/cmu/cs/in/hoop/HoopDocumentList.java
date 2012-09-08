@@ -34,6 +34,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
@@ -85,6 +86,9 @@ public class HoopDocumentList extends HoopEmbeddedJPanel implements ActionListen
     
     private JTree threadTree=null;
     
+    private JButton treeExpandButton=null;
+    private JButton treeFoldButton=null;
+        
 	/**
 	 * Constructs a new frame that is initially invisible.
 	 */	
@@ -224,6 +228,8 @@ public class HoopDocumentList extends HoopEmbeddedJPanel implements ActionListen
 	    				   holder,
 	                       "Document View");
 	    
+	    //>-------------------------------------------------------
+	    	    
 	    threadTree=new JTree ();
 		threadTree.setFont(new Font("Dialog", 1, 10)); // overwritten by cellrenderer?
 		threadTree.getSelectionModel().setSelectionMode (TreeSelectionModel.SINGLE_TREE_SELECTION);
@@ -231,11 +237,46 @@ public class HoopDocumentList extends HoopEmbeddedJPanel implements ActionListen
 		threadTree.setBorder(BorderFactory.createEmptyBorder(4,4,4,4));
 		threadTree.setDragEnabled(false);
 		threadTree.addMouseListener (this);
-	   	
+
+	    JScrollPane treeScroller=new JScrollPane (threadTree);
+	    
+	    Box treeButtonBox = new Box (BoxLayout.X_AXIS);
+	    
+	    treeExpandButton=new JButton ();
+	    treeExpandButton.setFont(new Font("Dialog", 1, 8));
+	    treeExpandButton.setPreferredSize(new Dimension (20,20));
+	    treeExpandButton.setMaximumSize(new Dimension (20,20));
+	    //treeExpandButton.setText("All");
+	    treeExpandButton.setIcon(HoopLink.getImageByName("tree-expand-icon.png"));
+	    treeExpandButton.addActionListener(this);
+
+	    treeButtonBox.add (treeExpandButton);
+	    treeButtonBox.add (Box.createRigidArea(new Dimension(2,0)));
+	    
+	    treeFoldButton=new JButton ();
+	    treeFoldButton.setFont(new Font("Dialog", 1, 8));
+	    treeFoldButton.setPreferredSize(new Dimension (20,20));
+	    treeFoldButton.setMaximumSize(new Dimension (20,20));
+	    treeFoldButton.setIcon(HoopLink.getImageByName("tree-fold-icon.png"));
+	    //treeFoldButton.setText("None");
+	    treeFoldButton.addActionListener(this);
+	    
+	    treeButtonBox.add (treeFoldButton);
+	    treeButtonBox.add (Box.createRigidArea(new Dimension(2,0)));	    
+	    
+	    treeButtonBox.add(Box.createHorizontalGlue());
+	    
+	    JPanel treePanel=new JPanel ();
+	    treePanel.setLayout(new BoxLayout (treePanel,BoxLayout.Y_AXIS));
+	    treePanel.add (treeButtonBox);
+	    treePanel.add (treeScroller);
+	    	   	    		
 	    tabbedPane.addTab ("Thread View", 
 				   		   HoopLink.getImageByName("tree.gif"), 
-				   		   threadTree,
+				   		   treePanel,
                 		   "Thread View");	    
+	    
+	    //>-------------------------------------------------------
 	    
 		setContentPane (tabbedPane);
    			
