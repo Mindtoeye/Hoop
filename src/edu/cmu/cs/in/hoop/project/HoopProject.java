@@ -264,7 +264,11 @@ public class HoopProject extends HoopProjectFile
 			{			
 				HoopProjectFile saver=(HoopProjectFile) tFile;
 				
-				saver.setFileURI(this.getBasePath ()+"/"+tFile.getInstanceName());
+				// Could be pre-defined you know
+				if (saver.getFileURI().isEmpty()==true)
+				{
+					saver.setFileURI(this.getBasePath ()+"/"+tFile.getInstanceName());
+				}	
 			
 				saver.save();
 			}	

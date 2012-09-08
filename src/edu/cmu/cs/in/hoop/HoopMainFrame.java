@@ -1168,7 +1168,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 		return (true);
 	}
 	/**
-	 * 
+	 * http://www.richjavablog.com/2012/03/display-file-copy-progress-in-swing.html
 	 */
 	private void importFiles ()
 	{
@@ -1189,22 +1189,34 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 		}
 		
 		JFileChooser fc = new JFileChooser();
+		fc.setMultiSelectionEnabled (true);
 					
 		int returnVal=fc.showOpenDialog (compReference);
 
 		if (returnVal==JFileChooser.APPROVE_OPTION) 
 		{
-	       	File file = fc.getSelectedFile();
+			File files []=fc.getSelectedFiles();
+			
+			for (int i=0;i<files.length;i++)
+			{	       	
+				File file=files [i];
+				
+				String fromAbsolute=file.getAbsolutePath();
 	       	
-	       	String fromAbsolute=file.getAbsolutePath();
-	       	String toRelative=proj.getBasePath()+"/"+file.getName();
+				String dirCreator=proj.getBasePath()+"/data";
+	       	
+				HoopLink.fManager.createDirectory(dirCreator);
+	       	
+				String toRelative=dirCreator+"/"+file.getName();
 	      
-	       	HoopLink.fManager.copyFile(fromAbsolute, toRelative);
+				HoopLink.fManager.copyFile(fromAbsolute, toRelative);
 	       	
-	       	HoopWrapperFile wrapper=new HoopWrapperFile ();
-	       	wrapper.setFileURI("<PROJECTPATH>/"+file.getName ());
+				HoopWrapperFile wrapper=new HoopWrapperFile ();
+				wrapper.setFileURI("<PROJECTPATH>/data/"+file.getName ());
 	       	
-	       	proj.addFile(wrapper);
+				proj.addFile(wrapper);
+			}
+			
 	       	proj.save();
 		}
 		
