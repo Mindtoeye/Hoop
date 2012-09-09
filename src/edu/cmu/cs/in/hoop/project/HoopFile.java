@@ -38,8 +38,8 @@ public class HoopFile extends HoopXMLBase
 	 */
 	public HoopFile ()
 	{
-		setClassName ("HoopProjectFile");		
-		debug ("HoopProjectFile ()");
+		setClassName ("HoopFile");		
+		//debug ("HoopFile ()");
 		
 		subEntries=new ArrayList<HoopFile> ();
 	}

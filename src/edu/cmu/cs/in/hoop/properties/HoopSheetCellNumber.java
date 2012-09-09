@@ -19,12 +19,13 @@
 package edu.cmu.cs.in.hoop.properties;
 
 import java.awt.Color;
-import javax.swing.*;
-import javax.swing.text.*;
 
+import javax.swing.text.Document;
+
+import edu.cmu.cs.in.controls.base.HoopJTextField;
 import edu.cmu.cs.in.hoop.properties.HoopNumberFieldFilter;
 
-public class HoopSheetCellNumber extends JTextField
+public class HoopSheetCellNumber extends HoopJTextField
 {
     /**
 	 * 
@@ -38,6 +39,7 @@ public class HoopSheetCellNumber extends JTextField
     public HoopSheetCellNumber() 
     {
         this(10,HoopNumberFieldFilter.DECIMAL);
+        
         numberFieldFilter = new HoopNumberFieldFilter();        
     }
     /**
@@ -210,18 +212,22 @@ public class HoopSheetCellNumber extends JTextField
     {
         switch(iFormat)
         {
+        	case HoopNumberFieldFilter.DECIMAL:
+        										numberFieldFilter.format = HoopNumberFieldFilter.DECIMAL;
+        										numberFieldFilter.precision = HoopNumberFieldFilter.DEF_PRECISION;
+        										numberFieldFilter.allowedChars = HoopNumberFieldFilter.FM_DECIMAL;
+        										break;
+            
             case HoopNumberFieldFilter.NUMERIC:
+            									numberFieldFilter.format = HoopNumberFieldFilter.NUMERIC;
+            									numberFieldFilter.precision = 0;
+            									numberFieldFilter.allowedChars = HoopNumberFieldFilter.FM_NUMERIC;
+            									break;
             default:
-            	numberFieldFilter.format = HoopNumberFieldFilter.NUMERIC;
-            	numberFieldFilter.precision = 0;
-            	numberFieldFilter.allowedChars = HoopNumberFieldFilter.FM_NUMERIC;
-                break;
-
-            case HoopNumberFieldFilter.DECIMAL:
-            	numberFieldFilter.format = HoopNumberFieldFilter.DECIMAL;
-            	numberFieldFilter.precision = HoopNumberFieldFilter.DEF_PRECISION;
-            	numberFieldFilter.allowedChars = HoopNumberFieldFilter.FM_DECIMAL;
-                break;
+            									numberFieldFilter.format = HoopNumberFieldFilter.NUMERIC;
+            									numberFieldFilter.precision = 0;
+            									numberFieldFilter.allowedChars = HoopNumberFieldFilter.FM_NUMERIC;
+            									break;
         }
     }
     /**
@@ -231,7 +237,7 @@ public class HoopSheetCellNumber extends JTextField
     {
     	numberFieldFilter.allowNegative = b;
 
-        if( b )
+        if (b)
         	numberFieldFilter.negativeChars = ""+HoopNumberFieldFilter.NEGATIVE;
         else
         	numberFieldFilter.negativeChars = HoopNumberFieldFilter.BLANK;

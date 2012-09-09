@@ -39,7 +39,7 @@ public class HoopProjectFile extends HoopFile
 	{
 		setClassName ("HoopProjectFile");
 		setXMLID("hoopfile");		
-		debug ("HoopProjectFile ()");				
+		//debug ("HoopProjectFile ()");				
 	}
 	/**
 	 * 

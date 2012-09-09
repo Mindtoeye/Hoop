@@ -156,7 +156,7 @@ public class HoopJTreeHoopRenderer extends JLabel implements TreeCellRenderer
     			
     			if ((userObject instanceof HoopFile) && (found==false))
     			{
-    				debug ("userObject is instance of HoopFile");
+    				//debug ("userObject is instance of HoopFile");
     				
     				HoopFile fileIcon=(HoopFile) userObject;
     				setText (fileIcon.getInstanceName());
