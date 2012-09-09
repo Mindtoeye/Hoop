@@ -19,12 +19,13 @@
 package edu.cmu.cs.in.hoop.properties;
 
 import java.awt.Color;
-import javax.swing.*;
-import javax.swing.text.*;
 
+import javax.swing.text.Document;
+
+import edu.cmu.cs.in.controls.base.HoopJTextField;
 import edu.cmu.cs.in.hoop.properties.HoopNumberFieldFilter;
 
-public class HoopSheetCellNumber extends JTextField
+public class HoopSheetCellNumber extends HoopJTextField
 {
     /**
 	 * 
@@ -38,6 +39,7 @@ public class HoopSheetCellNumber extends JTextField
     public HoopSheetCellNumber() 
     {
         this(10,HoopNumberFieldFilter.DECIMAL);
+        
         numberFieldFilter = new HoopNumberFieldFilter();        
     }
     /**
