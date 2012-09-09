@@ -173,7 +173,7 @@ public class HoopProjectPanel extends HoopEmbeddedJPanel implements MouseListene
 	 */
 	private void showSubEntries (DefaultMutableTreeNode aRoot,HoopFile aFile)
 	{
-		debug ("showSubEntries ()");
+		//debug ("showSubEntries ()");
 		
 		ArrayList <HoopFile> subs=aFile.getSubEntries();
 		
@@ -213,7 +213,7 @@ public class HoopProjectPanel extends HoopEmbeddedJPanel implements MouseListene
     	{
     		HoopFile testFile=files.get(i);
     		
-    		debug ("Visualizing file: " + testFile.getInstanceName());
+    		//debug ("Visualizing file: " + testFile.getInstanceName());
     		
     		if (testFile instanceof HoopProjectFile)
     		{
@@ -237,7 +237,7 @@ public class HoopProjectPanel extends HoopEmbeddedJPanel implements MouseListene
         			
         			for (int t=0;t<subs.size();t++)
         			{
-        				debug ("Visualizing sub entries ...");
+        				//debug ("Visualizing sub entries ...");
         				
         				HoopFile aSubEntry=subs.get(t);
         				
@@ -445,6 +445,9 @@ public class HoopProjectPanel extends HoopEmbeddedJPanel implements MouseListene
 		debug ("Enabling certain file menu options");
 		
 	}
+	/**
+	 * 
+	 */
 	@Override
 	public void actionPerformed(ActionEvent event) 
 	{

@@ -210,18 +210,22 @@ public class HoopSheetCellNumber extends JTextField
     {
         switch(iFormat)
         {
+        	case HoopNumberFieldFilter.DECIMAL:
+        										numberFieldFilter.format = HoopNumberFieldFilter.DECIMAL;
+        										numberFieldFilter.precision = HoopNumberFieldFilter.DEF_PRECISION;
+        										numberFieldFilter.allowedChars = HoopNumberFieldFilter.FM_DECIMAL;
+        										break;
+            
             case HoopNumberFieldFilter.NUMERIC:
+            									numberFieldFilter.format = HoopNumberFieldFilter.NUMERIC;
+            									numberFieldFilter.precision = 0;
+            									numberFieldFilter.allowedChars = HoopNumberFieldFilter.FM_NUMERIC;
+            									break;
             default:
-            	numberFieldFilter.format = HoopNumberFieldFilter.NUMERIC;
-            	numberFieldFilter.precision = 0;
-            	numberFieldFilter.allowedChars = HoopNumberFieldFilter.FM_NUMERIC;
-                break;
-
-            case HoopNumberFieldFilter.DECIMAL:
-            	numberFieldFilter.format = HoopNumberFieldFilter.DECIMAL;
-            	numberFieldFilter.precision = HoopNumberFieldFilter.DEF_PRECISION;
-            	numberFieldFilter.allowedChars = HoopNumberFieldFilter.FM_DECIMAL;
-                break;
+            									numberFieldFilter.format = HoopNumberFieldFilter.NUMERIC;
+            									numberFieldFilter.precision = 0;
+            									numberFieldFilter.allowedChars = HoopNumberFieldFilter.FM_NUMERIC;
+            									break;
         }
     }
     /**
@@ -231,7 +235,7 @@ public class HoopSheetCellNumber extends JTextField
     {
     	numberFieldFilter.allowNegative = b;
 
-        if( b )
+        if (b)
         	numberFieldFilter.negativeChars = ""+HoopNumberFieldFilter.NEGATIVE;
         else
         	numberFieldFilter.negativeChars = HoopNumberFieldFilter.BLANK;

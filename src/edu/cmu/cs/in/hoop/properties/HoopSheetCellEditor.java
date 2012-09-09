@@ -260,7 +260,7 @@ public class HoopSheetCellEditor extends AbstractCellEditor implements TableCell
     			debug ("Returning Number ...");
     			obj.setValue(numberComponent.getText());
     			textComponent.setText(obj.getValue());
-    			//return (numberComponent.getText());
+    			return (numberComponent.getText());
     		}    	
     	
     		if (obj.getType()==HoopDataType.ENUM)

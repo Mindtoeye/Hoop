@@ -694,12 +694,14 @@ public class HoopLink extends HoopProperties
 		if (aPath.indexOf(projectPath)==-1)
 			return (aPath);
 		
+		HoopRoot.debug ("HoopLink","Subtracting ["+HoopLink.project.getBasePath()+"] from path: " + aPath);
+		
 		String remainder=aPath.substring(HoopLink.project.getBasePath().length());
 		
 		StringBuffer formatted=new StringBuffer ();
 		
 		formatted.append("<PROJECTPATH>");
-		formatted.append("/");
+		//formatted.append("/");
 		formatted.append(remainder);
 		
 		return (formatted.toString());

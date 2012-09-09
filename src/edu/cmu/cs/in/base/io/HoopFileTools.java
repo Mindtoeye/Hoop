@@ -159,7 +159,7 @@ public class HoopFileTools extends HoopRoot
 		
         for( File f : actual.listFiles())
         {
-        	debug (f.getName());
+        	//debug (f.getName());
        		files.add(f.getName());
         }		
         

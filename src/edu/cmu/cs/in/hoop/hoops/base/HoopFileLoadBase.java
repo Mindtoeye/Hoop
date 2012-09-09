@@ -23,6 +23,7 @@ import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.kv.HoopKVString;
+import edu.cmu.cs.in.hoop.properties.types.HoopIntegerSerializable;
 import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
 
 /**
@@ -32,9 +33,12 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 {    				
 	protected HoopKVString fileKV=null;		
 	protected HoopURISerializable URI=null;
+	protected HoopIntegerSerializable maxFiles=null;
+	protected HoopIntegerSerializable batchSize=null;
 	
-	private Integer fileIndex=0;
 	private ArrayList <String> files=null;
+	private Integer fileIndex=0;
+	private Integer actualBatchSize=1;
 	
 	/**
 	 *
@@ -47,6 +51,8 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 		setHoopDescription ("Load Text File(s)");
 					
 		URI=new HoopURISerializable (this,"URI","");
+		maxFiles=new HoopIntegerSerializable (this,"maxFiles",1);
+		batchSize=new HoopIntegerSerializable (this,"batchSize",1);
     }
 	/**
 	 * 
@@ -116,7 +122,14 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 				
 				ArrayList <String> tempList=HoopLink.fManager.listFiles(HoopLink.relativeToAbsolute(URI.getValue()));
 								
-				for (int i=0;i<tempList.size ();i++)
+				actualBatchSize=1;
+				
+				if (tempList.size()<batchSize.getPropValue())
+					actualBatchSize=tempList.size();
+				else
+					actualBatchSize=batchSize.getPropValue();
+				
+				for (int i=0;i<actualBatchSize;i++)
 				{
 					String testEntry=tempList.get(i);
 					
@@ -130,20 +143,22 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 						}
 					}
 				}
-				
-				showFiles ();				
 			}
 
-			String nextFile=files.get(fileIndex);
-			
-			if (processSingleFile (HoopLink.relativeToAbsolute(URI.getValue())+"/"+nextFile)==false)
+			for (int w=0;w<actualBatchSize;w++)
 			{
-				return (false);
-			}
+			
+				String nextFile=files.get(w);
+			
+				if (processSingleFile (HoopLink.relativeToAbsolute(URI.getValue())+"/"+nextFile)==false)
+				{
+					return (false);
+				}
+			}	
 			
 			StringBuffer aStatus=new StringBuffer ();
 			
-			Integer runCount=fileIndex+1;
+			Integer runCount=fileIndex+actualBatchSize;
 			
 			aStatus.append (" R: ");
 			aStatus.append (runCount.toString());
@@ -154,7 +169,7 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 			
 			getVisualizer ().setExecutionInfo (aStatus.toString ());
 			
-			fileIndex++;
+			fileIndex+=actualBatchSize;
 			
 			if (fileIndex<files.size())
 			{
