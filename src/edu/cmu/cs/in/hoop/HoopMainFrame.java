@@ -34,7 +34,6 @@ import edu.cmu.cs.in.controls.HoopSentenceWall;
 import edu.cmu.cs.in.hoop.hoops.task.HoopStart;
 import edu.cmu.cs.in.hoop.project.HoopGraphFile;
 import edu.cmu.cs.in.hoop.project.HoopProject;
-import edu.cmu.cs.in.hoop.project.HoopWrapperFile;
 import edu.cmu.cs.in.hoop.properties.HoopPropertyPanel;
 import edu.cmu.cs.in.hoop.visualizers.HoopBackingDBInspector;
 import edu.cmu.cs.in.hoop.visualizers.HoopCluster;

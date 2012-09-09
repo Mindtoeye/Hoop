@@ -307,6 +307,7 @@ public class HoopDocumentWriter extends HoopSaveBase
 	/**
 	 * 
 	 */
+	@SuppressWarnings("unused")
 	private void showThreadDB ()
 	{
 		debug ("showThreadDB ()");
