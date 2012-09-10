@@ -54,15 +54,25 @@ public class HoopIntegerSerializable extends HoopSerializable
 		
 		debug ("HoopIntegerSerializable (HoopPropertyContainer aParent,String aNam)");
 	}	
+	/**
+	 * 
+	 */
+	public void setValue (String aValue)
+	{
+		super.setValue(aValue);
+		
+		this.propValue=Integer.parseInt(aValue);
+	}
     /** 
      * @param propValue
      */
 	public void setPropValue(Integer aPropValue) 
 	{		
 		debug ("setPropValue ("+propValue+")");
+
+		super.setValue (propValue.toString ());
 		
 		this.propValue=aPropValue;
-		this.setValue (propValue.toString ());
 		
 		debug ("Check: " + this.getValue());
 	}

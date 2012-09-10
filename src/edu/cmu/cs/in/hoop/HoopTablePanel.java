@@ -185,26 +185,20 @@ public class HoopTablePanel extends HoopEmbeddedJPanel implements ActionListener
 					
 		ArrayList <HoopDataType> types=aHoop.getTypes();
 		
-		String[] cNames = new String [types.size()+1];
-		
-		cNames [0]="Key";
-		
+		String[] cNames = new String [types.size()];
+				
 		for (int n=0;n<types.size();n++)
 		{
 			HoopDataType aType=types.get(n);
 			
-			debug ("Adding column: " + n + " " + aType.getTypeValue() + " ("+aType.typeToString()+")");
+			//debug ("Adding column: " + n + " " + aType.getTypeValue() + " ("+aType.typeToString()+")");
 			
-			cNames [n+1]=aType.getTypeValue()+"("+aType.typeToString()+")";
+			if (n==0)
+				cNames [0]="Key: " + aType.getTypeValue()+" ("+aType.typeToString()+")";
+			else
+				cNames [n]=aType.getTypeValue()+" ("+aType.typeToString()+")";
 		}
-		
-		/*
-		for (int w=0;w<(aHoop.getMaxValues()-2);w++)
-		{
-			cNames [w+2]="V"+w;
-		}
-		*/
-		
+				
 		DefaultTableModel model=new DefaultTableModel (null,cNames);
 				
 		// For large data sets we will have to use ranges on the index!
@@ -222,6 +216,7 @@ public class HoopTablePanel extends HoopEmbeddedJPanel implements ActionListener
 				for (int i=0;i<p.getValueSize();i++)
 				{
 					String aValue=p.getValueAsString(i);
+					
 					if (aValue.length()>100)
 					{
 						rowData [i+1]="*Data too Large*";

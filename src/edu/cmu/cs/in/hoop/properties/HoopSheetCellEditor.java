@@ -44,6 +44,7 @@ import javax.swing.table.TableCellRenderer;
 import edu.cmu.cs.in.base.HoopDataType;
 import edu.cmu.cs.in.base.HoopRoot;
 import edu.cmu.cs.in.hoop.properties.types.HoopEnumSerializable;
+import edu.cmu.cs.in.hoop.properties.types.HoopIntegerSerializable;
 import edu.cmu.cs.in.hoop.properties.types.HoopSerializable;
 import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
 
@@ -96,9 +97,7 @@ public class HoopSheetCellEditor extends AbstractCellEditor implements TableCell
 		numberComponent.setMinimumSize(new Dimension (10,10));
 		numberComponent.setMaximumSize(new Dimension (5000,5000));
 		numberComponent.setFont(new Font("Dialog", 1, 10));		
-		
-		//pathComponent=new HoopSheetPathEditor ();
-		
+				
 		colorDelegate.addActionListener (this);
 		arrayDelegate.addActionListener (this);
 	}	
@@ -174,6 +173,12 @@ public class HoopSheetCellEditor extends AbstractCellEditor implements TableCell
         	{
         		return (fontComponent);
         	}
+        	
+        	if (obj.getType()==HoopDataType.INT)
+        	{
+        		numberComponent.setText(obj.getValue());
+        		return (numberComponent);
+        	}        	
         
         	if (obj.getType()==HoopDataType.COLOR)
         	{
@@ -237,49 +242,53 @@ public class HoopSheetCellEditor extends AbstractCellEditor implements TableCell
     	
     		if (obj.getType()==HoopDataType.BOOLEAN)
     		{
-    			debug ("Returning ComboBox selection ...");
+    			debug ("Editing ComboBox selection ...");
     			obj.setValue((String) booleanComponent.getSelectedItem());
     			textComponent.setText(obj.getValue());
     		}
     	
     		if (obj.getType()==HoopDataType.FONT)
     		{
-    			debug ("Returning Font selection ...");
+    			debug ("Editing Font selection ...");
     			obj.setValue((String) fontComponent.getSelectedItem());
     			textComponent.setText(obj.getValue());
     		}
     	
     		if (obj.getType()==HoopDataType.COLOR)
     		{
-    			debug ("Returning Color string ["+obj.getValue()+"]->["+textComponent.getText()+"]...");
+    			debug ("Editing Color string ["+obj.getValue()+"]->["+textComponent.getText()+"]...");
     			textComponent.setText(obj.getValue());
     		}
     	
     		if ((obj.getType()==HoopDataType.INT) || (obj.getType()==HoopDataType.FLOAT))
     		{
-    			debug ("Returning Number ...");
-    			obj.setValue(numberComponent.getText());
-    			textComponent.setText(obj.getValue());
+    			debug ("Editing Number ...");
+    			
+    			HoopIntegerSerializable intStandin=(HoopIntegerSerializable) obj;
+    			
+    			//obj.setValue(numberComponent.getText());
+    			//textComponent.setText(obj.getValue());
+    			intStandin.setPropValue(numberComponent.getInt());
     			return (numberComponent.getText());
     		}    	
     	
     		if (obj.getType()==HoopDataType.ENUM)
     		{
-    			debug ("Returning Enumeration ...");
+    			debug ("Editing Enumeration ...");
     			obj.setValue((String) enumComponent.getSelectedItem());
     			textComponent.setText(obj.getValue());
     		} 
     		
     		if (obj.getType()==HoopDataType.STRING)
     		{
-    			debug ("Returning String ...");
+    			debug ("Editing String ...");
     			obj.setValue(textComponent.getText ());
     			textComponent.setText(obj.getValue());
     		}
     		
     		if (obj.getType()==HoopDataType.URI)
     		{
-    			debug ("Returning Path ...");
+    			debug ("Editing Path ...");
     			
     			if (currentPathEditor!=null)    				
     				currentPathEditor.getPathEditor ().setText(textComponent.getText());
