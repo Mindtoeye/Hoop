@@ -40,6 +40,9 @@ public class HoopSheetCellNumber extends HoopJTextField
     {
         this(10,HoopNumberFieldFilter.DECIMAL);
         
+		setClassName ("HoopSheetCellNumber");
+		debug ("HoopSheetCellNumber ()");
+        
         numberFieldFilter = new HoopNumberFieldFilter();        
     }
     /**
@@ -48,6 +51,10 @@ public class HoopSheetCellNumber extends HoopJTextField
     public HoopSheetCellNumber(int iMaxLen)
     {    	
         this(iMaxLen,HoopNumberFieldFilter.NUMERIC);
+        
+		setClassName ("HoopSheetCellNumber");
+		debug ("HoopSheetCellNumber (int)");        
+        
         numberFieldFilter = new HoopNumberFieldFilter();        
     }
     /**
@@ -62,12 +69,17 @@ public class HoopSheetCellNumber extends HoopJTextField
         setFormat(iFormat);
 
         super.setDocument (numberFieldFilter);
+        
+		setClassName ("HoopSheetCellNumber");
+		debug ("HoopSheetCellNumber (int,int)");  
     }
     /**
 	 * 
 	 */	
     public void setMaxLength(int maxLen)
     {
+    	debug ("setMaxLength ()");
+    	
         if (maxLen > 0)
         	numberFieldFilter.maxLength = maxLen;
         else
@@ -85,6 +97,8 @@ public class HoopSheetCellNumber extends HoopJTextField
 	 */	
     public void setEnabled(boolean enable)
     {
+    	debug ("setEnabled ()");
+    	
         super.setEnabled(enable);
 
         if( enable )
@@ -103,6 +117,8 @@ public class HoopSheetCellNumber extends HoopJTextField
 	 */	
     public void setEditable(boolean enable)
     {
+    	debug ("setEditable ()");
+    	
         super.setEditable(enable);
 
         if( enable )
@@ -121,6 +137,8 @@ public class HoopSheetCellNumber extends HoopJTextField
 	 */	
     public void setPrecision(int iPrecision)
     {
+    	debug ("setPrecision ()");
+    	
         if( numberFieldFilter.format == HoopNumberFieldFilter.NUMERIC )
             return;
 
@@ -141,7 +159,10 @@ public class HoopSheetCellNumber extends HoopJTextField
 	 */	
     public Number getNumber()
     {
+    	debug ("getNumber ()");
+    	
         Number number = null;
+        
         if( numberFieldFilter.format == HoopNumberFieldFilter.NUMERIC )
             number = new Integer(getText());
         else

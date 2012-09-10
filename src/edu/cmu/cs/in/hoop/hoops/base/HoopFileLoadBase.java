@@ -21,6 +21,7 @@ package edu.cmu.cs.in.hoop.hoops.base;
 import java.io.File;
 import java.util.ArrayList;
 
+import edu.cmu.cs.in.base.HoopDataType;
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.kv.HoopKVString;
 import edu.cmu.cs.in.hoop.properties.types.HoopIntegerSerializable;
@@ -39,6 +40,7 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 	private ArrayList <String> files=null;
 	private Integer fileIndex=0;
 	private Integer actualBatchSize=1;
+	private Integer maxEntries=1;
 	
 	/**
 	 *
@@ -91,6 +93,14 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 		
 		this.resetData();
 		
+		setKVType (0,HoopDataType.LONG,"Timestamp"); // KEY !!!!!!!!
+		setKVType (1,HoopDataType.STRING,"Content");
+		setKVType (2,HoopDataType.STRING,"URI");
+		setKVType (3,HoopDataType.STRING,"File Name");
+		setKVType (4,HoopDataType.STRING,"Created");
+		setKVType (5,HoopDataType.STRING,"Modified");
+		setKVType (6,HoopDataType.STRING,"Author");
+		
 		if (URI.getValue().indexOf("<PROJECTPATH>")!=-1)
 		{
 			if (HoopLink.project==null)
@@ -108,30 +118,36 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 				
 		if (URI.getDirsOnly()==false)
 		{				
+			debug ("Processing single file ...");
+			
 			if (processSingleFile (HoopLink.relativeToAbsolute(URI.getValue()))==false)
 				return (false);
+			else
+			{
+				getVisualizer ().setExecutionInfo (" R: 1 out of 1");				
+				return (true);
+			}
 		}
 		
 		if (URI.getDirsOnly()==true)
 		{
+			debug ("Processing file set ...");
+			
 			if (files==null)
 			{
 				fileIndex=0;
 				
+				maxEntries=maxFiles.getPropValue();
+				
 				files=new ArrayList<String> ();
 				
 				ArrayList <String> tempList=HoopLink.fManager.listFiles(HoopLink.relativeToAbsolute(URI.getValue()));
-								
-				actualBatchSize=1;
-				
-				if (tempList.size()<batchSize.getPropValue())
-					actualBatchSize=tempList.size();
-				else
-					actualBatchSize=batchSize.getPropValue();
-				
-				for (int i=0;i<actualBatchSize;i++)
+																
+				for (int i=0;i<tempList.size();i++)
 				{
 					String testEntry=tempList.get(i);
+					
+					// Filter unwanted entries ...
 					
 					if ((testEntry.equals(".")==false) && (testEntry.equals("..")==false))
 					{
@@ -143,11 +159,33 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 						}
 					}
 				}
+				
+				actualBatchSize=1;
+												
+				debug ("files.size (): " + files.size() + " < + batchSize.getPropValue(): " + batchSize.getPropValue());
+				
+				if (files.size()<batchSize.getPropValue())
+				{										
+					actualBatchSize=files.size();
+				}	
+				else
+				{
+					actualBatchSize=batchSize.getPropValue();
+				}
+				
+				debug ("Using batch size: " + actualBatchSize);
+				
+				if (maxEntries<1)
+					maxEntries=files.size();
+				else
+				{
+					if (files.size ()<maxEntries)
+						maxEntries=files.size();
+				}
 			}
 
-			for (int w=0;w<actualBatchSize;w++)
-			{
-			
+			for (int w=0;w<(fileIndex+actualBatchSize);w++)
+			{			
 				String nextFile=files.get(w);
 			
 				if (processSingleFile (HoopLink.relativeToAbsolute(URI.getValue())+"/"+nextFile)==false)
@@ -171,7 +209,9 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 			
 			fileIndex+=actualBatchSize;
 			
-			if (fileIndex<files.size())
+			debug ("fileIndex: " + fileIndex + ", actualBatchSize: " + actualBatchSize + ", files.size (): " + files.size());
+			
+			if (fileIndex<maxEntries)
 			{
 				this.setDone(false);
 			}
@@ -197,13 +237,20 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 		fileKV=new HoopKVString ();
 	
 		Long stringStamp=HoopLink.fManager.getFileTime(aPath);
+		File namer=new File (aPath);
 		
 		fileKV.setKey (HoopLink.fManager.getFileTimeString(stringStamp));
 		fileKV.setValue (contents);
-		fileKV.add (HoopLink.fManager.getURI());
+		fileKV.add (HoopLink.fManager.getURI());	
+		fileKV.add (namer.getName());
+		fileKV.add (HoopLink.fManager.getFileTimeString(stringStamp)); // Created
+		fileKV.add (HoopLink.fManager.getFileTimeString(stringStamp)); // Modified
+		fileKV.add ("unknown"); // Owner
 		
-		File namer=new File (aPath);
-		fileKV.add(namer.getName());
+		/*
+		UserPrincipal owner = Files.getOwner(path);
+		String username = owner.getName();
+		*/
 							
 		addKV (fileKV);
 		

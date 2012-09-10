@@ -48,6 +48,22 @@ public class HoopBaseTyped extends HoopVisual implements HoopPropertyContainer
     /**
      * 
      */
+    public void copyTypes (HoopBaseTyped aTargetHoop)
+    {
+    	//debug ("copyTypes ()");
+    	
+    	for (int i=0;i<types.size();i++)
+    	{
+    		HoopDataType aType=types.get(i);
+    		
+    		//debug ("Copying type ("+i+"): " + aType.getType() + " -> " + aType.getTypeValue());
+    		
+    		aTargetHoop.setKVType (i,aType.getType(),aType.getTypeValue());
+    	}
+    }
+    /**
+     * 
+     */
     public int getTypesSize ()
     {
     	return (types.size());

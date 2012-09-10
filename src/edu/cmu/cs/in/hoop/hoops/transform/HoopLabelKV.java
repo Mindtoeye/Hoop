@@ -58,8 +58,10 @@ public class HoopLabelKV extends HoopTransformBase implements HoopInterface
 	{		
 		debug ("runHoop ()");
 		
-		inHoop.setKVLabel(0,keyLabel.getPropValue());
-		inHoop.setKVLabel(0,valueLabel.getPropValue());
+		inHoop.copyTypes (this);
+		
+		setKVLabel (0,keyLabel.getPropValue());
+		setKVLabel (1,valueLabel.getPropValue());
 								
 		ArrayList <HoopKV> inData=inHoop.getData();
 		
