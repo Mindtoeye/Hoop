@@ -31,6 +31,7 @@ import com.mxgraph.view.mxGraph;
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.io.HoopMessageReceiver;
 import edu.cmu.cs.in.controls.HoopSentenceWall;
+import edu.cmu.cs.in.controls.dialogs.HoopCleanProjectDialog;
 import edu.cmu.cs.in.hoop.hoops.task.HoopStart;
 import edu.cmu.cs.in.hoop.project.HoopGraphFile;
 import edu.cmu.cs.in.hoop.project.HoopProject;
@@ -1272,5 +1273,16 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 			alert ("Please save your project first");
 			return;
 		}		
+		
+		HoopCleanProjectDialog cleanConfig=new HoopCleanProjectDialog (this,true);
+		
+	    if(cleanConfig.getAnswer()) 
+	    {
+	    	debug ("The answer stored in CustomDialog is 'true' (i.e. user clicked yes button.)");
+	    }
+	    else 
+	    {
+	    	debug ("The answer stored in CustomDialog is 'false' (i.e. user clicked no button.)");
+	    }		
 	}
 }

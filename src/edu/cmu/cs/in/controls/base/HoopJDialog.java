@@ -18,286 +18,113 @@
 
 package edu.cmu.cs.in.controls.base;
 
-import java.awt.Component;
-import java.awt.Dimension;
-import java.io.PrintStream;
-import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Vector;
-
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JDialog;
+import javax.swing.JDialog; 
+import java.awt.event.ActionListener;
+import javax.swing.JPanel;
 import javax.swing.JFrame;
-
-import org.jdom.Element;
+import javax.swing.JLabel;
+import javax.swing.JButton;
 
 import edu.cmu.cs.in.base.HoopRoot;
-import edu.cmu.cs.in.base.HoopXMLBase;
 
-public class HoopJDialog extends JDialog
-{	
-	private static final long serialVersionUID = 1L;
-	
-	/** The output stream for {@link #debug(String)}. Default value {@link System#out}. */
-	protected static PrintStream outStream = System.out;
+import java.awt.event.ActionEvent;
 
-	/** The error output stream. Default value {@link System#err}. */
-	protected static PrintStream errStream = System.err;
+/**
+ * 
+ */
+public class HoopJDialog extends JDialog implements ActionListener 
+{
+	private static final long serialVersionUID = 9207892759985898888L;
+	
+	private JPanel myPanel = null;
+    private JButton yesButton = null;
+    private JButton noButton = null;
+    private boolean answer = false;
+        
+	private String className="HoopBase";	
+	private String instanceName="Undefined";    
 
-	private SimpleDateFormat df;
-	private String className=getClass().getSimpleName();
-	
-	private String name="";
-	
-    protected ImageIcon defaultIcon=null;	
-	
-	/**
-	 *
-	 */
-    public HoopJDialog () 
-    {
-    	df=new SimpleDateFormat ("HH:mm:ss.SSS");
-    }
-	/**
-	 *
-	 */
-    public HoopJDialog (JFrame parent, String title, Boolean modal) 
-    {
-    	super(parent, title, true);
-   		df=new SimpleDateFormat ("HH:mm:ss.SSS");
-    }    
-	/**
-	 *
-	 */
-    public void setName (String aName)
-    {
-    	name=aName;
-    }
-	/**
-	 *
-	 */
-    public String getName ()
-    {
-    	return (name);
-    }    
-	/**
-	 *
-	 */
-    public void setClassName (String aName)
-    {
-    	className=aName;
-    }
-	/**
-	 *
-	 */
-    public String getClassName ()
-    {
-    	return (className);
-    }
-	/**
-	 *
-	 */    
-    public String getCurrentDate ()
-    {
-    	return (df.format(new Date()));
-    }
-	/**
-	*	
-	*/		
-	protected String getClassOpen ()
+    /**
+     * 
+     */
+    public HoopJDialog (JFrame frame, boolean modal, String myMessage) 
 	{
-		return ("<"+getClassName ()+">");
-	}
-	/**
-	*	
-	*/		
-	protected String getClassOpen (String aName)
-	{
-		return ("<"+getClassName ()+" name=\""+aName+"\">");
-	}	
-	/**
-	*	
-	*/		
-	protected String getClassClose ()
-	{
-		return ("</"+getClassName ()+">");
-	}	
-	/**
-	*	
-	*/		
-	public String toString()
-	{
-		StringBuffer buffer=new StringBuffer();
-		buffer.append(getClassOpen ()+"<name>"+getName ()+"</name>"+getClassClose ());
-		return (buffer.toString ());
-	}    
-	/**
-	 *
-	 */
-    public void fromString (String xml)
-    {
-    	debug ("fromString ()");
-    	
-    	/*
-        SAXBuilder builder = new SAXBuilder();
-        Document doc=null;
-		try {
-			doc = builder.build(new StringReader(xml));
-		} catch (JDOMException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}   
-		  
-		Element root=doc.getRootElement();
-		*/
-    	
-    	HoopXMLBase driver=new HoopXMLBase ();
-    	Element elm=driver.fromXMLString (xml);
+		super (frame, modal);
 		
-		fromXML (elm);
+		setClassName ("HoopJDialog");
+		debug ("HoopJDialog ()");		
+		
+		myPanel = new JPanel();
+		getContentPane().add(myPanel);
+		myPanel.add(new JLabel(myMessage));
+		yesButton = new JButton("Yes");
+		yesButton.addActionListener(this);
+		myPanel.add(yesButton);	
+		noButton = new JButton("No");
+		noButton.addActionListener(this);
+		myPanel.add(noButton);	
+		pack();
+		setLocationRelativeTo(frame);
+		setVisible(true);
     }
 	/**
 	 *
 	 */
-    public void fromXML (Element root)
-    {
-    	debug ("fromXML ()");	
-    }	
+	public void setClassName (String aName)
+	{
+		className=aName;
+	}
 	/**
 	 *
-	 */		
-	public static void debug(String aClass,String s) 
+	 */
+	public String getClassName ()
 	{
-		HoopRoot.debug(aClass, s);
-	}    
-	/**
-	 *
-	 */		
-	public void debug(String s) 
-	{
-		HoopRoot.debug("HoopDialog", s);
-		
-		/*
-		if (trace.getDebugCode("br"))
-		{
-			if (outStream == null)
-				return;
-			outStream.printf ("[%s] [%d] <"+className+"> %s\n",df.format(new Date()), ++HoopSSELink.debugLine, s);
-			outStream.flush();
-		}
-		*/	
+		return (className);
 	}	
 	/**
-	 * Write a string and a stack backtrace.
-	 * @param s
-	 * @param e
-	 */
-	public void debugStack(String s, Throwable e) {
-		if (outStream == null)
-			return;
-		debug(s);
-		e.printStackTrace(outStream);
-		outStream.flush();
-	}
-	/**
-	 * @return the outStream
-	 */
-	public static PrintStream getOutStream() {
-		return outStream;
-	}
-
-	/**
-	 * @return the errStream
-	 */
-	public static PrintStream getErrStream() {
-		return errStream;
-	}
-
-	/**
-	 * @param outStream the outStream to set
-	 */
-	/*
-	public static void setOutStream(PrintStream outStream) 
+	 *
+	 */	
+	public String getInstanceName() 
 	{
-		HoopBase.outStream = outStream;
+		return instanceName;
 	}
-	*/
 	/**
-	 * @param errStream the errStream to set
-	 */
-	/*
-	public static void setErrStream(PrintStream errStream) 
+	 *
+	 */	
+	public void setInstanceName(String instanceName) 
 	{
-		HoopBase.errStream = errStream;
-	}
-	*/
-	/**
-	 * Convenience for creating vector from string
-	 * @param s
-	 * @return Vector with s as first element; null if s is null 
-	 */
-	protected Vector<String> s2v(String s) 
-	{
-		if (s == null)
-			return null;
-		Vector<String> result = new Vector<String>();
-		result.add(s);
-		return result;
+		this.instanceName = instanceName;
 	}		
-	/** 
-	 * Returns an ImageIcon, or null if the path was invalid. 
+	/**
+	 * 
 	 */
-	protected ImageIcon createImageIcon (String aFile,String description) 
-	{				
-		debug ("createImageIcon ("+aFile+")");
-		
-		ClassLoader loader=getClass ().getClassLoader();
-		if (loader==null)
+	protected void debug (String aMessage)
+	{
+		HoopRoot.debug(getClassName(),aMessage);
+	}    
+    /**
+     * 
+     */
+    public void actionPerformed(ActionEvent e) 
+	{
+		if(yesButton == e.getSource()) 
 		{
-			debug ("Error: no class loader object available");
-			return (defaultIcon);
+			System.err.println("User chose yes.");
+			answer = true;
+			setVisible(false);
 		}
-		
-		URL resource=loader.getResource("pact/CommWidgets/"+aFile);
-		if (resource==null)
+		else if(noButton == e.getSource()) 
 		{
-			debug ("Error: unable to find image resource in jar file");
-			return (defaultIcon);
-		}			
-		
-		return (new ImageIcon (resource,description));
-	}
-	/**
-	 * 
-	 */	
-	public Box addInHorizontalLayout (Component comp,int maxX,int maxY) 
-	{
-		Box dynamicBox=new Box (BoxLayout.X_AXIS);
-		dynamicBox.setMinimumSize(new Dimension (20,20));
-		dynamicBox.setMaximumSize(new Dimension (maxX,maxY));
-		dynamicBox.add(comp);
-		return (dynamicBox);
-	}
-	/**
-	 * 
-	 */	
-	public Box addInVerticalLayout (Component comp) 
-	{
-		Box dynamicBox=new Box (BoxLayout.Y_AXIS);
-		dynamicBox.add(comp);
-		return (dynamicBox);
-	}	
-	/**
-	 * 
-	 */
-	protected void alert (String aMessage)
-	{
-		HoopRoot.alert(aMessage);
-	}	
+			System.err.println("User chose no.");
+			answer = false;
+			setVisible(false);
+		}
+    }
+    /**
+     * 
+     */
+    public boolean getAnswer() 
+    { 
+    	return answer; 
+    }
 }
