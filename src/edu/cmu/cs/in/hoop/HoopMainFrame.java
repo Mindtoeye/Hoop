@@ -1268,21 +1268,26 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 	{
 		debug ("cleanProject ()");
 		
+		/*
 		if (HoopLink.project.getVirginFile()==true)
 		{
 			alert ("Please save your project first");
 			return;
-		}		
+		}
+		*/		
 		
 		HoopCleanProjectDialog cleanConfig=new HoopCleanProjectDialog (this,true);
 		
-	    if(cleanConfig.getAnswer()) 
+	    if (cleanConfig.getAnswer()) 
 	    {
-	    	debug ("The answer stored in CustomDialog is 'true' (i.e. user clicked yes button.)");
+	    	//debug ("The answer stored in CustomDialog is 'true' (i.e. user clicked yes button.)");
+	    	HoopLink.project.clean (cleanConfig.getCleanDocuments(),
+	    							cleanConfig.getCleanBuildOutput(),
+	    							cleanConfig.getCleanTempFiles());
 	    }
 	    else 
 	    {
-	    	debug ("The answer stored in CustomDialog is 'false' (i.e. user clicked no button.)");
+	    	//debug ("The answer stored in CustomDialog is 'false' (i.e. user clicked no button.)");
 	    }		
 	}
 }

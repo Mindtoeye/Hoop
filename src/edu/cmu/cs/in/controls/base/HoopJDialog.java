@@ -19,11 +19,19 @@
 package edu.cmu.cs.in.controls.base;
 
 import javax.swing.JDialog; 
+
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionListener;
+
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import javax.swing.border.EtchedBorder;
 
 import edu.cmu.cs.in.base.HoopRoot;
 
@@ -39,6 +47,9 @@ public class HoopJDialog extends JDialog implements ActionListener
 	private JPanel myPanel = null;
     private JButton yesButton = null;
     private JButton noButton = null;
+    
+    private JPanel frame=null;
+    
     private boolean answer = false;
         
 	private String className="HoopBase";	
@@ -47,25 +58,59 @@ public class HoopJDialog extends JDialog implements ActionListener
     /**
      * 
      */
-    public HoopJDialog (JFrame frame, boolean modal, String myMessage) 
+    public HoopJDialog (JFrame aFrame, 
+    					boolean modal, 
+    					String title) 
 	{
-		super (frame, modal);
+		super (aFrame, modal);
 		
 		setClassName ("HoopJDialog");
 		debug ("HoopJDialog ()");		
+				
+		this.setTitle(title);
+				
+		getContentPane ().setLayout(new BoxLayout (getContentPane (),BoxLayout.Y_AXIS));
+				
+		Box mainBox = new Box (BoxLayout.Y_AXIS);
+		
+		frame = new JPanel();
+		frame.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
+		//frame.setLayout(new BoxLayout (frame,BoxLayout.Y_AXIS));
+		frame.setBackground(new Color (220,220,220));
+		frame.setMinimumSize (new Dimension (100,100));
+		frame.setMaximumSize (new Dimension (400,400));
+		mainBox.add(frame);
 		
 		myPanel = new JPanel();
-		getContentPane().add(myPanel);
-		myPanel.add(new JLabel(myMessage));
+		myPanel.setMaximumSize (new Dimension (400,25));
+		mainBox.add(myPanel);
+		
 		yesButton = new JButton("Yes");
 		yesButton.addActionListener(this);
 		myPanel.add(yesButton);	
+		
 		noButton = new JButton("No");
 		noButton.addActionListener(this);
-		myPanel.add(noButton);	
+		myPanel.add(noButton);
+		
+		this.getContentPane().add(mainBox);
+		
+		addContent ();
+		
 		pack();
+		
 		setLocationRelativeTo(frame);
+		
+		this.setSize(250,200);
+		
 		setVisible(true);
+    }
+    /**
+     * 
+     */
+    protected void addContent ()
+    {
+    	
     }
 	/**
 	 *
@@ -109,13 +154,13 @@ public class HoopJDialog extends JDialog implements ActionListener
 	{
 		if(yesButton == e.getSource()) 
 		{
-			System.err.println("User chose yes.");
+			//System.err.println("User chose yes.");
 			answer = true;
 			setVisible(false);
 		}
 		else if(noButton == e.getSource()) 
 		{
-			System.err.println("User chose no.");
+			//System.err.println("User chose no.");
 			answer = false;
 			setVisible(false);
 		}
@@ -126,5 +171,12 @@ public class HoopJDialog extends JDialog implements ActionListener
     public boolean getAnswer() 
     { 
     	return answer; 
+    }
+    /**
+     * 
+     */
+    public JPanel getFrame ()
+    {
+    	return (frame);
     }
 }
