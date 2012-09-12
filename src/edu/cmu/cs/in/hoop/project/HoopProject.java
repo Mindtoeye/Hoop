@@ -500,4 +500,15 @@ public class HoopProject extends HoopProjectFile
 		
 		return (true);
 	}
+	/**
+	 * 
+	 */
+	public void clean (Boolean aCleanDocuments,
+					   Boolean aCleanBuildOutput,
+					   Boolean aCleanTempFiles)
+	{
+		debug ("clean ()");
+		
+		
+	}
 }
