@@ -1288,17 +1288,6 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 	    else 
 	    {
 	    	//debug ("The answer stored in CustomDialog is 'false' (i.e. user clicked no button.)");
-		}				
-		
-		HoopCleanProjectDialog cleanConfig=new HoopCleanProjectDialog (this,true);
-		
-	    if(cleanConfig.getAnswer()) 
-	    {
-	    	debug ("The answer stored in CustomDialog is 'true' (i.e. user clicked yes button.)");
-	    }
-	    else 
-	    {
-	    	debug ("The answer stored in CustomDialog is 'false' (i.e. user clicked no button.)");
-	    }		
+		}							
 	}
 }
