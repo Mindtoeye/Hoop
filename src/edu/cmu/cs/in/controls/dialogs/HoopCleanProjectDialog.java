@@ -17,7 +17,7 @@
  */
 
 package edu.cmu.cs.in.controls.dialogs;
- 
+
 import java.awt.Font;
 import java.awt.event.ActionListener;
 
@@ -47,7 +47,8 @@ public class HoopCleanProjectDialog extends HoopJDialog implements ActionListene
 		
 		setClassName ("HoopCleanProjectDialog");
 		debug ("HoopCleanProjectDialog ()");				
-    }
+    }  
+
     /**
      * 
      */
