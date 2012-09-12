@@ -1,0 +1,1 @@
+java -d32 -cp ".;INHoopJava3D.jar;lib\*.jar" INHoopJava3D

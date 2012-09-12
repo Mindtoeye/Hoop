@@ -29,20 +29,19 @@
  *	splitting CPU between the two Canvas3D's.
  */
 
-package edu.cmu.cs.in.controls.map;
+//package edu.cmu.cs.in.controls.map;
 
 import java.awt.BorderLayout;
 import javax.media.j3d.Canvas3D;
-import javax.swing.JPopupMenu;
+import javax.swing.JPanel;
 
 import com.sun.j3d.utils.universe.SimpleUniverse;
-import edu.cmu.cs.in.controls.base.INEmbeddedJPanel;
 
 /** 
  * @author vvelsen
  *
  */
-public class INHoopJava3DJPanel extends INEmbeddedJPanel
+public class INHoopJava3DJPanel extends JPanel
 {	
 	private static final long serialVersionUID = 1L;
 	
@@ -53,10 +52,7 @@ public class INHoopJava3DJPanel extends INEmbeddedJPanel
 	 * Creates a new JPanel with a double buffer and a flow layout.
 	 */	
 	public INHoopJava3DJPanel()
-	{
-		setClassName ("INHoopJava3DJPanel");
-		debug ("INHoopJava3DJPanel ()");
-		
+	{		
 		//JPopupMenu.setDefaultLightWeightPopupEnabled (false);
 		
 		this.setLayout(new BorderLayout(2,2));
