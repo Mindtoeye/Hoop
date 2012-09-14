@@ -27,12 +27,9 @@ import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-
-import javax.swing.JPanel;
-import javax.swing.JFrame;
-//import javax.swing.JLabel;
 import javax.swing.JButton;
-
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
 import edu.cmu.cs.in.base.HoopRoot;
@@ -60,22 +57,33 @@ public class HoopJDialog extends JDialog implements ActionListener
     /**
      * 
      */
-
     public HoopJDialog (JFrame aFrame, 
     					boolean modal, 
     					String title) 
-	{
+    {
 		super (aFrame, modal);
 
 		setClassName ("HoopJDialog");
 		debug ("HoopJDialog ()");		
-						
+
 		this.setTitle(title);
 				
 		getContentPane ().setLayout(new BoxLayout (getContentPane (),BoxLayout.Y_AXIS));
 				
 		Box mainBox = new Box (BoxLayout.Y_AXIS);
 		
+		frame = new JPanel();
+		frame.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
+		//frame.setLayout(new BoxLayout (frame,BoxLayout.Y_AXIS));
+		frame.setBackground(new Color (220,220,220));
+		frame.setMinimumSize (new Dimension (100,100));
+		frame.setMaximumSize (new Dimension (400,400));
+		mainBox.add(frame);
+						
+		this.setTitle(title);
+				
+		getContentPane ().setLayout(new BoxLayout (getContentPane (),BoxLayout.Y_AXIS));
+						
 		frame = new JPanel();
 		frame.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 		//frame.setLayout(new BoxLayout (frame,BoxLayout.Y_AXIS));
@@ -111,16 +119,16 @@ public class HoopJDialog extends JDialog implements ActionListener
     /**
      * 
      */
-    protected JPanel getFrame ()
+    protected void addContent ()
     {
-    	return (frame);
+    	// implement in child class
     }
     /**
      * 
      */
-    protected void addContent ()
+    protected JPanel getFrame ()
     {
-    	// implement in child class
+    	return (frame);
     }
 	/**
 	 *

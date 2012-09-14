@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<jardesc>
+    <jar path="Hoop/Resources/Experiments/Java3D/INHoopJava3D.jar"/>
+    <options buildIfNeeded="true" compress="true" descriptionLocation="/Java3DTest/INHoopJava3D.jardesc" exportErrors="false" exportWarnings="true" includeDirectoryEntries="false" overwrite="false" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
+    <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
+    <selectedProjects/>
+    <manifest generateManifest="true" mainClassHandleIdentifier="=Java3DTest/src&lt;{INHoopJava3D.java[INHoopJava3D" manifestLocation="/Java3DTest/MANIFEST" manifestVersion="1.0" reuseManifest="false" saveManifest="true" usesManifest="true">
+        <sealing sealJar="false">
+            <packagesToSeal/>
+            <packagesToUnSeal/>
+        </sealing>
+    </manifest>
+    <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
+        <file path="/Java3DTest/MANIFEST"/>
+        <file path="/Java3DTest/.classpath"/>
+        <javaElement handleIdentifier="=Java3DTest/src"/>
+        <file path="/Java3DTest/.project"/>
+    </selectedElements>
+</jardesc>

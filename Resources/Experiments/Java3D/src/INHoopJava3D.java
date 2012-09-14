@@ -20,27 +20,24 @@
  *   http://www.calculatorsoup.com/calculators/geometry-plane/polygon.php
  */
 
-package edu.cmu.cs.in.controls.map;
+//package edu.cmu.cs.in.controls.map;
 
-import com.sun.j3d.utils.behaviors.keyboard.KeyNavigatorBehavior;
-import com.sun.j3d.utils.behaviors.mouse.MouseRotate;
+//import com.sun.j3d.utils.behaviors.keyboard.KeyNavigatorBehavior;
+//import com.sun.j3d.utils.behaviors.mouse.MouseRotate;
 import com.sun.j3d.utils.behaviors.mouse.MouseTranslate;
 import com.sun.j3d.utils.geometry.*;
 
 import com.sun.j3d.utils.universe.*;
 
-import edu.cmu.cs.in.base.INBase;
-
 import java.awt.Color;
 
 import javax.media.j3d.*;
-
 import javax.vecmath.*;
 
 /**
  * 
  */
-public class INHoopJava3D extends INBase
+public class INHoopJava3D
 {
 	private PolygonAttributes pa=new PolygonAttributes();
     private SimpleUniverse universe=null;
@@ -55,10 +52,7 @@ public class INHoopJava3D extends INBase
      * 
      */
     public INHoopJava3D () 
-    {
-		setClassName ("INHoopJava3D");
-		debug ("INHoopJava3D ()");
-		
+    {		
     	pa.setCapability(PolygonAttributes.ALLOW_MODE_WRITE);    	
     }
     /**
@@ -260,6 +254,7 @@ public class INHoopJava3D extends INBase
      */
     public static void main(String[] args) 
     {
-    	INHoopJava3D driver=new INHoopJava3D();
+    	//INHoopJava3D driver=new INHoopJava3D();
+    	INHoopJava3DJPanel driver=new INHoopJava3DJPanel ();
     }
 }

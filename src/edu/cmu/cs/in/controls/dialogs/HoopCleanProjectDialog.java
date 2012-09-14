@@ -47,7 +47,8 @@ public class HoopCleanProjectDialog extends HoopJDialog implements ActionListene
 		
 		setClassName ("HoopCleanProjectDialog");
 		debug ("HoopCleanProjectDialog ()");				
-    }
+    }  
+
     /**
      * 
      */
