@@ -101,6 +101,8 @@ public class HoopDocumentWriter extends HoopSaveBase
 	 */
 	private String mapType (String aTypeName)
 	{
+		debug ("mapType ("+aTypeName+")");
+		
 		ArrayList <HoopSerializable> props=getProperties ();
 		
 		for (int i=0;i<props.size();i++)
@@ -109,11 +111,17 @@ public class HoopDocumentWriter extends HoopSaveBase
 			
 			if (aProp.getValue().equalsIgnoreCase(aTypeName)==true)
 			{				
-				return (aProp.getInstanceName());
+				debug ("Mapped " + aTypeName + " to: " + aProp.getValue());
+				
+				return (aProp.getValue());
 			}
+			else
+				debug ("Original " + aTypeName + " does not map to: " + aProp.getValue());
 		}
+		
+		debug ("Error: " + aTypeName + " not found");
 						
-		return (aTypeName);
+		return (null);
 	}    
 	/**
 	 *
@@ -149,7 +157,8 @@ public class HoopDocumentWriter extends HoopSaveBase
 			// make it the index for now, might be replaced by create date
 			// when we run the post process routine
 			newDocument.setKey((long) t);
-			newDocument.setRank(t);
+			newDocument.setRank(t);			
+			newDocument.dateFormat.setValue(this.dateFormat.getPropValue());
 			
 			ArrayList <Object>docElements=aKV.getValuesRaw();
 			
@@ -159,46 +168,86 @@ public class HoopDocumentWriter extends HoopSaveBase
 				
 				String remapped=mapType (aTypeName);
 				
+				if (remapped!=null)
+				{
+					HoopSerializable targetProp=getProperty (remapped);
+				
+					if (targetProp!=null)
+					{					
+						targetProp.setValue((String) docElements.get(i));
+					
+						debug ("Assigned original value " + aTypeName + " to document property " + remapped + " with value: " + targetProp.getValue());
+					}
+					else
+						debug ("Error: unable to find property " + remapped + " in document properties");
+				}	
+				
+				/*
 				if (remapped.equalsIgnoreCase("documentID")==true)
-					newDocument.documentID.setValue((String) docElements.get(i));				
+				{
+					newDocument.documentID.setValue((String) docElements.get(i));
+				}
 				
 				if (remapped.equalsIgnoreCase("author")==true)
+				{
 					newDocument.author.setValue((String) docElements.get(i));
+				}
 				
 				if (remapped.equalsIgnoreCase("authorID")==true)
-					newDocument.authorID.setValue((String) docElements.get(i));				
+				{
+					newDocument.authorID.setValue((String) docElements.get(i));
+				}
 				
 				if (remapped.equalsIgnoreCase("title")==true)
+				{
 					newDocument.title.setValue((String) docElements.get(i));
+				}
 				
 				if (remapped.equalsIgnoreCase("abstr")==true)
+				{
 					newDocument.abstr.setValue((String) docElements.get(i));
-				
-				newDocument.dateFormat.setValue(this.dateFormat.getPropValue());
-				
+				}
+								
 				if (remapped.equalsIgnoreCase("createDate")==true)
+				{
 					newDocument.createDate.setValue((String) docElements.get(i));
+				}
 				
 				if (remapped.equalsIgnoreCase("modifiedDate")==true)
+				{
 					newDocument.modifiedDate.setValue((String) docElements.get(i));
+				}
 
 				if (remapped.equalsIgnoreCase("description")==true)
+				{
 					newDocument.description.setValue((String) docElements.get(i));
+				}
 				
 				if (remapped.equalsIgnoreCase("threadID")==true)
+				{
 					newDocument.threadID.setValue((String) docElements.get(i));
+				}
 				
 				if (remapped.equalsIgnoreCase("threadStarter")==true)
-					newDocument.threadStarter.setValue((String) docElements.get(i));				
+				{
+					newDocument.threadStarter.setValue((String) docElements.get(i));
+				}
 
 				if (remapped.equalsIgnoreCase("keywords")==true)
+				{
 					newDocument.keywords.setValue((String) docElements.get(i));
+				}
 
 				if (remapped.equalsIgnoreCase("url")==true)
+				{
 					newDocument.url.setValue((String) docElements.get(i));
+				}
 				
 				if (remapped.equalsIgnoreCase("text")==true)
-					newDocument.setValue((String) docElements.get(i));				
+				{
+					newDocument.setValue((String) docElements.get(i));
+				}
+				*/
 			}
 			
 			newDocument.postProcess();
@@ -303,6 +352,8 @@ public class HoopDocumentWriter extends HoopSaveBase
 				}								
 			}
 		}		
+		else
+			debug ("This document does not contain thread data");
 	}
 	/**
 	 * 

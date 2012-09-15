@@ -67,9 +67,11 @@ public class HoopLabelKV extends HoopTransformBase implements HoopInterface
 		
 		this.setData (inData);
 		
+		listTypes ();
+		
+		/*
 		if (inData!=null)
 		{
-			/*
 			Hashtable<String,Integer> uniqueHash = new Hashtable<String,Integer>();
 					
 			for (int i=0;i<inData.size();i++)
@@ -86,11 +88,11 @@ public class HoopLabelKV extends HoopTransformBase implements HoopInterface
 			  Map.Entry<String, Integer> entry = it.next();
 
 			  addKV (new HoopKVInteger (entry.getValue (),entry.getKey()));			  
-			} 
-			*/			
+			} 			
 		}
 		else
-			return (false);		
+			return (false);
+		*/			
 				
 		return (true);
 	}	 

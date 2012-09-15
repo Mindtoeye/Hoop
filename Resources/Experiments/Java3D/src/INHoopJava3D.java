@@ -18,12 +18,23 @@
  *  
  *   http://www.gamedev.net/page/resources/_/technical/game-programming/coordinates-in-hexagon-based-tile-maps-r1800
  *   http://www.calculatorsoup.com/calculators/geometry-plane/polygon.php
+ *   
+ *   Java3D on 64bit Windows:
+ *   
+ *   Download the java3d-1_5_1-windows-amd64.exe Version from the Java3D Homepage.
+ *   
+ *   Install this 64bit Version.
+ *   
+ *   Copy the .dll file from:
+ *   .../Program Files/Java/Java3D/1.5.1/bin to
+ *   .../Program Files/Java/jre7/bin
+ *   
+ *   Copy all .jar files from:
+ *   .../Program Files/Java/Java3D/1.5.1/lib/ext to
+ *   .../Program Files/Java/jre7/lib/ext
+ *   
  */
 
-//package edu.cmu.cs.in.controls.map;
-
-//import com.sun.j3d.utils.behaviors.keyboard.KeyNavigatorBehavior;
-//import com.sun.j3d.utils.behaviors.mouse.MouseRotate;
 import com.sun.j3d.utils.behaviors.mouse.MouseTranslate;
 import com.sun.j3d.utils.geometry.*;
 

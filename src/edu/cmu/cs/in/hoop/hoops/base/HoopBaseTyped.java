@@ -59,8 +59,22 @@ public class HoopBaseTyped extends HoopVisual implements HoopPropertyContainer
     		//debug ("Copying type ("+i+"): " + aType.getType() + " -> " + aType.getTypeValue());
     		
     		aTargetHoop.setKVType (i,aType.getType(),aType.getTypeValue());
-    	}
+    	}    	
     }
+    /**
+     * 
+     */
+    public void listTypes ()
+    {
+    	debug ("listTypes ()");
+    	
+    	for (int i=0;i<types.size();i++)
+    	{
+    		HoopDataType aType=types.get(i);
+    		
+    		debug ("Type ("+i+"): " + aType.getType() + " -> " + aType.getTypeValue());    		
+    	}    	
+    }    
     /**
      * 
      */
@@ -93,9 +107,9 @@ public class HoopBaseTyped extends HoopVisual implements HoopPropertyContainer
     	{
     		HoopSerializable prop=properties.get(i);
     	
-    		//debug ("Comparing " + prop.getInstanceName() + " to: " + anInstance);
+    		debug ("Comparing " + prop.getInstanceName() + " to: " + anInstance);
     		
-    		if (prop.getInstanceName().equals(anInstance)==true)
+    		if (prop.getInstanceName().equalsIgnoreCase(anInstance)==true)
     			return (prop);
     	}
     	
