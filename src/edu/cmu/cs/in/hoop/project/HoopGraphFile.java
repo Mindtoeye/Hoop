@@ -36,6 +36,7 @@ public class HoopGraphFile extends HoopProjectFile
 	private HoopBase graphRoot=null;
 	private ArrayList <HoopBase> hoops=null;
 	private ArrayList <HoopConnection> connections=null;
+	private double graphScale=1;
 	
 	/**
 	 * 
@@ -47,7 +48,22 @@ public class HoopGraphFile extends HoopProjectFile
 		
 		hoops=new ArrayList<HoopBase> ();
 		connections=new ArrayList <HoopConnection> ();
-	}		
+	}	
+	/**
+	 * 
+	 */
+	public void setGraphScale (double aScale)
+	{
+		graphScale=aScale;
+	}
+	/**
+	 * 
+	 * @return
+	 */
+	public double getGraphScale() 
+	{
+		return graphScale;
+	}	
 	/**
 	 * 
 	 */
@@ -327,6 +343,10 @@ public class HoopGraphFile extends HoopProjectFile
 		Element rootElement=super.toXML();
 		
 		Element hoopElement=new Element ("graph");
+		
+		Double scaleConverter=this.getGraphScale();
+		
+		hoopElement.setAttribute("scale",scaleConverter.toString());
 		
 		rootElement.setContent(hoopElement);
 			

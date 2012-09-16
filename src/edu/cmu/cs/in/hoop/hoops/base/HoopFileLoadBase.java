@@ -38,9 +38,10 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 	protected HoopIntegerSerializable batchSize=null;
 	
 	private ArrayList <String> files=null;
-	private Integer fileIndex=0;
-	private Integer actualBatchSize=1;
-	private Integer maxEntries=1;
+	
+	protected Integer fileIndex=0;
+	protected Integer actualBatchSize=1;
+	protected Integer maxEntries=1;
 	
 	/**
 	 *

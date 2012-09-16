@@ -486,6 +486,9 @@ public class HoopVisualGraph extends mxGraph implements mxEventSource.mxIEventLi
 		
 		return (result);
 	}	
+	/**
+	 * 
+	 */
 	@Override
 	public void invoke(Object sender, mxEventObject evt) 
 	{

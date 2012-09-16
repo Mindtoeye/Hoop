@@ -41,7 +41,7 @@ public class HoopCrossFold extends HoopAnalyze implements HoopInterface
 				
 		removeOutPort ("KV");
 		
-		setHoopDescription ("Split data into folds");
+		setHoopDescription ("Crossfold separation");
     }
 	/**
 	 *

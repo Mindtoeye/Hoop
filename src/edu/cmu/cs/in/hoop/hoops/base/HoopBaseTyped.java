@@ -131,7 +131,29 @@ public class HoopBaseTyped extends HoopVisual implements HoopPropertyContainer
     	}
     	
     	return (-1);
-    }   
+    }
+    /**
+     * 
+     */
+    public void removeProperty (String aProperty)
+    {
+    	HoopSerializable checker=getProperty (aProperty);
+    	
+    	if (checker!=null)
+    	{
+    		properties.remove(checker);
+    	}
+    }    
+    /**
+     * 
+     */
+    public void enableProperty (String aProperty,Boolean aVal)
+    {
+    	HoopSerializable checker=getProperty (aProperty);
+    	
+    	if (checker!=null)    
+    		checker.setEnabled (aVal);
+    }    
     /**
      * 
      */

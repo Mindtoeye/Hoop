@@ -80,9 +80,9 @@ public class HoopGraphEditor extends HoopBasicGraphEditor implements mxIEventLis
 	{
 		HoopVisualGraph hoopGraph=(HoopVisualGraph) graph;
 		
-		hoopGraph.setHardReset(true);
-		hoopGraph.removeCells(graph.getChildVertices(graph.getDefaultParent()));
-		hoopGraph.setHardReset(false);
+		hoopGraph.setHardReset (true);
+		hoopGraph.removeCells (graph.getChildVertices(graph.getDefaultParent()));
+		hoopGraph.setHardReset (false);
 	}
 	/**
 	 * 
@@ -216,4 +216,15 @@ public class HoopGraphEditor extends HoopBasicGraphEditor implements mxIEventLis
 			}
 		}
 	}	
+	/**
+	 * 
+	 */
+	protected void processScale (double aScale)
+	{
+		debug ("processScale ("+aScale+")");
+		
+		HoopGraphFile grFile=(HoopGraphFile) HoopLink.project.getFileByClass (new HoopGraphFile ().getClassName());
+		if (grFile!=null)
+			grFile.setGraphScale (aScale);
+	}
 }

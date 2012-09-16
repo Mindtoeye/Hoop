@@ -73,6 +73,7 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 {
 	private static final long serialVersionUID = -1L;
 	protected mxGraphComponent graphComponent;
+	protected mxGraph graph=null;
 	protected mxUndoManager undoManager;
 	protected String appTitle;
 	protected File currentFile;
@@ -112,7 +113,7 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 		
 		// Stores a reference to the graph and creates the command history
 		graphComponent = component;
-		final mxGraph graph = graphComponent.getGraph();
+		graph = graphComponent.getGraph();
 		undoManager = createUndoManager();
 
 		// Do not change the scale and translation after files have been loaded
@@ -236,7 +237,9 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 	 */
 	public void mouseWheelMoved(MouseWheelEvent e)
 	{
-		if (e.getWheelRotation() < 0)
+		debug ("mouseWheelMoved ()");
+		
+		if (e.getWheelRotation()<0)
 		{
 			graphComponent.zoomIn();
 		}
@@ -245,7 +248,18 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 			graphComponent.zoomOut();
 		}
 
-		status("Scale: " + (int) (100 * graphComponent.getGraph().getView().getScale()) + "%");
+		status("Scale: " + (int) (100*graphComponent.getGraph ().getView ().getScale ()) + "%");
+		
+		processScale (graphComponent.getGraph ().getView ().getScale ());
+	}
+	/**
+	 * 
+	 */
+	protected void processScale (double aScale)
+	{
+		debug ("processScale ("+aScale+")");
+		
+		// Implement in child class
 	}
 	/**
 	 * 

@@ -108,7 +108,7 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 		this.cell = cell;
 		this.graphContainer = graphContainer;
 		this.graph = graphContainer.getGraph();
-		
+				
 		setBackground(HoopProperties.graphPanelColor);
 		setOpaque(true);
 		setLayout(new BorderLayout());

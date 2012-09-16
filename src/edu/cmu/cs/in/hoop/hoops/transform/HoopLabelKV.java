@@ -68,32 +68,7 @@ public class HoopLabelKV extends HoopTransformBase implements HoopInterface
 		this.setData (inData);
 		
 		listTypes ();
-		
-		/*
-		if (inData!=null)
-		{
-			Hashtable<String,Integer> uniqueHash = new Hashtable<String,Integer>();
-					
-			for (int i=0;i<inData.size();i++)
-			{
-				HoopKVInteger aKV=(HoopKVInteger) inData.get(i);
-				
-				uniqueHash.put(aKV.getValue(),i);					
-			}						
-			
-			Iterator<Map.Entry<String, Integer>> it = uniqueHash.entrySet().iterator();
-
-			while (it.hasNext()) 
-			{
-			  Map.Entry<String, Integer> entry = it.next();
-
-			  addKV (new HoopKVInteger (entry.getValue (),entry.getKey()));			  
-			} 			
-		}
-		else
-			return (false);
-		*/			
-				
+								
 		return (true);
 	}	 
 	/**

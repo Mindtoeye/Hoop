@@ -32,13 +32,7 @@ import edu.cmu.cs.in.search.HoopDataSet;
 public class HoopDocumentReader extends HoopFileLoadBase
 {
 	private HoopEnumSerializable selectedField=null;
-	protected HoopIntegerSerializable maxFiles=null;
-	protected HoopIntegerSerializable batchSize=null;
-	
-	private Integer fileIndex=0;
-	private Integer actualBatchSize=1;
-	private Integer maxEntries=1;
-	
+		
 	/**
 	 *
 	 */ 
@@ -50,10 +44,9 @@ public class HoopDocumentReader extends HoopFileLoadBase
 		setHoopDescription ("Load KVs from Document DB");
 				
 		removeInPort ("KV");
+		enableProperty ("URI",false);
 		
 		selectedField=new HoopEnumSerializable (this,"selectedField","title,author,abstr,text,createDate,modifiedDate,keywords,url,description,tokens");
-		maxFiles=new HoopIntegerSerializable (this,"maxFiles",1);
-		batchSize=new HoopIntegerSerializable (this,"batchSize",1);
 	}
 	/**
 	 *

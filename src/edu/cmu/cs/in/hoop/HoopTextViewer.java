@@ -53,6 +53,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.MouseInputListener;
 import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultEditorKit;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Document;
 import javax.swing.text.Element;
@@ -226,7 +227,7 @@ public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener
 	public void showDocument (HoopKVDocument aDocument)
 	{
 		internalDocument=aDocument;
-		
+						
 		showText (internalDocument.toText ());
 	
 		fillTextFilterCombo ();
@@ -239,7 +240,8 @@ public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener
 	public void showText (String aText)
 	{
 		debug ("showText ()");
-				
+		
+		textViewer.getDocument().putProperty(DefaultEditorKit.EndOfLineStringProperty, "\n");		
 		textViewer.setText(aText);
 		textViewer.setCaretPosition(0);
 	}	

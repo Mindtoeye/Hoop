@@ -20,8 +20,8 @@ package edu.cmu.cs.in.hoop.editor;
 
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
+//import java.awt.event.MouseWheelEvent;
+//import java.awt.event.MouseWheelListener;
 
 import javax.swing.JViewport;
 
@@ -33,8 +33,8 @@ import com.mxgraph.swing.handler.mxConnectionHandler;
 import com.mxgraph.swing.view.mxInteractiveCanvas;
 //import com.mxgraph.util.mxPoint;
 //import com.mxgraph.util.mxRectangle;
-import com.mxgraph.util.mxEvent;
-import com.mxgraph.util.mxRectangle;
+//import com.mxgraph.util.mxEvent;
+//import com.mxgraph.util.mxRectangle;
 import com.mxgraph.view.mxCellState;
 import com.mxgraph.view.mxGraph;
 
