@@ -277,6 +277,7 @@ public class HoopVisualGraphComponent extends mxGraphComponent
 								HoopNodePanel aPanel=new HoopNodePanel (aHoop,cell, this);
 								aPanel.setLocation(aHoop.getX(),aHoop.getY());
 								aPanel.setPreferredSize(new Dimension (aHoop.getWidth(),aHoop.getHeight()));
+								aPanel.fixDimensions (getGraph ().getView ().getScale ());
 							
 								aHoop.setVisualizer (aPanel);
 																		

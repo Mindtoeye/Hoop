@@ -76,6 +76,42 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 		debug ("HoopNodePanel () done");
 	}
 	/**
+	 * When a graph is saved it will go through each hoop and call this
+	 * method. This will in turn in the panel belonging to that hoop
+	 * call a method that sets all the visual properties back into the
+	 * hoop.
+	 */	
+	@Override
+	public void propagateVisualProperties() 
+	{
+		debug ("propagateVisualProperties ()");
+		
+		if (hoop!=null)
+		{
+			hoop.setX(this.getX());
+			hoop.setY(this.getY());
+			hoop.setWidth(this.getWidth());
+			hoop.setHeight(this.getHeight());
+			
+			setStatus ("Ex: " + hoop.getExecutionCount());
+		}
+	}	
+	/**
+	 * 
+	 */
+	public void fixDimensions (double aScale)
+	{
+		debug ("fixDimensions ()");
+		
+		if (hoop!=null)
+		{
+			hoop.setOriginalWidth (this.getWidth());
+			hoop.setOriginalHeight (this.getHeight());
+		}
+		else
+			debug ("Internal error: no hoop object available to fix dimensions");
+	}
+	/**
 	 * 
 	 */	
 	public HoopBase getHoop() 
@@ -195,27 +231,6 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 			icon.setIcon(HoopLink.getImageByName("led-green.png"));
 			setWaiting (true);
 		}		
-	}
-	/**
-	 * When a graph is saved it will go through each hoop and call this
-	 * method. This will in turn in the panel belonging to that hoop
-	 * call a method that sets all the visual properties back into the
-	 * hoop.
-	 */	
-	@Override
-	public void propagateVisualProperties() 
-	{
-		debug ("propagateVisualProperties ()");
-		
-		if (hoop!=null)
-		{
-			hoop.setX(this.getX());
-			hoop.setY(this.getY());
-			hoop.setWidth(this.getWidth());
-			hoop.setHeight(this.getHeight());
-			
-			setStatus ("Ex: " + hoop.getExecutionCount());
-		}
 	}
 	@Override
 	public void mouseClicked(MouseEvent arg0) 

@@ -248,7 +248,7 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 			graphComponent.zoomOut();
 		}
 
-		status("Scale: " + (int) (100*graphComponent.getGraph ().getView ().getScale ()) + "%");
+		status ("Scale: " + (int) (100*graphComponent.getGraph ().getView ().getScale ()) + "%");
 		
 		processScale (graphComponent.getGraph ().getView ().getScale ());
 	}

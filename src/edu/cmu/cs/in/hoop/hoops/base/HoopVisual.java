@@ -27,8 +27,12 @@ public class HoopVisual extends HoopRoot
 {
 	protected int x=0;
 	protected int y=0;
+	
 	protected int width=150; 
 	protected int height=100;
+	
+	protected int originalWidth=150; 
+	protected int originalHeight=100;	
 	
 	private Boolean highlighted=false; // used by HoopJCheckListItem
 	
@@ -69,6 +73,9 @@ public class HoopVisual extends HoopRoot
 	{
 		this.y = y;
 	}
+	
+	
+	
 	/**
 	 *
 	 */
@@ -97,6 +104,38 @@ public class HoopVisual extends HoopRoot
 	{
 		this.height = height;
 	}
+	
+
+	/**
+	 *
+	 */
+	public int getOriginalWidth() 
+	{
+		return originalWidth;
+	}
+	/**
+	 *
+	 */
+	public void setOriginalWidth(int width) 
+	{
+		this.originalWidth = width;
+	}
+	/**
+	 *
+	 */
+	public int getOriginalHeight() 
+	{
+		return originalHeight;
+	}
+	/**
+	 *
+	 */
+	public void setOriginalHeight(int height) 
+	{
+		this.originalHeight = height;
+	}	
+	
+	
 	/**
 	 * 
 	 * @param highlighted
