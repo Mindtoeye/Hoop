@@ -63,6 +63,14 @@ public class HoopVisualGraphConnectionHandler extends mxConnectionHandler
 		
 	}
 	/**
+	 * 
+	 */
+	public void mouseDragged(MouseEvent e)
+	{
+		//debug ("mouseDragged ()");
+		
+	}
+	/**
 	 * Notice: we don't create new connections between Hoops in this class
 	 * anymore. Please see the method createComponents in the
 	 * HoopVisualGraphComponent class.

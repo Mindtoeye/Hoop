@@ -23,6 +23,8 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 //import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
@@ -69,7 +71,7 @@ import com.mxgraph.view.mxGraph;
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 
-public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWheelListener
+public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWheelListener, KeyListener, MouseMotionListener
 {
 	private static final long serialVersionUID = -1L;
 	protected mxGraphComponent graphComponent;
@@ -82,6 +84,8 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 	protected boolean modified = false;
 	protected mxRubberband rubberband;
 	protected mxKeyboardHandler keyboardHandler;
+	
+	public boolean shiftDown=false;
 	
 	/**
 	 * 
@@ -286,21 +290,8 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 	 */
 	protected void installListeners()
 	{
-		/*
-		// Installs mouse wheel listener for zooming
-		MouseWheelListener wheelTracker = new MouseWheelListener()
-		{
-			public void mouseWheelMoved(MouseWheelEvent e)
-			{
-				if (e.getSource() instanceof mxGraphOutline || e.isControlDown())
-				{
-					HoopBasicGraphEditor.this.mouseWheelMoved(e);
-				}
-			}
-
-		};
-		*/
-
+		graphComponent.addKeyListener(this);
+		
 		// Handles mouse wheel events in the outline and graph component
 		/*
 		graphOutline.addMouseWheelListener(wheelTracker);
@@ -327,6 +318,7 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 		*/
 
 		graphComponent.addMouseWheelListener(this);
+		
 		// Installs the popup menu in the graph component		
 		/*
 		graphComponent.getGraphControl().addMouseListener(new MouseAdapter()
@@ -349,25 +341,26 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 		*/
 
 		// Installs a mouse motion listener to display the mouse location
+		graphComponent.getGraphControl().addMouseMotionListener (this);
+		
+		/*
 		graphComponent.getGraphControl().addMouseMotionListener (new MouseMotionListener()
 		{
-			/*
-			 * (non-Javadoc)
-			 * @see java.awt.event.MouseMotionListener#mouseDragged(java.awt.event.MouseEvent)
-			 */
-			public void mouseDragged(MouseEvent e)
+			public void mouseDragged (MouseEvent e)
 			{
 				status(e.getX() + ", " + e.getY());
 			}
-			/*
-			 * (non-Javadoc)
-			 * @see java.awt.event.MouseMotionListener#mouseMoved(java.awt.event.MouseEvent)
-			 */
-			public void mouseMoved(MouseEvent e)
+			public void mouseMoved (MouseEvent e)
 			{
-				status(e.getX() + ", " + e.getY());
+				if (this.shiftDown==true)
+				{
+					status("Drag: " + e.getX() + ", " + e.getY());
+				}
+				else
+					status(e.getX() + ", " + e.getY());
 			}
 		});
+		*/
 	}
 	/**
 	 * 
@@ -535,8 +528,7 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 			{
 				public void actionPerformed(ActionEvent e)
 				{
-					JOptionPane.showMessageDialog(graphComponent,
-							mxResources.get("noLayout"));
+					JOptionPane.showMessageDialog(graphComponent,mxResources.get("noLayout"));
 				}
 			};
 		}
@@ -643,5 +635,79 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 		}
 
 		return layout;
+	}
+	/**
+	 * 
+	 * @param aKey
+	 */
+	@Override
+	public void keyPressed(KeyEvent aKey) 
+	{
+		//debug ("keyPressed ("+aKey.isShiftDown()+")");
+		
+		shiftDown=aKey.isShiftDown();
+				
+		if (shiftDown==true)
+		{
+			debug ("Disabling selection handler ...");
+			
+			graph.getSelectionModel().setEventsEnabled(false);
+			graphComponent.getGraphHandler().setEnabled(false);
+			graphComponent.getSelectionCellsHandler().setEnabled(false);
+			graphComponent.getSelectionCellsHandler().setVisible(false);
+		}
+	}
+	/**
+	 * 
+	 * @param aKey
+	 */
+	@Override
+	public void keyReleased(KeyEvent aKey) 
+	{
+		//debug ("keyReleased ("+aKey.isShiftDown()+")");
+		
+		shiftDown=aKey.isShiftDown();
+		
+		graph.getSelectionModel().setEventsEnabled(true);
+		graphComponent.getGraphHandler().setEnabled(true);
+		graphComponent.setSwimlaneSelectionEnabled(true);
+		graphComponent.getSelectionCellsHandler().setEnabled(true);
+		graphComponent.getSelectionCellsHandler().setVisible(true);
+	}
+	/**
+	 * 
+	 * @param aKey
+	 */
+	@Override
+	public void keyTyped(KeyEvent aKey) 
+	{
+		//debug ("keyTyped ()");
+		
+	}
+	/**
+	 * 
+	 */
+	@Override
+	public void mouseDragged(MouseEvent e) 
+	{
+		if (this.shiftDown==true)
+		{			
+			status("Drag (D): " + e.getX() + ", " + e.getY());
+		}
+		else
+			status(e.getX() + ", " + e.getY());		
+	}
+	/**
+	 * 
+	 */
+	@Override
+	public void mouseMoved(MouseEvent e) 
+	{
+		if (this.shiftDown==true)
+		{
+			status("Drag (M): " + e.getX() + ", " + e.getY());
+		}
+		else
+			status(e.getX() + ", " + e.getY());		
 	}
 }

@@ -71,29 +71,20 @@ public class HoopVisualGraphComponent extends mxGraphComponent
 		setConnectable(true);
 		
 		getGraphHandler().setCloneEnabled(false);
-		getGraphHandler().setImagePreview(false);		
+		getGraphHandler().setImagePreview(false);
 				
 		setGridVisible(false);
 		setToolTips(true);
 		setPanning(true);
+		setAutoExtend (true);
+		setAutoScroll (true);
+		//setDragEnabled (true);
 		
 		//graph.setMinimumGraphSize(new mxRectangle(0, 0, 1200, 1200));
 		
         //graph.setGridEnabled(true);
         //graph.setGridSize(10);
-		
-		/*
-		panningHandler.addListener(mxEvent.START, function() 
-		{ 
-			graph.container.style.cursor = "pointer"; 
-		});
-
-		panningHandler.addListener(mxEvent.END, function() 
-		{ 
-			graph.container.style.cursor = "default"; 
-		});
-		*/
-		
+				
 		//getConnectionHandler().setCreateTarget(true);
 
 		// Loads the default stylesheet from an external file
@@ -113,7 +104,7 @@ public class HoopVisualGraphComponent extends mxGraphComponent
 		{
 			JViewport canvas=this.getViewport();		
 			canvas.setBackground(HoopProperties.graphBackgroundColor);
-		}			
+		}		
 	}
 	/**
 	 * 
