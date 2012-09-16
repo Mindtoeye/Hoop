@@ -31,6 +31,7 @@ import edu.cmu.cs.in.base.HoopStringTools;
 import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.base.kv.HoopKVDocument;
 import edu.cmu.cs.in.base.kv.HoopKVLong;
+import edu.cmu.cs.in.base.kv.HoopKVString;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopSaveBase;
 import edu.cmu.cs.in.hoop.properties.types.HoopSerializable;
@@ -111,12 +112,12 @@ public class HoopDocumentWriter extends HoopSaveBase
 			
 			if (aProp.getValue().equalsIgnoreCase(aTypeName)==true)
 			{				
-				debug ("Mapped " + aTypeName + " to: " + aProp.getValue());
+				debug ("Found " + aTypeName + " as: " + aProp.getValue() + " mapped to: " + aProp.getInstanceName());
 				
-				return (aProp.getValue());
+				return (aProp.getInstanceName());
 			}
-			else
-				debug ("Original " + aTypeName + " does not map to: " + aProp.getValue());
+			//else
+			//	debug ("Original " + aTypeName + " does not map to: " + aProp.getValue());
 		}
 		
 		debug ("Error: " + aTypeName + " not found");
@@ -150,6 +151,8 @@ public class HoopDocumentWriter extends HoopSaveBase
 		
 		for (int t=0;t<inData.size();t++)
 		{
+			debug (">>>>>>>>>>>>>>>>>>>>>>>>>>>");
+			
 			HoopKV aKV=inData.get(t);
 			
 			HoopKVDocument newDocument=new HoopKVDocument ();
@@ -157,97 +160,96 @@ public class HoopDocumentWriter extends HoopSaveBase
 			// make it the index for now, might be replaced by create date
 			// when we run the post process routine
 			newDocument.setKey((long) t);
-			newDocument.setRank(t);			
+			newDocument.setRank(t);
 			newDocument.dateFormat.setValue(this.dateFormat.getPropValue());
 			
 			ArrayList <Object>docElements=aKV.getValuesRaw();
 			
 			for (int i=0;i<docElements.size();i++)
 			{
-				String aTypeName=inHoop.getKVTypeName (i);
+				String aTypeName=inHoop.getKVTypeName (i+1); // Skip the key type
 				
 				String remapped=mapType (aTypeName);
 				
 				if (remapped!=null)
-				{
-					HoopSerializable targetProp=getProperty (remapped);
-				
-					if (targetProp!=null)
-					{					
-						targetProp.setValue((String) docElements.get(i));
+				{				
+					debug ("Assigning " + remapped);
 					
-						debug ("Assigned original value " + aTypeName + " to document property " + remapped + " with value: " + targetProp.getValue());
-					}
+					// We can cast this because we know it's a variable of a HoopKVDocument
+					HoopKVString var=(HoopKVString) newDocument.getVariable(remapped);
+					
+					if (var!=null)
+						var.setValue((String) docElements.get(i));
 					else
-						debug ("Error: unable to find property " + remapped + " in document properties");
-				}	
+						debug ("Variable " + remapped + " not found in document object");
+					
+					/*
+					if (remapped.equalsIgnoreCase("documentID")==true)
+					{
+						newDocument.documentID.setValue((String) docElements.get(i));
+					}
 				
-				/*
-				if (remapped.equalsIgnoreCase("documentID")==true)
-				{
-					newDocument.documentID.setValue((String) docElements.get(i));
-				}
+					if (remapped.equalsIgnoreCase("author")==true)
+					{
+						newDocument.author.setValue((String) docElements.get(i));
+					}
 				
-				if (remapped.equalsIgnoreCase("author")==true)
-				{
-					newDocument.author.setValue((String) docElements.get(i));
-				}
+					if (remapped.equalsIgnoreCase("authorID")==true)
+					{
+						newDocument.authorID.setValue((String) docElements.get(i));
+					}
 				
-				if (remapped.equalsIgnoreCase("authorID")==true)
-				{
-					newDocument.authorID.setValue((String) docElements.get(i));
-				}
+					if (remapped.equalsIgnoreCase("title")==true)
+					{
+						newDocument.title.setValue((String) docElements.get(i));
+					}
 				
-				if (remapped.equalsIgnoreCase("title")==true)
-				{
-					newDocument.title.setValue((String) docElements.get(i));
-				}
-				
-				if (remapped.equalsIgnoreCase("abstr")==true)
-				{
-					newDocument.abstr.setValue((String) docElements.get(i));
-				}
+					if (remapped.equalsIgnoreCase("abstr")==true)
+					{
+						newDocument.abstr.setValue((String) docElements.get(i));
+					}
 								
-				if (remapped.equalsIgnoreCase("createDate")==true)
-				{
-					newDocument.createDate.setValue((String) docElements.get(i));
-				}
+					if (remapped.equalsIgnoreCase("createDate")==true)
+					{
+						newDocument.createDate.setValue((String) docElements.get(i));
+					}
 				
-				if (remapped.equalsIgnoreCase("modifiedDate")==true)
-				{
-					newDocument.modifiedDate.setValue((String) docElements.get(i));
-				}
+					if (remapped.equalsIgnoreCase("modifiedDate")==true)
+					{
+						newDocument.modifiedDate.setValue((String) docElements.get(i));
+					}
 
-				if (remapped.equalsIgnoreCase("description")==true)
-				{
-					newDocument.description.setValue((String) docElements.get(i));
-				}
+					if (remapped.equalsIgnoreCase("description")==true)
+					{
+						newDocument.description.setValue((String) docElements.get(i));
+					}
 				
-				if (remapped.equalsIgnoreCase("threadID")==true)
-				{
-					newDocument.threadID.setValue((String) docElements.get(i));
-				}
+					if (remapped.equalsIgnoreCase("threadID")==true)
+					{
+						newDocument.threadID.setValue((String) docElements.get(i));
+					}
 				
-				if (remapped.equalsIgnoreCase("threadStarter")==true)
-				{
-					newDocument.threadStarter.setValue((String) docElements.get(i));
-				}
+					if (remapped.equalsIgnoreCase("threadStarter")==true)
+					{
+						newDocument.threadStarter.setValue((String) docElements.get(i));
+					}
 
-				if (remapped.equalsIgnoreCase("keywords")==true)
-				{
-					newDocument.keywords.setValue((String) docElements.get(i));
-				}
+					if (remapped.equalsIgnoreCase("keywords")==true)
+					{
+						newDocument.keywords.setValue((String) docElements.get(i));
+					}
 
-				if (remapped.equalsIgnoreCase("url")==true)
-				{
-					newDocument.url.setValue((String) docElements.get(i));
-				}
+					if (remapped.equalsIgnoreCase("url")==true)
+					{
+						newDocument.url.setValue((String) docElements.get(i));
+					}
 				
-				if (remapped.equalsIgnoreCase("text")==true)
-				{
-					newDocument.setValue((String) docElements.get(i));
-				}
-				*/
+					if (remapped.equalsIgnoreCase("text")==true)
+					{
+						newDocument.setValue((String) docElements.get(i));
+					}
+					*/
+				}	
 			}
 			
 			newDocument.postProcess();
@@ -260,6 +262,8 @@ public class HoopDocumentWriter extends HoopSaveBase
 			HoopLink.dataSet.writeKV(newDocument.getKey(),newDocument);
 			
 			processThreadData (newDocument);
+			
+			debug ("<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
 		}			
 				
 		return (true);

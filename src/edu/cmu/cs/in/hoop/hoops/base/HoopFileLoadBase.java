@@ -95,7 +95,7 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 		
 		setKVType (0,HoopDataType.LONG,"Timestamp"); // KEY !!!!!!!!
 		setKVType (1,HoopDataType.STRING,"Content");
-		setKVType (2,HoopDataType.STRING,"URI");
+		setKVType (2,HoopDataType.STRING,"URL");
 		setKVType (3,HoopDataType.STRING,"File Name");
 		setKVType (4,HoopDataType.STRING,"Created");
 		setKVType (5,HoopDataType.STRING,"Modified");

@@ -81,30 +81,36 @@ public class HoopDataType
 		switch (type)
 		{
 			case CLASS:
-							return ("Class");		
-			case INT:
-							return ("Integer");
-			case STRING:
-							return ("String");
-			case FLOAT:
-							return ("Float");
-			case BOOLEAN:
-							return ("Boolean");
-			case ENUM:
-							return ("ENUM");							
-			case TABLE:
-							return ("Table");
-			case FONT:
-							return ("Font");
-			case COLOR:
-							return ("Color");
-			case URI:
-							return ("URI");
-			case URL:
-							return ("URL");				
+						return ("CLASS");
+			case INT:						
+						return ("INT");
+			case LONG:			
+						return ("LONG");
+			case STRING:			
+						return ("STRING");
+			case FLOAT:			
+						return ("FLOAT");
+			case BOOLEAN:			
+						return ("BOOLEAN");
+			case ENUM:			
+						return ("ENUM");
+			case TABLE:			
+						return ("TABLE");
+			case DOCUMENT:			
+						return ("DOCUMENT");
+			case DATE:			
+						return ("DATE");
+			case COLOR:			
+						return ("COLOR");
+			case FONT:			
+						return ("FONT");
+			case URI:			
+						return ("URI");
+			case URL:			
+						return ("URL");
 		}
 		
-		return ("Class");
+		return ("CLASS");
 	}
 	/*
 	 * 

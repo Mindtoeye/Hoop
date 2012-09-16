@@ -57,6 +57,21 @@ public class HoopKVClass extends HoopKV implements HoopKVInterface, Serializable
     {
     	variables.add(aVar);
     }
+    /**
+     * 
+     */
+    public HoopKV getVariable (String aVar)
+    {
+    	for (int i=0;i<variables.size();i++)
+    	{
+    		HoopKV var=variables.get(i);
+    		
+    		if (var.getKeyString().equalsIgnoreCase(aVar)==true)
+    			return (var);
+    	}
+    	
+    	return (null);
+    }
     /*
      * 
      */

@@ -72,7 +72,7 @@ public class HoopBaseTyped extends HoopVisual implements HoopPropertyContainer
     	{
     		HoopDataType aType=types.get(i);
     		
-    		debug ("Type ("+i+"): " + aType.getType() + " -> " + aType.getTypeValue());    		
+    		debug ("Type ("+i+"): " + aType.typeToString () + " -> " + aType.getTypeValue());    		
     	}    	
     }    
     /**

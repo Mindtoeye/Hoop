@@ -193,24 +193,6 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 	/**
 	 *
 	 */
-	/*
-	public void setDocID(String aKey) 
-	{
-		this.setKey (aKey);
-	} 
-	*/   
-	/**
-	 *
-	 */
-	/*
-	public String getDocID() 
-	{
-		return this.getKey();
-	}
-	*/
-	/**
-	 *
-	 */
 	public String getValue() 
 	{
 		return (String) (values.get(0));
