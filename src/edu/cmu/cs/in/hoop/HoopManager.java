@@ -20,6 +20,7 @@ package edu.cmu.cs.in.hoop;
 
 import java.util.ArrayList;
 
+import edu.cmu.cs.in.hoop.hoops.analyze.HoopCrossFold;
 import edu.cmu.cs.in.hoop.hoops.analyze.HoopKVStats;
 import edu.cmu.cs.in.hoop.hoops.analyze.HoopNaiveBayes;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
@@ -209,5 +210,6 @@ public class HoopManager extends HoopBase
     	addTemplate (new HoopDocumentWriter ());
     	addTemplate (new HoopDocumentUpdater ());
     	addTemplate (new HoopLabelKV ());
+    	addTemplate (new HoopCrossFold ());
     }
 }
