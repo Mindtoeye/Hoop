@@ -43,13 +43,17 @@ public class HoopJDialog extends JDialog implements ActionListener
 {
 	private static final long serialVersionUID = 9207892759985898888L;
 	
-	private JPanel myPanel = null;
-    private JButton yesButton = null;
-    private JButton noButton = null;
+	public static final int YES=0;
+	public static final int NO=1;
+	public static final int CANCEL=2;
+		
+	protected JPanel myPanel = null;
+    protected JButton yesButton = null;
+    protected JButton noButton = null;
     
     private JPanel frame=null;
     
-    private boolean answer = false;
+    protected boolean answer = false;
         
 	private String className="HoopBase";	
 	private String instanceName="Undefined";    
@@ -71,19 +75,7 @@ public class HoopJDialog extends JDialog implements ActionListener
 		getContentPane ().setLayout(new BoxLayout (getContentPane (),BoxLayout.Y_AXIS));
 				
 		Box mainBox = new Box (BoxLayout.Y_AXIS);
-		
-		frame = new JPanel();
-		frame.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
-		//frame.setLayout(new BoxLayout (frame,BoxLayout.Y_AXIS));
-		frame.setBackground(new Color (220,220,220));
-		frame.setMinimumSize (new Dimension (100,100));
-		frame.setMaximumSize (new Dimension (400,400));
-		mainBox.add(frame);
-						
-		this.setTitle(title);
-				
-		getContentPane ().setLayout(new BoxLayout (getContentPane (),BoxLayout.Y_AXIS));
-						
+
 		frame = new JPanel();
 		frame.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 		//frame.setLayout(new BoxLayout (frame,BoxLayout.Y_AXIS));
@@ -106,7 +98,7 @@ public class HoopJDialog extends JDialog implements ActionListener
 		
 		this.getContentPane().add(mainBox);
 		
-		addContent ();
+		//addContent ();
 		
 		pack();
 		
@@ -114,15 +106,17 @@ public class HoopJDialog extends JDialog implements ActionListener
 		
 		this.setSize(250,200);
 		
-		setVisible(true);
+		//setVisible(true);
     }
     /**
      * 
      */
+    /*
     protected void addContent ()
     {
     	// implement in child class
     }
+    */
     /**
      * 
      */
@@ -170,17 +164,25 @@ public class HoopJDialog extends JDialog implements ActionListener
      */
     public void actionPerformed(ActionEvent e) 
 	{
-		if(yesButton == e.getSource()) 
-		{
-			//System.err.println("User chose yes.");
+    	debug ("actionPeformed ()");
+    	
+    	if (processDecision (e)==true)
+    		setVisible (false);    	
+    }
+    /**
+     * 
+     */
+    protected Boolean processDecision (ActionEvent e)
+    {
+    	debug ("processDecision ()");
+    	
+		if (yesButton == e.getSource()) 
 			answer = true;
-			setVisible(false);
-		}
-		else if(noButton == e.getSource()) 
-		{
+
+		if (noButton == e.getSource()) 
 			answer = false;
-			setVisible(false);
-		}
+		
+		return (answer);
     }
     /**
      * 

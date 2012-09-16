@@ -32,6 +32,7 @@ import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.io.HoopMessageReceiver;
 import edu.cmu.cs.in.controls.HoopSentenceWall;
 import edu.cmu.cs.in.controls.dialogs.HoopCleanProjectDialog;
+import edu.cmu.cs.in.controls.dialogs.HoopGenericNameDialog;
 import edu.cmu.cs.in.hoop.hoops.task.HoopStart;
 import edu.cmu.cs.in.hoop.project.HoopGraphFile;
 import edu.cmu.cs.in.hoop.project.HoopProject;
@@ -1183,7 +1184,8 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 	private void importFiles ()
 	{
 		debug ("importFiles ()");
-		
+						
+		HoopGenericNameDialog directoryName=null;
 		HoopProject proj=HoopLink.project;
 			
 		if (proj==null)
@@ -1205,6 +1207,16 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 
 		if (returnVal==JFileChooser.APPROVE_OPTION) 
 		{
+			directoryName=new HoopGenericNameDialog (HoopGenericNameDialog.DIRECTORY,this,true);
+			directoryName.setVisible(true);
+			
+			if (directoryName.getAnswer()==false)
+			{
+				return;
+			}
+			
+			String targetDir=directoryName.getChosenName ();
+						
 			File files []=fc.getSelectedFiles();
 			
 			for (int i=0;i<files.length;i++)
@@ -1213,23 +1225,14 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 				
 				String fromAbsolute=file.getAbsolutePath();
 	       	
-				String dirCreator=proj.getBasePath()+"/data";
+				String dirCreator=proj.getBasePath()+"/system/"+targetDir;
 	       	
 				HoopLink.fManager.createDirectory(dirCreator);
 	       	
 				String toRelative=dirCreator+"/"+file.getName();
 	      
-				HoopLink.fManager.copyFile(fromAbsolute, toRelative);
-	       	
-				/*
-				HoopWrapperFile wrapper=new HoopWrapperFile ();
-				wrapper.setFileURI("<PROJECTPATH>/data/"+file.getName ());
-	       	
-				proj.addFile(wrapper);
-				*/
-			}
-			
-	       	//proj.save();
+				HoopLink.fManager.copyFile(fromAbsolute, toRelative);	       	
+			}			
 		}
 		
 		refreshProjectPane ();
@@ -1278,15 +1281,14 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 	{
 		debug ("cleanProject ()");
 		
-		/*
 		if (HoopLink.project.getVirginFile()==true)
 		{
 			alert ("Please save your project first");
 			return;
 		}
-		*/		
 		
 		HoopCleanProjectDialog cleanConfig=new HoopCleanProjectDialog (this,true);
+		cleanConfig.setVisible(true);
 		
 	    if (cleanConfig.getAnswer()) 
 	    {

@@ -53,7 +53,7 @@ public class HoopSheetCellRenderer extends DefaultTableCellRenderer
 	 */
     public void setValue(Object value) 
     {
-    	debug ("setValue ()");
+    	//debug ("setValue ()");
     	
     	/*
     	if (value==null)
@@ -65,7 +65,7 @@ public class HoopSheetCellRenderer extends DefaultTableCellRenderer
         	    	
 		if (value instanceof String)
 		{    	    	
-			debug ("INSTANCE IS STRING, NOT SERIALIZABLE OBJECT!");
+			//debug ("INSTANCE IS STRING, NOT SERIALIZABLE OBJECT!");
 			
 			String object=(String) value;
 			setText(object);
@@ -79,7 +79,7 @@ public class HoopSheetCellRenderer extends DefaultTableCellRenderer
 	    	
     	    if (object!=null)
     	    {
-    	    	debug ("Cell renders value " + object.getValue() + " from class: " + object.getClassName());
+    	    	//debug ("Cell renders value " + object.getValue() + " from class: " + object.getClassName());
     	    	setText (object.getValue());
     	    }
 		}	
