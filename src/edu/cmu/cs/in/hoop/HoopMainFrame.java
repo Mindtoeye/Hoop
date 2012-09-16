@@ -629,14 +629,16 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     protected JMenu buildRunMenu() 
     {
     	JMenu runMenu = new JMenu("Run");
-    	JMenuItem runOnceItem = new JMenuItem("Run Once");
-    	runOnceItem.setIcon(HoopLink.getImageByName("run-once.png"));
+    	JMenuItem runOnceItem = new JMenuItem("Run");
+    	runOnceItem.setIcon(HoopLink.getImageByName("run.png"));
     	
+    	/*
     	JMenuItem runNTimesItem = new JMenuItem("Run N Times");
     	runNTimesItem.setIcon(HoopLink.getImageByName("run-n.png"));
     	
     	JMenuItem runForeverItem = new JMenuItem("Run Until Stopped");
     	runForeverItem.setIcon(HoopLink.getImageByName("run-forever.png"));
+    	*/
     	
     	JMenuItem debugItem = new JMenuItem("Debug");
 
@@ -644,7 +646,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     	{
     		public void actionPerformed(ActionEvent e) 
     		{
-    			debug ("Run Once ...");
+    			debug ("Run ...");
     			
     			runtime.setRoot(HoopLink.hoopGraphManager.getRoot());
     			runtime.setLoopCount(1);
@@ -655,6 +657,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     		}
     	});
     	
+    	/*
     	runNTimesItem.addActionListener(new ActionListener() 
     	{
     		public void actionPerformed(ActionEvent e) 
@@ -669,7 +672,9 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     			runner.start();   			
     		}
     	});
+    	*/
     	
+    	/*
     	runForeverItem.addActionListener(new ActionListener() 
     	{
     		public void actionPerformed(ActionEvent e) 
@@ -683,7 +688,8 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     			runner.setUncaughtExceptionHandler(new HoopExecuteExceptionHandler ());    			
     			runner.start();   			
     		}
-    	});    	
+    	});
+    	*/    	
 
     	debugItem.addActionListener(new ActionListener() 
     	{
@@ -694,8 +700,8 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     	});
 
        runMenu.add (runOnceItem);
-       runMenu.add (runNTimesItem);
-       runMenu.add (runForeverItem);
+       //runMenu.add (runNTimesItem);
+       //runMenu.add (runForeverItem);
        runMenu.add (new JSeparator());
        runMenu.add (debugItem);
 
@@ -708,12 +714,14 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     {
     	debug ("addButtons ()");
     	
-        JButton runButton = makeNavigationButton ("run","Run Once",HoopLink.getImageByName("run-once.png"));
+        JButton runButton = makeNavigationButton ("run","Run",HoopLink.getImageByName("run.png"));
         runButton.addActionListener(runtime);
+        /*
         JButton runNButton = makeNavigationButton ("runN","Run N Times",HoopLink.getImageByName("run-n.png"));
         runNButton.addActionListener(runtime);
         JButton runForeverButton = makeNavigationButton ("runForever","Run Forever",HoopLink.getImageByName("run-forever.png"));
         runForeverButton.addActionListener(runtime);
+        */
         
         JSeparator sep=new JSeparator(SwingConstants.VERTICAL);
         sep.setMinimumSize(new Dimension (5,5));
@@ -724,9 +732,11 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
         
         toolBar.add (runButton);        
         toolBar.add (Box.createRigidArea(new Dimension(2,0)));
+        /*
         toolBar.add (runNButton);
         toolBar.add (Box.createRigidArea(new Dimension(2,0)));
         toolBar.add (runForeverButton);
+        */
         toolBar.add (sep);
         toolBar.add (stopButton);                                
     }     

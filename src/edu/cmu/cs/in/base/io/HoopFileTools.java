@@ -68,6 +68,33 @@ public class HoopFileTools extends HoopRoot
 	    return (true);
 	}  
 	/**
+	 * 
+	 */
+	public boolean removeDirectory (String aDirURI)
+	{
+		debug ("removeDirectory ("+aDirURI+")");
+
+		File dir=new File (aDirURI);
+		
+	    if (dir.isDirectory()) 
+	    {
+	        String[] children = dir.list();
+	        
+	        for (int i=0; i<children.length; i++) 
+	        {
+	            boolean success = removeDirectory (dir + "/"+ children[i]);
+	            
+	            if (!success) 
+	            {
+	                return false;
+	            }
+	        }
+	    }
+
+	    // The directory is now empty so delete it
+	    return dir.delete();
+	}
+	/**
 	 *
 	 */
 	public boolean createDirectory (String aDirURI)

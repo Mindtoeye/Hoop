@@ -127,6 +127,25 @@ public class HoopDataSet extends HoopRoot
 		map.put(aSize,anInstance);
 	}
 	*/
+    /**
+     * 
+     */
+    public void unmount ()
+    {
+    	debug ("unmount ()");
+    
+    	if (driver!=null)
+    	{
+			try 
+			{
+				driver.close();
+			} 
+			catch (Exception e) 
+			{
+				e.printStackTrace();
+			}
+    	}	
+    }
 	/**
 	 * 
 	 */

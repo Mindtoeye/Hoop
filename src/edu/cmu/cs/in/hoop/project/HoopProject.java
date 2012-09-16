@@ -509,6 +509,41 @@ public class HoopProject extends HoopProjectFile
 	{
 		debug ("clean ()");
 		
+		if (aCleanDocuments==true)
+		{
+			debug ("Removing document data ...");
+			
+			if (HoopLink.dataSet!=null)
+			{
+				HoopLink.dataSet.unmount ();
+				
+				// remove files ...
+				
+				String dbPath=HoopLink.project.getBasePath()+"/system/documents";
+				
+				if (HoopLink.fManager.removeDirectory (dbPath)==false)
+				{
+					alert ("Error removing document directory, please restart the application");
+				}
+				else				
+					HoopLink.dataSet.checkDB ();
+			}
+		}
 		
+		if (aCleanBuildOutput==true)
+		{
+			debug ("Removing build output ...");
+			
+		}
+		
+		if (aCleanTempFiles==true)
+		{
+			debug ("Removing temp files ...");
+			
+		}
+	
+		HoopLink.updateAllWindows ();
+		
+		debug ("clean () Done");
 	}
 }
