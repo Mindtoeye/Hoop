@@ -649,12 +649,22 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 				
 		if (shiftDown==true)
 		{
+			/*
 			debug ("Disabling selection handler ...");
+			
+			//graphComponent.setConnectable(false); 
+			
+			//graphComponent.getConnectionHandler().setHandleEnabled (false);
+			//graphComponent.getConnectionHandler ().getMarker().setEnabled(false);
+			graphComponent.getGraphHandler().setSelectEnabled(false);
+			
+			//graphComponent.getGraphHandler().getMarker().setEnabled(false);
 			
 			graph.getSelectionModel().setEventsEnabled(false);
 			graphComponent.getGraphHandler().setEnabled(false);
-			graphComponent.getSelectionCellsHandler().setEnabled(false);
-			graphComponent.getSelectionCellsHandler().setVisible(false);
+			//graphComponent.getSelectionCellsHandler().setEnabled(false);
+			//graphComponent.getSelectionCellsHandler().setVisible(false);
+			 */
 		}
 	}
 	/**
@@ -668,11 +678,22 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 		
 		shiftDown=aKey.isShiftDown();
 		
+		/*
+		//graphComponent.setConnectable(true); 
+		
+		//graphComponent.getGraphHandler().setSelectEnabled(true);
+		//graphComponent.getConnectionHandler().setHandleEnabled (true);
+		
+		//graphComponent.getConnectionHandler ().getMarker().setEnabled(true);
+		
+		//graphComponent.getGraphHandler().getMarker().setEnabled(true);
+		
 		graph.getSelectionModel().setEventsEnabled(true);
 		graphComponent.getGraphHandler().setEnabled(true);
-		graphComponent.setSwimlaneSelectionEnabled(true);
-		graphComponent.getSelectionCellsHandler().setEnabled(true);
-		graphComponent.getSelectionCellsHandler().setVisible(true);
+		//graphComponent.setSwimlaneSelectionEnabled(true);
+		//graphComponent.getSelectionCellsHandler().setEnabled(true);
+		//graphComponent.getSelectionCellsHandler().setVisible(true);
+		 */
 	}
 	/**
 	 * 
@@ -689,7 +710,7 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 	 */
 	@Override
 	public void mouseDragged(MouseEvent e) 
-	{
+	{		
 		if (this.shiftDown==true)
 		{			
 			status("Drag (D): " + e.getX() + ", " + e.getY());
