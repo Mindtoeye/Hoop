@@ -18,19 +18,17 @@
 
 package edu.cmu.cs.in.hoop.editor;
 
-import java.awt.event.MouseEvent;
-
 import com.mxgraph.model.mxCell;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.swing.handler.mxConnectionHandler;
-import com.mxgraph.view.mxCellState;
 
 import edu.cmu.cs.in.base.HoopRoot;
-import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 
 /**
- * 
+ * Notice: we don't create new connections between Hoops in this class
+ * anymore. Please see the method createComponents in the
+ * HoopVisualGraphComponent class.
  */
 public class HoopVisualGraphConnectionHandler extends mxConnectionHandler
 {
@@ -45,7 +43,7 @@ public class HoopVisualGraphConnectionHandler extends mxConnectionHandler
 		super(arg0);
 	
 		debug ("HoopVisualGraphConnectionHandler ()");
-	}
+	}	
 	/**
 	 * 
 	 */
@@ -54,76 +52,33 @@ public class HoopVisualGraphConnectionHandler extends mxConnectionHandler
 		HoopRoot.debug("HoopVisualGraphConnectionHandler",aMessage);
 	}
 	/**
-	 * Edge delete happens here!
+	 * 
 	 */
-	public void reset ()
+	public void setHoopSource(Object hoopSource) 
 	{
-		debug ("reset ()");
-		super.reset();
-		
+		this.hoopSource = hoopSource;
+	}	
+	/**
+	 * 
+	 */
+	public Object getHoopSource() 
+	{
+		return hoopSource;
 	}
 	/**
 	 * 
 	 */
-	public void mouseDragged(MouseEvent e)
+	public void setHoopTarget(Object hoopTarget) 
 	{
-		//debug ("mouseDragged ()");
-		
-	}
-	/**
-	 * Notice: we don't create new connections between Hoops in this class
-	 * anymore. Please see the method createComponents in the
-	 * HoopVisualGraphComponent class.
-	 */
-	public void mouseReleased(MouseEvent e)
-	{
-		debug ("mouseReleased ()");
-		
-		super.mouseReleased(e);
-		
-		/*
-		mxCellState aSource=source;
-		
-		if (aSource!=null)
-		{
-			debug ("We have a source");
-			
-			if (aSource.getCell()!=null)
-			{
-				debug ("mxCellState has a Cell ...");
-				
-				debug ("Cell: " + aSource.getCell().toString());
-			}
-		}
-		else
-			debug ("Internal mxCellState source is null");
-		
-		if ((hoopSource!=null) && (hoopSource!=null))
-		{
-			HoopBase sourceHoop=(HoopBase) hoopSource;
-			HoopBase targetHoop=(HoopBase) hoopTarget;
-			
-			if ((sourceHoop!=null) && (targetHoop!=null))
-			{
-				debug ("We have a valid source and target hoop, linking them together ...");
-				
-				if (HoopLink.hoopGraphManager.connectHoops(sourceHoop, targetHoop)==false)
-				{				
-					debug ("Error creating edge");
-				}
-				else
-					debug ("Edge created");
-			}			
-			else
-				debug ("Info: no complete edge yet, waiting ...");					
-		}
-		else
-			debug ("Either source or target isn't valid");
-		
-		hoopSource=null;
-		hoopTarget=null;
-		*/
+		this.hoopTarget = hoopTarget;
 	}	
+	/**
+	 * 
+	 */
+	public Object getHoopTarget() 
+	{
+		return hoopTarget;
+	}		
 	/**
 	 * 
 	 */
@@ -143,7 +98,9 @@ public class HoopVisualGraphConnectionHandler extends mxConnectionHandler
 			{
 				if (userSourceObject instanceof HoopBase)
 				{
-					hoopSource=userSourceObject;
+					//debug ("Source object is a valid hoopbase object");
+					
+					setHoopSource(userSourceObject);
 				}	
 				//else
 				//	debug ("Source is not HoopBase class, instead: " + userSourceObject.getClass());				
@@ -173,7 +130,9 @@ public class HoopVisualGraphConnectionHandler extends mxConnectionHandler
 			{
 				if (userTargetObject instanceof HoopBase)
 				{
-					hoopTarget=userTargetObject;
+					//debug ("Source object is a valid hoopbase object");
+					
+					setHoopTarget(userTargetObject);
 				}	
 				//else
 				//	debug ("Target is not HoopBase class, instead: " + userTargetObject.getClass());
@@ -183,5 +142,5 @@ public class HoopVisualGraphConnectionHandler extends mxConnectionHandler
 		}					
 		
 		return (true);
-	}	
+	}
 }

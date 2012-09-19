@@ -838,7 +838,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 															startNode.getWidth(),
 															startNode.getHeight());
 			
-			graphObject.setValue(startNode);			
+			graphObject.setValue(startNode.getHoopID());			
 		}
 		finally
 		{

@@ -54,8 +54,10 @@ import com.mxgraph.layout.mxPartitionLayout;
 import com.mxgraph.layout.mxStackLayout;
 import com.mxgraph.layout.hierarchical.mxHierarchicalLayout;
 import com.mxgraph.swing.mxGraphComponent;
+import com.mxgraph.swing.handler.mxGraphHandler;
 //import com.mxgraph.swing.mxGraphOutline;
 import com.mxgraph.swing.handler.mxKeyboardHandler;
+import com.mxgraph.swing.handler.mxPanningHandler;
 import com.mxgraph.swing.handler.mxRubberband;
 import com.mxgraph.swing.util.mxMorphing;
 import com.mxgraph.util.mxEvent;
@@ -69,9 +71,11 @@ import com.mxgraph.util.mxUndoableEdit.mxUndoableChange;
 import com.mxgraph.view.mxGraph;
 
 import edu.cmu.cs.in.base.HoopLink;
+//import edu.cmu.cs.in.controls.HoopDragMoveListener;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 
 public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWheelListener, KeyListener, MouseMotionListener
+//public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements KeyListener
 {
 	private static final long serialVersionUID = -1L;
 	protected mxGraphComponent graphComponent;
@@ -82,8 +86,9 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 
 	/// Flag indicating whether the current graph has been modified 
 	protected boolean modified = false;
-	protected mxRubberband rubberband;
-	protected mxKeyboardHandler keyboardHandler;
+	protected mxPanningHandler panning=null;
+	protected mxRubberband rubberband=null;
+	protected mxKeyboardHandler keyboardHandler=null;
 	
 	public boolean shiftDown=false;
 	
@@ -150,16 +155,25 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 		setLayout(new BorderLayout());
 		add (graphComponent,BorderLayout.CENTER);
 
-		// Installs rubberband selection and handling for some special
-		// keystrokes such as F2, Control-C, -V, X, A etc.
 		installHandlers();
 		installListeners();				
+		
+		if (rubberband!=null)
+			rubberband.setEnabled(false);
+		
+		if (graphComponent!=null)
+		{
+			graphComponent.getSelectionCellsHandler().setEnabled(false);
+			graphComponent.getSelectionCellsHandler().setVisible(false);			
+		}	
 	}
 	/** 
 	 * @return JTabbedPane
 	 */
 	public JTabbedPane getLibraryPane ()
 	{
+		debug ("getLibraryPane ()");
+		
 		HoopEditorPalettePanel pal=(HoopEditorPalettePanel) HoopLink.getWindow("Hoop Palette");
 		
 		if (pal!=null)
@@ -172,6 +186,8 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 	 */
 	protected mxUndoManager createUndoManager()
 	{
+		debug ("createUndoManager ()");
+		
 		return new mxUndoManager();
 	}
 	/**
@@ -179,7 +195,16 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 	 */
 	protected void installHandlers()
 	{
+		debug ("installHandlers ()");
+		
+		// Installs rubberband selection and handling for some special
+		// keystrokes such as F2, Control-C, -V, X, A etc.
 		rubberband = new mxRubberband(graphComponent);
+				
+		panning=new HoopPanningHandler (graphComponent);
+		
+		//mxGraphHandler handler=new mxGraphHandler (graphComponent);
+				
 		keyboardHandler = new HoopEditorKeyboardHandler(graphComponent);
 	}
 	/**
@@ -187,6 +212,8 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 	 */
 	protected void installRepaintListener()
 	{
+		debug ("installRepaintListener ()");
+		
 		graphComponent.getGraph().addListener(mxEvent.REPAINT,new mxIEventListener()
 		{
 			public void invoke(Object source, mxEventObject evt)
@@ -208,11 +235,13 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 	/**
 	 * 
 	 */
+	/*
 	public HoopEditorPalette insertPalette(String title)
 	{
 		debug ("insertPalette ("+title+")");
 		
 		JTabbedPane libraryPane=getLibraryPane ();
+		
 		if (libraryPane==null)
 			return (null);
 		
@@ -236,26 +265,7 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 
 		return palette;
 	}
-	/**
-	 * 
-	 */
-	public void mouseWheelMoved(MouseWheelEvent e)
-	{
-		debug ("mouseWheelMoved ()");
-		
-		if (e.getWheelRotation()<0)
-		{
-			graphComponent.zoomIn();
-		}
-		else
-		{
-			graphComponent.zoomOut();
-		}
-
-		status ("Scale: " + (int) (100*graphComponent.getGraph ().getView ().getScale ()) + "%");
-		
-		processScale (graphComponent.getGraph ().getView ().getScale ());
-	}
+	*/
 	/**
 	 * 
 	 */
@@ -268,8 +278,10 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 	/**
 	 * 
 	 */
-	protected void showGraphPopupMenu(MouseEvent e)
+	protected void showGraphPopupMenu (MouseEvent e)
 	{
+		debug ("showGraphPopupMenu ()");
+		
 		Point pt = SwingUtilities.convertPoint(e.getComponent(), e.getPoint(),graphComponent);
 		HoopEditorPopupMenu menu = new HoopEditorPopupMenu(HoopBasicGraphEditor.this);
 		menu.show(graphComponent, pt.x, pt.y);
@@ -290,6 +302,8 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 	 */
 	protected void installListeners()
 	{
+		debug ("installListeners ()");
+		
 		graphComponent.addKeyListener(this);
 		
 		// Handles mouse wheel events in the outline and graph component
@@ -480,6 +494,8 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 	@SuppressWarnings("serial")
 	public Action graphLayout(final String key, boolean animate)
 	{
+		debug ("graphLayout ()");
+		
 		final mxIGraphLayout layout = createLayout(key, animate);
 
 		if (layout != null)
@@ -538,6 +554,8 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 	 */
 	protected mxIGraphLayout createLayout(String ident, boolean animate)
 	{
+		debug ("createLayout ()");
+		
 		mxIGraphLayout layout = null;
 
 		if (ident != null)
@@ -649,12 +667,13 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 				
 		if (shiftDown==true)
 		{
-			debug ("Disabling selection handler ...");
+			//debug ("Enabling selection handler ...");
+		
+			rubberband.setEnabled(true);
 			
-			graph.getSelectionModel().setEventsEnabled(false);
-			graphComponent.getGraphHandler().setEnabled(false);
-			graphComponent.getSelectionCellsHandler().setEnabled(false);
-			graphComponent.getSelectionCellsHandler().setVisible(false);
+			graphComponent.getSelectionCellsHandler().setEnabled(true);
+			graphComponent.getSelectionCellsHandler().setVisible(true);
+						
 		}
 	}
 	/**
@@ -668,11 +687,10 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 		
 		shiftDown=aKey.isShiftDown();
 		
-		graph.getSelectionModel().setEventsEnabled(true);
-		graphComponent.getGraphHandler().setEnabled(true);
-		graphComponent.setSwimlaneSelectionEnabled(true);
-		graphComponent.getSelectionCellsHandler().setEnabled(true);
-		graphComponent.getSelectionCellsHandler().setVisible(true);
+		rubberband.setEnabled(false);
+		
+		graphComponent.getSelectionCellsHandler().setEnabled(false);
+		graphComponent.getSelectionCellsHandler().setVisible(false);		
 	}
 	/**
 	 * 
@@ -684,6 +702,26 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 		//debug ("keyTyped ()");
 		
 	}
+	/**
+	 * 
+	 */
+	public void mouseWheelMoved(MouseWheelEvent e)
+	{
+		debug ("mouseWheelMoved ()");
+		
+		if (e.getWheelRotation()<0)
+		{
+			graphComponent.zoomIn();
+		}
+		else
+		{
+			graphComponent.zoomOut();
+		}
+
+		status ("Scale: " + (int) (100*graphComponent.getGraph ().getView ().getScale ()) + "%");
+		
+		processScale (graphComponent.getGraph ().getView ().getScale ());
+	}	
 	/**
 	 * 
 	 */

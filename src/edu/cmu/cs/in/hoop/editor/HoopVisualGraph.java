@@ -18,9 +18,10 @@
 
 package edu.cmu.cs.in.hoop.editor;
 
+import java.io.Serializable;
 import java.text.NumberFormat;
-import java.util.Iterator;
-import java.util.List;
+//import java.util.Iterator;
+//import java.util.List;
 import java.util.Map;
 
 import javax.swing.JOptionPane;
@@ -32,7 +33,7 @@ import com.mxgraph.model.mxGeometry;
 import com.mxgraph.model.mxICell;
 import com.mxgraph.util.mxConstants;
 import com.mxgraph.util.mxEventObject;
-import com.mxgraph.util.mxPoint;
+//import com.mxgraph.util.mxPoint;
 import com.mxgraph.view.mxCellState;
 import com.mxgraph.view.mxGraph;
 import com.mxgraph.util.mxEvent;
@@ -43,11 +44,12 @@ import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 
 /** 
- * @author vvelsen
- * A graph that creates new edges from a given template edge.
+ *
  */
-public class HoopVisualGraph extends mxGraph implements mxEventSource.mxIEventListener 
+public class HoopVisualGraph extends mxGraph implements mxEventSource.mxIEventListener, Serializable
 {	
+	private static final long serialVersionUID = -6644679794406853442L;
+
 	public static final NumberFormat numberFormat = NumberFormat.getInstance();
 	
 	/// Holds the edge to be used as a template for inserting new edges.
@@ -109,10 +111,59 @@ public class HoopVisualGraph extends mxGraph implements mxEventSource.mxIEventLi
 		edgeTemplate = template;
 	}
 	/**
+	 * In order to avoid complete serialization of all the visual objects,
+	 * the hoop objects and anything else attached to a cell, we now go
+	 * through a unique id that identifies a hoop
+	 */
+	public HoopBase cellToHoop (Object aCell)
+	{
+		debug ("cellToHoop ()");
+		
+		if (aCell instanceof mxCell)
+		{
+			mxCell cell=(mxCell) aCell;
+			
+			if (cell.getValue() instanceof HoopBase)
+			{
+				debug ("ERROR: this cell still contains a Hoop not a String!");
+			}
+			else
+			{
+				if (cell.getValue() instanceof String)
+				{
+					String hoopID=(String) cell.getValue();
+											
+					HoopBase testHoop=HoopLink.hoopGraphManager.findHoopByID (hoopID);
+
+					return (testHoop);
+				}
+				else
+					debug ("Internal error: cell contains unidentified object type: " + cell.getValue());
+			}
+		}		
+		
+		return (null);
+	}
+	/**
+	 * 
+	 */
+	public void hoopToCell (HoopBase aHoop,Object aCell)
+	{
+		debug ("hoopToCell ()");
+		
+		if (aCell instanceof mxCell)
+		{
+			mxCell cell=(mxCell) aCell;
+			
+			cell.setValue(aHoop.getInstanceName());
+		}				
+	}
+	/**
 	 * Prints out some useful information about the cell in the tooltip.
 	 */
-	public String getToolTipForCell(Object cell)
+	public String getToolTipForCell(Object cellTest)
 	{
+		/*
 		String tip = "<html>";
 		mxGeometry geo = getModel().getGeometry(cell);
 		mxCellState state = getView().getState(cell);
@@ -193,7 +244,17 @@ public class HoopVisualGraph extends mxGraph implements mxEventSource.mxIEventLi
 				+ ",y=" + numberFormat.format(trans.getY()) + "]";
 		tip += "</html>";
 
-		return tip;
+		return tip;		
+		*/
+		
+		HoopBase testHoop=cellToHoop (cellTest);
+		if (testHoop!=null)
+		{
+			return ("Hoop: " + testHoop.getClassName());
+		}
+		
+		
+		return ("Unknown object");
 	}
 	/**
 	 * Overrides the method to use the currently selected edge template for
@@ -410,24 +471,17 @@ public class HoopVisualGraph extends mxGraph implements mxEventSource.mxIEventLi
 		{
 			Object cellTest=cells [i];
 			
-			if (cellTest instanceof mxCell)
+			HoopBase testHoop=cellToHoop (cellTest);
+					
+			if (testHoop!=null)
 			{
-				mxCell cell=(mxCell) cellTest;
-				
-				if (cell.getValue() instanceof HoopBase)
+				if (testHoop.getClassName().equals("HoopStart")==true)
 				{
-					debug ("Selection " + i + " contains a hoop");
-					
-					HoopBase testHoop=(HoopBase) cell.getValue();
-					
-					if (testHoop.getClassName().equals("HoopStart")==true)
-					{
-						debug ("One of the hoops is a start node");
+					debug ("One of the hoops is a start node");
 						
-						return (true);
-					}
+					return (true);
 				}
-			}
+			}	
 		}
 		
 		return (false);
@@ -487,7 +541,7 @@ public class HoopVisualGraph extends mxGraph implements mxEventSource.mxIEventLi
 		return (result);
 	}	
 	/**
-	 * 
+	 * From: mxEventSource.mxIEventListener
 	 */
 	@Override
 	public void invoke(Object sender, mxEventObject evt) 
@@ -550,7 +604,9 @@ public class HoopVisualGraph extends mxGraph implements mxEventSource.mxIEventLi
 						
 						//HoopBase aHoop=(HoopBase) properCell.getValue();
 												
-						HoopLink.hoopGraphManager.removeHoop((HoopBase) properCell.getValue());
+						//HoopLink.hoopGraphManager.removeHoop((HoopBase) properCell.getValue());
+						
+						HoopLink.hoopGraphManager.removeHoop(cellToHoop (properCell));
 					}
 				}	
 			}

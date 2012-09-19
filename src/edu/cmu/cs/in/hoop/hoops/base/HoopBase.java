@@ -18,6 +18,7 @@
 
 package edu.cmu.cs.in.hoop.hoops.base;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -40,8 +41,10 @@ import edu.cmu.cs.in.stats.HoopStatisticsMeasure;
 * though the API allows more than one incoming hoop, we currently
 * restrict the functionality to only one.
 */
-public class HoopBase extends HoopBaseTyped implements HoopInterface
+public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializable
 {    			
+	private static final long serialVersionUID = 6430720253230678737L;
+
 	private Object graphCellReference=null;
 	
 	private Boolean active=true;

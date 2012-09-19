@@ -166,6 +166,9 @@ public class HoopProjectPanel extends HoopEmbeddedJPanel implements MouseListene
 		
 		setContentPane (mainBox);			
 		
+		// CAREFUL! Do not override this method in a child class because
+		// you can't call overridden methods in a derived constructor
+		
 		updateContents();
     }
 	/**
@@ -190,7 +193,8 @@ public class HoopProjectPanel extends HoopEmbeddedJPanel implements MouseListene
 		}		
 	}
 	/**
-	 * 
+	 * CAREFUL! Do not override this method in a child class because
+	 * you can't call overridden methods in a derived constructor
 	 */	
 	public void updateContents() 
 	{

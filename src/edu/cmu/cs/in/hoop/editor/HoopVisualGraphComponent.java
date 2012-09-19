@@ -20,21 +20,13 @@ package edu.cmu.cs.in.hoop.editor;
 
 import java.awt.Component;
 import java.awt.Dimension;
-//import java.awt.event.MouseWheelEvent;
-//import java.awt.event.MouseWheelListener;
 
 import javax.swing.JViewport;
 
 import com.mxgraph.model.mxCell;
-//import com.mxgraph.model.mxGeometry;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.swing.handler.mxConnectionHandler;
-//import com.mxgraph.swing.handler.mxRubberband;
 import com.mxgraph.swing.view.mxInteractiveCanvas;
-//import com.mxgraph.util.mxPoint;
-//import com.mxgraph.util.mxRectangle;
-//import com.mxgraph.util.mxEvent;
-//import com.mxgraph.util.mxRectangle;
 import com.mxgraph.view.mxCellState;
 import com.mxgraph.view.mxGraph;
 
@@ -57,6 +49,7 @@ public class HoopVisualGraphComponent extends mxGraphComponent
 
 	private HoopJViewport viewport=new HoopJViewport ();
 	private Boolean useCustomViewport=false;
+	//private HoopDragMoveListener listener=null;
 	
 	/**
 	 * 
@@ -68,23 +61,25 @@ public class HoopVisualGraphComponent extends mxGraphComponent
 		
 		debug ("HoopVisualGraphComponent ()");
 
-		setConnectable(true);
+		setConnectable (true);
 		
 		getGraphHandler().setCloneEnabled(false);
 		getGraphHandler().setImagePreview(false);
-				
-		setGridVisible(false);
+		
+        graph.setGridEnabled(true);
+        graph.setGridSize(10);
+		
+		setGridVisible(true);
 		setToolTips(true);
+		
 		setPanning(true);
 		setAutoExtend (true);
 		setAutoScroll (true);
+						
 		//setDragEnabled (true);
 		
 		//graph.setMinimumGraphSize(new mxRectangle(0, 0, 1200, 1200));
-		
-        //graph.setGridEnabled(true);
-        //graph.setGridSize(10);
-				
+						
 		//getConnectionHandler().setCreateTarget(true);
 
 		// Loads the default stylesheet from an external file
@@ -99,12 +94,18 @@ public class HoopVisualGraphComponent extends mxGraphComponent
 			viewport.setOpaque(true);
 			this.setViewport(viewport);
 			//this.setViewportView(viewport);
+			
+			//this.addMouseMotionListener (new HoopDragMoveListener(this,viewport, this.getGraphControl()));
 		}
 		else
 		{
 			JViewport canvas=this.getViewport();		
 			canvas.setBackground(HoopProperties.graphBackgroundColor);
-		}		
+			
+			//this.getGraphControl().addMouseMotionListener (new HoopDragMoveListener(canvas, this.getGraphControl()));
+			
+			//listener=new HoopDragMoveListener(this,canvas,this.getGraphControl());
+		}				
 	}
 	/**
 	 * 
@@ -169,6 +170,9 @@ public class HoopVisualGraphComponent extends mxGraphComponent
 	{
 		debug ("createComponents ()");		
 		
+		HoopVisualGraph vizGraph=(HoopVisualGraph) graph;
+		HoopNodePanel aPanel=null;
+		
 		if (state.getCell()!=null)
 		{
 			//debug ("Processing createComponents for cell: " + state.getCell().toString());
@@ -198,74 +202,76 @@ public class HoopVisualGraphComponent extends mxGraphComponent
 						if (userObject instanceof String)
 						{										
 							String templateName=(String) userObject;
-						
+													
 							debug ("User object: " + templateName);
-											
-							HoopBase hoopTemplate=HoopLink.hoopManager.instantiate (templateName);
-						
-							cell.setValue(hoopTemplate);
-						
-							hoopTemplate.setGraphCellReference(cell);
-												
-							HoopLink.hoopGraphManager.addHoop (hoopTemplate);
-						
-							HoopNodePanel aPanel=new HoopNodePanel (hoopTemplate,cell, this);					
-						
-							hoopTemplate.setVisualizer (aPanel);
-																	
-							createdPanels [0]=aPanel;
-																		
-							/*
-							graph.getModel().beginUpdate();
-						
-							try
-							{
-								mxGeometry geo = graph.getModel().getGeometry(cell);
-								// The size of the rectangle when the minus sign is clicked
-								geo.setAlternateBounds(new mxRectangle(20, 20, 100, 50));
-
-								mxGeometry geo1 = new mxGeometry(0, 0.5, PORT_DIAMETER,	PORT_DIAMETER);
-								// Because the origin is at upper left corner, need to translate to
-								// position the center of port correctly
-								geo1.setOffset(new mxPoint(-PORT_RADIUS, -PORT_RADIUS));
-								geo1.setRelative(true);
-
-								mxCell port1 = new mxCell(null, geo1, "shape=ellipse;perimter=ellipsePerimeter");
-								port1.setVertex(true);
-								port1.setConnectable(false);
-
-								mxGeometry geo2 = new mxGeometry(1.0, 0.5, PORT_DIAMETER,	PORT_DIAMETER);
-								geo2.setOffset(new mxPoint(-PORT_RADIUS, -PORT_RADIUS));
-								geo2.setRelative(true);
 							
-								mxCell port2 = new mxCell(null, geo2,"shape=ellipse;perimter=ellipsePerimeter");
-								port2.setVertex(true);
-								port2.setConnectable(false);
-
-								graph.addCell(port1,cell);
-								graph.addCell(port2,cell);
-							}
-							finally
+							if (templateName.indexOf("Hoop")!=-1) // In other words we have a template and not an ID
 							{
-								graph.getModel().endUpdate();
-							}
-							 */							
+								HoopBase hoopTemplate=HoopLink.hoopManager.instantiate (templateName);
+						
+								//cell.setValue(hoopTemplate);
+								cell.setValue (hoopTemplate.getHoopID());
+						
+								hoopTemplate.setGraphCellReference(cell);
+												
+								HoopLink.hoopGraphManager.addHoop (hoopTemplate);
+						
+								aPanel=new HoopNodePanel (hoopTemplate,cell, this);					
+						
+								hoopTemplate.setVisualizer (aPanel);
+																	
+								createdPanels [0]=aPanel;
+																		
+								/*
+								graph.getModel().beginUpdate();
+						
+								try
+								{
+									mxGeometry geo = graph.getModel().getGeometry(cell);
+									// The size of the rectangle when the minus sign is clicked
+									geo.setAlternateBounds(new mxRectangle(20, 20, 100, 50));
+
+									mxGeometry geo1 = new mxGeometry(0, 0.5, PORT_DIAMETER,	PORT_DIAMETER);
+									// Because the origin is at upper left corner, need to translate to
+									// position the center of port correctly
+									geo1.setOffset(new mxPoint(-PORT_RADIUS, -PORT_RADIUS));
+									geo1.setRelative(true);
+
+									mxCell port1 = new mxCell(null, geo1, "shape=ellipse;perimter=ellipsePerimeter");
+									port1.setVertex(true);
+									port1.setConnectable(false);
+
+									mxGeometry geo2 = new mxGeometry(1.0, 0.5, PORT_DIAMETER,	PORT_DIAMETER);
+									geo2.setOffset(new mxPoint(-PORT_RADIUS, -PORT_RADIUS));
+									geo2.setRelative(true);
+							
+									mxCell port2 = new mxCell(null, geo2,"shape=ellipse;perimter=ellipsePerimeter");
+									port2.setVertex(true);
+									port2.setConnectable(false);
+
+									graph.addCell(port1,cell);
+									graph.addCell(port2,cell);
+								}
+								finally
+								{
+									graph.getModel().endUpdate();
+								}
+								 */							
 		    				        											
-							return (createdPanels);
-						}
-						else
-						{
-							if (userObject instanceof HoopBase)
+								return (createdPanels);
+							}	
+							else
 							{
 								debug ("Assigning pre-configured Hoop to new vertex and panel ...");
 							
-								HoopBase aHoop=(HoopBase) userObject;
+								HoopBase aHoop=vizGraph.cellToHoop(cell);
 							
-								cell.setValue(aHoop);
+								//cell.setValue(aHoop);
+								cell.setValue(aHoop.getHoopID());
 							
 								aHoop.setGraphCellReference(cell);
 																				
-								HoopNodePanel aPanel=new HoopNodePanel (aHoop,cell, this);
+								aPanel=new HoopNodePanel (aHoop,cell, this);
 								aPanel.setLocation(aHoop.getX(),aHoop.getY());
 								aPanel.setPreferredSize(new Dimension (aHoop.getWidth(),aHoop.getHeight()));
 								aPanel.fixDimensions (getGraph ().getView ().getScale ());
@@ -275,9 +281,7 @@ public class HoopVisualGraphComponent extends mxGraphComponent
 								createdPanels [0]=aPanel;		
 							
 								return (createdPanels);
-							}
-							else
-								debug ("Transferable object is not a hoop template string nor a hoop template");
+							}	
 						}
 					}									
 				}
@@ -302,10 +306,12 @@ public class HoopVisualGraphComponent extends mxGraphComponent
 						mxCell cell=(mxCell) aCell;
 												
 						if ((cell.getSource()!=null) && (cell.getTarget()!=null))
-						{						
-							Object aSource=cell.getSource().getValue();
+						{													
+							//Object aSource=cell.getSource().getValue();
+							Object aSource=vizGraph.cellToHoop(cell.getSource());
 							
-							Object aTarget=cell.getTarget().getValue();
+							//Object aTarget=cell.getTarget().getValue();
+							Object aTarget=vizGraph.cellToHoop(cell.getTarget());
 							
 							//debug ("We have an edge cell with id: " + cell.getId() + " ("+aSource.toString()+" -> " + aTarget.toString()+")");
 							

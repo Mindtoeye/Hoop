@@ -19,25 +19,20 @@
 package edu.cmu.cs.in.controls.base;
 
 import java.awt.BorderLayout;
-//import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
 import javax.swing.BorderFactory;
-import javax.swing.JComponent;
 import javax.swing.JTabbedPane;
 
+/*
 import org.jdesktop.jxlayer.JXLayer;
 import org.jdesktop.jxlayer.plaf.effect.BufferedImageOpEffect;
 import org.jdesktop.jxlayer.plaf.ext.LockableUI;
+*/
 
-import com.jhlabs.image.BlurFilter;
-//import javax.swing.table.TableColumn;
-
-//import javax.swing.BorderFactory;
-//import javax.swing.BoxLayout;
-//import javax.swing.border.Border;
+//import com.jhlabs.image.BlurFilter;
 
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.HoopProperties;
@@ -55,8 +50,10 @@ public class HoopEmbeddedJPanel extends HoopJPanel implements ComponentListener
 	
 	private JTabbedPane host=null;
 	
+	/*
 	private LockableUI blurUI = new LockableUI(new BufferedImageOpEffect(new BlurFilter()));
 	private JXLayer<JComponent> layer=null;
+	*/
 	
 	/**
 	 * Creates a new JPanel with a double buffer and a flow layout.
