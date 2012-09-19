@@ -36,11 +36,12 @@ import org.jdesktop.jxlayer.plaf.AbstractBufferedLayerUI;
 import org.jdesktop.jxlayer.plaf.effect.LayerEffect;
 
 import javax.swing.*;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ChangeEvent;
+//import javax.swing.event.ChangeListener;
+//import javax.swing.event.ChangeEvent;
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.io.Serializable;
 
 /**
  * An implementation of the {@code BufferedLayerUI} which provides
@@ -78,28 +79,38 @@ import java.awt.event.FocusListener;
  * The LockableDemo is
  * <a href="https://jxlayer.dev.java.net/source/browse/jxlayer/trunk/src/demo/org/jdesktop/jxlayer/demo/LockableDemo.java?view=markup">available</a>
  */
-public class LockableUI extends AbstractBufferedLayerUI<JComponent> {
-    private boolean isLocked;
+public class LockableUI extends AbstractBufferedLayerUI<JComponent> implements Serializable 
+{
+	private static final long serialVersionUID = 4962459219856557686L;
+	
+	private boolean isLocked;
     private Component recentFocusOwner;
     private Cursor lockedCursor = Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR);
     private LayerEffect[] lockedEffects = new LayerEffect[0];
-    private final FocusListener focusListener = new FocusListener() {
-        public void focusGained(FocusEvent e) {
+    
+    private final FocusListener focusListener = new FocusListener() 
+    {
+        public void focusGained(FocusEvent e) 
+        {
             // we don't want extra repaintings
             // when focus comes from another window
-            if (e.getOppositeComponent() != null) {
+            if (e.getOppositeComponent() != null) 
+            {
                 setDirty(true);
             }
         }
 
-        public void focusLost(FocusEvent e) {
+        public void focusLost(FocusEvent e) 
+        {
+        	
         }
     };
 
     /**
      * Creates a new instance of LockableUI
      */
-    public LockableUI() {
+    public LockableUI() 
+    {
         this((LayerEffect[]) null);
     }
 

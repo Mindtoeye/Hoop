@@ -138,7 +138,8 @@ public class HoopGraphEditor extends HoopBasicGraphEditor implements mxIEventLis
 																aHoop.getWidth(),
 																aHoop.getHeight());
 				
-				graphObject.setValue(aHoop);				
+				//graphObject.setValue(aHoop);				
+				graphObject.setValue(aHoop.getHoopID());
 			}			
 		}
 		finally
@@ -224,6 +225,7 @@ public class HoopGraphEditor extends HoopBasicGraphEditor implements mxIEventLis
 		debug ("processScale ("+aScale+")");
 		
 		HoopGraphFile grFile=(HoopGraphFile) HoopLink.project.getFileByClass (new HoopGraphFile ().getClassName());
+		
 		if (grFile!=null)
 			grFile.setGraphScale (aScale);
 	}

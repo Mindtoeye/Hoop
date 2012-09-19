@@ -18,14 +18,15 @@
 
 package edu.cmu.cs.in.stats;
 
+import java.io.Serializable;
 //import java.io.Serializable;
 import java.util.Date;
 
 //import edu.cmu.cs.in.base.HoopBase;
 
-public class HoopPerformanceMetrics extends HoopXYMeasure
-{    						
-	private static final long serialVersionUID = 1L;
+public class HoopPerformanceMetrics extends HoopXYMeasure implements Serializable
+{    							
+	private static final long serialVersionUID = 4186308870928663985L;
 	
 	private Date inPoint=null;
 	private Date outPoint=null;

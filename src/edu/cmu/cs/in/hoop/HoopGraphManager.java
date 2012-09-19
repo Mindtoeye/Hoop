@@ -31,6 +31,8 @@ import edu.cmu.cs.in.hoop.properties.HoopPropertyPanel;
  */
 public class HoopGraphManager extends HoopBase
 {		
+	private static final long serialVersionUID = -5244155123177538405L;
+	
 	/**
 	 * 
 	 */
@@ -39,6 +41,35 @@ public class HoopGraphManager extends HoopBase
 		setClassName ("HoopGraphManager");
 		debug ("HoopGraphManager ()");		
 	}
+	/**
+	 * 
+	 */
+	public HoopBase findHoopByID (String aRef)
+	{
+		debug ("findHoopByID (String)");
+		
+		if (aRef==null)
+			return (null);
+				
+		HoopGraphFile grFile=(HoopGraphFile) HoopLink.project.getFileByClass (new HoopGraphFile ().getClassName());
+		
+		if (grFile!=null)
+		{
+			ArrayList <HoopBase> hoops=grFile.getHoops();
+			
+			for (int i=0;i<hoops.size();i++)
+			{
+				HoopBase testHoop=hoops.get(i);
+				
+				if (testHoop.getHoopID().equalsIgnoreCase(aRef)==true)
+					return (testHoop);
+			}
+		}	
+		else
+			debug ("Error: unable to find graph file in project");		
+		
+		return (null);
+	}	
 	/**
 	 * 
 	 */

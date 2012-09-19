@@ -1401,6 +1401,7 @@ public class HoopEditorActions
 					{
 						if (fc.getSelectedFile().isDirectory())
 						{
+							/*
 							HoopEditorPalette palette = editor.insertPalette(fc.getSelectedFile().getName());
 
 							for (File f : fc.getSelectedFile().listFiles(
@@ -1424,6 +1425,7 @@ public class HoopEditorActions
 							// FIXME: Need to update the size of the palette to force a layout
 							// update. Re/in/validate of palette or parent does not work.
 							//editor.getLibraryPane().revalidate();
+							 */
 						}
 						else
 						{
