@@ -33,6 +33,7 @@ import edu.cmu.cs.in.base.io.HoopMessageReceiver;
 import edu.cmu.cs.in.controls.HoopSentenceWall;
 import edu.cmu.cs.in.controls.dialogs.HoopCleanProjectDialog;
 import edu.cmu.cs.in.controls.dialogs.HoopGenericNameDialog;
+import edu.cmu.cs.in.controls.dialogs.HoopGenericProgressdialog;
 import edu.cmu.cs.in.hoop.hoops.task.HoopStart;
 import edu.cmu.cs.in.hoop.project.HoopGraphFile;
 import edu.cmu.cs.in.hoop.project.HoopProject;
@@ -1208,7 +1209,9 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 		if (returnVal==JFileChooser.APPROVE_OPTION) 
 		{
 			directoryName=new HoopGenericNameDialog (HoopGenericNameDialog.DIRECTORY,this,true);
-			directoryName.setVisible(true);
+			directoryName.setDescription ("Please provide the subdirectory under which you want to import your files");
+			directoryName.setChosenName ("import");
+			directoryName.setVisible (true);
 			
 			if (directoryName.getAnswer()==false)
 			{
@@ -1219,6 +1222,14 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 						
 			File files []=fc.getSelectedFiles();
 			
+			String dirCreator=proj.getBasePath()+"/system/"+targetDir;
+			
+			HoopLink.fManager.createDirectory(dirCreator);
+			
+			HoopGenericProgressdialog copyProcess=new HoopGenericProgressdialog (this.getContentPane());
+			copyProcess.copyFiles(fc.getCurrentDirectory ().getAbsolutePath(), dirCreator,files);
+			
+			/*
 			for (int i=0;i<files.length;i++)
 			{	       	
 				File file=files [i];
@@ -1232,7 +1243,8 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 				String toRelative=dirCreator+"/"+file.getName();
 	      
 				HoopLink.fManager.copyFile(fromAbsolute, toRelative);	       	
-			}			
+			}
+			*/			
 		}
 		
 		refreshProjectPane ();

@@ -43,6 +43,7 @@ public class HoopGenericNameDialog extends HoopJDialog implements ActionListener
 	public static final int PASSWORD=1;
 	public static final int DIRECTORY=2;	
 	
+	private JTextField labelField=null;
 	private JTextField nameField=null;
 	private int nameMode=REGULAR;
 	protected String chosenName="";
@@ -63,6 +64,14 @@ public class HoopGenericNameDialog extends HoopJDialog implements ActionListener
 		
 		Box contentBox = new Box (BoxLayout.Y_AXIS);
 		
+		labelField=new JTextField ();
+		labelField.setMinimumSize (new Dimension (200,75));
+		labelField.setPreferredSize (new Dimension (200,75));
+		labelField.setMaximumSize (new Dimension (400,75));
+		labelField.setFont(new Font("Dialog", 1, 10));
+		
+		contentBox.add(labelField);
+		
 		nameField=new JTextField ();
 		nameField.setMinimumSize (new Dimension (200,20));
 		nameField.setPreferredSize (new Dimension (200,20));
@@ -71,37 +80,22 @@ public class HoopGenericNameDialog extends HoopJDialog implements ActionListener
 		
 		contentBox.add(nameField);
 		
-		contentFrame.add (contentBox);
-		
-		if (nameMode==DIRECTORY)
-		{
-			nameField.setText("import");
-		}
-    }      
+		contentFrame.add (contentBox);			
+    }
     /**
      * 
      */
-    protected void addContent ()
+    public void setDescription (String aDesc)
     {
-		JPanel contentFrame=this.getFrame();
-		
-		Box contentBox = new Box (BoxLayout.Y_AXIS);
-		
-		nameField=new JTextField ();
-		nameField.setMinimumSize (new Dimension (200,20));
-		nameField.setPreferredSize (new Dimension (200,20));
-		nameField.setMaximumSize (new Dimension (400,20));
-		nameField.setFont(new Font("Dialog", 1, 10));
-		
-		contentBox.add(nameField);
-		
-		contentFrame.add (contentBox);
-		
-		if (nameMode==DIRECTORY)
-		{
-			nameField.setText("import");
-		}
-    }	
+    	labelField.setText (aDesc);
+    }    
+    /**
+     * 
+     */
+    public void setChosenName (String aName)
+    {
+    	nameField.setText (aName);
+    }
     /**
      * 
      */
