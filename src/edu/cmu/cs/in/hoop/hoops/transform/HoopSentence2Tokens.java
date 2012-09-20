@@ -35,7 +35,6 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
 import edu.cmu.cs.in.hoop.hoops.base.HoopTransformBase;
 import edu.cmu.cs.in.hoop.properties.types.HoopBooleanSerializable;
 import edu.cmu.cs.in.hoop.properties.types.HoopEnumSerializable;
-//import edu.cmu.cs.in.hoop.properties.types.HoopEnumSerializable;
 import edu.cmu.cs.in.hoop.properties.types.HoopStringSerializable;
 
 /**
@@ -68,6 +67,8 @@ public class HoopSentence2Tokens extends HoopTransformBase implements HoopInterf
 	public Boolean runHoop (HoopBase inHoop)
 	{		
 		debug ("runHoop ()");
+		
+		TokenizerFactory<Word> factory = PTBTokenizerFactory.newTokenizerFactory();
 				
 		ArrayList <HoopKV> inData=inHoop.getData();
 		if (inData!=null)
@@ -83,6 +84,8 @@ public class HoopSentence2Tokens extends HoopTransformBase implements HoopInterf
 				for (int j=0;j<tokens.size();j++)
 				{				
 					String aToken=tokens.get(j);
+					
+					//>------------------------------------------------------------------------
 					
 					if (targetTokenizer.getValue().equalsIgnoreCase("Builtin")==true)
 					{					
@@ -104,9 +107,10 @@ public class HoopSentence2Tokens extends HoopTransformBase implements HoopInterf
 						}
 					}
 					
+					//>------------------------------------------------------------------------
+					
 					if (targetTokenizer.getValue().equalsIgnoreCase("Stanford")==true)
-					{
-					    TokenizerFactory<Word> factory = PTBTokenizerFactory.newTokenizerFactory();
+					{					    
 					    Tokenizer<Word> tokenizer = factory.getTokenizer(new StringReader(aToken));
 					    
 					    List<Word> sTokens=tokenizer.tokenize();
@@ -114,11 +118,17 @@ public class HoopSentence2Tokens extends HoopTransformBase implements HoopInterf
 					    for (int t=0;t<sTokens.size();t++)
 					    {
 					    	Word aTerm=sTokens.get(t);
-					    	addKV (new HoopKVInteger (t,aTerm.toString()));
+					    	
+					    	if (this.reKey.getPropValue()==false)
+					    		addKV (new HoopKVInteger (t,aTerm.toString()));
+					    	else
+					    		addKV (new HoopKVInteger (i,aTerm.toString()));
 					    }
 					    
 					    //debug (tokenizer.tokenize());						
 					}
+					
+					//>------------------------------------------------------------------------
 				}									
 			}						
 		}
