@@ -1051,12 +1051,11 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
            		win=new HoopGraphEditor ();
            		addView ("Hoop Editor",win,HoopLink.center);
            	}
-           		
-           	win.reset();
-           		
+           		           		
            	HoopGraphFile graphFile=(HoopGraphFile) HoopLink.project.getFileByClass ("HoopGraphFile");
            	if (graphFile!=null)
            	{
+               	win.reset();
            		win.instantiateFromFile(graphFile);
            	}
            	else

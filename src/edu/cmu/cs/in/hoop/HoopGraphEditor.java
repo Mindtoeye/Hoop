@@ -78,11 +78,18 @@ public class HoopGraphEditor extends HoopBasicGraphEditor implements mxIEventLis
 	 */
 	public void reset ()
 	{
+		debug ("reset ()");
+		
 		HoopVisualGraph hoopGraph=(HoopVisualGraph) graph;
 		
 		hoopGraph.setHardReset (true);
 		hoopGraph.removeCells (graph.getChildVertices(graph.getDefaultParent()));
 		hoopGraph.setHardReset (false);
+		
+		if (graphComponent!=null)
+		{
+			graphComponent.zoomActual();
+		}
 	}
 	/**
 	 * 

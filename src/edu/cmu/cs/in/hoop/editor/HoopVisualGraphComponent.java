@@ -22,6 +22,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 
 import javax.swing.JViewport;
+import javax.swing.ScrollPaneConstants;
 
 import com.mxgraph.model.mxCell;
 import com.mxgraph.swing.mxGraphComponent;
@@ -75,6 +76,10 @@ public class HoopVisualGraphComponent extends mxGraphComponent
 		setPanning(true);
 		setAutoExtend (true);
 		setAutoScroll (true);
+		
+		setVerticalScrollBarPolicy (ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+		setHorizontalScrollBarPolicy (ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		
 						
 		//setDragEnabled (true);
 		

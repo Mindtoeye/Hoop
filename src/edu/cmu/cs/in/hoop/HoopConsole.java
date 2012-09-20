@@ -220,6 +220,12 @@ public class HoopConsole extends HoopEmbeddedJPanel implements HoopConsoleInterf
 		// We should be ready for action now
 		
 		setContentPane (mainBox);
+		
+		// For now let's disable visual logging by default since it's
+		// so expensive
+		
+		logPaused=true;
+		pauseButton.setIcon(HoopLink.getImageByName("player-play.png"));
 	}
 	/**
 	 * 

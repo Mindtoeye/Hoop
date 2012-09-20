@@ -35,6 +35,20 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
+/**
+ * Notes:
+ * - Turn this into one layer of a VFSL
+ * - When combining jar as a FS with HDFS, use fully qualified
+ * URIs to detect how file systems should be mounted. For
+ * example, we could have:
+ * 
+ * 		file://textfile.txt
+ * 		file://archive.jar?textfile.txt
+ * 		hdfs://archive.jar?textfile.txt
+ * 
+ * The last one would result in a set of layers that would
+ * be: hdfs -> jar -> file
+ */
 public class HoopFileManager extends HoopFileTools
 {
 	private String 				URI="";
