@@ -664,17 +664,16 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 		//debug ("keyPressed ("+aKey.isShiftDown()+")");
 		
 		shiftDown=aKey.isShiftDown();
-				
+		
+		
 		if (shiftDown==true)
 		{
-			//debug ("Enabling selection handler ...");
-		
 			rubberband.setEnabled(true);
-			
 			graphComponent.getSelectionCellsHandler().setEnabled(true);
 			graphComponent.getSelectionCellsHandler().setVisible(true);
-						
 		}
+		else
+			rubberband.setEnabled(false);
 	}
 	/**
 	 * 
@@ -727,7 +726,7 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 	 */
 	@Override
 	public void mouseDragged(MouseEvent e) 
-	{
+	{		
 		if (this.shiftDown==true)
 		{			
 			status("Drag (D): " + e.getX() + ", " + e.getY());
