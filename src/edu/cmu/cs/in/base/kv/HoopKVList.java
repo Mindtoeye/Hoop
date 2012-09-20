@@ -42,11 +42,8 @@ import edu.cmu.cs.in.base.HoopDataType;
 * Note: this table class does not provide any support for named headers.
 * Instead you should used the HoopKVClassificationTable class.
 */
-public class HoopKVList extends HoopKV implements Serializable
+public class HoopKVList extends HoopKVString implements Serializable
 {    			
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 3998865824653058196L;
 	private ArrayList <HoopKV>data=null;
 	
@@ -60,6 +57,18 @@ public class HoopKVList extends HoopKV implements Serializable
     	data=new ArrayList<HoopKV> ();
     }
     /**
+	/**
+	 *
+	 */
+    public HoopKVList (String aKey) 
+    {	   
+    	setType (HoopDataType.ENUM);
+    	
+    	data=new ArrayList<HoopKV> ();
+    	
+    	setKey (aKey);
+    }       
+    /** 
      * 
      */
     public ArrayList<HoopKV> getData ()

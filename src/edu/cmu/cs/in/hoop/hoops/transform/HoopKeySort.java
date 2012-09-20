@@ -35,6 +35,8 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopTransformBase;
 */
 public class HoopKeySort extends HoopTransformBase implements HoopInterface
 {    				
+	private static final long serialVersionUID = 9048571198593866998L;
+	
 	/**
 	 *
 	 */

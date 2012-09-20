@@ -31,6 +31,8 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopTransformBase;
 */
 public class HoopCleanTokens extends HoopTransformBase implements HoopInterface
 {    				
+	private static final long serialVersionUID = -3367755253233491473L;
+	
 	/**
 	 *
 	 */

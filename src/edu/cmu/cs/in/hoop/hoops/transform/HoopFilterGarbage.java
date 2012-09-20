@@ -31,6 +31,8 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopTransformBase;
 */
 public class HoopFilterGarbage extends HoopTransformBase implements HoopInterface
 {    				
+	private static final long serialVersionUID = -3087945592273966950L;
+	
 	/**
 	 *
 	 */

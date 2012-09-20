@@ -41,7 +41,7 @@ import edu.cmu.cs.in.base.HoopRoot;
 public class HoopGenericProgressdialog extends HoopRoot implements PropertyChangeListener 
 {
     private ProgressMonitor progressMonitor=null;
-    private CopyFiles operation=null;
+    private HoopCopyFiles operation=null;
     private Component dialogParent=null;
     
     /**
@@ -59,8 +59,10 @@ public class HoopGenericProgressdialog extends HoopRoot implements PropertyChang
      */
     public void copyFiles (String fromPath,String toPath,File [] aFileSet) 
     {
+    	debug ("copyFiles ("+fromPath+","+toPath+","+aFileSet.length+")");
+    	
         // make sure there are files to copy
-        File srcDir = new File(fromPath);
+        File srcDir=new File(fromPath);
         
         if (srcDir.exists() && (srcDir.listFiles() != null && srcDir.listFiles().length > 0)) 
         {
@@ -76,9 +78,9 @@ public class HoopGenericProgressdialog extends HoopRoot implements PropertyChang
             progressMonitor.setProgress(0);
 
             // schedule the copy files operation for execution on a background thread
-            operation = new CopyFiles (srcDir, destDir,aFileSet);
+            operation = new HoopCopyFiles (srcDir, destDir,aFileSet);
             
-            // add ProgressMonitorExample as a listener on CopyFiles;
+            // add ProgressMonitorExample as a listener on HoopCopyFiles;
             // of specific interest is the bound property progress
             
             operation.addPropertyChangeListener(this);
@@ -97,6 +99,8 @@ public class HoopGenericProgressdialog extends HoopRoot implements PropertyChang
      */    
     public void propertyChange (PropertyChangeEvent event) 
 	{
+    	//debug ("propertyChange ()");
+    	
         // if the operation is finished or has been canceled by
         // the user, take appropriate action
         if (progressMonitor.isCanceled()) 
@@ -117,7 +121,7 @@ public class HoopGenericProgressdialog extends HoopRoot implements PropertyChang
     /**
      * 
      */
-    class CopyFiles extends SwingWorker<Void, CopyData> 
+    public class HoopCopyFiles extends SwingWorker<Void, HoopCopyData> 
 	{
         private static final int PROGRESS_CHECKPOINT = 10000;
         private File srcDir;
@@ -128,9 +132,9 @@ public class HoopGenericProgressdialog extends HoopRoot implements PropertyChang
          * @param src
          * @param dest
          */
-        CopyFiles (File src,
-        		   File dest,
-        		   File [] aFileSet) 
+        public HoopCopyFiles (File src,
+        				  	  File dest,
+        				  	  File [] aFileSet) 
 		{
             this.srcDir = src;
             this.destDir = dest;
@@ -142,10 +146,12 @@ public class HoopGenericProgressdialog extends HoopRoot implements PropertyChang
         @Override
         public Void doInBackground() 
 		{
+        	debug ("doInBackground ()");
+        	
             int progress = 0;
             
             // initialize bound property progress (inherited from SwingWorker)
-            setProgress(0);
+            setProgress (0);
             
             // get the files to be copied from the source directory
             if (files==null)
@@ -183,12 +189,12 @@ public class HoopGenericProgressdialog extends HoopRoot implements PropertyChang
                                 // get % complete for the task
                                 progress = (int)((100 * bytesCopied) / totalBytes);
                                 counter = 0;
-                                CopyData current = new CopyData(progress, f.getName(),
-                                                                getTotalKiloBytes(totalBytes),
-                                                                getKiloBytesCopied(bytesCopied));
+                                HoopCopyData current = new HoopCopyData(progress, 
+                                										f.getName(),
+                                										getTotalKiloBytes(totalBytes),
+                                										getKiloBytesCopied(bytesCopied));
 
-                                // set new value on bound property
-                                // progress and fire property change event
+                                // set new value on bound property progress and fire property change event
                                 setProgress(progress);
                                 
                                 // publish current progress data for copy task
@@ -212,16 +218,18 @@ public class HoopGenericProgressdialog extends HoopRoot implements PropertyChang
          * process copy task progress data in the event dispatch thread
          */ 
         @Override
-        public void process (List<CopyData> data) 
+        public void process (List<HoopCopyData> data) 
 		{
+        	debug ("process ()");
+        	
             if(isCancelled()) 
             { 
             	return; 
             }
             
-            CopyData update  = new CopyData(0, "", 0, 0);
+            HoopCopyData update=new HoopCopyData (0,"",0,0);
 			
-            for (CopyData d : data) 
+            for (HoopCopyData d : data) 
 			{
                 // progress updates may be batched, so get the most recent
                 if (d.getKiloBytesCopied() > update.getKiloBytesCopied()) 
@@ -256,11 +264,14 @@ public class HoopGenericProgressdialog extends HoopRoot implements PropertyChang
         @Override
         public void done() 
         {
+        	debug ("done ()");
+        	
             try 
             {
                 // call get() to tell us whether the operation completed or 
                 // was canceled; we don't do anything with this result
-                Void result = get();
+                @SuppressWarnings("unused")
+				Void result = get();
                 
                 //console.append("Copy operation completed.\n");                
             } 
@@ -288,6 +299,8 @@ public class HoopGenericProgressdialog extends HoopRoot implements PropertyChang
          */
         private long calcTotalBytes(File[] files) 
         {
+        	debug ("calcTotalBytes ()");
+        	
             long tmpCount = 0;
             
             for (File f : files) 
@@ -318,7 +331,7 @@ public class HoopGenericProgressdialog extends HoopRoot implements PropertyChang
     /**
      * 
      */
-    class CopyData 
+    public class HoopCopyData extends HoopRoot
     {
         private int progress;
         private String fileName;
@@ -328,7 +341,7 @@ public class HoopGenericProgressdialog extends HoopRoot implements PropertyChang
         /**
          * 
          */
-        CopyData(int progress, String fileName, long totalKiloBytes, long kiloBytesCopied) 
+        public HoopCopyData (int progress, String fileName, long totalKiloBytes, long kiloBytesCopied) 
         {
             this.progress = progress;
             this.fileName = fileName;

@@ -19,6 +19,7 @@
 package edu.cmu.cs.in.base.kv;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import org.jdom.Element;
 
@@ -84,11 +85,12 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 	public HoopKVString keywords=null;
 	public HoopKVString url=null;
 	
-	public HoopKVString tokens=null; // Tokenized version(s) of the text
+	public HoopKVList views=null;
 		
 	public HoopKVString additional=null; // Any other attributes that should be stored
 		
-	private int abstrSize=250; // 250 characters for now, CHANGE THIS TO WHOLE TERMS!
+	// 250 characters for now, CHANGE THIS TO WHOLE TERMS IF AVAILABLE
+	private int abstrSize=250; 
 			
 	/**
 	 *
@@ -145,8 +147,8 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
     	// Make sure we have an entry for our text
     	values.add(new String ("0"));
     	
-    	tokens=new HoopKVString ("tokens","");
-    	addVariable (tokens);
+    	views=new HoopKVList ("views");
+    	addVariable (views);
     	
     	// Extra stuff ...    	
     	additional=new HoopKVString ("additional","");

@@ -27,6 +27,8 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopTransformBase;
 */
 public class HoopColumnRenamer extends HoopTransformBase implements HoopInterface
 {    					
+	private static final long serialVersionUID = 4469594177427613605L;
+	
 	/**
 	 *
 	 */

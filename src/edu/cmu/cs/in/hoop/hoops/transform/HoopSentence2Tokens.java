@@ -18,8 +18,14 @@
 
 package edu.cmu.cs.in.hoop.hoops.transform;
 
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
+
+import edu.stanford.nlp.ling.Word;
+import edu.stanford.nlp.objectbank.TokenizerFactory;
+import edu.stanford.nlp.process.PTBTokenizer.PTBTokenizerFactory;
+import edu.stanford.nlp.process.Tokenizer;
 
 import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.base.kv.HoopKVInteger;
@@ -29,6 +35,7 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
 import edu.cmu.cs.in.hoop.hoops.base.HoopTransformBase;
 import edu.cmu.cs.in.hoop.properties.types.HoopBooleanSerializable;
 import edu.cmu.cs.in.hoop.properties.types.HoopEnumSerializable;
+//import edu.cmu.cs.in.hoop.properties.types.HoopEnumSerializable;
 import edu.cmu.cs.in.hoop.properties.types.HoopStringSerializable;
 
 /**
@@ -36,8 +43,10 @@ import edu.cmu.cs.in.hoop.properties.types.HoopStringSerializable;
 */
 public class HoopSentence2Tokens extends HoopTransformBase implements HoopInterface
 {    						
+	private static final long serialVersionUID = -8312790693714962219L;
 	private HoopBooleanSerializable removePunctuation=null; // TRUE,FALSE	
 	private HoopStringSerializable splitRegEx=null;
+	private HoopEnumSerializable targetTokenizer=null;
 	
 	/**
 	 *
@@ -51,6 +60,7 @@ public class HoopSentence2Tokens extends HoopTransformBase implements HoopInterf
 		
 		removePunctuation=new HoopBooleanSerializable (this,"removePunctuation",true);
 		splitRegEx=new HoopStringSerializable (this,"splitRegEx","\\W");
+		targetTokenizer=new HoopEnumSerializable (this,"targetTokenizer","Builtin,Stanford");
     }
 	/**
 	 *
@@ -74,21 +84,40 @@ public class HoopSentence2Tokens extends HoopTransformBase implements HoopInterf
 				{				
 					String aToken=tokens.get(j);
 					
-					if (removePunctuation.getPropValue ()==true)					
-					{
-						String strippedInput = aToken.replaceAll(splitRegEx.getValue(), "");
+					if (targetTokenizer.getValue().equalsIgnoreCase("Builtin")==true)
+					{					
+						if (removePunctuation.getPropValue ()==true)					
+						{
+							String strippedInput = aToken.replaceAll(splitRegEx.getValue(), "");
 						
-						if (this.reKey.getPropValue()==false)						
-							addKV (new HoopKVInteger (j,strippedInput));
+							if (this.reKey.getPropValue()==false)						
+								addKV (new HoopKVInteger (j,strippedInput));
+							else
+								addKV (new HoopKVInteger (i,strippedInput));
+						}
 						else
-							addKV (new HoopKVInteger (i,strippedInput));
+						{
+							if (this.reKey.getPropValue()==false)
+								addKV (new HoopKVInteger (j,aToken));
+							else
+								addKV (new HoopKVInteger (i,aToken));
+						}
 					}
-					else
+					
+					if (targetTokenizer.getValue().equalsIgnoreCase("Stanford")==true)
 					{
-						if (this.reKey.getPropValue()==false)
-							addKV (new HoopKVInteger (j,aToken));
-						else
-							addKV (new HoopKVInteger (i,aToken));
+					    TokenizerFactory<Word> factory = PTBTokenizerFactory.newTokenizerFactory();
+					    Tokenizer<Word> tokenizer = factory.getTokenizer(new StringReader(aToken));
+					    
+					    List<Word> sTokens=tokenizer.tokenize();
+					    
+					    for (int t=0;t<sTokens.size();t++)
+					    {
+					    	Word aTerm=sTokens.get(t);
+					    	addKV (new HoopKVInteger (t,aTerm.toString()));
+					    }
+					    
+					    //debug (tokenizer.tokenize());						
 					}
 				}									
 			}						

@@ -27,6 +27,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import edu.cmu.cs.in.base.io.HoopFileTools;
@@ -43,7 +44,7 @@ public class HoopGenericNameDialog extends HoopJDialog implements ActionListener
 	public static final int PASSWORD=1;
 	public static final int DIRECTORY=2;	
 	
-	private JTextField labelField=null;
+	private JTextArea labelField=null;
 	private JTextField nameField=null;
 	private int nameMode=REGULAR;
 	protected String chosenName="";
@@ -64,11 +65,13 @@ public class HoopGenericNameDialog extends HoopJDialog implements ActionListener
 		
 		Box contentBox = new Box (BoxLayout.Y_AXIS);
 		
-		labelField=new JTextField ();
+		labelField=new JTextArea ();
 		labelField.setMinimumSize (new Dimension (200,75));
 		labelField.setPreferredSize (new Dimension (200,75));
 		labelField.setMaximumSize (new Dimension (400,75));
 		labelField.setFont(new Font("Dialog", 1, 10));
+		labelField.setEditable(false);
+		labelField.setWrapStyleWord(true);
 		
 		contentBox.add(labelField);
 		

@@ -40,6 +40,7 @@ import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
 */
 public class HoopFilterStopWords extends HoopTransformBase implements HoopInterface
 {    	
+	private static final long serialVersionUID = -3243831355471606975L;
 	private HoopStopWordEditor propPanel=null;
 	private HoopStopWords vocab=null;
 	
