@@ -77,7 +77,7 @@ public class HoopPanningHandler extends mxPanningHandler
 	 */
 	public void mouseDragged(MouseEvent e)
 	{
-		debug ("mouseDragged ("+e.isConsumed()+")");
+		//debug ("mouseDragged ("+e.isConsumed()+")");
 		
 		if (start==null)
 		{
@@ -87,7 +87,7 @@ public class HoopPanningHandler extends mxPanningHandler
 				
 		if (!e.isConsumed() && (start!=null))
 		{
-			debug ("Panning ...");
+			//debug ("Panning ...");
 			
 			int dx = e.getX() - start.x;
 			int dy = e.getY() - start.y;

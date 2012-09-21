@@ -72,7 +72,7 @@ import javax.vecmath.Point3f;
 import javax.vecmath.Vector3f;
 
 /**
- * 
+ * http://ex.osaka-kyoiku.ac.jp/~fujii/JREC6/onlinebook_selman/Htmls/3DJava_Ch14.htm
  */
 public class INHoopJava3D extends JPanel implements KeyListener
 {

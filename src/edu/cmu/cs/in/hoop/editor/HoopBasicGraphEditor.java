@@ -729,7 +729,7 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 	{		
 		if (this.shiftDown==true)
 		{			
-			status("Drag (D): " + e.getX() + ", " + e.getY());
+			status("S: "+ graphComponent.getGraph ().getView ().getScale () + " Drag (D): " + e.getX() + ", " + e.getY());
 		}
 		else
 			status(e.getX() + ", " + e.getY());		
@@ -742,9 +742,9 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 	{
 		if (this.shiftDown==true)
 		{
-			status("Drag (M): " + e.getX() + ", " + e.getY());
+			status("S: "+ graphComponent.getGraph ().getView ().getScale () + " Drag (M): " + e.getX() + ", " + e.getY());
 		}
 		else
-			status(e.getX() + ", " + e.getY());		
+			status("S: "+ graphComponent.getGraph ().getView ().getScale () + ", "+ e.getX() + ", " + e.getY());		
 	}
 }
