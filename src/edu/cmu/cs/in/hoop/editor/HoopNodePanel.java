@@ -46,6 +46,7 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 	private HoopPropertyPanel propPanel=null;
 	private HoopTablePanel tablePanel=null;
 	private HoopInspectablePanel propertiesPanel=null;
+	private double scale=1.0;
 	
 	/**
 	 * 
@@ -76,6 +77,20 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 		debug ("HoopNodePanel () done");
 	}
 	/**
+	 * 
+	 */
+	public double getScale() 
+	{
+		return scale;
+	}
+	/**
+	 * 
+	 */	
+	public void setScale(double scale) 
+	{
+		this.scale = scale;
+	}	
+	/**
 	 * When a graph is saved it will go through each hoop and call this
 	 * method. This will in turn in the panel belonging to that hoop
 	 * call a method that sets all the visual properties back into the
@@ -102,6 +117,8 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 	public void fixDimensions (double aScale)
 	{
 		debug ("fixDimensions ()");
+		
+		setScale(aScale);
 		
 		if (hoop!=null)
 		{
@@ -232,21 +249,33 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 			setWaiting (true);
 		}		
 	}
+	/**
+	 * 
+	 */
 	@Override
 	public void mouseClicked(MouseEvent arg0) 
 	{
 		// Not implemented, see baseclass
 	}
+	/**
+	 * 
+	 */	
 	@Override
 	public void mouseEntered(MouseEvent arg0) 
 	{
 		// Not implemented, see baseclass
 	}
+	/**
+	 * 
+	 */	
 	@Override
 	public void mouseExited(MouseEvent arg0) 
 	{
 		// Not implemented, see baseclass
 	}
+	/**
+	 * 
+	 */	
 	@Override
 	public void mousePressed(MouseEvent arg0) 
 	{
@@ -254,6 +283,9 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 		
 		propPanel.highlightHoop(hoop);
 	}
+	/**
+	 * 
+	 */	
 	@Override
 	public void mouseReleased(MouseEvent arg0) 
 	{

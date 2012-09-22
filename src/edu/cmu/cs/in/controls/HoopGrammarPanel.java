@@ -42,8 +42,10 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import edu.cmu.cs.in.base.HoopDataCollection;
+import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.HoopRoot;
-import edu.cmu.cs.in.base.io.HoopFileManager;
+import edu.cmu.cs.in.base.HoopXMLBase;
+import edu.cmu.cs.in.base.io.HoopVFSL;
 
 @SuppressWarnings("serial")
 
@@ -51,7 +53,7 @@ public class HoopGrammarPanel extends JPanel implements ActionListener
 {			
 	private HoopDataCollection HoopData=null;		
     private JFileChooser fc=null;
-	private HoopFileManager fManager=null;
+	//private HoopVFSL fManager=null;
 
     private StringBuffer loader=null;	
 	
@@ -90,7 +92,7 @@ public class HoopGrammarPanel extends JPanel implements ActionListener
 		fc = new JFileChooser();
 		FileNameExtensionFilter filter=new FileNameExtensionFilter (".xml rule files", "xml");
 		fc.setFileFilter(filter);
-		fManager=new HoopFileManager();
+		//fManager=new HoopVFSL();
 		
 	    ruleModel=new DefaultListModel ();
 		
@@ -379,7 +381,13 @@ public class HoopGrammarPanel extends JPanel implements ActionListener
 
            		debug ("Loading: " + file.getName());
                
-           		fromXML (fManager.loadContentsXML(file.getAbsolutePath()));
+           		String content=HoopLink.fManager.loadContents(file.getAbsolutePath());
+           		
+           		/*
+           		HoopXMLBase xmlTools=new HoopXMLBase ();
+           		
+           		fromXML (xmlTools.loadXMLFromString(content)); // WRONG element type jdom vs SAX
+           		*/
            		
            		match ();
            	}	
@@ -406,7 +414,8 @@ public class HoopGrammarPanel extends JPanel implements ActionListener
                
                //debug ("XML: " + loader.toString());
                
-               fManager.saveContents(file.getAbsolutePath(),loader.toString());
+               //fManager.saveContents(file.getAbsolutePath(),loader.toString());
+               HoopLink.fManager.saveContents(file.getAbsolutePath(),loader.toString());
            } 
            else 
            {
@@ -430,7 +439,9 @@ public class HoopGrammarPanel extends JPanel implements ActionListener
                
                //debug ("XML: " + loader.toString());
                
-               fManager.saveContents(file.getAbsolutePath(),loader.toString());
+               //fManager.saveContents(file.getAbsolutePath(),loader.toString());
+               
+               HoopLink.fManager.saveContents(file.getAbsolutePath(),loader.toString());
            } 
            else 
            {

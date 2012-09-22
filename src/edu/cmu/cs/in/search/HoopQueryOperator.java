@@ -22,6 +22,7 @@ import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.HoopRoot;
 import edu.cmu.cs.in.base.HoopLink;
+import edu.cmu.cs.in.base.HoopStringTools;
 import edu.cmu.cs.in.search.HoopPositionEntry;
 import edu.cmu.cs.in.search.HoopPositionList;
 
@@ -327,8 +328,14 @@ public class HoopQueryOperator extends HoopRoot
 				
 					if (fastLoad==false)
 					{
-						ArrayList<String> lines=HoopLink.fManager.loadLines(invListURL);
+						//ArrayList<String> lines=HoopLink.fManager.loadLines(invListURL);
+												
+				    	String content=HoopLink.fManager.loadContents(HoopLink.datapath);
+				    	
+				        ArrayList<String> lines=HoopStringTools.dataToLines(content);						
+						
 						debug ("Loaded");
+						
 						processPositions (lines);
 						lines=null; // Need to get rid of memory!!
 					}
@@ -414,12 +421,14 @@ public class HoopQueryOperator extends HoopRoot
 		split=null;
 	}
     /**
-	 *
+	 * THIS NEEDS AN ADDITION TO THE VFSL CODE TO ALLOW THE READING OF ONE LINE
+	 * AT A TIME!
 	 */		
 	private void processPositions (String invListURL)
 	{
 		debug ("processPositions (String)");
 		
+		/*
 		String aLine=HoopLink.fManager.readALine(invListURL);
 
 		int index=0;
@@ -485,5 +494,6 @@ public class HoopQueryOperator extends HoopRoot
 		
 		ArrayList<HoopPositionEntry> checkList=positions.getPosEntries ();
 		debug ("Loaded " + checkList.size()+" entries, for: " + this.getInstanceName());
+		*/
 	}
 }

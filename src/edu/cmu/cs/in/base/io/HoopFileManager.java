@@ -18,8 +18,6 @@
 
 package edu.cmu.cs.in.base.io;
 
-import java.util.ArrayList;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -27,13 +25,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.xml.sax.SAXException;
 
 /**
  * Notes:
@@ -49,12 +40,12 @@ import org.xml.sax.SAXException;
  * The last one would result in a set of layers that would
  * be: hdfs -> jar -> file
  */
-public class HoopFileManager extends HoopFileTools
+public class HoopFileManager extends HoopFileTools implements HoopVFSLInterface
 {
 	private String 				URI="";
 	private StringBuilder 		contents=null;
-	private String [] 			lineList=null;
-	private ArrayList<String> 	lines=null;
+	//private String [] 			lineList=null;
+	//private ArrayList<String> 	lines=null;
 	private BufferedReader 		permInput=null;
 	private Writer 				streamOut=null;
 	
@@ -319,169 +310,6 @@ public class HoopFileManager extends HoopFileTools
 	}
 	/**
 	 *
-	 */	
-	public ArrayList<String> dataToLines (String aData)
-	{    
-		debug ("dataToLines ()");
-		
-		lines=new ArrayList<String> ();		
-	
-		lineList=aData.split(System.getProperty("line.separator"));
-		
-		for (int i=0;i<lineList.length;i++)
-		{
-			lines.add(new String (lineList [i]));
-		}
-		
-		return (lines);
-	}
-	/**
-	 *
-	 */	
-	public ArrayList<String> loadLines (String aFileURI)
-	{    
-		debug ("loadLines ("+aFileURI+")");
-		
-		setURI (aFileURI);
-				
-		File aFile=new File(aFileURI);
-
-		//contents=new StringBuilder();
-   
-		lines=new ArrayList<String> ();	
-		
-		try 
-		{						
-			BufferedReader input =  new BufferedReader (new FileReader(aFile));
-						
-			try 
-			{
-				String line = null; //not declared within while loop
-				
-				/* readLine is a bit quirky : it returns the content of a line 
-				 * MHoopUS the newline. it returns null only for the END of the 
-				 * stream. it returns an empty String if two newlines appear 
-				 * in a row.
-				 */
-				while (( line = input.readLine()) != null)
-				{
-					//lines.add(line.trim());
-					//contents.append(line);					
-					//contents.append(System.getProperty("line.separator"));
-					lines.add(line.trim ());
-				}
-			}
-			catch (IOException e)
-			{
-				return (null);				
-			}
-			finally 
-			{
-				input.close();
-			}
-		}
-		catch (IOException ex)
-		{
-			ex.printStackTrace();
-			return (null);
-		}
-   		
-		return (lines);
-	}	
-	/**
-	 *
-	 */ 	
-	public Element loadContentsXML (String aFileURI)
-	{
-		debug ("getContentsXML ("+aFileURI+")");
-		
-		setURI (aFileURI);
-		
-		Document               document=null;
-		DocumentBuilderFactory dbf     =null;
-		DocumentBuilder        builder =null;  
-		  
-		try 
-		{
-			dbf    =DocumentBuilderFactory.newInstance();
-			builder=dbf.newDocumentBuilder ();
-		}
-		catch (Exception e) 
-		{
-			e.printStackTrace();
-			return (null);
-		} 
-		  
-		try
-		{
-			document=builder.parse (new File (aFileURI));
-		}
-		catch (IOException e) 
-		{
-			e.printStackTrace();
-			return (null);   
-		}    
-		catch (SAXException e) 
-		{
-			debug ("Error while parsing file");
-			return (null);   
-		}   
-		  
-		Element root=document.getDocumentElement();
-		
-		return (root);
-	}
-	/**
-	 *
-	 */  
-	public int countLines (String aFileURI) 
-	{
-		debug ("countLines ("+aFileURI+")");
-		
-		setURI (aFileURI);
-		
-		int results=0;
-		
-		File aFile = new File (aFileURI);
-
-		try 
-		{						
-			BufferedReader input =  new BufferedReader (new FileReader(aFile));
-						
-			try 
-			{
-				@SuppressWarnings("unused")
-				String line=null; //not declared within while loop
-				
-				/* readLine is a bit quirky : it returns the content of a line 
-				 * MHoopUS the newline. it returns null only for the END of the 
-				 * stream. it returns an empty String if two newlines appear 
-				 * in a row.
-				 */
-				while (( line = input.readLine()) != null)
-				{
-					results++;
-				}
-			}
-			catch (IOException e)
-			{
-				return (-1);				
-			}
-			finally 
-			{
-				input.close();
-			}
-		}
-		catch (IOException ex)
-		{
-			ex.printStackTrace();
-			return (-1);
-		}		
-				
-		return (results);
-	}
-	/**
-	 *
 	 */  
 	public boolean saveContents (String aFileURI,String aContents) 
 	{
@@ -616,18 +444,4 @@ public class HoopFileManager extends HoopFileTools
 		
 		return (true);
 	}	
-	/**
-	 * 
-	 */
-	public void listLines (ArrayList<String> aLines)
-	{
-		debug ("listLines ()");
-		
-		/*
-		for (int i=0;i<aLines.size();i++)
-		{
-			debug ("* "+aLines.get(i)+" *");
-		}
-		*/
-	}
 } 

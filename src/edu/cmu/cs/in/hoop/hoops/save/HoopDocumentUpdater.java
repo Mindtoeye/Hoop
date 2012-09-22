@@ -37,6 +37,7 @@ import edu.cmu.cs.in.search.HoopDataSet;
 */
 public class HoopDocumentUpdater extends HoopSaveBase
 {    						
+	private static final long serialVersionUID = 3205589901968264920L;
 	private HoopEnumSerializable selectedField=null;
 	
 	/**
@@ -89,61 +90,69 @@ public class HoopDocumentUpdater extends HoopSaveBase
 				//String aDocumentKey=aKV.getKeyString();
 			
 				HoopKVDocument aDocument=inp.get(aKV.getKey ());
-			
-				if (selectedField.getValue().equalsIgnoreCase("title")==true)
-				{
-					aDocument.title.setValue((String) aKV.getValue());
-				}
-			
-				if (selectedField.getValue().equalsIgnoreCase("author")==true)
-				{
-					aDocument.author.setValue((String) aKV.getValue());
-				}
-			
-				if (selectedField.getValue().equalsIgnoreCase("description")==true)
-				{
-					aDocument.description.setValue((String) aKV.getValue());
-				}
-			
-				if (selectedField.getValue().equalsIgnoreCase("createDate")==true)
-				{
-					aDocument.createDate.setValue((String) aKV.getValue());
-				}
-			
-				if (selectedField.getValue().equalsIgnoreCase("modifiedDate")==true)
-				{
-					aDocument.modifiedDate.setValue((String) aKV.getValue());
-				}
-			
-				if (selectedField.getValue().equalsIgnoreCase("text")==true)
-				{
-					aDocument.bump((String) aKV.getValue(),"transformed");
-				}
-			
-				if (selectedField.getValue().equalsIgnoreCase("abstr")==true)
-				{
-					aDocument.abstr.setValue((String) aKV.getValue());
-				}	
-			
-				if (selectedField.getValue().equalsIgnoreCase("keywords")==true)
-				{
-					aDocument.keywords.setValue((String) aKV.getValue());
-				}
-			
-				if (selectedField.getValue().equalsIgnoreCase("url")==true)
-				{
-					aDocument.url.setValue((String) aKV.getValue());
-				}
-			
-				if (selectedField.getValue().equalsIgnoreCase("tokens")==true)
-				{
-					// Copy all tokens from the incoming KV to the token field
-					// in the document
 				
-					for (int i=0;i<aKV.getValuesRaw().size();i++)
+				if (aDocument!=null)
+				{
+					if (selectedField.getValue().equalsIgnoreCase("title")==true)
 					{
-						//aDocument.tokens.setValue(aKV.getValue(i),i);
+						aDocument.title.setValue((String) aKV.getValue());						
 					}
+			
+					if (selectedField.getValue().equalsIgnoreCase("author")==true)
+					{
+						aDocument.author.setValue((String) aKV.getValue());
+					}
+			
+					if (selectedField.getValue().equalsIgnoreCase("description")==true)
+					{
+						aDocument.description.setValue((String) aKV.getValue());
+					}
+			
+					if (selectedField.getValue().equalsIgnoreCase("createDate")==true)
+					{
+						aDocument.createDate.setValue((String) aKV.getValue());
+					}
+			
+					if (selectedField.getValue().equalsIgnoreCase("modifiedDate")==true)
+					{
+						aDocument.modifiedDate.setValue((String) aKV.getValue());
+					}
+			
+					if (selectedField.getValue().equalsIgnoreCase("text")==true)
+					{
+						aDocument.bump((String) aKV.getValue(),"transformed");
+					}
+			
+					if (selectedField.getValue().equalsIgnoreCase("abstr")==true)
+					{
+						aDocument.abstr.setValue((String) aKV.getValue());
+					}	
+			
+					if (selectedField.getValue().equalsIgnoreCase("keywords")==true)
+					{
+						aDocument.keywords.setValue((String) aKV.getValue());
+					}
+			
+					if (selectedField.getValue().equalsIgnoreCase("url")==true)
+					{
+						aDocument.url.setValue((String) aKV.getValue());
+					}
+			
+					if (selectedField.getValue().equalsIgnoreCase("tokens")==true)
+					{
+						// Copy all tokens from the incoming KV to the token field
+						// in the document
+						
+						for (int i=0;i<aKV.getValuesRaw().size();i++)
+						{
+							//aDocument.tokens.setValue(aKV.getValue(i),i);
+						}
+					}
+				}
+				else
+				{
+					this.setErrorString("Error: document with id: " + aKV.getKey () + " not found");
+					return (false);
 				}
 			}	
 		}			

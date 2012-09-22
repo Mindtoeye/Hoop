@@ -28,6 +28,7 @@ import edu.cmu.cs.in.base.io.HoopFileManager;
 import edu.cmu.cs.in.base.kv.HoopKVInteger;
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.HoopPositionsBase;
+import edu.cmu.cs.in.base.HoopStringTools;
 
 /**
  *
@@ -201,8 +202,11 @@ public class HoopSorterStats extends HoopRoot
         
     	HoopRoot.debug ("HoopSorterStats","Starting system ...");
         
-        HoopFileManager fManager=new HoopFileManager ();
-        ArrayList<String> lines=fManager.loadLines(HoopLink.datapath);
+        //HoopFileManager fManager=new HoopFileManager ();
+    	
+    	String content=HoopLink.fManager.loadContents(HoopLink.datapath);
+    	
+        ArrayList<String> lines=HoopStringTools.dataToLines(content);
         
         HoopPositionsBase fPositions = new HoopPositionsBase ();
         fPositions.fromLines (lines);
@@ -249,7 +253,7 @@ public class HoopSorterStats extends HoopRoot
         		
         		HoopRoot.debug ("HoopSorterStats","Retrieving entries with frequency: " + retr);
         		
-        		fManager.saveContents(HoopLink.outputpath+"/rare-"+(t+1)+".txt",fPositions.getValuesFormatted (retr));
+        		HoopLink.fManager.saveContents(HoopLink.outputpath+"/rare-"+(t+1)+".txt",fPositions.getValuesFormatted (retr));
         	}
         }
 	}

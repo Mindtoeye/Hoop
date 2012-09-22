@@ -126,5 +126,35 @@ public class HoopStringTools extends HoopRoot
       {  
          return false;  
       }  
-   }          
+   } 
+   /**
+    * 
+    */
+	public static ArrayList<String> dataToLines (String aData)
+	{    
+		//debug ("dataToLines ()");
+		
+		ArrayList<String> lines=new ArrayList<String> ();		
+	
+		String [] lineList=aData.split(System.getProperty("line.separator"));
+		
+		for (int i=0;i<lineList.length;i++)
+		{
+			lines.add(new String (lineList [i]));
+		}
+		
+		return (lines);
+	}
+	/**
+	 * 
+	 */
+	public static void listLines (ArrayList<String> aLines)
+	{
+		//debug ("listLines ()");
+		
+		for (int i=0;i<aLines.size();i++)
+		{
+			//debug ("* "+aLines.get(i)+" *");
+		}
+	}	
 }

@@ -28,7 +28,7 @@ import javax.swing.border.Border;
 
 import org.apache.hadoop.util.VersionInfo;
 
-import edu.cmu.cs.in.base.io.HoopFileManager;
+import edu.cmu.cs.in.base.io.HoopVFSL;
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 import edu.cmu.cs.in.controls.splitpanel.HoopMultiSplitLayout;
@@ -58,7 +58,7 @@ public class HoopMultiViewFrame extends HoopPreferencesJFrame
                 	    
 	    loadImageIcons ();
 		
-		HoopLink.fManager=new HoopFileManager ();
+		HoopLink.fManager=new HoopVFSL ();
 		HoopLink.posFiles=new ArrayList<String> ();
                         
         this.addWindowListener(new WindowAdapter() 

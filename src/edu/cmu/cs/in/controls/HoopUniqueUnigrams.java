@@ -44,8 +44,10 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import edu.cmu.cs.in.base.HoopDataCollection;
+import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.HoopRoot;
-import edu.cmu.cs.in.base.io.HoopFileManager;
+import edu.cmu.cs.in.base.HoopXMLBase;
+import edu.cmu.cs.in.base.io.HoopVFSL;
 
 @SuppressWarnings("serial")
 
@@ -55,7 +57,7 @@ import edu.cmu.cs.in.base.io.HoopFileManager;
 public class HoopUniqueUnigrams extends JPanel implements ActionListener
 {		
 	private HoopDataCollection HoopData=null;	
-	private HoopFileManager fManager=null;
+	private HoopVFSL fManager=null;
 	
 	public HoopJFeatureList posList=null;
     public HoopJFeatureList negList=null;
@@ -86,7 +88,7 @@ public class HoopUniqueUnigrams extends JPanel implements ActionListener
 		fc = new JFileChooser();
 		FileNameExtensionFilter filter=new FileNameExtensionFilter (".xml unigram files", "xml");
 		fc.setFileFilter(filter);
-		fManager=new HoopFileManager();
+		fManager=new HoopVFSL();
 
         //Uncomment one of the following lines to try a different
         //file selection mode.  The first allows just directories
@@ -203,8 +205,17 @@ public class HoopUniqueUnigrams extends JPanel implements ActionListener
         		File file = fc.getSelectedFile();
 
         		debug ("Loading: " + file.getName());
-            
-        		fromXML (fManager.loadContentsXML(file.getAbsolutePath()));
+        		
+        		String content=HoopLink.fManager.loadContents(file.getAbsolutePath());
+        		
+        		if (content!=null)
+        		{
+        			/*
+        			HoopXMLBase xmlTools=new HoopXMLBase ();
+        			
+        			fromXML (xmlTools.fromXMLString(content));
+        			*/
+        		}	
         	}
         }
     }

@@ -28,7 +28,7 @@ import javax.swing.JOptionPane;
 import org.jdom.Element;
 
 import edu.cmu.cs.in.base.HoopFilterBase;
-import edu.cmu.cs.in.base.io.HoopFileManager;
+import edu.cmu.cs.in.base.io.HoopVFSL;
 
 public class HoopRoot extends HoopDataType
 {
@@ -167,7 +167,7 @@ public class HoopRoot extends HoopDataType
 	{
 		debug ("dumpDebugData ()");
 		
-		HoopFileManager fManager=new HoopFileManager ();
+		HoopVFSL fManager=new HoopVFSL ();
 		fManager.saveContents("C://temp/debug.txt",s);
 	}
 	/**

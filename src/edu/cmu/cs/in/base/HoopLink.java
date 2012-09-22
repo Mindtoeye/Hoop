@@ -29,7 +29,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
 
 import edu.cmu.cs.in.search.HoopDataSet;
-import edu.cmu.cs.in.base.io.HoopFileManager;
+import edu.cmu.cs.in.base.io.HoopVFSL;
 import edu.cmu.cs.in.base.io.HoopStreamedSocket;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 import edu.cmu.cs.in.hoop.HoopConsoleInterface;
@@ -307,7 +307,7 @@ public class HoopLink extends HoopProperties
 	public static ArrayList <HoopEmbeddedJPanel> windows=null;
 	public static ArrayList <HoopTextSearch> searchHistory=null;
 	public static ArrayList <String>jobs=null;
-	public static HoopFileManager fManager=null;	
+	public static HoopVFSL fManager=null;	
 	public static HoopDataSet dataSet=null;
 	public static ArrayList <String> queries=null;
 	public static int experimentNr=0;

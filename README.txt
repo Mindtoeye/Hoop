@@ -73,9 +73,15 @@ Used Packages:
 	your classpath.
 	http://dev.mysql.com/downloads/connector/j/	
 	
--BerkeleyDB driver (included), mainly integrated to function as a rapid indexing
+- BerkeleyDB driver (included), mainly integrated to function as a rapid indexing
 	and retieval backend that lives alongside an XML document tree
 	http://www.oracle.com/technetwork/products/berkeleydb/overview/index.html	
+	
+- Stanford NLP (included), mostly provided in hoop form for the purpose of 
+	tokenizing, parsing and low-level processing of text data
+	http://nlp.stanford.edu/software/	
+
+- JDesktop (integrated)
 
 Notice!
 

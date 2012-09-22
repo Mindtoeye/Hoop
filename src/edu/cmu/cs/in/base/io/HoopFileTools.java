@@ -30,9 +30,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Enumeration;
-import java.util.jar.JarEntry;
-import java.util.jar.JarFile;
+//import java.util.Enumeration;
+//import java.util.jar.JarEntry;
+//import java.util.jar.JarFile;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -258,220 +258,6 @@ public class HoopFileTools extends HoopRoot
 	        return "";
 	    }
 	}
-	/**
-	 * 
-	 */
-	public Boolean extractJarToDisk (String aJarFile,String aDest)
-	{
-		debug ("extractJarToDisk ("+aJarFile+","+aDest+")");
-		
-		JarFile jar=null;
-		
-		try 
-		{
-			jar = new JarFile(aJarFile);
-		} 
-		catch (IOException e1) 
-		{
-			e1.printStackTrace();
-			return (false);
-		}
-		
-		Enumeration<JarEntry> e = jar.entries();
-				
-		while (e.hasMoreElements()) 
-		{
-			JarEntry file = (JarEntry) e.nextElement();
-			File f = new File(aDest + File.separator + file.getName());
-			
-			if (file.isDirectory()) 
-			{ 
-				// if its a directory, create it
-				f.mkdir();
-				continue;
-			}
-			
-			InputStream is=null; // get the input stream
-			
-			try 
-			{
-				is = jar.getInputStream(file);
-			} 
-			catch (IOException e1) 
-			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} 
-			
-			FileOutputStream fos=null;
-			
-			try 
-			{
-				fos = new FileOutputStream(f);
-			} 
-			catch (FileNotFoundException e1) 
-			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			
-			int avail=-1;
-			
-			try 
-			{
-				avail = is.available();
-			} 
-			catch (IOException e2) 
-			{		
-				e2.printStackTrace();
-				
-				try {jar.close ();} catch (IOException e3) {e3.printStackTrace();}
-				
-				return (false);
-			}
-			
-			while (avail > 0) 
-			{  
-				// write contents of 'is' to 'fos'
-				try 
-				{
-					fos.write(is.read());
-				} 
-				catch (IOException e1) 
-				{
-					e1.printStackTrace();
-					
-					try {jar.close ();} catch (IOException e2) {e2.printStackTrace();}
-					
-					return (false);
-				}
-				
-				try 
-				{
-					avail=is.available();
-				} 
-				catch (IOException e1) 
-				{				
-					e1.printStackTrace();
-					
-					try {jar.close ();} catch (IOException e2) {e2.printStackTrace();}
-					
-					return (false);
-				}
-			}
-			
-			try 
-			{
-				fos.close();
-			} 
-			catch (IOException e1) 
-			{
-				debug ("Error, unable to close file output stream");
-				e1.printStackTrace();
-								
-				try {jar.close ();} catch (IOException e2) {e2.printStackTrace();}
-				
-				return (false);
-			}
-			
-			try 
-			{
-				is.close();
-			} 
-			catch (IOException e1) 
-			{
-				debug ("Error, unable to close file input stream");
-				e1.printStackTrace();
-				
-				try {jar.close ();} catch (IOException e2) {e2.printStackTrace();}
-				
-				return (false);
-			}
-		}
-		
-		try {jar.close ();} catch (IOException e1) {e1.printStackTrace();}
-		
-		return (true);
-	}		
-	/**
-	 * 
-	 */
-	public String extractJarEntry (String aJarFile,String aFile)
-	{
-		debug ("extractJarEntry ("+aJarFile+","+aFile+")");
-		
-		JarFile jar=null;
-		
-		try 
-		{
-			jar = new JarFile(aJarFile);
-		} 
-		catch (IOException e1) 
-		{
-			e1.printStackTrace();
-			return (null);
-		}
-		
-		Enumeration<JarEntry> e = jar.entries();
-				
-		while (e.hasMoreElements()) 
-		{
-			JarEntry file = (JarEntry) e.nextElement();
-						
-			if ((file.isDirectory()==false) && (file.getName().equals(aFile)==true)) 
-			{
-				InputStream is=null; // get the input stream
-				
-				try 
-				{
-					is = jar.getInputStream(file);
-				} 
-				catch (IOException e1) 
-				{
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-					return (null);
-				} 
-									
-				String entryContents=convertStreamToString (is);
-								
-				try 
-				{
-					is.close();
-				} 
-				catch (IOException e1) 
-				{
-					debug ("Error, unable to close file input stream");
-					e1.printStackTrace();
-					return (null);
-				}
-				
-				try 
-				{
-					jar.close();
-				} 
-				catch (IOException e1) 
-				{
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			
-				return (entryContents);
-			}	
-		}
-		
-		try 
-		{
-			jar.close();
-		} 
-		catch (IOException e1) 
-		{
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		return (null);
-	}
 	/** 
 	 * @param srFile
 	 * @param dtFile
@@ -573,7 +359,7 @@ public class HoopFileTools extends HoopRoot
 	/**
 	 * 
 	 */
-	public long getFileTime (String aURI)
+	public Long getFileTime (String aURI)
 	{
 		File checker=new File (aURI);
 		

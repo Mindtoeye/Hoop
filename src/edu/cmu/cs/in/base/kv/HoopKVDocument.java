@@ -19,7 +19,7 @@
 package edu.cmu.cs.in.base.kv;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 
 import org.jdom.Element;
 
@@ -89,7 +89,7 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 		
 	public HoopKVString additional=null; // Any other attributes that should be stored
 		
-	// 250 characters for now, CHANGE THIS TO WHOLE TERMS IF AVAILABLE
+	// 250 characters for now, CHANGE THIS TO WHOLE TERMS, IF AVAILABLE
 	private int abstrSize=250; 
 			
 	/**
@@ -286,7 +286,7 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 		
 		String cleanText=parser.getText();
 		
-		this.bump(cleanText,"Cleaned");
+		this.bump (cleanText,"Cleaned");
 		
 		if (abstr.getValue().isEmpty()==true)
 		{						

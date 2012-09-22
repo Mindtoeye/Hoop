@@ -60,16 +60,14 @@ import edu.cmu.cs.in.hoop.hoops.transform.HoopText2Sentence;
 import edu.cmu.cs.in.hoop.hoops.transform.HoopTokenCaseChange;
 import edu.cmu.cs.in.hoop.hoops.transform.HoopUniqueTerms;
 import edu.cmu.cs.in.hoop.hoops.transform.HoopXML2Features;
-import edu.cmu.cs.in.hoop.hoops.HoopHDFSMultiFileInput;
-import edu.cmu.cs.in.hoop.hoops.HoopHDFSMultiFileOutput;
-import edu.cmu.cs.in.hoop.hoops.HoopHDFSSingleFileInput;
-import edu.cmu.cs.in.hoop.hoops.HoopHDFSSingleFileOutput;
 
 /** 
  * @author Martin van Velsen
  */
 public class HoopManager extends HoopBase
 {
+	private static final long serialVersionUID = -3676325977389900928L;
+	
 	private ArrayList<String> hoopCategories=null;	
 	private ArrayList<HoopBase> hoopTemplates=null;
 	
@@ -174,10 +172,6 @@ public class HoopManager extends HoopBase
     	addTemplate (new HoopFileSaveBase ());   	
     	addTemplate (new HoopText2Sentence ());
     	addTemplate (new HoopSentence2Tokens ());
-    	addTemplate (new HoopHDFSSingleFileOutput ());
-    	addTemplate (new HoopHDFSSingleFileInput ());
-    	addTemplate (new HoopHDFSMultiFileOutput ());
-    	addTemplate (new HoopHDFSMultiFileInput ());
     	addTemplate (new HoopStdout ());
     	addTemplate (new HoopStdin ());
     	addTemplate (new HoopFilterStopWords ());
