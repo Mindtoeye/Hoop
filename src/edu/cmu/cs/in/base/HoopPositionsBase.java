@@ -27,12 +27,12 @@ import java.util.Map;
 //import java.util.Set;
 
 import edu.cmu.cs.in.base.HoopRoot;
-import edu.cmu.cs.in.base.io.HoopFileManager;
+import edu.cmu.cs.in.base.io.HoopVFSL;
 import edu.cmu.cs.in.base.kv.HoopKVInteger;
 
 public class HoopPositionsBase extends HoopRoot
 {    			
-	private HoopFileManager fManager=null;
+	private HoopVFSL fManager=null;
     private Hashtable<String, Integer> entries=null;
     //private ArrayList<HoopKVInteger> entries =null;
     private ArrayList<HoopKVInteger> sorted =null;
@@ -74,7 +74,7 @@ public class HoopPositionsBase extends HoopRoot
 		setClassName ("HoopPositionsBase");
 		debug ("HoopPositionsBase ()");			
 		
-		fManager=new HoopFileManager ();
+		fManager=new HoopVFSL ();
     }  
 	/**
 	 *
@@ -138,7 +138,11 @@ public class HoopPositionsBase extends HoopRoot
     {
     	debug ("fromString ()");
     
-    	return (fromLines (fManager.loadLines(aText)));    	   
+    	String content=HoopLink.fManager.loadContents(HoopLink.datapath);
+    	
+        ArrayList<String> lines=HoopStringTools.dataToLines(content);
+    	
+    	return (fromLines (lines));    	   
     }
     /**
      * 

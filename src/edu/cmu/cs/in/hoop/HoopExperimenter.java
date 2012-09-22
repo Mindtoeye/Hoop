@@ -46,6 +46,7 @@ import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.view.mxGraph;
 
 import edu.cmu.cs.in.base.HoopLink;
+import edu.cmu.cs.in.base.HoopStringTools;
 import edu.cmu.cs.in.search.HoopQueryOperator;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 //import edu.cmu.cs.in.controls.base.HoopJInternalFrame;
@@ -187,7 +188,11 @@ public class HoopExperimenter extends HoopEmbeddedJPanel implements ActionListen
 	        		
 	        	debug ("Loading: " + file.getPath() + " ...");
 	        		
-	        	HoopLink.queries=HoopLink.fManager.loadLines(file.getPath());
+	        	//HoopLink.queries=HoopLink.fManager.loadLines(file.getPath());
+	        	
+	        	String content=HoopLink.fManager.loadContents(HoopLink.datapath);
+	        	
+	            HoopLink.queries=HoopStringTools.dataToLines(content);
 	        		
 	        	queryStats.setText("Loaded " + HoopLink.queries.size() + " runnable queries");
 	        		

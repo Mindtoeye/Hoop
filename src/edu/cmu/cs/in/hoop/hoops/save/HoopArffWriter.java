@@ -20,7 +20,7 @@ package edu.cmu.cs.in.hoop.hoops.save;
 
 import java.util.ArrayList;
 
-import edu.cmu.cs.in.base.io.HoopFileManager;
+import edu.cmu.cs.in.base.io.HoopVFSL;
 import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.base.kv.HoopKVClassificationTable;
 //import edu.cmu.cs.in.base.kv.HoopKVInteger;
@@ -37,7 +37,7 @@ import edu.cmu.cs.in.hoop.properties.types.HoopStringSerializable;
 */
 public class HoopArffWriter extends HoopFileSaveBase
 {    			
-	private HoopFileManager fManager=null;
+	private HoopVFSL fManager=null;
 	
 	//private HoopURISerializable URI=null;
 	private HoopStringSerializable relation=null;
@@ -52,7 +52,7 @@ public class HoopArffWriter extends HoopFileSaveBase
 				
 		setHoopDescription ("Export Model in Weka format");
 		
-		fManager=new HoopFileManager ();
+		fManager=new HoopVFSL ();
 		
 		//=new HoopURISerializable (this,"URI","<PROJECTPATH>/HoopOut.arff");
 		relation=new HoopStringSerializable (this,"relation","DefaultRelation");

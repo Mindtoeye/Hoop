@@ -33,6 +33,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 import edu.cmu.cs.in.base.HoopLink;
+import edu.cmu.cs.in.base.HoopStringTools;
 import edu.cmu.cs.in.controls.HoopJFeatureList;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 //import edu.cmu.cs.in.controls.base.HoopJInternalFrame;
@@ -153,7 +154,11 @@ public class HoopStopWordEditor extends HoopEmbeddedJPanel implements ActionList
 	        		
 	        		debug ("Loading: " + file.getPath() + " ...");
 	        		
-	        		ArrayList <String> newStops=HoopLink.fManager.loadLines(file.getPath());
+	        		//ArrayList <String> newStops=HoopLink.fManager.loadLines(file.getPath());
+	        		
+	            	String content=HoopLink.fManager.loadContents(HoopLink.datapath);
+	            	
+	                ArrayList<String> newStops=HoopStringTools.dataToLines(content);	        		
 	        		
 	        		stopList.modelFromArrayList (newStops);
 	        		

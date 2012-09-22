@@ -66,6 +66,7 @@ import javax.swing.tree.TreeSelectionModel;
 import com.sleepycat.collections.StoredMap;
 
 import edu.cmu.cs.in.base.HoopLink;
+import edu.cmu.cs.in.base.io.HoopFileTools;
 import edu.cmu.cs.in.base.kv.HoopKVDocument;
 import edu.cmu.cs.in.base.kv.HoopKVLong;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
@@ -613,8 +614,10 @@ public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener
     		
     		debug ("Adding ID: " + tmpDateString);
     		  
+    		HoopFileTools fTools=new HoopFileTools ();
+    		
     		//HoopKVDocument threadDocument=HoopLink.dataSet.getDocumentFromDate (aDocument.dateStringToLong (tmpDateString));
-    		HoopKVDocument threadDocument=HoopLink.dataSet.getDocumentFromDate (HoopLink.fManager.dateStringToLong (tmpDateString,aDocument.dateFormat.getValue()));
+    		HoopKVDocument threadDocument=HoopLink.dataSet.getDocumentFromDate (fTools.dateStringToLong (tmpDateString,aDocument.dateFormat.getValue()));
     		
     		if (threadDocument!=null)
     		{

@@ -23,7 +23,8 @@ import java.io.File;
 import javax.swing.JOptionPane;
 
 import edu.cmu.cs.in.base.HoopLink;
-import edu.cmu.cs.in.base.io.HoopFileManager;
+import edu.cmu.cs.in.base.io.HoopFileTools;
+import edu.cmu.cs.in.base.io.HoopVFSL;
 import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
 
 /**
@@ -32,7 +33,7 @@ import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
 public class HoopFileSaveBase extends HoopSaveBase implements HoopInterface
 {    				
 	private String content=null;	
-	private HoopFileManager fManager=null;		
+	private HoopVFSL fManager=null;		
 	protected HoopURISerializable URI=null;	
 	private Boolean alwaysOverwrite=false;
 	
@@ -133,7 +134,9 @@ public class HoopFileSaveBase extends HoopSaveBase implements HoopInterface
         {
         	String fullPath=absPath+"/output."+URI.getFileExtension();
         	
-        	String aFileName=HoopLink.fManager.createSequenceFilename(fullPath,this.getExecutionCount());
+        	HoopFileTools fTools=new HoopFileTools ();
+        	
+        	String aFileName=fTools.createSequenceFilename(fullPath,this.getExecutionCount());
         	
         	File checker=new File (aFileName);
         
@@ -167,9 +170,11 @@ public class HoopFileSaveBase extends HoopSaveBase implements HoopInterface
         
         if (URI.getDirsOnly()==true)
         {
+        	HoopFileTools fTools=new HoopFileTools ();
+        	
         	String fullPath=absPath+"/output."+URI.getFileExtension();
         	
-        	String aFileName=HoopLink.fManager.createSequenceFilename(fullPath,aSequence);
+        	String aFileName=fTools.createSequenceFilename(fullPath,aSequence);
         	
         	File checker=new File (aFileName);
         

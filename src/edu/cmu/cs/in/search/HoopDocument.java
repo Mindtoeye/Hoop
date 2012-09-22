@@ -21,12 +21,14 @@ package edu.cmu.cs.in.search;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.cmu.cs.in.base.io.HoopFileManager;
+import edu.cmu.cs.in.base.io.HoopFileTools;
+import edu.cmu.cs.in.base.io.HoopVFSL;
 import edu.cmu.cs.in.base.kv.HoopKVDocument;
 import edu.cmu.cs.in.base.HoopPorterStemmerOriginal;
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.HoopRoot;
 import edu.cmu.cs.in.base.HoopSimpleFeatureMaker;
+import edu.cmu.cs.in.base.HoopStringTools;
 import edu.cmu.cs.in.base.HoopWikipediaFilter;
 
 /**
@@ -162,10 +164,8 @@ public class HoopDocument extends HoopKVDocument
     public Boolean loadDocumentFromData (String aData)
     {
     	debug ("loadDocumentFromData ()");
-    	
-    	HoopFileManager manager=new HoopFileManager ();
-    	    	
-    	ArrayList<String> lines=manager.dataToLines (aData);
+    	    	    	
+    	ArrayList<String> lines=HoopStringTools.dataToLines (aData);
 	   
     	if (lines==null)
     	{
@@ -182,7 +182,9 @@ public class HoopDocument extends HoopKVDocument
     {
     	debug ("loadDocument ("+aPath+")");
     	
-    	ArrayList<String> lines=HoopLink.fManager.loadLines (aPath);
+    	String data=HoopLink.fManager.loadContents(aPath);
+    	
+    	ArrayList<String> lines=HoopStringTools.dataToLines (data);
     	
     	if (lines==null)
     	{
@@ -290,7 +292,9 @@ public class HoopDocument extends HoopKVDocument
 		
 		if (HoopLink.cleanoutput==true)
 		{
-			HoopLink.fManager.saveContents (HoopLink.fManager.stripExtension (HoopLink.fManager.getURI())+"-cleaned.txt",formatted.toString());
+			HoopFileTools fTools=new HoopFileTools ();
+			
+			HoopLink.fManager.saveContents (fTools.stripExtension (HoopLink.fManager.getURI())+"-cleaned.txt",formatted.toString());
 		}
     }
 }

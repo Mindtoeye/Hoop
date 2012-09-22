@@ -19,7 +19,7 @@
 package edu.cmu.cs.in.base;
 
 import edu.cmu.cs.in.base.HoopRoot;
-import edu.cmu.cs.in.base.io.HoopFileManager;
+import edu.cmu.cs.in.base.io.HoopVFSL;
 import edu.cmu.cs.in.hoop.HoopConsoleInterface;
 import edu.cmu.cs.in.hoop.HoopVersion;
 
@@ -61,7 +61,7 @@ public class HoopBaseLink extends HoopRoot
 	public static int monitorPort=8080;
 			 							 	
 	public static HoopEnvironment environment=null;
-	public static HoopFileManager fManager=null;	
+	public static HoopVFSL fManager=null;	
 			
 	public static String crossDomainPolicy = "<?xml version=\"1.0\"?>\n" +
 	"<!DOCTYPE cross-domain-policy SYSTEM \"http://www.macromedia.com/xml/dtds/cross-domain-policy.dtd\">\n" + 
@@ -82,6 +82,6 @@ public class HoopBaseLink extends HoopRoot
 		HoopVersion versionGenerator=new HoopVersion ();
 							
 		environment=new HoopEnvironment ();
-		fManager=new HoopFileManager ();				
+		fManager=new HoopVFSL ();				
     }      
 }

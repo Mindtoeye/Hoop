@@ -46,6 +46,7 @@ import org.apache.hadoop.util.*;
 
 import edu.cmu.cs.in.search.HoopDataSet;
 import edu.cmu.cs.in.base.HoopRoot;
+import edu.cmu.cs.in.base.HoopStringTools;
 import edu.cmu.cs.in.base.io.HoopFileManager;
 import edu.cmu.cs.in.base.HoopLink;
 //import edu.cmu.cs.in.base.HoopBaseLink;
@@ -283,8 +284,11 @@ public class HoopRemoteTask extends HoopHadoopReporter
     	    	    	
 		BufferedReader reader=null;
 		
-		HoopFileManager fManager=new HoopFileManager ();
-		long termCount=fManager.countLines (HoopLink.datapath);
+		//HoopFileManager fManager=new HoopFileManager ();
+		
+		String content=HoopLink.fManager.loadContents(HoopLink.datapath);
+		
+		long termCount=HoopStringTools.dataToLines (content).size();
     	    	
 		dbg ("Sharding " + termCount + " terms ...");
 		

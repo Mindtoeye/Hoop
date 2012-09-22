@@ -23,6 +23,7 @@ import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.HoopDataType;
 import edu.cmu.cs.in.base.HoopLink;
+import edu.cmu.cs.in.base.io.HoopFileTools;
 import edu.cmu.cs.in.base.kv.HoopKVString;
 import edu.cmu.cs.in.hoop.properties.types.HoopIntegerSerializable;
 import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
@@ -240,12 +241,14 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 		Long stringStamp=HoopLink.fManager.getFileTime(aPath);
 		File namer=new File (aPath);
 		
-		fileKV.setKey (HoopLink.fManager.getFileTimeString(stringStamp));
+		HoopFileTools fTools=new HoopFileTools ();
+		
+		fileKV.setKey (fTools.getFileTimeString(stringStamp));
 		fileKV.setValue (contents);
 		fileKV.add (HoopLink.fManager.getURI());	
 		fileKV.add (namer.getName());
-		fileKV.add (HoopLink.fManager.getFileTimeString(stringStamp)); // Created
-		fileKV.add (HoopLink.fManager.getFileTimeString(stringStamp)); // Modified
+		fileKV.add (fTools.getFileTimeString(stringStamp)); // Created
+		fileKV.add (fTools.getFileTimeString(stringStamp)); // Modified
 		fileKV.add ("unknown"); // Owner
 		
 		/*
