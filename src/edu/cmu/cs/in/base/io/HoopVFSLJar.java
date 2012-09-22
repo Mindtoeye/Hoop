@@ -18,11 +18,13 @@
 
 package edu.cmu.cs.in.base.io;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.jar.JarEntry;
@@ -367,5 +369,282 @@ public class HoopVFSLJar extends HoopRoot implements HoopVFSLInterface
 		}
 		
 		return (null);
+	}
+	/**
+	 * 
+	 */
+	public String cleanPath (String aPath)
+	{
+		while (aPath.indexOf("//")!=-1)
+		{
+			aPath=aPath.replaceAll("//","/");
+		}
+		
+		String clean2=aPath.replaceAll("\\\\\\\\","\\\\");
+		
+		return (clean2);
+	}
+	/**
+	 * 
+	 */
+	private String getJarName (String aFileURI)
+	{
+		int splitIndex=aFileURI.indexOf("?");
+		
+		if (splitIndex==-1)
+			return (aFileURI);
+		
+		return (aFileURI.substring(0, splitIndex));
+	}
+	/**
+	 * 
+	 */
+	private String getJarFileName (String aFileURI)
+	{
+		int splitIndex=aFileURI.indexOf("?");
+		
+		if (splitIndex==-1)
+		{
+			return (aFileURI);
+		}
+		
+		String splitString=aFileURI.substring(splitIndex+1);
+		
+		return (cleanPath (splitString));		
+	}	
+	/**
+	 * We do not close the Jar here. Need to figure out a way
+	 * to take care of that in the context of a VFSL
+	 */	
+	public InputStream getJarInputStream (String aFileURI)
+	{
+		debug ("getJarInputStream ("+aFileURI+")");
+		
+		JarFile jarFile=null;
+		
+		String jarName=getJarName(aFileURI);
+				
+		if (jarName==null)
+		{
+			debug ("Error: jarName is null");
+			return (null);
+		}
+		else
+			debug ("Using jar: " + jarName);
+		
+		try 
+		{
+			jarFile = new JarFile(jarName);
+		} 
+		catch (IOException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return (null);
+		}
+		
+		String jarFileName=getJarFileName (aFileURI);
+		
+		if (jarFileName==null)
+		{
+			debug ("Error: jarFileName is null");
+			
+			try {jarFile.close();} catch (IOException e1) {e1.printStackTrace();}
+			
+			return (null);
+		}
+		else
+			debug ("Using jar: " + jarFileName);
+		
+		JarEntry entry = jarFile.getJarEntry (jarFileName);
+		
+		if (entry==null)
+		{
+			debug ("Error: entry is null");
+			
+			try {jarFile.close();} catch (IOException e1) {e1.printStackTrace();}
+			
+			return (null);
+		}
+		
+		InputStream input=null;
+		
+		try 
+		{
+			input=jarFile.getInputStream (entry);
+		}
+		catch (IOException e) 
+		{
+			debug ("Unable to obtain inputstream for entry in jar");
+			
+			e.printStackTrace();
+			
+			try {jarFile.close();} catch (IOException e1) {e1.printStackTrace();}
+			
+			return (null);
+		}				
+		
+		//try {jarFile.close();} catch (IOException e1) {e1.printStackTrace();}
+		
+		debug ("We should now have an open input stream set on our jar file entry");
+		
+		return (input);
+	}
+	/**
+	 * 
+	 */
+	public String getJarContents (String aFileURI)
+	{    
+		debug ("getJarContents ("+aFileURI+")");
+		
+		JarFile jarFile=null;
+		
+		try 
+		{
+			jarFile = new JarFile(getJarName(aFileURI));
+		} 
+		catch (IOException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return ("");
+		}
+		
+		JarEntry entry = jarFile.getJarEntry(getJarFileName (aFileURI));
+		
+		InputStream input=null;
+		
+		try 
+		{
+			input=jarFile.getInputStream(entry);
+		}
+		catch (IOException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			try {jarFile.close();} catch (IOException e1) {e1.printStackTrace();}
+			
+			return ("");
+		}		
+		
+		InputStreamReader isr = new InputStreamReader(input);
+		BufferedReader reader = new BufferedReader(isr);
+		String line;
+		
+		StringBuffer formatter=new StringBuffer ();
+		
+		try 
+		{
+			while ((line = reader.readLine()) != null)
+			{
+			     //System.out.println(line);
+				formatter.append(line);
+				formatter.append("\n");
+			}
+		} 
+		catch (IOException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return ("");
+		}
+		
+		try {jarFile.close();} catch (IOException e1) {e1.printStackTrace();}
+		
+		return (formatter.toString());
+	}	
+	/**
+	 * 
+	 */
+	public Boolean jarFileExist (String aJarURI)
+	{
+		debug ("jarFileExist ("+aJarURI+")");
+		
+		String aJar=getJarName (aJarURI);
+		String filePath=getJarFileName (aJarURI);
+		
+		debug ("Looking for " + filePath + " in " + aJar);
+		
+		JarFile jarFile=null;
+		
+		try 
+		{
+			jarFile=new JarFile(aJar);
+		} 
+		catch (IOException e) 
+		{
+			e.printStackTrace();
+						
+			return (false);
+		}		
+		
+		Enumeration<JarEntry> enm = jarFile.entries();
+		
+		while (enm.hasMoreElements())
+		{	         
+	         JarEntry entry = (JarEntry) enm.nextElement();
+	         
+	         String name = entry.getName();
+	         
+	         if (name.equalsIgnoreCase(filePath)==true)
+	         {
+	        	 debug ("File found!");
+	        	 
+	        	 try {jarFile.close();} catch (IOException e1) {e1.printStackTrace();}
+	        	 
+	        	 return(true);
+	         }	         
+		}   
+				
+		debug ("File not found in jar!");
+		
+		try {jarFile.close();} catch (IOException e1) {e1.printStackTrace();}
+		
+		return (false);
+	}
+	/**
+	 * 
+	 */
+	public void jarListContents (String aJarURI)
+	{
+		debug ("jarListContents ("+aJarURI+")");
+		
+		String aJar=getJarName (aJarURI);
+		
+		JarFile jarFile=null;
+		
+		try 
+		{
+			jarFile=new JarFile(aJar);
+		} 
+		catch (IOException e) 
+		{
+			e.printStackTrace();
+						
+			return;
+		}
+		
+		Enumeration<JarEntry> enm = jarFile.entries();
+		
+		while (enm.hasMoreElements())
+		{	         
+	         JarEntry entry = (JarEntry) enm.nextElement();
+	         String name = entry.getName();
+	         long size = entry.getSize();
+	         long compressedSize = entry.getCompressedSize();
+	         //System.out.println(name + "\t" + size + "\t" + compressedSize);	         
+	         debug (name + "\t" + size + "\t" + compressedSize);
+		}   
+		
+		try 
+		{
+			jarFile.close();
+		} 
+		catch (IOException e1) 
+		{
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}		
 	}	
 }
