@@ -26,25 +26,30 @@ import edu.cmu.cs.in.base.kv.HoopKVString;
 import edu.cmu.cs.in.hoop.hoops.base.HoopAnalyze;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
+import edu.cmu.cs.in.hoop.properties.types.HoopIntegerSerializable;
 
 /**
 * 
 */
-public class HoopKVStats extends HoopAnalyze implements HoopInterface
+public class HoopSemanticPatterns extends HoopAnalyze implements HoopInterface
 {    				
-	private static final long serialVersionUID = -3038640674083419228L;
+	private static final long serialVersionUID = -1639663485291926304L;
+	
+	protected HoopIntegerSerializable maxGap=null;
 	
 	/**
 	 *
 	 */
-    public HoopKVStats () 
+    public HoopSemanticPatterns () 
     {
-		setClassName ("HoopKVStats");
-		debug ("HoopKVStats ()");
+		setClassName ("HoopSemanticPatterns");
+		debug ("HoopSemanticPatterns ()");
 				
-		removeOutPort ("KV");
+		//removeOutPort ("KV");
 		
-		setHoopDescription ("Find some basic stats numbers");
+		setHoopDescription ("Create features based on semantic patterns");
+		
+		maxGap=new HoopIntegerSerializable (this,"maxGap",5);
     }
 	/**
 	 *
@@ -81,6 +86,6 @@ public class HoopKVStats extends HoopAnalyze implements HoopInterface
 	 */
 	public HoopBase copy ()
 	{
-		return (new HoopKVStats ());
+		return (new HoopSemanticPatterns ());
 	}	
 }

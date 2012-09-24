@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import edu.cmu.cs.in.hoop.hoops.analyze.HoopCrossFold;
 import edu.cmu.cs.in.hoop.hoops.analyze.HoopKVStats;
 import edu.cmu.cs.in.hoop.hoops.analyze.HoopNaiveBayes;
+import edu.cmu.cs.in.hoop.hoops.analyze.HoopSemanticPatterns;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopDisplayBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopFileLoadBase;
@@ -205,5 +206,6 @@ public class HoopManager extends HoopBase
     	addTemplate (new HoopDocumentUpdater ());
     	addTemplate (new HoopLabelKV ());
     	addTemplate (new HoopCrossFold ());
+    	addTemplate (new HoopSemanticPatterns ());
     }
 }

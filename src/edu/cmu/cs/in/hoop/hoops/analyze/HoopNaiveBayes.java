@@ -31,6 +31,8 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
 */
 public class HoopNaiveBayes extends HoopAnalyze implements HoopInterface
 {    				
+	private static final long serialVersionUID = 1749878068316068171L;
+	
 	/**
 	 *
 	 */

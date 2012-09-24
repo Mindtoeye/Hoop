@@ -31,6 +31,8 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
 */
 public class HoopCrossFold extends HoopAnalyze implements HoopInterface
 {    				
+	private static final long serialVersionUID = -5912525306830079787L;
+	
 	/**
 	 *
 	 */
