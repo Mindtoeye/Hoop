@@ -58,6 +58,20 @@ public class HoopSemanticPatterns extends HoopAnalyze implements HoopInterface
 	 * marks. Discovered patterns are stored per sentence and then further
 	 * refined to meet the semantic criteria encoded in this hoop or any
 	 * derived hoops.
+	 * 
+	 * Based on:
+	 * 
+	 * Philip Gianfortoni, David Adamson, and Carolyn P. Rosé. 2011. Modeling 
+	 * of stylistic variation in social media with stretchy patterns. In 
+	 * Proceedings of the First Workshop on Algorithms and Resources for 
+	 * Modelling of Dialects and Language Varieties (DIALECTS '11). Association 
+	 * for Computational Linguistics, Stroudsburg, PA, USA, 49-59. 
+	 * 
+	 * Jacob Eisenstein and Regina Barzilay. 2008. Bayesian unsupervised topic 
+	 * segmentation. In Proceedings of the Conference on Empirical Methods in 
+	 * Natural Language Processing (EMNLP '08). Association for Computational 
+	 * Linguistics, Stroudsburg, PA, USA, 334-343.
+	 * 
 	 */
 	public Boolean runHoop (HoopBase inHoop)
 	{		
@@ -70,17 +84,17 @@ public class HoopSemanticPatterns extends HoopAnalyze implements HoopInterface
 			HoopKVString overview=new HoopKVString ();
 			overview.setKey("N");
 			overview.setValue(String.format("%d",inData.size()));
-			
+
 			for (int t=0;t<inData.size();t++)
 			{
 				HoopKVInteger aKV=(HoopKVInteger) inData.get(t);
 												
 				ArrayList<Object> vals=aKV.getValuesRaw();
-				
+
 				for (int i=0;i<vals.size();i++)
 				{
 
-				}				
+				}
 			}			
 		}	
 						

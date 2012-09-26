@@ -519,6 +519,8 @@ public class HoopProject extends HoopProjectFile
 			}
 		}
 		
+		save ();
+		
 		return (true);
 	}
 	/**
