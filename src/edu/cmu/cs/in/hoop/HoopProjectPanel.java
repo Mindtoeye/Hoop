@@ -25,6 +25,7 @@ package edu.cmu.cs.in.hoop;
 
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -34,6 +35,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -332,6 +335,8 @@ public class HoopProjectPanel extends HoopEmbeddedJPanel implements MouseListene
 	{
 		debug ("mousePressed ()");
 	
+		Boolean resolved=false;
+		
 		if (e.getClickCount()==2)
 		{				
 			DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
@@ -346,7 +351,7 @@ public class HoopProjectPanel extends HoopEmbeddedJPanel implements MouseListene
 						
 						alert ("Opening linked file ["+anExternalFile.getInstanceName()+"] with external viewer");
 						
-						if (anExternalFile.getInstanceName().indexOf(".txt")!=-1)
+						if ((anExternalFile.getInstanceName().indexOf(".txt")!=-1) && (resolved==false))
 						{
 							HoopTextViewer test=(HoopTextViewer) HoopLink.getWindow("Text Viewer");
 						
@@ -359,9 +364,11 @@ public class HoopProjectPanel extends HoopEmbeddedJPanel implements MouseListene
 							test.showFile(anExternalFile);
 						
 							HoopLink.popWindow ("Text Viewer");
+							
+							resolved=true;
 						}
 						
-						if (anExternalFile.getInstanceName().indexOf(".xml")!=-1)
+						if ((anExternalFile.getInstanceName().indexOf(".xml")!=-1) && (resolved==false))
 						{
 							HoopXMLFileViewer test=(HoopXMLFileViewer) HoopLink.getWindow("XML Viewer");
 						
@@ -374,16 +381,18 @@ public class HoopProjectPanel extends HoopEmbeddedJPanel implements MouseListene
 							test.showFile(HoopLink.project.getBasePath()+"/"+anExternalFile.getInstanceName());
 						
 							HoopLink.popWindow ("XML Viewer");
+							
+							resolved=true;
 						}						
 					}
 					
 					if (node.getUserObject() instanceof HoopFile)
-					{
+					{						
 						HoopFile anExternalFile= (HoopFile) node.getUserObject();
 						
 						alert ("Opening linked file ["+anExternalFile.getInstanceName()+"] with external viewer");
 						
-						if (anExternalFile.getInstanceName().indexOf(".txt")!=-1)
+						if ((anExternalFile.getInstanceName().indexOf(".txt")!=-1) && (resolved==false))
 						{
 							HoopTextViewer test=(HoopTextViewer) HoopLink.getWindow("Text Viewer");
 						
@@ -396,9 +405,11 @@ public class HoopProjectPanel extends HoopEmbeddedJPanel implements MouseListene
 							test.showFile(HoopLink.project.getBasePath()+"/"+anExternalFile.getInstanceName());
 						
 							HoopLink.popWindow ("Text Viewer");
+							
+							resolved=true;
 						}	
 						
-						if (anExternalFile.getInstanceName().indexOf(".xml")!=-1)
+						if ((anExternalFile.getInstanceName().indexOf(".xml")!=-1) && (resolved==false))
 						{
 							HoopXMLFileViewer test=(HoopXMLFileViewer) HoopLink.getWindow("XML Viewer");
 						
@@ -411,7 +422,26 @@ public class HoopProjectPanel extends HoopEmbeddedJPanel implements MouseListene
 							test.showFile(HoopLink.project.getBasePath()+"/"+anExternalFile.getInstanceName());
 						
 							HoopLink.popWindow ("XML Viewer");
-						}						
+							
+							resolved=true;
+						}
+						
+						if (resolved==false)
+						{
+							File toOpen=new File (HoopLink.project.getBasePath()+"/"+anExternalFile.getInstanceName());
+							
+							Desktop dt = Desktop.getDesktop();
+							
+							try 
+							{
+								dt.open(toOpen);
+							} 
+							catch (IOException e1) 
+							{							
+								e1.printStackTrace();
+								alert ("IO error opening file with external viewer");
+							}							
+						}
 					}					
 				}
 			}

@@ -33,6 +33,8 @@ import edu.cmu.cs.in.hoop.properties.types.HoopStringSerializable;
  */
 public class HoopCSVReader extends HoopTransformBase implements HoopInterface
 {
+	private static final long serialVersionUID = -1620494491175026098L;
+
 	//private String mode="COMMA"; // TAB,COMMA,DASH
 	private Boolean skipHeader=true;
 	

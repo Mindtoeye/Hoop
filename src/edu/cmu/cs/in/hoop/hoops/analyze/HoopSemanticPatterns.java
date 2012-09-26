@@ -52,7 +52,12 @@ public class HoopSemanticPatterns extends HoopAnalyze implements HoopInterface
 		maxGap=new HoopIntegerSerializable (this,"maxGap",5);
     }
 	/**
-	 *
+	 * We assume here a stream of tokens or terms with a sliding window that
+	 * gets reset when an end of sentence marker is found. End of sentence
+	 * markers are either newlines, periods, question marks or exclamation
+	 * marks. Discovered patterns are stored per sentence and then further
+	 * refined to meet the semantic criteria encoded in this hoop or any
+	 * derived hoops.
 	 */
 	public Boolean runHoop (HoopBase inHoop)
 	{		

@@ -486,14 +486,35 @@ public class HoopProject extends HoopProjectFile
 				
 				if (testFile.isFile()==true)
 				{
-					if (this.getFileByName(aFileString)==null)
+					
+					if (aFileString.toLowerCase().equals("vocabulary.txt")==true)
 					{
-						HoopFile aDir=new HoopFile ();
-						aDir.setInstanceName(aFileString);
-						aDir.setIsDir(false);
+						debug ("Detected reserved name: vocabulary.txt");
 						
-						files.add(aDir);						
-					}					
+						if (getFileByClass ("HoopVocabulary")==null)
+						{
+							debug ("Attempting to load custom external vocabulary ...");
+							
+							HoopVocabulary vocab=new HoopVocabulary ();
+							vocab.fromTextFile (getBasePath ()+"/"+aFileString);
+							
+							this.files.add(vocab);
+							
+							vocab.setFileURI(getBasePath ()+"/vocabulary.xml");					
+							vocab.save();
+						}
+					}
+					else
+					{					
+						if (this.getFileByName(aFileString)==null)
+						{
+							HoopFile aDir=new HoopFile ();
+							aDir.setInstanceName(aFileString);
+							aDir.setIsDir(false);
+						
+							files.add(aDir);						
+						}
+					}	
 				}
 			}
 		}
