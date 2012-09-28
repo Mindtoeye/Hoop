@@ -32,6 +32,8 @@ import edu.cmu.cs.in.hoop.properties.types.HoopStringSerializable;
  */
 public class HoopURLReader extends HoopLoadBase
 {	
+	private static final long serialVersionUID = -1130808397513723791L;
+	
 	public	HoopStringSerializable URL=null;
 	private HoopHTTPReader reader=null;
 	

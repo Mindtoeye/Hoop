@@ -25,6 +25,8 @@ import edu.cmu.cs.in.base.HoopLink;
 */
 public class HoopIOBase extends HoopBase implements HoopInterface
 {    					
+	private static final long serialVersionUID = -7423147042458091826L;
+	
 	/**
 	 *
 	 */

@@ -30,6 +30,8 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopFileSaveBase;
 */
 public class HoopTextFileSave extends HoopFileSaveBase
 {    				
+	private static final long serialVersionUID = 7623328975063009569L;
+	
 	/**
 	 *
 	 */

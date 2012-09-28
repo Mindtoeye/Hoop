@@ -36,7 +36,7 @@ public class HoopVisualRuleFeature extends HoopVisualFeature implements HoopVisu
 	private ArrayList <String> breakFeatures=null;
 	private float frequency=(float) 0.0;
 	
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
     public HoopVisualRuleFeature () 
@@ -45,7 +45,7 @@ public class HoopVisualRuleFeature extends HoopVisualFeature implements HoopVisu
 		//debug ("HoopVisualRuleFeature ()");
 		breakFeatures=new ArrayList<String> ();
     }
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
     public HoopVisualRuleFeature (String aText) 
@@ -57,7 +57,7 @@ public class HoopVisualRuleFeature extends HoopVisualFeature implements HoopVisu
 		
 		breakFeatures=new ArrayList<String> ();		
     }     
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */	
 	public String toString()
@@ -70,7 +70,7 @@ public class HoopVisualRuleFeature extends HoopVisualFeature implements HoopVisu
 		
 		return formatted.toString();
 	}	
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */	
 	public void fromXML (Node aNode)
@@ -118,7 +118,7 @@ public class HoopVisualRuleFeature extends HoopVisualFeature implements HoopVisu
              }    
 		 }	
 	}	
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
 	public String toXML ()
@@ -140,7 +140,7 @@ public class HoopVisualRuleFeature extends HoopVisualFeature implements HoopVisu
 		formatter.append("\" />");
 		return (formatter.toString());
 	}	
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */
 	public HoopVisualRuleFeature clone ()
@@ -151,7 +151,7 @@ public class HoopVisualRuleFeature extends HoopVisualFeature implements HoopVisu
 		newRule.setFrequency(getFrequency());
 		return (newRule);
 	}
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */		
 	public void setDescription(String description) 
@@ -159,42 +159,42 @@ public class HoopVisualRuleFeature extends HoopVisualFeature implements HoopVisu
 		this.text=description;
 		this.description=description;
 	}
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */	
 	public String getDescription() 
 	{
 		return description;
 	}
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */		
 	public void setExample(String example) 
 	{
 		this.example = example;
 	}
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */	
 	public String getExample() 
 	{
 		return example;
 	}
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */		
 	public void setFrequency(float frequency) 
 	{
 		this.frequency = frequency;
 	}
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */	
 	public float getFrequency() 
 	{
 		return frequency;
 	}
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */		
 	public void setBreakTerm(String breakTerm) 
@@ -208,19 +208,18 @@ public class HoopVisualRuleFeature extends HoopVisualFeature implements HoopVisu
 		
 		debug ("Generated " + breakFeatures.size() + " break features");
 	}
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */	
 	public String getBreakTerm() 
 	{
 		return breakTerm;
 	}
-	/**------------------------------------------------------------------------------------
+	/**
 	 *
 	 */	
 	public ArrayList <String> getBreakFeatures () 
 	{
 		return breakFeatures;
-	}	
-	//-------------------------------------------------------------------------------------	
+	}		
 }
