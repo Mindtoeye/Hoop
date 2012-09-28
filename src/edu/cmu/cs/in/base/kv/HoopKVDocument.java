@@ -66,6 +66,7 @@ import edu.cmu.cs.in.base.HoopRoot;
 public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Serializable
 {    						
 	private static final long serialVersionUID = -239882069750434354L;
+	
 	private HoopKVInteger rank=null;
 	private HoopKVFloat score=null;
 	
@@ -88,9 +89,11 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 	
 	public HoopKVList views=null;
 	
-	public HoopKVString tags=null; // Use this variable for anything from dataset tagging to classification
+	/// Use this variable for anything from dataset tagging to classification
+	public HoopKVString tags=null; 
 		
-	public HoopKVString additional=null; // Any other attributes that should be stored
+	/// Any other attributes that should be stored
+	public HoopKVString additional=null;
 		
 	// 250 characters for now, CHANGE THIS TO WHOLE TERMS, IF AVAILABLE
 	private int abstrSize=250; 

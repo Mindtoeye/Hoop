@@ -31,6 +31,8 @@ import edu.cmu.cs.in.hoop.HoopConsole;
 */
 public class HoopDisplayBase extends HoopBase implements HoopInterface
 {    	
+	private static final long serialVersionUID = 1120526232074210733L;
+
 	private HoopConsole viewer=null;
 	
 	private HoopSentenceWall wall=null;
