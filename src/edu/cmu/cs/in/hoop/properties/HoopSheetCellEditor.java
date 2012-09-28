@@ -161,32 +161,39 @@ public class HoopSheetCellEditor extends AbstractCellEditor implements TableCell
         {
         	if (obj.getType()==HoopDataType.STRING)
         	{
+        		debug ("Returning HoopDataType.STRING");
         		textComponent.setText (obj.getValue());
         	}	
 
         	if (obj.getType()==HoopDataType.BOOLEAN)
         	{
+        		debug ("Returning HoopDataType.BOOLEAN");
         		return (booleanComponent);
         	}
         
         	if (obj.getType()==HoopDataType.FONT)
         	{
+        		debug ("Returning HoopDataType.FONT");
         		return (fontComponent);
         	}
         	
         	if (obj.getType()==HoopDataType.INT)
         	{
+        		debug ("Returning HoopDataType.INT");
         		numberComponent.setText(obj.getValue());
         		return (numberComponent);
         	}        	
         
         	if (obj.getType()==HoopDataType.COLOR)
         	{
+        		debug ("Returning HoopDataType.COLOR");
         		return (colorDelegate);
         	}
         	
         	if (obj.getType()==HoopDataType.ENUM)
         	{
+        		debug ("Returning HoopDataType.ENUM");
+        		
         		HoopEnumSerializable transformer=(HoopEnumSerializable) obj;
         		
         		ArrayList <String> enumList=transformer.getOptions();
@@ -204,6 +211,8 @@ public class HoopSheetCellEditor extends AbstractCellEditor implements TableCell
         	
         	if (obj.getType()==HoopDataType.URI)
         	{
+        		debug ("Returning HoopDataType.URI");
+        		
     			TableCellRenderer renderer=table.getCellRenderer (rowIndex,vColIndex);
 				
     			if (renderer instanceof HoopSheetPathRenderer)
@@ -339,18 +348,18 @@ public class HoopSheetCellEditor extends AbstractCellEditor implements TableCell
 	{
 		debug ("itemStateChanged ()");
 		
-		 JComboBox cb=(JComboBox) event.getSource();
+		JComboBox cb=(JComboBox) event.getSource();
 		 
-		 if (cb==enumComponent)
-		 {
-			 debug ("Assigning selected value ("+(String) enumComponent.getSelectedItem()+") to enum object ...");
-			 obj.setValue((String) enumComponent.getSelectedItem());
-		 }
+		if (cb==enumComponent)
+		{
+			debug ("Assigning selected value ("+(String) enumComponent.getSelectedItem()+") to enum object ...");
+			obj.setValue((String) enumComponent.getSelectedItem());
+		}
 		 
-		 if (cb==booleanComponent)
-		 {
-			 debug ("Assigning selected value ("+(String) booleanComponent.getSelectedItem()+") to boolean object ...");
-			 obj.setValue((String) booleanComponent.getSelectedItem());			 
-		 }
+		if (cb==booleanComponent)
+		{
+			debug ("Assigning selected value ("+(String) booleanComponent.getSelectedItem()+") to boolean object ...");
+			obj.setValue((String) booleanComponent.getSelectedItem());			 
+		}
 	}    
 }

@@ -596,11 +596,17 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 		if (anElement.getAttribute("name")!=null)
 		{
 			this.setInstanceName(anElement.getAttributeValue("name"));
+			
 			Integer tester=Integer.parseInt(anElement.getAttributeValue ("name"));
 		
 			if (tester>HoopLink.hoopInstanceIndex)
 				HoopLink.hoopInstanceIndex=tester;
 		}	
+		
+		if (anElement.getAttribute("active")!=null)
+		{
+			this.setActive(Boolean.parseBoolean(anElement.getAttributeValue ("active")));
+		}
 		
 		List <?> hoopList=anElement.getChildren ();
 		
@@ -670,6 +676,7 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 		hoopElement.setAttribute("id",this.getHoopID());
 		hoopElement.setAttribute("class",this.getClassName());
 		hoopElement.setAttribute("name",this.getInstanceName());
+		hoopElement.setAttribute("active",this.getActive().toString());
 		
 		Element visualElement=new Element ("visual");			
 		visualElement.setAttribute("x",String.format("%d",this.getX()));

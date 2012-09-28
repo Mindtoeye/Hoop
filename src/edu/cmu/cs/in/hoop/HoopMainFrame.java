@@ -43,7 +43,6 @@ import edu.cmu.cs.in.hoop.visualizers.HoopCluster;
 import edu.cmu.cs.in.hoop.visualizers.HoopScatterPlot;
 
 /** 
- * @author vvelsen
  *
  */
 public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener, HoopMessageReceiver
@@ -631,6 +630,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     protected JMenu buildRunMenu() 
     {
     	JMenu runMenu = new JMenu("Run");
+    	
     	JMenuItem runOnceItem = new JMenuItem("Run");
     	runOnceItem.setIcon(HoopLink.getImageByName("run.png"));
     	
@@ -641,9 +641,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     	JMenuItem runForeverItem = new JMenuItem("Run Until Stopped");
     	runForeverItem.setIcon(HoopLink.getImageByName("run-forever.png"));
     	*/
-    	
-    	JMenuItem debugItem = new JMenuItem("Debug");
-
+    	    	
     	runOnceItem.addActionListener(new ActionListener() 
     	{
     		public void actionPerformed(ActionEvent e) 
@@ -691,7 +689,10 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     			runner.start();   			
     		}
     	});
-    	*/    	
+    	*/ 
+    	
+    	JMenuItem debugItem = new JMenuItem("Debug");
+    	debugItem.setIcon(HoopLink.getImageByName("debug.png"));
 
     	debugItem.addActionListener(new ActionListener() 
     	{

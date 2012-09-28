@@ -19,15 +19,10 @@
 package edu.cmu.cs.in.hoop.hoops.transform;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-
-import com.sleepycat.collections.StoredMap;
 
 import edu.cmu.cs.in.base.HoopLink;
-import edu.cmu.cs.in.base.HoopStringTools;
 import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.base.kv.HoopKVDocument;
-import edu.cmu.cs.in.base.kv.HoopKVLong;
 import edu.cmu.cs.in.base.kv.HoopKVString;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopTransformBase;

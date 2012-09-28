@@ -159,8 +159,11 @@ public class HoopFileTools extends HoopRoot
 		// Check to see if the directory exists yet ...
 		
 		File checker=new File (aFileURI);
-		
+				
 		String basePath=checker.getParent();
+		
+		if (basePath==null)
+			return (true);
 		
 		if (createDirectory (basePath)==false)
 			return (false);

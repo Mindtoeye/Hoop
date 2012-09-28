@@ -254,8 +254,8 @@ public class HoopProject extends HoopProjectFile
 	 */
 	public Boolean save ()
 	{
-		debug ("save ()");
-		
+		debug ("save ("+files.size()+")");
+					
 		for (int i=0;i<files.size();i++)
 		{
 			HoopFile tFile=files.get(i);
@@ -264,11 +264,23 @@ public class HoopProject extends HoopProjectFile
 			{			
 				HoopProjectFile saver=(HoopProjectFile) tFile;
 				
-				// Could be pre-defined you know
 				if (saver.getFileURI().isEmpty()==true)
 				{
+					debug ("File name not assigned yet to file, setting it to: " + this.getBasePath ()+"/"+tFile.getInstanceName());
+					
 					saver.setFileURI(this.getBasePath ()+"/"+tFile.getInstanceName());
 				}	
+				else
+				{
+					debug ("Ensuring proper basepath: " + this.getBasePath());
+					
+					if (saver.getFileURI().indexOf(this.getBasePath ())==-1)
+					{
+						saver.setFileURI(this.getBasePath ()+"/"+saver.getFileURI());
+					}
+					
+					debug ("File path re-configured to be: " + saver.getFileURI());
+				}
 			
 				saver.save();
 			}	
@@ -277,35 +289,35 @@ public class HoopProject extends HoopProjectFile
 		return (super.save());
 	}	
 	/**
-	 * 
+	 *
 	 */
 	public Boolean saveAs (String aURI)
 	{
 		debug ("saveAs ("+aURI+")");
-		
+
 		return (true);
-	}		
+	}
 	/**
-	 * 
+	 *
 	 */
 	public Boolean load (String aURI)
 	{
 		debug ("load ("+aURI+")");
-		
+
 		File fLoader=new File (aURI);
 		if (fLoader.isDirectory()==true)
 		{
 			setFileURI (aURI+"/.hprj");
 		}
-		
+
 		if (HoopLink.fManager.doesFileExist (this.getFileURI())==false)
 		{
 			debug ("Error, file does not exist: " + this.getFileURI());
 			return (false);
 		}
-		
+
 		reset ();
-		
+
 		return (super.load(this.getFileURI()));
 	}
 	/**
