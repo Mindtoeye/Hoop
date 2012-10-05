@@ -175,21 +175,21 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 			{
 				addOutPort (outPorts.get(j));
 			}			
-			
+
 			leftPortBox.add(Box.createVerticalGlue());
 			rightPortBox.add(Box.createVerticalGlue());
 		}		
-				
+
 		if ((aHoop.getPropertiesPanel()!=null) || (aHoop.getProperties().size()>0))
-		{		
+		{	
 			if ((propPanel!=null) && (aHoop.getClassName().equals("HoopStart")==false))
 			{
 				propertiesPanel=new HoopInspectablePanel (hoop.getHoopDescription());
-										
+
 				propPanel.addPropertyPanel (propertiesPanel);
-				
+
 				JPanel hoopPanel=aHoop.getPropertiesPanel();
-				
+
 				if (hoopPanel!=null)
 				{
 					propertiesPanel.setPanelContent (hoopPanel);
@@ -202,9 +202,9 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 				}
 			}
 		}	
-		
+
 		debug ("setHoop () done");
-	}	
+	}
 	/**
 	 * 
 	 */

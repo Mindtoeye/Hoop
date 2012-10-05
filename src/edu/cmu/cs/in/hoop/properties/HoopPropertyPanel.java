@@ -18,6 +18,8 @@
 
 package edu.cmu.cs.in.hoop.properties;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -29,6 +31,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JToggleButton;
 
@@ -45,7 +48,7 @@ public class HoopPropertyPanel extends HoopEmbeddedJPanel implements ActionListe
 		
     private Box hoopPropertyBox=null;
     private JScrollPane contentScroller=null;
-    private Box contentBox=null;
+    private JPanel contentBox=null;
     
     private JButton expandButton=null;
     private JButton foldButton=null;
@@ -93,12 +96,25 @@ public class HoopPropertyPanel extends HoopEmbeddedJPanel implements ActionListe
 		controlBox.add(foldButton);			
 		controlBox.add(Box.createHorizontalGlue());
                         
-		contentBox=new Box (BoxLayout.Y_AXIS);
+		contentBox=new JPanel ();
+		contentBox.setLayout(new BoxLayout (contentBox,BoxLayout.Y_AXIS));
 		contentBox.setMinimumSize(new Dimension (20,20));
+		contentBox.setBackground(new Color (220,220,220));
+		contentBox.setOpaque(true);
 		contentBox.setPreferredSize(new Dimension (200,300));
 		contentBox.add(Box.createVerticalGlue());
+		
+		/*
+		contentBox=new Box (BoxLayout.Y_AXIS);
+		contentBox.setMinimumSize(new Dimension (20,20));
+		contentBox.setBackground(new Color (220,220,220));
+		contentBox.setOpaque(true);
+		contentBox.setPreferredSize(new Dimension (200,300));
+		contentBox.add(Box.createVerticalGlue());
+		*/
         		
         contentScroller=new JScrollPane (contentBox);
+        contentScroller.setMinimumSize(new Dimension (20,20));
         contentScroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         
         hoopPropertyBox.add (controlBox);
