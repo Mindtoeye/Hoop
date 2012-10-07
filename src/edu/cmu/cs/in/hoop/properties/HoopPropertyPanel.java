@@ -18,11 +18,12 @@
 
 package edu.cmu.cs.in.hoop.properties;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -95,23 +96,12 @@ public class HoopPropertyPanel extends HoopEmbeddedJPanel implements ActionListe
 		controlBox.add (Box.createRigidArea(new Dimension(2,0)));
 		controlBox.add(foldButton);			
 		controlBox.add(Box.createHorizontalGlue());
-                        
+          		
 		contentBox=new JPanel ();
-		contentBox.setLayout(new BoxLayout (contentBox,BoxLayout.Y_AXIS));
-		contentBox.setMinimumSize(new Dimension (20,20));
+		contentBox.setLayout(new GridBagLayout());
 		contentBox.setBackground(new Color (220,220,220));
 		contentBox.setOpaque(true);
-		contentBox.setPreferredSize(new Dimension (200,300));
-		contentBox.add(Box.createVerticalGlue());
-		
-		/*
-		contentBox=new Box (BoxLayout.Y_AXIS);
 		contentBox.setMinimumSize(new Dimension (20,20));
-		contentBox.setBackground(new Color (220,220,220));
-		contentBox.setOpaque(true);
-		contentBox.setPreferredSize(new Dimension (200,300));
-		contentBox.add(Box.createVerticalGlue());
-		*/
         		
         contentScroller=new JScrollPane (contentBox);
         contentScroller.setMinimumSize(new Dimension (20,20));
@@ -130,13 +120,22 @@ public class HoopPropertyPanel extends HoopEmbeddedJPanel implements ActionListe
 	{
 		debug ("addPropertyPanel ("+(contentBox.getComponentCount()-1)+")");
 					
+		HoopLink.gbc.gridx = 1;
+		HoopLink.gbc.fill=GridBagConstraints.HORIZONTAL;
+				
 		if (contentBox.getComponentCount()==0) // THIS SHOULD NOT HAPPEN
 		{
-			contentBox.add (aPanel);
-			contentBox.add(Box.createVerticalGlue());
+			HoopLink.gbc.gridy = contentBox.getComponentCount()+1;			
+			contentBox.add (aPanel,HoopLink.gbc);
+			
+			HoopLink.gbc.gridy = contentBox.getComponentCount()+1;
+			contentBox.add (Box.createVerticalGlue(),HoopLink.gbc);
 		}
 		else
-			contentBox.add (aPanel,contentBox.getComponentCount()-1);
+		{
+			contentBox.add (aPanel,HoopLink.gbc,contentBox.getComponentCount()-1);
+			HoopLink.gbc.gridy = contentBox.getComponentCount()+1;
+		}
 		
 		//listViews ();
 		

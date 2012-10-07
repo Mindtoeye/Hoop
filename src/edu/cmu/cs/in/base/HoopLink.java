@@ -19,6 +19,7 @@
 package edu.cmu.cs.in.base;
 
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
 import java.util.ArrayList;
 import java.util.prefs.Preferences;
 
@@ -326,6 +327,8 @@ public class HoopLink extends HoopProperties
 	public static HoopTabDraggable center=null;
 	public static HoopTabDraggable bottom=null;	
 	
+	public static GridBagConstraints gbc = null;
+	
 	// Networking access
 	
 	public static HoopStreamedSocket brokerConnection=null;
@@ -381,7 +384,13 @@ public class HoopLink extends HoopProperties
 			hoopManager=new HoopManager ();
 		
 		if (hoopGraphManager==null)
-			hoopGraphManager=new HoopGraphManager ();		
+			hoopGraphManager=new HoopGraphManager ();
+		
+		gbc = new GridBagConstraints();
+		gbc.fill = GridBagConstraints.NONE;
+		gbc.anchor = GridBagConstraints.NORTHWEST;
+		gbc.weighty = 1;
+		gbc.weightx = 1;
     }  
     /**
      * 
