@@ -66,12 +66,16 @@ public class HoopStdout extends HoopSaveBase implements HoopInterface
 			
 			userIO.setOutHoop(this);
 			
+			StringBuffer formatted=new StringBuffer ();
+			
 			for (int i=0;i<inData.size();i++)
 			{
 				HoopKVInteger aKV=(HoopKVInteger) inData.get(i);
 				
-				userIO.processOutput (aKV.getKeyString()+" : " + aKV.getValue());					
+				formatted.append (aKV.getKeyString()+" : " + aKV.getValue()+"\n");					
 			}			
+			
+			userIO.processOutput (formatted.toString());
 		}
 		else
 		{
