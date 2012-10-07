@@ -44,6 +44,24 @@ public class HoopGraphManager extends HoopBase
 	/**
 	 * 
 	 */
+	public ArrayList <HoopBase> getHoopList ()
+	{
+		debug ("getHoopList ()");
+		
+		HoopGraphFile grFile=(HoopGraphFile) HoopLink.project.getFileByClass (new HoopGraphFile ().getClassName());
+		
+		if (grFile!=null)
+		{
+			ArrayList <HoopBase> hoops=grFile.getHoops();
+			
+			return (hoops);
+		}
+		
+		return (null);
+	}
+	/**
+	 * 
+	 */
 	public HoopBase findHoopByID (String aRef)
 	{
 		debug ("findHoopByID (String)");

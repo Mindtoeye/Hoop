@@ -26,11 +26,13 @@ import edu.cmu.cs.in.base.kv.HoopKVString;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopFileLoadBase;
 import edu.cmu.cs.in.hoop.properties.types.HoopEnumSerializable;
-import edu.cmu.cs.in.hoop.properties.types.HoopIntegerSerializable;
+//import edu.cmu.cs.in.hoop.properties.types.HoopIntegerSerializable;
 import edu.cmu.cs.in.search.HoopDataSet;
 
 public class HoopDocumentReader extends HoopFileLoadBase
 {
+	private static final long serialVersionUID = 3069547626921137451L;
+	
 	private HoopEnumSerializable selectedField=null;
 		
 	/**

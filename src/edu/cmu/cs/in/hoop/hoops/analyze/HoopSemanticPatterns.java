@@ -26,28 +26,52 @@ import edu.cmu.cs.in.base.kv.HoopKVString;
 import edu.cmu.cs.in.hoop.hoops.base.HoopAnalyze;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
+import edu.cmu.cs.in.hoop.properties.types.HoopIntegerSerializable;
 
 /**
 * 
 */
-public class HoopKVStats extends HoopAnalyze implements HoopInterface
+public class HoopSemanticPatterns extends HoopAnalyze implements HoopInterface
 {    				
-	private static final long serialVersionUID = -3038640674083419228L;
+	private static final long serialVersionUID = -1639663485291926304L;
+	
+	protected HoopIntegerSerializable maxGap=null;
 	
 	/**
 	 *
 	 */
-    public HoopKVStats () 
+    public HoopSemanticPatterns () 
     {
-		setClassName ("HoopKVStats");
-		debug ("HoopKVStats ()");
+		setClassName ("HoopSemanticPatterns");
+		debug ("HoopSemanticPatterns ()");
 				
-		removeOutPort ("KV");
+		//removeOutPort ("KV");
 		
-		setHoopDescription ("Find some basic stats numbers");
+		setHoopDescription ("Create features based on semantic patterns");
+		
+		maxGap=new HoopIntegerSerializable (this,"maxGap",5);
     }
 	/**
-	 *
+	 * We assume here a stream of tokens or terms with a sliding window that
+	 * gets reset when an end of sentence marker is found. End of sentence
+	 * markers are either newlines, periods, question marks or exclamation
+	 * marks. Discovered patterns are stored per sentence and then further
+	 * refined to meet the semantic criteria encoded in this hoop or any
+	 * derived hoops.
+	 * 
+	 * Based on:
+	 * 
+	 * Philip Gianfortoni, David Adamson, and Carolyn P. Rosé. 2011. Modeling 
+	 * of stylistic variation in social media with stretchy patterns. In 
+	 * Proceedings of the First Workshop on Algorithms and Resources for 
+	 * Modelling of Dialects and Language Varieties (DIALECTS '11). Association 
+	 * for Computational Linguistics, Stroudsburg, PA, USA, 49-59. 
+	 * 
+	 * Jacob Eisenstein and Regina Barzilay. 2008. Bayesian unsupervised topic 
+	 * segmentation. In Proceedings of the Conference on Empirical Methods in 
+	 * Natural Language Processing (EMNLP '08). Association for Computational 
+	 * Linguistics, Stroudsburg, PA, USA, 334-343.
+	 * 
 	 */
 	public Boolean runHoop (HoopBase inHoop)
 	{		
@@ -60,17 +84,17 @@ public class HoopKVStats extends HoopAnalyze implements HoopInterface
 			HoopKVString overview=new HoopKVString ();
 			overview.setKey("N");
 			overview.setValue(String.format("%d",inData.size()));
-			
+
 			for (int t=0;t<inData.size();t++)
 			{
 				HoopKVInteger aKV=(HoopKVInteger) inData.get(t);
 												
 				ArrayList<Object> vals=aKV.getValuesRaw();
-				
+
 				for (int i=0;i<vals.size();i++)
 				{
 
-				}				
+				}
 			}			
 		}	
 						
@@ -81,6 +105,6 @@ public class HoopKVStats extends HoopAnalyze implements HoopInterface
 	 */
 	public HoopBase copy ()
 	{
-		return (new HoopKVStats ());
+		return (new HoopSemanticPatterns ());
 	}	
 }

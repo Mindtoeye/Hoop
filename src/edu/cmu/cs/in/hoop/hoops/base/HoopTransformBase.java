@@ -25,6 +25,7 @@ import edu.cmu.cs.in.hoop.properties.types.HoopBooleanSerializable;
 */
 public class HoopTransformBase extends HoopBase implements HoopInterface
 {    				
+	private static final long serialVersionUID = -2512183248281416755L;
 	public HoopBooleanSerializable reKey=null;	
 	
 	/**

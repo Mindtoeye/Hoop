@@ -23,6 +23,8 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopFileLoadBase;
 
 public class HoopBerkeleyDBReader extends HoopFileLoadBase
 {
+	private static final long serialVersionUID = 1357536957557148504L;
+	
 	/**
 	 *
 	 */ 

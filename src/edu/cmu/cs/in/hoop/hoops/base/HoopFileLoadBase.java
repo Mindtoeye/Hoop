@@ -33,6 +33,8 @@ import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
 */
 public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 {    				
+	private static final long serialVersionUID = -3882301282248283204L;
+	
 	protected HoopKVString fileKV=null;		
 	protected HoopURISerializable URI=null;
 	protected HoopIntegerSerializable maxFiles=null;

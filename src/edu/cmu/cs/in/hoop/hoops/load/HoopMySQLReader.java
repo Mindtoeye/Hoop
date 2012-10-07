@@ -57,6 +57,8 @@ import edu.cmu.cs.in.hoop.properties.types.HoopStringSerializable;
  */
 public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 {
+	private static final long serialVersionUID = 1777614084867154645L;
+	
 	public	String driver = "com.mysql.jdbc.Driver";
     public	String driverAlias="mysql";
     public	String protocol ="composite";

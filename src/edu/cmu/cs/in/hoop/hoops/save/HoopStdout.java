@@ -33,6 +33,7 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopSaveBase;
 */
 public class HoopStdout extends HoopSaveBase implements HoopInterface
 {    	
+	private static final long serialVersionUID = 1119349970126294724L;
 	private HoopDialogConsole userIO=null;
 	
 	/**

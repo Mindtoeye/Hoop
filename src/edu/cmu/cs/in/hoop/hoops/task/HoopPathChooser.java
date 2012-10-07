@@ -32,6 +32,8 @@ import edu.cmu.cs.in.hoop.properties.types.HoopStringSerializable;
 */
 public class HoopPathChooser extends HoopControlBase implements HoopInterface
 {    	
+	private static final long serialVersionUID = 7488640051868262267L;
+
 	private HoopStringSerializable activePath=null;
 	
 	private HoopPathOrderEditor orderEditor=null;

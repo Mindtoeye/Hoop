@@ -18,9 +18,12 @@
 
 package edu.cmu.cs.in.hoop.properties;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,6 +32,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JToggleButton;
 
@@ -45,7 +49,7 @@ public class HoopPropertyPanel extends HoopEmbeddedJPanel implements ActionListe
 		
     private Box hoopPropertyBox=null;
     private JScrollPane contentScroller=null;
-    private Box contentBox=null;
+    private JPanel contentBox=null;
     
     private JButton expandButton=null;
     private JButton foldButton=null;
@@ -92,13 +96,15 @@ public class HoopPropertyPanel extends HoopEmbeddedJPanel implements ActionListe
 		controlBox.add (Box.createRigidArea(new Dimension(2,0)));
 		controlBox.add(foldButton);			
 		controlBox.add(Box.createHorizontalGlue());
-                        
-		contentBox=new Box (BoxLayout.Y_AXIS);
+          		
+		contentBox=new JPanel ();
+		contentBox.setLayout(new GridBagLayout());
+		contentBox.setBackground(new Color (220,220,220));
+		contentBox.setOpaque(true);
 		contentBox.setMinimumSize(new Dimension (20,20));
-		contentBox.setPreferredSize(new Dimension (200,300));
-		contentBox.add(Box.createVerticalGlue());
         		
         contentScroller=new JScrollPane (contentBox);
+        contentScroller.setMinimumSize(new Dimension (20,20));
         contentScroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         
         hoopPropertyBox.add (controlBox);
@@ -110,17 +116,64 @@ public class HoopPropertyPanel extends HoopEmbeddedJPanel implements ActionListe
 	/**
 	 * 
 	 */
+	public static void popupPropertyPanel (HoopBase aHoop)
+	{
+		HoopBase.debug ("HoopNodePanel","popupPropertyPanel ()");
+		
+		if (aHoop==null)
+		{
+			HoopBase.debug ("HoopNodePanel","Error no hoop object available in node panel");
+			return;
+		}
+		
+		HoopPropertyPanel propPanel=(HoopPropertyPanel) HoopLink.getWindow("Properties");
+		
+		if ((aHoop.getPropertiesPanel()!=null) || (aHoop.getProperties().size()>0))
+		{	
+			if ((propPanel!=null) && (aHoop.getClassName().equals("HoopStart")==false))
+			{
+				HoopInspectablePanel propertiesPanel=new HoopInspectablePanel (aHoop.getHoopDescription());
+
+				propPanel.addPropertyPanel (propertiesPanel);
+
+				JPanel hoopPanel=aHoop.getPropertiesPanel();
+
+				if (hoopPanel!=null)
+				{
+					propertiesPanel.setPanelContent (hoopPanel);
+					hoopPanel.setPreferredSize(propertiesPanel.getCurrentDimensions ());
+				}
+				else
+				{
+					HoopBase.debug ("HoopNodePanel","No custom config panel provided, switching to properties panel instead");
+					propertiesPanel.setHoop(aHoop);
+				}
+			}
+		}			
+	}	
+	/**
+	 * 
+	 */
 	public void addPropertyPanel (HoopInspectablePanel aPanel)
 	{
 		debug ("addPropertyPanel ("+(contentBox.getComponentCount()-1)+")");
 					
+		HoopLink.gbc.gridx = 1;
+		HoopLink.gbc.fill=GridBagConstraints.HORIZONTAL;
+				
 		if (contentBox.getComponentCount()==0) // THIS SHOULD NOT HAPPEN
 		{
-			contentBox.add (aPanel);
-			contentBox.add(Box.createVerticalGlue());
+			HoopLink.gbc.gridy = contentBox.getComponentCount()+1;			
+			contentBox.add (aPanel,HoopLink.gbc);
+			
+			HoopLink.gbc.gridy = contentBox.getComponentCount()+1;
+			contentBox.add (Box.createVerticalGlue(),HoopLink.gbc);
 		}
 		else
-			contentBox.add (aPanel,contentBox.getComponentCount()-1);
+		{
+			contentBox.add (aPanel,HoopLink.gbc,contentBox.getComponentCount()-1);
+			HoopLink.gbc.gridy = contentBox.getComponentCount()+1;
+		}
 		
 		//listViews ();
 		

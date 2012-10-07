@@ -29,6 +29,8 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopTransformBase;
 
 public class HoopArffReader extends HoopTransformBase implements HoopInterface
 {
+	private static final long serialVersionUID = 8420767904994324626L;
+	
 	private String mode="COMMA"; // TAB,COMMA,DASH
 	private Boolean skipHeader=true;
 	private String relation="undefined";

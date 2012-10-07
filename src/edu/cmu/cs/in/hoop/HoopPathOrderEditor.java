@@ -124,8 +124,12 @@ public class HoopPathOrderEditor extends HoopEmbeddedJPanel implements ActionLis
 	    		
 	    		if (event.getClickCount()==2)
 	    		{	    		
+	    			debug ("Toggling path ...");
+	    			
 	    			if (rep instanceof HoopVisualFeature)
 	    			{	    		
+	    				debug ("Toggling HoopVisualFeature ...");
+	    				
 	    				HoopVisualFeature item=(HoopVisualFeature) rep;
 	     
 	    				// Toggle selected state
@@ -140,6 +144,8 @@ public class HoopPathOrderEditor extends HoopEmbeddedJPanel implements ActionLis
 	    		
 	    			if (rep instanceof HoopBase)
 	    			{	    		
+	    				debug ("Toggling HoopBase ...");
+	    				
 	    				HoopBase item=(HoopBase) rep;
 	     
 	    				// Toggle selected state

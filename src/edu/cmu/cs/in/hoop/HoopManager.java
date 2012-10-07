@@ -21,8 +21,10 @@ package edu.cmu.cs.in.hoop;
 import java.util.ArrayList;
 
 import edu.cmu.cs.in.hoop.hoops.analyze.HoopCrossFold;
+import edu.cmu.cs.in.hoop.hoops.analyze.HoopDocumentTag;
 import edu.cmu.cs.in.hoop.hoops.analyze.HoopKVStats;
 import edu.cmu.cs.in.hoop.hoops.analyze.HoopNaiveBayes;
+import edu.cmu.cs.in.hoop.hoops.analyze.HoopSemanticPatterns;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopDisplayBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopFileLoadBase;
@@ -39,6 +41,7 @@ import edu.cmu.cs.in.hoop.hoops.save.HoopBerkeleyDBWriter;
 import edu.cmu.cs.in.hoop.hoops.save.HoopCSVWriter;
 import edu.cmu.cs.in.hoop.hoops.save.HoopDocumentUpdater;
 import edu.cmu.cs.in.hoop.hoops.save.HoopDocumentWriter;
+import edu.cmu.cs.in.hoop.hoops.save.HoopSASLink;
 import edu.cmu.cs.in.hoop.hoops.save.HoopStdout;
 import edu.cmu.cs.in.hoop.hoops.save.HoopTextFileSave;
 import edu.cmu.cs.in.hoop.hoops.save.HoopXMLDocumentWriter;
@@ -48,6 +51,7 @@ import edu.cmu.cs.in.hoop.hoops.task.HoopScheduler;
 import edu.cmu.cs.in.hoop.hoops.task.HoopStart;
 import edu.cmu.cs.in.hoop.hoops.transform.HoopCleanTokens;
 import edu.cmu.cs.in.hoop.hoops.transform.HoopColumnRenamer;
+import edu.cmu.cs.in.hoop.hoops.transform.HoopDocumentCreator;
 import edu.cmu.cs.in.hoop.hoops.transform.HoopFilterGarbage;
 import edu.cmu.cs.in.hoop.hoops.transform.HoopFilterStopWords;
 import edu.cmu.cs.in.hoop.hoops.transform.HoopKV2TXT;
@@ -205,5 +209,9 @@ public class HoopManager extends HoopBase
     	addTemplate (new HoopDocumentUpdater ());
     	addTemplate (new HoopLabelKV ());
     	addTemplate (new HoopCrossFold ());
+    	addTemplate (new HoopSemanticPatterns ());
+    	addTemplate (new HoopDocumentTag ());
+    	addTemplate (new HoopDocumentCreator ());
+    	addTemplate (new HoopSASLink ());
     }
 }

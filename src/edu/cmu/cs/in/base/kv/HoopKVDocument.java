@@ -19,6 +19,7 @@
 package edu.cmu.cs.in.base.kv;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 //import java.util.ArrayList;
 
 import org.jdom.Element;
@@ -65,6 +66,7 @@ import edu.cmu.cs.in.base.HoopRoot;
 public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Serializable
 {    						
 	private static final long serialVersionUID = -239882069750434354L;
+	
 	private HoopKVInteger rank=null;
 	private HoopKVFloat score=null;
 	
@@ -86,8 +88,12 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 	public HoopKVString url=null;
 	
 	public HoopKVList views=null;
+	
+	/// Use this variable for anything from dataset tagging to classification
+	public HoopKVString tags=null; 
 		
-	public HoopKVString additional=null; // Any other attributes that should be stored
+	/// Any other attributes that should be stored
+	public HoopKVString additional=null;
 		
 	// 250 characters for now, CHANGE THIS TO WHOLE TERMS, IF AVAILABLE
 	private int abstrSize=250; 
@@ -135,6 +141,9 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
     	keywords=new HoopKVString ("keywords","");
     	addVariable (keywords);
     	
+    	tags=new HoopKVString ("tags","");
+    	addVariable (tags);
+    	
     	url=new HoopKVString ("url","");
     	addVariable (url);
     	
@@ -146,7 +155,7 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
     	
     	// Make sure we have an entry for our text
     	values.add(new String ("0"));
-    	
+    	    	
     	views=new HoopKVList ("views");
     	addVariable (views);
     	
@@ -260,6 +269,30 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 		}
 		
 		values.set(anIndex,value);
+	}
+	/**
+	 * 
+	 */
+	public void addTag (String aTag)
+	{
+		tags.bump(aTag);
+	}
+	/**
+	 * 
+	 */
+	public Boolean hasTag (String aTag)
+	{
+		ArrayList <Object> testTags=tags.getValuesRaw();
+		
+		for (int i=0;i<testTags.size();i++)
+		{
+			String aValue=(String) testTags.get(i);
+			
+			if (aValue.equalsIgnoreCase(aTag)==true)
+				return (true);
+		}
+		
+		return (false);
 	}
 	/**
 	 * 

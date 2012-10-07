@@ -36,6 +36,8 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopLoadBase;
 */
 public class HoopStdin extends HoopLoadBase implements HoopInterface
 {    	
+	private static final long serialVersionUID = 1040419853878407427L;
+	
 	public static int lineCounter=0;
     private BufferedReader in=null;		
     private HoopDialogConsole userIO=null;
