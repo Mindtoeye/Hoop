@@ -41,6 +41,7 @@ import edu.cmu.cs.in.hoop.hoops.save.HoopBerkeleyDBWriter;
 import edu.cmu.cs.in.hoop.hoops.save.HoopCSVWriter;
 import edu.cmu.cs.in.hoop.hoops.save.HoopDocumentUpdater;
 import edu.cmu.cs.in.hoop.hoops.save.HoopDocumentWriter;
+import edu.cmu.cs.in.hoop.hoops.save.HoopSASLink;
 import edu.cmu.cs.in.hoop.hoops.save.HoopStdout;
 import edu.cmu.cs.in.hoop.hoops.save.HoopTextFileSave;
 import edu.cmu.cs.in.hoop.hoops.save.HoopXMLDocumentWriter;
@@ -211,5 +212,6 @@ public class HoopManager extends HoopBase
     	addTemplate (new HoopSemanticPatterns ());
     	addTemplate (new HoopDocumentTag ());
     	addTemplate (new HoopDocumentCreator ());
+    	addTemplate (new HoopSASLink ());
     }
 }
