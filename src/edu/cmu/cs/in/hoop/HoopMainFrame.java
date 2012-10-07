@@ -21,6 +21,7 @@ package edu.cmu.cs.in.hoop;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
+import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -34,6 +35,7 @@ import edu.cmu.cs.in.controls.HoopSentenceWall;
 import edu.cmu.cs.in.controls.dialogs.HoopCleanProjectDialog;
 import edu.cmu.cs.in.controls.dialogs.HoopGenericNameDialog;
 import edu.cmu.cs.in.controls.dialogs.HoopGenericProgressdialog;
+import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.task.HoopStart;
 import edu.cmu.cs.in.hoop.project.HoopGraphFile;
 import edu.cmu.cs.in.hoop.project.HoopProject;
@@ -51,7 +53,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 		    
     private HoopScatterPlot plotter=null;
 	private HoopConsole console=null;
-	private HoopPropertyPanel propPanel=null;
+	//private HoopPropertyPanel propPanel=null;
 	
 	private Component compReference=null;
 	
@@ -356,10 +358,29 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     	propertiesItem.addActionListener(new ActionListener() 
     	{
     		public void actionPerformed(ActionEvent e) 
-    		{
-    	    	propPanel=new HoopPropertyPanel();
+    		{    			    		    		
+    			HoopPropertyPanel propPanel=(HoopPropertyPanel) HoopLink.getWindow("Properties");
+    			
+    			if (propPanel==null)
+    				propPanel=new HoopPropertyPanel();
     	    	
-    	    	addView ("Properties",propPanel,HoopLink.right);    	    	
+    	    	addView ("Properties",propPanel,HoopLink.right);
+    	    	
+    	    	// Rebuild the property panel
+    	    	
+    	    	ArrayList <HoopBase> hoops=HoopLink.hoopGraphManager.getHoopList ();
+    	    	
+    	    	if (hoops!=null)
+    	    	{
+    	    		for (int t=0;t<hoops.size();t++)
+    	    		{
+    	    			HoopBase aHoop=hoops.get(t);
+    	    			
+    	    			HoopPropertyPanel.popupPropertyPanel (aHoop);
+    	    		}
+    	    	}
+    	    	else
+    	    		debug ("Error: no list of hoops found in graph manager");
     		}
     	});
     	
@@ -784,7 +805,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 		HoopTreeList hoopList=new HoopTreeList ();
 		addView ("Hoop List",hoopList,HoopLink.left);
 		
-    	propPanel=new HoopPropertyPanel();
+		HoopPropertyPanel propPanel=new HoopPropertyPanel();
     	
     	addView ("Properties",propPanel,HoopLink.right);
 		

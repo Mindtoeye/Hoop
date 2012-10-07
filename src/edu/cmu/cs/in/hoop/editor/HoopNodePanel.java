@@ -180,15 +180,32 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 			rightPortBox.add(Box.createVerticalGlue());
 		}		
 
-		if ((aHoop.getPropertiesPanel()!=null) || (aHoop.getProperties().size()>0))
+		popupPropertyPanel ();
+
+		debug ("setHoop () done");
+	}
+	/**
+	 * 
+	 */
+	public void popupPropertyPanel ()
+	{
+		debug ("popupPropertyPanel ()");
+		
+		if (this.hoop==null)
+		{
+			debug ("Error no hoop object available in node panel");
+			return;
+		}
+		
+		if ((this.hoop.getPropertiesPanel()!=null) || (this.hoop.getProperties().size()>0))
 		{	
-			if ((propPanel!=null) && (aHoop.getClassName().equals("HoopStart")==false))
+			if ((propPanel!=null) && (this.hoop.getClassName().equals("HoopStart")==false))
 			{
 				propertiesPanel=new HoopInspectablePanel (hoop.getHoopDescription());
 
 				propPanel.addPropertyPanel (propertiesPanel);
 
-				JPanel hoopPanel=aHoop.getPropertiesPanel();
+				JPanel hoopPanel=this.hoop.getPropertiesPanel();
 
 				if (hoopPanel!=null)
 				{
@@ -198,12 +215,10 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 				else
 				{
 					debug ("No custom config panel provided, switching to properties panel instead");
-					propertiesPanel.setHoop(aHoop);
+					propertiesPanel.setHoop(this.hoop);
 				}
 			}
 		}	
-
-		debug ("setHoop () done");
 	}
 	/**
 	 * 

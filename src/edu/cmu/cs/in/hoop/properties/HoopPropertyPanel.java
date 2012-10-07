@@ -116,6 +116,44 @@ public class HoopPropertyPanel extends HoopEmbeddedJPanel implements ActionListe
 	/**
 	 * 
 	 */
+	public static void popupPropertyPanel (HoopBase aHoop)
+	{
+		HoopBase.debug ("HoopNodePanel","popupPropertyPanel ()");
+		
+		if (aHoop==null)
+		{
+			HoopBase.debug ("HoopNodePanel","Error no hoop object available in node panel");
+			return;
+		}
+		
+		HoopPropertyPanel propPanel=(HoopPropertyPanel) HoopLink.getWindow("Properties");
+		
+		if ((aHoop.getPropertiesPanel()!=null) || (aHoop.getProperties().size()>0))
+		{	
+			if ((propPanel!=null) && (aHoop.getClassName().equals("HoopStart")==false))
+			{
+				HoopInspectablePanel propertiesPanel=new HoopInspectablePanel (aHoop.getHoopDescription());
+
+				propPanel.addPropertyPanel (propertiesPanel);
+
+				JPanel hoopPanel=aHoop.getPropertiesPanel();
+
+				if (hoopPanel!=null)
+				{
+					propertiesPanel.setPanelContent (hoopPanel);
+					hoopPanel.setPreferredSize(propertiesPanel.getCurrentDimensions ());
+				}
+				else
+				{
+					HoopBase.debug ("HoopNodePanel","No custom config panel provided, switching to properties panel instead");
+					propertiesPanel.setHoop(aHoop);
+				}
+			}
+		}			
+	}	
+	/**
+	 * 
+	 */
 	public void addPropertyPanel (HoopInspectablePanel aPanel)
 	{
 		debug ("addPropertyPanel ("+(contentBox.getComponentCount()-1)+")");
