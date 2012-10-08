@@ -79,16 +79,16 @@ public class HoopSentence2Tokens extends HoopTransformBase implements HoopInterf
 			{
 				HoopKVInteger aKV=(HoopKVInteger) inData.get(i);
 				
-				List<String> tokens=featureMaker.unigramTokenizeBasic (aKV.getValue());
+				//>------------------------------------------------------------------------
+				
+				if (targetTokenizer.getValue().equalsIgnoreCase("Builtin")==true)
+				{									
+					List<String> tokens=featureMaker.unigramTokenizeBasic (aKV.getValue());
 								
-				for (int j=0;j<tokens.size();j++)
-				{				
-					String aToken=tokens.get(j);
-					
-					//>------------------------------------------------------------------------
-					
-					if (targetTokenizer.getValue().equalsIgnoreCase("Builtin")==true)
-					{					
+					for (int j=0;j<tokens.size();j++)
+					{				
+						String aToken=tokens.get(j);
+										
 						if (removePunctuation.getPropValue ()==true)					
 						{
 							String strippedInput = aToken.replaceAll(splitRegEx.getValue(), "");
@@ -106,30 +106,30 @@ public class HoopSentence2Tokens extends HoopTransformBase implements HoopInterf
 								addKV (new HoopKVInteger (i,aToken));
 						}
 					}
+				}	
 					
-					//>------------------------------------------------------------------------
+				//>------------------------------------------------------------------------
 					
-					if (targetTokenizer.getValue().equalsIgnoreCase("Stanford")==true)
-					{					    
-					    Tokenizer<Word> tokenizer = factory.getTokenizer(new StringReader(aToken));
+				if (targetTokenizer.getValue().equalsIgnoreCase("Stanford")==true)
+				{					    
+				    Tokenizer<Word> tokenizer = factory.getTokenizer(new StringReader(aKV.getValue()));
 					    
-					    List<Word> sTokens=tokenizer.tokenize();
+				    List<Word> sTokens=tokenizer.tokenize();
 					    
-					    for (int t=0;t<sTokens.size();t++)
-					    {
-					    	Word aTerm=sTokens.get(t);
+				    for (int t=0;t<sTokens.size();t++)
+				    {
+				    	Word aTerm=sTokens.get(t);
 					    	
-					    	if (this.reKey.getPropValue()==false)
-					    		addKV (new HoopKVInteger (t,aTerm.toString()));
-					    	else
-					    		addKV (new HoopKVInteger (i,aTerm.toString()));
-					    }
+				    	if (this.reKey.getPropValue()==false)
+				    		addKV (new HoopKVInteger (t,aTerm.toString()));
+				    	else
+				    		addKV (new HoopKVInteger (i,aTerm.toString()));
+				    }
 					    
-					    //debug (tokenizer.tokenize());						
-					}
+				    //debug (tokenizer.tokenize());						
+				}
 					
-					//>------------------------------------------------------------------------
-				}									
+				//>------------------------------------------------------------------------								
 			}						
 		}
 		else

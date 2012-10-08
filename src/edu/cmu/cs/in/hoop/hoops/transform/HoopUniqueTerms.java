@@ -43,7 +43,7 @@ public class HoopUniqueTerms extends HoopTransformBase implements HoopInterface
 		setClassName ("HoopUniqueTerms");
 		debug ("HoopUniqueTerms ()");
 				
-		setHoopDescription ("Transform into unique list of KVs");		
+		setHoopDescription ("Sort into unique list of KVs");		
     }
 	/**
 	 *

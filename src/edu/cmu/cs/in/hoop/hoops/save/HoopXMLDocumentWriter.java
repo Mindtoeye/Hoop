@@ -67,7 +67,7 @@ public class HoopXMLDocumentWriter extends HoopXMLWriter
 		setClassName ("HoopXMLDocumentWriter");
 		debug ("HoopXMLDocumentWriter ()");
 												
-		setHoopDescription ("Write a XML Document(s)");
+		setHoopDescription ("Write XML Document(s)");
 		
 		author=new HoopStringSerializable (this,"author","author");
 		title=new HoopStringSerializable (this,"title","title");

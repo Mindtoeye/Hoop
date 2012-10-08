@@ -20,11 +20,14 @@ package edu.cmu.cs.in.hoop.hoops.transform;
 
 import java.util.ArrayList;
 
+import edu.cmu.cs.in.base.HoopStringTools;
 import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.base.kv.HoopKVInteger;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
 import edu.cmu.cs.in.hoop.hoops.base.HoopTransformBase;
+import edu.cmu.cs.in.hoop.properties.types.HoopBooleanSerializable;
+import edu.cmu.cs.in.hoop.properties.types.HoopStringSerializable;
 
 /**
 * 
@@ -32,6 +35,10 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopTransformBase;
 public class HoopFilterGarbage extends HoopTransformBase implements HoopInterface
 {    				
 	private static final long serialVersionUID = -3087945592273966950L;
+	
+	public HoopStringSerializable contains = null;
+	public HoopBooleanSerializable removeNumeric=null;
+	public HoopBooleanSerializable removeBlank=null;
 	
 	/**
 	 *
@@ -42,6 +49,10 @@ public class HoopFilterGarbage extends HoopTransformBase implements HoopInterfac
 		debug ("HoopFilterGarbage ()");
 				
 		setHoopDescription ("Remove any garbage terms from input KVs");		
+		
+		contains=new HoopStringSerializable (this,"contains","http://,file://");
+		removeNumeric=new HoopBooleanSerializable (this,"removeNumeric",true);
+		removeBlank=new HoopBooleanSerializable (this,"removeBlank",true);
     }
 	/**
 	 *
@@ -49,6 +60,10 @@ public class HoopFilterGarbage extends HoopTransformBase implements HoopInterfac
 	public Boolean runHoop (HoopBase inHoop)
 	{		
 		debug ("runHoop ()");
+		
+		String compiled=contains.getPropValue();
+		
+		ArrayList <String> garbage=HoopStringTools.splitComma (compiled);
 				
 		ArrayList <HoopKV> inData=inHoop.getData();
 		if (inData!=null)
@@ -56,8 +71,27 @@ public class HoopFilterGarbage extends HoopTransformBase implements HoopInterfac
 			for (int i=0;i<inData.size();i++)
 			{
 				HoopKVInteger aKV=(HoopKVInteger) inData.get(i);
-				
+								
 				Boolean isGarbage=false;
+				
+				for (int t=0;t<garbage.size();t++)
+				{
+					String test=garbage.get(t);
+					
+					if (aKV.getValue().indexOf(test)!=-1)
+						isGarbage=true;
+				}	
+				
+				if (
+					(HoopStringTools.isInteger(aKV.getValue())==true) ||
+					(HoopStringTools.isLong(aKV.getValue())==true)
+					)
+				{
+					isGarbage=true;
+				}
+				
+				if (aKV.getValue().isEmpty()==true)
+					isGarbage=true;
 								
 				if (isGarbage==false)
 				{
