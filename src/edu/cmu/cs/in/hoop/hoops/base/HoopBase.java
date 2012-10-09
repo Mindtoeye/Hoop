@@ -51,6 +51,7 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 	
 	protected ArrayList <HoopBase> outHoops=null;	
 	private ArrayList <HoopKV> data=null;
+	private ArrayList <HoopKV> trash=null;
 	private HoopKVTable model=null;	
 	
 	/// Either one of display,load,save,transform 
@@ -89,6 +90,7 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 		
 		outHoops=new ArrayList<HoopBase> ();
 		data=new ArrayList <HoopKV> ();
+		trash=new ArrayList <HoopKV> ();
 				
 		inPorts=new ArrayList<String> ();
 		outPorts=new ArrayList<String> ();
@@ -318,6 +320,7 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
     	debug ("resetData ()");
     	
     	data=new ArrayList<HoopKV> ();
+    	trash=new ArrayList<HoopKV> ();
     }	
 	/**
 	 * 
@@ -340,7 +343,14 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
     	data.add(aKV);
     	
     	//debug ("Data size: " + data.size());
-    }    
+    }  
+    /**
+     * 
+     */
+    public void toss (HoopKV aKV)
+    {
+    	trash.add(aKV);
+    }
     /**
      * BE VERY CAREFUL WITH THIS ONE!
      */

@@ -25,6 +25,7 @@ import edu.cmu.cs.in.base.HoopDataType;
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.io.HoopFileTools;
 import edu.cmu.cs.in.base.kv.HoopKVString;
+import edu.cmu.cs.in.hoop.properties.types.HoopEnumSerializable;
 import edu.cmu.cs.in.hoop.properties.types.HoopIntegerSerializable;
 import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
 
@@ -39,6 +40,7 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 	protected HoopURISerializable URI=null;
 	protected HoopIntegerSerializable maxFiles=null;
 	protected HoopIntegerSerializable batchSize=null;
+	protected HoopEnumSerializable mode=null; // LINEAR,SAMPLE
 	
 	private ArrayList <String> files=null;
 	
@@ -59,6 +61,7 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 		URI=new HoopURISerializable (this,"URI","");
 		maxFiles=new HoopIntegerSerializable (this,"maxFiles",1);
 		batchSize=new HoopIntegerSerializable (this,"batchSize",1);
+		mode=new HoopEnumSerializable (this,"mode","LINEAR,SAMPLE");
     }
 	/**
 	 * 
