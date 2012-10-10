@@ -97,6 +97,8 @@ public class HoopFilterGarbage extends HoopTransformBase implements HoopInterfac
 				{
 					addKV (new HoopKVInteger (i,aKV.getValue()));
 				}	
+				else
+					toss (new HoopKVInteger (i,aKV.getValue()));
 			}						
 		}
 		else

@@ -31,8 +31,10 @@ import java.util.ArrayList;
 //import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
@@ -65,10 +67,17 @@ public class HoopTablePanel extends HoopEmbeddedJPanel implements ActionListener
     private JButton previousSet=null;
     private JButton nextSet=null;	
 	private JCheckBox autoUpdate=null;
+	
+    private JRadioButton showData=null;    
+    private JRadioButton showTrash=null;
     
 	private int primColWidth=100;
 	
 	private String[] columnNames = {"Key","Value"};	
+	
+	private Boolean displayData=true;
+	
+	private HoopBase hoop=null;
 	
 	/**
 	 * http://stackoverflow.com/questions/965023/how-to-wrap-lines-in-a-jtable-cell
@@ -86,7 +95,7 @@ public class HoopTablePanel extends HoopEmbeddedJPanel implements ActionListener
 		autoUpdate=new JCheckBox ();
 		autoUpdate.setText("Auto Update");
 		autoUpdate.setFont(new Font("Dialog",1,10));
-		autoUpdate.setPreferredSize(new Dimension (50,20));
+		autoUpdate.setPreferredSize(new Dimension (100,20));
 		autoUpdate.addItemListener(this);	
 		controlBox.add(autoUpdate);
 		
@@ -134,6 +143,30 @@ public class HoopTablePanel extends HoopEmbeddedJPanel implements ActionListener
 	    controlBox.add(nextSet);	    
 	    
 	    controlBox.add(new JSeparator(SwingConstants.VERTICAL));
+		
+	    showData = new JRadioButton();
+	    showData.setText("Show Data");
+	    showData.setSelected(true);
+	    showData.setFont(new Font("Dialog", 1, 10));
+	    showData.addActionListener(this);
+	    
+	    showTrash = new JRadioButton();
+	    showTrash.setText("Show Discarded");
+	    showTrash.setFont(new Font("Dialog", 1, 10));
+	    showTrash.addActionListener(this);
+	    
+	    //Group the radio buttons.
+	    ButtonGroup group=new ButtonGroup();
+	    group.add (showData);
+	    group.add (showTrash);
+	    
+	    controlBox.add(showData);
+	    controlBox.add(showTrash);
+	    
+		controlBox.setMinimumSize(new Dimension (100,24));
+		controlBox.setPreferredSize(new Dimension (100,24));		
+
+	    controlBox.add(new JSeparator(SwingConstants.VERTICAL));
 
 	    status=new JTextField ();
 	    status.setText("Status: OK");
@@ -143,12 +176,7 @@ public class HoopTablePanel extends HoopEmbeddedJPanel implements ActionListener
 	    status.setMinimumSize(new Dimension (20,20));
 	    status.setPreferredSize(new Dimension (100,20));
 	    controlBox.add(status);	    
-
-		//controlBox.add(Box.createHorizontalGlue());
 		
-		controlBox.setMinimumSize(new Dimension (100,24));
-		controlBox.setPreferredSize(new Dimension (100,24));		
-
 		// We need some empty data because Java crashes when you provide a null parameter in the constructor
 		Object[][] data ={}; 
 		
@@ -177,13 +205,50 @@ public class HoopTablePanel extends HoopEmbeddedJPanel implements ActionListener
 	{
 		debug ("showHoop ()");
 		
+		hoop=aHoop;
+		
+		updateContents ();
+	}
+	/**
+	 * 
+	 */	
+	public void setTable(HoopJTable table) 
+	{
+		this.table = table;
+	}	
+	/**
+	 * 
+	 */
+	public void handleCloseEvent ()
+	{
+		debug ("handleCloseEvent ()");
+		
+	}
+	/**
+	 *
+	 */	
+	public void updateContents() 
+	{
+		debug ("updateContents ()");
+		
+		if (hoop==null)
+		{
+			debug ("No data provided yet");
+			return;
+		}
+		
 		//TableColumnModel columnModel=table.getColumnModel();
 		
-		ArrayList <HoopKV> content=aHoop.getData();
+		ArrayList <HoopKV> content=null;
+		
+		if (displayData==true)
+			content=hoop.getData();
+		else
+			content=hoop.getTrash();
 					
 		// Convert KV model to table model and show
 					
-		ArrayList <HoopDataType> types=aHoop.getTypes();
+		ArrayList <HoopDataType> types=hoop.getTypes();
 		
 		String[] cNames = new String [types.size()];
 				
@@ -235,31 +300,6 @@ public class HoopTablePanel extends HoopEmbeddedJPanel implements ActionListener
 	}
 	/**
 	 * 
-	 */	
-	public void setTable(HoopJTable table) 
-	{
-		this.table = table;
-	}	
-	/**
-	 * 
-	 */
-	public void handleCloseEvent ()
-	{
-		debug ("handleCloseEvent ()");
-		
-		// Process this in child class!!
-	}
-	/**
-	 *
-	 */	
-	public void updateContents() 
-	{
-		debug ("updateContents ()");
-		
-		// Implement in child class!!
-	}
-	/**
-	 * 
 	 */
 	@Override
 	public void actionPerformed(ActionEvent event) 
@@ -277,7 +317,19 @@ public class HoopTablePanel extends HoopEmbeddedJPanel implements ActionListener
 			*/
 			
 			return;
-		}		
+		}
+		
+		if (event.getSource()==showData)
+		{
+			displayData=true;
+			updateContents ();
+		}
+		
+		if (event.getSource()==showTrash)
+		{
+			displayData=false;
+			updateContents ();
+		}
 	}	
 	/**
 	 *

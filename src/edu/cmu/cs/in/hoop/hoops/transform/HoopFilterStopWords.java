@@ -105,7 +105,9 @@ public class HoopFilterStopWords extends HoopTransformBase implements HoopInterf
 				if (isStop==false)
 				{
 					addKV (new HoopKVInteger (i,aKV.getValue()));
-				}	
+				}
+				else
+					toss (new HoopKVInteger (i,aKV.getValue()));
 			}						
 		}
 		else

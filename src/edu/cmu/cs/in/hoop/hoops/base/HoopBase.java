@@ -366,6 +366,13 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 		return data;
 	}
 	/**
+	 *
+	 */    
+	public ArrayList <HoopKV> getTrash() 
+	{
+		return trash;
+	}
+	/**
 	 * 
 	 */
 	public HoopKV getKVFromKey (String aKey)

@@ -63,6 +63,8 @@ public class HoopCleanTokens extends HoopTransformBase implements HoopInterface
 				{
 					addKV (new HoopKVInteger (i,aKV.getValue()));
 				}	
+				else
+					toss (new HoopKVInteger (i,aKV.getValue()));
 			}						
 		}
 		else
