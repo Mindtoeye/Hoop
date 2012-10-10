@@ -31,6 +31,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.HoopStringTools;
@@ -59,6 +60,8 @@ public class HoopStopWordEditor extends HoopEmbeddedJPanel implements ActionList
     	
 		setClassName ("HoopStopWordEditor");
 		debug ("HoopStopWordEditor ()");    	
+		
+		this.setLayout(new BoxLayout (this,BoxLayout.Y_AXIS));
     
 	    Box buttonBox = new Box (BoxLayout.X_AXIS);
 	    buttonBox.setBorder(BorderFactory.createEmptyBorder(1,1,1,2));
@@ -84,20 +87,28 @@ public class HoopStopWordEditor extends HoopEmbeddedJPanel implements ActionList
 		
 		stopList=new HoopJFeatureList ();
 		stopList.setLabel("Selected Stop Words");
-		stopList.setMinimumSize(new Dimension (50,5000));
-		stopList.setMaximumSize(new Dimension (5000,5000));
-							
+		//stopList.setMinimumSize(new Dimension (50,5000));
+		//stopList.setMaximumSize(new Dimension (5000,5000));
+					
+		/*
 		Box stopBox = new Box (BoxLayout.Y_AXIS);
 		stopBox.setMinimumSize(new Dimension (50,50));
 		stopBox.setPreferredSize(new Dimension (150,5000));
 		stopBox.setMaximumSize(new Dimension (150,5000));
+
+		//JScrollPane listScroller=new JScrollPane (stopList);
 		
 		stopBox.add(buttonBox);
-		stopBox.add(stopList);		
+		//stopBox.add(listScroller);
+		stopBox.add(stopList);
 		
 		setContentPane (stopBox);
 		//setSize (425,300);
 		//setLocation (75,75);
+		*/
+		
+		this.add(buttonBox);
+		this.add(stopList);
 		
 		loadData ();
     }
@@ -156,7 +167,7 @@ public class HoopStopWordEditor extends HoopEmbeddedJPanel implements ActionList
 	        		
 	        		//ArrayList <String> newStops=HoopLink.fManager.loadLines(file.getPath());
 	        		
-	            	String content=HoopLink.fManager.loadContents(HoopLink.datapath);
+	            	String content=HoopLink.fManager.loadContents(file.getPath());
 	            	
 	                ArrayList<String> newStops=HoopStringTools.dataToLines(content);	        		
 	        		

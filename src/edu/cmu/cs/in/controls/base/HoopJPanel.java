@@ -23,6 +23,8 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.LayoutManager;
 import java.awt.Toolkit;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 //import java.net.URL;
 
 //import javax.swing.JFrame;
@@ -38,7 +40,7 @@ import edu.cmu.cs.in.base.HoopRoot;
  * @author vvelsen
  *
  */
-public class HoopJPanel extends JPanel 
+public class HoopJPanel extends JPanel implements ComponentListener 
 {
 	private static final long serialVersionUID = -6522707440476438254L;
 	private String className="HoopBase";	
@@ -53,6 +55,8 @@ public class HoopJPanel extends JPanel
 	{
 		setClassName ("HoopJPanel");
 		debug ("HoopJPanel ()");
+		
+		this.addComponentListener(this);
 	}
 	/**
 	 * Creates a new JPanel with FlowLayout and the specified buffering strategy.
@@ -62,6 +66,8 @@ public class HoopJPanel extends JPanel
 		super (isDoubleBuffered);
 		setClassName ("HoopJPanel");
 		debug ("HoopJPanel ()");		
+		
+		this.addComponentListener(this);
 	}    
 	/**
 	 * Create a new buffered JPanel with the specified layout manager
@@ -71,6 +77,8 @@ public class HoopJPanel extends JPanel
 		super (layout);
 		setClassName ("HoopJPanel");
 		debug ("HoopJPanel ()");		
+		
+		this.addComponentListener(this);
 	}
 	/**
 	 * Creates a new JPanel with the specified layout manager and buffering strategy.
@@ -80,6 +88,8 @@ public class HoopJPanel extends JPanel
 		super (layout,isDoubleBuffered);
 		setClassName ("HoopJPanel");
 		debug ("HoopJPanel ()");		
+		
+		this.addComponentListener(this);
 	}
 	/**
 	 *
@@ -162,4 +172,49 @@ public class HoopJPanel extends JPanel
 	{
 		HoopRoot.alert(aMessage);
 	}
+	/**
+	 * 
+	 */
+	@Override
+	public void componentHidden (ComponentEvent arg0) 
+	{
+		debug ("componentHidden ()");
+	}
+	/**
+	 * 
+	 */	
+	@Override
+	public void componentMoved(ComponentEvent arg0) 
+	{
+		debug ("componentMoved ()");		
+	}
+	/**
+	 * 
+	 */	
+	@Override
+	public void componentResized(ComponentEvent arg0) 
+	{
+		debug ("componentHidden ()");
+		
+		updateSize();	
+	}
+	/**
+	 * 
+	 */	
+	@Override
+	public void componentShown(ComponentEvent arg0) 
+	{
+		debug ("componentHidden ()");
+		
+		updateSize();	
+	}
+	/**
+	 *
+	 */	
+	public void updateSize() 
+	{
+		debug ("updateSize ()");
+		
+		// Implement in child class !!
+	}			
 }

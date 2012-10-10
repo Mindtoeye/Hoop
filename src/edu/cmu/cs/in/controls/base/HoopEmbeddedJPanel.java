@@ -41,7 +41,7 @@ import edu.cmu.cs.in.base.HoopProperties;
  * @author vvelsen
  *
  */
-public class HoopEmbeddedJPanel extends HoopJPanel implements ComponentListener
+public class HoopEmbeddedJPanel extends HoopJPanel
 {	
 	private static final long serialVersionUID = 1L;
 	
@@ -65,7 +65,7 @@ public class HoopEmbeddedJPanel extends HoopJPanel implements ComponentListener
 		
 		this.setBorder(BorderFactory.createEmptyBorder(HoopProperties.tabPadding,HoopProperties.tabPadding,HoopProperties.tabPadding,HoopProperties.tabPadding));		
 		this.setLayout(new BorderLayout(2,2));
-		this.addComponentListener(this);
+		//this.addComponentListener(this);
 
 		//layer=new JXLayer<JComponent>(this);
 		//layer.setUI (blurUI);	        								
@@ -122,15 +122,6 @@ public class HoopEmbeddedJPanel extends HoopJPanel implements ComponentListener
 	/**
 	 *
 	 */	
-	public void updateSize() 
-	{
-		debug ("updateSize ()");
-		
-		// Implement in child class !!
-	}		
-	/**
-	 *
-	 */	
 	public Boolean getSingleInstance() 
 	{
 		return singleInstance;
@@ -141,42 +132,6 @@ public class HoopEmbeddedJPanel extends HoopJPanel implements ComponentListener
 	public void setSingleInstance(Boolean singleInstance) 
 	{
 		this.singleInstance = singleInstance;
-	}
-	/**
-	 *
-	 */	
-	@Override
-	public void componentHidden(ComponentEvent arg0) 
-	{
-		debug ("componentHidden ()");
-	}
-	/**
-	 *
-	 */	
-	@Override
-	public void componentMoved(ComponentEvent arg0) 
-	{
-		debug ("componentMoved ()");		
-	}
-	/**
-	 *
-	 */	
-	@Override
-	public void componentResized(ComponentEvent arg0) 
-	{
-		debug ("componentResized ()");
-		
-		updateSize();		
-	}
-	/**
-	 *
-	 */	
-	@Override
-	public void componentShown(ComponentEvent arg0) 
-	{
-		debug ("componentShown ()");
-		
-		updateSize();
 	}	
 	/**
 	 * 
