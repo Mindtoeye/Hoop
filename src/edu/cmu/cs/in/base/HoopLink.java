@@ -298,7 +298,9 @@ public class HoopLink extends HoopProperties
 		 							 "weka.png",
 		 							 "alphab_sort_icon.png",
 		 							 "run.png",
-		 							 "debug.png"
+		 							 "debug.png",
+		 							 "delete.png",
+		 							 "data.gif"
 		 							 };
 	
 	public static JFrame mainFrame=null;

@@ -45,6 +45,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 import edu.cmu.cs.in.base.HoopDataType;
+import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 import edu.cmu.cs.in.controls.base.HoopJTable;
@@ -146,12 +147,14 @@ public class HoopTablePanel extends HoopEmbeddedJPanel implements ActionListener
 		
 	    showData = new JRadioButton();
 	    showData.setText("Show Data");
+	    showData.setIcon(HoopLink.getImageByName("data.gif"));
 	    showData.setSelected(true);
 	    showData.setFont(new Font("Dialog", 1, 10));
 	    showData.addActionListener(this);
 	    
 	    showTrash = new JRadioButton();
 	    showTrash.setText("Show Discarded");
+	    showTrash.setIcon(HoopLink.getImageByName("delete.png"));
 	    showTrash.setFont(new Font("Dialog", 1, 10));
 	    showTrash.addActionListener(this);
 	    
