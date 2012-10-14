@@ -33,7 +33,25 @@ provide:
 
 - Inspectability
 
+Most systems allow you to do an after-action review of a completed
+pipeline (a CPE in UIMA terms). This makes it very difficult to inspect
+what data was produced in each step (CASes) and what data was disgarded.
+Hoop integrates an inspection system which can be activated at any
+time during or after the running of a Hoop sequence. By clicking on
+the magnifying glass in a selected Hoop panel you can see the data that
+was created in that step and you can also inspect what data was 
+disgarded.
+
 - Explainability
+
+In a complex system that runs on a cluster in which essentially all
+the steps happen in a parallel fashion, it can be difficult if not
+impossible to understand what exactly is happening to the system and
+the data is processes. Hoop aims to provide both visualization tools
+to understand how data is managed, manipulated and pushed through
+the pipeline, as well as make the results comprehensible through
+enhanced text visualizations (e.g. a document wall showing text
+highlighting based on likelihood estimates)
 
 - Repeatability
 
@@ -80,6 +98,13 @@ Used Packages:
 - Stanford NLP (included), mostly provided in hoop form for the purpose of 
 	tokenizing, parsing and low-level processing of text data
 	http://nlp.stanford.edu/software/	
+	
+- UIMA (not included), used for pipeline and cluster management as well as
+	high-level data type specifications
+	http://uima.apache.org/downloads.cgi
+	
+- frej (integrated), fuzzy pattern recognition based on regular expressions
+	http://frej.sourceforge.net/index.html
 
 - JDesktop (integrated)
 
