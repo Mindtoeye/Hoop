@@ -32,6 +32,7 @@ import edu.cmu.cs.in.hoop.properties.types.HoopStringSerializable;
 */
 public class HoopText2Sentence extends HoopTransformBase implements HoopInterface
 {    	
+	private static final long serialVersionUID = 6939927189106023532L;
 	private HoopStringSerializable splitRegEx=null;
 	
 	/**
@@ -78,9 +79,18 @@ public class HoopText2Sentence extends HoopTransformBase implements HoopInterfac
 						HoopKVInteger sentenceKV=new HoopKVInteger ();
 						
 						if (this.reKey.getPropValue()==true)
-							sentenceKV.setKey((t+1)*(i+1));
+						{
+							int createdKey=(t+1)*(i+1);
+							
+							//debug ("createdKey:" + createdKey);
+							
+							sentenceKV.setKey(createdKey);
+						}
 						else
+						{
+							//debug ("Using key: " + t);
 							sentenceKV.setKey(t);
+						}
 						
 						sentenceKV.setValue(lines [i]);
 				

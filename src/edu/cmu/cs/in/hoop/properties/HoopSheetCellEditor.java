@@ -43,6 +43,7 @@ import javax.swing.table.TableCellRenderer;
 
 import edu.cmu.cs.in.base.HoopDataType;
 import edu.cmu.cs.in.base.HoopRoot;
+import edu.cmu.cs.in.hoop.properties.types.HoopBooleanSerializable;
 import edu.cmu.cs.in.hoop.properties.types.HoopEnumSerializable;
 import edu.cmu.cs.in.hoop.properties.types.HoopIntegerSerializable;
 import edu.cmu.cs.in.hoop.properties.types.HoopSerializable;
@@ -252,8 +253,18 @@ public class HoopSheetCellEditor extends AbstractCellEditor implements TableCell
     		if (obj.getType()==HoopDataType.BOOLEAN)
     		{
     			debug ("Editing ComboBox selection ...");
-    			obj.setValue((String) booleanComponent.getSelectedItem());
-    			textComponent.setText(obj.getValue());
+    			
+    			HoopBooleanSerializable tempBool=(HoopBooleanSerializable) obj;
+    			
+    			String tempValue=(String) booleanComponent.getSelectedItem();
+    			
+    			if (tempValue.equalsIgnoreCase("true")==true)
+    				tempBool.setPropValue(true);
+    			else
+    				tempBool.setPropValue(false);
+    			
+    			//obj.setValue((String) booleanComponent.getSelectedItem());
+    			textComponent.setText(tempValue);
     		}
     	
     		if (obj.getType()==HoopDataType.FONT)

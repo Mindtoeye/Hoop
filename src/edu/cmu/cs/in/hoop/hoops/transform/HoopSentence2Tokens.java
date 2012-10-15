@@ -46,6 +46,7 @@ public class HoopSentence2Tokens extends HoopTransformBase implements HoopInterf
 	private HoopBooleanSerializable removePunctuation=null; // TRUE,FALSE	
 	private HoopStringSerializable splitRegEx=null;
 	private HoopEnumSerializable targetTokenizer=null;
+	private HoopEnumSerializable generateMode=null;
 	
 	/**
 	 *
@@ -60,6 +61,7 @@ public class HoopSentence2Tokens extends HoopTransformBase implements HoopInterf
 		removePunctuation=new HoopBooleanSerializable (this,"removePunctuation",true);
 		splitRegEx=new HoopStringSerializable (this,"splitRegEx","\\W");
 		targetTokenizer=new HoopEnumSerializable (this,"targetTokenizer","Builtin,Stanford");
+		generateMode=new HoopEnumSerializable (this,"generateMode","Add,New");
     }
 	/**
 	 *
@@ -84,27 +86,42 @@ public class HoopSentence2Tokens extends HoopTransformBase implements HoopInterf
 				if (targetTokenizer.getValue().equalsIgnoreCase("Builtin")==true)
 				{									
 					List<String> tokens=featureMaker.unigramTokenizeBasic (aKV.getValue());
-								
-					for (int j=0;j<tokens.size();j++)
-					{				
-						String aToken=tokens.get(j);
+											
+					if (generateMode.getPropValue().equalsIgnoreCase("Add")==true)
+					{
+						HoopKVInteger newToken=new HoopKVInteger ();
+						
+						addKV (newToken);
+						
+						for (int j=0;j<tokens.size();j++)
+						{				
+							String aToken=tokens.get(j);
 										
-						if (removePunctuation.getPropValue ()==true)					
-						{
-							String strippedInput = aToken.replaceAll(splitRegEx.getValue(), "");
+							String strippedInput=aToken;
+						
+							if (removePunctuation.getPropValue ()==true)											
+								strippedInput = aToken.replaceAll(splitRegEx.getValue(), "");
+						
+							newToken.setKey (i);
+							newToken.setValue (strippedInput, j);
+						}	
+					}
+					else
+					{
+						for (int j=0;j<tokens.size();j++)
+						{				
+							String aToken=tokens.get(j);
+										
+							String strippedInput=aToken;
+						
+							if (removePunctuation.getPropValue ()==true)											
+								strippedInput = aToken.replaceAll(splitRegEx.getValue(), "");
 						
 							if (this.reKey.getPropValue()==false)						
 								addKV (new HoopKVInteger (j,strippedInput));
 							else
-								addKV (new HoopKVInteger (i,strippedInput));
-						}
-						else
-						{
-							if (this.reKey.getPropValue()==false)
-								addKV (new HoopKVInteger (j,aToken));
-							else
-								addKV (new HoopKVInteger (i,aToken));
-						}
+								addKV (new HoopKVInteger (i,strippedInput));							
+						}							
 					}
 				}	
 					

@@ -248,23 +248,40 @@ public class HoopTablePanel extends HoopEmbeddedJPanel implements ActionListener
 			content=hoop.getData();
 		else
 			content=hoop.getTrash();
+		
+		Integer totalSize=content.size();
+		
+		maxRange.setText(totalSize.toString());
+		status.setText(totalSize.toString() + " entries loaded");
 					
 		// Convert KV model to table model and show
 					
 		ArrayList <HoopDataType> types=hoop.getTypes();
 		
-		String[] cNames = new String [types.size()];
-				
-		for (int n=0;n<types.size();n++)
+		int maxCols=types.size()+5;
+		
+		String[] cNames = new String [maxCols];
+						
+		Integer overflowIndex=0;
+		
+		for (int n=0;n<maxCols;n++)
 		{
-			HoopDataType aType=types.get(n);
+			if (n<types.size())
+			{
+				HoopDataType aType=types.get(n);
 			
-			//debug ("Adding column: " + n + " " + aType.getTypeValue() + " ("+aType.typeToString()+")");
+				//debug ("Adding column: " + n + " " + aType.getTypeValue() + " ("+aType.typeToString()+")");
 			
-			if (n==0)
-				cNames [0]="Key: " + aType.getTypeValue()+" ("+aType.typeToString()+")";
+				if (n==0)
+					cNames [0]="Key: " + aType.getTypeValue()+" ("+aType.typeToString()+")";
+				else
+					cNames [n]=aType.getTypeValue()+" ("+aType.typeToString()+")";
+			}
 			else
-				cNames [n]=aType.getTypeValue()+" ("+aType.typeToString()+")";
+			{
+				overflowIndex++;
+				cNames [n]=("n+"+overflowIndex.toString());
+			}
 		}
 				
 		DefaultTableModel model=new DefaultTableModel (null,cNames);
@@ -287,7 +304,10 @@ public class HoopTablePanel extends HoopEmbeddedJPanel implements ActionListener
 					
 					if (aValue.length()>100)
 					{
-						rowData [i+1]="*Data too Large*";
+						StringBuffer cropped=new StringBuffer ();
+						cropped.append(aValue.substring(0,100));
+						cropped.append("...");
+						rowData [i+1]=cropped.toString();
 					}
 					else
 						rowData [i+1]=aValue;

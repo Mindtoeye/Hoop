@@ -58,8 +58,28 @@ public class HoopBooleanSerializable extends HoopSerializable
 	public void setPropValue(Boolean propValue) 
 	{
 		this.propValue = propValue;
-		this.setValue(propValue.toString());
+		
+		if (propValue==true)
+			value="TRUE";
+		else
+			value="FALSE";
+		
+		//this.setValue(propValue.toString());
 	}
+	/**
+	 *
+	 */
+	public void setValue (String aValue)
+	{
+		//value=aValue;
+		
+		super.setValue(aValue);
+		
+		if (aValue.equalsIgnoreCase("true")==true)
+			this.propValue = true;
+		else
+			this.propValue = false;
+	}	
 	/**
 	 * 
 	 * @return
