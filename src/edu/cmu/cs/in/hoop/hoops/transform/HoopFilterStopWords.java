@@ -114,7 +114,7 @@ public class HoopFilterStopWords extends HoopTransformBase implements HoopInterf
 					addKV (newKV);
 				}
 				else
-				{				
+				{
 					toss (newKV);
 				}
 			}						

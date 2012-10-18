@@ -24,12 +24,12 @@ import java.util.List;
 import edu.cmu.cs.in.base.io.HoopFileTools;
 import edu.cmu.cs.in.base.io.HoopVFSL;
 import edu.cmu.cs.in.base.kv.HoopKVDocument;
-import edu.cmu.cs.in.base.HoopPorterStemmerOriginal;
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.HoopRoot;
 import edu.cmu.cs.in.base.HoopSimpleFeatureMaker;
 import edu.cmu.cs.in.base.HoopStringTools;
 import edu.cmu.cs.in.base.HoopWikipediaFilter;
+import edu.cmu.cs.in.ling.HoopPorterStemmerOriginal;
 
 /**
 * Our document representation class is directly derived from the Hoop KV abstract

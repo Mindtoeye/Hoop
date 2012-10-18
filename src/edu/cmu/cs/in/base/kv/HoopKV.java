@@ -81,6 +81,13 @@ public class HoopKV extends HoopDataType implements HoopKVInterface, Serializabl
     {
     	return (values.size());
     }
+    /**
+     * 
+     */
+    public void setValuesRaw (ArrayList<Object> newValues)
+    {
+    	values=newValues;
+    }
 	/**
 	 *
 	 */
@@ -139,7 +146,7 @@ public class HoopKV extends HoopDataType implements HoopKVInterface, Serializabl
 		values.add (0,value);
 		
 		//System.out.println ("values: " + values.size());
-	}		
+	}	
 	/**
 	 * Insert a new value and move all the other existing values down
 	 */
@@ -152,7 +159,14 @@ public class HoopKV extends HoopDataType implements HoopKVInterface, Serializabl
 		values.add (0,value);
 		
 		//System.out.println ("values: " + values.size());
-	}			
+	}	
+	/**
+	 * 
+	 */
+	public void toss (int valueIndex)
+	{
+		values.remove(valueIndex);
+	}
 	/**
 	 *
 	 */

@@ -18,6 +18,8 @@
 
 package edu.cmu.cs.in.base.kv;
 
+import java.util.ArrayList;
+
 /**
  * 
  */
@@ -28,12 +30,115 @@ public class HoopKVTools
      */
     public static HoopKV getLikeKVType (HoopKV aKV)
     {
+    	HoopKV newKV=new HoopKVString ();
+    	
     	if (aKV instanceof HoopKVInteger)
-    		return (new HoopKVInteger ());
+    		newKV=new HoopKVInteger ();
     	
     	if (aKV instanceof HoopKVString)
-    		return (new HoopKVString ());
+    	{
+    		newKV=new HoopKVString ();
+    	}
     	
+    	newKV.setValuesRaw (HoopKVTools.copyValues (aKV));
+    	
+    	return (newKV);
+    }
+    /**
+     * 
+     */
+    public static ArrayList <Object> copyValues (HoopKV aKV)
+    {
+    	ArrayList <Object> newValues=new ArrayList<Object> ();
+    	
+    	ArrayList <Object> oldValues=aKV.getValuesRaw();
+    	
+    	for (int i=0;i<oldValues.size();i++)
+    	{
+    		Object oldValue=oldValues.get(i);
+    		
+    		// Cheat ...
+    		
+    		newValues.add(oldValue);
+    	}
+    	
+    	return (newValues);
+    }
+    /**
+     * 
+     */
+    public static HoopKV createFromType (String aType)
+    {
+    	if (aType.equals("CLASS")==true)
+    	{
+    		return (new HoopKVClass ());
+    	}
+    	
+    	if (aType.equals("INT")==true)
+    	{
+    		return (new HoopKVInteger ());
+    	}
+    	
+    	if (aType.equals("LONG")==true)
+    	{
+    		return (new HoopKVLong ());
+    	}
+    	
+    	if (aType.equals("STRING")==true)
+    	{
+    		return (new HoopKVString ());
+    	}
+    	
+    	if (aType.equals("FLOAT")==true)
+    	{
+    		return (new HoopKVFloat ());
+    	}
+    	
+    	if (aType.equals("BOOLEAN")==true)
+    	{
+    		return (new HoopKVBoolean ());
+    	}
+    	
+    	if (aType.equals("ENUM")==true)
+    	{
+    			
+    	}
+    	
+    	if (aType.equals("TABLE")==true)
+    	{
+    		
+    	}
+    	
+    	if (aType.equals("DOCUMENT")==true)
+    	{
+    		return (new HoopKVDocument ());
+    	}
+    	
+    	if (aType.equals("DATE")==true)
+    	{
+    		
+    	}
+    	
+    	if (aType.equals("COLOR")==true)
+    	{
+    		
+    	}
+    	
+    	if (aType.equals("FONT")==true)
+    	{
+    		
+    	}
+    	
+    	if (aType.equals("URI")==true)
+    	{
+    		
+    	}
+    	
+    	if (aType.equals("URL")==true)
+    	{
+    		
+    	}  	
+    	    	
     	return (new HoopKVString ());
     }
 }

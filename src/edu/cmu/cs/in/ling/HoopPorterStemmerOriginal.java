@@ -37,7 +37,7 @@
 
 */
 
-package edu.cmu.cs.in.base;
+package edu.cmu.cs.in.ling;
 
 
 import java.io.*;

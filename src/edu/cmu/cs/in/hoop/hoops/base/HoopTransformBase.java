@@ -18,6 +18,8 @@
 
 package edu.cmu.cs.in.hoop.hoops.base;
 
+import edu.cmu.cs.in.base.kv.HoopKV;
+import edu.cmu.cs.in.base.kv.HoopKVTools;
 import edu.cmu.cs.in.hoop.properties.types.HoopBooleanSerializable;
 import edu.cmu.cs.in.hoop.properties.types.HoopEnumSerializable;
 
@@ -53,7 +55,34 @@ public class HoopTransformBase extends HoopBase implements HoopInterface
 		
 				
 		return (true);
-	}	 
+	}
+	/**
+	 * 
+	 */
+	protected HoopKV createKV (HoopKV aKV)
+	{
+		debug ("createKV ()");
+		
+		HoopKV newKV=null;
+		
+		if ((changeKeyType.getPropValue().equals("keep the same")==true) ||
+			(changeKeyType.getPropValue().equals("---")==true)
+			)
+		{
+			debug ("Creating like HoopKV with type: " + aKV.typeToString ());
+			
+			newKV=HoopKVTools.getLikeKVType(aKV);
+		}
+		else
+		{
+			debug ("Mapping from: " + aKV.typeToString () + " to: " + changeKeyType.getPropValue());
+			
+			newKV=HoopKVTools.createFromType (changeKeyType.getPropValue());
+			newKV.setValuesRaw(HoopKVTools.copyValues(aKV));
+		}
+						
+		return (newKV);
+	}
 	/**
 	 * 
 	 */
