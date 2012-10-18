@@ -61,7 +61,7 @@ public class HoopTransformBase extends HoopBase implements HoopInterface
 	 */
 	protected HoopKV createKV (HoopKV aKV)
 	{
-		debug ("createKV ()");
+		//debug ("createKV ()");
 		
 		HoopKV newKV=null;
 		
@@ -69,13 +69,13 @@ public class HoopTransformBase extends HoopBase implements HoopInterface
 			(changeKeyType.getPropValue().equals("---")==true)
 			)
 		{
-			debug ("Creating like HoopKV with type: " + aKV.typeToString ());
+			//debug ("Creating like HoopKV with type: " + aKV.typeToString ());
 			
 			newKV=HoopKVTools.getLikeKVType(aKV);
 		}
 		else
 		{
-			debug ("Mapping from: " + aKV.typeToString () + " to: " + changeKeyType.getPropValue());
+			//debug ("Mapping from: " + aKV.typeToString () + " to: " + changeKeyType.getPropValue());
 			
 			newKV=HoopKVTools.createFromType (changeKeyType.getPropValue());
 			newKV.setValuesRaw(HoopKVTools.copyValues(aKV));

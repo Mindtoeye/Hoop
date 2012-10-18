@@ -80,7 +80,7 @@ public class HoopReKey extends HoopTransformBase implements HoopInterface
 
 			String newKey=aKV.getValueAsString(targetIndex);
 				
-			debug ("New Key: " + newKey);
+			//debug ("New Key: " + newKey);
 			
 			HoopKV newKV=createKV (aKV);
 			newKV.setKeyString (newKey);

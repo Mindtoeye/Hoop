@@ -42,8 +42,43 @@ public class HoopPatternMatcher extends HoopRoot
 	/**
 	 * 
 	 */
+	public Boolean loadFromText (String aText)
+	{
+		debug ("loadFromText ()");
+		
+		String lines [] = aText.split("\\n");
+		
+		if (lines.length==0)
+		{
+			debug ("0 patterns found in text");
+			return (false);
+		}
+
+		for (int i = 0; i < lines.length; i++) 
+		{
+			String aSeq = lines[i];
+
+			HoopPattern newPattern=new HoopPattern ();
+			
+			String terms[] = aSeq.split("\\s+");
+
+			for (int j = 0; j < terms.length; j++) 
+			{
+				newPattern.tokens.add(terms[j]);
+			}
+			
+			patterns.add(newPattern);
+		}
+		
+		debug (patterns.size() + " patterns loaded");
+		
+		return (true);
+	}
+	/**
+	 * 
+	 */
 	public HoopPatternMatch matchPattern (String aToken, 
-										  ArrayList<String> aTokenList,
+										  ArrayList<Object> aTokenList,
 										  int anIndex) 
 	{
 		// debug ("matchPattern ("+aToken+" <aTokenList> " + anIndex + ")");
@@ -62,7 +97,7 @@ public class HoopPatternMatcher extends HoopRoot
 			{
 				if ((anIndex + j) < aTokenList.size()) 
 				{
-					String fromList = aTokenList.get(anIndex + j);
+					String fromList = (String) aTokenList.get(anIndex + j);
 					String toList = seq.tokens.get(j);
 
 					// debug ("Comparing " + fromList + " to " + toList);
@@ -77,7 +112,7 @@ public class HoopPatternMatcher extends HoopRoot
 
 			if (matched>0) 
 			{												
-				debug ("MATCHED: " + matched);
+				//debug ("MATCHED: " + matched);
 				
 				HoopPatternMatch matchResult=new HoopPatternMatch ();
 				

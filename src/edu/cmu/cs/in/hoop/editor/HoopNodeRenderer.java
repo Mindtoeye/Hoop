@@ -266,7 +266,7 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 	 */
 	public void setExecutionInfo (String aStatus)
 	{
-		debug ("setExecutionInfo ("+aStatus+")");
+		//debug ("setExecutionInfo ("+aStatus+")");
 		statusPanel.setText(aStatus);
 	}
 	/**

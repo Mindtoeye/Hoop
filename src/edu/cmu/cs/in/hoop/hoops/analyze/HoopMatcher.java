@@ -20,6 +20,7 @@ package edu.cmu.cs.in.hoop.hoops.analyze;
 
 import java.util.ArrayList;
 
+import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.base.kv.HoopKVInteger;
 import edu.cmu.cs.in.base.kv.HoopKVString;
@@ -27,6 +28,8 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopAnalyze;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
 import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
+import edu.cmu.cs.in.ling.HoopPatternMatch;
+import edu.cmu.cs.in.ling.HoopPatternMatcher;
 
 /**
 * 
@@ -36,6 +39,10 @@ public class HoopMatcher extends HoopAnalyze implements HoopInterface
 	private static final long serialVersionUID = -6162931325565067936L;
 	
 	protected HoopURISerializable patternFile=null;
+	
+	private Boolean patternsLoaded=false;
+		
+	private HoopPatternMatcher matcher=null;
 	
 	/**
 	 *
@@ -47,10 +54,43 @@ public class HoopMatcher extends HoopAnalyze implements HoopInterface
 				
 		//removeOutPort ("KV");
 		
+		matcher=new HoopPatternMatcher ();
+		
 		setHoopDescription ("Basic pattern matcher");		
 		
 		patternFile=new HoopURISerializable (this,"patternFile","");
     }
+    /**
+     * 
+     */
+    private Boolean loadPatterns ()
+    {
+    	debug ("loadPatterns ()");
+    	
+    	String aFile=patternFile.getPropValue();
+    	
+    	debug ("Loading pattern file: " + aFile);
+    	
+    	String text=HoopLink.fManager.loadContents(HoopLink.relativeToAbsolute(aFile));
+    	
+    	if (text==null)
+    	{
+    		this.setErrorString("Error! Unable to load pattern file: " + aFile);
+    		return (false);
+    	}
+    	
+    	//debug (text);
+    	
+    	if (matcher.loadFromText(text)==false)
+    	{
+    		this.setErrorString("Error! Can't load patterns from text file");
+    		return (false);
+    	}
+    	
+    	patternsLoaded=true;
+    	
+    	return (true);
+    }    
 	/**
 	 * We assume here a stream of tokens or terms with a sliding window that
 	 * gets reset when an end of sentence marker is found. End of sentence
@@ -77,26 +117,54 @@ public class HoopMatcher extends HoopAnalyze implements HoopInterface
 	{		
 		debug ("runHoop ()");
 			
+		if (patternsLoaded==false)
+		{
+			if (loadPatterns ()==false)
+				return (false);
+		}
+		
 		ArrayList <HoopKV> inData=inHoop.getData();
 		
 		if (inData!=null)
 		{
-			HoopKVString overview=new HoopKVString ();
-			overview.setKey("N");
-			overview.setValue(String.format("%d",inData.size()));
-
 			for (int t=0;t<inData.size();t++)
 			{
-				HoopKVInteger aKV=(HoopKVInteger) inData.get(t);
+				HoopKV aKV=inData.get(t);
+				
+				//debug ("Matching tokens in: " + aKV.getKeyString());
+				
+				StringBuffer aStatus=new StringBuffer ();
+				
+				aStatus.append (" R: ");
+				aStatus.append (t);
+				aStatus.append (" out of ");
+				aStatus.append (inData.size());
+				
+				//debug (aStatus.toString ());
+				
+				getVisualizer ().setExecutionInfo (aStatus.toString ());				
 												
 				ArrayList<Object> vals=aKV.getValuesRaw();
 
 				for (int i=0;i<vals.size();i++)
 				{
-
+					String aToken=(String) vals.get(i);
+					HoopPatternMatch matched=matcher.matchPattern(aToken, vals, i);
+					
+					if (matched!=null)
+					{
+						HoopKVString newKV=new HoopKVString ();
+						newKV.setKeyString(aKV.getKeyString());
+						newKV.setValue(matched.matchedPattern,0);
+						
+						Double converter=matched.score;
+						
+						newKV.setValue(converter.toString(),1);
+						addKV (newKV);
+					}
 				}
 			}			
-		}	
+		}
 						
 		return (true);				
 	}	 
