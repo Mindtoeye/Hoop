@@ -348,7 +348,8 @@ public class HoopProject extends HoopProjectFile
 						
 						debug ("Loading project file: " + node.getAttributeValue("basepath") + "/" + node.getAttributeValue("instance"));
 						
-						if (aFile.load(node.getAttributeValue("basepath") + "/" + node.getAttributeValue("instance"))==true)
+						//if (aFile.load(node.getAttributeValue("basepath") + "/" + node.getAttributeValue("instance"))==true)
+						if (aFile.load(this.getBasePath() + "/" + node.getAttributeValue("instance"))==true)
 						{
 							files.add(aFile);				
 						}
@@ -389,7 +390,7 @@ public class HoopProject extends HoopProjectFile
 				
 				Element fileElement=saver.toXMLID();
 			
-				fileElement.setAttribute("basepath",saver.getBasePath());
+				//fileElement.setAttribute("basepath",saver.getBasePath());
 			
 				rootElement.addContent(fileElement);
 			}	
