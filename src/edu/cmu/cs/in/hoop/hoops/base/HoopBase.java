@@ -19,6 +19,7 @@
 package edu.cmu.cs.in.hoop.hoops.base;
 
 import java.io.Serializable;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -311,13 +312,41 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 		{
 			visualizer.setState(executionState);
 		}
-	}    
+	}  
+	/**
+    * This method guarantees that garbage collection is
+    * done unlike <code>{@link System#gc()}</code>
+    */
+	public void gc() 
+	{
+		debug ("gc ()");
+		
+		Object obj = new Object();
+		WeakReference ref = new WeakReference<Object>(obj);
+	    obj = null;
+	    while(ref.get() != null) 
+	    {
+	       System.gc();
+	    }
+	    
+	    // Or:
+	    
+	    /*
+		Runtime r = Runtime.getRuntime();
+		r.gc();
+		*/
+	}
 	/**
 	 * 
 	 */
     public void resetData ()
     {
     	debug ("resetData ()");
+    	
+    	data=null;
+    	trash=null;
+    	
+    	gc();
     	
     	data=new ArrayList<HoopKV> ();
     	trash=new ArrayList<HoopKV> ();
@@ -491,8 +520,10 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 	{	
 		debug ("runHoopInternal ()");
 		
+		/*
 		Runtime r = Runtime.getRuntime();
 		r.gc();
+		*/
 		
 		performance.setMarker ("start");
 				

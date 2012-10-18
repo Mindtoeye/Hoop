@@ -136,7 +136,7 @@ public class HoopMatcher extends HoopAnalyze implements HoopInterface
 				StringBuffer aStatus=new StringBuffer ();
 				
 				aStatus.append (" R: ");
-				aStatus.append (t);
+				aStatus.append (t+1);
 				aStatus.append (" out of ");
 				aStatus.append (inData.size());
 				
@@ -148,18 +148,21 @@ public class HoopMatcher extends HoopAnalyze implements HoopInterface
 
 				for (int i=0;i<vals.size();i++)
 				{
-					String aToken=(String) vals.get(i);
-					HoopPatternMatch matched=matcher.matchPattern(aToken, vals, i);
+					//String aToken=(String) vals.get(i);
+					HoopPatternMatch matched=matcher.matchPattern(vals, i);
 					
 					if (matched!=null)
 					{
 						HoopKVString newKV=new HoopKVString ();
 						newKV.setKeyString(aKV.getKeyString());
-						newKV.setValue(matched.matchedPattern,0);
 						
-						Double converter=matched.score;
+						Double converter=matched.score;						
+						newKV.setValue(converter.toString(),0);
 						
-						newKV.setValue(converter.toString(),1);
+						newKV.setValue(matched.matchedPattern,1);
+												
+						debug ("Adding new match KV: " + matched.matchedPattern);
+						
 						addKV (newKV);
 					}
 				}

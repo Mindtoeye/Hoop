@@ -86,7 +86,14 @@ public class HoopReKey extends HoopTransformBase implements HoopInterface
 			newKV.setKeyString (newKey);
 			newKV.toss(targetIndex);
 			
-			addKV (newKV);								
+			addKV (newKV);							
+			
+			StringBuffer aStatus=new StringBuffer ();
+			
+			aStatus.append (" R: ");
+			aStatus.append (i+1);
+			aStatus.append (" out of ");
+			aStatus.append (inData.size());			
 		}
 		
 		return (true);

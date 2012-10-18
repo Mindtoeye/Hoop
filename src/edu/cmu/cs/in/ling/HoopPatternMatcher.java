@@ -77,11 +77,12 @@ public class HoopPatternMatcher extends HoopRoot
 	/**
 	 * 
 	 */
-	public HoopPatternMatch matchPattern (String aToken, 
-										  ArrayList<Object> aTokenList,
+	public HoopPatternMatch matchPattern (ArrayList<Object> aTokenList,
 										  int anIndex) 
 	{
-		// debug ("matchPattern ("+aToken+" <aTokenList> " + anIndex + ")");
+		debug ("matchPattern ()");
+		
+		//String aToken=aTokenList.get(anIndex);
 
 		for (int i = 0; i < patterns.size(); i++) 
 		{
@@ -89,7 +90,7 @@ public class HoopPatternMatcher extends HoopRoot
 
 			int ptSize = seq.tokens.size();
 
-			// debug ("Looking at pattern of size: " + ptSize);
+			//debug ("Looking at pattern of size: " + ptSize);
 
 			int matched = 0;
 
@@ -100,7 +101,7 @@ public class HoopPatternMatcher extends HoopRoot
 					String fromList = (String) aTokenList.get(anIndex + j);
 					String toList = seq.tokens.get(j);
 
-					// debug ("Comparing " + fromList + " to " + toList);
+					//debug ("Comparing " + fromList + " to " + toList);
 
 					if (fromList.equals(toList))
 						matched++;
@@ -110,13 +111,13 @@ public class HoopPatternMatcher extends HoopRoot
 			// See if we've matched all the tokens. If there is a partial match
 			// we can see if we can incorporate that score at some point
 
-			if (matched>0) 
+			if (matched==ptSize) 
 			{												
-				//debug ("MATCHED: " + matched);
+				debug ("MATCHED: " + matched);
 				
 				HoopPatternMatch matchResult=new HoopPatternMatch ();
 				
-				matchResult.score=seq.tokens.size()/matched;
+				matchResult.score=matched/seq.tokens.size();
 				matchResult.size=matched;
 				
 				StringBuffer formatter = new StringBuffer();

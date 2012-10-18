@@ -25,6 +25,7 @@ import edu.cmu.cs.in.base.HoopDataType;
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopFileSaveBase;
+import edu.cmu.cs.in.hoop.properties.types.HoopBooleanSerializable;
 import edu.cmu.cs.in.hoop.properties.types.HoopEnumSerializable;
 
 /**
@@ -32,8 +33,10 @@ import edu.cmu.cs.in.hoop.properties.types.HoopEnumSerializable;
 */
 public class HoopCSVWriter extends HoopFileSaveBase
 {    				
+	private static final long serialVersionUID = -6882137805233073782L;
 	private HoopEnumSerializable writeMode=null; // APPEND, OVERWRITE	
 	private HoopEnumSerializable mode=null; // TAB,COMMA,DASH
+	private HoopBooleanSerializable includeHeader=null;
 	
 	/**
 	 *
@@ -48,6 +51,7 @@ public class HoopCSVWriter extends HoopFileSaveBase
 				
 		writeMode=new HoopEnumSerializable (this,"writeMode","OVERWRITE,APPEND");
 		mode=new HoopEnumSerializable (this,"mode","COMMA,TAB,DASH,PIPE");
+		includeHeader=new HoopBooleanSerializable (this,"includeHeader",false);
     }  
     /**
      * 
@@ -79,7 +83,7 @@ public class HoopCSVWriter extends HoopFileSaveBase
 		
 		StringBuffer formatted=new StringBuffer ();		
 		
-		if (this.getExecutionCount()==0)
+		if ((this.getExecutionCount()==0) && (includeHeader.getPropValue()==true))
 		{		
 			ArrayList <HoopDataType> types=inHoop.getTypes();
 						
@@ -119,6 +123,13 @@ public class HoopCSVWriter extends HoopFileSaveBase
 				}
 				
 				formatted.append("\n");
+				
+				StringBuffer aStatus=new StringBuffer ();
+				
+				aStatus.append (" R: ");
+				aStatus.append (t+1);
+				aStatus.append (" out of ");
+				aStatus.append (inData.size());
 			}
 			
 			if (writeMode.getValue().equals("OVERWRITE")==true)

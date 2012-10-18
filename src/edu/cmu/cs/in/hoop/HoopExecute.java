@@ -106,7 +106,7 @@ public class HoopExecute extends HoopRoot implements Runnable
 	{
 		debug ("prepareHoops ("+aRoot.getClassName()+")");
 		
-		aRoot.reset();
+		aRoot.reset(); // This is a hard reset
 		aRoot.setInEditor(inEditor);
 		
 		ArrayList<HoopBase> outHoops=aRoot.getOutHoops();
@@ -135,6 +135,8 @@ public class HoopExecute extends HoopRoot implements Runnable
 			debug ("This hoop is not active, skipping execution of connected hoops as well");
 			return (true);
 		}
+		
+		aRoot.resetData();
 		
 		while ((aRoot.getDone()==false) && (loopExecuting==true))
 		{							

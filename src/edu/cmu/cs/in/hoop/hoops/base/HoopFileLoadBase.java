@@ -98,7 +98,7 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 	{		
 		debug ("runHoop ()");
 		
-		this.resetData();
+		//this.resetData();
 		
 		setKVType (0,HoopDataType.LONG,"Timestamp"); // KEY !!!!!!!!
 		setKVType (1,HoopDataType.STRING,"Content");
