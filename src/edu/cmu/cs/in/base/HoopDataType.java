@@ -23,7 +23,7 @@ package edu.cmu.cs.in.base;
  * and compact. We use this class as the base class for objects that are used in
  * arrays, lists and tables and we can't waste memory.
  */
-public class HoopDataType
+public class HoopDataType extends HoopAnnotation
 {
 	public static final int CLASS=0; // This is the default if the class isn't used for a specific type wrapper
 	public static final int INT=1;

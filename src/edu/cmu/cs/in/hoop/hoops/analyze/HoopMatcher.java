@@ -26,6 +26,7 @@ import edu.cmu.cs.in.base.kv.HoopKVString;
 import edu.cmu.cs.in.hoop.hoops.base.HoopAnalyze;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
+import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
 
 /**
 * 
@@ -33,6 +34,8 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
 public class HoopMatcher extends HoopAnalyze implements HoopInterface
 {    					
 	private static final long serialVersionUID = -6162931325565067936L;
+	
+	protected HoopURISerializable patternFile=null;
 	
 	/**
 	 *
@@ -45,6 +48,8 @@ public class HoopMatcher extends HoopAnalyze implements HoopInterface
 		//removeOutPort ("KV");
 		
 		setHoopDescription ("Basic pattern matcher");		
+		
+		patternFile=new HoopURISerializable (this,"patternFile","");
     }
 	/**
 	 * We assume here a stream of tokens or terms with a sliding window that

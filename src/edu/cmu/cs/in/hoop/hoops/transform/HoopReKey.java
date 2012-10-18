@@ -20,11 +20,7 @@ package edu.cmu.cs.in.hoop.hoops.transform;
 
 import java.util.ArrayList;
 
-import edu.cmu.cs.in.base.HoopStringTools;
 import edu.cmu.cs.in.base.kv.HoopKV;
-import edu.cmu.cs.in.base.kv.HoopKVInteger;
-import edu.cmu.cs.in.base.kv.HoopKVString;
-import edu.cmu.cs.in.base.kv.HoopKVTools;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
 import edu.cmu.cs.in.hoop.hoops.base.HoopTransformBase;
@@ -89,7 +85,6 @@ public class HoopReKey extends HoopTransformBase implements HoopInterface
 			HoopKV newKV=createKV (aKV);
 			newKV.setKeyString (newKey);
 			newKV.toss(targetIndex);
-			//newKV.setValue(aKV.getValue(),0);
 			
 			addKV (newKV);								
 		}

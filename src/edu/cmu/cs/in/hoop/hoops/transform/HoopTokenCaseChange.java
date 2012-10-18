@@ -21,12 +21,10 @@ package edu.cmu.cs.in.hoop.hoops.transform;
 import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.kv.HoopKV;
-import edu.cmu.cs.in.base.kv.HoopKVInteger;
 import edu.cmu.cs.in.base.kv.HoopKVTools;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
 import edu.cmu.cs.in.hoop.hoops.base.HoopTransformBase;
-//import edu.cmu.cs.in.hoop.properties.types.HoopBooleanSerializable;
 import edu.cmu.cs.in.hoop.properties.types.HoopEnumSerializable;
 
 /**
@@ -34,6 +32,7 @@ import edu.cmu.cs.in.hoop.properties.types.HoopEnumSerializable;
 */
 public class HoopTokenCaseChange extends HoopTransformBase implements HoopInterface
 {    					
+	private static final long serialVersionUID = -8331508015259336062L;
 	private HoopEnumSerializable changeMode=null; // NONE,TOLOWER,TOUPPER
 	
 	/**
@@ -68,15 +67,27 @@ public class HoopTokenCaseChange extends HoopTransformBase implements HoopInterf
 				newKV.setKeyString (keyString.toString());
 												
 				if (changeMode.getValue().equals("TOLOWER")==true)
-				{
-					//addKV (new HoopKVInteger (i,aKV.getValue().toLowerCase()));
-					newKV.setValue(aKV.getValueAsString().toLowerCase(),0);
+				{					
+					ArrayList <Object> tokenChanger=aKV.getValuesRaw();
+					
+					for (int j=0;j<tokenChanger.size();j++)
+					{
+						String changer=(String) tokenChanger.get(j);
+						
+						newKV.setValue(changer.toLowerCase(),j);
+					}
 				}
 				
 				if (changeMode.getValue().equals("TOUPPER")==true)
-				{
-					//addKV (new HoopKVInteger (i,aKV.getValue().toUpperCase()));
-					newKV.setValue(aKV.getValueAsString().toUpperCase(),0);
+				{					
+					ArrayList <Object> tokenChanger=aKV.getValuesRaw();
+					
+					for (int j=0;j<tokenChanger.size();j++)
+					{
+						String changer=(String) tokenChanger.get(j);
+						
+						newKV.setValue(changer.toUpperCase(),j);
+					}					
 				}
 				
 				addKV (newKV);

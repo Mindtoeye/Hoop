@@ -138,27 +138,19 @@ public class HoopKV extends HoopDataType implements HoopKVInterface, Serializabl
 	 * Insert a new value and move all the other existing values down
 	 */
 	public void bump(Object value,String aLabel) 
-	{				
-		//System.out.println ("dump (Object,String)");
-		
+	{						
 		// PROCESS NEW LABEL AND MOVE THE OLD ONE UP!
 		
 		values.add (0,value);
-		
-		//System.out.println ("values: " + values.size());
 	}	
 	/**
 	 * Insert a new value and move all the other existing values down
 	 */
 	public void bump(Object value) 
-	{				
-		//System.out.println ("dump (Object)");
-		
+	{						
 		// PROCESS NEW LABEL AND MOVE THE OLD ONE UP!
 		
 		values.add (0,value);
-		
-		//System.out.println ("values: " + values.size());
 	}	
 	/**
 	 * 
