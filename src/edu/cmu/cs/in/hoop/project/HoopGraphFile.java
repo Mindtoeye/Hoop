@@ -117,9 +117,24 @@ public class HoopGraphFile extends HoopProjectFile
 	{
 		debug ("getByID ("+anID+")");
 				
+		if (hoops==null)
+		{
+			debug ("ERROR! No hoops available yet!");
+			
+			return (null);
+		}
+		
 		for (int i=0;i<hoops.size();i++)
 		{
 			HoopBase aHoop=hoops.get(i);
+			
+			if (aHoop.getHoopID()==null)
+			{
+				debug ("ERROR! Hoop ID is null in Hoop!");
+				
+				return (null);				
+			}
+			
 			if (aHoop.getHoopID().equals(anID)==true)
 			{
 				return (aHoop);

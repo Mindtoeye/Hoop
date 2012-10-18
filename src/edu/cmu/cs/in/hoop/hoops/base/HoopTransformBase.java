@@ -19,6 +19,7 @@
 package edu.cmu.cs.in.hoop.hoops.base;
 
 import edu.cmu.cs.in.hoop.properties.types.HoopBooleanSerializable;
+import edu.cmu.cs.in.hoop.properties.types.HoopEnumSerializable;
 
 /**
 * 
@@ -26,7 +27,8 @@ import edu.cmu.cs.in.hoop.properties.types.HoopBooleanSerializable;
 public class HoopTransformBase extends HoopBase implements HoopInterface
 {    				
 	private static final long serialVersionUID = -2512183248281416755L;
-	public HoopBooleanSerializable reKey=null;	
+	public HoopBooleanSerializable reKey=null;
+	public HoopEnumSerializable changeKeyType=null;
 	
 	/**
 	 *
@@ -40,6 +42,7 @@ public class HoopTransformBase extends HoopBase implements HoopInterface
 		setHoopDescription ("Abstract Hoop Transformer");
 		
 		reKey=new HoopBooleanSerializable (this,"reKey",false);
+		changeKeyType=new HoopEnumSerializable (this,"changeKeyType","keep the same,CLASS,INT,LONG,STRING,FLOAT,BOOLEAN,ENUM,TABLE,DOCUMENT");
     }
 	/**
 	 *

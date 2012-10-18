@@ -75,6 +75,13 @@ class HoopSheetPathEditor extends HoopJPanel implements ActionListener
 		
 		pathObject.setValue (translated);
 		
+		if (translated.indexOf(pathObject.getFileExtension())==-1)
+		{
+			// It's missing the file extension
+			
+			pathObject.setValue (translated+"."+pathObject.getFileExtension());
+		}
+				
 		debug ("New path set to: " + pathObject.getValue());
 	}
 	/**

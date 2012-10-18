@@ -329,7 +329,7 @@ public class HoopLink extends HoopProperties
 	public static HoopTabDraggable center=null;
 	public static HoopTabDraggable bottom=null;	
 	
-	public static GridBagConstraints gbc = null;
+	//public static GridBagConstraints gbc = null;
 	
 	// Networking access
 	
@@ -388,11 +388,14 @@ public class HoopLink extends HoopProperties
 		if (hoopGraphManager==null)
 			hoopGraphManager=new HoopGraphManager ();
 		
+		/*
 		gbc = new GridBagConstraints();
 		gbc.fill = GridBagConstraints.NONE;
-		gbc.anchor = GridBagConstraints.NORTHWEST;
-		gbc.weighty = 1;
+		//gbc.anchor = GridBagConstraints.NORTHWEST;
+		gbc.anchor=GridBagConstraints.PAGE_START;
 		gbc.weightx = 1;
+		gbc.weighty = 0;
+		*/
     }  
     /**
      * 

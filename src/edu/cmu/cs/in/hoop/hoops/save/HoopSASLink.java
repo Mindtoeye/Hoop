@@ -45,11 +45,11 @@ public class HoopSASLink extends HoopFileSaveBase
 		setClassName ("HoopSASLink");
 		debug ("HoopSASLink ()");
 				
-		setHoopDescription ("Save KVs in CSV format");
+		setHoopDescription ("Save KVs in SAS format");
 		setFileExtension ("csv");
 				
 		writeMode=new HoopEnumSerializable (this,"writeMode","OVERWRITE,APPEND");
-		mode=new HoopEnumSerializable (this,"mode","COMMA,TAB,DASH");
+		mode=new HoopEnumSerializable (this,"mode","COMMA,TAB,DASH,PIPE");
     }  
     /**
      * 
@@ -64,6 +64,9 @@ public class HoopSASLink extends HoopFileSaveBase
     	
     	if (mode.getValue().equals("DASH"))
     		return ("-");
+    	
+    	if (mode.getValue().equals("PIPE"))
+    		return ("|");
     	
     	return (",");
     }

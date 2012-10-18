@@ -47,7 +47,7 @@ public class HoopCSVWriter extends HoopFileSaveBase
 		setFileExtension ("csv");
 				
 		writeMode=new HoopEnumSerializable (this,"writeMode","OVERWRITE,APPEND");
-		mode=new HoopEnumSerializable (this,"mode","COMMA,TAB,DASH");
+		mode=new HoopEnumSerializable (this,"mode","COMMA,TAB,DASH,PIPE");
     }  
     /**
      * 
@@ -62,6 +62,9 @@ public class HoopCSVWriter extends HoopFileSaveBase
     	
     	if (mode.getValue().equals("DASH"))
     		return ("-");
+    	
+    	if (mode.getValue().equals("PIPE"))
+    		return ("|");
     	
     	return (",");
     }

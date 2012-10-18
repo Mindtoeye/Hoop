@@ -28,6 +28,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -35,6 +36,7 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JToggleButton;
+import javax.swing.border.Border;
 
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.base.HoopLink;
@@ -56,6 +58,8 @@ public class HoopPropertyPanel extends HoopEmbeddedJPanel implements ActionListe
     
     private JToggleButton linkButton=null;
     private Boolean viewsLinked=false;
+    
+    private Component panelGlue=null;
     	
 	/**
 	 * Creates a new JPanel with a double buffer and a flow layout.
@@ -103,14 +107,17 @@ public class HoopPropertyPanel extends HoopEmbeddedJPanel implements ActionListe
 		contentBox.setOpaque(true);
 		contentBox.setMinimumSize(new Dimension (20,20));
         		
+		//Border border=BorderFactory.createLineBorder(Color.red);
+		
         contentScroller=new JScrollPane (contentBox);
+        //contentScroller.setBorder(border);        
         contentScroller.setMinimumSize(new Dimension (20,20));
         contentScroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         
         hoopPropertyBox.add (controlBox);
         hoopPropertyBox.add (Box.createRigidArea(new Dimension(0,2)));
         hoopPropertyBox.add (contentScroller);
-                        
+                                
         this.add (hoopPropertyBox);        
 	}
 	/**
@@ -157,25 +164,26 @@ public class HoopPropertyPanel extends HoopEmbeddedJPanel implements ActionListe
 	public void addPropertyPanel (HoopInspectablePanel aPanel)
 	{
 		debug ("addPropertyPanel ("+(contentBox.getComponentCount()-1)+")");
-					
-		HoopLink.gbc.gridx = 1;
-		HoopLink.gbc.fill=GridBagConstraints.HORIZONTAL;
-				
-		if (contentBox.getComponentCount()==0) // THIS SHOULD NOT HAPPEN
-		{
-			HoopLink.gbc.gridy = contentBox.getComponentCount()+1;			
-			contentBox.add (aPanel,HoopLink.gbc);
-			
-			HoopLink.gbc.gridy = contentBox.getComponentCount()+1;
-			contentBox.add (Box.createVerticalGlue(),HoopLink.gbc);
-		}
-		else
-		{
-			contentBox.add (aPanel,HoopLink.gbc,contentBox.getComponentCount()-1);
-			HoopLink.gbc.gridy = contentBox.getComponentCount()+1;
-		}
+
+		if (panelGlue!=null)
+			contentBox.remove(panelGlue);
 		
-		//listViews ();
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.anchor=GridBagConstraints.NORTHWEST;
+		gbc.fill = GridBagConstraints.HORIZONTAL;
+		gbc.gridx = 1;
+		gbc.weightx = 1;
+		gbc.weighty = 0;		
+						
+		gbc.gridy = contentBox.getComponentCount();
+		contentBox.add (aPanel,gbc);
+		
+        gbc = new GridBagConstraints();
+		gbc.weighty = 1;
+		gbc.gridy = contentBox.getComponentCount();
+		
+		panelGlue=Box.createVerticalGlue();				
+		contentBox.add (panelGlue,gbc);
 		
 		contentBox.revalidate();
 		

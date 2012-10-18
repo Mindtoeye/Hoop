@@ -83,6 +83,14 @@ public class HoopConnection extends HoopRoot
 	 */	
 	public void setFromHoop(HoopBase aFromHoop) 
 	{
+		debug ("setFromHoop ()");
+		
+		if (aFromHoop==null)
+		{
+			debug ("Error: 'from' hoop is null!");
+			return;
+		}
+		
 		this.fromHoop = aFromHoop;
 		this.fromHoopID=fromHoop.getHoopID();
 	}

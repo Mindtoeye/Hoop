@@ -26,6 +26,7 @@ import javax.swing.JPanel;
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.base.kv.HoopKVInteger;
+import edu.cmu.cs.in.base.kv.HoopKVTools;
 import edu.cmu.cs.in.hoop.HoopProjectPanel;
 import edu.cmu.cs.in.hoop.HoopStopWordEditor;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
@@ -102,12 +103,20 @@ public class HoopFilterStopWords extends HoopTransformBase implements HoopInterf
 					}	
 				}	
 				
+				Integer keyString=i;
+								
+				HoopKV newKV=HoopKVTools.getLikeKVType(aKV);				
+				newKV.setKeyString (keyString.toString());
+				newKV.setValue(aKV.getValue(),0);
+				
 				if (isStop==false)
 				{
-					addKV (new HoopKVInteger (i,aKV.getValue()));
+					addKV (newKV);
 				}
 				else
-					toss (new HoopKVInteger (i,aKV.getValue()));
+				{				
+					toss (newKV);
+				}
 			}						
 		}
 		else

@@ -103,7 +103,8 @@ public class HoopGenericProgressdialog extends HoopRoot implements PropertyChang
     	
         // if the operation is finished or has been canceled by
         // the user, take appropriate action
-        if (progressMonitor.isCanceled()) 
+    	
+        if ((progressMonitor.isCanceled()) || (progressMonitor.isCanceled())) 
 		{
             operation.cancel(true);
         } 
@@ -112,7 +113,7 @@ public class HoopGenericProgressdialog extends HoopRoot implements PropertyChang
             // get the % complete from the progress event
             // and set it on the progress monitor
             int progress = ((Integer)event.getNewValue()).intValue();
-            progressMonitor.setProgress(progress);            
+            progressMonitor.setProgress(progress);
         }        
     }
  
@@ -209,6 +210,8 @@ public class HoopGenericProgressdialog extends HoopRoot implements PropertyChang
                     {
                         e.printStackTrace();
                     }
+                    
+                    this.cancel(true);
                 }
             }
             

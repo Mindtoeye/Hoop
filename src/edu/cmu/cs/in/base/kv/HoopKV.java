@@ -63,6 +63,13 @@ public class HoopKV extends HoopDataType implements HoopKVInterface, Serializabl
     /**
      * 
      */
+    public void setKeyString (String aKey)
+    {
+    	// Implement in child!
+    }
+    /**
+     * 
+     */
     public String getKeyString ()
     {
     	return ("abstract");

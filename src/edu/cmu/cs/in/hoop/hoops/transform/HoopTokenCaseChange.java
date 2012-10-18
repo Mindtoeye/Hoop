@@ -22,6 +22,7 @@ import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.base.kv.HoopKVInteger;
+import edu.cmu.cs.in.base.kv.HoopKVTools;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
 import edu.cmu.cs.in.hoop.hoops.base.HoopTransformBase;
@@ -59,16 +60,26 @@ public class HoopTokenCaseChange extends HoopTransformBase implements HoopInterf
 		{					
 			for (int i=0;i<inData.size();i++)
 			{
-				HoopKVInteger aKV=(HoopKVInteger) inData.get(i);
+				HoopKV aKV=inData.get(i);
 				
-				if (changeMode.getValue().equals("NONE")==true)
-					addKV (new HoopKVInteger (i,aKV.getValue()));
+				Integer keyString=i;
 				
+				HoopKV newKV=HoopKVTools.getLikeKVType(aKV);				
+				newKV.setKeyString (keyString.toString());
+												
 				if (changeMode.getValue().equals("TOLOWER")==true)
-					addKV (new HoopKVInteger (i,aKV.getValue().toLowerCase()));
+				{
+					//addKV (new HoopKVInteger (i,aKV.getValue().toLowerCase()));
+					newKV.setValue(aKV.getValueAsString().toLowerCase(),0);
+				}
 				
 				if (changeMode.getValue().equals("TOUPPER")==true)
-					addKV (new HoopKVInteger (i,aKV.getValue().toUpperCase()));				
+				{
+					//addKV (new HoopKVInteger (i,aKV.getValue().toUpperCase()));
+					newKV.setValue(aKV.getValueAsString().toUpperCase(),0);
+				}
+				
+				addKV (newKV);
 			}						
 		}
 		else

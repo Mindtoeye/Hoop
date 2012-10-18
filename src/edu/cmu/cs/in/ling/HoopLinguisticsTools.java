@@ -65,18 +65,19 @@ public class HoopLinguisticsTools extends HoopRoot
 	    
 	    for(int j=1;j<=n;j++)
 	    {
-	      for(int i=1;i<=m;i++)
-	      {
-	        if(p_source.charAt(i-1)==p_target.charAt(j-1))
-	        {
-	          d[i][j]=d[i-1][j-1];
-	        }
-	        else
-	        {
-	          d[i][j]=min((d[i-1][j]+1),(d[i][j-1]+1),(d[i-1][j-1]+1));
-	        }
-	      }
+	    	for(int i=1;i<=m;i++)
+	    	{
+	    		if(p_source.charAt(i-1)==p_target.charAt(j-1))
+	    		{
+	    			d[i][j]=d[i-1][j-1];
+	    		}
+	    		else
+	    		{
+	    			d[i][j]=min((d[i-1][j]+1),(d[i][j-1]+1),(d[i-1][j-1]+1));
+	    		}
+	    	}
 	    }
+	    
 	    return(d[m][n]);
 	}
 	/**
