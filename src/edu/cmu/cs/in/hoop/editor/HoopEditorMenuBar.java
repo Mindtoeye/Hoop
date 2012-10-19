@@ -117,6 +117,12 @@ public class HoopEditorMenuBar extends JMenuBar
 	{		
 		debug ("create ()");
 		
+		if (editor!=null)
+		{
+			debug ("Editor menu bar already initialized");
+			return;
+		}
+		
 		editor=anEditor;
 		
 		final mxGraphComponent graphComponent = editor.getGraphComponent();

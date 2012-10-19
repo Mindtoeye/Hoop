@@ -35,6 +35,7 @@ import edu.cmu.cs.in.controls.HoopSentenceWall;
 import edu.cmu.cs.in.controls.dialogs.HoopCleanProjectDialog;
 import edu.cmu.cs.in.controls.dialogs.HoopGenericNameDialog;
 import edu.cmu.cs.in.controls.dialogs.HoopGenericProgressdialog;
+import edu.cmu.cs.in.hoop.editor.HoopEditorToolBar;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.task.HoopStart;
 import edu.cmu.cs.in.hoop.project.HoopGraphFile;
@@ -795,32 +796,52 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 	private void startEditor ()
 	{
 		debug ("startEditor ()");
+			
+		if (HoopLink.getWindow("Console")==null)
+		{
+			console=new HoopConsole();    	
+			addView ("Console",console,HoopLink.bottom);
+		}	
 		
-    	console=new HoopConsole();    	
-    	addView ("Console",console,HoopLink.bottom);  		
-		
-    	HoopProjectPanel projectPanel=new HoopProjectPanel ();
-    	addView ("Project",projectPanel,HoopLink.left);
+    	HoopProjectPanel projectPanel=(HoopProjectPanel) HoopLink.getWindow("Project");
+    	if (projectPanel==null)
+    	{
+    		projectPanel=new HoopProjectPanel ();
+    		addView ("Project",projectPanel,HoopLink.left);
+    	}	
     	
-		HoopTreeList hoopList=new HoopTreeList ();
-		addView ("Hoop List",hoopList,HoopLink.left);
+		HoopTreeList hoopList=(HoopTreeList) HoopLink.getWindow("HoopList");
+		if (hoopList==null)
+		{
+			hoopList=new HoopTreeList ();
+			addView ("Hoop List",hoopList,HoopLink.left);
+		}
 		
-		HoopPropertyPanel propPanel=new HoopPropertyPanel();
-    	
-    	addView ("Properties",propPanel,HoopLink.right);
+		HoopPropertyPanel propPanel=(HoopPropertyPanel) HoopLink.getWindow("Properties");
+    	if (propPanel==null)
+    	{
+    		propPanel=new HoopPropertyPanel();
+    		addView ("Properties",propPanel,HoopLink.right);
+    	}	
 		
-		HoopGraphEditor editor=new HoopGraphEditor ();
-		addView ("Hoop Editor",editor,HoopLink.center);
+		HoopGraphEditor editor=(HoopGraphEditor) HoopLink.getWindow("Hoop Editor");		
+		if (editor==null)
+		{
+			editor=new HoopGraphEditor ();
+			addView ("Hoop Editor",editor,HoopLink.center);
+		}	
 		
 		newProjectInternal (null);
 		
-		/*
 		HoopLink.menuBar.create(editor);
 		
-		HoopLink.toolEditorBar=new HoopEditorToolBar ();
-		HoopLink.toolBoxContainer.add (HoopLink.toolEditorBar,1);    		
-		HoopLink.toolEditorBar.create(editor,JToolBar.HORIZONTAL);
-		*/
+		if (HoopLink.toolEditorBar==null)
+		{
+			HoopLink.toolEditorBar=new HoopEditorToolBar ();
+		
+			HoopLink.toolBoxContainer.add (HoopLink.toolEditorBar,1);    		
+			HoopLink.toolEditorBar.create(editor,JToolBar.HORIZONTAL);
+		}	
 		
 		projectPanel.updateContents();
 	}
@@ -886,7 +907,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 		HoopLink.popWindow ("Errors");
 	}
 	/**
-	 * http://www.catalysoft.com/articles/busyCursor.html
+	 * 
 	 */
 	private Boolean newProject ()
 	{
@@ -910,7 +931,11 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
            	{          	
            		debug ("Saving project ...");
            		
+           		startWaitCursor ();
+           		
            		HoopLink.project.save();
+           		
+           		endWaitCursor ();
            	}
            	
            	if (n==2)
@@ -970,7 +995,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 		return (true);
 	}
 	/**
-	 * http://www.catalysoft.com/articles/busyCursor.html
+	 * 
 	 */
 	private Boolean openProject ()
 	{
@@ -1103,7 +1128,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 		return (true);
 	}
 	/**
-	 * http://www.catalysoft.com/articles/busyCursor.html
+	 * 
 	 */
 	private Boolean projectSave ()
 	{
@@ -1142,7 +1167,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 		return (true);
 	}
 	/**
-	 * http://www.catalysoft.com/articles/busyCursor.html
+	 * 
 	 */
 	private Boolean projectSaveAs ()
 	{

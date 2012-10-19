@@ -140,7 +140,7 @@ public class HoopMultiViewFrame extends HoopPreferencesJFrame
 		Border blackborder=BorderFactory.createLineBorder(Color.black);
 		//Border redborder=BorderFactory.createLineBorder(Color.red);		
 						
-		getContentPane().setLayout(new BoxLayout (getContentPane(),BoxLayout.Y_AXIS));
+		cp.setLayout(new BoxLayout (getContentPane(),BoxLayout.Y_AXIS));
 																								
 		HoopLink.menuBar = new HoopEditorMenuBar ();
         setJMenuBar(HoopLink.menuBar);
@@ -197,16 +197,16 @@ public class HoopMultiViewFrame extends HoopPreferencesJFrame
         multiSplitPane.setBackground(new Color (180,180,180));		
         multiSplitPane.setDividerSize(5);
         multiSplitPane.getMultiSplitLayout().setModel(modelRoot);
-       	multiSplitPane.add(HoopLink.left, "left");
-       	multiSplitPane.add(HoopLink.right, "right");
-        multiSplitPane.add(HoopLink.center, "middle");
-        multiSplitPane.add(HoopLink.bottom, "bottom");
+       	multiSplitPane.add (HoopLink.left, "left");
+       	multiSplitPane.add (HoopLink.right, "right");
+        multiSplitPane.add (HoopLink.center, "middle");
+        multiSplitPane.add (HoopLink.bottom, "bottom");
        	       	
-       	cp.add(multiSplitPane, BorderLayout.CENTER);
+       	cp.add (multiSplitPane, BorderLayout.CENTER);
        	
        	cp.add (HoopLink.statusBar, BorderLayout.CENTER);
        									
-		debug ("Ready for input");        		 	
+		debug ("Ready for input");
     }
 	/**
 	 *
