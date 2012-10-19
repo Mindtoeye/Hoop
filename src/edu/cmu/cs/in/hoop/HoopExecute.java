@@ -136,6 +136,8 @@ public class HoopExecute extends HoopRoot implements Runnable
 			return (true);
 		}
 		
+		startHoopExecution (aRoot);
+		
 		aRoot.resetData();
 		
 		while ((aRoot.getDone()==false) && (loopExecuting==true))
@@ -162,13 +164,18 @@ public class HoopExecute extends HoopRoot implements Runnable
 					debug ("No visual representation present to show error result!");
 			
 				showError (aRoot.getClassName(),aRoot.getErrorString());
+				
+				endHoopExecution (aRoot);
 															
 				return (false);
 			}
 			else
 			{
 				if (loopExecuting==false)
+				{
+					endHoopExecution (aRoot);
 					return (true);
+				}
 			}
 			
 			currentRunner=null;
@@ -191,7 +198,10 @@ public class HoopExecute extends HoopRoot implements Runnable
 					HoopBase current=outHoops.get(i);
 												
 					if (execute (aRoot,current)==false)
+					{
+						endHoopExecution (aRoot);
 						return (false);
+					}
 				}
 				
 				debug ("Done executing sub hoops");
@@ -203,6 +213,8 @@ public class HoopExecute extends HoopRoot implements Runnable
 		// All done, really done
 		
 		debug ("execute () pop");
+		
+		endHoopExecution (aRoot);
 		
 		return (true);
 	}	
@@ -330,4 +342,22 @@ public class HoopExecute extends HoopRoot implements Runnable
 			}				
 		}								
 	}
+	/**
+	 * 
+	 */
+	protected void startHoopExecution (HoopBase aHoop)
+	{
+		debug ("startHoopExecution ()");
+		
+		// Implement in child class!
+	}	
+	/**
+	 * 
+	 */
+	protected void endHoopExecution (HoopBase aHoop)
+	{
+		debug ("endHoopExecution ()");
+		
+		// Implement in child class!
+	}	
 }

@@ -670,6 +670,13 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     		{
     			debug ("Run ...");
     			
+    			HoopExecuteProgressPanel executionMonitor=(HoopExecuteProgressPanel) HoopLink.getWindow("Execution Monitor");
+    			if (executionMonitor==null)
+    			{
+    				executionMonitor=new HoopExecuteProgressPanel ();
+    				addView ("Execution Monitor",executionMonitor,HoopLink.bottom);
+    			}
+    			
     			runtime.setRoot(HoopLink.hoopGraphManager.getRoot());
     			runtime.setLoopCount(1);
     			    			

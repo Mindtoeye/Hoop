@@ -35,6 +35,7 @@ import edu.cmu.cs.in.base.io.HoopStreamedSocket;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 import edu.cmu.cs.in.hoop.HoopConsoleInterface;
 import edu.cmu.cs.in.hoop.HoopExecute;
+import edu.cmu.cs.in.hoop.HoopExecutionMonitor;
 import edu.cmu.cs.in.hoop.HoopGraphManager;
 import edu.cmu.cs.in.hoop.HoopHelp;
 import edu.cmu.cs.in.hoop.HoopManager;
@@ -323,6 +324,8 @@ public class HoopLink extends HoopProperties
 	public static HoopEditorToolBar toolEditorBar=null;
 	public static JPanel toolBoxContainer=null;
 	public static HoopStatusBar statusBar=null;
+	
+	public static HoopExecutionMonitor executionMonitor=null;
 	
 	public static HoopTabDraggable left=null;
 	public static HoopTabDraggable right=null;

@@ -170,5 +170,29 @@ public class HoopExecuteInEditor extends HoopExecute implements ActionListener
 			runner.start();
 		}				
 	}	
+	/**
+	 * 
+	 */
+	protected void startHoopExecution (HoopBase aHoop)
+	{
+		debug ("startHoopExecution ()");
+		
+		if (HoopLink.executionMonitor!=null)
+		{
+			HoopLink.executionMonitor.updateHoopExecution(aHoop);
+		}
+	}	
+	/**
+	 * 
+	 */
+	protected void endHoopExecution (HoopBase aHoop)
+	{
+		debug ("endHoopExecution ()");
+		
+		if (HoopLink.executionMonitor!=null)
+		{
+			HoopLink.executionMonitor.updateHoopExecution(aHoop);
+		}
+	}		
 }
 

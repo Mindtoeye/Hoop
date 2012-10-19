@@ -110,6 +110,13 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
     /**
      * 
      */
+    public HoopPerformanceMetrics getPerformanceMetrics ()
+    {
+    	return (performance);
+    }
+    /**
+     * 
+     */
     protected String getProjectPath ()
     {
     	if (HoopLink.project==null)
