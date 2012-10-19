@@ -241,7 +241,25 @@ public class HoopExecute extends HoopRoot implements Runnable
 			else
 				debug ("No visual representation present to show error result!");
 		}	
-	}		
+	}
+	/**
+	 * 
+	 */
+	protected void startHoopExecution (HoopBase aHoop)
+	{
+		debug ("startHoopExecution ()");
+		
+		// Implement in child class!
+	}	
+	/**
+	 * 
+	 */
+	protected void endHoopExecution (HoopBase aHoop)
+	{
+		debug ("endHoopExecution ()");
+		
+		// Implement in child class!
+	}	
 	/**
 	 * 
 	 */
@@ -363,23 +381,5 @@ public class HoopExecute extends HoopRoot implements Runnable
 				setSubTreeDone (current,aValue);
 			}				
 		}								
-	}
-	/**
-	 * 
-	 */
-	protected void startHoopExecution (HoopBase aHoop)
-	{
-		debug ("startHoopExecution ()");
-		
-		// Implement in child class!
-	}	
-	/**
-	 * 
-	 */
-	protected void endHoopExecution (HoopBase aHoop)
-	{
-		debug ("endHoopExecution ()");
-		
-		// Implement in child class!
 	}	
 }
