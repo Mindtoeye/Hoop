@@ -26,8 +26,17 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 public interface HoopExecutionMonitor
 {				
 	/**
-	 * 
-	 * @param aHoop
+	 * 	
 	 */
-	public void updateHoopExecution (HoopBase aHoop);
+	public void updateHoopStartExecution(HoopBase aHoop);
+
+	/**
+	 * 	
+	 */
+	public void updateHoopEndExecution(HoopBase aHoop);
+	
+	/**
+	 * 
+	 */
+	public void reset();
 }

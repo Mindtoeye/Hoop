@@ -85,12 +85,17 @@ public class HoopExecuteInEditor extends HoopExecute implements ActionListener
 	/**
 	 * 
 	 */
-	protected Boolean execute (HoopBase aParent,HoopBase aRoot)
+	protected void startExecution ()
 	{
-		debug ("execute ()");
+		debug ("startExecution ()");
+		
+		if (HoopLink.executionMonitor!=null)
+		{
+			HoopLink.executionMonitor.reset ();
+		}
 		
 		HoopLink.runner=this;
-				
+		
 		HoopGraphEditor editor=(HoopGraphEditor) HoopLink.getWindow("Hoop Editor");
 		
 		if (editor!=null)
@@ -105,9 +110,16 @@ public class HoopExecuteInEditor extends HoopExecute implements ActionListener
 		{
 			//hoopWindow.setEnabled(false);
 			hoopWindow.setLocked(true);
-		}
+		}				
+	}	
+	/**
+	 * 
+	 */
+	protected void endExecution ()
+	{
+		debug ("endExecution ()");
 		
-		Boolean result=super.execute(aParent, aRoot);
+		HoopGraphEditor editor=(HoopGraphEditor) HoopLink.getWindow("Hoop Editor");
 		
 		if (editor!=null)
 		{
@@ -115,14 +127,14 @@ public class HoopExecuteInEditor extends HoopExecute implements ActionListener
 			editor.setLocked(false);
 		}	
 				
+		HoopTreeList hoopWindow=(HoopTreeList) HoopLink.getWindow("Hoop List");
+		
 		if (hoopWindow!=null)
 		{
 			//hoopWindow.setEnabled(false);
 			hoopWindow.setLocked(false);
-		}
-				
-		return (result);
-	}
+		}		
+	}		
 	/**
 	 * 
 	 */
@@ -179,7 +191,7 @@ public class HoopExecuteInEditor extends HoopExecute implements ActionListener
 		
 		if (HoopLink.executionMonitor!=null)
 		{
-			HoopLink.executionMonitor.updateHoopExecution(aHoop);
+			HoopLink.executionMonitor.updateHoopStartExecution(aHoop);
 		}
 	}	
 	/**
@@ -191,7 +203,7 @@ public class HoopExecuteInEditor extends HoopExecute implements ActionListener
 		
 		if (HoopLink.executionMonitor!=null)
 		{
-			HoopLink.executionMonitor.updateHoopExecution(aHoop);
+			HoopLink.executionMonitor.updateHoopEndExecution(aHoop);
 		}
 	}		
 }

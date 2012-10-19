@@ -245,6 +245,24 @@ public class HoopExecute extends HoopRoot implements Runnable
 	/**
 	 * 
 	 */
+	protected void startExecution ()
+	{
+		debug ("startExecution ()");
+		
+		// Implement in child class
+	}
+	/**
+	 * 
+	 */
+	protected void endExecution ()
+	{
+		debug ("endExecution ()");
+		
+		// Implement in child class
+	}	
+	/**
+	 * 
+	 */
 	@Override
 	public void run() 
 	{	
@@ -252,12 +270,14 @@ public class HoopExecute extends HoopRoot implements Runnable
 		
 		loopExecuting=true;
 		currentRunner=null;
-		
+				
 		if (root==null)
 		{
 			debug ("Error: no graph root available");
 			return;
 		}
+		
+		startExecution ();
 				
 		showHoopTree (null,root);
 		
@@ -290,6 +310,8 @@ public class HoopExecute extends HoopRoot implements Runnable
 		}
 		
 		loopExecuting=false;
+		
+		endExecution ();
 	}
 	/**
 	 * 

@@ -18,7 +18,7 @@
 
 package edu.cmu.cs.in.hoop;
 
-//import java.awt.Color;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -26,16 +26,16 @@ import java.awt.Font;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
 import javax.swing.ListCellRenderer;
-
-//import javax.swing.border.Border;
+import javax.swing.SwingConstants;
 
 import edu.cmu.cs.in.base.HoopLink;
+import edu.cmu.cs.in.controls.HoopProgressPainter;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 import edu.cmu.cs.in.controls.base.HoopJPanel;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
@@ -52,12 +52,13 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 	public class HoopExecutionListRenderer extends HoopJPanel implements ListCellRenderer 
 	{
 		private static final long serialVersionUID = -2950497524627822787L;
-		protected DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
 		  
 		private JLabel textInfo=null;
 		private JLabel stateInfo=null;
 		private JLabel timeIndicator=null;
-		private JLabel progressIndicator=null;
+		private HoopProgressPainter progressIndicator=null;
+		
+		private int maxHeight=18;
 		
 		/**
 		 * Creates a new JPanel with a double buffer and a flow layout.
@@ -72,20 +73,44 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 			
 			textInfo=new JLabel ();
 			textInfo.setFont(new Font("Dialog", 1, 10));
-			textInfo.setMaximumSize(new Dimension (150,20));
+			textInfo.setMinimumSize(new Dimension (150,maxHeight));
+			textInfo.setPreferredSize(new Dimension (150,maxHeight));
+			textInfo.setMaximumSize(new Dimension (150,maxHeight));
 			this.add(textInfo);
+			
+			JSeparator sep1=new JSeparator(SwingConstants.VERTICAL);
+			sep1.setMinimumSize(new Dimension (5,maxHeight));
+			sep1.setPreferredSize(new Dimension (5,maxHeight));
+			sep1.setMaximumSize(new Dimension (5,maxHeight));
+			this.add(sep1);
 			
 			stateInfo=new JLabel ();
 			stateInfo.setFont(new Font("Dialog", 1, 10));
-			stateInfo.setMaximumSize(new Dimension (50,20));
+			stateInfo.setMinimumSize(new Dimension (50,maxHeight));
+			stateInfo.setPreferredSize(new Dimension (50,maxHeight));
+			stateInfo.setMaximumSize(new Dimension (50,maxHeight));
 			this.add(stateInfo);
+			
+			JSeparator sep2=new JSeparator(SwingConstants.VERTICAL);
+			sep2.setMinimumSize(new Dimension (5,maxHeight));
+			sep2.setPreferredSize(new Dimension (5,maxHeight));
+			sep2.setMaximumSize(new Dimension (5,maxHeight));
+			this.add(sep2);
 			
 			timeIndicator=new JLabel ();
 			timeIndicator.setFont(new Font("Dialog", 1, 10));
-			timeIndicator.setMaximumSize(new Dimension (150,20));
+			timeIndicator.setMinimumSize(new Dimension (100,maxHeight));
+			timeIndicator.setPreferredSize(new Dimension (100,maxHeight));
+			timeIndicator.setMaximumSize(new Dimension (100,maxHeight));
 			this.add (timeIndicator);
 			
-			progressIndicator=new JLabel ();
+			JSeparator sep3=new JSeparator(SwingConstants.VERTICAL);
+			sep3.setMinimumSize(new Dimension (5,maxHeight));
+			sep3.setPreferredSize(new Dimension (5,maxHeight));
+			sep3.setMaximumSize(new Dimension (5,maxHeight));
+			this.add(sep3);
+			
+			progressIndicator=new HoopProgressPainter ();			
 			progressIndicator.setFont(new Font("Dialog", 1, 10));
 			this.add (progressIndicator);			
 		}
@@ -137,11 +162,9 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 		}
 	}	
 	
-	private static final long serialVersionUID = -9132114294178560223L;
-	
-	JList executionTrace=null;
-	
-	DefaultListModel model=null;
+	private static final long serialVersionUID = -9132114294178560223L;	
+	JList executionTrace=null;	
+	DefaultListModel<HoopBase> model=null;
 	
 	/**
 	 * 
@@ -157,9 +180,11 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 						
 		ListCellRenderer renderer = new HoopExecutionListRenderer ();
 		
-		model = new DefaultListModel();
+		model = new DefaultListModel<HoopBase>();
 		
 		executionTrace=new JList (model);
+		executionTrace.setOpaque(true);
+		executionTrace.setBackground(new Color (220,220,220));
 		executionTrace.setCellRenderer(renderer);
 		
 		JScrollPane traceContainer=new JScrollPane (executionTrace);
@@ -186,11 +211,49 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 	 * 
 	 */
 	@Override
-	public void updateHoopExecution (HoopBase aHoop) 
+	public void updateHoopStartExecution (HoopBase aHoop) 
 	{
-		debug ("updateHoopExecution ()");
+		debug ("updateHoopStartExecution ()");
 		
-		int pos = executionTrace.getModel().getSize();
-		model.add (pos,aHoop);
+		int elementIndex=model.indexOf(aHoop);
+		
+		if (elementIndex==-1)
+		{
+			int pos = executionTrace.getModel().getSize();
+			model.add (pos,aHoop);
+		}
+		else
+		{
+			executionTrace.repaint(executionTrace.getCellBounds(elementIndex, elementIndex));
+		}
+	}
+	/**
+	 * 
+	 */
+	@Override
+	public void updateHoopEndExecution (HoopBase aHoop) 
+	{
+		debug ("updateHoopEndExecution ()");
+		
+		int elementIndex=model.indexOf(aHoop);
+		
+		if (elementIndex==-1)
+		{
+			int pos = executionTrace.getModel().getSize();
+			model.add (pos,aHoop);
+		}
+		else
+		{
+			executionTrace.repaint(executionTrace.getCellBounds(elementIndex, elementIndex));
+		}
+	}	
+	@Override
+	public void reset() 
+	{
+		debug ("reset ()");
+	
+		model = new DefaultListModel<HoopBase>();
+		
+		executionTrace.setModel(model);
 	}	
 }
