@@ -23,7 +23,10 @@ import java.util.ArrayList;
 import edu.cmu.cs.in.base.HoopRoot;
 
 /**
- * 
+ * Presented here is a basic pattern matcher quite useful to base other matchers
+ * on. Given a list of patterns, a list of tokens to be matched and the current
+ * index into the token list, it will try to build a list of best matches and
+ * return this list. 
  */
 public class HoopPatternMatcher extends HoopRoot
 {		
@@ -77,10 +80,19 @@ public class HoopPatternMatcher extends HoopRoot
 	/**
 	 * 
 	 */
-	public HoopPatternMatch matchPattern (ArrayList<Object> aTokenList,
-										  int anIndex) 
+	private ArrayList <HoopPatternMatch> scoreMatch (ArrayList <HoopPatternMatch> aList)
+	{
+		return (aList);
+	}
+	/**
+	 * 
+	 */
+	public ArrayList <HoopPatternMatch> matchPattern (ArrayList<Object> aTokenList,
+													  int anIndex) 
 	{
 		debug ("matchPattern ()");
+		
+		ArrayList<HoopPatternMatch> newPatterns=new ArrayList<HoopPatternMatch> ();
 		
 		//String aToken=aTokenList.get(anIndex);
 
@@ -111,7 +123,8 @@ public class HoopPatternMatcher extends HoopRoot
 			// See if we've matched all the tokens. If there is a partial match
 			// we can see if we can incorporate that score at some point
 
-			if (matched==ptSize) 
+			//if (matched==ptSize)
+			if (matched>0)
 			{												
 				debug ("MATCHED: " + matched);
 				
@@ -132,11 +145,11 @@ public class HoopPatternMatcher extends HoopRoot
 
 				matchResult.matchedPattern=formatter.toString();
 				
-				return (matchResult);
+				newPatterns.add(matchResult);
 			}
 		}
-
-		return (null);
+				
+		return (scoreMatch (newPatterns));
 	}
 }
 

@@ -22,11 +22,12 @@ import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.kv.HoopKV;
-import edu.cmu.cs.in.base.kv.HoopKVInteger;
+//import edu.cmu.cs.in.base.kv.HoopKVInteger;
 import edu.cmu.cs.in.base.kv.HoopKVString;
 import edu.cmu.cs.in.hoop.hoops.base.HoopAnalyze;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
+import edu.cmu.cs.in.hoop.properties.types.HoopBooleanSerializable;
 import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
 import edu.cmu.cs.in.ling.HoopPatternMatch;
 import edu.cmu.cs.in.ling.HoopPatternMatcher;
@@ -38,12 +39,11 @@ public class HoopMatcher extends HoopAnalyze implements HoopInterface
 {    					
 	private static final long serialVersionUID = -6162931325565067936L;
 	
-	protected HoopURISerializable patternFile=null;
-	
-	private Boolean patternsLoaded=false;
-		
+	public  HoopURISerializable patternFile=null;
+	public  HoopBooleanSerializable allowOverlap=null;		
+	private Boolean patternsLoaded=false;		
 	private HoopPatternMatcher matcher=null;
-	
+		
 	/**
 	 *
 	 */
@@ -59,6 +59,7 @@ public class HoopMatcher extends HoopAnalyze implements HoopInterface
 		setHoopDescription ("Basic pattern matcher");		
 		
 		patternFile=new HoopURISerializable (this,"patternFile","");
+		allowOverlap=new HoopBooleanSerializable (this,"allowOverlap",false);
     }
     /**
      * 
@@ -149,22 +150,40 @@ public class HoopMatcher extends HoopAnalyze implements HoopInterface
 				for (int i=0;i<vals.size();i++)
 				{
 					//String aToken=(String) vals.get(i);
-					HoopPatternMatch matched=matcher.matchPattern(vals, i);
+					ArrayList <HoopPatternMatch> matchList=matcher.matchPattern(vals, i);					
 					
-					if (matched!=null)
-					{
-						HoopKVString newKV=new HoopKVString ();
-						newKV.setKeyString(aKV.getKeyString());
+					if (matchList.size()>0)
+					{					
+						for (int j=0;j<matchList.size();j++)
+						{
+							HoopPatternMatch matched=matchList.get(j);
+							
+							HoopKVString newKV=new HoopKVString ();
+							newKV.setKeyString(aKV.getKeyString());
 						
-						Double converter=matched.score;						
-						newKV.setValue(converter.toString(),0);
+							Double converter=matched.score;						
+							newKV.setValue(converter.toString(),0);
 						
-						newKV.setValue(matched.matchedPattern,1);
+							newKV.setValue(matched.matchedPattern,1);
 												
-						debug ("Adding new match KV: " + matched.matchedPattern);
-						
-						addKV (newKV);
-					}
+							debug ("Adding new match KV: " + matched.matchedPattern);
+					
+							addKV (newKV);
+						}	
+					
+						if (allowOverlap.getPropValue()==false)
+						{
+							// Skip over entire length of top pattern found
+
+							HoopPatternMatch matched=matchList.get(0);
+							
+							if (matched!=null)
+							{
+								debug ("Skipping over pattern with size " + matched.size);
+								
+							}
+						}
+					}	
 				}
 			}			
 		}
