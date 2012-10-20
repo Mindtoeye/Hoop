@@ -164,7 +164,8 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 	
 	private static final long serialVersionUID = -9132114294178560223L;	
 	JList executionTrace=null;	
-	DefaultListModel<HoopBase> model=null;
+	//DefaultListModel<HoopBase> model=null;
+	DefaultListModel model=null;
 	
 	/**
 	 * 
@@ -180,7 +181,8 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 						
 		ListCellRenderer renderer = new HoopExecutionListRenderer ();
 		
-		model = new DefaultListModel<HoopBase>();
+		//model = new DefaultListModel<HoopBase>();
+		model = new DefaultListModel();
 		
 		executionTrace=new JList (model);
 		executionTrace.setOpaque(true);
@@ -198,6 +200,16 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 		
 		HoopLink.executionMonitor=this;
 	}
+	@Override
+	public void reset() 
+	{
+		debug ("reset ()");
+	
+		//model = new DefaultListModel<HoopBase>();
+		model = new DefaultListModel();
+		
+		executionTrace.setModel(model);
+	}	
 	/**
 	 * 
 	 */
@@ -226,6 +238,8 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 		{
 			executionTrace.repaint(executionTrace.getCellBounds(elementIndex, elementIndex));
 		}
+		
+		updateDependencyProgress ();
 	}
 	/**
 	 * 
@@ -246,14 +260,24 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 		{
 			executionTrace.repaint(executionTrace.getCellBounds(elementIndex, elementIndex));
 		}
-	}	
-	@Override
-	public void reset() 
-	{
-		debug ("reset ()");
-	
-		model = new DefaultListModel<HoopBase>();
 		
-		executionTrace.setModel(model);
+		updateDependencyProgress ();
 	}	
+	/**
+	 * 
+	 */
+	private void updateDependencyProgress ()
+	{
+		debug ("updateDependencyProgress ()");
+	
+		if (model==null)
+			return;
+		
+		for (int i=0;i<model.size();i++)
+		{
+			HoopBase aHoop=(HoopBase) model.get(i);
+			
+			
+		}
+	}
 }

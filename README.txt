@@ -35,12 +35,12 @@ provide:
 
 Most systems allow you to do an after-action review of a completed
 pipeline (a CPE in UIMA terms). This makes it very difficult to inspect
-what data was produced in each step (CASes) and what data was disgarded.
+what data was produced in each step (CASes) and what data was discarded.
 Hoop integrates an inspection system which can be activated at any
 time during or after the running of a Hoop sequence. By clicking on
 the magnifying glass in a selected Hoop panel you can see the data that
 was created in that step and you can also inspect what data was 
-disgarded.
+discarded.
 
 - Explainability
 
@@ -54,6 +54,13 @@ enhanced text visualizations (e.g. a document wall showing text
 highlighting based on likelihood estimates)
 
 - Repeatability
+
+Initially the Hoop code should make it possible to repeat an experiment
+hundreds or thousands of times, perhaps in such a way that each time
+different permutations are tried of a pipeline. However the ultimate
+goal is to create system that can be run indefinitely akin to online
+learning but with a strong feedback loop that can integrate previously
+discarded data if the system detects faults in previously used assumptions. 
 
 History
 
@@ -99,14 +106,14 @@ Used Packages:
 	tokenizing, parsing and low-level processing of text data
 	http://nlp.stanford.edu/software/	
 	
-- UIMA (not included), used for pipeline and cluster management as well as
+- UIMA (included, integrated), used for pipeline and cluster management as well as
 	high-level data type specifications
 	http://uima.apache.org/downloads.cgi
 	
 - frej (integrated), fuzzy pattern recognition based on regular expressions
 	http://frej.sourceforge.net/index.html
 
-- JDesktop (integrated)
+- JDesktop (integrated and customized)
 
 Notice!
 

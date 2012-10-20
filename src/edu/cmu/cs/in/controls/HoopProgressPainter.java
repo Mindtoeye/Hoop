@@ -66,10 +66,10 @@ public class HoopProgressPainter extends HoopJPanel
 		Graphics2D g2 = (Graphics2D)g.create();
 
 		Paint p = new GradientPaint (0,
-									 2, 
-									 new Color(200,200,200),
+									 4, 
+									 new Color(180,180,180),
 									 0,
-									 getHeight ()-2,
+									 getHeight ()-8,
 									 new Color(220,220,220),
 									 true);
 
