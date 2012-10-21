@@ -28,6 +28,7 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopAnalyze;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
 import edu.cmu.cs.in.hoop.properties.types.HoopBooleanSerializable;
+import edu.cmu.cs.in.hoop.properties.types.HoopIntegerSerializable;
 import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
 import edu.cmu.cs.in.ling.HoopPatternMatch;
 import edu.cmu.cs.in.ling.HoopPatternMatcher;
@@ -43,6 +44,7 @@ public class HoopMatcher extends HoopAnalyze implements HoopInterface
 	public  HoopBooleanSerializable allowOverlap=null;		
 	private Boolean patternsLoaded=false;		
 	private HoopPatternMatcher matcher=null;
+	protected HoopIntegerSerializable batchSize=null;
 		
 	/**
 	 *
@@ -59,6 +61,7 @@ public class HoopMatcher extends HoopAnalyze implements HoopInterface
 		setHoopDescription ("Basic pattern matcher");		
 		
 		patternFile=new HoopURISerializable (this,"patternFile","");
+		batchSize=new HoopIntegerSerializable (this,"batchSize",10);
 		allowOverlap=new HoopBooleanSerializable (this,"allowOverlap",false);
     }
     /**
@@ -124,72 +127,89 @@ public class HoopMatcher extends HoopAnalyze implements HoopInterface
 				return (false);
 		}
 		
+		int bSize=batchSize.getPropValue();
+		int counter=0;
+		
 		ArrayList <HoopKV> inData=inHoop.getData();
 		
 		if (inData!=null)
-		{
+		{			
 			for (int t=0;t<inData.size();t++)
 			{
 				HoopKV aKV=inData.get(t);
-				
-				//debug ("Matching tokens in: " + aKV.getKeyString());
-				
-				StringBuffer aStatus=new StringBuffer ();
-				
-				aStatus.append (" R: ");
-				aStatus.append (t+1);
-				aStatus.append (" out of ");
-				aStatus.append (inData.size());
-				
-				//debug (aStatus.toString ());
-				
-				getVisualizer ().setExecutionInfo (aStatus.toString ());				
-												
-				ArrayList<Object> vals=aKV.getValuesRaw();
-
-				for (int i=0;i<vals.size();i++)
-				{
-					//String aToken=(String) vals.get(i);
-					ArrayList <HoopPatternMatch> matchList=matcher.matchPattern(vals, i);					
-					
-					if (matchList.size()>0)
-					{					
-						for (int j=0;j<matchList.size();j++)
-						{
-							HoopPatternMatch matched=matchList.get(j);
-							
-							HoopKVString newKV=new HoopKVString ();
-							newKV.setKeyString(aKV.getKeyString());
-						
-							Double converter=matched.score;						
-							newKV.setValue(converter.toString(),0);
-						
-							newKV.setValue(matched.matchedPattern,1);
-												
-							debug ("Adding new match KV: " + matched.matchedPattern);
-					
-							addKV (newKV);
-						}	
-					
-						if (allowOverlap.getPropValue()==false)
-						{
-							// Skip over entire length of top pattern found
-
-							HoopPatternMatch matched=matchList.get(0);
-							
-							if (matched!=null)
-							{
-								debug ("Skipping over pattern with size " + matched.size);
 								
-							}
-						}
-					}	
-				}
+				updateProgressStatus (t+1,inData.size());
+				
+				if (processToken (aKV)==false)
+					return (false);
 			}			
 		}
 						
 		return (true);				
 	}	 
+	/** 
+	 * @param aKV
+	 * @return
+	 */
+	private Boolean processToken (HoopKV aKV)
+	{		
+		ArrayList<Object> vals=aKV.getValuesRaw();
+
+		for (int i=0;i<vals.size();i++)
+		{
+			ArrayList <HoopPatternMatch> matchList=matcher.matchPattern(vals, i);					
+			
+			if (matchList.size()>0)
+			{					
+				for (int j=0;j<matchList.size();j++)
+				{
+					HoopPatternMatch matched=matchList.get(j);
+					
+					HoopKVString newKV=new HoopKVString ();
+					newKV.setKeyString(aKV.getKeyString());
+				
+					Double converter=matched.score;						
+					newKV.setValue(converter.toString(),0);
+				
+					newKV.setValue(matched.matchedPattern,1);
+										
+					debug ("Adding new match KV: " + matched.matchedPattern);
+			
+					addKV (newKV);
+				}	
+			
+				if (allowOverlap.getPropValue()==false)
+				{
+					// Skip over entire length of top pattern found
+
+					HoopPatternMatch matched=matchList.get(0);
+					
+					if (matched!=null)
+					{
+						debug ("Skipping over pattern with size " + matched.size);
+						
+					}
+				}
+			}	
+		}		
+		
+		return (true);
+	}
+	/**
+	 * 
+	 */
+	protected void updateProgressStatus (int anIndex,int aTotal)
+	{
+		
+		StringBuffer aStatus=new StringBuffer ();
+		
+		aStatus.append (" R: ");
+		aStatus.append (anIndex);
+		aStatus.append (" out of ");
+		aStatus.append (aTotal);
+		
+		getVisualizer ().setExecutionInfo (aStatus.toString ());
+	}
 	/**
 	 * 
 	 */

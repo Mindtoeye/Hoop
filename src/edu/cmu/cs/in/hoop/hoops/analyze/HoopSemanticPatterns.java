@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.base.kv.HoopKVInteger;
 import edu.cmu.cs.in.base.kv.HoopKVString;
-import edu.cmu.cs.in.hoop.hoops.base.HoopAnalyze;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
 import edu.cmu.cs.in.hoop.properties.types.HoopIntegerSerializable;
@@ -31,7 +30,7 @@ import edu.cmu.cs.in.hoop.properties.types.HoopIntegerSerializable;
 /**
 * 
 */
-public class HoopSemanticPatterns extends HoopAnalyze implements HoopInterface
+public class HoopSemanticPatterns extends HoopMatcher implements HoopInterface
 {    				
 	private static final long serialVersionUID = -1639663485291926304L;
 	

@@ -51,7 +51,7 @@ public class HoopPatternMatcher extends HoopRoot
 	/**
 	 * Currently perhaps a weak way of obtaining patterns, this method will
 	 * load patterns directly from a text file. That also means no structural
-	 * information is loaded other than whitespaces. In refined versions of
+	 * information is loaded other than white spaces. In refined versions of
 	 * the pattern class the patterns should either be loaded through an
 	 * XML file or directly from a serialized pattern storage class.
 	 */
@@ -166,5 +166,3 @@ public class HoopPatternMatcher extends HoopRoot
 		return (scoreMatch (newPatterns));
 	}
 }
-
-	
