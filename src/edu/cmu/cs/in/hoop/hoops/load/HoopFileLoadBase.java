@@ -16,7 +16,7 @@
  * 
  */
 
-package edu.cmu.cs.in.hoop.hoops.base;
+package edu.cmu.cs.in.hoop.hoops.load;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -25,6 +25,9 @@ import edu.cmu.cs.in.base.HoopDataType;
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.io.HoopFileTools;
 import edu.cmu.cs.in.base.kv.HoopKVString;
+import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
+import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
+import edu.cmu.cs.in.hoop.hoops.base.HoopLoadBase;
 import edu.cmu.cs.in.hoop.properties.types.HoopEnumSerializable;
 import edu.cmu.cs.in.hoop.properties.types.HoopIntegerSerializable;
 import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
@@ -92,11 +95,20 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 		return fileKV.getValue();
 	}
 	/**
-	 *
+	 * 
 	 */
-	public Boolean runHoop (HoopBase inHoop)
-	{		
-		debug ("runHoop ()");
+    public void reset ()
+    {
+    	debug ("reset ()");
+    
+    	files=null;
+    }	
+	/**
+	 * 
+	 */
+	private Boolean loadPrep ()
+	{
+		debug ("loadPrep ()");
 		
 		//this.resetData();
 		
@@ -122,6 +134,78 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 				return (false);
 			}
 		}	
+		
+		return (true);
+	}
+	/**
+	 * 
+	 */
+	private void prepFileListing ()
+	{
+		debug ("prepFileListing ()");
+		
+		debug ("Processing file set ...");
+		
+		if (files==null)
+		{
+			fileIndex=0;
+			
+			maxEntries=maxFiles.getPropValue();
+			
+			files=new ArrayList<String> ();
+			
+			ArrayList <String> tempList=HoopLink.fManager.listFiles(HoopLink.relativeToAbsolute(URI.getValue()));
+															
+			for (int i=0;i<tempList.size();i++)
+			{
+				String testEntry=tempList.get(i);
+				
+				// Filter unwanted entries ...
+				
+				if ((testEntry.equals(".")==false) && (testEntry.equals("..")==false))
+				{
+					File finalTest=new File (testEntry);
+					
+					if (finalTest.isDirectory()==false)
+					{
+						files.add(testEntry);
+					}
+				}
+			}
+			
+			actualBatchSize=1;
+											
+			debug ("files.size (): " + files.size() + " < + batchSize.getPropValue(): " + batchSize.getPropValue());
+			
+			if (files.size()<batchSize.getPropValue())
+			{										
+				actualBatchSize=files.size();
+			}	
+			else
+			{
+				actualBatchSize=batchSize.getPropValue();
+			}
+			
+			debug ("Using batch size: " + actualBatchSize);
+			
+			if (maxEntries<1)
+				maxEntries=files.size();
+			else
+			{
+				if (files.size ()<maxEntries)
+					maxEntries=files.size();
+			}
+		}		
+	}
+	/**
+	 *
+	 */
+	public Boolean runHoop (HoopBase inHoop)
+	{		
+		debug ("runHoop ()");
+		
+		if (loadPrep ()==false)
+			return (false);
 				
 		if (URI.getDirsOnly()==false)
 		{				
@@ -138,82 +222,22 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 		
 		if (URI.getDirsOnly()==true)
 		{
-			debug ("Processing file set ...");
-			
-			if (files==null)
-			{
-				fileIndex=0;
-				
-				maxEntries=maxFiles.getPropValue();
-				
-				files=new ArrayList<String> ();
-				
-				ArrayList <String> tempList=HoopLink.fManager.listFiles(HoopLink.relativeToAbsolute(URI.getValue()));
-																
-				for (int i=0;i<tempList.size();i++)
-				{
-					String testEntry=tempList.get(i);
-					
-					// Filter unwanted entries ...
-					
-					if ((testEntry.equals(".")==false) && (testEntry.equals("..")==false))
-					{
-						File finalTest=new File (testEntry);
-						
-						if (finalTest.isDirectory()==false)
-						{
-							files.add(testEntry);
-						}
-					}
-				}
-				
-				actualBatchSize=1;
-												
-				debug ("files.size (): " + files.size() + " < + batchSize.getPropValue(): " + batchSize.getPropValue());
-				
-				if (files.size()<batchSize.getPropValue())
-				{										
-					actualBatchSize=files.size();
-				}	
-				else
-				{
-					actualBatchSize=batchSize.getPropValue();
-				}
-				
-				debug ("Using batch size: " + actualBatchSize);
-				
-				if (maxEntries<1)
-					maxEntries=files.size();
-				else
-				{
-					if (files.size ()<maxEntries)
-						maxEntries=files.size();
-				}
-			}
+			prepFileListing ();
 
-			for (int w=0;w<(fileIndex+actualBatchSize);w++)
+			for (int i=0;i<(fileIndex+actualBatchSize);i++)
 			{			
-				String nextFile=files.get(w);
+				String nextFile=files.get(i);
 			
 				if (processSingleFile (HoopLink.relativeToAbsolute(URI.getValue())+"/"+nextFile)==false)
 				{
 					return (false);
 				}
 			}	
-			
-			StringBuffer aStatus=new StringBuffer ();
-			
+						
 			Integer runCount=fileIndex+actualBatchSize;
 			
-			aStatus.append (" R: ");
-			aStatus.append (runCount.toString());
-			aStatus.append (" out of ");
-			aStatus.append (String.format("%d",files.size()));
-			
-			debug (aStatus.toString ());
-			
-			getVisualizer ().setExecutionInfo (aStatus.toString ());
-			
+			updateProgressStatus (runCount,files.size());
+						
 			fileIndex+=actualBatchSize;
 			
 			debug ("fileIndex: " + fileIndex + ", actualBatchSize: " + actualBatchSize + ", files.size (): " + files.size());

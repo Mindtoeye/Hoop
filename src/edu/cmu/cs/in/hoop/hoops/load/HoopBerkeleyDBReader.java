@@ -19,7 +19,6 @@
 package edu.cmu.cs.in.hoop.hoops.load;
 
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
-import edu.cmu.cs.in.hoop.hoops.base.HoopFileLoadBase;
 
 public class HoopBerkeleyDBReader extends HoopFileLoadBase
 {

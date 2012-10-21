@@ -309,8 +309,10 @@ public class HoopExecute extends HoopRoot implements Runnable
 		{
 			while (loopExecuting==true)
 			{
-				execute (null,root);
-				updateDependencies ();
+				if (execute (null,root)==true)
+				{
+					updateDependencies ();
+				}
 			}	
 		}	
 		else
@@ -319,8 +321,10 @@ public class HoopExecute extends HoopRoot implements Runnable
 			{
 				for (int i=0;i<loopCount;i++)
 				{
-					execute (null,root);
-					updateDependencies ();
+					if (execute (null,root)==true)
+					{
+						updateDependencies ();
+					}	
 				}
 			}
 			else

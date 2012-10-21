@@ -830,4 +830,19 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 			debug ("Property ("+prop.getClassName()+") " + prop.getInstanceName()+" -> "+prop.typeToString () + ":"+ prop.getValue());
 		}								
 	}				
+	/**
+	 * 
+	 */
+	protected void updateProgressStatus (int anIndex,int aTotal)
+	{
+		
+		StringBuffer aStatus=new StringBuffer ();
+		
+		aStatus.append (" R: ");
+		aStatus.append (anIndex);
+		aStatus.append (" out of ");
+		aStatus.append (aTotal);
+		
+		getVisualizer ().setExecutionInfo (aStatus.toString ());
+	}		
 }

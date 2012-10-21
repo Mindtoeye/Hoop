@@ -16,7 +16,7 @@
  * 
  */
 
-package edu.cmu.cs.in.hoop.hoops.base;
+package edu.cmu.cs.in.hoop.hoops.save;
 
 import java.io.File;
 
@@ -25,6 +25,9 @@ import javax.swing.JOptionPane;
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.io.HoopFileTools;
 import edu.cmu.cs.in.base.io.HoopVFSL;
+import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
+import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
+import edu.cmu.cs.in.hoop.hoops.base.HoopSaveBase;
 import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
 
 /**

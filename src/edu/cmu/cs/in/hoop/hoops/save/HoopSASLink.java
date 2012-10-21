@@ -24,7 +24,6 @@ import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.base.HoopDataType;
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
-import edu.cmu.cs.in.hoop.hoops.base.HoopFileSaveBase;
 import edu.cmu.cs.in.hoop.properties.types.HoopEnumSerializable;
 
 /**

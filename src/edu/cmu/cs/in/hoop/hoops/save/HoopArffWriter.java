@@ -26,7 +26,6 @@ import edu.cmu.cs.in.base.kv.HoopKVClassificationTable;
 //import edu.cmu.cs.in.base.kv.HoopKVInteger;
 import edu.cmu.cs.in.base.kv.HoopKVTable;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
-import edu.cmu.cs.in.hoop.hoops.base.HoopFileSaveBase;
 //import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
 //import edu.cmu.cs.in.hoop.hoops.base.HoopSaveBase;
 import edu.cmu.cs.in.hoop.properties.types.HoopStringSerializable;

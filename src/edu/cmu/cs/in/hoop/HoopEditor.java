@@ -43,10 +43,10 @@ import com.mxgraph.view.mxGraph;
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
-import edu.cmu.cs.in.hoop.hoops.base.HoopFileSaveBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopLoadBase;
 //import edu.cmu.cs.in.controls.base.HoopJInternalFrame;
 import edu.cmu.cs.in.hoop.hoops.base.HoopTransformBase;
+import edu.cmu.cs.in.hoop.hoops.save.HoopFileSaveBase;
 
 /** 
  * @author vvelsen

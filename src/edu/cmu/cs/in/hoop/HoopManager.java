@@ -27,13 +27,13 @@ import edu.cmu.cs.in.hoop.hoops.analyze.HoopMatcher;
 import edu.cmu.cs.in.hoop.hoops.analyze.HoopNaiveBayes;
 import edu.cmu.cs.in.hoop.hoops.analyze.HoopSemanticPatterns;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
+import edu.cmu.cs.in.hoop.hoops.base.HoopBatch;
 import edu.cmu.cs.in.hoop.hoops.base.HoopDisplayBase;
-import edu.cmu.cs.in.hoop.hoops.base.HoopFileLoadBase;
-import edu.cmu.cs.in.hoop.hoops.base.HoopFileSaveBase;
 import edu.cmu.cs.in.hoop.hoops.load.HoopArffReader;
 import edu.cmu.cs.in.hoop.hoops.load.HoopBerkeleyDBReader;
 import edu.cmu.cs.in.hoop.hoops.load.HoopCSVReader;
 import edu.cmu.cs.in.hoop.hoops.load.HoopDocumentReader;
+import edu.cmu.cs.in.hoop.hoops.load.HoopFileLoadBase;
 import edu.cmu.cs.in.hoop.hoops.load.HoopMySQLReader;
 import edu.cmu.cs.in.hoop.hoops.load.HoopStdin;
 import edu.cmu.cs.in.hoop.hoops.load.HoopURLReader;
@@ -42,6 +42,7 @@ import edu.cmu.cs.in.hoop.hoops.save.HoopBerkeleyDBWriter;
 import edu.cmu.cs.in.hoop.hoops.save.HoopCSVWriter;
 import edu.cmu.cs.in.hoop.hoops.save.HoopDocumentUpdater;
 import edu.cmu.cs.in.hoop.hoops.save.HoopDocumentWriter;
+import edu.cmu.cs.in.hoop.hoops.save.HoopFileSaveBase;
 import edu.cmu.cs.in.hoop.hoops.save.HoopSASLink;
 import edu.cmu.cs.in.hoop.hoops.save.HoopStdout;
 import edu.cmu.cs.in.hoop.hoops.save.HoopTextFileSave;
@@ -217,5 +218,6 @@ public class HoopManager extends HoopBase
     	addTemplate (new HoopSASLink ());
     	addTemplate (new HoopMatcher ());
     	addTemplate (new HoopReKey ());
+    	addTemplate (new HoopBatch ());
     }
 }
