@@ -27,6 +27,12 @@ import edu.cmu.cs.in.base.HoopRoot;
  * on. Given a list of patterns, a list of tokens to be matched and the current
  * index into the token list, it will try to build a list of best matches and
  * return this list. 
+ * 
+ * Be careful using this class in an inner loop since it can rapidly create
+ * large memory chunks. Depending on how the matcher function is configured you
+ * might get a large amount of ranked matches back. In the method that receives
+ * these matches you will have to decided what to do with the data and a first
+ * pass might only use the top match.
  */
 public class HoopPatternMatcher extends HoopRoot
 {		
@@ -43,7 +49,11 @@ public class HoopPatternMatcher extends HoopRoot
 		patterns=new ArrayList<HoopPattern> ();
 	}
 	/**
-	 * 
+	 * Currently perhaps a weak way of obtaining patterns, this method will
+	 * load patterns directly from a text file. That also means no structural
+	 * information is loaded other than whitespaces. In refined versions of
+	 * the pattern class the patterns should either be loaded through an
+	 * XML file or directly from a serialized pattern storage class.
 	 */
 	public Boolean loadFromText (String aText)
 	{
@@ -85,7 +95,11 @@ public class HoopPatternMatcher extends HoopRoot
 		return (aList);
 	}
 	/**
-	 * 
+	 * The most basic matching function. It takes a list of patterns and the current
+	 * index as arguments. It will then find all the matches between the string of
+	 * patterns in the loaded list and the provided list of terms. Every found pattern
+	 * is stored in a temporarily list, which is sorted by matching rank and returned
+	 * after all the patterns are compared.
 	 */
 	public ArrayList <HoopPatternMatch> matchPattern (ArrayList<Object> aTokenList,
 													  int anIndex) 
