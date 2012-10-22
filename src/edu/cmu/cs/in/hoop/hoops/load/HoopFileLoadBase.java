@@ -39,12 +39,12 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 {    				
 	private static final long serialVersionUID = -3882301282248283204L;
 	
-	protected HoopKVString fileKV=null;		
+	//protected HoopKVString fileKV=null;		
 	protected HoopURISerializable URI=null;
 	protected HoopIntegerSerializable maxFiles=null;
 	protected HoopIntegerSerializable batchSize=null;
 	protected HoopEnumSerializable mode=null; // LINEAR,SAMPLE
-	
+	private HoopFileTools fTools=null;
 	private ArrayList <String> files=null;
 	
 	protected Integer fileIndex=0;
@@ -65,6 +65,8 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 		maxFiles=new HoopIntegerSerializable (this,"maxFiles",1);
 		batchSize=new HoopIntegerSerializable (this,"batchSize",1);
 		mode=new HoopEnumSerializable (this,"mode","LINEAR,SAMPLE");
+		
+		fTools=new HoopFileTools ();
     }
 	/**
 	 * 
@@ -80,20 +82,6 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 	{
 		this.setFileExtension(fileExtension);
 	}    
-	/**
-	 *
-	 */
-	public void setContent(String content) 
-	{
-		fileKV.setValue(content);
-	}
-	/**
-	 *
-	 */
-	public String getContent() 
-	{
-		return fileKV.getValue();
-	}
 	/**
 	 * 
 	 */
@@ -143,9 +131,7 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 	private void prepFileListing ()
 	{
 		debug ("prepFileListing ()");
-		
-		debug ("Processing file set ...");
-		
+				
 		if (files==null)
 		{
 			fileIndex=0;
@@ -223,6 +209,8 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 		if (URI.getDirsOnly()==true)
 		{
 			prepFileListing ();
+			
+			this.resetData();
 
 			for (int i=0;i<(fileIndex+actualBatchSize);i++)
 			{			
@@ -265,13 +253,11 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 			return (false);
 		}
 		
-		fileKV=new HoopKVString ();
+		HoopKVString fileKV=new HoopKVString ();
 	
 		Long stringStamp=HoopLink.fManager.getFileTime(aPath);
 		File namer=new File (aPath);
-		
-		HoopFileTools fTools=new HoopFileTools ();
-		
+				
 		fileKV.setKey (fTools.getFileTimeString(stringStamp));
 		fileKV.setValue (contents);
 		fileKV.add (HoopLink.fManager.getURI());	
@@ -306,13 +292,6 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 	/**
 	 * 
 	 */
-	public HoopBase copy ()
-	{
-		return (new HoopFileLoadBase ());
-	}		
-	/**
-	 * 
-	 */
 	public void showFiles ()
 	{
 		debug ("showFiles ()");
@@ -323,5 +302,12 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 			
 			debug ("File: " + aFile);
 		}
-	}
+	}	
+	/**
+	 * 
+	 */
+	public HoopBase copy ()
+	{
+		return (new HoopFileLoadBase ());
+	}		
 }

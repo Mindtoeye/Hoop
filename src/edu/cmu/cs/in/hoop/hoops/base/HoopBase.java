@@ -329,7 +329,7 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 		debug ("gc ()");
 		
 		Object obj = new Object();
-		WeakReference ref = new WeakReference<Object>(obj);
+		WeakReference<Object> ref = new WeakReference<Object>(obj);
 	    obj = null;
 	    while(ref.get() != null) 
 	    {

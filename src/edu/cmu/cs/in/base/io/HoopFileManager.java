@@ -44,8 +44,6 @@ public class HoopFileManager extends HoopFileTools implements HoopVFSLInterface
 {
 	private String 				URI="";
 	private StringBuilder 		contents=null;
-	//private String [] 			lineList=null;
-	//private ArrayList<String> 	lines=null;
 	private BufferedReader 		permInput=null;
 	private Writer 				streamOut=null;
 	

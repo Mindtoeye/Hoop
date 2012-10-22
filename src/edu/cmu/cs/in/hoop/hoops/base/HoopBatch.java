@@ -87,7 +87,9 @@ public class HoopBatch extends HoopBase implements HoopInterface
 				safeSize=(currentIndex+counter+1)-inData.size();
 			}
 			
-			if (processKVBatch (inData,currentIndex+counter,safeSize)==false)
+			this.resetData();
+			
+			if (processKVBatch (inData,currentIndex+currentIndex+counter,safeSize)==false)
 				return (false);
 				
 			updateProgressStatus (counter+1,inData.size());
@@ -96,6 +98,8 @@ public class HoopBatch extends HoopBase implements HoopInterface
 			
 			if ((currentIndex+counter)>inData.size())
 				breakout=true;
+			else
+				currentIndex+=counter;
 		}
 						
 		if (breakout==true)
@@ -114,7 +118,7 @@ public class HoopBatch extends HoopBase implements HoopInterface
 	 */
 	protected Boolean processKVBatch (ArrayList <HoopKV> inData,int currentIndex,int batchSize)
 	{		
-		// Override in child class
+		// Override and use in child class
 		
 		return (true);
 	}
