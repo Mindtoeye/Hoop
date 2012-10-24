@@ -75,6 +75,8 @@ public class HoopKVTest extends HoopBase implements HoopInterface
 			
 			addKV (aKV);
 		}
+		
+		updateProgressStatus (this.getData().size(),this.getData().size());
 											
 		return (true);
 	}

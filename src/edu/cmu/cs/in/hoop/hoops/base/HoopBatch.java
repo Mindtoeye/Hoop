@@ -31,7 +31,7 @@ public class HoopBatch extends HoopBase implements HoopInterface
 	private static final long serialVersionUID = -4859643880252836376L;
 
 	protected HoopIntegerSerializable batchSize=null;
-	private	int counter=0;
+	private Boolean breakout=false;
 	private	int currentIndex=0;
 	
 	/**
@@ -56,7 +56,7 @@ public class HoopBatch extends HoopBase implements HoopInterface
     	
     	super.reset();
     	
-    	counter=0;
+    	breakout=false;
     	currentIndex=0;
     }   
 	/**
@@ -78,39 +78,26 @@ public class HoopBatch extends HoopBase implements HoopInterface
 		
 		if (bSize==0)
 			bSize=1;
-		
-		Boolean breakout=false;
-				
+						
 		if (inData.size()<bSize)
 			bSize=inData.size ();
-		
-		while (((currentIndex+bSize)<=inData.size ()) && (breakout==false))
-		{													
-			int safeSize=bSize;
+									
+		this.resetData();
 			
-			if ((currentIndex+bSize)>=inData.size ())
-			{
-				safeSize=(currentIndex+bSize)-inData.size();
-			}
-			
-			this.resetData();
-			
-			if (processKVBatch (inData,currentIndex,safeSize)==false)
-				return (false);
+		if (processKVBatch (inData,currentIndex,bSize)==false)
+			return (false);
 				
-			updateProgressStatus (currentIndex+safeSize+1,inData.size());
+		updateProgressStatus (currentIndex+bSize,inData.size());
 						
-			currentIndex+=safeSize;
+		currentIndex+=bSize;
 			
-			if ((currentIndex+safeSize)>=inData.size())
-				breakout=true;
+		if ((currentIndex+bSize)>inData.size ())
+		{
+			breakout=true;
 		}
-						
-		if (breakout==true)
-			this.setDone(true);
-		else
-			this.setDone(false);
-											
+		
+		this.setDone(breakout);
+													
 		return (true);
 	}
 	/** 

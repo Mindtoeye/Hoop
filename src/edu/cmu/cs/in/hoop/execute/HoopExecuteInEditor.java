@@ -79,7 +79,7 @@ public class HoopExecuteInEditor extends HoopExecute implements ActionListener
 		HoopProjectPanel projectPane=(HoopProjectPanel) HoopLink.getWindow("Project");
        	if (projectPane!=null)
        	{
-       		projectPane.refresh();
+       		//projectPane.refresh();
        	}		
        	
 		HoopDocumentList docList=(HoopDocumentList) HoopLink.getWindow("Document List");
