@@ -41,6 +41,8 @@ public class HoopDataType extends HoopAnnotation
 	public static final int URI=12; // Vague type that is assumed to be captured in a string
 	public static final int URL=13; // Vague type that is assumed to be captured in a string
 	
+	public static final int typeCount=14;
+	
 	protected int type=CLASS;
 	protected String typeValue="String";
 	
@@ -72,7 +74,63 @@ public class HoopDataType extends HoopAnnotation
 	public void setType(int type) 
 	{
 		this.type = type;
-	}    
+	}   
+	/**
+	 * 
+	 */
+	public static String typesToString ()
+	{
+		StringBuffer formatter=new StringBuffer ();
+		
+		for (int i=0;i<HoopDataType.typeCount;i++)
+		{
+			if (i>0)
+				formatter.append(",");
+			
+			formatter.append(HoopDataType.typeToString(i));
+		}
+		
+		return (formatter.toString());
+	}
+	/**
+	 * 
+	 */
+	public static String typeToString (int aType)
+	{
+		switch (aType)
+		{
+			case CLASS:
+						return ("CLASS");
+			case INT:						
+						return ("INT");
+			case LONG:			
+						return ("LONG");
+			case STRING:			
+						return ("STRING");
+			case FLOAT:			
+						return ("FLOAT");
+			case BOOLEAN:			
+						return ("BOOLEAN");
+			case ENUM:			
+						return ("ENUM");
+			case TABLE:			
+						return ("TABLE");
+			case DOCUMENT:			
+						return ("DOCUMENT");
+			case DATE:			
+						return ("DATE");
+			case COLOR:			
+						return ("COLOR");
+			case FONT:			
+						return ("FONT");
+			case URI:			
+						return ("URI");
+			case URL:			
+						return ("URL");
+		}
+		
+		return ("CLASS");		
+	}
 	/**
 	 * 
 	 */

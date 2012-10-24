@@ -22,13 +22,11 @@ import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.kv.HoopKV;
-//import edu.cmu.cs.in.base.kv.HoopKVInteger;
 import edu.cmu.cs.in.base.kv.HoopKVString;
 import edu.cmu.cs.in.hoop.hoops.base.HoopAnalyze;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
 import edu.cmu.cs.in.hoop.properties.types.HoopBooleanSerializable;
-//import edu.cmu.cs.in.hoop.properties.types.HoopIntegerSerializable;
 import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
 import edu.cmu.cs.in.ling.HoopPatternMatch;
 import edu.cmu.cs.in.ling.HoopPatternMatcher;
@@ -37,7 +35,7 @@ import edu.cmu.cs.in.ling.HoopPatternMatcher;
 * 
 */
 public class HoopMatcher extends HoopAnalyze implements HoopInterface
-{    					
+{    						
 	private static final long serialVersionUID = -6162931325565067936L;
 	
 	public  HoopURISerializable patternFile=null;
@@ -118,6 +116,9 @@ public class HoopMatcher extends HoopAnalyze implements HoopInterface
 	protected Boolean processKVBatch (ArrayList <HoopKV> inData,int currentIndex,int batchSize)
 	{
 		debug ("processKVBatch ()");
+		
+		if (patternsLoaded==false)
+			loadPatterns ();
 		
 		for (int t=0;t<batchSize;t++)
 		{

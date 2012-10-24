@@ -42,7 +42,7 @@ public class HoopBatch extends HoopBase implements HoopInterface
 		setClassName ("HoopBatch");
 		debug ("HoopBatch ()");
 		
-		setHoopCategory ("Batch");		
+		setHoopCategory ("Test");		
 		setHoopDescription ("Abstract Hoop Batch Manager");
 		
 		batchSize=new HoopIntegerSerializable (this,"batchSize",1);
@@ -75,40 +75,41 @@ public class HoopBatch extends HoopBase implements HoopInterface
 		}
 		
 		int bSize=batchSize.getPropValue();
-		counter=0;
-		Boolean breakout=false;
 		
-		while ((counter<bSize) && (breakout==false))
+		if (bSize==0)
+			bSize=1;
+		
+		Boolean breakout=false;
+				
+		if (inData.size()<bSize)
+			bSize=inData.size ();
+		
+		while (((currentIndex+bSize)<=inData.size ()) && (breakout==false))
 		{													
 			int safeSize=bSize;
 			
-			if ((currentIndex+counter+1)>inData.size ())
+			if ((currentIndex+bSize)>=inData.size ())
 			{
-				safeSize=(currentIndex+counter+1)-inData.size();
+				safeSize=(currentIndex+bSize)-inData.size();
 			}
 			
 			this.resetData();
 			
-			if (processKVBatch (inData,currentIndex+currentIndex+counter,safeSize)==false)
+			if (processKVBatch (inData,currentIndex,safeSize)==false)
 				return (false);
 				
-			updateProgressStatus (counter+1,inData.size());
+			updateProgressStatus (currentIndex+safeSize+1,inData.size());
+						
+			currentIndex+=safeSize;
 			
-			counter++;
-			
-			if ((currentIndex+counter)>inData.size())
+			if ((currentIndex+safeSize)>=inData.size())
 				breakout=true;
-			else
-				currentIndex+=counter;
 		}
 						
 		if (breakout==true)
 			this.setDone(true);
 		else
-		{
 			this.setDone(false);
-			currentIndex+=bSize;
-		}
 											
 		return (true);
 	}
@@ -117,8 +118,12 @@ public class HoopBatch extends HoopBase implements HoopInterface
 	 * @return
 	 */
 	protected Boolean processKVBatch (ArrayList <HoopKV> inData,int currentIndex,int batchSize)
-	{		
+	{	
+		debug ("processKVBatch ()");
+		
 		// Override and use in child class
+		
+		debug ("Processing batch with size " + batchSize + " starting at: " + currentIndex);
 		
 		return (true);
 	}

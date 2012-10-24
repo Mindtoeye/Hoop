@@ -16,7 +16,7 @@
  * 
  */
 
-package edu.cmu.cs.in.hoop;
+package edu.cmu.cs.in.hoop.execute;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ import org.apache.uima.collection.CollectionProcessingEngine;
 import org.apache.uima.collection.EntityProcessStatus;
 import org.apache.uima.collection.StatusCallbackListener;
 
-import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
+import edu.cmu.cs.in.base.HoopRoot;
 
 /**
  * Callback Listener. Receives event notifications from CPE. Will be rebased from
@@ -33,7 +33,7 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
  * a network socket to the Hoop cluster monitor.
  *  
  */
-public class HoopUIMACPEStatusProcessor extends HoopBase implements StatusCallbackListener 
+public class HoopUIMACPEStatusProcessor extends HoopRoot implements StatusCallbackListener 
 {
 	/// The CPE instance.
 	private CollectionProcessingEngine mCPE;

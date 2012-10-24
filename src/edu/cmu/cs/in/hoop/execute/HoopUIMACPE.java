@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package edu.cmu.cs.in.hoop;
+package edu.cmu.cs.in.hoop.execute;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

@@ -19,6 +19,8 @@
 package edu.cmu.cs.in.ling;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import edu.cmu.cs.in.base.HoopRoot;
 
@@ -36,6 +38,26 @@ import edu.cmu.cs.in.base.HoopRoot;
  */
 public class HoopPatternMatcher extends HoopRoot
 {		
+	/**
+	 * 
+	 */
+	public class CustomComparator implements Comparator<HoopPatternMatch> 
+	{
+		/**
+		 * 
+		 */
+	    @Override
+	    public int compare(HoopPatternMatch o1, HoopPatternMatch o2) 
+	    {	    	
+	        //return o1.getStartDate().compareTo(o2.getStartDate());
+	    	
+	    	if (o1.score<o2.score)
+	    		return (1);
+	        
+	        return (0);
+	    }
+	}	
+	
 	private ArrayList<HoopPattern> patterns=null;
 	
 	/**
@@ -92,6 +114,8 @@ public class HoopPatternMatcher extends HoopRoot
 	 */
 	private ArrayList <HoopPatternMatch> scoreMatch (ArrayList <HoopPatternMatch> aList)
 	{
+		Collections.sort(aList,new CustomComparator());
+		
 		return (aList);
 	}
 	/**

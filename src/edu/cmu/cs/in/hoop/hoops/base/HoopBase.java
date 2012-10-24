@@ -344,11 +344,19 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 		*/
 	}
 	/**
-	 * 
+	 * Perhaps the most vital method of the entire Hoop system is the resetData
+	 * function. This call will first call garbage collection on both the old
+	 * data and the trash data, after which it will create new instances of
+	 * both elements. Although not implemented yet, this method call would be
+	 * the point where old data is serialized to disk before reset and garbage
+	 * collected. This way any Hoop can go back into the entire history of
+	 * the pipeline.
 	 */
     public void resetData ()
     {
     	debug ("resetData ()");
+    	
+    	persistData ();
     	
     	data=null;
     	trash=null;
@@ -370,7 +378,16 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
     	setDone (false);
     	setExecutionCount(0);
     	setExecutionState ("STOPPED");
-    }   
+    }
+    /**
+     * 
+     */
+    protected void persistData ()
+    {
+    	debug ("persistData ()");
+    	
+    	
+    }
     /**
      * 
      */

@@ -36,7 +36,7 @@ public class HoopDocumentTag extends HoopAnalyze implements HoopInterface
 {    					
 	private static final long serialVersionUID = 8296031944301161003L;
 	
-	private HoopEnumSerializable tagType=null;
+	protected HoopEnumSerializable tagType=null;
 	public	HoopStringSerializable tagLabels=null;
 	public 	HoopBooleanSerializable tagThreadsSeparately=null;	
 	

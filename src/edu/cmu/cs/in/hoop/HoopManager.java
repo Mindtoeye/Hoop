@@ -29,6 +29,7 @@ import edu.cmu.cs.in.hoop.hoops.analyze.HoopSemanticPatterns;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBatch;
 import edu.cmu.cs.in.hoop.hoops.base.HoopDisplayBase;
+import edu.cmu.cs.in.hoop.hoops.base.HoopKVTest;
 import edu.cmu.cs.in.hoop.hoops.load.HoopArffReader;
 import edu.cmu.cs.in.hoop.hoops.load.HoopBerkeleyDBReader;
 import edu.cmu.cs.in.hoop.hoops.load.HoopCSVReader;
@@ -219,5 +220,6 @@ public class HoopManager extends HoopBase
     	addTemplate (new HoopMatcher ());
     	addTemplate (new HoopReKey ());
     	addTemplate (new HoopBatch ());
+    	addTemplate (new HoopKVTest ());
     }
 }

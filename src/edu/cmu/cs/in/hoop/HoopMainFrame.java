@@ -36,6 +36,9 @@ import edu.cmu.cs.in.controls.dialogs.HoopCleanProjectDialog;
 import edu.cmu.cs.in.controls.dialogs.HoopGenericNameDialog;
 import edu.cmu.cs.in.controls.dialogs.HoopGenericProgressdialog;
 import edu.cmu.cs.in.hoop.editor.HoopEditorToolBar;
+import edu.cmu.cs.in.hoop.execute.HoopExecuteExceptionHandler;
+import edu.cmu.cs.in.hoop.execute.HoopExecuteInEditor;
+import edu.cmu.cs.in.hoop.execute.HoopExecuteProgressPanel;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.task.HoopStart;
 import edu.cmu.cs.in.hoop.project.HoopGraphFile;
@@ -748,12 +751,15 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     	
         JButton runButton = makeNavigationButton ("run","Run",HoopLink.getImageByName("run.png"));
         runButton.addActionListener(runtime);
-        /*
+        
+        JButton debugButton = makeNavigationButton ("debug","Debug",HoopLink.getImageByName("debug.png"));
+        debugButton.addActionListener(runtime);
+        
         JButton runNButton = makeNavigationButton ("runN","Run N Times",HoopLink.getImageByName("run-n.png"));
         runNButton.addActionListener(runtime);
+        
         JButton runForeverButton = makeNavigationButton ("runForever","Run Forever",HoopLink.getImageByName("run-forever.png"));
         runForeverButton.addActionListener(runtime);
-        */
         
         JSeparator sep=new JSeparator(SwingConstants.VERTICAL);
         sep.setMinimumSize(new Dimension (5,5));
@@ -764,11 +770,15 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
         
         toolBar.add (runButton);        
         toolBar.add (Box.createRigidArea(new Dimension(2,0)));
-        /*
+        
+        toolBar.add (debugButton);        
+        toolBar.add (Box.createRigidArea(new Dimension(2,0)));
+                        
         toolBar.add (runNButton);
         toolBar.add (Box.createRigidArea(new Dimension(2,0)));
+        
         toolBar.add (runForeverButton);
-        */
+
         toolBar.add (sep);
         toolBar.add (stopButton);                                
     }     
