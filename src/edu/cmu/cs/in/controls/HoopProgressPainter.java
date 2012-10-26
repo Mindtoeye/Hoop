@@ -76,7 +76,7 @@ public class HoopProgressPainter extends HoopJPanel
 		
 		int paintWidth=(int) (pWidth);
 		
-		debug ("currentLevel: " + currentLevel + ", maxLevel: " + maxLevel + ", divver: " + divver + ", pWidth: " + pWidth + ", paintWidth: " + paintWidth);
+		//debug ("currentLevel: " + currentLevel + ", maxLevel: " + maxLevel + ", divver: " + divver + ", pWidth: " + pWidth + ", paintWidth: " + paintWidth);
 		
 		g2.setPaint (p);
 		g2.fillRect (0,2,paintWidth,getHeight()-4);

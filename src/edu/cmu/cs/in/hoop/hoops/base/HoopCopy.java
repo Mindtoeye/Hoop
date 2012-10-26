@@ -36,21 +36,20 @@ public class HoopCopy extends HoopBatch implements HoopInterface
     {
 		setClassName ("HoopCopy");
 		debug ("HoopCopy ()");
-		
-		//setHoopCategory ("Test");		
+				
 		setHoopDescription ("Abstract Hoop KV copier");		
     }   
 	/**
 	 *
 	 */
+    /*
 	public Boolean runHoop (HoopBase inHoop)
 	{		
 		debug ("runHoop ()");
-
-
 													
 		return (true);
 	}
+	*/
 	/** 
 	 * @param aKV
 	 * @return
@@ -58,6 +57,13 @@ public class HoopCopy extends HoopBatch implements HoopInterface
 	protected Boolean processKVBatch (ArrayList <HoopKV> inData,int currentIndex,int batchSize)
 	{	
 		debug ("processKVBatch ()");
+		
+		for (int i=0;i<currentIndex;i++)
+		{
+			HoopKV aKV=inData.get(i);
+			
+			addKV (aKV);
+		}
 				
 		return (true);
 	}
