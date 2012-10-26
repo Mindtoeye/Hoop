@@ -19,25 +19,17 @@
 package edu.cmu.cs.in.hoop.execute;
 
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Font;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
-import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
 import javax.swing.ListCellRenderer;
-import javax.swing.SwingConstants;
 
 import edu.cmu.cs.in.base.HoopLink;
-import edu.cmu.cs.in.controls.HoopProgressPainter;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
-import edu.cmu.cs.in.controls.base.HoopJPanel;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.stats.HoopPerformanceMetrics;
 
@@ -46,125 +38,8 @@ import edu.cmu.cs.in.stats.HoopPerformanceMetrics;
  */
 public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements HoopExecutionMonitor
 {	
-	/**
-	 * 
-	 */
-	public class HoopExecutionListRenderer extends HoopJPanel implements ListCellRenderer 
-	{
-		private static final long serialVersionUID = -2950497524627822787L;
-		  
-		private JLabel textInfo=null;
-		private JLabel stateInfo=null;
-		private JLabel timeIndicator=null;
-		private HoopProgressPainter progressIndicator=null;
-		
-		private int maxHeight=18;
-		
-		/**
-		 * Creates a new JPanel with a double buffer and a flow layout.
-		 */	
-		public HoopExecutionListRenderer()
-		{
-			setClassName ("HoopExecutionListRenderer");
-			debug ("HoopExecutionListRenderer ()");
-			  
-			this.setBorder(BorderFactory.createRaisedBevelBorder());
-			this.setLayout(new BoxLayout (this,BoxLayout.X_AXIS));
-			
-			textInfo=new JLabel ();
-			textInfo.setFont(new Font("Dialog", 1, 10));
-			textInfo.setMinimumSize(new Dimension (150,maxHeight));
-			textInfo.setPreferredSize(new Dimension (150,maxHeight));
-			textInfo.setMaximumSize(new Dimension (150,maxHeight));
-			this.add(textInfo);
-			
-			JSeparator sep1=new JSeparator(SwingConstants.VERTICAL);
-			sep1.setMinimumSize(new Dimension (5,maxHeight));
-			sep1.setPreferredSize(new Dimension (5,maxHeight));
-			sep1.setMaximumSize(new Dimension (5,maxHeight));
-			this.add(sep1);
-			
-			stateInfo=new JLabel ();
-			stateInfo.setFont(new Font("Dialog", 1, 10));
-			stateInfo.setMinimumSize(new Dimension (50,maxHeight));
-			stateInfo.setPreferredSize(new Dimension (50,maxHeight));
-			stateInfo.setMaximumSize(new Dimension (50,maxHeight));
-			this.add(stateInfo);
-			
-			JSeparator sep2=new JSeparator(SwingConstants.VERTICAL);
-			sep2.setMinimumSize(new Dimension (5,maxHeight));
-			sep2.setPreferredSize(new Dimension (5,maxHeight));
-			sep2.setMaximumSize(new Dimension (5,maxHeight));
-			this.add(sep2);
-			
-			timeIndicator=new JLabel ();
-			timeIndicator.setFont(new Font("Dialog", 1, 10));
-			timeIndicator.setMinimumSize(new Dimension (100,maxHeight));
-			timeIndicator.setPreferredSize(new Dimension (100,maxHeight));
-			timeIndicator.setMaximumSize(new Dimension (100,maxHeight));
-			this.add (timeIndicator);
-			
-			JSeparator sep3=new JSeparator(SwingConstants.VERTICAL);
-			sep3.setMinimumSize(new Dimension (5,maxHeight));
-			sep3.setPreferredSize(new Dimension (5,maxHeight));
-			sep3.setMaximumSize(new Dimension (5,maxHeight));
-			this.add(sep3);
-			
-			progressIndicator=new HoopProgressPainter ();			
-			progressIndicator.setFont(new Font("Dialog", 1, 10));
-			this.add (progressIndicator);			
-		}
-		/**
-		 * 
-		 */
-		public Component getListCellRendererComponent (JList list, 
-			  										 Object value, 
-			  										 int index,
-			  										 boolean isSelected, 
-			  										 boolean cellHasFocus) 
-		{			  
-			//>---------------------------------------------------------
-			  
-			if (value instanceof HoopBase)
-			{
-				HoopBase aHoop=(HoopBase) value;
-				  				  
-				textInfo.setText(aHoop.getClassName());
-				
-				stateInfo.setText(aHoop.getExecutionState());
-								  
-				HoopPerformanceMetrics metrics=aHoop.getPerformanceMetrics();
-				  
-				if (metrics!=null)
-				{
-					StringBuffer formatter=new StringBuffer ();
-
-					Long result=metrics.getMarkerRaw ();
-					  
-					formatter.append(result.toString());
-					formatter.append("ms");
-					
-					timeIndicator.setText(formatter.toString());
-				}
-			}
-			  
-			//>---------------------------------------------------------			  
-			  
-			if (value instanceof String)
-			{
-				String aLabel=(String) value;
-				textInfo.setText(aLabel);
-			}
-			  
-			//>---------------------------------------------------------			  
-			  
-			return (this);
-		}
-	}	
-	
 	private static final long serialVersionUID = -9132114294178560223L;	
 	JList executionTrace=null;	
-	//DefaultListModel<HoopBase> model=null;
 	DefaultListModel model=null;
 	
 	/**
@@ -176,12 +51,9 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 		debug ("HoopExecuteProgressPanel ()");
 		
 		Box mainBox = new Box (BoxLayout.Y_AXIS);
-		
-		//Border blackborder=BorderFactory.createLineBorder(Color.black);
-						
+								
 		ListCellRenderer renderer = new HoopExecutionListRenderer ();
 		
-		//model = new DefaultListModel<HoopBase>();
 		model = new DefaultListModel();
 		
 		executionTrace=new JList (model);
@@ -205,7 +77,6 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 	{
 		debug ("reset ()");
 	
-		//model = new DefaultListModel<HoopBase>();
 		model = new DefaultListModel();
 		
 		executionTrace.setModel(model);
@@ -249,6 +120,8 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 	{
 		debug ("updateHoopEndExecution ()");
 		
+		calcVisualStats ();
+		
 		int elementIndex=model.indexOf(aHoop);
 		
 		if (elementIndex==-1)
@@ -262,22 +135,38 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 		}
 		
 		updateDependencyProgress ();
+	}
+	/**
+	 * 
+	 */
+	private void calcVisualStats ()
+	{
+		debug ("updateDependencyProgress ()");
+		
+		if (model==null)
+			return;
+		
+		HoopExecutionListRenderer.maxMs=1;
+		
+		for (int i=0;i<model.size();i++)
+		{
+			HoopBase aHoop=(HoopBase) model.get(i);
+			
+			HoopPerformanceMetrics metrics=aHoop.getPerformanceMetrics();
+			
+			if (metrics.getMarkerRaw()>HoopExecutionListRenderer.maxMs)
+			{
+				HoopExecutionListRenderer.maxMs=metrics.getMarkerRaw();
+			}
+		}
+		
+		debug ("Max time: " + HoopExecutionListRenderer.maxMs + "ms");		
 	}	
 	/**
 	 * 
 	 */
 	private void updateDependencyProgress ()
 	{
-		debug ("updateDependencyProgress ()");
-	
-		if (model==null)
-			return;
-		
-		for (int i=0;i<model.size();i++)
-		{
-			HoopBase aHoop=(HoopBase) model.get(i);
-			
-			
-		}
+		debug ("updateDependencyProgress ()");	
 	}
 }

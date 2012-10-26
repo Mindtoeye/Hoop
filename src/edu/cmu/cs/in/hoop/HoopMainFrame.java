@@ -1323,7 +1323,13 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
        	if (projectPane!=null)
        	{
        		projectPane.refresh();
-       	}		
+       	}
+       	
+		HoopExecuteProgressPanel executionMonitor=(HoopExecuteProgressPanel) HoopLink.getWindow("Execution Monitor");
+		if (executionMonitor!=null)
+		{
+			executionMonitor.reset ();
+		}       	
 	}
 	/*
 	 * (non-Javadoc)

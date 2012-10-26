@@ -33,7 +33,8 @@ public class HoopProgressPainter extends HoopJPanel
 {
 	private static final long serialVersionUID = 8372398146730004932L;
 	
-	private float progress=(float) 0.5;
+	private long currentLevel=1;
+	private long maxLevel=1;
 	
 	/**
 	 * Creates a new JPanel with a double buffer and a flow layout.
@@ -46,17 +47,11 @@ public class HoopProgressPainter extends HoopJPanel
 	/**
 	 * 
 	 */
-	public float getProgress() 
+	public void setLevels (long aCurrent,long aMax)
 	{
-		return progress;
+		currentLevel=aCurrent;
+		maxLevel=aMax;
 	}
-	/**
-	 * 
-	 */
-	public void setProgress(float progress) 
-	{
-		this.progress = progress;
-	}	
 	/**
 	 * 
 	 */
@@ -73,12 +68,18 @@ public class HoopProgressPainter extends HoopJPanel
 									 new Color(220,220,220),
 									 true);
 
-		int width=getWidth ();
+		int width=(getWidth ()-4);
+				
+		double divver=(maxLevel/currentLevel);
 		
-		int paintWidth=(int) (width*progress);
+		double pWidth=(width/divver);
+		
+		int paintWidth=(int) (pWidth);
+		
+		debug ("currentLevel: " + currentLevel + ", maxLevel: " + maxLevel + ", divver: " + divver + ", pWidth: " + pWidth + ", paintWidth: " + paintWidth);
 		
 		g2.setPaint (p);
-		g2.fillRect (0,0,paintWidth,getHeight());
+		g2.fillRect (0,2,paintWidth,getHeight()-4);
 		g2.dispose ();
 	}
 }
