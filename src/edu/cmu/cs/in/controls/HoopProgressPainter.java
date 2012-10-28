@@ -51,6 +51,9 @@ public class HoopProgressPainter extends HoopJPanel
 	{
 		currentLevel=aCurrent;
 		maxLevel=aMax;
+		
+		if (currentLevel==0) // Otherwise divide by zero
+			currentLevel=1;	 
 	}
 	/**
 	 * 

@@ -226,6 +226,9 @@ public class HoopBaseTyped extends HoopVisual implements HoopPropertyContainer
      */
     public String getKVTypeName (int anIndex)
     {
+    	if (anIndex>=types.size())
+    		return ("");
+    	
     	HoopDataType target=types.get(anIndex);
     	
     	return (target.getTypeValue());
@@ -235,6 +238,9 @@ public class HoopBaseTyped extends HoopVisual implements HoopPropertyContainer
      */
     public Object getKVTypeValue (int anIndex)
     {
+    	if (anIndex>=types.size())
+    		return (null);
+    	
     	HoopDataType target=types.get(anIndex);
     	
     	return (target.getTypeValue());

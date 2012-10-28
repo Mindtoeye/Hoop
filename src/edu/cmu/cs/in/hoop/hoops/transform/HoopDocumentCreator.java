@@ -161,6 +161,8 @@ public class HoopDocumentCreator extends HoopTransformBase
 			
 			for (int i=0;i<docElements.size();i++)
 			{
+				debug ("Getting type of index: " + i);
+				
 				String aTypeName=inHoop.getKVTypeName (i+1); // Skip the key type
 				
 				String remapped=mapType (aTypeName);

@@ -20,6 +20,8 @@ package edu.cmu.cs.in.base.kv;
 
 import java.util.ArrayList;
 
+import edu.cmu.cs.in.base.HoopDataType;
+
 /**
  * 
  */
@@ -45,6 +47,60 @@ public class HoopKVTools
     	return (newKV);
     }
     /**
+     * http://weblogs.java.net/blog/emcmanus/archive/2007/04/cloning_java_ob.html
+     */
+    public static Object copyValue (Object aValue)
+    {
+    	if (aValue instanceof Integer)
+    	{    		
+    		return (aValue);
+    	}
+    	
+    	return (new String ());
+    }
+    /**
+     * Most likely one of the most vital and at the same time
+     * trickiest method. Given any KV object this method will
+     * return a deep copy.
+     * 
+     * http://weblogs.java.net/blog/emcmanus/archive/2007/04/cloning_java_ob.html
+     */
+    public static HoopKV copy (HoopKV aKV)
+    {    	    	
+    	// Create new instance of the same type as the provided KV
+    	
+    	HoopKV newKV=createFromType (aKV.getTypeValue());
+    	    	
+    	// Copy key ...
+
+    	if (aKV.getType()>HoopDataType.ENUM)
+    	{
+    		// This should really work
+    		aKV.setKeyString(aKV.getKeyString());
+    	}
+    	else // Copying compound KV type
+    	{
+    		
+    	}
+    	
+    	// Copy values ...
+    	
+    	ArrayList <Object> newValues=newKV.getValuesRaw();
+    	
+    	ArrayList <Object> oldValues=aKV.getValuesRaw();
+    	
+    	for (int i=0;i<oldValues.size();i++)
+    	{
+    		Object oldValue=oldValues.get(i);
+    		
+    		Object newValue=copyValue (oldValue);
+    		    		
+    		newValues.add(newValue);
+    	}
+    	
+    	return (newKV);
+    }
+    /**
      * 
      */
     public static ArrayList <Object> copyValues (HoopKV aKV)
@@ -57,9 +113,9 @@ public class HoopKVTools
     	{
     		Object oldValue=oldValues.get(i);
     		
-    		// Cheat ...
+    		Object newValue=copyValue (oldValue);
     		
-    		newValues.add(oldValue);
+    		newValues.add(newValue);
     	}
     	
     	return (newValues);
@@ -103,6 +159,9 @@ public class HoopKVTools
     	{
     			
     	}
+    	
+    	// Below this line are the complex/compound types. When doing
+    	// a deep copy of these be very careful
     	
     	if (aType.equals("TABLE")==true)
     	{
