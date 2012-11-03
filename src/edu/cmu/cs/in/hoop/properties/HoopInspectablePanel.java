@@ -163,24 +163,19 @@ public class HoopInspectablePanel extends HoopJPanel implements ActionListener, 
         controlBox.add(Box.createHorizontalGlue());
                                                 	    
         parameterPanel=new JPanel ();
-        //parameterPanel.setBorder(BorderFactory.createLineBorder(Color.white));
         
         parameterModel=new DefaultTableModel (null,columnNames);
         parameterModel.addTableModelListener (this);
         
         parameterTable=new HoopPropertyTable ();
-        //parameterTable.setBorder(BorderFactory.createLineBorder(Color.black));
         parameterTable.setModel(parameterModel);
         parameterTable.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
                                 
-        parameterScrollList=new JScrollPane (parameterTable);        
-        //parameterScrollList=new JScrollPane ();
+        parameterScrollList=new JScrollPane (parameterTable);
         parameterScrollList.setMinimumSize(new Dimension (10,10));
         parameterScrollList.setPreferredSize(new Dimension (100,100));   
         parameterScrollList.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);        
-        //parameterScrollList.setBorder(BorderFactory.createLineBorder(Color.red));
         parameterScrollList.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        parameterScrollList.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
         
         BorderLayout configBox=new BorderLayout();
         parameterPanel.setLayout(configBox);
