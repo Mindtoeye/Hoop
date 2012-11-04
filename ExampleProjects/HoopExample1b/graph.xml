@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hoopfile class="HoopGraphFile" instance="graph.xml">
+  <graph scale="1.0">
+    <hoops>
+      <hoop id="fff1d53b-339d-452c-8f58-0098d9d53b95" class="HoopStart" name="46" active="true">
+        <visual x="20" y="20" width="150" height="100" />
+        <properties />
+      </hoop>
+      <hoop id="16c14c06-7245-4f35-9b2b-3e9cb3d1e914" class="HoopStdin" name="47" active="true">
+        <visual x="240" y="90" width="150" height="100" />
+        <properties />
+      </hoop>
+      <hoop id="17bb890d-f0cb-439d-a60f-26af13ea7d8b" class="HoopSentence2Tokens" name="49" active="true">
+        <visual x="240" y="290" width="150" height="100" />
+        <properties>
+          <serializable class="HoopIntegerSerializable" instance="batchSize">
+            <value format="Text" type="INT">0</value>
+          </serializable>
+          <serializable class="HoopBooleanSerializable" instance="reKey">
+            <value format="Text" type="BOOLEAN">false</value>
+          </serializable>
+          <serializable class="HoopEnumSerializable" instance="changeKeyType">
+            <value format="Text" type="ENUM" options="keep the same,CLASS,INT,LONG,STRING,FLOAT,BOOLEAN,ENUM,TABLE,DOCUMENT">keep the same</value>
+          </serializable>
+          <serializable class="HoopBooleanSerializable" instance="removePunctuation">
+            <value format="Text" type="BOOLEAN">true</value>
+          </serializable>
+          <serializable class="HoopStringSerializable" instance="splitRegEx">
+            <value format="Text" type="STRING">\W</value>
+          </serializable>
+          <serializable class="HoopEnumSerializable" instance="targetTokenizer">
+            <value format="Text" type="ENUM" options="Builtin,Stanford">Builtin</value>
+          </serializable>
+          <serializable class="HoopEnumSerializable" instance="generateMode">
+            <value format="Text" type="ENUM" options="Add,New">New</value>
+          </serializable>
+        </properties>
+      </hoop>
+      <hoop id="b4602e8f-3f1e-427f-bc6d-77c74b451ab7" class="HoopStdout" name="58" active="true">
+        <visual x="720" y="90" width="150" height="100" />
+        <properties />
+      </hoop>
+      <hoop id="ca97ae90-4677-43c1-b92b-2a0e31db36e2" class="HoopFilterStopWords" name="72" active="true">
+        <visual x="510" y="290" width="150" height="100" />
+        <properties>
+          <serializable class="HoopIntegerSerializable" instance="batchSize">
+            <value format="Text" type="INT">0</value>
+          </serializable>
+          <serializable class="HoopBooleanSerializable" instance="reKey">
+            <value format="Text" type="BOOLEAN">FALSE</value>
+          </serializable>
+          <serializable class="HoopEnumSerializable" instance="changeKeyType">
+            <value format="Text" type="ENUM" options="keep the same,CLASS,INT,LONG,STRING,FLOAT,BOOLEAN,ENUM,TABLE,DOCUMENT">keep the same</value>
+          </serializable>
+          <serializable class="HoopURISerializable" instance="URI">
+            <value format="Text" type="URI" fileExtension="txt" dirsOnly="false">&lt;PROJECTPATH&gt;/vocabulary.xml</value>
+          </serializable>
+        </properties>
+      </hoop>
+    </hoops>
+    <connections>
+      <connection name="Edge" from="fff1d53b-339d-452c-8f58-0098d9d53b95" to="16c14c06-7245-4f35-9b2b-3e9cb3d1e914" />
+      <connection name="Edge" from="16c14c06-7245-4f35-9b2b-3e9cb3d1e914" to="17bb890d-f0cb-439d-a60f-26af13ea7d8b" />
+      <connection name="Edge" from="17bb890d-f0cb-439d-a60f-26af13ea7d8b" to="ca97ae90-4677-43c1-b92b-2a0e31db36e2" />
+      <connection name="Edge" from="ca97ae90-4677-43c1-b92b-2a0e31db36e2" to="b4602e8f-3f1e-427f-bc6d-77c74b451ab7" />
+    </connections>
+  </graph>
+</hoopfile>
+
