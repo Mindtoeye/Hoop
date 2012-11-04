@@ -62,7 +62,7 @@ public class HoopStdout extends HoopSaveBase implements HoopInterface
 			{
 				HoopLink.addView ("User Dialog",new HoopDialogConsole (),HoopLink.bottom);
 				userIO=(HoopDialogConsole) HoopLink.getWindow("User Dialog");
-			}			
+			}
 			
 			userIO.setOutHoop(this);
 			

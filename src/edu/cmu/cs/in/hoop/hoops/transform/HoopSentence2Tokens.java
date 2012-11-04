@@ -73,6 +73,7 @@ public class HoopSentence2Tokens extends HoopTransformBase implements HoopInterf
 		TokenizerFactory<Word> factory = PTBTokenizerFactory.newTokenizerFactory();
 				
 		ArrayList <HoopKV> inData=inHoop.getData();
+		
 		if (inData!=null)
 		{		
 			HoopSimpleFeatureMaker featureMaker=new HoopSimpleFeatureMaker ();
@@ -81,33 +82,45 @@ public class HoopSentence2Tokens extends HoopTransformBase implements HoopInterf
 			{
 				HoopKVInteger aKV=(HoopKVInteger) inData.get(i);
 				
+				//debug ("Processing item: " + i + " with value: " + aKV.getValueAsString());
+				
 				//>------------------------------------------------------------------------
 				
 				if (targetTokenizer.getValue().equalsIgnoreCase("Builtin")==true)
 				{									
+					//debug ("Using builtin tokenizer ...");
+					
 					List<String> tokens=featureMaker.unigramTokenizeBasic (aKV.getValue());
 											
+					//debug ("Extracted " + tokens.size());
+					
 					if (generateMode.getPropValue().equalsIgnoreCase("Add")==true)
 					{
+						//debug ("Generate mode is Add");
+						
 						HoopKVInteger newToken=new HoopKVInteger ();
 						
-						addKV (newToken);
-						
 						for (int j=0;j<tokens.size();j++)
-						{				
+						{							
 							String aToken=tokens.get(j);
 										
 							String strippedInput=aToken;
+							
+							//debug ("final input for new token: " + strippedInput);
 						
-							if (removePunctuation.getPropValue ()==true)											
+							if (removePunctuation.getPropValue ()==true)
 								strippedInput = aToken.replaceAll(splitRegEx.getValue(), "");
 						
 							newToken.setKey (i);
-							newToken.setValue (strippedInput, j);
+							newToken.setValue (strippedInput, j);							
 						}	
+						
+						addKV (newToken);
 					}
 					else
 					{
+						//debug ("Generate mode is New");
+						
 						for (int j=0;j<tokens.size();j++)
 						{				
 							String aToken=tokens.get(j);
@@ -116,6 +129,8 @@ public class HoopSentence2Tokens extends HoopTransformBase implements HoopInterf
 						
 							if (removePunctuation.getPropValue ()==true)											
 								strippedInput = aToken.replaceAll(splitRegEx.getValue(), "");
+							
+							//debug ("final input for new token: " + strippedInput);
 						
 							if (this.reKey.getPropValue()==false)						
 								addKV (new HoopKVInteger (j,strippedInput));
@@ -129,9 +144,13 @@ public class HoopSentence2Tokens extends HoopTransformBase implements HoopInterf
 					
 				if (targetTokenizer.getValue().equalsIgnoreCase("Stanford")==true)
 				{					    
+					//debug ("Using stanford tokenizer ...");
+					
 				    Tokenizer<Word> tokenizer = factory.getTokenizer(new StringReader(aKV.getValue()));
 					    
 				    List<Word> sTokens=tokenizer.tokenize();
+				    
+				    //debug ("Extracted " + sTokens.size());
 					    
 				    for (int t=0;t<sTokens.size();t++)
 				    {
@@ -141,9 +160,7 @@ public class HoopSentence2Tokens extends HoopTransformBase implements HoopInterf
 				    		addKV (new HoopKVInteger (t,aTerm.toString()));
 				    	else
 				    		addKV (new HoopKVInteger (i,aTerm.toString()));
-				    }
-					    
-				    //debug (tokenizer.tokenize());						
+				    }					    						
 				}
 					
 				//>------------------------------------------------------------------------								

@@ -680,6 +680,8 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     				addView ("Execution Monitor",executionMonitor,HoopLink.bottom);
     			}
     			
+    			HoopLink.popWindow("Execution Monitor");
+    			
     			runtime.setRoot(HoopLink.hoopGraphManager.getRoot());
     			runtime.setLoopCount(1);
     			    			
@@ -806,7 +808,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 	{
 		debug ("handleConnectionClosed ()");
 		
-	}      
+	}
 	/**
 	 * 
 	 */
@@ -819,6 +821,20 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 			console=new HoopConsole();    	
 			addView ("Console",console,HoopLink.bottom);
 		}	
+		
+		HoopExecuteProgressPanel executionMonitor=(HoopExecuteProgressPanel) HoopLink.getWindow("Execution Monitor");
+		if (executionMonitor==null)
+		{
+			executionMonitor=new HoopExecuteProgressPanel ();
+			addView ("Execution Monitor",executionMonitor,HoopLink.bottom);
+		}		
+		
+		HoopDialogConsole userIO=(HoopDialogConsole) HoopLink.getWindow("User Dialog");
+		if (userIO==null)
+		{
+			HoopLink.addView ("User Dialog",new HoopDialogConsole (),HoopLink.bottom);
+			userIO=(HoopDialogConsole) HoopLink.getWindow("User Dialog");
+		}					
 		
     	HoopProjectPanel projectPanel=(HoopProjectPanel) HoopLink.getWindow("Project");
     	if (projectPanel==null)

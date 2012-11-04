@@ -57,16 +57,16 @@ public class HoopCSVWriter extends HoopFileSaveBase
      */
     public String getSeparatorChar ()
     {
-    	if (mode.getValue().equals("TAB"))
+    	if (mode.getValue().equalsIgnoreCase("TAB")==true)
     		return ("\t");
     	
-    	if (mode.getValue().equals("COMMA"))
+    	if (mode.getValue().equalsIgnoreCase("COMMA")==true)
     		return (",");
     	
-    	if (mode.getValue().equals("DASH"))
+    	if (mode.getValue().equalsIgnoreCase("DASH")==true)
     		return ("-");
     	
-    	if (mode.getValue().equals("PIPE"))
+    	if (mode.getValue().equalsIgnoreCase("PIPE")==true)
     		return ("|");
     	
     	return (",");
@@ -79,6 +79,8 @@ public class HoopCSVWriter extends HoopFileSaveBase
 		debug ("runHoop ()");
 		
 		String sepChar=getSeparatorChar ();
+		
+		debug ("Writing CSV file using separator: " + mode.getValue() + ": " + sepChar);
 		
 		StringBuffer formatted=new StringBuffer ();		
 		
