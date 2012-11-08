@@ -554,7 +554,15 @@ public class HoopVisualGraph extends mxGraph implements mxEventSource.mxIEventLi
 			
 			Object[] removedCells = (Object[]) evt.getProperty("cells");
 		 
-			for (int i=0;i<removedCells.length;i++)
+			debug ("Processing invoke on " + removedCells.length + " objects ...");
+			
+			int i=0;
+			
+			//>-------------------------------------------------------
+			
+			debug ("Checking edges first ...");
+			
+			for (i=0;i<removedCells.length;i++)
 			{
 				Object test=removedCells [i];
 				
@@ -587,15 +595,29 @@ public class HoopVisualGraph extends mxGraph implements mxEventSource.mxIEventLi
 						if (targetHoop==null)
 						{
 							debug ("Error: unable to find target hoop in graph!");
-							return;
+							//return;
 						}
+						else						
+							HoopLink.hoopGraphManager.disconnectHoops(sourceHoop,targetHoop);	
 						
-						HoopLink.hoopGraphManager.disconnectHoops(sourceHoop,targetHoop);	
-						
-						sourceHoop.propagateVisualProperties ();
-						targetHoop.propagateVisualProperties ();
-					}
-					
+						//sourceHoop.propagateVisualProperties ();
+						//targetHoop.propagateVisualProperties ();						
+					}					
+				}	
+			}
+			
+			//>-------------------------------------------------------
+			
+			debug ("Checking nodes next ...");
+			
+			for (i=0;i<removedCells.length;i++)
+			{
+				Object test=removedCells [i];
+				
+				if (test instanceof mxCell)
+				{
+					mxCell cell=(mxCell) test;
+			 					
 					if (cell.isVertex())
 					{
 						debug ("Removing node ...");
@@ -606,10 +628,14 @@ public class HoopVisualGraph extends mxGraph implements mxEventSource.mxIEventLi
 												
 						//HoopLink.hoopGraphManager.removeHoop((HoopBase) properCell.getValue());
 						
-						HoopLink.hoopGraphManager.removeHoop(cellToHoop (properCell));
+						HoopLink.hoopGraphManager.removeHoop(cellToHoop (properCell));						
 					}
 				}	
-			}
+			}			
+			
+			//>-------------------------------------------------------
 		}
+		
+		HoopLink.hoopGraphManager.listConnections();
 	}
 }

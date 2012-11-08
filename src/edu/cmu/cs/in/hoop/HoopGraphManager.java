@@ -96,16 +96,36 @@ public class HoopGraphManager extends HoopBase
 		debug ("findHoopByReference (Object)");
 		
 		if (aRef==null)
+		{
+			debug ("Error: null argument");
 			return (null);
+		}
 		
 		HoopBase aRoot=HoopLink.getGraphRoot ();
 		
 		if (aRoot==null)
+		{
+			debug ("Error: graph root is null");
 			return (null);
+		}
 		
 		if (aRoot.getGraphCellReference()==aRef)
+		{
+			debug ("Error: unable to get cell reference");
 			return (aRoot);
+		}
 		
+		ArrayList <HoopBase> hp=getHoopList ();
+		
+		for (int i=0;i<hp.size();i++)
+		{
+			HoopBase checker=hp.get(i);
+			
+			if (checker.getGraphCellReference()==aRef)
+				return (checker);	
+		}
+		
+		/*
 		ArrayList <HoopBase> hoopList=aRoot.getOutHoops();
 		
 		for (int i=0;i<hoopList.size();i++)
@@ -123,6 +143,7 @@ public class HoopGraphManager extends HoopBase
 				}
 			}	
 		}
+		*/
 		
 		return (null);
 	}
@@ -358,6 +379,8 @@ public class HoopGraphManager extends HoopBase
 	{
 		debug ("disconnectHoops ()");
 				
+		listConnections ();
+		
 		ArrayList<HoopBase> list=aSource.getOutHoops();
 		
 		list.remove(aTarget); // We remove it but don't delete it
@@ -372,11 +395,37 @@ public class HoopGraphManager extends HoopBase
 			{
 				debug ("Found connection in connection list, removing ...");
 				
-				conns.remove(aConn);
+				if (conns.remove(aConn)==false)
+				{
+					debug ("Internal error: unable to remove connection");
+				}
+				else
+					debug ("Success, connection should be gone now");
+				
+				listConnections ();
+				
 				return (true);
 			}
 		}
+		
+		listConnections ();
 				
 		return (true);
+	}
+	/**
+	 * 
+	 */
+	public void listConnections ()
+	{
+		debug ("listConnections ()");
+		
+		ArrayList <HoopConnection> conns=HoopLink.project.getGraphConnections();
+		
+		for (int i=0;i<conns.size();i++)
+		{
+			HoopConnection aConn=conns.get(i);
+			
+			debug ("Connection " + i + ", from: " + aConn.getFromHoopID() + ", to: " + aConn.getToHoopID());
+		}	
 	}
 }

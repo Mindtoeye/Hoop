@@ -175,6 +175,14 @@ public class HoopVisualGraphComponent extends mxGraphComponent
 	{
 		debug ("createComponents ()");		
 		
+		debug ("mxCellState valid: " + state.isInvalid());
+		
+		if (state.isInvalid()==true)
+		{
+			debug("cell state is invalid, aborting ...");
+			return null;
+		}
+		
 		HoopVisualGraph vizGraph=(HoopVisualGraph) graph;
 		HoopNodePanel aPanel=null;
 		
@@ -318,7 +326,7 @@ public class HoopVisualGraphComponent extends mxGraphComponent
 							//Object aTarget=cell.getTarget().getValue();
 							Object aTarget=vizGraph.cellToHoop(cell.getTarget());
 							
-							//debug ("We have an edge cell with id: " + cell.getId() + " ("+aSource.toString()+" -> " + aTarget.toString()+")");
+							debug ("We have an edge cell with id: " + cell.getId() + " ("+aSource.toString()+" -> " + aTarget.toString()+")");
 							
 							HoopBase sourceHoop=(HoopBase) aSource;
 							HoopBase targetHoop=(HoopBase) aTarget;
@@ -326,7 +334,7 @@ public class HoopVisualGraphComponent extends mxGraphComponent
 							if ((sourceHoop!=null) && (targetHoop!=null))
 							{
 								debug ("We have a valid source and target hoop, linking them together ...");
-
+								
 								HoopConnection newConnection=HoopLink.hoopGraphManager.connectHoops(sourceHoop, targetHoop);
 								
 								if (newConnection==null)
@@ -344,6 +352,8 @@ public class HoopVisualGraphComponent extends mxGraphComponent
 									
 									//cell.setValue (newConnection);
 								}
+								
+								HoopLink.hoopGraphManager.listConnections ();
 							}			
 							else
 								debug ("Info: no complete edge yet, waiting ...");									
