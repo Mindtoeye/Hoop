@@ -320,19 +320,25 @@ public class HoopVisualGraphComponent extends mxGraphComponent
 												
 						if ((cell.getSource()!=null) && (cell.getTarget()!=null))
 						{													
-							//Object aSource=cell.getSource().getValue();
-							Object aSource=vizGraph.cellToHoop(cell.getSource());
-							
-							//Object aTarget=cell.getTarget().getValue();
+							Object aSource=vizGraph.cellToHoop(cell.getSource());							
 							Object aTarget=vizGraph.cellToHoop(cell.getTarget());
 							
 							debug ("We have an edge cell with id: " + cell.getId() + " ("+aSource.toString()+" -> " + aTarget.toString()+")");
-							
+														
 							HoopBase sourceHoop=(HoopBase) aSource;
 							HoopBase targetHoop=(HoopBase) aTarget;
 							
 							if ((sourceHoop!=null) && (targetHoop!=null))
 							{
+								/*
+								if (HoopLink.hoopGraphManager.isCyclic (sourceHoop,targetHoop)==true)
+								{
+									debug ("Proposed edge would create a cyclic link, aborting!");
+									
+									return (null);
+								}
+								*/
+								
 								debug ("We have a valid source and target hoop, linking them together ...");
 								
 								HoopConnection newConnection=HoopLink.hoopGraphManager.connectHoops(sourceHoop, targetHoop);

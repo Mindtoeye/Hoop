@@ -131,7 +131,10 @@ public class HoopExecutionListRenderer extends HoopJPanel implements ListCellRen
 				StringBuffer formatter=new StringBuffer ();
 
 				Long result=metrics.getMarkerRaw ();
-				  
+				
+				formatter.append("Ex: "+aHoop.getExecutionCount());
+				formatter.append(" ");
+				
 				formatter.append(result.toString());
 				formatter.append("ms");
 					

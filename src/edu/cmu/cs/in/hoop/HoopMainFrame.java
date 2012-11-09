@@ -810,12 +810,19 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 		
 	}
 	/**
-	 * 
+	 * Currently we have a method that creates a hardcoded perspective that corresponds
+	 * to the default perspective associated with graph editing. It makes a number of
+	 * assumptions on what panels the user would like to use but at this point it seems
+	 * there is enough space for all the panes and options required 
 	 */
 	private void startEditor ()
 	{
 		debug ("startEditor ()");
-			
+		
+	    addView ("Text Viewer",new HoopTextViewer (),HoopLink.center);
+	    
+	    addView ("Document List",new HoopDocumentList(),"right");
+					
 		if (HoopLink.getWindow("Console")==null)
 		{
 			console=new HoopConsole();    	
@@ -863,7 +870,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 			editor=new HoopGraphEditor ();
 			addView ("Hoop Editor",editor,HoopLink.center);
 		}	
-		
+			    			
 		newProjectInternal (null);
 		
 		HoopLink.menuBar.create(editor);

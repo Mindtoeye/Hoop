@@ -22,6 +22,7 @@ import com.mxgraph.model.mxCell;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.swing.handler.mxConnectionHandler;
 
+import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.HoopRoot;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 
@@ -32,8 +33,8 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
  */
 public class HoopVisualGraphConnectionHandler extends mxConnectionHandler
 {
-	private Object hoopSource=null;
-	private	Object hoopTarget=null;
+	private HoopBase hoopSource=null;
+	private	HoopBase hoopTarget=null;
 	
 	/** 
 	 * @param arg0
@@ -54,28 +55,28 @@ public class HoopVisualGraphConnectionHandler extends mxConnectionHandler
 	/**
 	 * 
 	 */
-	public void setHoopSource(Object hoopSource) 
+	public void setHoopSource(HoopBase hoopSource) 
 	{
 		this.hoopSource = hoopSource;
 	}	
 	/**
 	 * 
 	 */
-	public Object getHoopSource() 
+	public HoopBase getHoopSource() 
 	{
 		return hoopSource;
 	}
 	/**
 	 * 
 	 */
-	public void setHoopTarget(Object hoopTarget) 
+	public void setHoopTarget(HoopBase hoopTarget) 
 	{
 		this.hoopTarget = hoopTarget;
 	}	
 	/**
 	 * 
 	 */
-	public Object getHoopTarget() 
+	public HoopBase getHoopTarget() 
 	{
 		return hoopTarget;
 	}		
@@ -87,26 +88,22 @@ public class HoopVisualGraphConnectionHandler extends mxConnectionHandler
 		//debug ("isValidSource ()");
 	
 		if (cell instanceof mxCell)
-		{
-			//debug ("We've got a source cell here");
-	
+		{	
 			mxCell sourceCell=(mxCell) cell;
 			
 			Object userSourceObject=sourceCell.getValue();
 			
 			if (userSourceObject!=null)
 			{
-				if (userSourceObject instanceof HoopBase)
-				{
-					//debug ("Source object is a valid hoopbase object");
+				if (userSourceObject instanceof String)
+				{														
+					HoopBase tempSource=HoopLink.hoopGraphManager.findHoopByID((String) userSourceObject);
 					
-					setHoopSource(userSourceObject);
-				}	
-				//else
-				//	debug ("Source is not HoopBase class, instead: " + userSourceObject.getClass());				
+					//debug ("tempSource: " + tempSource.getHoopID());
+					
+					setHoopSource(tempSource);
+				}					
 			}
-			else
-				debug ("Source is null");
 		}			
 		
 		return (true);
@@ -119,28 +116,51 @@ public class HoopVisualGraphConnectionHandler extends mxConnectionHandler
 		//debug ("isValidTarget ()");
 		
 		if (cell instanceof mxCell)
-		{
-			//debug ("We've got a target cell here");
-	
+		{	
 			mxCell targetCell=(mxCell) cell;
 			
 			Object userTargetObject=targetCell.getValue();
 			
 			if (userTargetObject!=null)
 			{
-				if (userTargetObject instanceof HoopBase)
-				{
-					//debug ("Source object is a valid hoopbase object");
+				if (userTargetObject instanceof String)
+				{														
+					HoopBase tempTarget=HoopLink.hoopGraphManager.findHoopByID((String) userTargetObject);
 					
-					setHoopTarget(userTargetObject);
+					if (tempTarget!=null)
+					{					
+						setHoopTarget(tempTarget);
+						
+						HoopBase tempSource=getHoopSource ();
+					
+						if (tempSource!=null)
+						{
+							//if (HoopLink.hoopGraphManager.isCyclic (tempSource,tempTarget)==true)
+							if (HoopLink.hoopGraphManager.linkExists (tempSource,tempTarget)==true)
+							{
+								//debug ("Proposed link would create a cyclic graph, returning false");
+							
+								//setHoopSource (null);
+								//setHoopTarget (null);							
+							
+								//debug ("isValidTarget (false)");
+								
+								return (false);
+							}
+						}
+						//else
+						//	debug ("No source specified to compare against");
+					}
+					//else
+					//	debug ("Can't find hoop target: " + userTargetObject);
 				}	
 				//else
-				//	debug ("Target is not HoopBase class, instead: " + userTargetObject.getClass());
+				//	debug ("Target cell is not a String!");
 			}
-			else
-				debug ("Target is null");
 		}					
 		
+		//debug ("isValidTarget (true)");
+				
 		return (true);
 	}
 }

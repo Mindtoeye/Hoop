@@ -428,4 +428,68 @@ public class HoopGraphManager extends HoopBase
 			debug ("Connection " + i + ", from: " + aConn.getFromHoopID() + ", to: " + aConn.getToHoopID());
 		}	
 	}
+	/**
+	 * A link is requested from source to target, we now have to find out if there
+	 * is already a link from target to source.
+	 */
+	public boolean isCyclic (HoopBase aSource,HoopBase aTarget)
+	{
+		debug ("isCyclic ("+aSource.getHoopID()+","+aTarget.getHoopID()+")");
+		
+		ArrayList <HoopConnection> conns=HoopLink.project.getGraphConnections();
+		
+		for (int i=0;i<conns.size();i++)
+		{
+			HoopConnection aConn=conns.get(i);
+						
+			if (
+				(aConn.getFromHoopID ().equals(aTarget.getHoopID())==true) &&
+				(aConn.getToHoopID ().equals(aSource.getHoopID())==true)
+				)			
+			{
+				debug ("Error: link would be cyclic!");
+				
+				return (true);
+			}
+		}		
+		
+		return (false);
+	}
+	/**
+	 * 
+	 */
+	public boolean linkExists (HoopBase aSource,HoopBase aTarget)
+	{
+		//debug ("linkExists ("+aSource.getHoopID()+","+aTarget.getHoopID()+")");
+		
+		ArrayList <HoopConnection> conns=HoopLink.project.getGraphConnections();
+		
+		//debug ("Comparing " + conns.size() + " connections ...");
+		
+		for (int i=0;i<conns.size();i++)
+		{
+			HoopConnection aConn=conns.get(i);
+			
+			//debug ("Comparing to: " + aConn.getFromHoopID () +","+aConn.getToHoopID ());
+						
+			if (
+				(
+				 (aConn.getFromHoopID ().equals(aTarget.getHoopID())==true) &&
+				 (aConn.getToHoopID ().equals(aSource.getHoopID())==true)
+				)
+				||
+				(
+				 (aConn.getFromHoopID ().equals(aSource.getHoopID())==true) &&
+				 (aConn.getToHoopID ().equals(aTarget.getHoopID())==true)
+				)				
+			   )			
+			{
+				//debug ("Error: link already exists!");
+				
+				return (true);
+			}
+		}		
+		
+		return (false);
+	}	
 }

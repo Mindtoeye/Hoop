@@ -81,7 +81,7 @@ public class HoopPanningHandler extends mxPanningHandler
 		
 		if (start==null)
 		{
-			debug ("Info: no start point set, not panning");
+			//debug ("Info: no start point set, not panning");
 			return;
 		}
 				
