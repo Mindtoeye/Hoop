@@ -53,6 +53,8 @@ public class HoopKV extends HoopDataType implements HoopKVInterface, Serializabl
 	private static final long serialVersionUID = -120610909596827250L;
 	protected ArrayList <Object> values=null;
 		
+	private HoopKV parentKV=null;
+	
 	/**
 	 *
 	 */
@@ -60,6 +62,20 @@ public class HoopKV extends HoopDataType implements HoopKVInterface, Serializabl
     {
     	values=new ArrayList <Object>();
     }
+	/** 
+	 * @return
+	 */
+	public HoopKV getParentKV() 
+	{
+		return parentKV;
+	}
+	/** 
+	 * @param parentKV
+	 */
+	public void setParentKV(HoopKV parentKV) 
+	{
+		this.parentKV = parentKV;
+	}    
     /**
      * 
      */

@@ -92,7 +92,11 @@ public class HoopText2Sentence extends HoopTransformBase implements HoopInterfac
 							sentenceKV.setKey(t);
 						}
 						
-						sentenceKV.setValue(lines [i]);
+						String newSentence=lines [i];
+						
+						sentenceKV.setValue(newSentence);
+						sentenceKV.begin=0;
+						sentenceKV.end=newSentence.length();
 				
 						addKV (sentenceKV);
 					}	

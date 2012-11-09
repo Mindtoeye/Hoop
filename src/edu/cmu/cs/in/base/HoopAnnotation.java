@@ -19,9 +19,9 @@
 package edu.cmu.cs.in.base;
 
 /**
- * IMPORTANT: this class is not derived from HoopRoot because it needs to be small
- * and compact. We use this class as the base class for objects that are used in
- * arrays, lists and tables and we can't waste memory.
+ * We mimic the UIMA annotation class here, but it is important to
+ * not that we do not derive from it since that would create 
+ * incredibly large memory footprints. 
  */
 public class HoopAnnotation
 {	
@@ -34,5 +34,5 @@ public class HoopAnnotation
     public HoopAnnotation () 
     {
 
-    }    
+    }
 }
