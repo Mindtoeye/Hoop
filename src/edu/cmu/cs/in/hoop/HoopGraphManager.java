@@ -46,7 +46,7 @@ public class HoopGraphManager extends HoopBase
 	 */
 	public ArrayList <HoopBase> getHoopList ()
 	{
-		debug ("getHoopList ()");
+		//debug ("getHoopList ()");
 		
 		HoopGraphFile grFile=(HoopGraphFile) HoopLink.project.getFileByClass (new HoopGraphFile ().getClassName());
 		
@@ -64,7 +64,7 @@ public class HoopGraphManager extends HoopBase
 	 */
 	public HoopBase findHoopByID (String aRef)
 	{
-		debug ("findHoopByID (String)");
+		//debug ("findHoopByID (String)");
 		
 		if (aRef==null)
 			return (null);
@@ -93,7 +93,7 @@ public class HoopGraphManager extends HoopBase
 	 */
 	public HoopBase findHoopByReference (Object aRef)
 	{
-		debug ("findHoopByReference (Object)");
+		//debug ("findHoopByReference (Object)");
 		
 		if (aRef==null)
 		{
@@ -152,7 +152,7 @@ public class HoopGraphManager extends HoopBase
 	 */
 	public HoopBase findHoopByReference (Object aRef,HoopBase aRoot)
 	{
-		debug ("findHoopByReference (Object,HoopBase)");
+		//debug ("findHoopByReference (Object,HoopBase)");
 		
 		if (aRef==null)
 			return (null);

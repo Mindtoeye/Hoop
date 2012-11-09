@@ -46,6 +46,7 @@ import edu.cmu.cs.in.hoop.project.HoopProject;
 import edu.cmu.cs.in.hoop.properties.HoopPropertyPanel;
 import edu.cmu.cs.in.hoop.visualizers.HoopBackingDBInspector;
 import edu.cmu.cs.in.hoop.visualizers.HoopCluster;
+import edu.cmu.cs.in.hoop.visualizers.HoopParseTreeViewer;
 import edu.cmu.cs.in.hoop.visualizers.HoopScatterPlot;
 
 /** 
@@ -313,6 +314,16 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     	});
     	*/
     	
+    	JMenuItem parseTreeItem=new JMenuItem("Parse Tree Viewer");    	
+    	
+    	parseTreeItem.addActionListener(new ActionListener() 
+    	{
+    		public void actionPerformed(ActionEvent e) 
+    		{
+    			addView ("Parse Tree Viewer",new HoopParseTreeViewer(),"center");
+    		}
+    	});     	
+    	
     	JMenuItem documentListItem=new JMenuItem("Document Set Viewer");    	
     	
     	documentListItem.addActionListener(new ActionListener() 
@@ -436,6 +447,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     		}
     	});      	
     	    	    	
+    	views.add (parseTreeItem);
     	views.add (sTextViewItem);
     	//views.add (documentItem);
     	views.add (documentListItem);

@@ -24,7 +24,7 @@ import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.controls.HoopSentenceWall;
 import edu.cmu.cs.in.controls.HoopVisualSentence;
-import edu.cmu.cs.in.hoop.HoopConsole;
+import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 
 /**
 * 
@@ -33,7 +33,7 @@ public class HoopDisplayBase extends HoopBase implements HoopInterface
 {    	
 	private static final long serialVersionUID = 1120526232074210733L;
 
-	private HoopConsole viewer=null;
+	private HoopEmbeddedJPanel viewer=null;
 	
 	private HoopSentenceWall wall=null;
 	
@@ -51,14 +51,14 @@ public class HoopDisplayBase extends HoopBase implements HoopInterface
 	/**
 	 *
 	 */
-	public void setViewer(HoopConsole viewer) 
+	public void setViewer(HoopEmbeddedJPanel viewer) 
 	{
 		this.viewer = viewer;
 	}
 	/**
 	 *
 	 */
-	public HoopConsole getViewer() 
+	public HoopEmbeddedJPanel getViewer() 
 	{
 		return viewer;
 	}
@@ -75,6 +75,7 @@ public class HoopDisplayBase extends HoopBase implements HoopInterface
 			return (false);
 		}
 		
+		/*
 		wall=(HoopSentenceWall) HoopLink.getWindow("Sentence Wall");
 		if (wall==null)
 		{
@@ -99,6 +100,7 @@ public class HoopDisplayBase extends HoopBase implements HoopInterface
 		}	
 		
 		wall.assignData (sData);
+		*/
 					
 		return (true);
 	}	

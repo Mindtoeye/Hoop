@@ -149,7 +149,7 @@ public class HoopProject extends HoopProjectFile
 	 */
 	public HoopFile getFileByClass (String aClass)
 	{
-		debug ("getFileByClass ("+aClass+")");
+		//debug ("getFileByClass ("+aClass+")");
 		
 		for (int i=0;i<files.size();i++)
 		{
@@ -169,7 +169,7 @@ public class HoopProject extends HoopProjectFile
 	 */
 	public HoopBase getGraphRoot ()
 	{
-		debug ("getGraphRoot ()");
+		//debug ("getGraphRoot ()");
 		
 		HoopGraphFile graphFile=(HoopGraphFile) getFileByClass (new HoopGraphFile ().getClassName());
 		
