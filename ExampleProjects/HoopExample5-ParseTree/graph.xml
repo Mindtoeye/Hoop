@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hoopfile class="HoopGraphFile" instance="graph.xml">
+  <graph scale="1.0">
+    <hoops>
+      <hoop id="b9915bec-405c-40cf-a81b-808b5fe4caca" class="HoopStart" name="53" active="true">
+        <visual x="20" y="20" width="150" height="100" />
+        <properties />
+      </hoop>
+      <hoop id="e92a97f5-54f1-4042-83a4-e89d36366182" class="HoopFileLoadBase" name="54" active="true">
+        <visual x="130" y="210" width="150" height="100" />
+        <properties>
+          <serializable class="HoopURISerializable" instance="URI">
+            <value format="Text" type="URI" fileExtension="txt" dirsOnly="false">&lt;PROJECTPATH&gt;\system\import\trecgen06.txt</value>
+          </serializable>
+          <serializable class="HoopIntegerSerializable" instance="maxFiles">
+            <value format="Text" type="INT">1</value>
+          </serializable>
+          <serializable class="HoopIntegerSerializable" instance="batchSize">
+            <value format="Text" type="INT">1</value>
+          </serializable>
+          <serializable class="HoopEnumSerializable" instance="mode">
+            <value format="Text" type="ENUM" options="LINEAR,SAMPLE">LINEAR</value>
+          </serializable>
+        </properties>
+      </hoop>
+      <hoop id="e0b6ee37-13d8-4c98-83cb-b485b4cb8f47" class="HoopText2Sentence" name="63" active="true">
+        <visual x="240" y="390" width="150" height="100" />
+        <properties>
+          <serializable class="HoopIntegerSerializable" instance="batchSize">
+            <value format="Text" type="INT">0</value>
+          </serializable>
+          <serializable class="HoopBooleanSerializable" instance="reKey">
+            <value format="Text" type="BOOLEAN">TRUE</value>
+          </serializable>
+          <serializable class="HoopEnumSerializable" instance="changeKeyType">
+            <value format="Text" type="ENUM" options="keep the same,CLASS,INT,LONG,STRING,FLOAT,BOOLEAN,ENUM,TABLE,DOCUMENT">keep the same</value>
+          </serializable>
+          <serializable class="HoopStringSerializable" instance="splitRegEx">
+            <value format="Text" type="STRING">[\r\n]+</value>
+          </serializable>
+        </properties>
+      </hoop>
+      <hoop id="d6f56483-d048-437c-89e5-27151e71e0de" class="HoopParseTree" name="88" active="true">
+        <visual x="490" y="210" width="150" height="100" />
+        <properties />
+      </hoop>
+    </hoops>
+    <connections>
+      <connection name="Edge" from="b9915bec-405c-40cf-a81b-808b5fe4caca" to="e92a97f5-54f1-4042-83a4-e89d36366182" />
+      <connection name="Edge" from="e92a97f5-54f1-4042-83a4-e89d36366182" to="e0b6ee37-13d8-4c98-83cb-b485b4cb8f47" />
+      <connection name="Edge" from="e0b6ee37-13d8-4c98-83cb-b485b4cb8f47" to="d6f56483-d048-437c-89e5-27151e71e0de" />
+    </connections>
+  </graph>
+</hoopfile>
+
