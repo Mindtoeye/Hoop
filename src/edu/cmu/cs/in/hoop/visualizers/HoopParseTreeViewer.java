@@ -33,6 +33,8 @@ import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
@@ -59,7 +61,7 @@ import edu.stanford.nlp.parser.ui.TreeJPanel;
 /**
  * 
  */
-public class HoopParseTreeViewer extends HoopEmbeddedJPanel implements ActionListener 
+public class HoopParseTreeViewer extends HoopEmbeddedJPanel implements ActionListener, MouseListener 
 {  		
 	private static final long serialVersionUID = 1L;
 	
@@ -96,6 +98,7 @@ public class HoopParseTreeViewer extends HoopEmbeddedJPanel implements ActionLis
 		sentenceList=new JList (model);
 		sentenceList.setOpaque(true);
 		sentenceList.setBackground(new Color (220,220,220));
+		sentenceList.addMouseListener (this);
 		
 		JScrollPane scroller=new JScrollPane (sentenceList);
 		scroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -103,19 +106,18 @@ public class HoopParseTreeViewer extends HoopEmbeddedJPanel implements ActionLis
 		Box controlBox=Box.createHorizontalBox();
 				
 		entry=new JTextArea ();
-		//entry.setEnabled(false);
 		entry.setFont(new Font("Dialog", 1, 10));
 		//entry.setBorder(blackborder);
 		entry.setMinimumSize(new Dimension (100,25));
 		entry.setPreferredSize(new Dimension (200,25));		
 		entry.setMaximumSize(new Dimension (200,25));
 				
-		entry.setText("The quick brown fox jumps over the lazy dog.");
+		//entry.setText("The quick brown fox jumps over the lazy dog.");
 		
 		parseButton=new JButton ();
-		parseButton.setIcon(HoopLink.imageIcons [8]);
+		//parseButton.setIcon(HoopLink.imageIcons [8]);
 		parseButton.setMargin(new Insets(1, 1, 1, 1));
-		//clearButton.setText("Clear");
+		parseButton.setText("Parse");
 		parseButton.setFont(new Font("Courier",1,8));
 		parseButton.setPreferredSize(new Dimension (20,16));
 		parseButton.addActionListener(this);
@@ -142,6 +144,8 @@ public class HoopParseTreeViewer extends HoopEmbeddedJPanel implements ActionLis
 	 */	
 	public void setInHoop(HoopBase inHoop) 
 	{
+		debug ("setInHoop ()");
+		
 		this.inHoop = inHoop;
 	}	
 	/**
@@ -153,23 +157,33 @@ public class HoopParseTreeViewer extends HoopEmbeddedJPanel implements ActionLis
 			
 		if (this.inHoop==null)
 		{
+			debug ("Error: no input Hoop available");
 			return;
 		}
 				
 		ArrayList <HoopKV> inData=inHoop.getData();
 		
-		if (inData!=null)
-		{			
-			for (int t=0;t<inData.size();t++)
-			{
-				HoopKV aKV=inData.get(t);
-
-				model.addElement(aKV.getValue());
-			}		
+		if (inData==null)
+		{
+			debug ("Error: no input data available");
+			return;
+		}
+		
+		if (inData.size()==0)
+		{
+			debug ("Error: empty data!");
+			return;
 		}
 		
 		model = new DefaultListModel();
-		
+					
+		for (int t=0;t<inData.size();t++)
+		{
+			HoopKV aKV=inData.get(t);
+
+			model.addElement(aKV.getValue());
+		}		
+				
 		sentenceList.setModel(model);		
 	}
 	/**
@@ -207,9 +221,7 @@ public class HoopParseTreeViewer extends HoopEmbeddedJPanel implements ActionLis
 			}
 			else
 			{
-				debug ("Tree node: " + subtree.label().value());
-				
-				//displayTreeLeaf (subtree);
+				debug ("Tree node: " + subtree.label().value());				
 			}	
 		}		
 		
@@ -218,20 +230,52 @@ public class HoopParseTreeViewer extends HoopEmbeddedJPanel implements ActionLis
 	/**
 	 * 
 	 */
-	private void displayTreeLeaf (Tree aTree)
+	@Override
+	public void mouseClicked(MouseEvent e) 
 	{
-		debug ("displayTreeLeaf ()");
-				
-		for (Tree thisTree : aTree) 
-		{ 
-			if (thisTree.isLeaf()==true)
-			{
-				debug ("Tree leaf: " + thisTree.label().value());
-			}
-			else
-			{
-				displayTreeLeaf (thisTree);
-			}	
-		}		
+		debug ("mouseClicked ()");
+		
+        JList list = (JList)e.getSource();
+        
+        if (e.getClickCount() == 2) 
+        {
+            int index = sentenceList.locationToIndex(e.getPoint());
+            
+            String selectedSentence=(String) model.get(index);
+            
+            processInput (selectedSentence);
+        }		
+	}
+	/**
+	 * 
+	 */
+	@Override
+	public void mousePressed(MouseEvent e) 
+	{
+		
+	}
+	/**
+	 * 
+	 */	
+	@Override
+	public void mouseReleased(MouseEvent e) 
+	{
+
+	}
+	/**
+	 * 
+	 */	
+	@Override
+	public void mouseEntered(MouseEvent e) 
+	{
+		
+	}
+	/**
+	 * 
+	 */	
+	@Override
+	public void mouseExited(MouseEvent e) 
+	{
+		
 	}
 }

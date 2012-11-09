@@ -65,5 +65,12 @@ public class HoopParseTree extends HoopDisplayBase
 		viewer.updateContents();
 		
 		return (true);
+	}
+	/**
+	 * 
+	 */
+	public HoopBase copy ()
+	{
+		return (new HoopParseTree ());
 	}	
 }
