@@ -45,6 +45,7 @@ public class HoopSentence2Tokens extends HoopTransformBase implements HoopInterf
 	private static final long serialVersionUID = -8312790693714962219L;
 	private HoopBooleanSerializable removePunctuation=null; // TRUE,FALSE	
 	private HoopStringSerializable splitRegEx=null;
+	private HoopStringSerializable splitCharacter=null;
 	private HoopEnumSerializable targetTokenizer=null;
 	private HoopEnumSerializable generateMode=null;
 	
@@ -56,11 +57,12 @@ public class HoopSentence2Tokens extends HoopTransformBase implements HoopInterf
 		setClassName ("HoopSentence2Tokens");
 		debug ("HoopSentence2Tokens ()");
 										
-		setHoopDescription ("Parse Sentences into Tokens");
-		
+		setHoopDescription ("Split Text into Tokens");
+
+		targetTokenizer=new HoopEnumSerializable (this,"targetTokenizer","RegEx,Stanford,SplitOnCharacter");		
 		removePunctuation=new HoopBooleanSerializable (this,"removePunctuation",true);
 		splitRegEx=new HoopStringSerializable (this,"splitRegEx","\\W");
-		targetTokenizer=new HoopEnumSerializable (this,"targetTokenizer","Builtin,Stanford");
+		splitCharacter=new HoopStringSerializable (this,"splitCharacter","|");
 		generateMode=new HoopEnumSerializable (this,"generateMode","Add,New");
     }
 	/**
@@ -86,7 +88,63 @@ public class HoopSentence2Tokens extends HoopTransformBase implements HoopInterf
 				
 				//>------------------------------------------------------------------------
 				
-				if (targetTokenizer.getValue().equalsIgnoreCase("Builtin")==true)
+				if (targetTokenizer.getValue().equalsIgnoreCase("SplitOnCharacter")==true)
+				{									
+					//debug ("Using builtin tokenizer ...");
+					
+					List<String> tokens=featureMaker.unigramTokenizeOnCharacter (aKV.getValue(),splitCharacter.getPropValue());
+											
+					//debug ("Extracted " + tokens.size());
+					
+					if (generateMode.getPropValue().equalsIgnoreCase("Add")==true)
+					{
+						//debug ("Generate mode is Add");
+						
+						HoopKVInteger newToken=new HoopKVInteger ();
+						
+						for (int j=0;j<tokens.size();j++)
+						{							
+							String aToken=tokens.get(j);
+										
+							String strippedInput=aToken;
+							
+							//debug ("final input for new token: " + strippedInput);
+						
+							if (removePunctuation.getPropValue ()==true)
+								strippedInput = aToken.replaceAll(splitRegEx.getValue(), "");
+						
+							newToken.setKey (i);
+							newToken.setValue (strippedInput, j);							
+						}	
+						
+						addKV (newToken);
+					}
+					else
+					{
+						//debug ("Generate mode is New");
+						
+						for (int j=0;j<tokens.size();j++)
+						{				
+							String aToken=tokens.get(j);
+										
+							String strippedInput=aToken;
+						
+							if (removePunctuation.getPropValue ()==true)											
+								strippedInput = aToken.replaceAll(splitRegEx.getValue(), "");
+							
+							//debug ("final input for new token: " + strippedInput);
+						
+							if (this.reKey.getPropValue()==false)						
+								addKV (new HoopKVInteger (j,strippedInput));
+							else
+								addKV (new HoopKVInteger (i,strippedInput));							
+						}							
+					}
+				}					
+				
+				//>------------------------------------------------------------------------
+				
+				if (targetTokenizer.getValue().equalsIgnoreCase("RegEx")==true)
 				{									
 					//debug ("Using builtin tokenizer ...");
 					

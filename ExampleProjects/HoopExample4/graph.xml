@@ -59,7 +59,7 @@
             <value format="Text" type="STRING">\W</value>
           </serializable>
           <serializable class="HoopEnumSerializable" instance="targetTokenizer">
-            <value format="Text" type="ENUM" options="Builtin,Stanford">Builtin</value>
+            <value format="Text" type="ENUM" options="RegEx,Stanford">RegEx</value>
           </serializable>
           <serializable class="HoopEnumSerializable" instance="generateMode">
             <value format="Text" type="ENUM" options="Add,New">Add</value>

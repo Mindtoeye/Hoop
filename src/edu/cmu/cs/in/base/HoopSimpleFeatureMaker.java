@@ -145,6 +145,29 @@ public class HoopSimpleFeatureMaker extends HoopRoot implements HoopFeatureMaker
 	/**
 	 *
 	 */	
+	public List<String> unigramTokenizeOnCharacter (String aSource,String aCharacter)
+	{
+		//debug ("unigramTokenizeOnCharacter (String,String)");
+		
+		String cleaned=aSource;
+				
+		ArrayList<String> out = new ArrayList<String>();
+		
+		if (aSource == null || (aSource.trim().length() == 0))
+			return out;
+				
+		String [] split=cleaned.split("\\"+aCharacter);
+		
+		for (int i = 0; i < split.length; i++)
+		{
+			out.add(split [i]);
+		}
+		
+		return (out);				
+	}		
+	/**
+	 *
+	 */	
 	public List<String> unigramTokenize (String aSource)
 	{
 		//debug ("unigramTokenize (String)");

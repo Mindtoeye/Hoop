@@ -115,6 +115,10 @@ Used Packages:
 
 - JDesktop (integrated and customized)
 
+- cjwizard (integrated and customized), used for the generation of wizards such
+	as the application builder
+	http://code.google.com/p/cjwizard/
+
 Notice!
 
 At some point the IDE might be migrated to the Eclipse workbench,

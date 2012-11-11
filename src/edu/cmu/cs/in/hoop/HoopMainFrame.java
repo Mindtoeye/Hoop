@@ -35,6 +35,7 @@ import edu.cmu.cs.in.controls.HoopSentenceWall;
 import edu.cmu.cs.in.controls.dialogs.HoopCleanProjectDialog;
 import edu.cmu.cs.in.controls.dialogs.HoopGenericNameDialog;
 import edu.cmu.cs.in.controls.dialogs.HoopGenericProgressdialog;
+import edu.cmu.cs.in.hoop.builder.HoopAppBuilder;
 import edu.cmu.cs.in.hoop.editor.HoopEditorToolBar;
 import edu.cmu.cs.in.hoop.execute.HoopExecuteExceptionHandler;
 import edu.cmu.cs.in.hoop.execute.HoopExecuteInEditor;
@@ -626,6 +627,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     {
     	JMenu project = new JMenu("Project");
     	JMenuItem buildItem = new JMenuItem("Build");
+    	JMenuItem buildAppItem = new JMenuItem("Build Application");
     	JMenuItem cleanItem = new JMenuItem("Clean");
     	JMenuItem propertiesItem = new JMenuItem("Properties");
 
@@ -637,6 +639,14 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     		}
     	});
 
+    	buildAppItem.addActionListener(new ActionListener() 
+    	{
+    		public void actionPerformed(ActionEvent e) 
+    		{
+    			buildApplication ();
+    		}
+    	});    	
+    	
     	cleanItem.addActionListener(new ActionListener() 
     	{
     		public void actionPerformed(ActionEvent e) 
@@ -655,6 +665,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     	});
 
     	project.add(buildItem);
+    	project.add(buildAppItem);
     	project.add(cleanItem);
     	project.addSeparator();
     	project.add(propertiesItem);
@@ -1418,4 +1429,29 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 	    	//debug ("The answer stored in CustomDialog is 'false' (i.e. user clicked no button.)");
 		}							
 	}
+	/**
+	 * 
+	 */
+	private void buildApplication ()
+	{
+		debug ("buildApplication ()");
+		
+		if (HoopLink.project.getVirginFile()==true)
+		{
+			alert ("Please save your project first");
+			return;
+		}
+		
+		HoopAppBuilder builder=new HoopAppBuilder (this,true);
+		builder.setVisible(true);
+		
+	    if (builder.getAnswer()) 
+	    {
+
+	    }
+	    else 
+	    {
+	    	//debug ("The answer stored in CustomDialog is 'false' (i.e. user clicked no button.)");
+		}							
+	}	
 }

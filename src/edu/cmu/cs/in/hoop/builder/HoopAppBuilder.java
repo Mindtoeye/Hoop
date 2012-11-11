@@ -1,5 +1,5 @@
 /** 
- * Author: Martin van Velsen <vvelsen@cs.cmu.edu>
+ *  Author: Martin van Velsen <vvelsen@cs.cmu.edu>
  * 
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as 
@@ -16,23 +16,27 @@
  * 
  */
 
-package edu.cmu.cs.in.base;
+package edu.cmu.cs.in.hoop.builder;
+
+import javax.swing.JFrame;
+
+import edu.cmu.cs.in.controls.base.HoopJDialog;
 
 /**
- * We mimic the UIMA annotation class here, but it is important to
- * not that we do not derive from it since that would create 
- * incredibly large memory footprints. 
+ *
  */
-public class HoopAnnotation
-{	
-	public int begin=0;
-	public int end=0;
-	
-	/**
-	 *
-	 */
-    public HoopAnnotation () 
-    {
+public class HoopAppBuilder extends HoopJDialog
+{
+	private static final long serialVersionUID = 5889788146356373061L;
 
-    }
+	/**
+     * 
+     */
+    public HoopAppBuilder (JFrame frame, boolean modal) 
+	{
+		super (frame, modal,"Create Hoop Application");
+		
+		setClassName ("HoopAppBuilder");
+		debug ("HoopAppBuilder ()");	
+	}
 }
