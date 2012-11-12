@@ -35,6 +35,7 @@ import edu.cmu.cs.in.controls.HoopSentenceWall;
 import edu.cmu.cs.in.controls.dialogs.HoopCleanProjectDialog;
 import edu.cmu.cs.in.controls.dialogs.HoopGenericNameDialog;
 import edu.cmu.cs.in.controls.dialogs.HoopGenericProgressdialog;
+import edu.cmu.cs.in.controls.dialogs.HoopEnvironmentInspector;
 import edu.cmu.cs.in.hoop.builder.HoopAppBuilder;
 import edu.cmu.cs.in.hoop.editor.HoopEditorToolBar;
 import edu.cmu.cs.in.hoop.execute.HoopExecuteExceptionHandler;
@@ -596,9 +597,10 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     protected JMenu buildHelpMenu() 
     {
     	JMenu help = new JMenu("Help");
+    	JMenuItem env = new JMenuItem("Inspect Environment");
         JMenuItem about = new JMenuItem("About Hoop ...");
         JMenuItem openHelp = new JMenuItem("Open Help Window");
-
+        
         about.addActionListener(new ActionListener() 
         {
         	public void actionPerformed(ActionEvent e) 
@@ -606,6 +608,18 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
         		showAboutBox();
         	}
         });
+        
+        env.addActionListener(new ActionListener() 
+        {
+        	public void actionPerformed(ActionEvent e) 
+        	{
+                HoopEnvironmentInspector envDialog=new HoopEnvironmentInspector (HoopLink.mainFrame,true);
+                
+                //envDialog.setDescription ("Please provide the subdirectory under which you want to import your files");
+                //envDialog.setChosenName ("import");
+                envDialog.setVisible (true);                
+        	}
+        });        
 
         openHelp.addActionListener(new ActionListener() 
         {
@@ -614,8 +628,9 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
         		addView ("Help",new HoopHelp (),HoopLink.left);        		
         	}
         });
-
+        
         help.add(about);
+        help.add (env);
         help.add(openHelp);
 
         return help;

@@ -42,6 +42,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import edu.cmu.cs.in.base.HoopStringTools;
+import edu.cmu.cs.in.base.io.HoopFileTools;
 //import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.base.kv.HoopKVInteger;
 import edu.cmu.cs.in.base.kv.HoopKVString;
@@ -209,6 +210,9 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
             debug ("Unable to load the JDBC driver " + driver +". Please check your CLASSPATH.");
             this.setErrorString("Unable to load the JDBC driver " + driver +". Please check your CLASSPATH.");
             cnfe.printStackTrace(System.err);
+            
+            debug ("CLASSPATH: " + HoopFileTools.getClassPath ());
+            
             return (false);
         } 
         catch (InstantiationException ie) 

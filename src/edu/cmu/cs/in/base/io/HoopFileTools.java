@@ -30,6 +30,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Properties;
 //import java.util.Enumeration;
 //import java.util.jar.JarEntry;
 //import java.util.jar.JarFile;
@@ -422,5 +423,13 @@ public class HoopFileTools extends HoopRoot
 		}
       	
 		return date.getTime();
+	}	
+	/**
+	 * 
+	 */
+	public static String getClassPath() 		
+	{
+		Properties prop = System.getProperties();
+		return prop.getProperty("java.class.path", null);
 	}	
 } 
