@@ -613,11 +613,9 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
         {
         	public void actionPerformed(ActionEvent e) 
         	{
-                HoopEnvironmentInspector envDialog=new HoopEnvironmentInspector (HoopLink.mainFrame,true);
-                
-                //envDialog.setDescription ("Please provide the subdirectory under which you want to import your files");
-                //envDialog.setChosenName ("import");
-                envDialog.setVisible (true);                
+                HoopEnvironmentInspector envDialog=new HoopEnvironmentInspector (HoopLink.mainFrame,true);                
+                envDialog.setVisible (true);
+                envDialog.fillPropList();
         	}
         });        
 

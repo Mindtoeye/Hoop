@@ -19,9 +19,7 @@
 package edu.cmu.cs.in.controls.dialogs;
 
 import java.awt.Color;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.util.Map;
 import java.util.Properties;
@@ -29,13 +27,10 @@ import java.util.Set;
 import java.util.Map.Entry;
 
 import javax.swing.DefaultListModel;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.text.JTextComponent;
 
 import edu.cmu.cs.in.controls.base.HoopJDialog;
 
@@ -47,35 +42,47 @@ public class HoopEnvironmentInspector extends HoopJDialog implements ActionListe
 	private static final long serialVersionUID = -3861766664588933762L;
 	
 	private JList propList=null;
-	
-	private DefaultListModel model=null;
+	private JScrollPane scroller=null;
+	//private DefaultListModel model=null;
 
 	/**
      * 
      */
     public HoopEnvironmentInspector (JFrame frame, boolean modal) 
 	{
-		super (frame, modal,"Environment Inspector");
+		super (HoopJDialog.OK,frame, modal,"Environment Inspector");
 		
 		setClassName ("HoopEnvironmentInspector");
 		debug ("HoopEnvironmentInspector ()");				
 
-		JPanel contentFrame=this.getFrame();
-
-		model = new DefaultListModel();
+		JPanel contentFrame=getFrame ();
+		
+		//DefaultListModel model = new DefaultListModel();
+		DefaultListModel model = fillPropList ();
+		//model.addElement("Hello World");
 		
 		propList=new JList (model);
 		propList.setOpaque(true);
-		propList.setBackground(new Color (220,220,220));
+		propList.setMinimumSize(new Dimension (200,200));
+		//propList.setBackground(new Color (220,220,220));
 		
-		JScrollPane scroller=new JScrollPane (propList);
+		scroller=new JScrollPane (propList);
 		scroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		
+				
+		contentFrame.add(scroller);		
+    }      
+    /**
+     * 
+     */
+    public DefaultListModel fillPropList ()
+    {
+    	debug ("fillPropList ()");
+    	
 		Properties systemProps = System.getProperties();
 		Set<Entry<Object, Object>> sets = systemProps.entrySet();
-		Map<String,String> env=System.getenv();
-		
-		model = new DefaultListModel();
+		Map<String,String> env=System.getenv();    	
+    	
+		DefaultListModel model = new DefaultListModel();
 		
 		for (Entry<Object,Object> entry : sets) 
 		{
@@ -87,8 +94,9 @@ public class HoopEnvironmentInspector extends HoopJDialog implements ActionListe
 			formatter.append ("=");
 			formatter.append(entry.getValue().toString());
 			
-			model.addElement(formatter.toString());
+			debug (formatter.toString());
 			
+			model.addElement(formatter.toString());			
 		}    	
 				
 		debug ("Environment properties: ");
@@ -103,11 +111,15 @@ public class HoopEnvironmentInspector extends HoopJDialog implements ActionListe
 			formatter.append ("=");
 			formatter.append(env.get(envName));
 			
-			model.addElement(formatter.toString());        	
+			debug (formatter.toString());
+			
+			model.addElement(formatter.toString());
         }
 				
-        propList.setModel(model);
+        //propList.setModel(model);
         
-		contentFrame.add(scroller);
-    }      
+        //debug ("A total of " + propList.getModel().getSize() + " entries");
+        
+        return (model);
+    }
 } 

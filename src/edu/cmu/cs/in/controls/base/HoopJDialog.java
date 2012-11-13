@@ -46,6 +46,9 @@ public class HoopJDialog extends JDialog implements ActionListener
 	public static final int YES=0;
 	public static final int NO=1;
 	public static final int CANCEL=2;
+	public static final int YESNO=3;
+	public static final int OK=4;
+	public static final int OKCANCEL=5;
 		
 	protected JPanel myPanel = null;
     protected JButton yesButton = null;
@@ -58,6 +61,74 @@ public class HoopJDialog extends JDialog implements ActionListener
 	private String className="HoopBase";	
 	private String instanceName="Undefined";    
 
+	
+    /**
+     * 
+     */
+    public HoopJDialog (int btnConfig,
+    					JFrame aFrame, 
+    					boolean modal, 
+    					String title) 
+    {
+		super (aFrame, modal);
+
+		setClassName ("HoopJDialog");
+		debug ("HoopJDialog ()");		
+
+		this.setTitle(title);
+				
+		getContentPane ().setLayout(new BoxLayout (getContentPane (),BoxLayout.Y_AXIS));
+				
+		Box mainBox = new Box (BoxLayout.Y_AXIS);
+
+		frame = new JPanel();
+		frame.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
+		frame.setLayout(new BoxLayout (frame,BoxLayout.Y_AXIS));
+		//frame.setLayout(new BoxLayout (frame,BoxLayout.Y_AXIS));
+		frame.setBackground(new Color (220,220,220));
+		frame.setMinimumSize (new Dimension (100,100));
+		//frame.setMaximumSize (new Dimension (400,400));
+		mainBox.add(frame);
+		
+		myPanel = new JPanel();
+		myPanel.setMaximumSize (new Dimension (400,25));
+		mainBox.add(myPanel);
+				
+		if (btnConfig==YESNO)
+		{		
+			yesButton = new JButton("Yes");
+			yesButton.addActionListener(this);
+			myPanel.add(yesButton);	
+		
+			noButton = new JButton("No");
+			noButton.addActionListener(this);
+			myPanel.add(noButton);
+		}	
+		
+		if (btnConfig==OK)
+		{		
+			yesButton = new JButton("OK");
+			yesButton.addActionListener(this);
+			myPanel.add(yesButton);			
+		}		
+		
+		if (btnConfig==OKCANCEL)
+		{		
+			yesButton = new JButton("OK");
+			yesButton.addActionListener(this);
+			myPanel.add(yesButton);			
+			
+			noButton = new JButton("Cancel");
+			noButton.addActionListener(this);
+			myPanel.add(noButton);			
+		}		
+		
+		this.getContentPane().add(mainBox);
+				
+		setLocationRelativeTo(frame);
+		
+		this.setSize(250,200);		
+    }	
     /**
      * 
      */
@@ -78,10 +149,11 @@ public class HoopJDialog extends JDialog implements ActionListener
 
 		frame = new JPanel();
 		frame.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
+		frame.setLayout(new BoxLayout (frame,BoxLayout.Y_AXIS));
 		//frame.setLayout(new BoxLayout (frame,BoxLayout.Y_AXIS));
 		frame.setBackground(new Color (220,220,220));
 		frame.setMinimumSize (new Dimension (100,100));
-		frame.setMaximumSize (new Dimension (400,400));
+		//frame.setMaximumSize (new Dimension (400,400));
 		mainBox.add(frame);
 		
 		myPanel = new JPanel();
@@ -97,26 +169,11 @@ public class HoopJDialog extends JDialog implements ActionListener
 		myPanel.add(noButton);
 		
 		this.getContentPane().add(mainBox);
-		
-		//addContent ();
-		
-		pack();
-		
+				
 		setLocationRelativeTo(frame);
 		
-		this.setSize(250,200);
-		
-		//setVisible(true);
+		this.setSize(250,200);		
     }
-    /**
-     * 
-     */
-    /*
-    protected void addContent ()
-    {
-    	// implement in child class
-    }
-    */
     /**
      * 
      */
