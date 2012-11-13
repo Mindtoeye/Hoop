@@ -23,6 +23,7 @@ import java.util.Iterator;
 
 import com.sleepycat.collections.StoredMap;
 
+import edu.cmu.cs.in.base.HoopDataType;
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.HoopStringTools;
 import edu.cmu.cs.in.base.kv.HoopKV;
@@ -38,7 +39,10 @@ import edu.cmu.cs.in.search.HoopDataSet;
 public class HoopDocumentWriter extends HoopSaveBase
 {    				
 	private static final long serialVersionUID = -1691608095189030052L;
-			
+	
+	private int checkCounter=0;
+	private int errorCounter=0;
+	
 	/**
 	 *
 	 */
@@ -49,6 +53,18 @@ public class HoopDocumentWriter extends HoopSaveBase
 												
 		setHoopDescription ("Write Documents to Document DB");					
     }
+	/**
+	 * 
+	 */
+    public void reset ()
+    {
+    	debug ("reset ()");
+    	
+    	super.reset();
+    	
+    	checkCounter=0;
+    	errorCounter=0;    	
+    }	
 	/**
 	 *
 	 */
@@ -74,6 +90,10 @@ public class HoopDocumentWriter extends HoopSaveBase
 		else
 			HoopLink.dataSet.checkDB ();
 		
+		HoopKVLong threadCache=null;
+		
+		checkCounter=0;
+		
 		for (int t=0;t<inData.size();t++)
 		{			
 			HoopKV aKV=inData.get(t);
@@ -89,23 +109,30 @@ public class HoopDocumentWriter extends HoopSaveBase
 			
 				HoopLink.dataSet.writeKV (newDocument.getKey(),newDocument);
 				
-				processThreadData (newDocument);
+				threadCache=processThreadData (newDocument,threadCache);
+				
+				checkCounter++;
 			}			
 		}			
+		
+		debug ("Check: processed " + checkCounter + " documents, with " + errorCounter + " errors");
 				
 		return (true);
 	}	
 	/**
 	 * 
 	 */
-	private void processThreadData (HoopKVDocument aDocument)
+	private HoopKVLong processThreadData (HoopKVDocument aDocument,HoopKVLong threadCache)
 	{
-		debug ("processThreadData ("+aDocument.documentID.getValue()+","+aDocument.getKeyString()+")");
+		if (threadCache!=null)
+			debug ("processThreadData ("+aDocument.documentID.getValue()+","+aDocument.getKeyString()+","+threadCache.getKey()+")");
+		else
+			debug ("processThreadData ("+aDocument.documentID.getValue()+","+aDocument.getKeyString()+")");
 		
 		if (HoopLink.dataSet==null)
 		{
 			debug ("No dataset, can't process thread data");
-			return;
+			return (null);
 		}
 		
 		StoredMap<Long,HoopKVLong> threadData=HoopLink.dataSet.getThreads();
@@ -113,9 +140,9 @@ public class HoopDocumentWriter extends HoopSaveBase
 		if (threadData==null)
 		{
 			debug ("Error: no thread database available, can't process thread data");
-			return;
+			return (null);
 		}
-		
+				
 		if (aDocument.threadID.getValue().isEmpty()==false)
 		{						
 			debug ("Procedding thread ID: " + aDocument.threadID.getValue() + " for document: " + aDocument.documentID.getValue());
@@ -125,8 +152,35 @@ public class HoopDocumentWriter extends HoopSaveBase
 				debug ("Thread ID is of type Long");
 				
 				Long newThreadID=Long.parseLong(aDocument.threadID.getValue());
+								
+				HoopKVLong testThread=null;
 				
-				HoopKVLong testThread=threadData.get(newThreadID);
+				if (threadCache!=null)
+				{
+					debug ("We've got a potential thread cache hit, checking ("+threadCache.getKey()+","+newThreadID+")...");
+															
+					if (threadCache.getKey().equals(newThreadID)==true)
+					{
+						debug ("Thread cache hit: " + newThreadID);
+												
+						// Add the new document to the thread ...
+						
+						threadCache.bump(aDocument.createDate.getValue());
+						
+						// Update the thread object in the database. This is should at all
+						// all times be the slowest operation in the code
+												
+						threadData.put(threadCache.getKey(),threadCache);
+						
+						//showThreadDB ();
+						
+						return (threadCache);
+					}
+				}
+				
+				testThread=threadData.get(newThreadID);
+				
+				//debug ("No cache hit, proceed as normal with thread id: " + testThread.getValue());
 				
 				if (testThread==null)
 				{
@@ -137,31 +191,30 @@ public class HoopDocumentWriter extends HoopSaveBase
 					testThread.setValue(aDocument.createDate.getValue());
 					threadData.put(newThreadID,testThread);
 					
+					return (testThread);
+					
 					//showThreadDB ();
 				}
 				else
 				{
 					debug ("Thread ID is already in our database, updating ...");
+					
 					debug ("Check >");
 					showThread (testThread);
 					debug ("Check <");
 					
 					if (aDocument.threadStarter.getValue().isEmpty()==false)
 					{
-						if (
-							(aDocument.threadStarter.getValue().equalsIgnoreCase("1")==true) ||
-							(aDocument.threadStarter.getValue().equalsIgnoreCase("true")==true) ||
-							(aDocument.threadStarter.getValue().equalsIgnoreCase("yes")==true)
-						   )
+						if (HoopDataType.booleanStringValue(aDocument.threadStarter.getValue())==true)
 						{
 							debug ("Potential conflict, thread ID already exists but document indicates it's a thread starter");
+							
+							errorCounter++;
 						}
 						else
 						{
 							debug ("Bumping thread ID ("+newThreadID+") with document: "+aDocument.createDate.getValue()+" ...");
-							
-							//testThread.add(aDocument.createDate.getValue());
-							
+														
 							testThread.bump(aDocument.createDate.getValue());
 							
 							threadData.put(newThreadID,testThread);
@@ -173,18 +226,19 @@ public class HoopDocumentWriter extends HoopSaveBase
 					{
 						debug ("Bumping thread ID ("+newThreadID+") with document: "+aDocument.createDate.getValue()+" ...");
 						
-						//testThread.add(aDocument.createDate.getValue());
 						testThread.bump(aDocument.createDate.getValue());
 						
 						threadData.put(newThreadID,testThread);
 						
-						//showThreadDB ();
+						return (testThread);
 					}
 				}								
 			}
 		}		
 		else
 			debug ("This document does not contain thread data");
+		
+		return (null);
 	}
 	/**
 	 * 

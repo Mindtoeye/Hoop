@@ -184,4 +184,20 @@ public class HoopDataType extends HoopAnnotation
 	{
 		return typeValue;
 	}	
+	/**
+	 * 
+	 */
+	public static Boolean booleanStringValue (String aString)
+	{
+		if (
+				(aString.equalsIgnoreCase("1")==true) ||
+				(aString.equalsIgnoreCase("true")==true) ||
+				(aString.equalsIgnoreCase("yes")==true)
+			)
+		{
+			return (true);
+		}
+		
+		return (false);
+	}
 }

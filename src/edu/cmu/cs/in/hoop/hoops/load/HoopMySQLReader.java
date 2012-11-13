@@ -329,8 +329,11 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 				bSize=Integer.parseInt(batchSize.getPropValue());
 			    loadMax=Integer.parseInt(queryMax.getPropValue());
 								
-				if (bSize>loadMax)
-					loadMax=bSize;
+			    if (loadMax>0)
+			    {
+			    	if (bSize>loadMax)
+			    		loadMax=bSize;
+			    }	
 				
 				HoopKVString aKV=(HoopKVString) getKVFromKey(queryTable.getPropValue ());
 				
@@ -342,8 +345,10 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 				}
 				
 				int loadMaxTemp=Integer.parseInt(aKV.getValue());
-												
-				if (loadMaxTemp<loadMax)
+				
+				debug ("User max cap set to: " + loadMaxTemp);
+				
+				if ((loadMaxTemp<loadMax) || (loadMax<=0))
 				{
 					loadMax=loadMaxTemp;
 				}
@@ -918,8 +923,20 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
     	{
     		Integer testValue=Integer.parseInt(queryMax.getPropValue());
     		
-    		if (loadIndex>=testValue)
-    			return (true);
+    		if (testValue>0)
+    		{
+    			debug ("We have a user set max, checking ...");
+    			
+    			if (loadIndex>=testValue)
+    				return (true);
+    		}
+    		else
+    		{
+    			debug ("We're comparing the current index to the max value ("+loadIndex+","+testValue+")");
+    			
+    			if (loadIndex>=loadMax)
+    				return (true);
+    		}
     	}
     	
     	return (false);

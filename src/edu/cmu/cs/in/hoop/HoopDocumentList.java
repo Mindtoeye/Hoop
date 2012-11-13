@@ -381,6 +381,8 @@ public class HoopDocumentList extends HoopEmbeddedJPanel implements ActionListen
 		
 	   	DefaultTreeModel model = new DefaultTreeModel(root);
 										
+	   	int totalDocumentSize=0;
+	   	
 		while ((iterator.hasNext()) && (index<count)) 
 		{
 			HoopKVLong aThread=(HoopKVLong) iterator.next();
@@ -392,6 +394,8 @@ public class HoopDocumentList extends HoopEmbeddedJPanel implements ActionListen
             	
        		debug ("Thread with id " +aThread.getKeyString() + " has " + aThread.getValuesRaw().size() + " entries");
         		
+       		totalDocumentSize+=aThread.getValuesRaw().size();
+       		
        		for (int j=0;j<threadContents.size();j++)
        		{
        			String docID=(String) threadContents.get(j);
@@ -402,6 +406,8 @@ public class HoopDocumentList extends HoopEmbeddedJPanel implements ActionListen
     			
 			index++;
 		}	
+		
+		debug ("There are a total of " + totalDocumentSize + " documents in the database");
 		  		    
     	threadTree.setModel(model);
 	}	
