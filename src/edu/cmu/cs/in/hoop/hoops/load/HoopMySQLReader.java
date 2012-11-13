@@ -71,19 +71,16 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
     
     public	HoopStringSerializable queryTable=null;
     public	HoopStringSerializable queryColumns=null;
-    public	HoopStringSerializable querySize=null;
     
+    public	HoopStringSerializable batchSize=null;    
     public	HoopStringSerializable queryMax=null;
     
-    /**
-     * Currently a string but will be replaced by an enum once we can model that
-     * as a serializable. Values are one of: TABLEINFO, TABLEDATA
-     */
     public	HoopEnumSerializable queryType=null;
     
     private Connection connection = null;
     
-    private Integer loadSize=100;
+    private Integer bSize=100;
+    private Integer bCount=0;
     private Integer loadMax=100;
     private Integer loadIndex=0;
             
@@ -108,8 +105,8 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
     	    	
     	queryTable=new HoopStringSerializable (this,"queryTable","default");
     	queryColumns=new HoopStringSerializable (this,"queryColumns","");
-    	querySize=new HoopStringSerializable (this,"querySize","100");
     	
+    	batchSize=new HoopStringSerializable (this,"batchSize","100");    	
     	queryMax=new HoopStringSerializable (this,"queryMax","");
     	
     	queryType=new HoopEnumSerializable (this,"queryType","TABLEINFO,TABLEDATA,DATABASES,DATABASEINFO");
@@ -323,35 +320,36 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 			{
 				getDatabaseInfo ();
 				
-				debug ("Query size for table "+queryTable.getValue()+" is: " + querySize.getValue());
-									
-			    loadMax=100;
-			    loadIndex=0;								
-				loadSize=Integer.parseInt(querySize.getValue());
+				debug ("Batch size for table '"+queryTable.getPropValue()+"' is: " + batchSize.getPropValue());
+				debug ("Max load size for table '"+queryTable.getPropValue()+"' is: " + queryMax.getPropValue());
+							
+			    loadIndex=0; // Reset our global index
+			    bCount=0; // Reset our global batch index
+												
+				bSize=Integer.parseInt(batchSize.getPropValue());
+			    loadMax=Integer.parseInt(queryMax.getPropValue());
+								
+				if (bSize>loadMax)
+					loadMax=bSize;
 				
-				if (loadSize<loadMax)
-					loadMax=loadSize;
-				
-				HoopKVString aKV=(HoopKVString) this.getKVFromKey(queryTable.getValue ());
+				HoopKVString aKV=(HoopKVString) getKVFromKey(queryTable.getPropValue ());
 				
 				if (aKV==null)
 				{
-					this.setErrorString ("Error: can't obtain key from: " + queryTable.getValue ());
+					this.setErrorString ("Error: can't obtain key from: " + queryTable.getPropValue ());
 					debug ("Error: can't obtain key from: " + queryTable.getValue ());
 					return (false);
 				}
 				
-				loadMax=Integer.parseInt(aKV.getValue());
-				
-				if (loadSize>loadMax)
+				int loadMaxTemp=Integer.parseInt(aKV.getValue());
+												
+				if (loadMaxTemp<loadMax)
 				{
-					loadSize=loadMax;
+					loadMax=loadMaxTemp;
 				}
 				
-				debug ("Loading rows from table " + queryTable.getValue () + " with chunk size: " + loadSize + " for a total of: " + loadMax + " rows");
-				
-				getVisualizer ().setExecutionInfo (" R: " + (loadIndex+1) + " out of " + loadMax);
-				
+				debug ("Loading rows from table " + queryTable.getPropValue () + " with chunk size: " + bSize + " for a total of: " + loadMax + " rows");
+								
 				resetData (); // We have the information we wanted, no need to keep it
 			}
  			
@@ -460,7 +458,7 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 		Runtime r = Runtime.getRuntime();
 		r.gc();
 		
-		debug (count + " rows were retrieved, verification date size is: " + this.getData().size() + " from " + loadIndex + " with size: " + loadSize);
+		debug (count + " rows were retrieved, verification date size is: " + this.getData().size() + " from " + loadIndex + " with size: " + bSize);
 				
 		return (true);
 	}	
@@ -656,17 +654,6 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 
 		if (this.getExecutionCount()==0)
 		{
-			/*
-			ArrayList <String> columnList=HoopStringTools.splitComma(queryColumns.getValue());
-			
-			// For now we'll get everything as a string
-		
-			for (int j=0;j<columnList.size();j++)
-			{
-				this.setKVType (j,HoopDataType.STRING,columnList.get(j));
-			}
-			*/
-
 			queryColumnsToTypes ();
 		}	
 								
@@ -746,15 +733,15 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 						
 						String nameVal = resultSet.getString (aType.getTypeValue());
 						
-						debug ("nameVal: " + nameVal);
+						//debug ("nameVal: " + nameVal);
 						
 						if (i==0)
 						{
 							tableKV.setKey(nameVal);
-							tableKV.setValue(nameVal,i);
+							//tableKV.setValue(nameVal,i);
 						}
 						else
-							tableKV.setValue(nameVal,i);						
+							tableKV.setValue(nameVal,i-1);						
 					}
 				}
 				
@@ -765,6 +752,7 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 				addKV (tableKV);
 				
 				++count;
+				bCount++;
 			}
 		} 
 		catch (SQLException e1) 
@@ -796,15 +784,19 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 		Runtime r = Runtime.getRuntime();
 		r.gc();
 		
-		debug (count + " rows were retrieved, verification date size is: " + this.getData().size() + " from " + loadIndex + " with size: " + loadSize);
+		debug (count + " rows were retrieved, verification date size is: " + this.getData().size() + " starting at " + loadIndex + " with size: " + bSize);
 		
-		getVisualizer ().setExecutionInfo (" R: " + (loadIndex+1) + " out of " + loadMax);
+		int retTotal=(bCount*bSize);
+		
+		debug ("tmpIndex: " + bCount + ", retTotal: " + retTotal);
+		
+		getVisualizer ().setExecutionInfo (" R: " + bCount + " = ("+retTotal+") out of " + loadMax);
 		
 	    loadIndex+=count;
 	    
 	    if (loadIndex<loadMax)
 	    {
-	    	debug ("loadIndex ("+loadIndex+") < loadMax ("+loadMax+")");
+	    	debug ("loadIndex="+loadIndex+" < loadMax="+loadMax);
 	    	
 	    	this.setDone(false);
 	    }
@@ -828,7 +820,7 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 								
 		StringBuffer fullQuery=new StringBuffer ();
 		
-		//Integer calcWindow=loadIndex+loadSize;
+		//Integer calcWindow=loadIndex+bSize;
 		
 		fullQuery.append ("SELECT ");
 		fullQuery.append (queryColumns.getValue());
@@ -837,7 +829,7 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 		fullQuery.append (" limit ");
 		fullQuery.append (loadIndex.toString());
 		fullQuery.append (",");
-		fullQuery.append (loadSize.toString());
+		fullQuery.append (bSize.toString());
 		
 		debug ("Executing full query: [" + fullQuery.toString() + "]");		
 
@@ -920,9 +912,11 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
      */
     private Boolean reachedMax ()
     {
-    	if (queryMax.getValue().isEmpty()==false)
+    	debug ("reachedMax ()");
+    	
+    	if (queryMax.getPropValue().isEmpty()==false)
     	{
-    		Integer testValue=Integer.parseInt(queryMax.getValue());
+    		Integer testValue=Integer.parseInt(queryMax.getPropValue());
     		
     		if (loadIndex>=testValue)
     			return (true);

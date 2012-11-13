@@ -430,6 +430,8 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 	 */
 	public HoopKV getKVFromKey (String aKey)
 	{
+		debug ("getKVFromKey ("+aKey+")");
+		
 		for (int i=0;i<data.size();i++)
 		{
 			HoopKV aKV=data.get(i);

@@ -47,6 +47,7 @@ import javax.swing.table.TableColumn;
 import edu.cmu.cs.in.base.HoopDataType;
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.kv.HoopKV;
+import edu.cmu.cs.in.base.kv.HoopKVDocument;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 import edu.cmu.cs.in.controls.base.HoopJTable;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
@@ -296,22 +297,31 @@ public class HoopTablePanel extends HoopEmbeddedJPanel implements ActionListener
 				
 				rowData [0]=p.getKeyString();
 				
-				//debug ("Adding " + p.getValueSize() + " values");
-				
-				for (int i=0;i<p.getValueSize();i++)
+				if (p instanceof HoopKVDocument)
 				{
-					String aValue=p.getValueAsString(i);
+					HoopKVDocument aDoc=(HoopKVDocument) p;
 					
-					if (aValue.length()>100)
-					{
-						StringBuffer cropped=new StringBuffer ();
-						cropped.append(aValue.substring(0,100));
-						cropped.append("...");
-						rowData [i+1]=cropped.toString();
-					}
-					else
-						rowData [i+1]=aValue;
+					rowData [1]=aDoc.title.getValue ();
 				}
+				else
+				{
+					//debug ("Adding " + p.getValueSize() + " values");
+				
+					for (int i=0;i<p.getValueSize();i++)
+					{
+						String aValue=p.getValueAsString(i);
+					
+						if (aValue.length()>100)
+						{
+							StringBuffer cropped=new StringBuffer ();
+							cropped.append(aValue.substring(0,100));
+							cropped.append("...");
+							rowData [i+1]=cropped.toString();
+						}
+						else
+							rowData [i+1]=aValue;
+					}
+				}	
 				
 				model.addRow(rowData);
 			}

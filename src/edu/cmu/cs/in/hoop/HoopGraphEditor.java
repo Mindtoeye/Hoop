@@ -231,7 +231,8 @@ public class HoopGraphEditor extends HoopBasicGraphEditor implements mxIEventLis
 	{
 		debug ("processScale ("+aScale+")");
 		
-		HoopGraphFile grFile=(HoopGraphFile) HoopLink.project.getFileByClass (new HoopGraphFile ().getClassName());
+		//HoopGraphFile grFile=(HoopGraphFile) HoopLink.project.getFileByClass (new HoopGraphFile ().getClassName());
+		HoopGraphFile grFile=(HoopGraphFile) HoopLink.project.getFileByClass ("HoopGraphFile");
 		
 		if (grFile!=null)
 			grFile.setGraphScale (aScale);

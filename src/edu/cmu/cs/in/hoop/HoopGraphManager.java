@@ -44,11 +44,19 @@ public class HoopGraphManager extends HoopBase
 	/**
 	 * 
 	 */
+	public HoopGraphFile getGraphFile ()
+	{
+		return ((HoopGraphFile) HoopLink.project.getFileByClass ("HoopGraphFile"));
+	}
+	/**
+	 * 
+	 */
 	public ArrayList <HoopBase> getHoopList ()
 	{
 		//debug ("getHoopList ()");
 		
-		HoopGraphFile grFile=(HoopGraphFile) HoopLink.project.getFileByClass (new HoopGraphFile ().getClassName());
+		//HoopGraphFile grFile=(HoopGraphFile) HoopLink.project.getFileByClass (new HoopGraphFile ().getClassName());
+		HoopGraphFile grFile=getGraphFile ();
 		
 		if (grFile!=null)
 		{
@@ -69,7 +77,7 @@ public class HoopGraphManager extends HoopBase
 		if (aRef==null)
 			return (null);
 				
-		HoopGraphFile grFile=(HoopGraphFile) HoopLink.project.getFileByClass (new HoopGraphFile ().getClassName());
+		HoopGraphFile grFile=getGraphFile ();
 		
 		if (grFile!=null)
 		{
@@ -187,7 +195,7 @@ public class HoopGraphManager extends HoopBase
 	{
 		debug ("reset ()");
 				
-		HoopGraphFile grFile=(HoopGraphFile) HoopLink.project.getFileByClass (new HoopGraphFile ().getClassName());
+		HoopGraphFile grFile=getGraphFile ();
 		
 		if (grFile!=null)
 		{
@@ -215,7 +223,7 @@ public class HoopGraphManager extends HoopBase
 			HoopLink.project.setGraphRoot (aHoop);
 		}
 						
-		HoopGraphFile grFile=(HoopGraphFile) HoopLink.project.getFileByClass (new HoopGraphFile ().getClassName());
+		HoopGraphFile grFile=getGraphFile ();
 		
 		if (grFile!=null)
 		{
@@ -256,7 +264,7 @@ public class HoopGraphManager extends HoopBase
 				
 		// Next we completely remove the hoop from our main list of hoops ...
 						
-		HoopGraphFile grFile=(HoopGraphFile) HoopLink.project.getFileByClass (new HoopGraphFile ().getClassName());
+		HoopGraphFile grFile=getGraphFile ();
 		
 		if (grFile!=null)
 		{
