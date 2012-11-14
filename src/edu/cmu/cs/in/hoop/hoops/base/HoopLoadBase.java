@@ -18,6 +18,8 @@
 
 package edu.cmu.cs.in.hoop.hoops.base;
 
+import java.util.Random;
+
 import edu.cmu.cs.in.hoop.properties.types.HoopEnumSerializable;
 import edu.cmu.cs.in.hoop.properties.types.HoopStringSerializable;
 
@@ -32,6 +34,12 @@ public class HoopLoadBase extends HoopIOBase implements HoopInterface
     public HoopStringSerializable batchSize=null;    
     public HoopStringSerializable queryMax=null;
 	public HoopEnumSerializable mode=null; // LINEAR,SAMPLE
+	
+    protected Integer bSize=100;
+    protected Integer bCount=0;
+    protected Integer loadMax=100;
+    protected Integer loadIndex=0;
+    protected Integer originalSize=0;
 	
 	/**
 	 *
@@ -50,6 +58,20 @@ public class HoopLoadBase extends HoopIOBase implements HoopInterface
     	queryMax=new HoopStringSerializable (this,"queryMax","");
 		mode=new HoopEnumSerializable (this,"mode","LINEAR,SAMPLE");
     }
+	/**
+	 * 
+	 */
+	public void reset ()
+	{
+		debug ("reset ()");
+		
+		super.reset ();
+		
+		bSize=-1;
+		bCount=0;		
+	    loadMax=100;
+	    loadIndex=0;			
+	}    
 	/**
 	 *
 	 */
@@ -74,6 +96,68 @@ public class HoopLoadBase extends HoopIOBase implements HoopInterface
 				
 		return (true);
 	}	
+	/**
+	 * 
+	 */
+	protected void calculateIndexingSizes (int actualSize)
+	{
+		debug ("calculateIndexingSizes ("+actualSize+")");
+		
+		originalSize=actualSize;
+		
+		if (bSize==-1)
+		{
+			debug ("Prepping indexing variables ...");
+			
+			bSize=Integer.parseInt(batchSize.getPropValue());
+			loadMax=Integer.parseInt(queryMax.getPropValue());
+				
+			if (actualSize<loadMax)
+				loadMax=actualSize;
+			
+			if (actualSize<bSize)
+				bSize=actualSize;
+					
+			if (bSize>loadMax)
+				loadMax=bSize;
+		}	
+		else
+			debug ("We're already in a run, no need to prep indexing variables");		
+	}	
+	/**
+	 * 
+	 */
+	protected boolean checkLoopDone ()
+	{
+		if (bCount<bSize)
+			return (false);
+			
+		return (true);
+	}
+	/**
+	 * 
+	 */
+	protected boolean checkDone ()
+	{
+		if (loadIndex<loadMax)
+			return (false);
+		
+		return (true);
+	}
+	/**
+	 * 
+	 */
+	protected int getSample (int sampleN)
+	{
+		debug ("getSample ("+sampleN+")");
+		
+	    Random randomGenerator = new Random();
+	    int randomInt = randomGenerator.nextInt(sampleN);
+
+	    debug ("New sample " + randomInt + " out of " + sampleN);
+	    
+	    return (randomInt);
+	} 	
 	/**
 	 * 
 	 */

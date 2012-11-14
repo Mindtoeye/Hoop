@@ -34,11 +34,6 @@ public class HoopDocumentReader extends HoopLoadBase
 	private static final long serialVersionUID = 3069547626921137451L;
 	
 	private HoopEnumSerializable selectedField=null;
-	
-    private Integer bSize=100;
-    private Integer bCount=0;
-    private Integer loadMax=100;
-    private Integer loadIndex=0;	
 		
 	/**
 	 *
@@ -54,20 +49,6 @@ public class HoopDocumentReader extends HoopLoadBase
 		enableProperty ("URI",false);
 		
 		selectedField=new HoopEnumSerializable (this,"selectedField","title,author,abstr,text,createDate,modifiedDate,keywords,url,description,tokens");
-	}
-	/**
-	 * 
-	 */
-	public void reset ()
-	{
-		debug ("reset ()");
-		
-		super.reset ();
-		
-		bSize=-1;
-		bCount=0;		
-	    loadMax=100;
-	    loadIndex=0;			
 	}
 	/**
 	 *
@@ -105,21 +86,13 @@ public class HoopDocumentReader extends HoopLoadBase
 	private void processLinear ()
 	{
 		debug ("processLinear ()");
-		
-		StoredMap<Long, HoopKVDocument> inp=HoopLink.dataSet.getData();
-		
+				
 		bCount=0;
 		
 		while (checkLoopDone ()==false)		
-		//for (int i=0;i<inp.size();i++)
-		{
-			Integer anInt=loadIndex;
-			
-			String transformer=anInt.toString();
-			
-			HoopKVDocument aDocument=inp.get(transformer);
-			
-			processDocument (aDocument);
+		{			
+			if (loadDataObject (loadIndex)==false)
+				return;
 			
 			loadIndex++; // Update total index
 			bCount++; // Update batch count
@@ -135,8 +108,34 @@ public class HoopDocumentReader extends HoopLoadBase
 	{
 		debug ("processSample ()");
 		
+		bCount=0;
+		
+		while (checkLoopDone ()==false)		
+		{			
+			if (loadDataObject (getSample (originalSize))==false)
+				return;
+			
+			loadIndex++; // Update total index
+			bCount++; // Update batch count
+		}		
+		
+		if (checkDone ()==false)
+			this.setDone(false);
+	}	
+	/**
+	 * 
+	 */
+	protected boolean loadDataObject (int anIndex)
+	{
+		debug ("loadDataObject ("+anIndex+")");
+		
 		StoredMap<Long, HoopKVDocument> inp=HoopLink.dataSet.getData();
-
+				
+		HoopKVDocument aDocument=inp.get(anIndex);
+		
+		processDocument (aDocument);		
+		
+		return (true);
 	}	
 	/**
 	 * 
@@ -213,52 +212,6 @@ public class HoopDocumentReader extends HoopLoadBase
 		{
 			this.addKV(new HoopKVString (aDocument.getKeyString(),aDocument.url.getValue()));
 		}				
-	}
-	/**
-	 * 
-	 */
-	private void calculateIndexingSizes (int actualSize)
-	{
-		debug ("calculateIndexingSizes ("+actualSize+")");
-		
-		if (bSize==-1)
-		{
-			debug ("Prepping indexing variables ...");
-			
-			bSize=Integer.parseInt(batchSize.getPropValue());
-			loadMax=Integer.parseInt(queryMax.getPropValue());
-				
-			if (actualSize<loadMax)
-				loadMax=actualSize;
-			
-			if (actualSize<bSize)
-				bSize=actualSize;
-					
-			if (bSize>loadMax)
-				loadMax=bSize;
-		}	
-		else
-			debug ("We're already in a run, no need to prep indexing variables");		
-	}
-	/**
-	 * 
-	 */
-	private boolean checkLoopDone ()
-	{
-		if (bCount<bSize)
-			return (false);
-			
-		return (true);
-	}
-	/**
-	 * 
-	 */
-	private boolean checkDone ()
-	{
-		if (loadIndex<loadMax)
-			return (false);
-		
-		return (true);
 	}
 	/**
 	 * 

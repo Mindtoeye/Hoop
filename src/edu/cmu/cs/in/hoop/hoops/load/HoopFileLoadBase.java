@@ -20,16 +20,15 @@ package edu.cmu.cs.in.hoop.hoops.load;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Random;
 
 import edu.cmu.cs.in.base.HoopDataType;
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.io.HoopFileTools;
-import edu.cmu.cs.in.base.kv.HoopKVDocument;
 import edu.cmu.cs.in.base.kv.HoopKVString;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
 import edu.cmu.cs.in.hoop.hoops.base.HoopLoadBase;
-//import edu.cmu.cs.in.hoop.properties.types.HoopEnumSerializable;
 import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
 
 /**
@@ -42,12 +41,7 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 	public HoopURISerializable URI=null;
 	private HoopFileTools fTools=null;
 	private ArrayList <String> files=null;
-	
-    private Integer bSize=100;
-    private Integer bCount=0;
-    private Integer loadMax=100;
-    private Integer loadIndex=0;	
-	
+		
 	/**
 	 *
 	 */
@@ -86,11 +80,6 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
     	super.reset ();
     	
     	files=null;
-    	
-		bSize=-1;
-		bCount=0;		
-	    loadMax=100;
-	    loadIndex=0;    	
     }	
 	/**
 	 * 
@@ -191,53 +180,53 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 			prepFileListing ();
 			
 			this.resetData();
-
-			/*
-			for (int i=0;i<(loadIndex+bSize);i++)
-			{			
-				String nextFile=files.get(i);
-			
-				if (processSingleFile (HoopLink.relativeToAbsolute(URI.getValue())+"/"+nextFile)==false)
-				{
-					return (false);
-				}
-			}	
-						
-			Integer runCount=loadIndex+bSize;
-			
-			updateProgressStatus (runCount,files.size());
-						
-			loadIndex+=bSize;
-			
-			debug ("fileIndex: " + loadIndex + ", actualBatchSize: " + bSize + ", files.size (): " + files.size());
-			
-			if (loadIndex<loadMax)
-			{
-				this.setDone(false);
-			}
-			*/
 			
 			bCount=0;
 			
-			while (checkLoopDone ()==false)		
-			//for (int i=0;i<inp.size();i++)
-			{				
-				String nextFile=files.get(loadIndex);
-				
-				if (processSingleFile (HoopLink.relativeToAbsolute(URI.getValue())+"/"+nextFile)==false)
-				{
-					return (false);
+			if (mode.getValue().equals("LINEAR")==true)
+			{			
+				while (checkLoopDone ()==false)		
+				{				
+					if (loadDataObject (loadIndex)==false)
+						return (false);
+												
+					loadIndex++; // Update total index
+					bCount++; // Update batch count
 				}
-								
-				loadIndex++; // Update total index
-				bCount++; // Update batch count
-			}		
+			}
+			else
+			{
+				while (checkLoopDone ()==false)		
+				{				
+					if (loadDataObject (getSample (originalSize))==false)
+						return (false);
+												
+					loadIndex++; // Update total index
+					bCount++; // Update batch count
+				}
+			}
 			
 			updateProgressStatus (loadIndex,loadMax);
 			
 			if (checkDone ()==false)
 				this.setDone(false);			
 		}
+		
+		return (true);
+	}
+	/**
+	 * 
+	 */
+	protected boolean loadDataObject (int anIndex)
+	{
+		debug ("loadDataObject ("+anIndex+")");
+		
+		String nextFile=files.get(anIndex);
+		
+		if (processSingleFile (HoopLink.relativeToAbsolute(URI.getValue())+"/"+nextFile)==false)
+		{
+			return (false);
+		}		
 		
 		return (true);
 	}
@@ -305,53 +294,7 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 			
 			debug ("File: " + aFile);
 		}
-	}	
-	/**
-	 * 
-	 */
-	private void calculateIndexingSizes (int actualSize)
-	{
-		debug ("calculateIndexingSizes ("+actualSize+")");
-		
-		if (bSize==-1)
-		{
-			debug ("Prepping indexing variables ...");
-			
-			bSize=Integer.parseInt(batchSize.getPropValue());
-			loadMax=Integer.parseInt(queryMax.getPropValue());
-				
-			if (actualSize<loadMax)
-				loadMax=actualSize;
-			
-			if (actualSize<bSize)
-				bSize=actualSize;
-					
-			if (bSize>loadMax)
-				loadMax=bSize;
-		}	
-		else
-			debug ("We're already in a run, no need to prep indexing variables");		
-	}	
-	/**
-	 * 
-	 */
-	private boolean checkLoopDone ()
-	{
-		if (bCount<bSize)
-			return (false);
-			
-		return (true);
 	}
-	/**
-	 * 
-	 */
-	private boolean checkDone ()
-	{
-		if (loadIndex<loadMax)
-			return (false);
-		
-		return (true);
-	}	
 	/**
 	 * 
 	 */
