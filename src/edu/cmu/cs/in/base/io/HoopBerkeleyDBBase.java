@@ -36,6 +36,7 @@ public class HoopBerkeleyDBBase extends HoopRoot
     private StoredClassCatalog		javaCatalog=null;
     private Environment             env=null;
     private boolean                 create = true;
+    private boolean					allowDuplicates=false;
 	
 	/**
 	*
@@ -93,7 +94,21 @@ public class HoopBerkeleyDBBase extends HoopRoot
 	public void setDbDisabled(boolean dbDisabled) 
 	{
 		this.dbDisabled = dbDisabled;
-	}		
+	}
+	/**
+	 * 
+	 */
+	public boolean isAllowDuplicates() 
+	{
+		return allowDuplicates;
+	}
+	/**
+	 * 
+	 */
+	public void setAllowDuplicates(boolean allowDuplicates) 
+	{
+		this.allowDuplicates = allowDuplicates;
+	}	
     /** 
      * Opens the database but does not create or assign the map
      */
@@ -109,7 +124,7 @@ public class HoopBerkeleyDBBase extends HoopRoot
     	
         dbConfig=new DatabaseConfig();
         dbConfig.setTransactional(true);
-        dbConfig.setSortedDuplicates(true);
+        dbConfig.setSortedDuplicates(allowDuplicates);
         
         if (create) 
         {
@@ -141,7 +156,7 @@ public class HoopBerkeleyDBBase extends HoopRoot
     	
         dbConfig=new DatabaseConfig();
         dbConfig.setTransactional(true);
-        dbConfig.setSortedDuplicates(true);
+        dbConfig.setSortedDuplicates(allowDuplicates);
         
         if (create) 
         {

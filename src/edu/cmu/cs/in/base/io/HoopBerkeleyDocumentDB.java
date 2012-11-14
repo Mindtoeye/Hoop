@@ -42,7 +42,9 @@ public class HoopBerkeleyDocumentDB extends HoopBerkeleyDBBase
 	public HoopBerkeleyDocumentDB ()
 	{  
     	setClassName ("HoopBerkeleyDocumentDB");
-    	debug ("HoopBerkeleyDocumentDB ()");    	    	    	
+    	debug ("HoopBerkeleyDocumentDB ()");    	    
+    	
+    	setAllowDuplicates (true);
 	}
 	/**
 	 * 

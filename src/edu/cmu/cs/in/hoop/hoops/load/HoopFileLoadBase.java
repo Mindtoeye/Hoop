@@ -24,11 +24,12 @@ import java.util.ArrayList;
 import edu.cmu.cs.in.base.HoopDataType;
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.io.HoopFileTools;
+import edu.cmu.cs.in.base.kv.HoopKVDocument;
 import edu.cmu.cs.in.base.kv.HoopKVString;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
 import edu.cmu.cs.in.hoop.hoops.base.HoopLoadBase;
-import edu.cmu.cs.in.hoop.properties.types.HoopEnumSerializable;
+//import edu.cmu.cs.in.hoop.properties.types.HoopEnumSerializable;
 import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
 
 /**
@@ -42,9 +43,10 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 	private HoopFileTools fTools=null;
 	private ArrayList <String> files=null;
 	
-	private Integer fileIndex=0;
     private Integer bSize=100;
+    private Integer bCount=0;
     private Integer loadMax=100;
+    private Integer loadIndex=0;	
 	
 	/**
 	 *
@@ -81,7 +83,14 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
     {
     	debug ("reset ()");
     
+    	super.reset ();
+    	
     	files=null;
+    	
+		bSize=-1;
+		bCount=0;		
+	    loadMax=100;
+	    loadIndex=0;    	
     }	
 	/**
 	 * 
@@ -125,18 +134,7 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 		debug ("prepFileListing ()");
 				
 		if (files==null)
-		{
-			fileIndex=0;
-														
-			bSize=Integer.parseInt(batchSize.getPropValue());
-		    loadMax=Integer.parseInt(queryMax.getPropValue());
-							
-		    if (loadMax>0)
-		    {
-		    	if (bSize>loadMax)
-		    		loadMax=bSize;
-		    }
-			
+		{			
 			files=new ArrayList<String> ();
 			
 			ArrayList <String> tempList=HoopLink.fManager.listFiles(HoopLink.relativeToAbsolute(URI.getValue()));
@@ -159,21 +157,10 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 			}
 														
 			debug ("files.size (): " + files.size() + " < + batchSize.getPropValue(): " + batchSize.getPropValue());
+		
+			int actualSize=files.size();
 			
-			if (files.size()<bSize)
-			{										
-				bSize=files.size();
-			}	
-			
-			debug ("Using batch size: " + bSize);
-			
-			if (loadMax<1)
-				loadMax=files.size();
-			else
-			{
-				if (files.size ()<loadMax)
-					loadMax=files.size();
-			}
+			calculateIndexingSizes (actualSize);
 		}		
 	}
 	/**
@@ -205,7 +192,8 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 			
 			this.resetData();
 
-			for (int i=0;i<(fileIndex+bSize);i++)
+			/*
+			for (int i=0;i<(loadIndex+bSize);i++)
 			{			
 				String nextFile=files.get(i);
 			
@@ -215,22 +203,44 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 				}
 			}	
 						
-			Integer runCount=fileIndex+bSize;
+			Integer runCount=loadIndex+bSize;
 			
 			updateProgressStatus (runCount,files.size());
 						
-			fileIndex+=bSize;
+			loadIndex+=bSize;
 			
-			debug ("fileIndex: " + fileIndex + ", actualBatchSize: " + bSize + ", files.size (): " + files.size());
+			debug ("fileIndex: " + loadIndex + ", actualBatchSize: " + bSize + ", files.size (): " + files.size());
 			
-			if (fileIndex<loadMax)
+			if (loadIndex<loadMax)
 			{
 				this.setDone(false);
 			}
+			*/
+			
+			bCount=0;
+			
+			while (checkLoopDone ()==false)		
+			//for (int i=0;i<inp.size();i++)
+			{				
+				String nextFile=files.get(loadIndex);
+				
+				if (processSingleFile (HoopLink.relativeToAbsolute(URI.getValue())+"/"+nextFile)==false)
+				{
+					return (false);
+				}
+								
+				loadIndex++; // Update total index
+				bCount++; // Update batch count
+			}		
+			
+			updateProgressStatus (loadIndex,loadMax);
+			
+			if (checkDone ()==false)
+				this.setDone(false);			
 		}
 		
 		return (true);
-	}	
+	}
 	/**
 	 * 
 	 */
@@ -295,6 +305,52 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 			
 			debug ("File: " + aFile);
 		}
+	}	
+	/**
+	 * 
+	 */
+	private void calculateIndexingSizes (int actualSize)
+	{
+		debug ("calculateIndexingSizes ("+actualSize+")");
+		
+		if (bSize==-1)
+		{
+			debug ("Prepping indexing variables ...");
+			
+			bSize=Integer.parseInt(batchSize.getPropValue());
+			loadMax=Integer.parseInt(queryMax.getPropValue());
+				
+			if (actualSize<loadMax)
+				loadMax=actualSize;
+			
+			if (actualSize<bSize)
+				bSize=actualSize;
+					
+			if (bSize>loadMax)
+				loadMax=bSize;
+		}	
+		else
+			debug ("We're already in a run, no need to prep indexing variables");		
+	}	
+	/**
+	 * 
+	 */
+	private boolean checkLoopDone ()
+	{
+		if (bCount<bSize)
+			return (false);
+			
+		return (true);
+	}
+	/**
+	 * 
+	 */
+	private boolean checkDone ()
+	{
+		if (loadIndex<loadMax)
+			return (false);
+		
+		return (true);
 	}	
 	/**
 	 * 
