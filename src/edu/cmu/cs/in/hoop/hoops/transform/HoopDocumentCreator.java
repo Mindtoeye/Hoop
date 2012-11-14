@@ -196,6 +196,8 @@ public class HoopDocumentCreator extends HoopTransformBase
 						
 			debug ("<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
 		}			
+		
+		getVisualizer ().setExecutionInfo (" R: " + inData.size() + " out of " + inData.size());
 				
 		return (true);
 	}			

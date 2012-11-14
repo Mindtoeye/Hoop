@@ -109,8 +109,19 @@ public class HoopLoadBase extends HoopIOBase implements HoopInterface
 		{
 			debug ("Prepping indexing variables ...");
 			
-			bSize=Integer.parseInt(batchSize.getPropValue());
-			loadMax=Integer.parseInt(queryMax.getPropValue());
+			if (batchSize.getPropValue().isEmpty()==true)
+			{
+				bSize=1;
+			}
+			else
+				bSize=Integer.parseInt(batchSize.getPropValue());
+			
+			if (queryMax.getPropValue().isEmpty()==true)
+			{
+				loadMax=0;
+			}
+			else
+				loadMax=Integer.parseInt(queryMax.getPropValue());
 				
 			if (actualSize<loadMax)
 				loadMax=actualSize;

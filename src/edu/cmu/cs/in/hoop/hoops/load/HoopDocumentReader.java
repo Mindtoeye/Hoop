@@ -18,6 +18,8 @@
 
 package edu.cmu.cs.in.hoop.hoops.load;
 
+import java.util.Iterator;
+
 import com.sleepycat.collections.StoredMap;
 
 import edu.cmu.cs.in.base.HoopLink;
@@ -34,6 +36,10 @@ public class HoopDocumentReader extends HoopLoadBase
 	private static final long serialVersionUID = 3069547626921137451L;
 	
 	private HoopEnumSerializable selectedField=null;
+	private StoredMap<Long, HoopKVDocument> inp=null;
+	private Iterator<HoopKVDocument> dbIterator = null;
+	
+	private boolean newRun=true;
 		
 	/**
 	 *
@@ -49,6 +55,13 @@ public class HoopDocumentReader extends HoopLoadBase
 		enableProperty ("URI",false);
 		
 		selectedField=new HoopEnumSerializable (this,"selectedField","title,author,abstr,text,createDate,modifiedDate,keywords,url,description,tokens");
+	}
+	/**
+	 * 
+	 */
+	public void reset ()
+	{
+		newRun=true;
 	}
 	/**
 	 *
@@ -67,7 +80,18 @@ public class HoopDocumentReader extends HoopLoadBase
 		else
 			HoopLink.dataSet.checkDB ();
 
-		StoredMap<Long, HoopKVDocument> inp=HoopLink.dataSet.getData();
+		if (newRun==true)
+		{
+			inp=HoopLink.dataSet.getData();
+		
+			dbIterator = inp.values().iterator();
+		}	
+		
+		if (inp==null)
+		{
+			this.setErrorString("Unable to obtain handle to document database");
+			return (false);
+		}
 		
 		int actualSize=inp.size();
 		
@@ -91,8 +115,11 @@ public class HoopDocumentReader extends HoopLoadBase
 		
 		while (checkLoopDone ()==false)		
 		{			
-			if (loadDataObject (loadIndex)==false)
-				return;
+			if (dbIterator.hasNext()==true)
+			{			
+				if (loadDataObject (loadIndex)==false)
+					return;
+			}	
 			
 			loadIndex++; // Update total index
 			bCount++; // Update batch count
@@ -129,11 +156,13 @@ public class HoopDocumentReader extends HoopLoadBase
 	{
 		debug ("loadDataObject ("+anIndex+")");
 		
-		StoredMap<Long, HoopKVDocument> inp=HoopLink.dataSet.getData();
-				
-		HoopKVDocument aDocument=inp.get(anIndex);
+		HoopKVDocument aDoc=(HoopKVDocument) dbIterator.next();
 		
-		processDocument (aDocument);		
+		//StoredMap<Long, HoopKVDocument> inp=HoopLink.dataSet.getData();
+				
+		//HoopKVDocument aDocument=inp.get(anIndex);
+		
+		processDocument (aDoc);		
 		
 		return (true);
 	}	

@@ -30,6 +30,7 @@ import edu.cmu.cs.in.hoop.HoopGraphEditor;
 import edu.cmu.cs.in.hoop.HoopProjectPanel;
 import edu.cmu.cs.in.hoop.HoopTreeList;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
+import edu.cmu.cs.in.hoop.properties.HoopPropertyPanel;
 
 /** 
  * 
@@ -115,7 +116,14 @@ public class HoopExecuteInEditor extends HoopExecute implements ActionListener
 		{
 			//hoopWindow.setEnabled(false);
 			hoopWindow.setLocked(true);
-		}				
+		}
+		
+		HoopPropertyPanel propPanel= (HoopPropertyPanel) HoopLink.getWindow("Properties");
+		
+		if (propPanel!=null)
+		{
+			propPanel.setEnabled(false);
+		}
 	}	
 	/**
 	 * 
@@ -138,6 +146,13 @@ public class HoopExecuteInEditor extends HoopExecute implements ActionListener
 		{
 			//hoopWindow.setEnabled(false);
 			hoopWindow.setLocked(false);
+		}	
+		
+		HoopPropertyPanel propPanel= (HoopPropertyPanel) HoopLink.getWindow("Properties");
+		
+		if (propPanel!=null)
+		{
+			propPanel.setEnabled(true);
 		}		
 	}		
 	/**

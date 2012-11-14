@@ -76,10 +76,12 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
     
     private Connection connection = null;
     
+    /*
     private Integer bSize=100;
     private Integer bCount=0;
     private Integer loadMax=100;
     private Integer loadIndex=0;
+    */
             
     /**
      * 
@@ -875,13 +877,6 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 			
 			this.setKVType (j,HoopDataType.STRING,columnList.get(j));
 		}
-	}
-	/**
-	 * 
-	 */
-	public HoopBase copy ()
-	{
-		return (new HoopMySQLReader ());
 	}		    
     /**
      * Prints details of an SQLException chain to <code>System.err</code>.
@@ -936,4 +931,11 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
     	
     	return (false);
     }
+	/**
+	 * 
+	 */
+	public HoopBase copy ()
+	{
+		return (new HoopMySQLReader ());
+	}    
 }
