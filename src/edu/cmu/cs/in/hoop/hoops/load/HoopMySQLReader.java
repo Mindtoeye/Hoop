@@ -75,14 +75,7 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
     public	HoopEnumSerializable queryType=null;
     
     private Connection connection = null;
-    
-    /*
-    private Integer bSize=100;
-    private Integer bCount=0;
-    private Integer loadMax=100;
-    private Integer loadIndex=0;
-    */
-            
+                
     /**
      * 
      */

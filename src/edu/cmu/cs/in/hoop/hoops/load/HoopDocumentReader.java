@@ -200,6 +200,8 @@ public class HoopDocumentReader extends HoopLoadBase
 		
 		if (selectedField.getValue().equalsIgnoreCase("text")==true)
 		{
+			debug ("Creating string KV out of document ("+aDocument.getKeyString()+"), with text: " + aDocument.getValue());
+			
 			HoopKVString textContent=new HoopKVString (aDocument.getKeyString(),aDocument.getValue());
 			
 			// Copy all other versions of the text into the new document (if available)
