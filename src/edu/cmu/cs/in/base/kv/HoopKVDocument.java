@@ -309,6 +309,13 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 			dTools.setDateFormat(this.dateFormat.getValue());		
 			this.setKey(dTools.StringToDate(this.createDate.getValue()));
 		}
+		
+		if (documentID.getValue().equals("-1")==true)
+		{
+			// Quick patch to make this a valid ID
+			
+			documentID.setValue(this.getKeyString());
+		}
 
 		// Then clean the text in case it contains any html or other non 
 		// standard characters 

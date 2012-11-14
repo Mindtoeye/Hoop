@@ -756,9 +756,10 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 				
 				addKV (tableKV);
 				
-				++count;
-				bCount++;
+				++count;				
 			}
+			
+			bCount++;
 		} 
 		catch (SQLException e1) 
 		{		

@@ -26,8 +26,8 @@ import java.io.File;
 import com.sleepycat.collections.StoredMap;
 
 import edu.cmu.cs.in.base.HoopRoot;
-import edu.cmu.cs.in.base.HoopStringTools;
-import edu.cmu.cs.in.base.io.HoopBerkeleyAltDocumentDB;
+//import edu.cmu.cs.in.base.HoopStringTools;
+//import edu.cmu.cs.in.base.io.HoopBerkeleyAltDocumentDB;
 import edu.cmu.cs.in.base.io.HoopBerkeleyDB;
 import edu.cmu.cs.in.base.io.HoopBerkeleyDocumentDB;
 import edu.cmu.cs.in.base.io.HoopBerkeleyThreadDB;
@@ -45,7 +45,7 @@ public class HoopDataSet extends HoopRoot
 	private HoopBerkeleyDB driver=null;
 	private HoopBerkeleyDocumentDB documentDriver=null;
 	private HoopBerkeleyThreadDB threadDriver=null;
-	private HoopBerkeleyAltDocumentDB altDocumentDriver=null;
+	//private HoopBerkeleyAltDocumentDB altDocumentDriver=null;
 		
     //private StoredMap<Long,HoopKVDocument> map=null;
 	
@@ -95,6 +95,7 @@ public class HoopDataSet extends HoopRoot
     	if (result==false)
     		return (false);
     	
+    	/*
     	if (aValue.documentID.getValue().isEmpty()==false)
     	{    	
     		debug ("Processing document id: " + aValue.documentID.getValue());
@@ -108,6 +109,7 @@ public class HoopDataSet extends HoopRoot
     	}
     	else
     		debug ("Info: document has no explicit document ID");
+    	*/	
     	
     	return (true);
     }
@@ -221,10 +223,12 @@ public class HoopDataSet extends HoopRoot
 	        driver.accessDB(threadDriver);
 	        threadDriver.bind();
 	        
+	        /*
 	        altDocumentDriver=new HoopBerkeleyAltDocumentDB ();
 	        altDocumentDriver.setInstanceName("altdocumenttable");
 	        driver.accessDB(altDocumentDriver);
-	        altDocumentDriver.bind();	        
+	        altDocumentDriver.bind();
+	        */	        
 		}
 		else
 			debug ("Driver exists, assuming that the database has been initialized");

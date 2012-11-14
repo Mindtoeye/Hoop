@@ -43,6 +43,8 @@ public class HoopDocumentWriter extends HoopSaveBase
 	private int checkCounter=0;
 	private int errorCounter=0;
 	
+	private StoredMap<Long,HoopKVLong> threadData=null;
+	
 	/**
 	 *
 	 */
@@ -64,6 +66,8 @@ public class HoopDocumentWriter extends HoopSaveBase
     	
     	checkCounter=0;
     	errorCounter=0;    	
+    	
+    	threadData=null;
     }	
 	/**
 	 *
@@ -116,6 +120,11 @@ public class HoopDocumentWriter extends HoopSaveBase
 		}			
 		
 		debug ("Check: processed " + checkCounter + " documents, with " + errorCounter + " errors");
+		
+		if (getVisualizer ()!=null)
+		{
+			getVisualizer ().setExecutionInfo (" R: " + checkCounter + ", Err: " + errorCounter);
+		}	
 				
 		return (true);
 	}	
@@ -135,7 +144,10 @@ public class HoopDocumentWriter extends HoopSaveBase
 			return (null);
 		}
 		
-		StoredMap<Long,HoopKVLong> threadData=HoopLink.dataSet.getThreads();
+		if (threadData==null)
+		{
+			threadData=HoopLink.dataSet.getThreads();
+		}
 		
 		if (threadData==null)
 		{
@@ -166,18 +178,16 @@ public class HoopDocumentWriter extends HoopSaveBase
 						// Add the new document to the thread ...
 						
 						threadCache.bump(aDocument.createDate.getValue());
-						
-						// Update the thread object in the database. This is should at all
-						// all times be the slowest operation in the code
 												
-						threadData.put(threadCache.getKey(),threadCache);
-						
-						//showThreadDB ();
-						
 						return (threadCache);
 					}
+					
+					// We're switching over so we have to make sure that we write out all the
+					// updates we've put in the cached object
+					
+					threadData.put(threadCache.getKey(),threadCache);					
 				}
-				
+								
 				testThread=threadData.get(newThreadID);
 				
 				//debug ("No cache hit, proceed as normal with thread id: " + testThread.getValue());
@@ -190,7 +200,7 @@ public class HoopDocumentWriter extends HoopSaveBase
 					testThread.setKey(newThreadID);
 					testThread.setValue(aDocument.createDate.getValue());
 					threadData.put(newThreadID,testThread);
-					
+															
 					return (testThread);
 					
 					//showThreadDB ();
