@@ -31,6 +31,9 @@
 	<classpathentry kind="lib" path="lib/uima-tools.jar"/>
 	<classpathentry kind="lib" path="lib/uimaj-bootstrap.jar"/>
 	<classpathentry kind="lib" path="lib/stanford-parser-2012-07-09-models.jar"/>
+	<classpathentry kind="lib" path="lib/lucene-core-4.0.0.jar"/>
+	<classpathentry kind="lib" path="lib/lucene-analyzers-common-4.0.0.jar"/>
+	<classpathentry kind="lib" path="lib/lucene-queryparser-4.0.0.jar"/>	
 	<classpathentry kind="var" path="MYSQLJDBC"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

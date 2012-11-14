@@ -109,6 +109,7 @@ public class HoopBerkeleyDBBase extends HoopRoot
     	
         dbConfig=new DatabaseConfig();
         dbConfig.setTransactional(true);
+        dbConfig.setSortedDuplicates(true);
         
         if (create) 
         {
@@ -140,6 +141,7 @@ public class HoopBerkeleyDBBase extends HoopRoot
     	
         dbConfig=new DatabaseConfig();
         dbConfig.setTransactional(true);
+        dbConfig.setSortedDuplicates(true);
         
         if (create) 
         {

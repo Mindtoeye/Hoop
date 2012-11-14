@@ -118,6 +118,10 @@ Used Packages:
 - cjwizard (integrated and customized), used for the generation of wizards such
 	as the application builder
 	http://code.google.com/p/cjwizard/
+	
+- Lucene (integrated), used to optionally create a searchable version of the
+	Hoop native document data set
+	http://lucene.apache.org/ 	
 
 Notice!
 
