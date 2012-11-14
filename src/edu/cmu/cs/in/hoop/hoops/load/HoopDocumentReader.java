@@ -24,11 +24,12 @@ import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.kv.HoopKVDocument;
 import edu.cmu.cs.in.base.kv.HoopKVString;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
+import edu.cmu.cs.in.hoop.hoops.base.HoopLoadBase;
 import edu.cmu.cs.in.hoop.properties.types.HoopEnumSerializable;
 //import edu.cmu.cs.in.hoop.properties.types.HoopIntegerSerializable;
 import edu.cmu.cs.in.search.HoopDataSet;
 
-public class HoopDocumentReader extends HoopFileLoadBase
+public class HoopDocumentReader extends HoopLoadBase
 {
 	private static final long serialVersionUID = 3069547626921137451L;
 	

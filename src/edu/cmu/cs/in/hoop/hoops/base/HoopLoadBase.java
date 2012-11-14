@@ -18,6 +18,9 @@
 
 package edu.cmu.cs.in.hoop.hoops.base;
 
+import edu.cmu.cs.in.hoop.properties.types.HoopEnumSerializable;
+import edu.cmu.cs.in.hoop.properties.types.HoopStringSerializable;
+
 /**
 * 
 */
@@ -26,6 +29,10 @@ public class HoopLoadBase extends HoopIOBase implements HoopInterface
 	private static final long serialVersionUID = 4117447861954274834L;
 	private String content=null;
 	
+    public HoopStringSerializable batchSize=null;    
+    public HoopStringSerializable queryMax=null;
+	public HoopEnumSerializable mode=null; // LINEAR,SAMPLE
+	
 	/**
 	 *
 	 */
@@ -33,11 +40,15 @@ public class HoopLoadBase extends HoopIOBase implements HoopInterface
     {
 		setClassName ("HoopLoadBase");
 		debug ("HoopLoadBase ()");
-		setHoopCategory ("Load");
+		
+		setHoopCategory ("Load");								
+		setHoopDescription ("Abstract Hoop Loader");
 		
 		removeInPort ("KV");
 		
-		setHoopDescription ("Abstract Hoop Loader");
+    	batchSize=new HoopStringSerializable (this,"batchSize","100");    	
+    	queryMax=new HoopStringSerializable (this,"queryMax","");
+		mode=new HoopEnumSerializable (this,"mode","LINEAR,SAMPLE");
     }
 	/**
 	 *

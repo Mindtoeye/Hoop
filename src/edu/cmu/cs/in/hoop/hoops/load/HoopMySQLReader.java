@@ -71,10 +71,7 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
     
     public	HoopStringSerializable queryTable=null;
     public	HoopStringSerializable queryColumns=null;
-    
-    public	HoopStringSerializable batchSize=null;    
-    public	HoopStringSerializable queryMax=null;
-    
+        
     public	HoopEnumSerializable queryType=null;
     
     private Connection connection = null;
@@ -105,10 +102,7 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
     	    	
     	queryTable=new HoopStringSerializable (this,"queryTable","default");
     	queryColumns=new HoopStringSerializable (this,"queryColumns","");
-    	
-    	batchSize=new HoopStringSerializable (this,"batchSize","100");    	
-    	queryMax=new HoopStringSerializable (this,"queryMax","");
-    	
+    	    	
     	queryType=new HoopEnumSerializable (this,"queryType","TABLEINFO,TABLEDATA,DATABASES,DATABASEINFO");
     }
     /**

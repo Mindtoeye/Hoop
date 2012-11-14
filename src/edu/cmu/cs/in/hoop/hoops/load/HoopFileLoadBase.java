@@ -29,7 +29,6 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
 import edu.cmu.cs.in.hoop.hoops.base.HoopLoadBase;
 import edu.cmu.cs.in.hoop.properties.types.HoopEnumSerializable;
-import edu.cmu.cs.in.hoop.properties.types.HoopIntegerSerializable;
 import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
 
 /**
@@ -38,18 +37,14 @@ import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
 public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 {    				
 	private static final long serialVersionUID = -3882301282248283204L;
-	
-	//protected HoopKVString fileKV=null;		
-	protected HoopURISerializable URI=null;
-	protected HoopIntegerSerializable maxFiles=null;
-	protected HoopIntegerSerializable batchSize=null;
-	protected HoopEnumSerializable mode=null; // LINEAR,SAMPLE
+			
+	public HoopURISerializable URI=null;
 	private HoopFileTools fTools=null;
 	private ArrayList <String> files=null;
 	
-	protected Integer fileIndex=0;
-	protected Integer actualBatchSize=1;
-	protected Integer maxEntries=1;
+	private Integer fileIndex=0;
+    private Integer bSize=100;
+    private Integer loadMax=100;
 	
 	/**
 	 *
@@ -62,9 +57,6 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 		setHoopDescription ("Load Text File(s)");
 					
 		URI=new HoopURISerializable (this,"URI","");
-		maxFiles=new HoopIntegerSerializable (this,"maxFiles",1);
-		batchSize=new HoopIntegerSerializable (this,"batchSize",1);
-		mode=new HoopEnumSerializable (this,"mode","LINEAR,SAMPLE");
 		
 		fTools=new HoopFileTools ();
     }
@@ -135,8 +127,15 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 		if (files==null)
 		{
 			fileIndex=0;
-			
-			maxEntries=maxFiles.getPropValue();
+														
+			bSize=Integer.parseInt(batchSize.getPropValue());
+		    loadMax=Integer.parseInt(queryMax.getPropValue());
+							
+		    if (loadMax>0)
+		    {
+		    	if (bSize>loadMax)
+		    		loadMax=bSize;
+		    }
 			
 			files=new ArrayList<String> ();
 			
@@ -158,28 +157,22 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 					}
 				}
 			}
-			
-			actualBatchSize=1;
-											
+														
 			debug ("files.size (): " + files.size() + " < + batchSize.getPropValue(): " + batchSize.getPropValue());
 			
-			if (files.size()<batchSize.getPropValue())
+			if (files.size()<bSize)
 			{										
-				actualBatchSize=files.size();
+				bSize=files.size();
 			}	
+			
+			debug ("Using batch size: " + bSize);
+			
+			if (loadMax<1)
+				loadMax=files.size();
 			else
 			{
-				actualBatchSize=batchSize.getPropValue();
-			}
-			
-			debug ("Using batch size: " + actualBatchSize);
-			
-			if (maxEntries<1)
-				maxEntries=files.size();
-			else
-			{
-				if (files.size ()<maxEntries)
-					maxEntries=files.size();
+				if (files.size ()<loadMax)
+					loadMax=files.size();
 			}
 		}		
 	}
@@ -212,7 +205,7 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 			
 			this.resetData();
 
-			for (int i=0;i<(fileIndex+actualBatchSize);i++)
+			for (int i=0;i<(fileIndex+bSize);i++)
 			{			
 				String nextFile=files.get(i);
 			
@@ -222,15 +215,15 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 				}
 			}	
 						
-			Integer runCount=fileIndex+actualBatchSize;
+			Integer runCount=fileIndex+bSize;
 			
 			updateProgressStatus (runCount,files.size());
 						
-			fileIndex+=actualBatchSize;
+			fileIndex+=bSize;
 			
-			debug ("fileIndex: " + fileIndex + ", actualBatchSize: " + actualBatchSize + ", files.size (): " + files.size());
+			debug ("fileIndex: " + fileIndex + ", actualBatchSize: " + bSize + ", files.size (): " + files.size());
 			
-			if (fileIndex<maxEntries)
+			if (fileIndex<loadMax)
 			{
 				this.setDone(false);
 			}
