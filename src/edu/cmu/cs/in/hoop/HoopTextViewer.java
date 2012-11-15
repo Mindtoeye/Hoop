@@ -42,12 +42,14 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTextPane;
 import javax.swing.JTree;
 //import javax.swing.JEditorPane;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
+import javax.swing.border.EtchedBorder;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -85,15 +87,19 @@ public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener
 	private JButton inButton=null;
 	private JButton outButton=null;
 	
+	private JPanel controlPanel=null;
+	
 	private JCheckBox wordWrap=null;
 	private JCheckBox showThread=null;
 	private JComboBox filterText=null;
 	private JComboBox renderType=null;
+	private JComboBox contentType=null;
 	
 	private JTree threadTree=null;
 	
 	private int fontSize=10;
 	
+	String[] renderContent = { "MAIN TEXT", "ABSTRACT"};
 	String[] renderTypes = { "TEXT", "HTML", "XML", "RTF", "TOKENS"};
 	
 	private HoopKVDocument internalDocument=null;
@@ -148,17 +154,23 @@ public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener
 		showThread.setPreferredSize(new Dimension (150,20));
 		showThread.addItemListener(this);		
 		
-		filterText=new JComboBox();
+		filterText=new JComboBox<String>();
 		filterText.setFont(new Font("Dialog",1,10));
 		filterText.setPreferredSize(new Dimension (150,20));
 		filterText.setMaximumSize(new Dimension (150,20));
 		filterText.addActionListener(this);
 		
-		renderType=new JComboBox(renderTypes);
+		renderType=new JComboBox<String>(renderTypes);
 		renderType.setFont(new Font("Dialog",1,10));
 		renderType.setPreferredSize(new Dimension (150,20));
 		renderType.setMaximumSize(new Dimension (150,20));
-		renderType.addActionListener(this);		
+		renderType.addActionListener(this);
+		
+		contentType=new JComboBox<String>(renderContent);
+		contentType.setFont(new Font("Dialog",1,10));
+		contentType.setPreferredSize(new Dimension (150,20));
+		contentType.setMaximumSize(new Dimension (150,20));
+		contentType.addActionListener(this);
 		
 		controlBox.add (inButton);
 		controlBox.add (Box.createRigidArea(new Dimension(2,0)));
@@ -171,9 +183,16 @@ public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener
 		controlBox.add (filterText);
 		controlBox.add (Box.createRigidArea(new Dimension(2,0)));
 		controlBox.add (renderType);
-		controlBox.add (Box.createRigidArea(new Dimension(2,0)));		
+		controlBox.add (Box.createRigidArea(new Dimension(2,0)));
+		controlBox.add (contentType);
 					
 		controlBox.add(Box.createHorizontalGlue());		
+		
+		controlPanel=new JPanel ();
+		controlPanel.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
+		controlPanel.setMinimumSize(new Dimension (100,120));
+		controlPanel.setPreferredSize(new Dimension (100,120));
+		//controlPanel.setMaximumSize(new Dimension (500,120));
 									    
 		//textViewer = new JTextArea();
 		textViewer = new JTextPane();
@@ -218,6 +237,9 @@ public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener
 		splitBox.add(splitPane);
 		
     	mainBox.add(controlBox);
+    	mainBox.add(Box.createRigidArea(new Dimension(0,2)));
+    	mainBox.add(controlPanel);
+    	mainBox.add(Box.createRigidArea(new Dimension(0,2)));
     	mainBox.add(splitBox);
 		
 		setContentPane (mainBox);		

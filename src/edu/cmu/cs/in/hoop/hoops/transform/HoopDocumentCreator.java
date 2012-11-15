@@ -92,7 +92,9 @@ public class HoopDocumentCreator extends HoopTransformBase
 		url=new HoopStringSerializable (this,"url","url");		
     }
 	/**
-	 * 
+	 * Currently this method can't map one type to more than one value because
+	 * it returns the mapped type as soon as it finds it. We'll have to change
+	 * this 
 	 */
 	private String mapType (String aTypeName)
 	{

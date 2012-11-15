@@ -86,6 +86,7 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 	public HoopKVString threadStarter=null;
 	public HoopKVString keywords=null;
 	public HoopKVString url=null;
+	public HoopKVString text=null;
 	
 	public HoopKVList views=null;
 	
@@ -147,6 +148,9 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
     	url=new HoopKVString ("url","");
     	addVariable (url);
     	
+    	text=new HoopKVString ("text","");
+    	addVariable (text);
+    	
     	rank=new HoopKVInteger (1,"1");
     	addVariable (rank);
     	
@@ -206,13 +210,18 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 	 */
 	public String getValue() 
 	{
-		return (String) (values.get(0));
+		//return (String) (values.get(0));
+		
+		return (text.getValue());
 	}
 	/**
 	 *
 	 */
 	public String getValue(int anIndex) 
 	{
+		if (anIndex==0)
+			return (text.getValue());
+		
 		if (anIndex>values.size())
 			return ("0");
 		
@@ -223,13 +232,18 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 	 */
 	public String getValueAsString() 
 	{
-		return (String) (values.get(0));
+		//return (String) (values.get(0));
+		
+		return (text.getValue());
 	}
 	/**
 	 *
 	 */
 	public String getValueAsString(int anIndex) 
 	{
+		if (anIndex==0)
+			return (text.getValue());		
+		
 		if (anIndex>values.size())
 			return ("0");
 		
@@ -251,6 +265,8 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 	 */
 	public void setValue(String value) 
 	{
+		text.setValue(value);
+		
 		values.set(0,value);
 	}
 	/**
@@ -258,6 +274,12 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 	 */
 	public void setValue(String value, int anIndex) 
 	{
+		if (anIndex==0)
+		{
+			text.setValue(value);
+			return;
+		}
+		
 		if (anIndex>(values.size()-1))
 		{
 			// fill with bogus data up to the requested element
@@ -322,6 +344,8 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 		
 		HoopHTML2Text parser=new HoopHTML2Text ();
 		
+		debug ("Cleaning text: " + this.getValue());
+		
 		parser.parse(this.getValue());
 		
 		String cleanText=parser.getText();
@@ -351,6 +375,15 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 	/**
 	 * 
 	 */
+	public String toAbstract ()
+	{
+		debug ("toAbstract ()");
+				
+		return (abstr.getValue());
+	}	
+	/**
+	 * 
+	 */
 	public String toText ()
 	{
 		debug ("toText ()");
@@ -360,6 +393,16 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 	/**
 	 * 
 	 */
+	public String toText (int perspIndex)
+	{
+		debug ("toText ("+perspIndex+")");
+				
+		return (getValue(perspIndex));
+	}	
+	/**
+	 * 
+	 */
+	/*
 	public String toText (int perspIndex)
 	{
 		debug ("toText ("+perspIndex+")");
@@ -391,7 +434,8 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 		formatter.append("URL: " + url.getValue() + "\n");
 						
 		return (formatter.toString());
-	}	
+	}
+	*/	
 	/**
 	 * 
 	 */
