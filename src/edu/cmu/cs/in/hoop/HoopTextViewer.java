@@ -80,7 +80,7 @@ import edu.cmu.cs.in.hoop.project.HoopWrapperFile;
 public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener, MouseInputListener, DocumentListener, FocusListener, ItemListener
 {	
 	private static final long serialVersionUID = -1L;
-	//private JTextArea textViewer=null;
+
 	private JTextPane textViewer=null;
 	private JTextArea lines=null;
 	
@@ -91,16 +91,16 @@ public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener
 	
 	private JCheckBox wordWrap=null;
 	private JCheckBox showThread=null;
-	private JComboBox filterText=null;
-	private JComboBox renderType=null;
-	private JComboBox contentType=null;
-	
+	private JComboBox<String> filterText=null;
+	private JComboBox<String> renderType=null;
+	private JComboBox<String> contentType=null;
+		
 	private JTree threadTree=null;
 	
 	private int fontSize=10;
 	
-	String[] renderContent = { "MAIN TEXT", "ABSTRACT"};
-	String[] renderTypes = { "TEXT", "HTML", "XML", "RTF", "TOKENS"};
+	String[] renderContent = { "Main Text", "Abstract"};
+	String[] renderTypes = { "TEXT", "HTML", "XML", "RTF", "Tokens", "Language Model"};
 	
 	private HoopKVDocument internalDocument=null;
 	
@@ -158,19 +158,22 @@ public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener
 		filterText.setFont(new Font("Dialog",1,10));
 		filterText.setPreferredSize(new Dimension (150,20));
 		filterText.setMaximumSize(new Dimension (150,20));
-		filterText.addActionListener(this);
+		//filterText.addActionListener(this);
+		filterText.addItemListener (this);
 		
 		renderType=new JComboBox<String>(renderTypes);
 		renderType.setFont(new Font("Dialog",1,10));
 		renderType.setPreferredSize(new Dimension (150,20));
 		renderType.setMaximumSize(new Dimension (150,20));
-		renderType.addActionListener(this);
-		
+		//renderType.addActionListener(this);
+		renderType.addItemListener (this);
+				
 		contentType=new JComboBox<String>(renderContent);
 		contentType.setFont(new Font("Dialog",1,10));
 		contentType.setPreferredSize(new Dimension (150,20));
 		contentType.setMaximumSize(new Dimension (150,20));
-		contentType.addActionListener(this);
+		//contentType.addActionListener(this);
+		contentType.addItemListener (this);
 		
 		controlBox.add (inButton);
 		controlBox.add (Box.createRigidArea(new Dimension(2,0)));
@@ -249,9 +252,18 @@ public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener
 	 */
 	public void showDocument (HoopKVDocument aDocument)
 	{
+		debug ("showDocument ()");
+		
 		internalDocument=aDocument;
 						
-		showText (internalDocument.toText ());
+		String aChoice=(String)contentType.getSelectedItem();
+		
+		debug ("Showing: " + aChoice);
+		
+		if (aChoice.equalsIgnoreCase("MAIN TEXT")==true)
+			showText (internalDocument.toText ());
+		else
+			showText (internalDocument.toAbstract ());
 	
 		fillTextFilterCombo ();
 		
@@ -275,8 +287,11 @@ public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener
 	{
 		debug ("showFile (HoopWrapperFile)");
 		
+		internalDocument=null;
+		
 		String text=HoopLink.fManager.loadContents(aFile.getFileURI());
 		
+		textViewer.getDocument().putProperty(DefaultEditorKit.EndOfLineStringProperty, "\n");
 		textViewer.setText(text);
 		textViewer.setCaretPosition(0);
 	}
@@ -344,12 +359,24 @@ public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener
 		     {
 		    	 String aChoice=(String)filterText.getSelectedItem();
 		     
-		    	 Integer newView=Integer.parseInt(aChoice);
-		    	 
-		    	 if (internalDocument!=null)
+		    	 if (aChoice!=null)
 		    	 {
-		    		 showText (internalDocument.toText (newView));
-		    	 }		    	 
+		    		 if (aChoice.isEmpty()==false)
+		    		 {
+		    			 Integer newView=Integer.parseInt(aChoice);
+		    	 
+		    			 if (internalDocument!=null)
+		    			 {
+		    				 showText (internalDocument.toText (newView));
+		    			 }
+		    		 }
+		    		 else
+		    			 showText (internalDocument.toText (0));
+		    	 }
+		    	 else
+	    			 showText (internalDocument.toText (0));
+		    	 
+		    	 return;
 		     }
 		     
 		     if (cb==renderType)
@@ -373,8 +400,33 @@ public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener
 		    	 if (aChoice.equalsIgnoreCase("tokens")==true)
 		    	 {
 		    		 
-		    	 }		    	 
-		     }		     
+		    	 }		
+		    	 
+		    	 return;		    	 
+		     }
+		     
+		     if (cb==contentType)
+		     {
+		    	 String aChoice=(String)contentType.getSelectedItem();
+		    	 
+		    	 if (aChoice.equalsIgnoreCase("MAIN TEXT")==true)
+		    	 {
+		    		 filterText.setEnabled(true);
+		    		 renderType.setEnabled(true);
+		    		 
+		    		 showDocument (internalDocument);
+		    	 }
+		    	 
+		    	 if (aChoice.equalsIgnoreCase("ABSTRACT")==true)
+		    	 {
+		    		 renderType.setEnabled(false);
+		    		 filterText.setEnabled(false);
+		    		 
+		    		 showDocument (internalDocument);
+		    	 }
+		    	 
+		    	 return;		    	 
+		     }
 		}
 	}
 	/**
