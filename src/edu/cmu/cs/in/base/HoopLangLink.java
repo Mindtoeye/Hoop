@@ -22,13 +22,14 @@ import java.util.ArrayList;
 
 //import javax.swing.ImageIcon;
 
+import edu.cmu.cs.in.ling.HoopEngPronounModel;
 import edu.cmu.cs.in.search.HoopDataSet;
 
 /**
 *
 */
 public class HoopLangLink extends HoopBaseLink
-{    		    		
+{   	
 	public static String [] stops={
 									"a",
 									"an",
@@ -49,6 +50,7 @@ public class HoopLangLink extends HoopBaseLink
 									"the",
 									"to"
 								  };
+	
 	public static String [] garbage={
 									 "*",
 									 "?",
@@ -72,6 +74,7 @@ public class HoopLangLink extends HoopBaseLink
 	public static ArrayList <String> queries=null;
 	public static HoopDataSet dataSet=null;
 	//public static ArrayList <HoopTextSearch> searchHistory=null;
+	public static HoopEngPronounModel pronounModel=null;
 	
 	public static String whitespace_chars   =  ""       /* dummy empty string for homogeneity */
 											+ "\\u0009" // CHARACTER TABULATION
@@ -108,6 +111,8 @@ public class HoopLangLink extends HoopBaseLink
     {
 		setClassName ("HoopLangLink");
 		debug ("HoopLangLink ()");		
+		
+		pronounModel=new HoopEngPronounModel ();
     }  
 	/**
 	 *
