@@ -39,8 +39,8 @@ import edu.cmu.cs.in.stats.HoopPerformanceMetrics;
 public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements HoopExecutionMonitor
 {	
 	private static final long serialVersionUID = -9132114294178560223L;	
-	JList executionTrace=null;	
-	DefaultListModel model=null;
+	private JList executionTrace=null;	
+	private DefaultListModel model=null;
 	
 	/**
 	 * 
@@ -72,6 +72,9 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 		
 		HoopLink.executionMonitor=this;
 	}
+	/**
+	 * 
+	 */
 	@Override
 	public void reset() 
 	{
@@ -141,7 +144,7 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 	 */
 	private void calcVisualStats ()
 	{
-		debug ("updateDependencyProgress ()");
+		debug ("calcVisualStats ()");
 		
 		if (model==null)
 			return;
@@ -154,9 +157,11 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 			
 			HoopPerformanceMetrics metrics=aHoop.getPerformanceMetrics();
 			
-			if (metrics.getMarkerRaw()>HoopExecutionListRenderer.maxMs)
+			debug ("Execution time ("+metrics.getYValue()+") for " + aHoop.getClassName());
+			
+			if (metrics.getYValue()>HoopExecutionListRenderer.maxMs)
 			{
-				HoopExecutionListRenderer.maxMs=metrics.getMarkerRaw();
+				HoopExecutionListRenderer.maxMs=metrics.getYValue();				
 			}
 		}
 		

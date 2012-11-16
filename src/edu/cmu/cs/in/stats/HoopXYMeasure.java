@@ -22,8 +22,8 @@ import edu.cmu.cs.in.base.HoopRoot;
 
 public class HoopXYMeasure extends HoopRoot
 {    						
-	private long xValue=0;
-	private long yValue=0;
+	protected long xValue=0;
+	protected long yValue=0;
 	
 	/**
 	 *
@@ -50,9 +50,12 @@ public class HoopXYMeasure extends HoopRoot
 	/**
 	 *
 	 */	
-	public void setYValue(long yValue) 
+	public void setYValue(long aValue) 
 	{
-		this.yValue = yValue;
+		debug ("setYValue ("+aValue+")");
+				
+		if (aValue!=0)
+			yValue=aValue;
 	}
 	/**
 	 *

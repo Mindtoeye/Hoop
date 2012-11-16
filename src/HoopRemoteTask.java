@@ -701,7 +701,9 @@ public class HoopRemoteTask extends HoopHadoopReporter
         
         showTimeStamp ();
         
-        long timeTaken=metrics.getMarkerRaw ();
+        metrics.closeMarker();
+        long timeTaken=metrics.getYValue();
+        //long timeTaken=metrics.getMarkerRaw ();
         metrics.printMetrics(timeTaken);
         
         driver.unregister ();

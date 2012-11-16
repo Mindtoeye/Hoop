@@ -354,7 +354,7 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 		
 		if (abstr.getValue().isEmpty()==true)
 		{						
-			if (this.getValue().length()>abstrSize)
+			if (cleanText.length()>abstrSize)
 			{
 				abstr.setValue(cleanText.substring(0,abstrSize));
 			}

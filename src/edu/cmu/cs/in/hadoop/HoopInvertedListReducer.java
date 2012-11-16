@@ -162,7 +162,8 @@ public class HoopInvertedListReducer extends HoopHadoopReporter implements Reduc
 		
 		if (reducerMarker!=null)
 		{
-			reducerMarker.getMarkerRaw ();
+			reducerMarker.closeMarker();
+			//reducerMarker.getMarkerRaw ();
 		}		
 	}
 	/**

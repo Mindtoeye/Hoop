@@ -31,6 +31,7 @@ import com.mxgraph.view.mxGraph;
 
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.io.HoopMessageReceiver;
+import edu.cmu.cs.in.controls.HoopJFileChooser;
 import edu.cmu.cs.in.controls.HoopSentenceWall;
 import edu.cmu.cs.in.controls.dialogs.HoopCleanProjectDialog;
 import edu.cmu.cs.in.controls.dialogs.HoopGenericNameDialog;
@@ -1021,15 +1022,15 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
            	}
 		}
 		
-		JFileChooser fc = new JFileChooser();
+		HoopJFileChooser fc = new HoopJFileChooser();
 		
 		FileNameExtensionFilter filter=new FileNameExtensionFilter ("Target Directories", "Directories");
 		fc.setFileFilter(filter);    			
-		fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		fc.setFileSelectionMode(HoopJFileChooser.DIRECTORIES_ONLY);
 		
 		int returnVal=fc.showOpenDialog (compReference);
 
-		if (returnVal==JFileChooser.APPROVE_OPTION) 
+		if (returnVal==HoopJFileChooser.APPROVE_OPTION) 
 		{
 			Object[] options = {"Yes","No","Cancel"};
            	int n = JOptionPane.showOptionDialog (compReference,
@@ -1136,18 +1137,18 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 		/*
 		FileNameExtensionFilter filter=new FileNameExtensionFilter (".hprj project files", "hprj");
 		fc.setFileFilter(filter); 
-		fc.setFileSelectionMode (JFileChooser.FILES_ONLY);
+		fc.setFileSelectionMode (HoopJFileChooser.FILES_ONLY);
 		*/
 		
-		JFileChooser fc = new JFileChooser();
+		HoopJFileChooser fc = new HoopJFileChooser();
 		
 		FileNameExtensionFilter filter=new FileNameExtensionFilter ("Target Directories", "Directories");
 		fc.setFileFilter(filter);    			
-		fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);    			
+		fc.setFileSelectionMode(HoopJFileChooser.DIRECTORIES_ONLY);    			
 		
 		int returnVal=fc.showOpenDialog (compReference);
 
-		if (returnVal==JFileChooser.APPROVE_OPTION) 
+		if (returnVal==HoopJFileChooser.APPROVE_OPTION) 
 		{   	
            	File file = fc.getSelectedFile();
 
@@ -1257,15 +1258,15 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 			return (false);
 		}
 		
-		JFileChooser fc = new JFileChooser();
+		HoopJFileChooser fc = new HoopJFileChooser();
 		
 		FileNameExtensionFilter filter=new FileNameExtensionFilter ("Target Directories", "Directories");
 		fc.setFileFilter(filter);    			
-		fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		fc.setFileSelectionMode(HoopJFileChooser.DIRECTORIES_ONLY);
 			
 		int returnVal=fc.showSaveDialog (compReference);
 
-		if (returnVal==JFileChooser.APPROVE_OPTION) 
+		if (returnVal==HoopJFileChooser.APPROVE_OPTION) 
 		{
 	       	File file = fc.getSelectedFile();
 
@@ -1323,12 +1324,12 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 			return;
 		}
 		
-		JFileChooser fc = new JFileChooser();
+		HoopJFileChooser fc = new HoopJFileChooser();
 		fc.setMultiSelectionEnabled (true);
-					
+							
 		int returnVal=fc.showOpenDialog (compReference);
 
-		if (returnVal==JFileChooser.APPROVE_OPTION) 
+		if (returnVal==HoopJFileChooser.APPROVE_OPTION) 
 		{
 			directoryName=new HoopGenericNameDialog (HoopGenericNameDialog.DIRECTORY,this,true);
 			directoryName.setDescription ("Please provide the subdirectory under which you want to import your files");

@@ -372,7 +372,7 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
     public void reset ()
     {
     	debug ("reset ()");
-    	
+    	    	
     	resetData ();
     	
     	setDone (false);
@@ -545,12 +545,8 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 	public Boolean runHoopInternal (HoopBase inHoop)
 	{	
 		debug ("runHoopInternal ()");
-		
-		/*
-		Runtime r = Runtime.getRuntime();
-		r.gc();
-		*/
-		
+				
+    	performance.reset();		
 		performance.setMarker ("start");
 				
 		// Assume we're done unless the child hoop says we're not
@@ -594,13 +590,19 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 			incExecutionCount ();
 		
 		setExecutionState ("STOPPED");
+				
+		performance.closeMarker (this.getClassName());
+		
+		//Long metric=performance.getYValue ();
+		
+		performance.printMetrics ();
 		
 		propagateVisualProperties ();
 		
-		Long metric=performance.getMarkerRaw ();
-		
-		debug ("Hoop executed in: " + metric+"ms");
+		//debug ("Hoop executed in: " + metric+"ms");
 				
+		debug ("runHoopInternal () Done");
+		
 		return (result);
 	}	
 	/**

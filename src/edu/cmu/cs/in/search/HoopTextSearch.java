@@ -130,8 +130,10 @@ public class HoopTextSearch extends HoopRoot
 		// Now let's see how we did by retrieving our markers
 		
 		Long memAfter=Runtime.getRuntime().freeMemory();
-				
-		long timeTaken=metrics.getMarkerRaw ();
+			
+		metrics.closeMarker();
+		long timeTaken=metrics.getYValue();
+		//long timeTaken=metrics.getMarkerRaw ();
 		
 		operation.setTimeTaken(timeTaken);
 		operation.setMemUsed(memAfter-memBefore);

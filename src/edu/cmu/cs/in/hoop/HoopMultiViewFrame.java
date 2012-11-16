@@ -165,14 +165,17 @@ public class HoopMultiViewFrame extends HoopPreferencesJFrame
         sep1.setMinimumSize(new Dimension (50,5));
         sep1.setMaximumSize(new Dimension (100,5));
                         
-        cp.add(sep1);        
+        //cp.add(sep1);
+        cp.add (Box.createRigidArea(new Dimension(0,2)));
+        
         cp.add (HoopLink.toolBoxContainer);
         
         JSeparator sep2=new JSeparator(SwingConstants.HORIZONTAL);
         sep2.setMinimumSize(new Dimension (50,5));
         sep2.setMaximumSize(new Dimension (500,5));
 
-        cp.add(sep2);
+        //cp.add(sep2);
+        cp.add (Box.createRigidArea(new Dimension(0,2)));
 		
 		HoopLink.left=new HoopTabDraggable ();		
 		HoopLink.right=new HoopTabDraggable ();		

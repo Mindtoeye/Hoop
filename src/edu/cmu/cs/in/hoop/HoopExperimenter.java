@@ -285,7 +285,10 @@ public class HoopExperimenter extends HoopEmbeddedJPanel implements ActionListen
 				r.gc();
 			}
 								
-			long timeTaken=metrics.getMarkerRaw ();
+			//long timeTaken=metrics.getMarkerRaw ();
+			metrics.closeMarker();
+			long timeTaken=metrics.getYValue();
+			
 			queryStats.setText(metrics.getMetrics(timeTaken));
 			
 			HoopLink.experimentNr++;			

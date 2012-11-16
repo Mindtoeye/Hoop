@@ -250,5 +250,5 @@ public class HoopDocumentReader extends HoopLoadBase
 	public HoopBase copy ()
 	{
 		return (new HoopDocumentReader ());
-	}	
+	}
 }

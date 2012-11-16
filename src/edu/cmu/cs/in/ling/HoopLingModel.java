@@ -51,6 +51,8 @@ public class HoopLingModel extends HoopRoot
 	 */
 	public HoopLingTerm getTerm (String aKeyTerm)
 	{
+		//debug ("getTerm ("+aKeyTerm+")");
+		
 		for (int i=0;i<terms.size();i++)
 		{
 			HoopLingTerm aTerm=terms.get(i);
@@ -66,7 +68,7 @@ public class HoopLingModel extends HoopRoot
 	 */
 	public HoopLingTerm addTerm (String aKeyTerm)
 	{
-		debug ("addTerm ("+aKeyTerm+")");
+		//debug ("addTerm ("+aKeyTerm+")");
 		
 		HoopLingTerm aTerm=getTerm (aKeyTerm);
 		

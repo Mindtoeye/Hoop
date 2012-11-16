@@ -130,7 +130,10 @@ public class HoopExecutionListRenderer extends HoopJPanel implements ListCellRen
 			{
 				StringBuffer formatter=new StringBuffer ();
 
-				Long result=metrics.getMarkerRaw ();
+				//metrics.closeMarker();
+				Long result=metrics.getYValue();
+
+				//Long result=metrics.getMarkerRaw ();
 				
 				formatter.append("Ex: "+aHoop.getExecutionCount());
 				formatter.append(" ");
@@ -140,7 +143,8 @@ public class HoopExecutionListRenderer extends HoopJPanel implements ListCellRen
 					
 				timeIndicator.setText(formatter.toString());
 				
-				progressIndicator.setLevels(metrics.getMarkerRaw (),HoopExecutionListRenderer.maxMs);
+				//progressIndicator.setLevels(metrics.getMarkerRaw (),HoopExecutionListRenderer.maxMs);
+				progressIndicator.setLevels(metrics.getYValue(),HoopExecutionListRenderer.maxMs);
 			}
 		}
 			  

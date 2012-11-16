@@ -55,7 +55,14 @@ public class HoopPerformanceMetrics extends HoopXYMeasure implements Serializabl
 	 */
     public void reset ()
     {
-    	setMarker ("");
+    	xValue=0;
+    	yValue=0;    	
+    	
+    	inPoint=null;
+    	outPoint=null;
+    	open=true;
+    	label="";
+    	//setMarker ("");
     }
 	/**
 	 *
@@ -64,7 +71,37 @@ public class HoopPerformanceMetrics extends HoopXYMeasure implements Serializabl
     {
     	setLabel(aLabel);
     	inPoint=new Date ();
+    	
+    	debug ("Setting (in) marker at: " + inPoint.getTime());
     }
+    /**
+     * 
+     */
+    public void closeMarker ()
+    {
+    	debug ("closeMarker ()");
+    	
+    	outPoint=new Date ();
+    	
+    	debug ("Setting (out) marker at: " + outPoint.getTime());
+    	
+    	setYValue (outPoint.getTime()-inPoint.getTime());
+    }
+    /**
+     * 
+     */
+    public void closeMarker (String aMarker)
+    {
+    	debug ("closeMarker ("+aMarker+")");
+    	
+    	label=aMarker;
+    			
+    	outPoint=new Date ();
+    	
+    	debug ("Setting (out) marker at: " + outPoint.getTime());
+    	
+    	setYValue (outPoint.getTime()-inPoint.getTime());
+    }    
 	/**
 	 *
 	 */
@@ -112,22 +149,39 @@ public class HoopPerformanceMetrics extends HoopXYMeasure implements Serializabl
 	/**
 	 *
 	 */
+    /*
     public long getMarkerRaw ()
     {
-    	if (open==false) // We could have run a simulation
+    	debug ("getMarkerRaw ()");
+    	
+    	if (outPoint!=null)
+    	{
     		return (getYValue ());
+    	}
+    	
+    	//if (open==false) // We could have run a simulation
+    	//{
+    	//	debug ("Error: metrics object isn't valid");
+    	//	return (getYValue ());
+    	//}
     	
     	if (inPoint==null)
+    	{
+    		debug ("Error: we have no start point yet");
     		return (0L);
+    	}
     	    	    	
     	outPoint=new Date ();
+    	
+    	debug ("Setting (out) marker at: " + outPoint.getTime() + ", with (in) marker at: " + inPoint.getTime());
     	
     	setYValue (outPoint.getTime()-inPoint.getTime());
     	
     	open=false;
     	
     	return (getYValue ());
-    }    
+    } 
+	*/
 	/**
 	 *
 	 */
@@ -149,6 +203,13 @@ public class HoopPerformanceMetrics extends HoopXYMeasure implements Serializabl
     {    	
     	debug ("Time taken for "+label+" is: ("+timeDiv+") ~ " +(timeDiv/1000)+" seconds, " +timeDiv+" milliseconds");
     }
+	/**
+	 *
+	 */
+    public void printMetrics ()
+   	{    	
+    	debug ("Time taken for "+label+" is: ("+getYValue ()+") ~ " +(getYValue ()/1000)+" seconds, " +getYValue ()+" milliseconds");
+   	}    
 	/**
 	 *
 	 */    

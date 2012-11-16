@@ -125,7 +125,8 @@ public class HoopInvertedListMapper extends HoopHadoopReporter implements Mapper
 		
 		if (mapperMarker!=null)
 		{
-			mapperMarker.getMarkerRaw ();
+			//mapperMarker.getMarkerRaw ();
+			mapperMarker.closeMarker();
 		}		
 	}
 } 
