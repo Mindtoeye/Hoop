@@ -21,6 +21,7 @@ package edu.cmu.cs.in.hoop.execute;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -44,6 +45,7 @@ public class HoopExecutionListRenderer extends HoopJPanel implements ListCellRen
 		  
 	private JLabel textInfo=null;
 	private JLabel stateInfo=null;
+	private JLabel cycleIndicator=null;
 	private JLabel timeIndicator=null;
 	private HoopProgressPainter progressIndicator=null;
 		
@@ -88,18 +90,31 @@ public class HoopExecutionListRenderer extends HoopJPanel implements ListCellRen
 		sep2.setMaximumSize(new Dimension (5,maxHeight));
 		this.add(sep2);
 			
-		timeIndicator=new JLabel ();
-		timeIndicator.setFont(new Font("Dialog", 1, 10));
-		timeIndicator.setMinimumSize(new Dimension (100,maxHeight));
-		timeIndicator.setPreferredSize(new Dimension (100,maxHeight));
-		timeIndicator.setMaximumSize(new Dimension (100,maxHeight));
-		this.add (timeIndicator);
-			
+		cycleIndicator=new JLabel ();
+		cycleIndicator.setFont(new Font("Dialog", 1, 10));
+		cycleIndicator.setMinimumSize(new Dimension (30,maxHeight));
+		cycleIndicator.setPreferredSize(new Dimension (30,maxHeight));
+		cycleIndicator.setMaximumSize(new Dimension (30,maxHeight));
+		this.add (cycleIndicator);
+		
 		JSeparator sep3=new JSeparator(SwingConstants.VERTICAL);
 		sep3.setMinimumSize(new Dimension (5,maxHeight));
 		sep3.setPreferredSize(new Dimension (5,maxHeight));
 		sep3.setMaximumSize(new Dimension (5,maxHeight));
 		this.add(sep3);
+		
+		timeIndicator=new JLabel ();
+		timeIndicator.setFont(new Font("Dialog", 1, 10));
+		timeIndicator.setMinimumSize(new Dimension (75,maxHeight));
+		timeIndicator.setPreferredSize(new Dimension (75,maxHeight));
+		timeIndicator.setMaximumSize(new Dimension (75,maxHeight));
+		this.add (timeIndicator);		
+			
+		JSeparator sep4=new JSeparator(SwingConstants.VERTICAL);
+		sep4.setMinimumSize(new Dimension (5,maxHeight));
+		sep4.setPreferredSize(new Dimension (5,maxHeight));
+		sep4.setMaximumSize(new Dimension (5,maxHeight));
+		this.add(sep4);
 			
 		progressIndicator=new HoopProgressPainter ();			
 		progressIndicator.setFont(new Font("Dialog", 1, 10));
@@ -130,20 +145,14 @@ public class HoopExecutionListRenderer extends HoopJPanel implements ListCellRen
 			{
 				StringBuffer formatter=new StringBuffer ();
 
-				//metrics.closeMarker();
 				Long result=metrics.getYValue();
-
-				//Long result=metrics.getMarkerRaw ();
 				
-				formatter.append("Ex: "+aHoop.getExecutionCount());
-				formatter.append(" ");
+				cycleIndicator.setText("Ex: "+aHoop.getExecutionCount());
+								
+				//timeIndicator.setText(result.toString()+"ms");
 				
-				formatter.append(result.toString());
-				formatter.append("ms");
-					
-				timeIndicator.setText(formatter.toString());
+				timeIndicator.setText(formatDuration (result));
 				
-				//progressIndicator.setLevels(metrics.getMarkerRaw (),HoopExecutionListRenderer.maxMs);
 				progressIndicator.setLevels(metrics.getYValue(),HoopExecutionListRenderer.maxMs);
 			}
 		}
@@ -159,5 +168,25 @@ public class HoopExecutionListRenderer extends HoopJPanel implements ListCellRen
 		//>---------------------------------------------------------			  
 		  
 		return (this);
+	}
+	/**
+	 * 
+	 */
+	private String formatDuration (Long aDuration)
+	{
+		if (aDuration>(1000*60))
+		{
+			return (String.format("%d min, %d sec", 
+					TimeUnit.MILLISECONDS.toMinutes(aDuration),
+					TimeUnit.MILLISECONDS.toSeconds(aDuration) - 
+					TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(aDuration))));
+		}		
+		
+		if (aDuration>1000)
+		{
+			return (String.format("%d sec",TimeUnit.MILLISECONDS.toSeconds(aDuration)));
+		}
+		
+		return (aDuration+" ms");
 	}
 }
