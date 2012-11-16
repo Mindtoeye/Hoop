@@ -143,14 +143,10 @@ public class HoopExecutionListRenderer extends HoopJPanel implements ListCellRen
 				  
 			if (metrics!=null)
 			{
-				StringBuffer formatter=new StringBuffer ();
-
 				Long result=metrics.getYValue();
 				
 				cycleIndicator.setText("Ex: "+aHoop.getExecutionCount());
-								
-				//timeIndicator.setText(result.toString()+"ms");
-				
+												
 				timeIndicator.setText(formatDuration (result));
 				
 				progressIndicator.setLevels(metrics.getYValue(),HoopExecutionListRenderer.maxMs);

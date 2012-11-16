@@ -83,6 +83,10 @@ public class HoopProgressPainter extends HoopJPanel
 		
 		g2.setPaint (p);
 		g2.fillRect (0,2,paintWidth,getHeight()-4);
+		
+		g2.setColor(new Color (0,0,0));
+		g2.drawRect(0,2, paintWidth,this.getHeight()-4);
+		
 		g2.dispose ();
 	}
 }
