@@ -44,7 +44,7 @@ public class HoopMultiViewFrame extends HoopPreferencesJFrame
 {
 	private static final long serialVersionUID = -1;
 			
-    static final String ABOUTMSG = "Hoop is an interactive text exploration tool written with the express\n purpose of understanding narrative structures in written form.";
+    static final String ABOUTMSG = "Hoop is an interactive text exploration tool written with the express\n purpose of understanding linguistic structures in written form.";
 				
 	/**
 	 *

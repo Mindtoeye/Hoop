@@ -20,6 +20,7 @@ package edu.cmu.cs.in.base.kv;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 //import java.util.ArrayList;
 
 import org.jdom.Element;
@@ -28,6 +29,7 @@ import edu.cmu.cs.in.base.HoopDataType;
 import edu.cmu.cs.in.base.HoopDateTools;
 import edu.cmu.cs.in.base.HoopHTML2Text;
 import edu.cmu.cs.in.base.HoopRoot;
+import edu.cmu.cs.in.base.HoopSimpleFeatureMaker;
 
 /**
  * Perhaps the most important data structure in the Hoop system is the
@@ -162,6 +164,7 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
     	    	
     	views=new HoopKVList ("views");
     	addVariable (views);
+    	    	
     	
     	// Extra stuff ...    	
     	additional=new HoopKVString ("additional","");
@@ -176,6 +179,45 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
     private void debug (String aMessage)
     {
     	HoopRoot.debug("HoopKVDocument",aMessage);
+    }
+    /**
+     * 
+     */
+    public HoopKVString getView (String aViewLabel)
+    {
+    	ArrayList<HoopKV> viewData=views.getData ();
+    	
+    	for (int i=0;i<viewData.size();i++)
+    	{
+    		HoopKVString testView=(HoopKVString) viewData.get(i);
+    		
+    		if (testView.getKey().equalsIgnoreCase(aViewLabel)==true)
+    		{
+    			return (testView);
+    		}
+    	}
+    	
+    	return (null);
+    }
+    /**
+     * 
+     */
+    public HoopKVString addView (String aViewLabel)
+    {
+    	debug ("addView ("+aViewLabel+")");
+    	
+    	HoopKVString newView=getView (aViewLabel);
+    	
+    	if (newView==null)
+    	{
+    		ArrayList<HoopKV> viewData=views.getData ();
+    		
+    		newView=new HoopKVString ();
+    		newView.setKey(aViewLabel);
+        	viewData.add(newView);
+    	}	
+    	    
+    	return (newView);
     }
 	/**
 	 *
@@ -344,7 +386,7 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 		
 		HoopHTML2Text parser=new HoopHTML2Text ();
 		
-		debug ("Cleaning text: " + this.getValue());
+		//debug ("Cleaning text: " + this.getValue());
 		
 		parser.parse(this.getValue());
 		
@@ -352,6 +394,7 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 		
 		this.bump (cleanText,"Cleaned");
 		
+		/*
 		if (abstr.getValue().isEmpty()==true)
 		{						
 			if (cleanText.length()>abstrSize)
@@ -363,6 +406,11 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 				abstr.setValue(cleanText);
 			}
 		}
+		*/
+		
+		createBasicTokens (cleanText);
+		
+		debug ("Token view: " + viewToText ("Simple Tokens"));
 		
 		// If there is a create date but no modified date,
 		// then make the modified date the create date
@@ -399,6 +447,64 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 				
 		return (getValue(perspIndex));
 	}	
+	/**
+	 * 
+	 */
+	public String viewToText (String aView)
+	{
+		debug ("viewToText ("+aView+")");
+		
+		StringBuffer formatted=new StringBuffer ();
+		
+		HoopKVString basicTokenView=getView (aView);
+		
+		if (basicTokenView!=null)
+		{
+			ArrayList<Object> tkns=basicTokenView.getValuesRaw();
+			
+			debug ("Adding " + tkns.size() + " tokens");
+			
+			for (int i=0;i<tkns.size();i++)
+			{
+				if (i>0)
+					formatted.append("+");
+				
+				formatted.append(tkns.get(i));
+			}
+		}
+		else
+			debug ("View " + aView + " not found");
+						
+		return (formatted.toString());
+	}
+	/**
+	 * 
+	 */
+	private void createBasicTokens (String cleanText)
+	{
+		debug ("createBasicTokens ()");
+		
+		HoopSimpleFeatureMaker tokenizer=new HoopSimpleFeatureMaker ();
+		
+		HoopKVString basicTokenView=addView ("Simple Tokens");
+		
+		if (basicTokenView!=null)
+		{
+			List<String> tkns=tokenizer.unigramTokenizeBasic (cleanText);
+			
+			debug ("Adding " + tkns.size() + " tokens");
+			
+			for (int i=0;i<tkns.size();i++)
+			{
+				String strippedInput = tkns.get(i).replaceAll("\\W", "");
+				
+				//basicTokenView.add(strippedInput);
+				basicTokenView.setValue(strippedInput, i);
+			}
+		}
+		else
+			debug ("Unable to create Simple Tokens view");
+	}
 	/**
 	 * 
 	 */
