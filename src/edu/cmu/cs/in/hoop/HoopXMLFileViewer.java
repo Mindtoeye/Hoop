@@ -18,10 +18,12 @@
 
 package edu.cmu.cs.in.hoop;
 
+import java.awt.Component;
 import java.awt.Font;
 import java.io.StringReader;
 
 import javax.swing.BoxLayout;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -58,7 +60,9 @@ public class HoopXMLFileViewer extends HoopEmbeddedJPanel
 		setClassName ("HoopXMLFileViewer");
 		debug ("HoopXMLFileViewer ()");  
 		
-		this.setLayout(new BoxLayout (this,BoxLayout.Y_AXIS));
+		JPanel content=(JPanel) getContentPane ();
+		
+		content.setLayout(new BoxLayout (content,BoxLayout.Y_AXIS));
 		
 		top = new DefaultMutableTreeNode("XML Document"); 
         

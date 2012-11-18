@@ -123,7 +123,7 @@ public class HoopExecuteInEditor extends HoopExecute implements ActionListener
 		
 		if (propPanel!=null)
 		{
-			propPanel.setEnabled(false);
+			propPanel.setLocked(true);
 		}
 	}	
 	/**
@@ -158,7 +158,7 @@ public class HoopExecuteInEditor extends HoopExecute implements ActionListener
 		
 		if (propPanel!=null)
 		{
-			propPanel.setEnabled(true);
+			propPanel.setLocked(false);
 		}		
 	}		
 	/**

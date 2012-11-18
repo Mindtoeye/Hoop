@@ -43,6 +43,7 @@ import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JList;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
@@ -84,7 +85,7 @@ public class HoopParseTreeViewer extends HoopEmbeddedJPanel implements ActionLis
 	 */
 	public HoopParseTreeViewer() 
     {				
-		this.setLayout(new BoxLayout (this,BoxLayout.Y_AXIS));				
+		//this.setLayout(new BoxLayout (this,BoxLayout.Y_AXIS));				
 		
 		Options theseOptions = new Options();
 		theseOptions.setOptions(new String[] {});
@@ -128,9 +129,16 @@ public class HoopParseTreeViewer extends HoopEmbeddedJPanel implements ActionLis
 		
 		treePanel=new TreeJPanel ();
 		
-		this.add(controlBox);
-		this.add(scroller);		
-		this.add (treePanel);
+		JPanel content=(JPanel) getContentPane ();
+		content.setLayout(new BoxLayout (content,BoxLayout.Y_AXIS));
+		
+		//this.add(controlBox);
+		//this.add(scroller);		
+		//this.add (treePanel);
+		
+		content.add(controlBox);
+		content.add(scroller);		
+		content.add (treePanel);
     }
 	/**
 	 *

@@ -325,8 +325,7 @@ public class HoopBackingDBInspector extends HoopEmbeddedJPanel implements MouseL
 		splitPane.setBorder(border);
 	    
 	    panel.add(splitPane);
-	    
- 	    
+	     	    
 	    JPanel genPanel=new JPanel ();
 		
 		tabbedPane.addTab("Data Generator",null,genPanel,"Generate simulated data");

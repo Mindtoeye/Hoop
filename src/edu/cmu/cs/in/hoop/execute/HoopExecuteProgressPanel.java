@@ -168,7 +168,7 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 		mainBox.add(controlBox);
 		mainBox.add(traceContainer);
 		
-		this.setBorder(BorderFactory.createEmptyBorder(2,2,2,2));
+		//this.setBorder(BorderFactory.createEmptyBorder(2,2,2,2));
 		
 		setContentPane (mainBox);
 		

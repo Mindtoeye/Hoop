@@ -24,15 +24,15 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.JComponent;
+import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-/*
 import org.jdesktop.jxlayer.JXLayer;
 import org.jdesktop.jxlayer.plaf.effect.BufferedImageOpEffect;
 import org.jdesktop.jxlayer.plaf.ext.LockableUI;
-*/
 
-//import com.jhlabs.image.BlurFilter;
+import com.jhlabs.image.BlurFilter;
 
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.HoopProperties;
@@ -45,18 +45,20 @@ public class HoopEmbeddedJPanel extends HoopJPanel
 {	
 	private static final long serialVersionUID = 1L;
 	
+	private Component contentPane=null;
+	
 	/// Most of them are single instances, we'll let selected panels override this
 	private Boolean singleInstance=true;
 	
 	private JTabbedPane host=null;
 	
-	/*
-	private LockableUI blurUI = new LockableUI(new BufferedImageOpEffect(new BlurFilter()));
+	private JPanel view=null;
+	
+	private LockableUI blurUI = null;
 	private JXLayer<JComponent> layer=null;
-	*/
 	
 	/**
-	 * Creates a new JPanel with a double buffer and a flow layout.
+	 * 
 	 */	
 	public HoopEmbeddedJPanel()
 	{
@@ -67,8 +69,19 @@ public class HoopEmbeddedJPanel extends HoopJPanel
 		this.setLayout(new BorderLayout(2,2));
 		//this.addComponentListener(this);
 
-		//layer=new JXLayer<JComponent>(this);
-		//layer.setUI (blurUI);	        								
+		blurUI = new LockableUI(new BufferedImageOpEffect(new BlurFilter()));
+		
+		view=new JPanel ();
+		view.setLayout(new BorderLayout(0,0));
+		
+		layer=new JXLayer<JComponent>(view);
+		layer.setUI (blurUI);
+		
+		this.add(layer);
+		
+		//contentPane=view;
+		
+		//setContentPane (layer);
 	}
 	/**
 	 * 
@@ -91,7 +104,16 @@ public class HoopEmbeddedJPanel extends HoopJPanel
 	{
 		debug ("setContentPane ()");
 		
-		this.add(aChild);
+		contentPane=aChild;
+		
+		view.add(aChild);
+	}
+	/**
+	 * 
+	 */
+	public Component getContentPane ()
+	{
+		return (view);
 	}
 	/**
 	 * 
@@ -140,9 +162,7 @@ public class HoopEmbeddedJPanel extends HoopJPanel
 	{
 		debug ("setLocked ()");
 		
-		/*
 		if (blurUI!=null)
 			blurUI.setLocked (aVal);
-		*/
 	}
 }

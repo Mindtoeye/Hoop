@@ -31,6 +31,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -209,17 +210,20 @@ public class HoopConsole extends HoopEmbeddedJPanel implements HoopConsoleInterf
 		consoleContainer.setMinimumSize(new Dimension (50,100));
 		//consoleContainer.setPreferredSize(new Dimension (500,100));
 
-		Box mainBox = new Box (BoxLayout.Y_AXIS);
+		//Box mainBox = new Box (BoxLayout.Y_AXIS);
 		
-		mainBox.add(controlBox);
-		mainBox.add (Box.createRigidArea(new Dimension(0,2)));
-		mainBox.add(consoleContainer);
+		JPanel content=(JPanel) getContentPane ();
+		content.setLayout(new BoxLayout (content,BoxLayout.Y_AXIS));
+				
+		content.add(controlBox);
+		content.add (Box.createRigidArea(new Dimension(0,2)));
+		content.add(consoleContainer);
 								
 		HoopLink.console=this;
 		
 		// We should be ready for action now
 		
-		setContentPane (mainBox);
+		//setContentPane (mainBox);
 		
 		// For now let's disable visual logging by default since it's
 		// so expensive

@@ -78,7 +78,8 @@ public class HoopErrorPanel extends HoopEmbeddedJPanel implements ActionListener
 		
 		holder.add (scrollPane);
 		
-		this.add(holder);		
+		//this.add(holder);
+		this.setContentPane(holder);
 	}
 	/**
 	 * 

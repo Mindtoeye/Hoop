@@ -152,8 +152,9 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 		installRepaintListener();
 
 		// Puts everything together
-		setLayout(new BorderLayout());
-		add (graphComponent,BorderLayout.CENTER);
+		//setLayout(new BorderLayout());
+		//add (graphComponent,BorderLayout.CENTER);
+		this.setContentPane(graphComponent);
 
 		installHandlers();
 		installListeners();				

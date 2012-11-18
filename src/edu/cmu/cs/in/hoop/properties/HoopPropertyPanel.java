@@ -118,7 +118,8 @@ public class HoopPropertyPanel extends HoopEmbeddedJPanel implements ActionListe
         hoopPropertyBox.add (Box.createRigidArea(new Dimension(0,2)));
         hoopPropertyBox.add (contentScroller);
                                 
-        this.add (hoopPropertyBox);        
+        //this.add (hoopPropertyBox);
+        this.setContentPane(hoopPropertyBox);
 	}
 	/**
 	 * 

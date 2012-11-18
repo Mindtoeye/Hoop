@@ -45,7 +45,8 @@ public class HoopEditorPalettePanel extends HoopEmbeddedJPanel
 		libraryPane=new JTabbedPane ();
 		libraryPane.setFont(new Font("Dialog", 1, 10));
 		
-		this.add(libraryPane);
+		//this.add(libraryPane);
+		this.setContentPane(libraryPane);
 	}
 	/**
 	 * 

@@ -193,7 +193,8 @@ public class HoopTablePanel extends HoopEmbeddedJPanel implements ActionListener
 		holder.add(controlBox);
 		holder.add (scrollPane);
 		
-		this.add(holder);		
+		//this.add(holder);
+		this.setContentPane (holder);
 	}
 	/**
 	 * 

@@ -35,6 +35,7 @@ import javax.swing.BoxLayout;
 import javax.swing.InputMap;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -78,7 +79,7 @@ public class HoopDialogConsole extends HoopEmbeddedJPanel implements ActionListe
 		setClassName ("HoopDialogConsole");
 		debug ("HoopDialogConsole ()");
 		
-		Box mainBox = new Box (BoxLayout.Y_AXIS);
+		//Box mainBox = new Box (BoxLayout.Y_AXIS);
 		
 		Border blackborder=BorderFactory.createLineBorder(Color.black);
 		
@@ -170,15 +171,18 @@ public class HoopDialogConsole extends HoopEmbeddedJPanel implements ActionListe
 		textArea.setMinimumSize(new Dimension (50,50));
 		//textArea.setPreferredSize(new Dimension (100,50));
 		
-		mainBox.add(entry);
-		mainBox.add(controlBox);		
-		mainBox.add(textArea);		
+		JPanel content=(JPanel) getContentPane ();
+		content.setLayout(new BoxLayout (content,BoxLayout.Y_AXIS));
+		
+		content.add(entry);
+		content.add(controlBox);		
+		content.add(textArea);		
 										
 		// We should be ready for action now
 		
-		this.setBorder(BorderFactory.createEmptyBorder(2,2,2,2));
+		//this.setBorder(BorderFactory.createEmptyBorder(2,2,2,2));
 		
-		setContentPane (mainBox);					
+		//setContentPane (mainBox);					
 		
 		InputMap inputMap = entry.getInputMap();
 		ActionMap actionMap = entry.getActionMap();

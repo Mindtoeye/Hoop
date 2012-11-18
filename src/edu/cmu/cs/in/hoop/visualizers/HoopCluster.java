@@ -35,6 +35,7 @@ import java.awt.event.ActionListener;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
@@ -70,8 +71,12 @@ public class HoopCluster extends HoopEmbeddedJPanel implements ActionListener, H
 		xmlHelper=new HoopXMLBase ();
 		handler=new HoopMessageHandler ();
 		
-		this.setLayout(new BoxLayout (this,BoxLayout.Y_AXIS));				
+		JPanel content=(JPanel) getContentPane ();
 		
+		BoxLayout layout=new BoxLayout (content,BoxLayout.Y_AXIS);
+		
+		content.setLayout(layout);
+				
 		Box controlBox=Box.createHorizontalBox();
 		
 		hostInput=new JTextField ();
@@ -106,8 +111,8 @@ public class HoopCluster extends HoopEmbeddedJPanel implements ActionListener, H
 		controlBox.add(connectButton);
 		controlBox.add(Box.createHorizontalGlue());
 		
-		this.add(controlBox);
-		this.add(contentScroller);		
+		content.add(controlBox);
+		content.add(contentScroller);		
     }
 	/**
 	 * 

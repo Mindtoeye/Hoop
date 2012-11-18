@@ -31,6 +31,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import edu.cmu.cs.in.base.HoopLink;
@@ -61,7 +62,7 @@ public class HoopStopWordEditor extends HoopEmbeddedJPanel implements ActionList
 		setClassName ("HoopStopWordEditor");
 		debug ("HoopStopWordEditor ()");    	
 		
-		this.setLayout(new BoxLayout (this,BoxLayout.Y_AXIS));
+		//this.setLayout(new BoxLayout (this,BoxLayout.Y_AXIS));
     
 	    Box buttonBox = new Box (BoxLayout.X_AXIS);
 	    buttonBox.setBorder(BorderFactory.createEmptyBorder(1,1,1,2));
@@ -107,8 +108,14 @@ public class HoopStopWordEditor extends HoopEmbeddedJPanel implements ActionList
 		//setLocation (75,75);
 		*/
 		
-		this.add(buttonBox);
-		this.add(stopList);
+		JPanel content=(JPanel) getContentPane ();
+		content.setLayout(new BoxLayout (content,BoxLayout.Y_AXIS));
+		
+		//this.add(buttonBox);
+		//this.add(stopList);
+		
+		content.add(buttonBox);
+		content.add(stopList);
 		
 		loadData ();
     }
