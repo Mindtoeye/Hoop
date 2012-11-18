@@ -19,6 +19,7 @@
 package edu.cmu.cs.in.stats;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 //import java.io.Serializable;
 import java.util.Date;
 
@@ -31,9 +32,10 @@ public class HoopPerformanceMetrics extends HoopXYMeasure implements Serializabl
 	private Date inPoint=null;
 	private Date outPoint=null;
 	private String label="";
-	//private Long measure=0L;
 	private String guid="";
 	private Boolean open=true;
+	
+	private ArrayList<HoopXYMeasure> values=null;
 	
 	/**
 	 *
@@ -41,7 +43,9 @@ public class HoopPerformanceMetrics extends HoopXYMeasure implements Serializabl
     public HoopPerformanceMetrics () 
     {
 		setClassName ("HoopPerformanceMetrics");
-		//debug ("HoopPerformanceMetrics ()");						
+		//debug ("HoopPerformanceMetrics ()");
+		
+		values=new ArrayList<HoopXYMeasure> ();
     }  
 	/**
 	 *
@@ -55,6 +59,10 @@ public class HoopPerformanceMetrics extends HoopXYMeasure implements Serializabl
 	 */
     public void reset ()
     {
+    	debug ("reset ()");
+    	
+    	values=new ArrayList<HoopXYMeasure> ();
+    	
     	xValue=0;
     	yValue=0;    	
     	
@@ -62,7 +70,6 @@ public class HoopPerformanceMetrics extends HoopXYMeasure implements Serializabl
     	outPoint=null;
     	open=true;
     	label="";
-    	//setMarker ("");
     }
 	/**
 	 *
@@ -86,6 +93,10 @@ public class HoopPerformanceMetrics extends HoopXYMeasure implements Serializabl
     	debug ("Setting (out) marker at: " + outPoint.getTime());
     	
     	setYValue (outPoint.getTime()-inPoint.getTime());
+    	
+    	HoopXYMeasure newValue=new HoopXYMeasure ();
+    	newValue.setYValue(this.getYValue());    	
+    	values.add(newValue);
     }
     /**
      * 
@@ -101,7 +112,30 @@ public class HoopPerformanceMetrics extends HoopXYMeasure implements Serializabl
     	debug ("Setting (out) marker at: " + outPoint.getTime());
     	
     	setYValue (outPoint.getTime()-inPoint.getTime());
+    	
+    	HoopXYMeasure newValue=new HoopXYMeasure ();
+    	newValue.setYValue(this.getYValue());    	
+    	values.add(newValue);
     }    
+    /**
+     * 
+     */
+    public float getAverage ()
+    {
+    	if (values.size()==0)
+    		return (float) (0.0);
+    	
+    	long total=0;
+    	
+    	for (int i=0;i<values.size();i++)
+    	{
+    		HoopXYMeasure measure=values.get (i);
+    		    		
+    		total+=measure.getYValue();
+    	}
+    	
+    	return (total/values.size());
+    }
 	/**
 	 *
 	 */
@@ -112,13 +146,9 @@ public class HoopPerformanceMetrics extends HoopXYMeasure implements Serializabl
 	/**
 	 *
 	 */
-    public long getOutPoint ()
+    public long getInPoint ()
     {
-    	debug ("getOutPoint ()");
-   	
-      	outPoint=new Date ();
-      	
-      	return (outPoint.getTime());
+    	return (inPoint.getTime());
     }    
 	/**
 	 *
@@ -126,69 +156,22 @@ public class HoopPerformanceMetrics extends HoopXYMeasure implements Serializabl
     public void setOutPoint (long aPoint)
     {
     	debug ("setOutPoint ("+aPoint+")");
-    	
-       	outPoint=new Date (aPoint);
-    	setYValue (outPoint.getTime()-inPoint.getTime());
-    	open=false;
-    }        
+   	
+      	outPoint=new Date (aPoint);
+      	setYValue (outPoint.getTime()-inPoint.getTime());
+      	open=false;
+    }    
 	/**
 	 *
 	 */
-    public long getInPoint ()
+    public long getOutPoint ()
     {
-    	return (inPoint.getTime());
-    }
-	/**
-	 *
-	 */
-    public void setMarkerRaw (long aValue)
-    {
-    	setYValue (aValue);
-    	open=false;
-    }
-	/**
-	 *
-	 */
-    /*
-    public long getMarkerRaw ()
-    {
-    	debug ("getMarkerRaw ()");
-    	
-    	if (outPoint!=null)
-    	{
-    		return (getYValue ());
-    	}
-    	
-    	//if (open==false) // We could have run a simulation
-    	//{
-    	//	debug ("Error: metrics object isn't valid");
-    	//	return (getYValue ());
-    	//}
-    	
-    	if (inPoint==null)
-    	{
-    		debug ("Error: we have no start point yet");
-    		return (0L);
-    	}
-    	    	    	
-    	outPoint=new Date ();
-    	
-    	debug ("Setting (out) marker at: " + outPoint.getTime() + ", with (in) marker at: " + inPoint.getTime());
-    	
-    	setYValue (outPoint.getTime()-inPoint.getTime());
-    	
-    	open=false;
-    	
-    	return (getYValue ());
-    } 
-	*/
-	/**
-	 *
-	 */
-    public String getMarker ()
-    {
-    	return ("undefined");
-    }  
+    	debug ("getOutPoint ()");
+   	
+      	outPoint=new Date ();
+      	
+      	return (outPoint.getTime());
+    }            
 	/**
 	 *
 	 */

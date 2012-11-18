@@ -47,6 +47,11 @@ public class HoopExecutionListRenderer extends HoopJPanel implements ListCellRen
 	public static int MODESTAGGERED=1;
 	
 	public static int mode=MODEDEFAULT;
+	
+	public static int TIMEDEFAULT=0;
+	public static int TIMEAVERAGE=1;
+	
+	public static int modeTime=TIMEAVERAGE;
 		  
 	private JLabel textInfo=null;
 	private JLabel stateInfo=null;
@@ -152,12 +157,18 @@ public class HoopExecutionListRenderer extends HoopJPanel implements ListCellRen
 			HoopPerformanceMetrics metrics=aHoop.getPerformanceMetrics();
 				  
 			if (metrics!=null)
-			{
-				Long result=metrics.getYValue();
-				
+			{				
 				cycleIndicator.setText("Ex: "+aHoop.getExecutionCount());
-												
-				timeIndicator.setText(formatDuration (result));
+			
+				if (HoopExecutionListRenderer.modeTime==HoopExecutionListRenderer.TIMEAVERAGE)
+				{
+					timeIndicator.setText("~"+metrics.getAverage());
+				}
+				else
+				{
+					Long result=metrics.getYValue();
+					timeIndicator.setText(formatDuration (result));
+				}	
 				
 				//progressIndicator.setLevels(metrics.getYValue(),HoopExecutionListRenderer.maxMs);
 				progressIndicator.setLevels(aHoop.durationOffset,aHoop.durationWidth);

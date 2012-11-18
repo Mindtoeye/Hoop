@@ -32,7 +32,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JPanel;
+//import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
@@ -77,8 +77,8 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 		// Create controls first
 		
 		Box controlBox = new Box (BoxLayout.X_AXIS);			
-		controlBox.setMinimumSize(new Dimension (100,25));
-		controlBox.setPreferredSize(new Dimension (100,25));
+		controlBox.setMinimumSize(new Dimension (100,22));
+		controlBox.setPreferredSize(new Dimension (100,22));
 		
 	    showLinear = new JRadioButton();
 	    showLinear.setText("Show Linear");
@@ -101,17 +101,20 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 	    controlBox.add(showLinear);
 	    controlBox.add(showStaggered);	
 	    
-	    controlBox.add(new JSeparator(SwingConstants.VERTICAL));
+	    JSeparator sep1=new JSeparator(SwingConstants.VERTICAL);
+	    sep1.setMaximumSize(new Dimension (5,22));
+	    
+	    controlBox.add(sep1);
 	    
 	    showAverage = new JRadioButton();
-	    showAverage.setText("Show Linear");
+	    showAverage.setText("Show Average Time");
 	    //showAverage.setIcon(HoopLink.getImageByName("data.gif"));
 	    showAverage.setSelected(true);
 	    showAverage.setFont(new Font("Dialog", 1, 10));
 	    showAverage.addActionListener(this);
 	    
 	    showLatest = new JRadioButton();
-	    showLatest.setText("Show Staggered");
+	    showLatest.setText("Show Latest Time");
 	    //showLatest.setIcon(HoopLink.getImageByName("delete.png"));
 	    showLatest.setFont(new Font("Dialog", 1, 10));
 	    showLatest.addActionListener(this);
@@ -124,16 +127,27 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 	    controlBox.add(showAverage);
 	    controlBox.add(showLatest);	
 	    
-	    controlBox.add(new JSeparator(SwingConstants.VERTICAL));
+	    JSeparator sep2=new JSeparator(SwingConstants.VERTICAL);
+	    sep2.setMaximumSize(new Dimension (5,22));
+	    
+	    controlBox.add(sep2);
 	    
 		timeIndicator=new JLabel ();
 		timeIndicator.setText("00:00:00");
 		timeIndicator.setFont(new Font("Dialog", 1, 10));
-		timeIndicator.setMinimumSize(new Dimension (75,23));
-		timeIndicator.setPreferredSize(new Dimension (75,23));
-		timeIndicator.setMaximumSize(new Dimension (75,23));
+		timeIndicator.setMinimumSize(new Dimension (100,23));
+		timeIndicator.setPreferredSize(new Dimension (100,23));
+		timeIndicator.setMaximumSize(new Dimension (100,23));
+		timeIndicator.setHorizontalTextPosition(JLabel.CENTER);
 	    
 		controlBox.add(timeIndicator);
+		
+	    JSeparator sep3=new JSeparator(SwingConstants.VERTICAL);
+	    sep3.setMaximumSize(new Dimension (5,22));
+	    
+	    controlBox.add(sep3);
+		
+		controlBox.add(Box.createHorizontalGlue());
 		
 		// Add the actual progress controls ...
 								
@@ -161,6 +175,7 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 		HoopLink.executionMonitor=this;
 		
 		displayTimer = new Timer(1000,this);
+		displayTimer.setInitialDelay(0);
 		//displayTimer.setinitialDelay(0);
 	}
 	/**
@@ -332,11 +347,55 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 	{
 		debug ("actionPerformed ()");
 	
+		if (e.getSource()==showLinear)
+		{
+			debug ("showLinear");
+			
+			HoopExecutionListRenderer.mode=HoopExecutionListRenderer.MODEDEFAULT;
+			
+			calcVisualStats ();
+			
+			return;			
+		}
+		
+		if (e.getSource()==showStaggered)
+		{
+			debug ("showStaggered");
+			
+			HoopExecutionListRenderer.mode=HoopExecutionListRenderer.MODESTAGGERED;
+			
+			calcVisualStats ();
+			
+			return;			
+		}
+	    
+		if (e.getSource()==showAverage)
+		{
+			debug ("showAverage");
+			
+			HoopExecutionListRenderer.modeTime=HoopExecutionListRenderer.TIMEAVERAGE;
+			
+			calcVisualStats ();
+			
+			return;			
+		}
+		
+		if (e.getSource()==showLatest)
+		{
+			debug ("showLatest");
+			
+			HoopExecutionListRenderer.modeTime=HoopExecutionListRenderer.TIMEDEFAULT;
+			
+			calcVisualStats ();
+			
+			return;
+		}
+		
 		if (e.getSource()==displayTimer)
 		{
-			timeCounter++;
+			timeCounter+=1000;
 						
-			timeIndicator.setText(String.format("%d:%d:%d", 
+			timeIndicator.setText(String.format("%02d:%02d:%02d", 
 												TimeUnit.MILLISECONDS.toHours(timeCounter),
 												TimeUnit.MILLISECONDS.toMinutes(timeCounter),
 												TimeUnit.MILLISECONDS.toSeconds(timeCounter)));
