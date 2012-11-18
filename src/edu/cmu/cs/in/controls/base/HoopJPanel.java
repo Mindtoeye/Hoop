@@ -92,6 +92,21 @@ public class HoopJPanel extends JPanel implements ComponentListener
 		this.addComponentListener(this);
 	}
 	/**
+	 * 
+	 */
+	/*
+	@Override
+	public void setEnabled(boolean enabled) 
+	{
+	    super.setEnabled(enabled);
+	    
+	    for (Component component : getComponents())
+	    {
+	        component.setEnabled(enabled);
+	    }
+	}
+	*/	
+	/**
 	 *
 	 */
 	public void setClassName (String aName)
