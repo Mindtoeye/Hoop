@@ -107,7 +107,6 @@ public class HoopExecuteInEditor extends HoopExecute implements ActionListener
 		
 		if (editor!=null)
 		{
-			//editor.setEnabled(false);
 			editor.setLocked(true);
 		}	
 		
@@ -115,7 +114,6 @@ public class HoopExecuteInEditor extends HoopExecute implements ActionListener
 		
 		if (hoopWindow!=null)
 		{
-			//hoopWindow.setEnabled(false);
 			hoopWindow.setLocked(true);
 		}
 		

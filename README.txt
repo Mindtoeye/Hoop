@@ -113,15 +113,23 @@ Used Packages:
 - frej (integrated), fuzzy pattern recognition based on regular expressions
 	http://frej.sourceforge.net/index.html
 
-- JDesktop (integrated and customized)
+- JDesktop (integrated)
 
-- cjwizard (integrated and customized), used for the generation of wizards such
+- cjwizard (integrated), used for the generation of wizards such
 	as the application builder
 	http://code.google.com/p/cjwizard/
 	
 - Lucene (integrated), used to optionally create a searchable version of the
 	Hoop native document data set
-	http://lucene.apache.org/ 	
+	http://lucene.apache.org/
+	
+Legend:
+	- Included, means that the package is simply made available and is usually
+	the form of a jar or set of jars
+	- Integrated, means that the package is included but also used in various
+	classes and most likely altered or customized
+	- Not Included, means that the code links to needed jars but additional
+	drivers might be needed to make the code operational at runtime 	
 
 Notice!
 
