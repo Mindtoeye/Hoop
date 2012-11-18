@@ -248,7 +248,7 @@ public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener
 		setContentPane (mainBox);		
     }
 	/**
-	 * 
+	 *
 	 */
 	public void showDocument (HoopKVDocument aDocument)
 	{
@@ -275,13 +275,13 @@ public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener
 	public void showText (String aText)
 	{
 		debug ("showText ()");
-		
+
 		textViewer.getDocument().putProperty(DefaultEditorKit.EndOfLineStringProperty, "\n");		
 		textViewer.setText(aText);
 		textViewer.setCaretPosition(0);
-	}	
+	}
 	/**
-	 * 
+	 *
 	 */
 	public void showFile (HoopWrapperFile aFile)
 	{
@@ -349,85 +349,7 @@ public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener
 				textViewer.setFont(new Font("Dialog", 1, fontSize));
 				lines.setFont(new Font("Dialog", 1, fontSize));
 			}
-		}
-		
-		if (controlTest instanceof JComboBox)
-		{
-		     JComboBox cb = (JComboBox) controlTest;
-		     
-		     if (cb==filterText)
-		     {
-		    	 String aChoice=(String)filterText.getSelectedItem();
-		     
-		    	 if (aChoice!=null)
-		    	 {
-		    		 if (aChoice.isEmpty()==false)
-		    		 {
-		    			 Integer newView=Integer.parseInt(aChoice);
-		    	 
-		    			 if (internalDocument!=null)
-		    			 {
-		    				 showText (internalDocument.toText (newView));
-		    			 }
-		    		 }
-		    		 else
-		    			 showText (internalDocument.toText (0));
-		    	 }
-		    	 else
-	    			 showText (internalDocument.toText (0));
-		    	 
-		    	 return;
-		     }
-		     
-		     if (cb==renderType)
-		     {
-		    	 String aChoice=(String)renderType.getSelectedItem();
-		    	 
-		    	 if (aChoice.equalsIgnoreCase("txt")==true)
-		    		 textViewer.setContentType("text/text");
-		    	 
-		    	 if (aChoice.equalsIgnoreCase("html")==true)
-		    		 textViewer.setContentType("text/html");
-		    	 
-		    	 if (aChoice.equalsIgnoreCase("rtf")==true)
-		    		 textViewer.setContentType("text/rtf");
-		    	 
-		    	 if (aChoice.equalsIgnoreCase("xml")==true)
-		    	 {
-		    		 
-		    	 }
-		    	 
-		    	 if (aChoice.equalsIgnoreCase("tokens")==true)
-		    	 {
-		    		 
-		    	 }		
-		    	 
-		    	 return;		    	 
-		     }
-		     
-		     if (cb==contentType)
-		     {
-		    	 String aChoice=(String)contentType.getSelectedItem();
-		    	 
-		    	 if (aChoice.equalsIgnoreCase("MAIN TEXT")==true)
-		    	 {
-		    		 filterText.setEnabled(true);
-		    		 renderType.setEnabled(true);
-		    		 
-		    		 showDocument (internalDocument);
-		    	 }
-		    	 
-		    	 if (aChoice.equalsIgnoreCase("ABSTRACT")==true)
-		    	 {
-		    		 renderType.setEnabled(false);
-		    		 filterText.setEnabled(false);
-		    		 
-		    		 showDocument (internalDocument);
-		    	 }
-		    	 
-		    	 return;		    	 
-		     }
-		}
+		}		
 	}
 	/**
 	 * 
@@ -566,6 +488,84 @@ public class HoopTextViewer extends HoopEmbeddedJPanel implements ActionListener
 	    		*/
 	    	}
 	    }
+	    
+		if (source instanceof JComboBox)
+		{
+		     JComboBox cb = (JComboBox) source;
+		     
+		     if (cb==filterText)
+		     {
+		    	 String aChoice=(String)filterText.getSelectedItem();
+		     
+		    	 if (aChoice!=null)
+		    	 {
+		    		 if (aChoice.isEmpty()==false)
+		    		 {
+		    			 Integer newView=Integer.parseInt(aChoice);
+		    	 
+		    			 if (internalDocument!=null)
+		    			 {
+		    				 showText (internalDocument.toText (newView));
+		    			 }
+		    		 }
+		    		 else
+		    			 showText (internalDocument.toText (0));
+		    	 }
+		    	 else
+	    			 showText (internalDocument.toText (0));
+		    	 
+		    	 return;
+		     }
+		     
+		     if (cb==renderType)
+		     {
+		    	 String aChoice=(String)renderType.getSelectedItem();
+		    	 
+		    	 if (aChoice.equalsIgnoreCase("txt")==true)
+		    		 textViewer.setContentType("text/text");
+		    	 
+		    	 if (aChoice.equalsIgnoreCase("html")==true)
+		    		 textViewer.setContentType("text/html");
+		    	 
+		    	 if (aChoice.equalsIgnoreCase("rtf")==true)
+		    		 textViewer.setContentType("text/rtf");
+		    	 
+		    	 if (aChoice.equalsIgnoreCase("xml")==true)
+		    	 {
+		    		 
+		    	 }
+		    	 
+		    	 if (aChoice.equalsIgnoreCase("tokens")==true)
+		    	 {
+		    		 
+		    	 }		
+		    	 
+		    	 return;		    	 
+		     }
+		     
+		     if (cb==contentType)
+		     {
+		    	 String aChoice=(String)contentType.getSelectedItem();
+		    	 
+		    	 if (aChoice.equalsIgnoreCase("MAIN TEXT")==true)
+		    	 {
+		    		 filterText.setEnabled(true);
+		    		 renderType.setEnabled(true);
+		    		 
+		    		 showText (internalDocument.toText ());
+		    	 }
+		    	 
+		    	 if (aChoice.equalsIgnoreCase("ABSTRACT")==true)
+		    	 {
+		    		 renderType.setEnabled(false);
+		    		 filterText.setEnabled(false);
+		    		 
+		    		 showText (internalDocument.toAbstract ());
+		    	 }
+		    	 
+		    	 return;		    	 
+		     }
+		}	    
 	}
 	/**
 	 * 

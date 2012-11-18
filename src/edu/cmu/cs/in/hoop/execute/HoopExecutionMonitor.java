@@ -39,4 +39,15 @@ public interface HoopExecutionMonitor
 	 * 
 	 */
 	public void reset();
+	
+	/**
+	 * 
+	 */
+	public void start ();
+		
+	/**
+	 * 
+	 */
+	public void stop ();	
+	
 }

@@ -34,7 +34,13 @@ public class HoopVisual extends HoopRoot
 	protected int originalWidth=150; 
 	protected int originalHeight=100;	
 	
-	private Boolean highlighted=false; // used by HoopJCheckListItem
+	// used by HoopJCheckListItem
+	private Boolean highlighted=false;
+	
+	// used by HoopExecutionListRenderer
+	public Long duration=(long) 1;
+	public int durationOffset=0;
+	public int durationWidth=1;
 	
 	/**
 	 *

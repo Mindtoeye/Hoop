@@ -33,8 +33,13 @@ public class HoopProgressPainter extends HoopJPanel
 {
 	private static final long serialVersionUID = 8372398146730004932L;
 	
+	/*
 	private long currentLevel=1;
 	private long maxLevel=1;
+	*/
+	
+	private int currentLevel=1;
+	private int maxLevel=1;	
 	
 	/**
 	 * Creates a new JPanel with a double buffer and a flow layout.
@@ -47,6 +52,7 @@ public class HoopProgressPainter extends HoopJPanel
 	/**
 	 * 
 	 */
+	/*
 	public void setLevels (long aCurrent,long aMax)
 	{
 		currentLevel=aCurrent;
@@ -55,9 +61,45 @@ public class HoopProgressPainter extends HoopJPanel
 		if (currentLevel==0) // Otherwise divide by zero
 			currentLevel=1;	 
 	}
+	*/
 	/**
 	 * 
 	 */
+	public void setLevels (int aCurrent,int aMax)
+	{
+		currentLevel=aCurrent;
+		maxLevel=aMax;
+		
+		if (currentLevel==0) // Otherwise divide by zero
+			currentLevel=1;	 
+	}	
+	/**
+	 * 
+	 */
+	@Override
+	protected void paintComponent(Graphics g)
+	{
+		Graphics2D g2 = (Graphics2D)g.create();
+
+		Paint p = new GradientPaint (0,
+									 4, 
+									 new Color(180,180,180),
+									 0,
+									 getHeight ()-8,
+									 new Color(220,220,220),
+									 true);
+
+		int width=(maxLevel-4);
+								
+		g2.setPaint (p);
+		g2.fillRect (currentLevel,2,width,getHeight()-4);
+		
+		g2.setColor(new Color (0,0,0));
+		g2.drawRect(currentLevel,2, width,this.getHeight()-4);
+		
+		g2.dispose ();
+	}
+	/*
 	@Override
 	protected void paintComponent(Graphics g)
 	{
@@ -89,4 +131,5 @@ public class HoopProgressPainter extends HoopJPanel
 		
 		g2.dispose ();
 	}
+	*/	
 }

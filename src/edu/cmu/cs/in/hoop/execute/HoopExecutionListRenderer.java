@@ -42,6 +42,11 @@ import edu.cmu.cs.in.stats.HoopPerformanceMetrics;
 public class HoopExecutionListRenderer extends HoopJPanel implements ListCellRenderer 
 {
 	private static final long serialVersionUID = -2950497524627822787L;
+	
+	public static int MODEDEFAULT=0;
+	public static int MODESTAGGERED=1;
+	
+	public static int mode=MODEDEFAULT;
 		  
 	private JLabel textInfo=null;
 	private JLabel stateInfo=null;
@@ -51,7 +56,10 @@ public class HoopExecutionListRenderer extends HoopJPanel implements ListCellRen
 		
 	private int maxHeight=18;
 	
-	public static long maxMs=1;
+	public static Long maxMs=(long) 1;
+	public static Long totalMs=(long) 1;
+	public static int totalWidth=-1;
+	public static int totalCount=1;
 		
 	/**
 	 * 
@@ -92,9 +100,9 @@ public class HoopExecutionListRenderer extends HoopJPanel implements ListCellRen
 			
 		cycleIndicator=new JLabel ();
 		cycleIndicator.setFont(new Font("Dialog", 1, 10));
-		cycleIndicator.setMinimumSize(new Dimension (30,maxHeight));
-		cycleIndicator.setPreferredSize(new Dimension (30,maxHeight));
-		cycleIndicator.setMaximumSize(new Dimension (30,maxHeight));
+		cycleIndicator.setMinimumSize(new Dimension (40,maxHeight));
+		cycleIndicator.setPreferredSize(new Dimension (40,maxHeight));
+		cycleIndicator.setMaximumSize(new Dimension (40,maxHeight));
 		this.add (cycleIndicator);
 		
 		JSeparator sep3=new JSeparator(SwingConstants.VERTICAL);
@@ -130,6 +138,8 @@ public class HoopExecutionListRenderer extends HoopJPanel implements ListCellRen
 		  										   boolean cellHasFocus) 
 	{			  
 		//>---------------------------------------------------------
+		
+		HoopExecutionListRenderer.totalWidth=progressIndicator.getWidth();
 			  
 		if (value instanceof HoopBase)
 		{
@@ -149,7 +159,8 @@ public class HoopExecutionListRenderer extends HoopJPanel implements ListCellRen
 												
 				timeIndicator.setText(formatDuration (result));
 				
-				progressIndicator.setLevels(metrics.getYValue(),HoopExecutionListRenderer.maxMs);
+				//progressIndicator.setLevels(metrics.getYValue(),HoopExecutionListRenderer.maxMs);
+				progressIndicator.setLevels(aHoop.durationOffset,aHoop.durationWidth);
 			}
 		}
 			  

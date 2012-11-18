@@ -98,6 +98,7 @@ public class HoopExecuteInEditor extends HoopExecute implements ActionListener
 		if (HoopLink.executionMonitor!=null)
 		{
 			HoopLink.executionMonitor.reset ();
+			HoopLink.executionMonitor.start ();
 		}
 		
 		HoopLink.runner=this;
@@ -131,6 +132,11 @@ public class HoopExecuteInEditor extends HoopExecute implements ActionListener
 	protected void endExecution ()
 	{
 		debug ("endExecution ()");
+		
+		if (HoopLink.executionMonitor!=null)
+		{	
+			HoopLink.executionMonitor.stop ();
+		}
 		
 		HoopGraphEditor editor=(HoopGraphEditor) HoopLink.getWindow("Hoop Editor");
 		

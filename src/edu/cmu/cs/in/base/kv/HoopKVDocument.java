@@ -394,7 +394,6 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 		
 		this.bump (cleanText,"Cleaned");
 		
-		/*
 		if (abstr.getValue().isEmpty()==true)
 		{						
 			if (cleanText.length()>abstrSize)
@@ -406,7 +405,6 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 				abstr.setValue(cleanText);
 			}
 		}
-		*/
 		
 		createBasicTokens (cleanText);
 		

@@ -18,9 +18,9 @@
 
 package edu.cmu.cs.in.controls.dialogs;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
@@ -31,6 +31,9 @@ import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+
+import java.lang.management.ManagementFactory;
+import java.lang.management.RuntimeMXBean;
 
 import edu.cmu.cs.in.controls.base.HoopJDialog;
 
@@ -110,6 +113,23 @@ public class HoopEnvironmentInspector extends HoopJDialog implements ActionListe
 			formatter.append(envName);
 			formatter.append ("=");
 			formatter.append(env.get(envName));
+			
+			debug (formatter.toString());
+			
+			model.addElement(formatter.toString());
+        }
+        
+        debug ("VM properties: ");
+        
+        RuntimeMXBean RuntimemxBean = ManagementFactory.getRuntimeMXBean();
+        List<String> arguments = RuntimemxBean.getInputArguments();
+        
+        for (int t=0;t<arguments.size();t++) 
+        {        	
+			StringBuffer formatter=new StringBuffer ();
+			
+			formatter.append("(VM) "); 		
+			formatter.append(arguments.get(t));
 			
 			debug (formatter.toString());
 			
