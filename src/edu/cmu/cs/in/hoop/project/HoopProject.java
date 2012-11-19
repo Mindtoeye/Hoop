@@ -469,9 +469,11 @@ public class HoopProject extends HoopProjectFile
 		else
 			HoopLink.dataSet.checkDB();			
 		
-		// Then scan the project directory for any new files ...
+		debug ("scan the project directory for any new files ...");
 		
 		ArrayList <String> testList=HoopLink.fManager.listDirectoryEntries(getBasePath ());
+		
+		debug ("Found " + testList.size() + " files");
 		
 		for (int i=0;i<testList.size();i++)
 		{

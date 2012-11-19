@@ -293,6 +293,8 @@ public class HoopDocumentList extends HoopEmbeddedJPanel implements ActionListen
 			HoopLink.dataSet=new HoopDataSet ();
 
 		HoopLink.dataSet.checkDB();
+		
+		debug ("Dataset checked, showing first entries in document list ...");
 
 		StoredMap<Long,HoopKVDocument> map=HoopLink.dataSet.getData();
 		

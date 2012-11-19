@@ -27,13 +27,15 @@ import com.sleepycat.collections.TransactionWorker;
 import com.sleepycat.je.DatabaseException;
 import com.sleepycat.je.Environment;
 import com.sleepycat.je.EnvironmentConfig;
+import com.sleepycat.je.ExceptionEvent;
+import com.sleepycat.je.ExceptionListener;
 
 import edu.cmu.cs.in.base.HoopRoot;
 
 /**
 *
 */
-public class HoopBerkeleyDB extends HoopRoot implements TransactionWorker
+public class HoopBerkeleyDB extends HoopRoot implements TransactionWorker, ExceptionListener
 {
     private EnvironmentConfig envConfig=null;	
     private Environment       env=null;
@@ -133,6 +135,7 @@ public class HoopBerkeleyDB extends HoopRoot implements TransactionWorker
         // environment is transactional
         envConfig=new EnvironmentConfig();
         envConfig.setTransactional(true);
+        envConfig.setExceptionListener(this);
         
         if (create==true) 
         {
@@ -141,7 +144,7 @@ public class HoopBerkeleyDB extends HoopRoot implements TransactionWorker
         }
         
         env=new Environment(new File(dbDir), envConfig);
-                
+                       
         try 
         {
         	mainDB=findDB (MainDB);
@@ -450,4 +453,12 @@ public class HoopBerkeleyDB extends HoopRoot implements TransactionWorker
     	
         System.out.print(env.getStats(null).toString());    	    	
     }
+    /**
+     * 
+     */
+	@Override
+	public void exceptionThrown(ExceptionEvent arg0) 
+	{
+		debug ("exceptionThrown ()");		
+	}
 }
