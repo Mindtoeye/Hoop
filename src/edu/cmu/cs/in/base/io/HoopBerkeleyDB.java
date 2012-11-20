@@ -217,6 +217,7 @@ public class HoopBerkeleyDB extends HoopRoot implements TransactionWorker, Excep
         // environment is transactional
         envConfig=new EnvironmentConfig();
         envConfig.setTransactional(true);
+        envConfig.setExceptionListener(this);
         
         if (create==true) 
         {

@@ -302,8 +302,10 @@ public class HoopDocumentList extends HoopEmbeddedJPanel implements ActionListen
 		{
 			return;
 		}
-								
+										
 		DefaultListModel mdl=new DefaultListModel ();
+		
+		debug ("There are currently " + map.size() + " entries available");
 				
 		Integer sizeTransformer=map.size();
 		
@@ -322,6 +324,8 @@ public class HoopDocumentList extends HoopEmbeddedJPanel implements ActionListen
 			while ((iterator.hasNext()) && (index<count)) 
 			{
 				HoopKVDocument aDoc=(HoopKVDocument) iterator.next();
+			
+				debug ("Adding document ...");
 				
 				mdl.addElement(aDoc);
 				
