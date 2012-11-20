@@ -19,6 +19,7 @@
 package edu.cmu.cs.in.base.io;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import com.sleepycat.bind.serial.StoredClassCatalog;
@@ -30,9 +31,12 @@ import com.sleepycat.je.EnvironmentConfig;
 import com.sleepycat.je.ExceptionEvent;
 import com.sleepycat.je.ExceptionListener;
 
+import java.util.logging.FileHandler;
 import java.util.logging.Level;
+import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
+import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.HoopRoot;
 
 /**
@@ -43,6 +47,8 @@ public class HoopBerkeleyDB extends HoopRoot implements TransactionWorker, Excep
     private EnvironmentConfig envConfig=null;	
     private Environment       env=null;
 
+	private FileHandler fh=null; // for logging purposes
+    
     private boolean dbDisabled=false;
     private boolean create = true;
     public boolean dumpDatabase=false;
@@ -119,12 +125,61 @@ public class HoopBerkeleyDB extends HoopRoot implements TransactionWorker, Excep
 	 * 
 	 */
 	public long getCacheMisses ()
-	{
-		
+	{		
 		long cacheMisses = env.getStats(null).getNCacheMiss();
 		
 		return (cacheMisses);
 	}	
+	/**
+	 * 
+	 */
+	private void configureLogging ()
+	{
+		debug ("configureLogging ()");
+		
+		envConfig.setConfigParam(EnvironmentConfig.FILE_LOGGING_LEVEL, "ALL");
+		//envConfig.setConfigParam(EnvironmentConfig.CONSOLE_LOGGING_LEVEL, "ALL");
+		
+		LogManager lm = LogManager.getLogManager();
+		
+		String logPath=HoopLink.project.getBasePath()+"//logs";
+		
+		File logDir=new File (logPath);
+		
+		if (logDir.exists()==false)
+		{
+			debug ("Directory doesn't exist yet, creating ...");
+			logDir.mkdirs();
+		}
+		
+		debug ("Configuring logging to go to: " + logPath);
+		
+		try 
+		{
+			fh = new FileHandler(logPath+"//je.log.txt");
+		} 
+		catch (SecurityException e1) 
+		{
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} 
+		catch (IOException e1) 
+		{
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		Logger logger = Logger.getLogger ("com.sleepycat.je");
+
+		//logger.setLevel(Level.INFO);		
+		logger.setLevel(Level.FINE);
+		
+		lm.addLogger(logger);
+		
+		logger.addHandler(fh);
+				
+		logger.log(Level.INFO, "BerkeleyDB logging enabled");		
+	}
 	/**
 	 * 
 	 */
@@ -135,20 +190,13 @@ public class HoopBerkeleyDB extends HoopRoot implements TransactionWorker, Excep
 		if (getDbStarted()==true)
 			return (true);
 		
-		//com.sleepycat.je.util.FileHandler.level=ALL;
-		//com.sleepycat.je.util.ConsoleHandler.level=ALL;
-		
-		Logger parent = Logger.getLogger("com.sleepycat.je");
-		parent.setLevel(Level.FINE);  // Loggers will now publish more detailed messages.   
-		
         // environment is transactional
         envConfig=new EnvironmentConfig();
         envConfig.setTransactional(true);
         envConfig.setExceptionListener(this);
         
-        envConfig.setConfigParam(EnvironmentConfig.FILE_LOGGING_LEVEL, "ALL");
-        envConfig.setConfigParam(EnvironmentConfig.CONSOLE_LOGGING_LEVEL, "ALL");
-        
+		configureLogging ();
+                
         if (create==true) 
         {
         	debug ("EnvironmentConfig.setAllowCreate(true);");
@@ -213,11 +261,13 @@ public class HoopBerkeleyDB extends HoopRoot implements TransactionWorker, Excep
 		
 		if (getDbStarted()==true)
 			return (true);
-		
+				
         // environment is transactional
         envConfig=new EnvironmentConfig();
         envConfig.setTransactional(true);
         envConfig.setExceptionListener(this);
+        
+		configureLogging ();
         
         if (create==true) 
         {
@@ -402,6 +452,10 @@ public class HoopBerkeleyDB extends HoopRoot implements TransactionWorker, Excep
     	debug ("close ()");
     	
     	dbDisabled=true;
+    	
+    	debug ("Closing log ...");
+    	
+    	fh.close();
     	        
         debug("Closing databases ...");
                         

@@ -785,7 +785,7 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 		
 		debug ("tmpIndex: " + bCount + ", retTotal: " + retTotal);
 		
-		getVisualizer ().setExecutionInfo (" R: " + bCount + " = ("+retTotal+") out of " + loadMax);
+		getVisualizer ().setExecutionInfo (" R: " + bCount + " = ("+(loadIndex+count)+") out of " + loadMax);
 		
 	    loadIndex+=count;
 	    
