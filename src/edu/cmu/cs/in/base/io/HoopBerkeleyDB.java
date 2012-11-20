@@ -30,6 +30,9 @@ import com.sleepycat.je.EnvironmentConfig;
 import com.sleepycat.je.ExceptionEvent;
 import com.sleepycat.je.ExceptionListener;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import edu.cmu.cs.in.base.HoopRoot;
 
 /**
@@ -132,10 +135,19 @@ public class HoopBerkeleyDB extends HoopRoot implements TransactionWorker, Excep
 		if (getDbStarted()==true)
 			return (true);
 		
+		//com.sleepycat.je.util.FileHandler.level=ALL;
+		//com.sleepycat.je.util.ConsoleHandler.level=ALL;
+		
+		Logger parent = Logger.getLogger("com.sleepycat.je");
+		parent.setLevel(Level.FINE);  // Loggers will now publish more detailed messages.   
+		
         // environment is transactional
         envConfig=new EnvironmentConfig();
         envConfig.setTransactional(true);
         envConfig.setExceptionListener(this);
+        
+        envConfig.setConfigParam(EnvironmentConfig.FILE_LOGGING_LEVEL, "ALL");
+        envConfig.setConfigParam(EnvironmentConfig.CONSOLE_LOGGING_LEVEL, "ALL");
         
         if (create==true) 
         {
