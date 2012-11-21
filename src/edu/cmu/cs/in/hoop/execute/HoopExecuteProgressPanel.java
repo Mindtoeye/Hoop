@@ -293,6 +293,11 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 			
 			Long aMeasure=metrics.getYValue();
 			
+			if (HoopExecutionListRenderer.modeTime==HoopExecutionListRenderer.TIMEAVERAGE)
+			{
+				aMeasure=(long) Math.round(metrics.getAverage());
+			}
+			
 			if (aMeasure==0)
 				aMeasure=(long) 1;
 			
