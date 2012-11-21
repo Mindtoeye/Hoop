@@ -289,19 +289,22 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 		{
 			HoopBase aHoop=(HoopBase) model.get(t);
 			
-			HoopPerformanceMetrics metrics=aHoop.getPerformanceMetrics();
+			if (aHoop.getExecutionCount()>0)
+			{
+				HoopPerformanceMetrics metrics=aHoop.getPerformanceMetrics();
 			
-			Long aMeasure=metrics.getYValue();
+				Long aMeasure=metrics.getYValue();
 			
-			if (aMeasure==0)
-				aMeasure=(long) 1;
+				if (aMeasure==0)
+					aMeasure=(long) 1;
 			
-			aHoop.duration=aMeasure;
+				aHoop.duration=aMeasure;
 			
-			totalMeasure+=aMeasure;
+				totalMeasure+=aMeasure;
 			
-			if (aMeasure>HoopExecutionListRenderer.maxMs)
-				HoopExecutionListRenderer.maxMs=aMeasure;				
+				if (aMeasure>HoopExecutionListRenderer.maxMs)
+					HoopExecutionListRenderer.maxMs=aMeasure;
+			}	
 		}
 		
 		debug ("Max time: " + HoopExecutionListRenderer.maxMs + "ms, total: " + totalMeasure + ", for pixel count: " + HoopExecutionListRenderer.totalWidth + ", with " + HoopExecutionListRenderer.totalCount + " hoops");
@@ -320,16 +323,20 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 		{
 			HoopBase aHoop=(HoopBase) model.get(i);
 			
-			float mult=totalMeasure/aHoop.duration;
+			if (aHoop.getExecutionCount()>0)
+			{			
+				float mult=aHoop.duration/totalMeasure;
 			
-			debug ("mult: " + mult);
+				debug ("duration: " + aHoop.duration + ", mult: " + mult);
 			
-			aHoop.durationOffset=offset;
-			aHoop.durationWidth=(int) (divver*mult);
+				aHoop.durationOffset=offset;
+				//aHoop.durationWidth=(int) (divver*mult);
+				aHoop.durationWidth=(int) (aHoop.duration/divver);
 			
-			debug ("Offset: " + offset + ", width: " + aHoop.durationWidth);
+				debug ("Offset: " + offset + ", width: " + aHoop.durationWidth);
 			
-			offset+=aHoop.durationWidth;
+				offset+=aHoop.durationWidth;
+			}	
 		}		
 	}	
 	/**
