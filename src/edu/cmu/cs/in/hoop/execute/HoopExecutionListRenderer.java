@@ -141,7 +141,7 @@ public class HoopExecutionListRenderer extends HoopJPanel implements ListCellRen
 		  										   int index,
 		  										   boolean isSelected, 
 		  										   boolean cellHasFocus) 
-	{			  
+	{
 		//>---------------------------------------------------------
 		
 		HoopExecutionListRenderer.totalWidth=progressIndicator.getWidth();
