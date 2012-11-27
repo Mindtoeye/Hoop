@@ -246,7 +246,9 @@ public class HoopDocumentReader extends HoopLoadBase
 			
 			if (aDocument.threadStarter.getValue ().equals("1")==true)
 			{
-				debug ("Thread starter: " + aDocument.documentID.getValue());
+				debug ("Thread starter: " + aDocument.documentID.getValue() + " adding document ...");
+				
+				this.addKV(aDocument);
 			}
 		}
 	}
