@@ -40,7 +40,6 @@ import javax.swing.border.TitledBorder;
 import edu.cmu.cs.in.base.kv.HoopKVDocument;
 import edu.cmu.cs.in.controls.base.HoopJPanel;
   
-//public class HoopDocumentListRenderer extends HoopJPanel implements ListCellRenderer<Object>
 public class HoopDocumentListRenderer extends HoopJPanel implements ListCellRenderer
 {
 	private static final long serialVersionUID = 1L;
@@ -52,7 +51,6 @@ public class HoopDocumentListRenderer extends HoopJPanel implements ListCellRend
 	private Border border=null;
 	private Border selectedBorder=null;
 	private Border defaultBorder=null;
-	//private HoopDateTools dTools=null;
 	
     private JPanel colorPicker=null;
     
@@ -114,6 +112,25 @@ public class HoopDocumentListRenderer extends HoopJPanel implements ListCellRend
 	/**
 	 * 
 	 */
+	public void reset ()
+	{
+		debug ("reset ()");
+		
+		docLabel.setText("");
+		
+		text.setText("");
+		
+		text.setBackground(new Color (255,255,255));
+		this.setBorder (BorderFactory.createTitledBorder (selectedBorder,
+														  "",
+														  TitledBorder.LEFT, 
+														  TitledBorder.TOP,
+														  new Font("Dialog", 1, 10)));			
+		text.setCaretPosition(0);		
+	}
+	/**
+	 * 
+	 */
 	public Component getListCellRendererComponent  (JList listBox, 
 													Object obj, 
 													int currentindex, 
@@ -129,21 +146,7 @@ public class HoopDocumentListRenderer extends HoopJPanel implements ListCellRend
 		aDoc=(HoopKVDocument) obj;
 								
 		docLabel.setText("Rank: "+(aDoc.getRank()+1)+" Evaluation: " + aDoc.getScore() + " | " + aDoc.createDate.getValue());
-		
-		/*
-		Long timeStamp=(long) -1;
-		
-		if ((dTools==null) && (aDoc.dateFormat!=null))
-		{
-			dTools=new HoopDateTools ();
-			dTools.setDateFormat(aDoc.dateFormat.getValue()); // This way we only do it once
-		}
-
-		timeStamp=dTools.StringToDate(aDoc.createDate.getValue());
-					
-		text.setText(timeStamp.toString() + " - " + aDoc.abstr.getValue());
-		*/
-		
+				
 		text.setText(aDoc.abstr.getValue());
 		
 		showSelection (hasFocus);

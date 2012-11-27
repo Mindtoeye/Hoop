@@ -54,13 +54,12 @@ import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 import edu.cmu.cs.in.search.HoopDataSet;
 
 /** 
- * @author vvelsen
  *
  */
 public class HoopDocumentList extends HoopEmbeddedJPanel implements ActionListener, MouseListener
 {	
 	private static final long serialVersionUID = 2319368351656283482L;
-	private JList docList=null;
+	private JList<HoopKVDocument> docList=null;
 	
     private JButton expandButton=null;
     private JButton foldButton=null;
@@ -88,6 +87,8 @@ public class HoopDocumentList extends HoopEmbeddedJPanel implements ActionListen
     
     private JButton treeExpandButton=null;
     private JButton treeFoldButton=null;
+    
+    private HoopDocumentListRenderer rendererObject=null;
         
 	/**
 	 * Constructs a new frame that is initially invisible.
@@ -210,8 +211,10 @@ public class HoopDocumentList extends HoopEmbeddedJPanel implements ActionListen
 	    	   		   	
 	    searchBox.addComponent(sortButton);
 	    
-	   	docList=new JList ();	   	
-		docList.setCellRenderer (new HoopDocumentListRenderer ());
+	    rendererObject=new HoopDocumentListRenderer ();
+	    
+	   	docList=new JList<HoopKVDocument> ();	   	
+		docList.setCellRenderer (rendererObject);
 		docList.addMouseListener(this);
 		
 	    JScrollPane docScrollList = new JScrollPane (docList);
@@ -283,6 +286,26 @@ public class HoopDocumentList extends HoopEmbeddedJPanel implements ActionListen
 		updateContents(); // Just in case we already have something
 	}
 	/**
+	 * 
+	 */
+	public void reset ()
+	{
+		debug ("reset ()");
+				
+		DefaultListModel<HoopKVDocument> mdl=new DefaultListModel<HoopKVDocument> ();
+		
+		docList.setModel (mdl);
+		
+	   	DefaultMutableTreeNode root = new DefaultMutableTreeNode("Threads");	   	
+    	root.setUserObject("Threads");
+		
+	   	DefaultTreeModel model = new DefaultTreeModel(root);		
+		
+		threadTree.setModel(model);
+		
+		rendererObject.reset ();
+	}
+	/**
 	 *
 	 */	
 	public void updateContents() 
@@ -303,7 +326,7 @@ public class HoopDocumentList extends HoopEmbeddedJPanel implements ActionListen
 			return;
 		}
 										
-		DefaultListModel mdl=new DefaultListModel ();
+		DefaultListModel<HoopKVDocument> mdl=new DefaultListModel<HoopKVDocument> ();
 		
 		debug ("There are currently " + map.size() + " entries available");
 				

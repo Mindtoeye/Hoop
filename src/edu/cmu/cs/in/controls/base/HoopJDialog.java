@@ -43,12 +43,13 @@ public class HoopJDialog extends JDialog implements ActionListener
 {
 	private static final long serialVersionUID = 9207892759985898888L;
 	
-	public static final int YES=0;
-	public static final int NO=1;
-	public static final int CANCEL=2;
-	public static final int YESNO=3;
-	public static final int OK=4;
-	public static final int OKCANCEL=5;
+	public static final int NONE=0;
+	public static final int YES=1;
+	public static final int NO=2;
+	public static final int CANCEL=3;
+	public static final int YESNO=4;
+	public static final int OK=5;
+	public static final int OKCANCEL=6;
 		
 	protected JPanel myPanel = null;
     protected JButton yesButton = null;

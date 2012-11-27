@@ -34,6 +34,7 @@ import edu.cmu.cs.in.base.io.HoopMessageReceiver;
 import edu.cmu.cs.in.controls.HoopControlTools;
 import edu.cmu.cs.in.controls.HoopJFileChooser;
 import edu.cmu.cs.in.controls.HoopSentenceWall;
+import edu.cmu.cs.in.controls.base.HoopJDialog;
 import edu.cmu.cs.in.controls.dialogs.HoopCleanProjectDialog;
 import edu.cmu.cs.in.controls.dialogs.HoopGenericNameDialog;
 import edu.cmu.cs.in.controls.dialogs.HoopGenericProgressdialog;
@@ -1162,23 +1163,35 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 	    	{
 	    		propPanel.reset();
 	    	}			
+	    	
+	    	HoopDocumentList docList=(HoopDocumentList) HoopLink.getWindow("Document List");
+			if (docList!=null)
+			{
+				docList.reset ();
+			}	    	
 			
            	File file = fc.getSelectedFile();
 
            	debug ("Loading: " + file.getAbsolutePath() + " ...");
-               
+                          	
+       		startWaitCursor ();
+           		
+       		HoopJDialog waiter=new HoopJDialog (HoopJDialog.NONE,HoopLink.mainFrame,false,"Please wait, loading ...");
+       		waiter.setVisible (true);
+       		
            	try
            	{
-           		startWaitCursor ();
-           	
            		HoopLink.project=new HoopProject (); // Blatantly whipe it
-           		HoopLink.project.load(file.getAbsolutePath());
+           		HoopLink.project.load(file.getAbsolutePath());           		
            	}
            	finally
            	{
-           		endWaitCursor ();
+
            	}	
-           		
+
+       		endWaitCursor ();
+       		waiter.setVisible (false);
+           	
            	// Do a ton of housekeeping here ...
            		
            	HoopGraphEditor win=(HoopGraphEditor) HoopLink.getWindow("Hoop Editor");
@@ -1188,7 +1201,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
            		win=new HoopGraphEditor ();
            		addView ("Hoop Editor",win,HoopLink.center);
            	}
-           		           		
+
            	HoopGraphFile graphFile=(HoopGraphFile) HoopLink.project.getFileByClass ("HoopGraphFile");
            	if (graphFile!=null)
            	{
@@ -1207,14 +1220,14 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 		}
 		
 		refreshProjectPane ();
-		
+
 		HoopDocumentList docList=(HoopDocumentList) HoopLink.getWindow("Document List");
-		
+
 		if (docList!=null)
 			docList.updateContents();
-		
+
 		//updateAllWindows ();
-			
+
 		return (true);
 	}
 	/**

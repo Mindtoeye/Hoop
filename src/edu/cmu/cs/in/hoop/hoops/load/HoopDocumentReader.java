@@ -40,7 +40,7 @@ public class HoopDocumentReader extends HoopLoadBase
 	private Iterator<HoopKVDocument> dbIterator = null;
 	
 	private boolean newRun=true;
-		
+
 	/**
 	 *
 	 */ 
@@ -54,7 +54,7 @@ public class HoopDocumentReader extends HoopLoadBase
 		removeInPort ("KV");
 		enableProperty ("URI",false);
 		
-		selectedField=new HoopEnumSerializable (this,"selectedField","title,author,abstr,text,createDate,modifiedDate,keywords,url,description,tokens");
+		selectedField=new HoopEnumSerializable (this,"selectedField","title,author,abstr,text,createDate,modifiedDate,keywords,url,description,tokens,thread");
 	}
 	/**
 	 * 
@@ -157,11 +157,7 @@ public class HoopDocumentReader extends HoopLoadBase
 		debug ("loadDataObject ("+anIndex+")");
 		
 		HoopKVDocument aDoc=(HoopKVDocument) dbIterator.next();
-		
-		//StoredMap<Long, HoopKVDocument> inp=HoopLink.dataSet.getData();
 				
-		//HoopKVDocument aDocument=inp.get(anIndex);
-		
 		processDocument (aDoc);		
 		
 		return (true);
@@ -242,7 +238,17 @@ public class HoopDocumentReader extends HoopLoadBase
 		if (selectedField.getValue().equalsIgnoreCase("url")==true)
 		{
 			this.addKV(new HoopKVString (aDocument.getKeyString(),aDocument.url.getValue()));
-		}				
+		}
+		
+		if (selectedField.getValue().equalsIgnoreCase("thread")==true)
+		{
+			//debug ("Scanning for thread starter ("+aDocument.threadStarter.getValue()+") for this document ...");
+			
+			if (aDocument.threadStarter.getValue ().equals("1")==true)
+			{
+				debug ("Thread starter: " + aDocument.documentID.getValue());
+			}
+		}
 	}
 	/**
 	 * 

@@ -24,6 +24,8 @@ import java.util.Set;
 
 import javax.swing.*;
 
+import edu.cmu.cs.in.HoopApplicationInstanceListener;
+import edu.cmu.cs.in.HoopApplicationManager;
 import edu.cmu.cs.in.base.HoopRoot;
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.io.HoopClassLoader;
@@ -117,6 +119,22 @@ public class Hoop
 	 */	
     public static void main( String[] args ) 
     {
+    	if (!HoopApplicationManager.registerInstance()) 
+    	{
+    		// instance already running.
+    		HoopRoot.debug ("Hoop","Another instance of Hoop is already running. Exiting...");
+    		System.exit(0);
+    	}
+            
+    	HoopApplicationManager.setApplicationInstanceListener(new HoopApplicationInstanceListener() 
+    	{
+    		public void newInstanceCreated() 
+    		{
+    			HoopRoot.debug ("Hoop","New instance detected...");
+    			//this is where your handler code goes...
+    		}
+    	});
+    	    	
     	/*
     	 * Tell Swing that we need Popup Menus to be heavyweight. The Java 3D
     	 * window is a heavyweight window – that is, the window is a native
