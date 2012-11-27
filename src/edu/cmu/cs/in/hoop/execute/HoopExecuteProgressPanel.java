@@ -25,7 +25,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.concurrent.TimeUnit;
 
-import javax.swing.BorderFactory;
+//import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -345,8 +345,8 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 		{
 			HoopBase aHoop=(HoopBase) model.get(i);
 			
-			if (aHoop.getExecutionCount()>0)
-			{			
+			if ((aHoop.getExecutionCount()>0) && (aHoop.getExecutionState().equals("STOPPED")==true))
+			{							
 				float mult=aHoop.duration/totalMeasure;
 			
 				debug ("duration: " + aHoop.duration + ", mult: " + mult);

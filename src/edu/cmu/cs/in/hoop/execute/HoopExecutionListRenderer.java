@@ -65,7 +65,7 @@ public class HoopExecutionListRenderer extends HoopJPanel implements ListCellRen
 	public static Long totalMs=(long) 1;
 	public static int totalWidth=-1;
 	public static int totalCount=1;
-		
+			
 	/**
 	 * 
 	 */	
@@ -132,7 +132,7 @@ public class HoopExecutionListRenderer extends HoopJPanel implements ListCellRen
 		progressIndicator=new HoopProgressPainter ();			
 		progressIndicator.setFont(new Font("Dialog", 1, 10));
 		this.add (progressIndicator);			
-	}
+	}	
 	/**
 	 * 
 	 */
@@ -153,26 +153,33 @@ public class HoopExecutionListRenderer extends HoopJPanel implements ListCellRen
 			textInfo.setText(aHoop.getClassName());
 				
 			stateInfo.setText(aHoop.getExecutionState());
-								  
-			HoopPerformanceMetrics metrics=aHoop.getPerformanceMetrics();
-				  
-			if (metrics!=null)
-			{				
-				cycleIndicator.setText("Ex: "+aHoop.getExecutionCount());
 			
-				if (HoopExecutionListRenderer.modeTime==HoopExecutionListRenderer.TIMEAVERAGE)
-				{
-					timeIndicator.setText("~"+metrics.getAverage());
-				}
-				else
-				{
-					Long result=metrics.getYValue();
-					timeIndicator.setText(formatDuration (result));
-				}	
+			if (aHoop.getExecutionState().equals("STOPPED")==true)
+			{				  
+				progressIndicator.setEnabled(true);
 				
-				//progressIndicator.setLevels(metrics.getYValue(),HoopExecutionListRenderer.maxMs);
-				progressIndicator.setLevels(aHoop.durationOffset,aHoop.durationWidth);
-			}
+				HoopPerformanceMetrics metrics=aHoop.getPerformanceMetrics();
+				  
+				if (metrics!=null)
+				{				
+					cycleIndicator.setText("Ex: "+aHoop.getExecutionCount());
+			
+					if (HoopExecutionListRenderer.modeTime==HoopExecutionListRenderer.TIMEAVERAGE)
+					{
+						timeIndicator.setText("~"+metrics.getAverage());
+					}
+					else
+					{
+						Long result=metrics.getYValue();
+						timeIndicator.setText(formatDuration (result));
+					}	
+				
+					// progressIndicator.setLevels(metrics.getYValue(),HoopExecutionListRenderer.maxMs);
+					progressIndicator.setLevels(aHoop.durationOffset,aHoop.durationWidth);
+				}
+			}	
+			else
+				progressIndicator.setEnabled(false);
 		}
 			  
 		//>---------------------------------------------------------			  

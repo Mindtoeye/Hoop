@@ -32,14 +32,11 @@ import edu.cmu.cs.in.controls.base.HoopJPanel;
 public class HoopProgressPainter extends HoopJPanel 
 {
 	private static final long serialVersionUID = 8372398146730004932L;
-	
-	/*
-	private long currentLevel=1;
-	private long maxLevel=1;
-	*/
-	
+		
 	private int currentLevel=1;
 	private int maxLevel=1;	
+	
+	private Boolean hoopEnabled=false;
 	
 	/**
 	 * Creates a new JPanel with a double buffer and a flow layout.
@@ -51,17 +48,18 @@ public class HoopProgressPainter extends HoopJPanel
 	}
 	/**
 	 * 
-	 */
-	/*
-	public void setLevels (long aCurrent,long aMax)
+	 */	
+	public Boolean getHoopEnabled() 
 	{
-		currentLevel=aCurrent;
-		maxLevel=aMax;
-		
-		if (currentLevel==0) // Otherwise divide by zero
-			currentLevel=1;	 
+		return hoopEnabled;
 	}
-	*/
+	/**
+	 * 
+	 */	
+	public void setHoopEnabled(Boolean hoopEnabled) 
+	{
+		this.hoopEnabled = hoopEnabled;
+	}	
 	/**
 	 * 
 	 */
@@ -79,57 +77,27 @@ public class HoopProgressPainter extends HoopJPanel
 	@Override
 	protected void paintComponent(Graphics g)
 	{
-		Graphics2D g2 = (Graphics2D)g.create();
+		if (getHoopEnabled ()==true)
+		{
+			Graphics2D g2 = (Graphics2D)g.create();
 
-		Paint p = new GradientPaint (0,
-									 4, 
-									 new Color(180,180,180),
-									 0,
-									 getHeight ()-8,
-									 new Color(220,220,220),
-									 true);
+			Paint p = new GradientPaint (0,
+										4, 
+										new Color(180,180,180),
+										0,
+										getHeight ()-8,
+										new Color(220,220,220),
+										true);
 
-		int width=(maxLevel-4);
+			int width=(maxLevel-4);
 								
-		g2.setPaint (p);
-		g2.fillRect (currentLevel,2,width,getHeight()-4);
+			g2.setPaint (p);
+			g2.fillRect (currentLevel,2,width,getHeight()-4);
 		
-		g2.setColor(new Color (0,0,0));
-		g2.drawRect(currentLevel,2, width,this.getHeight()-4);
+			g2.setColor(new Color (0,0,0));
+			g2.drawRect(currentLevel,2, width,this.getHeight()-4);
 		
-		g2.dispose ();
-	}
-	/*
-	@Override
-	protected void paintComponent(Graphics g)
-	{
-		Graphics2D g2 = (Graphics2D)g.create();
-
-		Paint p = new GradientPaint (0,
-									 4, 
-									 new Color(180,180,180),
-									 0,
-									 getHeight ()-8,
-									 new Color(220,220,220),
-									 true);
-
-		int width=(getWidth ()-4);
-				
-		double divver=(maxLevel/currentLevel);
-		
-		double pWidth=(width/divver);
-		
-		int paintWidth=(int) (pWidth);
-		
-		//debug ("currentLevel: " + currentLevel + ", maxLevel: " + maxLevel + ", divver: " + divver + ", pWidth: " + pWidth + ", paintWidth: " + paintWidth);
-		
-		g2.setPaint (p);
-		g2.fillRect (0,2,paintWidth,getHeight()-4);
-		
-		g2.setColor(new Color (0,0,0));
-		g2.drawRect(0,2, paintWidth,this.getHeight()-4);
-		
-		g2.dispose ();
-	}
-	*/	
+			g2.dispose ();
+		}	
+	}	
 }
