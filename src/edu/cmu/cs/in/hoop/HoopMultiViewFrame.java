@@ -213,26 +213,6 @@ public class HoopMultiViewFrame extends HoopPreferencesJFrame
     }
 	/**
 	 *
-	 */    
-    protected JButton makeNavigationButton(String actionCommand,
-    									   String toolTipText,    									   
-    									   ImageIcon icon) 
-    {
-    	//Create and initialize the button.
-    	JButton button = new JButton();
-    	//button.setBorder (null);
-    	button.setMinimumSize(new Dimension (22,22));
-    	button.setPreferredSize(new Dimension (22,22));
-    	button.setActionCommand(actionCommand);
-    	button.setToolTipText (toolTipText);
-    	//button.addActionListener(this);
-    	button.setIcon(icon);
-    	button.setBorder(BorderFactory.createEmptyBorder(2,2,2,2));
-
-    	return button;
-    }         
-	/**
-	 *
 	 */
     /*
 	@Override

@@ -31,6 +31,7 @@ import com.mxgraph.view.mxGraph;
 
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.io.HoopMessageReceiver;
+import edu.cmu.cs.in.controls.HoopControlTools;
 import edu.cmu.cs.in.controls.HoopJFileChooser;
 import edu.cmu.cs.in.controls.HoopSentenceWall;
 import edu.cmu.cs.in.controls.dialogs.HoopCleanProjectDialog;
@@ -788,23 +789,23 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     {
     	debug ("addButtons ()");
     	
-        JButton runButton = makeNavigationButton ("run","Run",HoopLink.getImageByName("run.png"));
+        JButton runButton = HoopControlTools.makeNavigationButton ("run","Run",HoopLink.getImageByName("run.png"));
         runButton.addActionListener(runtime);
         
-        JButton debugButton = makeNavigationButton ("debug","Debug",HoopLink.getImageByName("debug.png"));
+        JButton debugButton = HoopControlTools.makeNavigationButton ("debug","Debug",HoopLink.getImageByName("debug.png"));
         debugButton.addActionListener(runtime);
         
-        JButton runNButton = makeNavigationButton ("runN","Run N Times",HoopLink.getImageByName("run-n.png"));
+        JButton runNButton = HoopControlTools.makeNavigationButton ("runN","Run N Times",HoopLink.getImageByName("run-n.png"));
         runNButton.addActionListener(runtime);
         
-        JButton runForeverButton = makeNavigationButton ("runForever","Run Forever",HoopLink.getImageByName("run-forever.png"));
+        JButton runForeverButton = HoopControlTools.makeNavigationButton ("runForever","Run Forever",HoopLink.getImageByName("run-forever.png"));
         runForeverButton.addActionListener(runtime);
         
         JSeparator sep=new JSeparator(SwingConstants.VERTICAL);
         sep.setMinimumSize(new Dimension (5,5));
         sep.setMaximumSize(new Dimension (5,50));
         
-        JButton stopButton = makeNavigationButton ("Stop","Stop",HoopLink.getImageByName("run-stopped.png"));
+        JButton stopButton = HoopControlTools.makeNavigationButton ("Stop","Stop",HoopLink.getImageByName("run-stopped.png"));
         stopButton.addActionListener(runtime);
         
         toolBar.add (runButton);        
@@ -1021,7 +1022,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
            		return (false);
            	}
 		}
-		
+				
 		HoopJFileChooser fc = new HoopJFileChooser();
 		
 		FileNameExtensionFilter filter=new FileNameExtensionFilter ("Target Directories", "Directories");
@@ -1044,6 +1045,12 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
            	
            	if (n==0)
            	{          	
+        		HoopPropertyPanel propPanel=(HoopPropertyPanel) HoopLink.getWindow("Properties");
+            	if (propPanel!=null)
+            	{
+            		propPanel.reset();
+            	}           		
+           		
            		File file = fc.getSelectedFile();
 
            		debug ("Creating in directory: " + file.getAbsolutePath() + " ...");
@@ -1133,7 +1140,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 				//}	
 			//}	
 		}    			
-		
+				
 		/*
 		FileNameExtensionFilter filter=new FileNameExtensionFilter (".hprj project files", "hprj");
 		fc.setFileFilter(filter); 
@@ -1150,6 +1157,12 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 
 		if (returnVal==HoopJFileChooser.APPROVE_OPTION) 
 		{   	
+			HoopPropertyPanel propPanel=(HoopPropertyPanel) HoopLink.getWindow("Properties");
+	    	if (propPanel!=null)
+	    	{
+	    		propPanel.reset();
+	    	}			
+			
            	File file = fc.getSelectedFile();
 
            	debug ("Loading: " + file.getAbsolutePath() + " ...");

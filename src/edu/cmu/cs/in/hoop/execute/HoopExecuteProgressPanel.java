@@ -30,6 +30,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
 //import javax.swing.JPanel;
@@ -41,6 +42,7 @@ import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
 import edu.cmu.cs.in.base.HoopLink;
+import edu.cmu.cs.in.controls.HoopControlTools;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.stats.HoopPerformanceMetrics;
@@ -54,6 +56,8 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 	private JList executionTrace=null;	
 	private DefaultListModel model=null;
 	
+	private JButton statusButton=null;
+	
     private JRadioButton showLinear = null;   
     private JRadioButton showStaggered = null;
     
@@ -63,6 +67,8 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
     private JLabel timeIndicator=null;    
     private Timer displayTimer=null;
     private Long timeCounter=(long) 0;
+    
+    private int executionResolution=1000;
 	
 	/**
 	 * 
@@ -80,16 +86,17 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 		controlBox.setMinimumSize(new Dimension (100,22));
 		controlBox.setPreferredSize(new Dimension (100,22));
 		
+		statusButton = HoopControlTools.makeNavigationButton ("run","Run",HoopLink.getImageByName("run-running.png"));
+		statusButton.setEnabled(false);
+		
 	    showLinear = new JRadioButton();
 	    showLinear.setText("Show Linear");
-	    //showLinear.setIcon(HoopLink.getImageByName("data.gif"));
 	    showLinear.setSelected(true);
 	    showLinear.setFont(new Font("Dialog", 1, 10));
 	    showLinear.addActionListener(this);
 	    
 	    showStaggered = new JRadioButton();
 	    showStaggered.setText("Show Staggered");
-	    //showStaggered.setIcon(HoopLink.getImageByName("delete.png"));
 	    showStaggered.setFont(new Font("Dialog", 1, 10));
 	    showStaggered.addActionListener(this);
 	    
@@ -97,6 +104,13 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 	    ButtonGroup group=new ButtonGroup();
 	    group.add (showLinear);
 	    group.add (showStaggered);
+	    
+	    controlBox.add(statusButton);
+	    
+	    JSeparator sep0=new JSeparator(SwingConstants.VERTICAL);
+	    sep0.setMaximumSize(new Dimension (5,22));
+	    
+	    controlBox.add(sep0);
 	    
 	    controlBox.add(showLinear);
 	    controlBox.add(showStaggered);	
@@ -174,9 +188,8 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 		
 		HoopLink.executionMonitor=this;
 		
-		displayTimer = new Timer(1000,this);
+		displayTimer = new Timer(executionResolution,this);
 		displayTimer.setInitialDelay(0);
-		//displayTimer.setinitialDelay(0);
 	}
 	/**
 	 * 
@@ -203,6 +216,8 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 		debug ("start ()");
 		
 		displayTimer.start();
+		
+		statusButton.setEnabled(true);
 	}
 	/**
 	 * 
@@ -213,6 +228,8 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 		debug ("stop ()");
 		
 		displayTimer.stop();
+		
+		statusButton.setEnabled(false);
 	}	
 	/**
 	 * 
@@ -405,12 +422,16 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 		
 		if (e.getSource()==displayTimer)
 		{
-			timeCounter+=1000;
+			timeCounter+=executionResolution;
+			
+			long hours=TimeUnit.MILLISECONDS.toHours(timeCounter);
+			long minutes=TimeUnit.MILLISECONDS.toMinutes(timeCounter);
+			long seconds=TimeUnit.MILLISECONDS.toSeconds(timeCounter);
 						
 			timeIndicator.setText(String.format("%02d:%02d:%02d", 
-												TimeUnit.MILLISECONDS.toHours(timeCounter),
-												TimeUnit.MILLISECONDS.toMinutes(timeCounter),
-												TimeUnit.MILLISECONDS.toSeconds(timeCounter)));
+												hours,
+												Math.abs((hours*60)-minutes),
+												Math.abs((minutes*60)-seconds)));
 			
 			calcVisualStats ();
 		}

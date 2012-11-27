@@ -27,6 +27,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 //import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -120,6 +121,20 @@ public class HoopPropertyPanel extends HoopEmbeddedJPanel implements ActionListe
                                 
         //this.add (hoopPropertyBox);
         this.setContentPane(hoopPropertyBox);
+	}
+	/**
+	 * Remove all panels
+	 */
+	public void reset ()
+	{
+		debug ("reset ()");
+		
+		ArrayList <HoopBase> hoops=HoopLink.hoopGraphManager.getHoopList ();
+		
+		for (int i=0;i<hoops.size();i++)
+		{
+			removePropertyPanel (hoops.get(i));
+		}	
 	}
 	/**
 	 * 
