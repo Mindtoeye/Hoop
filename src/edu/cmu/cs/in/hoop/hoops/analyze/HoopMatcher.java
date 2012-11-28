@@ -229,7 +229,8 @@ public class HoopMatcher extends HoopAnalyze implements HoopInterface, ActionLis
 		
 		if (editor==null)
 		{
-			editor=new HoopPatternEditor (HoopJDialog.NONE,HoopLink.mainFrame,true);
+			editor=new HoopPatternEditor (HoopLink.mainFrame,true);
+			editor.resizeAndCenter(450,400);		
 			editor.setVisible(true);
 			
 			debug ("Cleaning up editor ...");

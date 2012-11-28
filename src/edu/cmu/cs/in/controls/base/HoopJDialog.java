@@ -50,6 +50,7 @@ public class HoopJDialog extends JDialog implements ActionListener
 	public static final int YESNO=4;
 	public static final int OK=5;
 	public static final int OKCANCEL=6;
+	public static final int CLOSE=7;
 		
 	protected JPanel myPanel = null;
     protected JButton yesButton = null;
@@ -124,11 +125,16 @@ public class HoopJDialog extends JDialog implements ActionListener
 			myPanel.add(noButton);			
 		}		
 		
-		this.getContentPane().add(mainBox);
-				
-		setLocationRelativeTo(frame);
+		if (btnConfig==CLOSE)
+		{		
+			yesButton = new JButton("Close");
+			yesButton.addActionListener(this);
+			myPanel.add(yesButton);			
+		}	
 		
-		this.setSize(250,200);		
+		this.getContentPane().add(mainBox);
+						
+		this.resizeAndCenter(250,200);		
     }	
     /**
      * 
@@ -170,10 +176,8 @@ public class HoopJDialog extends JDialog implements ActionListener
 		myPanel.add(noButton);
 		
 		this.getContentPane().add(mainBox);
-				
-		setLocationRelativeTo(frame);
-		
-		this.setSize(250,200);		
+						
+		this.resizeAndCenter(250,200);		
     }
     /**
      * 
@@ -248,5 +252,17 @@ public class HoopJDialog extends JDialog implements ActionListener
     public boolean getAnswer() 
     { 
     	return answer; 
+    }
+    /**
+     * 
+     */
+    public void resizeAndCenter (int aWidth,int aHeight)
+    {
+    	debug ("resizeAndCenter ("+aWidth+","+aHeight+")");
+    			
+		this.setSize(aWidth,aWidth);	    	
+		
+		setLocationRelativeTo(frame);
+
     }
 }
