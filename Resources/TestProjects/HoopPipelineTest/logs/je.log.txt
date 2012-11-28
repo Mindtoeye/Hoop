@@ -2,14 +2,14 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2012-11-27T14:32:25</date>
-  <millis>1354044745503</millis>
+  <date>2012-11-27T19:12:40</date>
+  <millis>1354061560109</millis>
   <sequence>0</sequence>
   <logger>com.sleepycat.je</logger>
   <level>INFO</level>
   <class>edu.cmu.cs.in.base.io.HoopBerkeleyDB</class>
   <method>configureLogging</method>
-  <thread>13</thread>
+  <thread>17</thread>
   <message>BerkeleyDB logging enabled</message>
 </record>
 </log>

@@ -184,7 +184,7 @@ public class HoopInspectablePanel extends HoopJPanel implements ActionListener, 
                 
         panelBox.add (parameterPanel);	
         
-        this.setPreferredSize(new Dimension (fixedWidth,fixedHeight));
+        //this.setPreferredSize(new Dimension (fixedWidth,fixedHeight));
 	}
 	/**
 	 * 
@@ -241,7 +241,7 @@ public class HoopInspectablePanel extends HoopJPanel implements ActionListener, 
 	 */	
 	public void setFixedHeight(int fixedHeight) 
 	{
-		this.fixedHeight = fixedHeight;
+		// this.fixedHeight = fixedHeight;
 	}
 	/**
 	 * 
@@ -290,6 +290,8 @@ public class HoopInspectablePanel extends HoopJPanel implements ActionListener, 
 	 */	
 	public void foldOut ()
 	{
+		debug ("foldOut ("+this.fixedWidth+","+this.fixedHeight+")");
+		
 		if (foldButton!=null)
 			foldButton.setIcon(close);
 		
@@ -327,6 +329,18 @@ public class HoopInspectablePanel extends HoopJPanel implements ActionListener, 
 		debug ("setHoop ()");
 		
 		this.hoop=aHoop;
+		
+		if (hoop!=null)
+		{
+			if (hoop.preferredPanelHeight!=-1)
+			{
+				fixedHeight=hoop.preferredPanelHeight;
+				
+				debug ("Setting panel height to: " + fixedHeight);
+				
+				this.setPreferredSize(new Dimension (fixedWidth,fixedHeight));
+			}	
+		}
 				
 		configComponentPanel ();
 	}
@@ -375,7 +389,7 @@ public class HoopInspectablePanel extends HoopJPanel implements ActionListener, 
 	        colP.setCellEditor(new HoopSheetCellEditor());	        					
 		}
 		else
-			debug ("Error: no parameter table available for property sheet");
+			debug ("Error: no parameter table available for property sheet");		
 	}
 	/**
 	 * 
@@ -411,7 +425,7 @@ public class HoopInspectablePanel extends HoopJPanel implements ActionListener, 
 	/**
 	 * 
 	 */
-	public void setPanelContent (JPanel aContent)
+	public void setPanelContent (JPanel aContent,HoopBase aHoop)
 	{
 		debug ("setPanelContent ()");
 		
@@ -419,6 +433,18 @@ public class HoopInspectablePanel extends HoopJPanel implements ActionListener, 
 		{
 			debug ("Internal error: can't insert a null object!");
 			return;
+		}
+		
+		if (aHoop!=null)
+		{
+			if (aHoop.preferredPanelHeight!=-1)
+			{
+				fixedHeight=aHoop.preferredPanelHeight;
+				
+				debug ("Setting panel height to: " + fixedHeight);
+				
+				this.setPreferredSize(new Dimension (fixedWidth,fixedHeight));
+			}	
 		}
 		
 		//parameterScrollList.removeAll();

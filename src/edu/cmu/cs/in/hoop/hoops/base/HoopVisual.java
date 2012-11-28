@@ -42,6 +42,8 @@ public class HoopVisual extends HoopRoot
 	public int durationOffset=0;
 	public int durationWidth=1;
 	
+	public int preferredPanelHeight=-1; // figure out dynamically
+	
 	/**
 	 *
 	 */

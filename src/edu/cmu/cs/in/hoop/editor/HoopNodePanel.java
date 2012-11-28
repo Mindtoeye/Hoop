@@ -201,7 +201,7 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 		{	
 			if ((propPanel!=null) && (this.hoop.getClassName().equals("HoopStart")==false))
 			{
-				propertiesPanel=new HoopInspectablePanel (hoop.getHoopDescription());
+				propertiesPanel=new HoopInspectablePanel (this.hoop.getHoopDescription());
 
 				propPanel.addPropertyPanel (propertiesPanel);
 
@@ -209,7 +209,7 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 
 				if (hoopPanel!=null)
 				{
-					propertiesPanel.setPanelContent (hoopPanel);
+					propertiesPanel.setPanelContent (hoopPanel,this.hoop);
 					hoopPanel.setPreferredSize(propertiesPanel.getCurrentDimensions ());
 				}
 				else

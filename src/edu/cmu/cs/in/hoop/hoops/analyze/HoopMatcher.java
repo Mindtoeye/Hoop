@@ -18,11 +18,20 @@
 
 package edu.cmu.cs.in.hoop.hoops.analyze;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.JPanel;
 
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.base.kv.HoopKVString;
+import edu.cmu.cs.in.controls.HoopPatternEditor;
+import edu.cmu.cs.in.controls.base.HoopJDialog;
 import edu.cmu.cs.in.hoop.hoops.base.HoopAnalyze;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
@@ -34,7 +43,7 @@ import edu.cmu.cs.in.ling.HoopPatternMatcher;
 /**
 * 
 */
-public class HoopMatcher extends HoopAnalyze implements HoopInterface
+public class HoopMatcher extends HoopAnalyze implements HoopInterface, ActionListener
 {    						
 	private static final long serialVersionUID = -6162931325565067936L;
 	
@@ -42,6 +51,10 @@ public class HoopMatcher extends HoopAnalyze implements HoopInterface
 	public  HoopBooleanSerializable allowOverlap=null;		
 	private Boolean patternsLoaded=false;		
 	private HoopPatternMatcher matcher=null;
+	
+	private JPanel editorPanel=null;
+	private JButton editorButton=null;	
+	private HoopPatternEditor editor=null;
 	
 	/**
 	 *
@@ -59,6 +72,28 @@ public class HoopMatcher extends HoopAnalyze implements HoopInterface
 		
 		patternFile=new HoopURISerializable (this,"patternFile","");
 		allowOverlap=new HoopBooleanSerializable (this,"allowOverlap",false);
+		
+		createPanel ();
+    }
+    /**
+     * 
+     */
+    private void createPanel ()
+    {
+    	debug ("createPanel ()");
+    	    	
+    	editorPanel=new JPanel ();    	
+    	editorPanel.setLayout (new BorderLayout(2,2));
+    	
+		editorPanel.setPreferredSize(new Dimension (150,25)); 
+		
+    	editorButton=new JButton ();
+    	editorButton.setText("Edit Patterns");
+    	editorButton.addActionListener(this);
+    	
+    	editorPanel.add (editorButton,BorderLayout.CENTER);
+    	
+    	preferredPanelHeight=50;
     }
     /**
      * 
@@ -170,8 +205,36 @@ public class HoopMatcher extends HoopAnalyze implements HoopInterface
 	/**
 	 * 
 	 */
+	@Override
+	public JPanel getPropertiesPanel() 
+	{
+		debug ("getPropertiesPanel ()");
+		
+		return (editorPanel);		
+	}			
+	/**
+	 * 
+	 */
 	public HoopBase copy ()
 	{
 		return (new HoopMatcher ());
+	}
+	/**
+	 * 
+	 */
+	@Override
+	public void actionPerformed(ActionEvent e) 
+	{
+		debug ("actionPerformed ()");
+		
+		if (editor==null)
+		{
+			editor=new HoopPatternEditor (HoopJDialog.NONE,HoopLink.mainFrame,true);
+			editor.setVisible(true);
+			
+			debug ("Cleaning up editor ...");
+			
+			editor=null;
+		}
 	}	
 }

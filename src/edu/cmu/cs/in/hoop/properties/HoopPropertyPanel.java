@@ -163,7 +163,7 @@ public class HoopPropertyPanel extends HoopEmbeddedJPanel implements ActionListe
 
 				if (hoopPanel!=null)
 				{
-					propertiesPanel.setPanelContent (hoopPanel);
+					propertiesPanel.setPanelContent (hoopPanel,aHoop);
 					hoopPanel.setPreferredSize(propertiesPanel.getCurrentDimensions ());
 				}
 				else
