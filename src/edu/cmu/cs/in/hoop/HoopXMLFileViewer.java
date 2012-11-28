@@ -18,7 +18,7 @@
 
 package edu.cmu.cs.in.hoop;
 
-import java.awt.Component;
+//import java.awt.Component;
 import java.awt.Font;
 import java.io.StringReader;
 

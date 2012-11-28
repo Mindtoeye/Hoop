@@ -35,7 +35,7 @@ import org.ciscavate.cjwizard.pagetemplates.TitledPageTemplate;
  * @author rcreswick
  *
  */
-public class WizardTest extends JDialog {
+public class WizardTest2 extends JDialog {
 
    /**
     * Commons logging log instance
@@ -47,17 +47,17 @@ public class WizardTest extends JDialog {
     */
    public static void main(String[] args) {
       // create the dialog, and show it:
-      WizardTest test = new WizardTest();
+      WizardTest2 test = new WizardTest2();
       test.setVisible(true);
    }
    
-   public WizardTest(){
+   public WizardTest2(){
       // first, build the wizard.  The TestFactory defines the
       // wizard content and behavior.
       final WizardContainer wc =
          new WizardContainer(new TestFactory(),
                              new TitledPageTemplate(),
-                             new StackWizardSettings());
+                             new FlatWizardSettings());
       
       // add a wizard listener to update the dialog titles and notify the
       // surrounding application of the state of the wizard:
@@ -65,20 +65,20 @@ public class WizardTest extends JDialog {
          @Override
          public void onCanceled(List<WizardPage> path, WizardSettings settings) {
             log.debug("settings: "+wc.getSettings());
-            WizardTest.this.dispose();
+            WizardTest2.this.dispose();
          }
 
          @Override
          public void onFinished(List<WizardPage> path, WizardSettings settings) {
             log.debug("settings: "+wc.getSettings());
-            WizardTest.this.dispose();
+            WizardTest2.this.dispose();
          }
 
          @Override
          public void onPageChanged(WizardPage newPage, List<WizardPage> path) {
             log.debug("settings: "+wc.getSettings());
             // Set the dialog title to match the description of the new page:
-            WizardTest.this.setTitle(newPage.getDescription());
+            WizardTest2.this.setTitle(newPage.getDescription());
          }
       });
       
@@ -95,70 +95,6 @@ public class WizardTest extends JDialog {
     */
    private class TestFactory implements PageFactory{
       
-      // To keep things simple, we'll just create an array of wizard pages:
-      private final WizardPage[] pages = {
-            new WizardPage("One", "First Page"){
-               // this is an instance initializer -- it's a constructor for
-               // an anonymous class.  WizardPages don't need to be anonymous,
-               // of course.  It just makes the demo fit in one file if we do it
-               // this way:
-               {
-                  JTextField field = new JTextField();
-                  // set a name on any component that you want to collect values
-                  // from.  Be sure to do this *before* adding the component to
-                  // the WizardPage.
-                  field.setName("testField");
-                  field.setPreferredSize(new Dimension(50, 20));
-                  add(new JLabel("One!"));
-                  add(field);
-               }
-            },
-            new WizardPage("Two", "Second Page"){
-               {
-                  JCheckBox box = new JCheckBox("testBox");
-                  box.setName("box");
-                  add(new JLabel("Two!"));
-                  add(box);
-               }
-
-               /* (non-Javadoc)
-                * @see org.ciscavate.cjwizard.WizardPage#updateSettings(org.ciscavate.cjwizard.WizardSettings)
-                */
-               @Override
-               public void updateSettings(WizardSettings settings) {
-                  super.updateSettings(settings);
-                  
-                  // This is called when the user clicks next, so we could do
-                  // some longer-running processing here if we wanted to, and
-                  // pop up progress bars, etc.  Once this method returns, the
-                  // wizard will continue.  Beware though, this runs in the
-                  // event dispatch thread (EDT), and may render the UI
-                  // unresponsive if you don't issue a new thread for any long
-                  // running ops.  Future versions will offer a better way of
-                  // doing this.
-               }
-               
-            },
-            new WizardPage("Three", "Third Page"){
-               {
-                  add(new JLabel("Three!"));
-                  setBackground(Color.green);
-               }
-
-               /**
-                * This is the last page in the wizard, so we will enable the finish
-                * button and disable the "Next >" button just before the page is
-                * displayed:
-                */
-               public void rendering(List<WizardPage> path, WizardSettings settings) {
-                  super.rendering(path, settings);
-                  setFinishEnabled(true);
-                  setNextEnabled(false);
-               }
-            }
-      };
-      
-      
       /* (non-Javadoc)
        * @see org.ciscavate.cjwizard.PageFactory#createPage(java.util.List, org.ciscavate.cjwizard.WizardSettings)
        */
@@ -172,8 +108,9 @@ public class WizardTest extends JDialog {
          // wizard, so we can easily see which step the user is on by taking
          // the length of the path.  This makes it trivial to return the next
          // WizardPage:
-         WizardPage page = pages[path.size()];
-         
+         WizardPage page = buildPage(path.size(), settings);
+
+
          // if we wanted to, we could use the WizardSettings object like a
          // Map<String, Object> to change the flow of the wizard pages.
          // In fact, we can do arbitrarily complex computation to determine
@@ -182,6 +119,55 @@ public class WizardTest extends JDialog {
          log.debug("Returning page: "+page);
          return page;
       }
+
+		 private WizardPage buildPage(int pageCount, final WizardSettings settings) {
+			  switch (pageCount)  {
+			  case 0: 
+					return new WizardPage("One", "First Page"){
+						 {
+							  JTextField field = new JTextField();
+							  // set a name on any component that you want to collect values
+							  // from.  Be sure to do this *before* adding the component to
+							  // the WizardPage.
+							  field.setName("city");
+							  field.setPreferredSize(new Dimension(50, 20));
+							  add(new JLabel("Enter City:"));
+							  add(field);
+						 }
+					};
+			  case 1:
+					return new WizardPage("Two", "Second Page"){
+						 {
+							  // get a value out of the settings, and display it on the second page:
+							  add(new JLabel("The city you entered was: "+settings.get("city")));
+							  
+							  JTextField field = new JTextField();
+							  field.setName("city");
+							  field.setPreferredSize(new Dimension(50, 20));
+							  add(new JLabel("Enter a different city:"));
+							  add(field);
+						 }
+					};
+			  case 2:
+					return new WizardPage("Three", "Third Page"){
+						 {
+							  // get a value with the same key -- notice that it was altered by the user's input on page 2:
+							  add(new JLabel("The city you entered was: "+settings.get("city")));
+						 }
+						 /**
+						  * This is the last page in the wizard, so we will enable the finish
+						  * button and disable the "Next >" button just before the page is
+						  * displayed:
+						  */
+						 public void rendering(List<WizardPage> path, WizardSettings settings) {
+							  super.rendering(path, settings);
+							  setFinishEnabled(true);
+							  setNextEnabled(false);
+						 }
+					};
+			  }
+			  return null;
+		 }
       
    }
 }

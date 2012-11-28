@@ -30,4 +30,19 @@ public interface CustomWizardComponent {
     * @return The value.
     */
    public Object getValue();
+   
+   /**
+    * Sets the value of the component.
+    * 
+    * @param o The value object.
+    */
+   public void setValue(Object o);
+   
+   /**
+    * Gets the name of this component.
+    * (this is provided by the Swing component)
+    * 
+    * @return The name, as a string.
+    */
+   public String getName();
 }

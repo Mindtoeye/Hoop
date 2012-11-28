@@ -32,7 +32,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+//import javax.swing.JScrollPane;
 
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.HoopStringTools;
