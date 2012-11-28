@@ -177,7 +177,9 @@ public class HoopDocumentWriter extends HoopSaveBase
 												
 						// Add the new document to the thread ...
 						
-						threadCache.bump(aDocument.createDate.getValue());
+						//threadCache.bump(aDocument.createDate.getValue());
+						
+						threadCache.bump(aDocument.getKeyString());
 												
 						return (threadCache);
 					}
