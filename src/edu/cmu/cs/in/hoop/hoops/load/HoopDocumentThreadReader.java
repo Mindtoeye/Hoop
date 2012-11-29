@@ -28,11 +28,16 @@ import edu.cmu.cs.in.base.kv.HoopKVDocument;
 import edu.cmu.cs.in.base.kv.HoopKVLong;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopLoadBase;
+import edu.cmu.cs.in.hoop.properties.types.HoopStringSerializable;
 
 public class HoopDocumentThreadReader extends HoopLoadBase
 {
 	private static final long serialVersionUID = 3069547626921137451L;
 		
+	private StoredMap<Long, HoopKVDocument> inp=null;
+	
+	public HoopStringSerializable minThreadSize=null;    
+	
 	/**
 	 *
 	 */ 
@@ -44,7 +49,9 @@ public class HoopDocumentThreadReader extends HoopLoadBase
 		setHoopDescription ("Load Documents for a specific thread ID");
 				
 		//removeInPort ("KV");
-		enableProperty ("URI",false);		
+		enableProperty ("URI",false);
+		
+		minThreadSize=new HoopStringSerializable (this,"minThreadSize","10");
 	}
 	/**
 	 *
@@ -60,6 +67,16 @@ public class HoopDocumentThreadReader extends HoopLoadBase
 			this.setErrorString("Error: no thread dataset available for documents");
 			return (false);
 		}
+
+		inp=HoopLink.dataSet.getData();
+		
+		if (inp==null)
+		{
+			this.setErrorString("Unable to obtain handle to document database");
+			return (false);
+		}
+								
+		Integer minSize=Integer.parseInt(minThreadSize.getPropValue());
 		
 		ArrayList<HoopKV> data=inHoop.getData();
 		
@@ -78,12 +95,29 @@ public class HoopDocumentThreadReader extends HoopLoadBase
 				debug ("Retrieving document IDs ...");
 			
 				ArrayList <Object> aDocIDList=aThread.getValuesRaw ();
-				
-				for (int j=0;j<aDocIDList.size();j++)
-				{
-					debug ("Document ID: " + aDocIDList.get(j));
+			
+				if (aDocIDList.size()>minSize)
+				{				
+					debug ("Thread size of " + aDocIDList.size() + " is larger that minimum requested size of: " + minSize);
 					
-				}			
+					this.addKV(aDocument); // Make sure we add the original document (the thread starter)
+					
+					for (int j=0;j<aDocIDList.size();j++)
+					{					
+						long targetID=Long.parseLong((String) aDocIDList.get(j));
+					
+						debug ("Document ID: " + targetID);
+						
+						HoopKVDocument retrievedDocument=inp.get(targetID);
+						
+						if (retrievedDocument!=null)
+						{
+							debug ("Adding document: " + targetID);
+						}
+						else
+							debug ("Document " + targetID + " not found in data set");
+					}
+				}	
 			}
 		}
 						
