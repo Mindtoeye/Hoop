@@ -19,7 +19,6 @@
 package edu.cmu.cs.in.ling;
 
 import edu.cmu.cs.in.base.io.HoopResourceLoader;
-import edu.cmu.cs.in.base.kv.HoopKVString;
 
 /**
  * http://en.wikipedia.org/wiki/English_personal_pronouns

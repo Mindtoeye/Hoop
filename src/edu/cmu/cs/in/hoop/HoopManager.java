@@ -21,6 +21,7 @@ package edu.cmu.cs.in.hoop;
 import java.util.ArrayList;
 
 import edu.cmu.cs.in.hoop.hoops.analyze.HoopCrossFold;
+import edu.cmu.cs.in.hoop.hoops.analyze.HoopCustomExperimentTest;
 import edu.cmu.cs.in.hoop.hoops.analyze.HoopDocumentTag;
 import edu.cmu.cs.in.hoop.hoops.analyze.HoopEvaluate;
 import edu.cmu.cs.in.hoop.hoops.analyze.HoopKVStats;
@@ -231,5 +232,6 @@ public class HoopManager extends HoopBase
     	addTemplate (new HoopParseTree ());
     	addTemplate (new HoopTest ());
     	addTemplate (new HoopDocumentThreadReader ());
+    	addTemplate (new HoopCustomExperimentTest ());
     }
 }
