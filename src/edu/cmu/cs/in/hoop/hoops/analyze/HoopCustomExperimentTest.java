@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.base.kv.HoopKVDocument;
+import edu.cmu.cs.in.base.kv.HoopKVInteger;
 import edu.cmu.cs.in.base.kv.HoopKVString;
 import edu.cmu.cs.in.hoop.hoops.base.HoopAnalyze;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
@@ -70,10 +71,67 @@ public class HoopCustomExperimentTest extends HoopAnalyze implements HoopInterfa
     	
     	threadTracker="";
     	typeCache="";
+    	analysisResult=null;
+    	
+    	if (model==null)
+    		model=HoopLink.pronounModel;
     }
+	/**
+	 *
+	 */
+	public Boolean runHoop (HoopBase inHoop)
+	{		
+		debug ("runHoop ()");
+			
+		ArrayList <HoopKV> inData=inHoop.getData();
+		
+		if (inData!=null)
+		{
+			//StringBuffer formatted=new StringBuffer ();
+			
+			debug ("Processing " + inData.size() + " documents ...");
+			
+			for (int t=0;t<inData.size();t++)
+			{
+				HoopKV aKV=inData.get(t);
+				
+				if (aKV instanceof HoopKVDocument)
+				{
+					HoopKVDocument aDocument=(HoopKVDocument) aKV;
+					
+					if (aDocument.threadID.getValue().equals(threadTracker)==true)
+					{
+						if (processDocument (aDocument)==false)
+							return (false);	
+					}
+					else
+					{
+						threadTracker=aDocument.threadID.getValue();
+						analysisResult=new HoopKVString (threadTracker,"*");
+						this.addKV(analysisResult);
+						
+						debug ("Procedding document " + aDocument.getKeyString() + " with thread id: " + aDocument.threadID.getValue());
+						
+						if (aDocument.threadID.getValue()!=null)
+						{
+							if (processDocument (aDocument)==false)
+							{
+								return (false);
+							}
+						}
+						else
+							debug ("Error: document.threadID is null");						
+					}
+				}
+			}			
+		}	
+						
+		return (true);				
+	}	     
 	/**
 	 * 
 	 */
+	/*
 	protected Boolean processKVBatch (ArrayList <HoopKV> inData,int currentIndex,int batchSize)
 	{
 		debug ("processKVBatch ()");
@@ -113,12 +171,27 @@ public class HoopCustomExperimentTest extends HoopAnalyze implements HoopInterfa
 		
 		return (true);
 	}
+	*/
 	/**
 	 * 
 	 */
-	private Boolean processDocument (HoopKVDocument aDocument,String aKey)
+	private Boolean processDocument (HoopKVDocument aDocument)
 	{
 		debug ("processDocument ()");
+		
+		if (aDocument==null)
+		{
+			this.setErrorString("Error: a document provided null");
+			return (false);
+		}
+		
+		if (analysisResult==null)
+		{
+			this.setErrorString("Error: analysis result object is null");
+			return (false);
+		}
+		
+		//String aKey=aDocument.threadID.getValue();
 		
 		HoopKVString basicTokenView=aDocument.getView ("Simple Tokens");
 		
@@ -130,6 +203,14 @@ public class HoopCustomExperimentTest extends HoopAnalyze implements HoopInterfa
 		
 		ArrayList<Object> tokens=basicTokenView.getValuesRaw();
 		
+		if (tokens==null)
+		{
+			this.setErrorString("Error: token list is null");
+			return (false);
+		}
+		
+		debug ("Examining " + tokens.size() + " tokens");
+		
 		for (int i=0;i<tokens.size();i++)
 		{
 			String aToken=(String) tokens.get(i);
@@ -138,28 +219,30 @@ public class HoopCustomExperimentTest extends HoopAnalyze implements HoopInterfa
 			
 			if (proFound!=null)
 			{
-				String typeFound=proFound.getValue(8);
+				String typeFound=proFound.getValue(5);
 				
+				debug ("Pronoun " + proFound.getKeyString() + " found, for: " + typeFound);
+												
 				if ((typeCache.equals("in")==true) && (typeFound.equals ("out")))
 				{
-					analysisResult.bump("+");
+					analysisResult.add("+");
 				}
 				
 				if ((typeCache.equals("out")==true) && (typeFound.equals ("in")))
 				{
-					analysisResult.bump("-");
+					analysisResult.add("-");
 				}
 				
 				if (patternGeneration.getPropValue().equalsIgnoreCase("additive")==true)
 				{				
 					if ((typeCache.equals("in")==true) && (typeFound.equals ("in")))
 					{
-						analysisResult.bump("+");
+						analysisResult.add("+");
 					}
 				
 					if ((typeCache.equals("out")==true) && (typeFound.equals ("out")))
 					{
-						analysisResult.bump("+");
+						analysisResult.add("+");
 					}
 				}	
 				

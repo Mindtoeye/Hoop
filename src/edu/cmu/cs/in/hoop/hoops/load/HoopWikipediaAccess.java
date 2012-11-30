@@ -44,6 +44,8 @@ public class HoopWikipediaAccess extends HoopLoadBase
 		debug ("HoopWikipediaAccess ()");
 				
 		setHoopDescription ("Read data directly from Wikipedia");		
+		
+		reader=new HoopHTTPReader ();
 	}
 	/**
 	 * We're expecting a KV object that has a key of type String representing the file URI,
@@ -75,6 +77,8 @@ public class HoopWikipediaAccess extends HoopLoadBase
 			e.printStackTrace();
 			return (false);
 		}
+		
+		debug ("Result: " + aResult);
 		
 		newData.setValue (aResult);
 		

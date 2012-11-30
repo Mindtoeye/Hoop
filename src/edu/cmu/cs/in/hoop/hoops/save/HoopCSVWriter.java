@@ -51,7 +51,7 @@ public class HoopCSVWriter extends HoopFileSaveBase
 		writeMode=new HoopEnumSerializable (this,"writeMode","OVERWRITE,APPEND");
 		mode=new HoopEnumSerializable (this,"mode","COMMA,TAB,DASH,PIPE");
 		includeHeader=new HoopBooleanSerializable (this,"includeHeader",false);
-    }  
+    }
     /**
      * 
      */

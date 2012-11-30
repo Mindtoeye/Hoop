@@ -56,6 +56,11 @@ public class HoopExecuteInEditor extends HoopExecute implements ActionListener
 		
 		debug ("Hoop: " + aClass + ", Error: " + anError);
 		
+		if (HoopLink.executionMonitor!=null)
+		{	
+			HoopLink.executionMonitor.stop ();
+		}
+		
 		HoopErrorPanel errorPanel=(HoopErrorPanel) HoopLink.getWindow("Errors");
 		
 		if (errorPanel==null)

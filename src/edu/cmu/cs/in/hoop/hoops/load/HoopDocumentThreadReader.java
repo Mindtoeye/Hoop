@@ -112,7 +112,9 @@ public class HoopDocumentThreadReader extends HoopLoadBase
 						
 						if (retrievedDocument!=null)
 						{
-							debug ("Adding document: " + targetID);
+							debug ("Adding document: " + retrievedDocument.getKeyString());
+							
+							this.addKV(retrievedDocument);
 						}
 						else
 							debug ("Document " + targetID + " not found in data set");

@@ -86,7 +86,7 @@ public class HoopURLReader extends HoopLoadBase
 		
 		try 
 		{
-			aResult = reader.loadURL(URL.getValue());
+			aResult=reader.loadURL(URL.getValue());
 		} 
 		catch (MalformedURLException e) 
 		{

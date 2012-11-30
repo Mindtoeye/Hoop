@@ -291,7 +291,7 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 	 */
 	private void calcVisualStats ()
 	{
-		debug ("calcVisualStats ()");
+		//debug ("calcVisualStats ()");
 		
 		if (model==null)
 			return;
@@ -329,37 +329,40 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 			}	
 		}
 		
-		debug ("Max time: " + HoopExecutionListRenderer.maxMs + "ms, total: " + totalMeasure + ", for pixel count: " + HoopExecutionListRenderer.totalWidth + ", with " + HoopExecutionListRenderer.totalCount + " hoops");
+		//debug ("Max time: " + HoopExecutionListRenderer.maxMs + "ms, total: " + totalMeasure + ", for pixel count: " + HoopExecutionListRenderer.totalWidth + ", with " + HoopExecutionListRenderer.totalCount + " hoops");
 		
 		// Calculate transforms ...
 		
-		float divver=totalMeasure/HoopExecutionListRenderer.totalWidth;
-		
-		debug ("divver: " + divver);
-		
-		// Update all the visual settings ...
-		
-		int offset=0;
-		
-		for (int i=0;i<model.size();i++)
+		if (HoopExecutionListRenderer.totalWidth>0)
 		{
-			HoopBase aHoop=(HoopBase) model.get(i);
+			float divver=totalMeasure/HoopExecutionListRenderer.totalWidth;
+		
+			//debug ("divver: " + divver);
+		
+			//	Update all the visual settings ...
+		
+			int offset=0;
+		
+			for (int i=0;i<model.size();i++)
+			{
+				HoopBase aHoop=(HoopBase) model.get(i);
 			
-			if ((aHoop.getExecutionCount()>0) && (aHoop.getExecutionState().equals("STOPPED")==true))
-			{							
-				float mult=aHoop.duration/totalMeasure;
+				if ((aHoop.getExecutionCount()>0) && (aHoop.getExecutionState().equals("STOPPED")==true))
+				{							
+					float mult=aHoop.duration/totalMeasure;
 			
-				debug ("duration: " + aHoop.duration + ", mult: " + mult);
+					//debug ("duration: " + aHoop.duration + ", mult: " + mult);
 			
-				aHoop.durationOffset=offset;
-				//aHoop.durationWidth=(int) (divver*mult);
-				aHoop.durationWidth=(int) (aHoop.duration/divver);
+					aHoop.durationOffset=offset;
+					//aHoop.durationWidth=(int) (divver*mult);
+					aHoop.durationWidth=(int) (aHoop.duration/divver);
 			
-				debug ("Offset: " + offset + ", width: " + aHoop.durationWidth);
+					//debug ("Offset: " + offset + ", width: " + aHoop.durationWidth);
 			
-				offset+=aHoop.durationWidth;
-			}	
-		}		
+					offset+=aHoop.durationWidth;
+				}	
+			}
+		}	
 	}	
 	/**
 	 * 
@@ -374,7 +377,7 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		debug ("actionPerformed ()");
+		//debug ("actionPerformed ()");
 	
 		if (e.getSource()==showLinear)
 		{

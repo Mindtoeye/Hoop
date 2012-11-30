@@ -57,6 +57,14 @@ public class HoopEngPronounModel extends HoopLingModel
 			debug ("Internal error: unable to add term to internal model: " + anEntry [0]);
 			return;
 		}
+		
+		for (int i=1;i<anEntry.length;i++)
+		{			
+			//debug ("Bump: " + anEntry [i] +", " + i);
+			
+			//aTerm.bump (anEntry [i]);
+			aTerm.setValue(anEntry [i],i);
+		}
 	}
 	/**
 	 * 
@@ -75,10 +83,14 @@ public class HoopEngPronounModel extends HoopLingModel
 
 			if (entries.length>1)
 			{
+				debug ("Split into " + entries.length + " tokens");
+				
 				addRawEntry (entries);
 			}
 			else
 				debug ("Warning: current row doesn't contain any entries");
 		}	
+		
+		//System.exit(1);
 	}
 }
