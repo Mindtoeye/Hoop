@@ -49,6 +49,7 @@ import edu.cmu.cs.in.hoop.hoops.save.HoopCSVWriter;
 import edu.cmu.cs.in.hoop.hoops.save.HoopDocumentUpdater;
 import edu.cmu.cs.in.hoop.hoops.save.HoopDocumentWriter;
 import edu.cmu.cs.in.hoop.hoops.save.HoopFileSaveBase;
+import edu.cmu.cs.in.hoop.hoops.save.HoopIndexDocuments;
 import edu.cmu.cs.in.hoop.hoops.save.HoopSASLink;
 import edu.cmu.cs.in.hoop.hoops.save.HoopStdout;
 import edu.cmu.cs.in.hoop.hoops.save.HoopTextFileSave;
@@ -233,5 +234,6 @@ public class HoopManager extends HoopBase
     	addTemplate (new HoopTest ());
     	addTemplate (new HoopDocumentThreadReader ());
     	addTemplate (new HoopCustomExperimentTest ());
+    	addTemplate (new HoopIndexDocuments ());
     }
 }

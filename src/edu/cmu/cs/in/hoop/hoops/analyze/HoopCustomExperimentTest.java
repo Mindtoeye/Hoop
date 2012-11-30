@@ -27,6 +27,7 @@ import edu.cmu.cs.in.base.kv.HoopKVString;
 import edu.cmu.cs.in.hoop.hoops.base.HoopAnalyze;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
+import edu.cmu.cs.in.hoop.properties.types.HoopEnumSerializable;
 import edu.cmu.cs.in.ling.HoopEngPronounModel;
 import edu.cmu.cs.in.ling.HoopLingTerm;
 
@@ -44,6 +45,8 @@ public class HoopCustomExperimentTest extends HoopAnalyze implements HoopInterfa
 	
 	private HoopKVString analysisResult=null;
 	
+	private HoopEnumSerializable patternGeneration=null;
+	
 	/**
 	 *
 	 */
@@ -52,7 +55,9 @@ public class HoopCustomExperimentTest extends HoopAnalyze implements HoopInterfa
 		setClassName ("HoopCustomExperimentTest");
 		debug ("HoopCustomExperimentTest ()");
 				
-		setHoopDescription ("Custom Hoop to experiment with patterns");				
+		setHoopDescription ("Custom Hoop to experiment with patterns");
+		
+		patternGeneration=new HoopEnumSerializable (this,"patternGeneration","additive,delta");
     }
     /**
      * 
@@ -145,15 +150,18 @@ public class HoopCustomExperimentTest extends HoopAnalyze implements HoopInterfa
 					analysisResult.bump("-");
 				}
 				
-				if ((typeCache.equals("in")==true) && (typeFound.equals ("in")))
-				{
-					//analysisResult.bump("+");
-				}
+				if (patternGeneration.getPropValue().equalsIgnoreCase("additive")==true)
+				{				
+					if ((typeCache.equals("in")==true) && (typeFound.equals ("in")))
+					{
+						analysisResult.bump("+");
+					}
 				
-				if ((typeCache.equals("out")==true) && (typeFound.equals ("out")))
-				{
-					//analysisResult.bump("+");
-				}
+					if ((typeCache.equals("out")==true) && (typeFound.equals ("out")))
+					{
+						analysisResult.bump("+");
+					}
+				}	
 				
 				typeCache=typeFound;
 			}

@@ -36,6 +36,8 @@ import edu.cmu.cs.in.hoop.properties.types.HoopStringSerializable;
 */
 public class HoopArffWriter extends HoopFileSaveBase
 {    			
+	private static final long serialVersionUID = 3114768820093434862L;
+
 	private HoopVFSL fManager=null;
 	
 	//private HoopURISerializable URI=null;

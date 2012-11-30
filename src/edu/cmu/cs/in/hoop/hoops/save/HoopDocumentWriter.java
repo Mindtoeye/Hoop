@@ -18,10 +18,8 @@
 
 package edu.cmu.cs.in.hoop.hoops.save;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -50,6 +48,7 @@ import edu.cmu.cs.in.base.kv.HoopKVDocument;
 import edu.cmu.cs.in.base.kv.HoopKVLong;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopSaveBase;
+import edu.cmu.cs.in.hoop.properties.types.HoopBooleanSerializable;
 import edu.cmu.cs.in.search.HoopDataSet;
 
 /**
@@ -70,6 +69,8 @@ public class HoopDocumentWriter extends HoopSaveBase
 	private boolean create = false; // This will setup an append if the index is already available
 	private String searchStore="";
 	
+	private HoopBooleanSerializable indexDocuments=null;
+	
 	/**
 	 *
 	 */
@@ -78,7 +79,9 @@ public class HoopDocumentWriter extends HoopSaveBase
 		setClassName ("HoopDocumentWriter");
 		debug ("HoopDocumentWriter ()");
 												
-		setHoopDescription ("Write Documents to Document DB");					
+		setHoopDescription ("Write Documents to Document DB");
+		
+		indexDocuments=new HoopBooleanSerializable (this,"indexDocuments",false);
     }
 	/**
 	 * 
@@ -229,7 +232,8 @@ public class HoopDocumentWriter extends HoopSaveBase
 										
 					testThread=new HoopKVLong ();
 					testThread.setKey(newThreadID);
-					testThread.setValue(aDocument.createDate.getValue());
+					//testThread.setValue(aDocument.createDate.getValue());
+					testThread.setValue(aDocument.getKeyString());
 					threadData.put(newThreadID,testThread);
 															
 					return (testThread);
@@ -256,7 +260,8 @@ public class HoopDocumentWriter extends HoopSaveBase
 						{
 							debug ("Bumping thread ID ("+newThreadID+") with document: "+aDocument.createDate.getValue()+" ...");
 														
-							testThread.bump(aDocument.createDate.getValue());
+							//testThread.bump(aDocument.createDate.getValue());
+							testThread.bump(aDocument.getKeyString());
 							
 							threadData.put(newThreadID,testThread);
 							
@@ -267,7 +272,8 @@ public class HoopDocumentWriter extends HoopSaveBase
 					{
 						debug ("Bumping thread ID ("+newThreadID+") with document: "+aDocument.createDate.getValue()+" ...");
 						
-						testThread.bump(aDocument.createDate.getValue());
+						//testThread.bump(aDocument.createDate.getValue());
+						testThread.bump(aDocument.getKeyString());
 						
 						threadData.put(newThreadID,testThread);
 						
@@ -361,6 +367,12 @@ public class HoopDocumentWriter extends HoopSaveBase
 	{
 		debug ("initSearch ()");
 		
+		if (indexDocuments.getPropValue()==false)
+		{
+			debug ("Search not enabled, skipping Lucene init");
+			return;
+		}
+		
 		if (searchStore.isEmpty()==true)
 		{
 			searchStore=getProjectPath ()+"/system/search";
@@ -437,69 +449,75 @@ public class HoopDocumentWriter extends HoopSaveBase
 	{
 		debug ("addToSearchIndex ()");
 		
-		  // make a new, empty document
-		  Document doc = new Document();
+		if (indexDocuments.getPropValue()==false)
+		{
+			debug ("Search not enabled, skipping Lucene indexing");
+			return;
+		}
+		
+		// make a new, empty document
+		Document doc = new Document();
 
-		  // Add the path of the file as a field named "path".  Use a
-		  // field that is indexed (i.e. searchable), but don't tokenize 
-		  // the field into separate words and don't index term frequency
-		  // or positional information:
+		// Add the path of the file as a field named "path".  Use a
+		// field that is indexed (i.e. searchable), but don't tokenize 
+		// the field into separate words and don't index term frequency
+		// or positional information:
 		  
-		  //Field pathField = new StringField("path", file.getPath(), Field.Store.YES);
-		  Field pathField = new StringField("path", aDocument.url.getValue(), Field.Store.YES);
-		  doc.add(pathField);
+		//Field pathField = new StringField("path", file.getPath(), Field.Store.YES);
+		Field pathField = new StringField("path", aDocument.url.getValue(), Field.Store.YES);
+		doc.add(pathField);
 
-		  // Add the last modified date of the file a field named "modified".
-		  // Use a LongField that is indexed (i.e. efficiently filterable with
-		  // NumericRangeFilter).  This indexes to milli-second resolution, which
-		  // is often too fine.  You could instead create a number based on
-		  // year/month/day/hour/minutes/seconds, down the resolution you require.
-		  // For example the long value 2011021714 would mean
-		  // February 17, 2011, 2-3 PM.
+		// Add the last modified date of the file a field named "modified".
+		// Use a LongField that is indexed (i.e. efficiently filterable with
+		// NumericRangeFilter).  This indexes to milli-second resolution, which
+		// is often too fine.  You could instead create a number based on
+		// year/month/day/hour/minutes/seconds, down the resolution you require.
+		// For example the long value 2011021714 would mean
+		// February 17, 2011, 2-3 PM.
 		  
-		  //doc.add(new LongField("modified", file.lastModified(), Field.Store.NO));
-		  doc.add(new LongField("modified", aDocument.modifiedDate.getValueSize(), Field.Store.NO));
+		//doc.add(new LongField("modified", file.lastModified(), Field.Store.NO));
+		doc.add(new LongField("modified", aDocument.modifiedDate.getValueSize(), Field.Store.NO));
 
-		  // Add the contents of the file to a field named "contents".  Specify a Reader,
-		  // so that the text of the file is tokenized and indexed, but not stored.
-		  // Note that FileReader expects the file to be in UTF-8 encoding.
-		  // If that's not the case searching for special characters will fail.
+		// Add the contents of the file to a field named "contents".  Specify a Reader,
+		// so that the text of the file is tokenized and indexed, but not stored.
+		// Note that FileReader expects the file to be in UTF-8 encoding.
+		// If that's not the case searching for special characters will fail.
 		  
-		  doc.add(new TextField("contents",aDocument.text.getValue(),Field.Store.NO));
+		doc.add(new TextField("contents",aDocument.text.getValue(),Field.Store.NO));
 
-		  if (writer.getConfig().getOpenMode() == OpenMode.CREATE) 
-		  {
-			  // New index, so we just add the document (no old document can be there):
-			  // System.out.println("adding " + file);
-			  debug ("Adding " + aDocument.url.getValue() + " to search index");
+		if (writer.getConfig().getOpenMode() == OpenMode.CREATE) 
+		{
+			// New index, so we just add the document (no old document can be there):
+			// System.out.println("adding " + file);
+			debug ("Adding " + aDocument.url.getValue() + " to search index");
 			  
-			  try 
-			  {
+			try 
+			{
 				writer.addDocument(doc);
-			  } 
-			  catch (IOException e) 
-			  {
+			} 
+			catch (IOException e) 
+			{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			  }
-		  } 
-		  else 
-		  {
-			  // Existing index (an old copy of this document may have been indexed) so 
-			  // we use updateDocument instead to replace the old one matching the exact 
-			  // path, if present:
-			  //System.out.println("updating " + file);
-			  debug ("Updating " + aDocument.url.getValue() + " in search index");
-			  try 
-			  {
+			}
+		} 
+		else 
+		{
+			// Existing index (an old copy of this document may have been indexed) so 
+			// we use updateDocument instead to replace the old one matching the exact 
+			// path, if present:
+			//System.out.println("updating " + file);
+			debug ("Updating " + aDocument.url.getValue() + " in search index");
+			try 
+			{
 				writer.updateDocument(new Term("path", aDocument.url.getValue()), doc);
-			  } 
-			  catch (IOException e) 
-			  {
+			} 
+			catch (IOException e) 
+			{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			  }
-		  }          		
+			}
+		}          		
 	}
 	/**
 	 * 

@@ -35,6 +35,8 @@ import edu.cmu.cs.in.hoop.properties.types.HoopStringSerializable;
 */
 public class HoopBerkeleyDBWriter extends HoopSaveBase
 {    			
+	private static final long serialVersionUID = -7691949614893802486L;
+
 	private HoopBerkeleyDB driver=null;
 	
 	private HoopEnumSerializable dbType=null; // DOCS, USERS, CUSTOM	
