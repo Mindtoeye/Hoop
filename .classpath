@@ -33,7 +33,22 @@
 	<classpathentry kind="lib" path="lib/stanford-parser-2012-07-09-models.jar"/>
 	<classpathentry kind="lib" path="lib/lucene-core-4.0.0.jar"/>
 	<classpathentry kind="lib" path="lib/lucene-analyzers-common-4.0.0.jar"/>
-	<classpathentry kind="lib" path="lib/lucene-queryparser-4.0.0.jar"/>	
+	<classpathentry kind="lib" path="lib/lucene-queryparser-4.0.0.jar"/>
 	<classpathentry kind="var" path="MYSQLJDBC"/>
+	<classpathentry kind="lib" path="lib/java-cup.jar"/>
+	<classpathentry kind="lib" path="lib/JFlex.jar"/>
+	<classpathentry kind="lib" path="lib/jfreechart-1.0.11.jar"/>
+	<classpathentry kind="lib" path="lib/junit.jar"/>
+	<classpathentry kind="lib" path="lib/lingpipe-2.3.0.jar"/>
+	<classpathentry kind="lib" path="lib/packageManager.jar"/>
+	<classpathentry kind="lib" path="lib/quiet-weka.jar"/>
+	<classpathentry kind="lib" path="lib/riverlayout.jar"/>
+	<classpathentry kind="lib" path="lib/stanford-postagger-2010-05-26.jar"/>
+	<classpathentry kind="lib" path="lib/trove.jar"/>
+	<classpathentry kind="lib" path="lib/XMLBoss.jar"/>
+	<classpathentry kind="lib" path="lib/xmlparserv2.jar"/>
+	<classpathentry kind="lib" path="lib/yeritools.jar"/>
+	<classpathentry kind="lib" path="plugins/light.jar"/>
+	<classpathentry kind="lib" path="plugins/weka.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

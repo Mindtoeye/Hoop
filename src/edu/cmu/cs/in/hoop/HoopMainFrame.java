@@ -53,6 +53,7 @@ import edu.cmu.cs.in.hoop.visualizers.HoopBackingDBInspector;
 import edu.cmu.cs.in.hoop.visualizers.HoopCluster;
 import edu.cmu.cs.in.hoop.visualizers.HoopParseTreeViewer;
 import edu.cmu.cs.in.hoop.visualizers.HoopScatterPlot;
+import edu.cmu.side.SimpleWorkbench;
 
 /** 
  *
@@ -475,6 +476,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     	JMenu tools = new JMenu("Tools");
 
     	JMenuItem searchItem = new JMenuItem("Search");
+    	JMenuItem SIDEItem = new JMenuItem("SIDE");    	
     	JMenuItem clusterItem = new JMenuItem("Cluster Manager");
     	JMenuItem experimentItem = new JMenuItem("Experimenter");
     	JMenuItem reporterItem = new JMenuItem("Reporter");
@@ -491,6 +493,14 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     		public void actionPerformed(ActionEvent e) 
     		{
     			addView ("Search",new HoopSearch (),HoopLink.center);
+    		}
+    	});
+    	
+    	SIDEItem.addActionListener(new ActionListener() 
+    	{
+    		public void actionPerformed(ActionEvent e) 
+    		{
+    			addView ("SIDE",new SimpleWorkbench (),HoopLink.center);
     		}
     	});
    	
@@ -581,6 +591,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     	*/
     	    	    	
     	tools.add (searchItem);
+    	tools.add (SIDEItem);
     	tools.add (clusterItem);
     	tools.add (experimentItem);
     	tools.add (reporterItem);

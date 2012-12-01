@@ -171,8 +171,14 @@ public class HoopClassLoader extends ClassLoader
 	public Hashtable<String, Class> loadHoopInterfaces (String aJarFile,boolean resolve)
 	{
 		debug ("loadHoopInterfaces ("+aJarFile+","+resolve+")");
-		
+						
 		classes = new Hashtable<String, Class>();
+		
+		if (aJarFile.indexOf("Hoop")==-1)
+		{
+			debug ("Just for now the Hoop specific plugins need to have the name Hoop in them.");
+			return (classes);
+		}
 		
 		JarFile jf=null;
 		

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hoopfile class="HoopGraphFile" instance="graph.xml">
+  <graph scale="1.0">
+    <hoops>
+      <hoop id="8adfc6c3-a074-4009-8bc2-83ac6206ed75" class="HoopStart" name="58" active="true">
+        <visual x="20" y="20" width="150" height="100" />
+        <properties />
+      </hoop>
+      <hoop id="b7a0718e-bc63-41b3-bf67-52f5f3f21fb7" class="HoopWikipediaAccess" name="59" active="true">
+        <visual x="160" y="190" width="150" height="100" />
+        <properties>
+          <serializable class="HoopStringSerializable" instance="batchSize">
+            <value format="Text" type="STRING">100</value>
+          </serializable>
+          <serializable class="HoopStringSerializable" instance="queryMax">
+            <value format="Text" type="STRING" />
+          </serializable>
+          <serializable class="HoopEnumSerializable" instance="mode">
+            <value format="Text" type="ENUM" options="LINEAR,SAMPLE">LINEAR</value>
+          </serializable>
+        </properties>
+      </hoop>
+    </hoops>
+    <connections>
+      <connection name="Edge" from="8adfc6c3-a074-4009-8bc2-83ac6206ed75" to="b7a0718e-bc63-41b3-bf67-52f5f3f21fb7" />
+    </connections>
+  </graph>
+</hoopfile>
+
