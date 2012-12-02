@@ -15,6 +15,7 @@ import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.filechooser.FileFilter;
 
 import com.yerihyo.yeritools.io.FileToolkit;
@@ -77,7 +78,9 @@ public class SimpleWorkbench extends HoopEmbeddedJPanel
 		workbench = new SimpleWorkbenchPanel();		
 		workbench.actionPerformed(new ActionEvent(this,1,"plugins"));
 		
-		setContentPane (workbench);
+		JScrollPane SIDEContainer=new JScrollPane (workbench);
+		
+		setContentPane (SIDEContainer);
 	}	
 	/**
 	 * 

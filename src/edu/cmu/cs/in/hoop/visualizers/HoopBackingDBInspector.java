@@ -66,7 +66,6 @@ import com.toedter.calendar.JDateChooser;
 
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.io.HoopBerkeleyDB;
-import edu.cmu.cs.in.base.io.HoopBerkeleyDBBase;
 import edu.cmu.cs.in.base.io.HoopBerkeleyDBInstance;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 
