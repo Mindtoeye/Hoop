@@ -35,7 +35,7 @@ public class HoopBooleanSerializable extends HoopSerializable
 	{
 		super (aParent,aName);
 		
-		setType (HoopDataType.BOOLEAN);
+		setDataType (HoopDataType.BOOLEAN);
 		setClassName ("HoopBooleanSerializable");
 		debug ("HoopBooleanSerializable ()");
    	
@@ -48,7 +48,7 @@ public class HoopBooleanSerializable extends HoopSerializable
 	{
 		super (aParent,aName);
 		
-		setType (HoopDataType.BOOLEAN);
+		setDataType (HoopDataType.BOOLEAN);
 		setClassName ("HoopBooleanSerializable");
 		debug ("HoopBooleanSerializable ()");  	
 	}	

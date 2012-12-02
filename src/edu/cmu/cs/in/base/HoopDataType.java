@@ -64,14 +64,14 @@ public class HoopDataType extends HoopAnnotation
     /**
     * 
  	*/    
-	public int getType() 
+	public int getDataType() 
 	{
 		return type;
 	}
     /**
     * 
  	*/	
-	public void setType(int type) 
+	public void setDataType(int type) 
 	{
 		this.type = type;
 	}   

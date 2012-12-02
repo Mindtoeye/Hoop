@@ -47,7 +47,7 @@ public class HoopSerializable extends HoopXMLBase
 	 */
 	public HoopSerializable (HoopPropertyContainer aParent) 
 	{
-		setType (HoopDataType.CLASS); // Default anyway but this makes it formal
+		setDataType (HoopDataType.CLASS); // Default anyway but this makes it formal
 		setClassName ("HoopSerializable");
 		setXMLID("serializable");
 		debug ("HoopSerializable ()");
@@ -71,7 +71,7 @@ public class HoopSerializable extends HoopXMLBase
 	 */
 	public HoopSerializable (HoopPropertyContainer aParent,String aName) 
 	{
-		setType (HoopDataType.CLASS); // Default anyway but this makes it formal
+		setDataType (HoopDataType.CLASS); // Default anyway but this makes it formal
 		setClassName ("HoopSerializable");
 		setXMLID("serializable");
 		debug ("HoopSerializable ()");

@@ -45,7 +45,7 @@ public class HoopKVClass extends HoopKV implements HoopKVInterface, Serializable
 	 */
     public HoopKVClass ()
     {
-    	setType (HoopDataType.CLASS);
+    	setDataType (HoopDataType.CLASS);
     	
     	variables=new ArrayList<HoopKV> ();
     	primaryLabels=new ArrayList<String> ();

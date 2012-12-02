@@ -40,7 +40,7 @@ public class HoopURISerializable extends HoopSerializable
 	{
 		super (aParent,aName);
 		
-		setType (HoopDataType.URI);
+		setDataType (HoopDataType.URI);
 		setClassName ("HoopURISerializable");
 		debug ("HoopURISerializable ()");
   	
@@ -53,7 +53,7 @@ public class HoopURISerializable extends HoopSerializable
     {
     	super (aParent,aName);
     	
-    	setType (HoopDataType.URI);
+    	setDataType (HoopDataType.URI);
     	setClassName ("HoopURISerializable");
     	debug ("HoopURISerializable ()");
     	

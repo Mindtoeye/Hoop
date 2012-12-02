@@ -58,7 +58,7 @@ public class HoopKVLong extends HoopKV implements HoopKVInterface, Serializable
 	 */
     public HoopKVLong ()
     {
-    	setType (HoopDataType.LONG);
+    	setDataType (HoopDataType.LONG);
     	
     	// Make sure we have at least one entry for quick access
     	values.add(new String ("0"));
@@ -68,7 +68,7 @@ public class HoopKVLong extends HoopKV implements HoopKVInterface, Serializable
 	 */
     public HoopKVLong (Long aKey,String aValue) 
     {	   
-    	setType (HoopDataType.LONG);
+    	setDataType (HoopDataType.LONG);
     	
     	// Make sure we have at least one entry for quick access
     	values.add(new String ("0"));

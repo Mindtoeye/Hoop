@@ -58,7 +58,7 @@ public class HoopKVBoolean extends HoopKV implements HoopKVInterface, Serializab
 	 */
     public HoopKVBoolean () 
     {
-    	setType (HoopDataType.BOOLEAN);
+    	setDataType (HoopDataType.BOOLEAN);
     	
     	// Make sure we have at least one entry for quick access
     	values.add(new String ("0"));
@@ -68,7 +68,7 @@ public class HoopKVBoolean extends HoopKV implements HoopKVInterface, Serializab
 	 */
     public HoopKVBoolean (Boolean aKey,String aValue) 
     {	   
-    	setType (HoopDataType.BOOLEAN);
+    	setDataType (HoopDataType.BOOLEAN);
     	
     	// Make sure we have at least one entry for quick access
     	values.add(new String ("0"));

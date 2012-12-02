@@ -61,7 +61,7 @@ public class HoopKVInteger extends HoopKV implements HoopKVInterface, Serializab
 	 */
     public HoopKVInteger ()
     {
-    	setType (HoopDataType.INT);
+    	setDataType (HoopDataType.INT);
     	
     	// Make sure we have at least one entry for quick access
     	values.add(new String ("0"));
@@ -71,7 +71,7 @@ public class HoopKVInteger extends HoopKV implements HoopKVInterface, Serializab
 	 */
     public HoopKVInteger (Integer aKey,String aValue) 
     {	   
-    	setType (HoopDataType.INT);
+    	setDataType (HoopDataType.INT);
     	
     	// Make sure we have at least one entry for quick access
     	values.add(new String ("0"));

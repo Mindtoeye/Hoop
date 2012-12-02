@@ -13,7 +13,10 @@ import com.yerihyo.yeritools.debug.YeriDebug;
 import com.yerihyo.yeritools.xml.XMLToolkit;
 import com.yerihyo.yeritools.xml.XMLable;
 
-public class PluginWrapper implements Comparable<PluginWrapper>, XMLable {
+import edu.cmu.cs.in.base.HoopRoot;
+
+public class PluginWrapper extends HoopRoot  implements Comparable<PluginWrapper>, XMLable 
+{
 	private Map<String, String> configMap = new HashMap<String, String>();
 	private File rootFolder;
 	
@@ -24,30 +27,81 @@ public class PluginWrapper implements Comparable<PluginWrapper>, XMLable {
 	public static final String CLASSNAME = "classname";
 	public static final String CONFIG = "config";
 	
-//	public static class PluginException extends Exception{
-//		private static final long serialVersionUID = 1L;
-//	}
-	
 	private transient File jarFile;
-	public File getJarFile(){
-		if(jarFile!=null){ return jarFile; }
+	private transient SIDEPlugin sidePlugin = null;
+	
+	/**
+	 * 
+	 */
+	public PluginWrapper ()
+	{
+		setClassName ("PluginWrapper");
+		debug ("PluginWrapper ()");			
+	}
+	/**
+	 * 
+	 */	
+	public PluginWrapper(File rootFolder, Element xmlElement) 
+	{
+		setClassName ("PluginWrapper");
+		debug ("PluginWrapper ()");		
+		
+		this.rootFolder = rootFolder;
+		this.configMap.putAll(XMLToolkit.xmlSimpleTypeToMap(xmlElement, "plugin"));
+	}	
+	/**
+	 * 
+	 */		
+	public File getJarFile()
+	{
+		debug ("getJarFile ()");
+		
+		if(jarFile!=null)
+		{ 
+			return jarFile; 
+		}
 		
 		String jarFileName = configMap.get(JARFILE);
-		if(jarFileName==null || jarFileName.length()==0){
+		
+		if (jarFileName==null || jarFileName.length()==0)
+		{
 			return null;
 		}
+		
+		/*
+		if (jarFileName.equalsIgnoreCase("Hoop")==true)
+		{
+			return (null);
+		}
+		*/
+		
 		jarFile = new File(rootFolder, jarFileName);
 		return jarFile;
 	}
-	
-	private transient SIDEPlugin sidePlugin = null;
-	public SIDEPlugin getSIDEPlugin()
+	/**
+	 * 
+	 */		
 	// return a new copy of the PluginWrapper object
+	public SIDEPlugin getSIDEPlugin()
 	{
+		debug ("getSIDEPlugin ()");
+				
 		if(sidePlugin!=null){ return sidePlugin; }
 		
-		try {
+		try 
+		{
 			String jarFilePath = this.getJarFile().getAbsolutePath();
+			
+			debug ("Getting SIDE plugin for: " + jarFilePath);
+			
+			/*
+			if (jarFilePath.indexOf("Hoop")!=-1)
+			{
+				debug ("Safety net, the plugin to be loaded is not a SIDE plugin");
+				return (null);
+			}
+			*/
+			
 			String className = configMap.get(CLASSNAME);
 			double t1 = System.currentTimeMillis();
 			PluginLoader pl = new PluginLoader(jarFilePath, className);
@@ -61,20 +115,35 @@ public class PluginWrapper implements Comparable<PluginWrapper>, XMLable {
 
 		return sidePlugin;
 	}
-
-	public String getType(){
+	/**
+	 * 
+	 */
+	public String getType()
+	{
+		debug ("getType ()");
+		
 		SIDEPlugin sidePlugin = this.getSIDEPlugin();
 		return sidePlugin==null?"N/A":sidePlugin.getType();
 	}
-
-	public String getConfiguration(){
+	/**
+	 * 
+	 */
+	public String getConfiguration()
+	{
+		debug ("getConfiguration ()");
+		
 		SIDEPlugin sidePlugin = this.getSIDEPlugin();
 		String config = sidePlugin.getAboutMap().get(CONFIG);
 		return config==null?"N/A":config;
 	}
-
+	/**
+	 * 
+	 */
 	/** TODO: change here for multiple jars **/
-	public void WriteToDisk() {
+	public void WriteToDisk() 
+	{
+		debug ("WriteToDisk ()");
+		
 		// Create the "config.xml" xmiFile and write the definition of the
 		// pluginWrapper into it
 		File xmlFile = new File(this.getJarFile().getParent(), "config.xml");
@@ -100,31 +169,47 @@ public class PluginWrapper implements Comparable<PluginWrapper>, XMLable {
 
 		}
 	}
+	/**
+	 * 
+	 */	
 
-	public Map<String,String> getConfigMap(){ return this.configMap; }
-	
-
-	public PluginWrapper(File rootFolder, Element xmlElement) {
-		this.rootFolder = rootFolder;
-		this.configMap.putAll(XMLToolkit.xmlSimpleTypeToMap(xmlElement, "plugin"));
-	}
-
-	public void fromXML(Element root) throws Exception {
+	public Map<String,String> getConfigMap()
+	{ 
+		return this.configMap; 
+	}	
+	/**
+	 * 
+	 */
+	public void fromXML(Element root) throws Exception 
+	{
+		debug ("fromXML ()");
+		
 //		NodeList children = xDoc.getChildNodes();
 		for (Element element : XMLToolkit.getChildElements(root)) {
 			this.configMap.put(element.getTagName(), element.getTextContent().trim());
 		}
 	}
-
-	public String toString() {
+	/**
+	 * 
+	 */
+	public String toString() 
+	{
 		return this.configMap.get(NAME) + " v " + this.configMap.get(VERSION);
 	}
-
-	public String toXML(){
+	/**
+	 * 
+	 */
+	public String toXML()
+	{
+		debug ("toXML ()");
+		
 		return XMLToolkit.mapToXMLSimpleTypeString("plugin", configMap);
 	}
-
-	public int compareTo(PluginWrapper arg0) {
+	/**
+	 * 
+	 */
+	public int compareTo(PluginWrapper arg0) 
+	{
 		int result = 0;
 		try {
 			result = this.configMap.get(NAME).compareTo(arg0.configMap.get(configMap));

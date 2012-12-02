@@ -73,7 +73,7 @@ public class HoopKVTools
     	    	
     	// Copy key ...
 
-    	if (aKV.getType()>HoopDataType.ENUM)
+    	if (aKV.getDataType()>HoopDataType.ENUM)
     	{
     		// This should really work
     		aKV.setKeyString(aKV.getKeyString());

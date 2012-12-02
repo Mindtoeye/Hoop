@@ -33,7 +33,7 @@ public class HoopStringSerializable extends HoopSerializable
 	{
 		super (aParent,aName);
 		
-		setType (HoopDataType.STRING);
+		setDataType (HoopDataType.STRING);
 		setClassName ("HoopStringSerializable");
 		debug ("HoopStringSerializable ()");
   	
@@ -46,7 +46,7 @@ public class HoopStringSerializable extends HoopSerializable
     {
     	super (aParent,aName);
     	
-    	setType (HoopDataType.STRING);
+    	setDataType (HoopDataType.STRING);
     	setClassName ("HoopStringSerializable");
     	debug ("HoopStringSerializable ()");
     	

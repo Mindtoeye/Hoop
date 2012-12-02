@@ -705,7 +705,7 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 				{
 					HoopDataType aType=dbTypes.get(i);
 					
-					if (aType.getType()==HoopDataType.INT)
+					if (aType.getDataType()==HoopDataType.INT)
 					{
 						//debug ("Adding INT type");
 						
@@ -721,7 +721,7 @@ public class HoopMySQLReader extends HoopLoadBase implements HoopInterface
 							tableKV.setValue(idVal.toString (),i);
 					}
 					
-					if (aType.getType()==HoopDataType.STRING)
+					if (aType.getDataType()==HoopDataType.STRING)
 					{						
 						//debug ("Adding STRING type");
 						

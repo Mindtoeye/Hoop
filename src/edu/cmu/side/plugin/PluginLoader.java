@@ -16,34 +16,37 @@ import java.util.List;
 import com.yerihyo.yeritools.RTTIToolkit;
 import com.yerihyo.yeritools.debug.YeriDebug;
 
+import edu.cmu.cs.in.base.HoopRoot;
 
-public class PluginLoader {
+
+public class PluginLoader extends HoopRoot 
+{
 	private SIDEPlugin plugin = null;
 	private File jarFile = null;
 	private String className = "";
 
-	public String ClassName() {
-		return this.className;
-	}
-
-	public File JarFile() {
-		return this.jarFile;
-	}
-
-	public SIDEPlugin Plugin() {
-		return this.plugin;
-	}
-
-	public PluginLoader(String jarFilePath, String className) throws Exception {
+	/**
+	 * 
+	 * @param jarFilePath
+	 * @param className
+	 * @throws Exception
+	 */
+	public PluginLoader (String jarFilePath, String className) throws Exception 
+	{
+		setClassName ("PluginLoader");
+		debug ("PluginLoader ()");	
+		
 		double time1 = System.currentTimeMillis();
 		this.jarFile = new File(jarFilePath);
-		if (!jarFile.exists()) {
-			throw new Exception("Could not read Jar xmiFile at "
-					+ jarFile.getAbsolutePath());
+		
+		if (!jarFile.exists()) 
+		{
+			throw new Exception("Could not read Jar xmiFile at " + jarFile.getAbsolutePath());
 		}
 
 		this.className = className;
-
+		
+		debug ("Attempting to load class: " + className);
 
 		try 
 		{
@@ -51,14 +54,47 @@ public class PluginLoader {
 			Constructor<?> constructor = clazz.getConstructor();
 			this.plugin = (SIDEPlugin) constructor.newInstance();
 			this.plugin.setRootFolder(new File(""));
-		} catch (Exception e) {
+		} 
+		catch (Exception e) 
+		{
 			System.out.println("error with class '"+className+"'");
 			YeriDebug.ASSERT(e);
 		}
+		
 		double time4 = System.currentTimeMillis();
 	}
-	
-	public static SIDEPlugin extractSIDEPlugin(String jarFilePath, String className) throws Exception {
+	/**
+	 * 
+	 */	
+	public String ClassName() 
+	{
+		return this.className;
+	}
+	/**
+	 * 
+	 */
+	public File JarFile() 
+	{
+		return this.jarFile;
+	}
+	/**
+	 * 
+	 */
+	public SIDEPlugin Plugin() 
+	{
+		return this.plugin;
+	}	
+	/**
+	 * 
+	 * @param jarFilePath
+	 * @param className
+	 * @return
+	 * @throws Exception
+	 */
+	public static SIDEPlugin extractSIDEPlugin(String jarFilePath, String className) throws Exception 
+	{
+		HoopRoot.debug ("PluginLoader","extractSIDEPlugin ("+jarFilePath+","+className+")");
+		
 		SIDEPlugin sidePlugin = null;
 		File jarFile = new File(jarFilePath);
 		if (!jarFile.exists()) {
@@ -76,9 +112,10 @@ public class PluginLoader {
 				break;
 			}
 		}
-		if (!foundIt) {
-			throw new Exception("The JAR xmiFile " + jarFile.getAbsolutePath()
-					+ " does not contain the class '" + className + "'.");
+		
+		if (!foundIt) 
+		{
+			throw new Exception("The JAR xmiFile " + jarFile.getAbsolutePath()	+ " does not contain the class '" + className + "'.");
 		}
 
 		try {

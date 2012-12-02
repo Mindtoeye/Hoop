@@ -58,7 +58,7 @@ public class HoopBaseTyped extends HoopVisual implements HoopPropertyContainer
     		
     		//debug ("Copying type ("+i+"): " + aType.getType() + " -> " + aType.getTypeValue());
     		
-    		aTargetHoop.setKVType (i,aType.getType(),aType.getTypeValue());
+    		aTargetHoop.setKVType (i,aType.getDataType(),aType.getTypeValue());
     	}    	
     }
     /**
@@ -180,7 +180,7 @@ public class HoopBaseTyped extends HoopVisual implements HoopPropertyContainer
     		types.set(anIndex, target);
     	}
     	
-		target.setType (aType);
+		target.setDataType (aType);
     }
     /**
      * 
@@ -201,7 +201,7 @@ public class HoopBaseTyped extends HoopVisual implements HoopPropertyContainer
     		types.set(anIndex, target);
     	}
     	
-		target.setType(aType);
+		target.setDataType(aType);
 		target.setTypeValue (aValue);
     }
     /**

@@ -2,36 +2,27 @@
 package edu.cmu.side;
 
 import java.awt.Component;
-import org.w3c.dom.*;
-
-import java.awt.Dimension;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.filechooser.FileFilter;
 
 import com.yerihyo.yeritools.io.FileToolkit;
 import com.yerihyo.yeritools.swing.SimpleOKDialog;
 import com.yerihyo.yeritools.swing.SwingToolkit.ResultOption;
-import com.yerihyo.yeritools.xml.XMLToolkit;
 
-import se.datadosen.component.RiverLayout;
-
+import edu.cmu.cs.in.base.HoopLink;
+import edu.cmu.cs.in.base.io.HoopFileTools;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 import edu.cmu.side.simple.newui.FastListModel;
 import edu.cmu.side.dataitem.TrainingResultInterface;
@@ -45,58 +36,34 @@ import edu.cmu.side.simple.SimpleTrainingResult;
 import edu.cmu.side.simple.feature.FeatureTable;
 import edu.cmu.side.simple.newui.SimpleWorkbenchPanel;
 import edu.cmu.side.simple.newui.features.FeatureTableListPanel;
-import edu.cmu.side.simple.newui.features.FeatureTablePanel;
 import edu.cmu.side.simple.newui.machinelearning.ModelListPanel;
 import edu.cmu.side.simple.newui.prediction.PredictionFileSelectPanel;
 
 public class SimpleWorkbench extends HoopEmbeddedJPanel
 {
-	/*
-	public static void main(String[] args) throws Exception 
-	{
-		SimpleWorkbench workbench = new SimpleWorkbench();
-	}
-	
-	static SimpleWorkbenchPanel workbench;
-	
-	public SimpleWorkbench()
-	{
-		JFrame frame = new JFrame();
-		frame.setSize(new Dimension(1050,768));
-		frame.setTitle("LightSIDE");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLayout(new RiverLayout());
-		workbench = new SimpleWorkbenchPanel();
-		frame.add("hfill vfill", new JScrollPane(workbench));
-		frame.setVisible(true);
-		workbench.actionPerformed(new ActionEvent(this,1,"plugins"));
-	}
-	*/
-
 	private static final long serialVersionUID = -1774294491405977680L;
 
 	/**
 	 * Static fields that everything else references for file lookup
 	 */
-	public static File rootFolder = new File(System.getProperty("user.dir"));
+	public static File rootFolder = null;
+	public static File HoopFolder = null;
 	
 	static public String PLATFORM_FILE_SEPARATOR = System.getProperty("file.separator");
-	static public String BASE_PATH = rootFolder.getAbsolutePath()+ PLATFORM_FILE_SEPARATOR;
-	static public File PLUGIN_FOLDER = new File(BASE_PATH, "plugins");
+	static public String BASE_PATH = null;
+	static public File PLUGIN_FOLDER = null;
 	
-	public static File dataFolder = new File(rootFolder, "data");
-	public static File stopwordsFolder = new File(dataFolder, "stopwords");
-	public static File csvFolder = dataFolder;
-	public static File toolkitsFolder = new File(rootFolder, "toolkits");
-	public static File savedFolder = new File(BASE_PATH, "saved");
-	/**
-	 * Static collections of various data structures used throughout the program and accessible from anywhere.
-	 */
-	public static PluginManager pluginManager = new PluginManager(PLUGIN_FOLDER);
+	public static File dataFolder = null;
+	public static File stopwordsFolder = null;
+	public static File csvFolder = null;
+	public static File toolkitsFolder = null;
+	public static File savedFolder = null;
 	
-	static List<FeatureTable> featureTables = new ArrayList<FeatureTable>();
-	static List<TrainingResultInterface> trainingResults = new ArrayList<TrainingResultInterface>();
-	static List<SimplePredictionResult> predictionResults = new ArrayList<SimplePredictionResult>();
+	public static PluginManager pluginManager = null;
+	
+	static List<FeatureTable> featureTables = null;
+	static List<TrainingResultInterface> trainingResults = null;
+	static List<SimplePredictionResult> predictionResults = null;
 		
 	public static SimpleWorkbenchPanel workbench=null;
 	
@@ -105,11 +72,54 @@ public class SimpleWorkbench extends HoopEmbeddedJPanel
 		setClassName ("SimpleWorkbench");
 		debug ("SimpleWorkbench ()");		
 		
+		setup ();
+		
 		workbench = new SimpleWorkbenchPanel();		
 		workbench.actionPerformed(new ActionEvent(this,1,"plugins"));
 		
 		setContentPane (workbench);
 	}	
+	/**
+	 * 
+	 */
+	public void setup ()
+	{
+		debug ("setup ()");
+		
+		PLATFORM_FILE_SEPARATOR = System.getProperty("file.separator");
+		
+		rootFolder = new File(HoopLink.project.getBasePath());
+		HoopFolder = new File(System.getProperty("user.dir")+PLATFORM_FILE_SEPARATOR);
+				
+		BASE_PATH = rootFolder.getAbsolutePath()+ PLATFORM_FILE_SEPARATOR;
+		
+		PLUGIN_FOLDER = new File(HoopFolder, "plugins"+ PLATFORM_FILE_SEPARATOR + "SIDE");
+		
+		HoopFileTools fileTools=new HoopFileTools ();
+				
+		debug ("SIDE base path: " + BASE_PATH);
+		debug ("SIDE application path: " + HoopFolder);
+		debug ("SIDE plugin path: " + PLUGIN_FOLDER);
+						
+		fileTools.createDirectory(rootFolder + PLATFORM_FILE_SEPARATOR + "data");
+		
+		dataFolder = new File(rootFolder, "data");
+				
+		stopwordsFolder = new File(dataFolder, "stopwords");
+				
+		csvFolder = dataFolder;
+		toolkitsFolder = new File(HoopFolder, "toolkits");
+		
+		fileTools.createDirectory(rootFolder + PLATFORM_FILE_SEPARATOR + "saved");
+		
+		savedFolder = new File(BASE_PATH, "saved");
+		
+		pluginManager = new PluginManager(PLUGIN_FOLDER);
+		
+		featureTables = new ArrayList<FeatureTable>();
+		trainingResults = new ArrayList<TrainingResultInterface>();
+		predictionResults = new ArrayList<SimplePredictionResult>();		
+	}
 	/**
 	 * 
 	 */

@@ -57,7 +57,7 @@ public class HoopKVFloat extends HoopKV implements HoopKVInterface, Serializable
 	 */
     public HoopKVFloat () 
     {
-    	setType (HoopDataType.FLOAT);
+    	setDataType (HoopDataType.FLOAT);
     	
     	// Make sure we have at least one entry for quick access
     	values.add(new String ("0"));
@@ -67,7 +67,7 @@ public class HoopKVFloat extends HoopKV implements HoopKVInterface, Serializable
 	 */
     public HoopKVFloat (Float aKey,String aValue) 
     {	   
-    	setType (HoopDataType.FLOAT);
+    	setDataType (HoopDataType.FLOAT);
     	
     	// Make sure we have at least one entry for quick access
     	values.add(new String ("0"));   	

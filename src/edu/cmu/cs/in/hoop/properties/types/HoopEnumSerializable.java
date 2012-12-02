@@ -41,7 +41,7 @@ public class HoopEnumSerializable extends HoopSerializable
 	{
 		super (aParent,aName);
 		
-		setType (HoopDataType.ENUM);
+		setDataType (HoopDataType.ENUM);
 		setClassName ("HoopEnumSerializable");
 		debug ("HoopEnumSerializable ()");
   	
@@ -59,7 +59,7 @@ public class HoopEnumSerializable extends HoopSerializable
     {
     	super (aParent,aName);
     	
-    	setType (HoopDataType.ENUM);
+    	setDataType (HoopDataType.ENUM);
     	setClassName ("HoopStringSerializable");
     	debug ("HoopStringSerializable ()");
     	

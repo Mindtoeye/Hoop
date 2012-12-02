@@ -106,7 +106,7 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 	 */
     public HoopKVDocument ()
     {
-    	setType (HoopDataType.CLASS);
+    	setDataType (HoopDataType.CLASS);
     	
     	documentID=new HoopKVString ("documentID","-1");
     	addVariable (documentID);

@@ -121,13 +121,13 @@ public class HoopPropertyTable extends HoopJTable
         	
         			if (object!=null)
         			{        			
-        				if (object.getType()==HoopDataType.COLOR)
+        				if (object.getDataType()==HoopDataType.COLOR)
         				{
         					//debug ("Detected a color entry ...");
         					return (colorRenderer);
         				}
         				
-        				if (object.getType()==HoopDataType.URI)
+        				if (object.getDataType()==HoopDataType.URI)
         				{
         					//debug ("Detected a URI entry ...");
         					pathRenderer.setPathObject((HoopURISerializable) object);

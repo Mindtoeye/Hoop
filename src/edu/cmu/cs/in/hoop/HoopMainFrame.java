@@ -500,7 +500,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     	{
     		public void actionPerformed(ActionEvent e) 
     		{
-    			addView ("SIDE",new SimpleWorkbench (),HoopLink.center);
+    			startSIDE ();
     		}
     	});
    	
@@ -1505,4 +1505,29 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 	    	//debug ("The answer stored in CustomDialog is 'false' (i.e. user clicked no button.)");
 		}							
 	}	
+	/**
+	 * 
+	 */
+	private void startSIDE ()
+	{
+		debug ("startSIDE ()");
+		   		
+		if (HoopLink.project.getVirginFile()==true)
+		{
+			alert ("Please save your project first");
+			return;
+		}
+		
+		SimpleWorkbench SIDEPane=(SimpleWorkbench) HoopLink.getWindow("SIDE");
+       	if (SIDEPane!=null)
+       	{
+       		HoopLink.popWindow("SIDE");
+           	SIDEPane.setup();
+       	}
+       	else	
+       	{
+       		SIDEPane=new SimpleWorkbench ();
+       		addView ("SIDE",SIDEPane,HoopLink.center);
+       	}       	
+	}
 }

@@ -52,7 +52,7 @@ public class HoopKVList extends HoopKVString implements Serializable
 	 */
     public HoopKVList () 
     {
-    	setType (HoopDataType.ENUM);
+    	setDataType (HoopDataType.ENUM);
     	
     	data=new ArrayList<HoopKV> ();
     }
@@ -62,7 +62,7 @@ public class HoopKVList extends HoopKVString implements Serializable
 	 */
     public HoopKVList (String aKey) 
     {	   
-    	setType (HoopDataType.ENUM);
+    	setDataType (HoopDataType.ENUM);
     	
     	data=new ArrayList<HoopKV> ();
     	

@@ -35,7 +35,7 @@ public class HoopIntegerSerializable extends HoopSerializable
 	{
 		super (aParent,aName);
 		
-		setType (HoopDataType.INT);
+		setDataType (HoopDataType.INT);
 		setClassName ("HoopIntegerSerializable");
 		
 		debug ("HoopIntegerSerializable (HoopPropertyContainer aParent,String aName,Integer aPropValue)");
@@ -49,7 +49,7 @@ public class HoopIntegerSerializable extends HoopSerializable
 	{
 		super (aParent,aName);
 		
-		setType (HoopDataType.INT);
+		setDataType (HoopDataType.INT);
 		setClassName ("HoopIntegerSerializable");
 		
 		debug ("HoopIntegerSerializable (HoopPropertyContainer aParent,String aNam)");

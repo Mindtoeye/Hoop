@@ -53,7 +53,7 @@ public class HoopKVTable extends HoopKV implements Serializable
 	 */
     public HoopKVTable () 
     {
-    	setType (HoopDataType.TABLE);
+    	setDataType (HoopDataType.TABLE);
     	data=new ArrayList<ArrayList <HoopKV>> ();
     }
     /**

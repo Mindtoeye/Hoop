@@ -57,7 +57,7 @@ public class HoopKVString extends HoopKV implements HoopKVInterface, Serializabl
 	 */
     public HoopKVString () 
     {
-    	setType (HoopDataType.STRING);
+    	setDataType (HoopDataType.STRING);
     	
     	// Make sure we have at least one entry for quick access
     	values.add(new String ("0"));
@@ -67,7 +67,7 @@ public class HoopKVString extends HoopKV implements HoopKVInterface, Serializabl
 	 */
     public HoopKVString (String aKey,String aValue) 
     {	   
-    	setType (HoopDataType.STRING);
+    	setDataType (HoopDataType.STRING);
     	
     	// Make sure we have at least one entry for quick access
     	values.add(new String ("0"));  	
