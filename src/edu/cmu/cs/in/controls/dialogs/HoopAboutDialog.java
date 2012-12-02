@@ -21,7 +21,6 @@ package edu.cmu.cs.in.controls.dialogs;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
