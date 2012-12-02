@@ -26,11 +26,10 @@ import java.awt.Container;
 import javax.swing.*;
 import javax.swing.border.Border;
 
-import org.apache.hadoop.util.VersionInfo;
-
 import edu.cmu.cs.in.base.io.HoopVFSL;
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
+import edu.cmu.cs.in.controls.dialogs.HoopAboutDialog;
 import edu.cmu.cs.in.controls.splitpanel.HoopMultiSplitLayout;
 import edu.cmu.cs.in.controls.splitpanel.HoopMultiSplitNode;
 import edu.cmu.cs.in.controls.splitpanel.HoopMultiSplitPane;
@@ -43,9 +42,7 @@ import edu.cmu.cs.in.hoop.editor.HoopEditorMenuBar;
 public class HoopMultiViewFrame extends HoopPreferencesJFrame
 {
 	private static final long serialVersionUID = -1;
-			
-    static final String ABOUTMSG = "Hoop is an interactive text exploration tool written with the express\n purpose of understanding linguistic structures in written form.";
-				
+			    				
 	/**
 	 *
 	 */	
@@ -76,7 +73,9 @@ public class HoopMultiViewFrame extends HoopPreferencesJFrame
 	 */	
     public void showAboutBox() 
     {
-       JOptionPane.showMessageDialog(this, ABOUTMSG+"\n\nHoop version "+HoopVersion.version+"\nCompiled on: " + HoopVersion.compiledDate + "\n(compiled on Hadoop "+VersionInfo.getVersion()+", running on port "+HoopLink.monitorPort+")");
+       //JOptionPane.showMessageDialog(this, ABOUTMSG+"\n\nHoop version "+HoopVersion.version+"\nCompiled on: " + HoopVersion.compiledDate + "\n(compiled on Hadoop "+VersionInfo.getVersion()+", running on port "+HoopLink.monitorPort+")");
+    	HoopAboutDialog aboutDialog=new HoopAboutDialog (HoopLink.mainFrame,true);
+    	aboutDialog.setVisible(true);
     }
     /**
      * 

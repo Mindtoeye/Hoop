@@ -301,7 +301,8 @@ public class HoopLink extends HoopProperties
 		 							 "run.png",
 		 							 "debug.png",
 		 							 "delete.png",
-		 							 "data.gif"
+		 							 "data.gif",
+		 							 "Hoop-logo.png"
 		 							 };
 	
 	public static JFrame mainFrame=null;
@@ -408,9 +409,12 @@ public class HoopLink extends HoopProperties
     	for (int i=0;i<imgURLs.length;i++)
     	{
     		String test=imgURLs [i];
-    		if (test.toLowerCase().equals(aName)==true)
+    		
+    		if (test.toLowerCase().equals(aName.toLowerCase())==true)
     			return (imageIcons [i]);
     	}
+    	
+    	HoopRoot.debug ("HoopLink","Error: image " + aName + " not found");
     	
     	return (null);
     }
