@@ -1,1 +1,1 @@
-java -cp Hoop.jar HoopHadoopBroker -port 8080
+java -cp Hoop.jar HoopHadoopBroker -port 8080 >trace.log 2>&1

@@ -54,7 +54,7 @@ public class HoopDocumentReader extends HoopLoadBase
 		removeInPort ("KV");
 		enableProperty ("URI",false);
 		
-		selectedField=new HoopEnumSerializable (this,"selectedField","title,author,abstr,text,createDate,modifiedDate,keywords,url,description,tokens,thread");
+		selectedField=new HoopEnumSerializable (this,"selectedField","title,author,abstr,text,createDate,modifiedDate,keywords,url,description,tokens");
 	}
 	/**
 	 * 
@@ -240,6 +240,7 @@ public class HoopDocumentReader extends HoopLoadBase
 			this.addKV(new HoopKVString (aDocument.getKeyString(),aDocument.url.getValue()));
 		}
 		
+		/*
 		if (selectedField.getValue().equalsIgnoreCase("thread")==true)
 		{
 			//debug ("Scanning for thread starter ("+aDocument.threadStarter.getValue()+") for this document ...");
@@ -251,6 +252,7 @@ public class HoopDocumentReader extends HoopLoadBase
 				this.addKV(aDocument);
 			}
 		}
+		*/
 	}
 	/**
 	 * 

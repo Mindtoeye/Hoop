@@ -110,7 +110,7 @@ public class HoopCustomExperimentTest extends HoopAnalyze implements HoopInterfa
 						analysisResult=new HoopKVString (threadTracker,"*");
 						this.addKV(analysisResult);
 						
-						debug ("Procedding document " + aDocument.getKeyString() + " with thread id: " + aDocument.threadID.getValue());
+						//debug ("Procedding document " + aDocument.getKeyString() + " with thread id: " + aDocument.threadID.getValue());
 						
 						if (aDocument.threadID.getValue()!=null)
 						{
@@ -177,7 +177,7 @@ public class HoopCustomExperimentTest extends HoopAnalyze implements HoopInterfa
 	 */
 	private Boolean processDocument (HoopKVDocument aDocument)
 	{
-		debug ("processDocument ()");
+		//debug ("processDocument ()");
 		
 		if (aDocument==null)
 		{
@@ -209,7 +209,7 @@ public class HoopCustomExperimentTest extends HoopAnalyze implements HoopInterfa
 			return (false);
 		}
 		
-		debug ("Examining " + tokens.size() + " tokens");
+		//debug ("Examining " + tokens.size() + " tokens");
 		
 		for (int i=0;i<tokens.size();i++)
 		{
@@ -221,7 +221,7 @@ public class HoopCustomExperimentTest extends HoopAnalyze implements HoopInterfa
 			{
 				String typeFound=proFound.getValue(5);
 				
-				debug ("Pronoun " + proFound.getKeyString() + " found, for: " + typeFound);
+				//debug ("Pronoun " + proFound.getKeyString() + " found, for: " + typeFound);
 												
 				if ((typeCache.equals("in")==true) && (typeFound.equals ("out")))
 				{

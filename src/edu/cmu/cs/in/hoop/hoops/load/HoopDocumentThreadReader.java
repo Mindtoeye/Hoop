@@ -28,12 +28,15 @@ import edu.cmu.cs.in.base.kv.HoopKVDocument;
 import edu.cmu.cs.in.base.kv.HoopKVLong;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopLoadBase;
+import edu.cmu.cs.in.hoop.properties.types.HoopEnumSerializable;
 import edu.cmu.cs.in.hoop.properties.types.HoopStringSerializable;
 
 public class HoopDocumentThreadReader extends HoopLoadBase
 {
 	private static final long serialVersionUID = 3069547626921137451L;
 		
+	private HoopEnumSerializable incomingType=null;
+	
 	private StoredMap<Long, HoopKVDocument> inp=null;
 	
 	public HoopStringSerializable minThreadSize=null;    
@@ -52,6 +55,7 @@ public class HoopDocumentThreadReader extends HoopLoadBase
 		enableProperty ("URI",false);
 		
 		minThreadSize=new HoopStringSerializable (this,"minThreadSize","10");
+		incomingType=new HoopEnumSerializable (this,"incomingType","Documents,Threads");
 	}
 	/**
 	 *
@@ -80,49 +84,96 @@ public class HoopDocumentThreadReader extends HoopLoadBase
 		
 		ArrayList<HoopKV> data=inHoop.getData();
 		
-		for (int i=0;i<data.size();i++)
+		//>--------------------------------------------------------------------------------
+		
+		if (incomingType.getValue().equalsIgnoreCase("Documents")==true)
 		{
-			HoopKVDocument aDocument=(HoopKVDocument) data.get(i);
-			
-			debug ("Locating thread: " + aDocument.threadID.getValue());
-						
-			Long targetThread=Long.parseLong(aDocument.threadID.getValue());
-			
-			HoopKVLong aThread=threadMap.get(targetThread);
-			
-			if (aThread!=null)
+			for (int i=0;i<data.size();i++)
 			{
-				debug ("Retrieving document IDs ...");
+				HoopKVDocument aDocument=(HoopKVDocument) data.get(i);
 			
-				ArrayList <Object> aDocIDList=aThread.getValuesRaw ();
+				debug ("Locating thread: " + aDocument.threadID.getValue());
+						
+				Long targetThread=Long.parseLong(aDocument.threadID.getValue());
 			
-				if (aDocIDList.size()>minSize)
-				{				
-					debug ("Thread size of " + aDocIDList.size() + " is larger that minimum requested size of: " + minSize);
+				HoopKVLong aThread=threadMap.get(targetThread);
+			
+				if (aThread!=null)
+				{
+					debug ("Retrieving document IDs ...");
+			
+					ArrayList <Object> aDocIDList=aThread.getValuesRaw ();
+			
+					if (aDocIDList.size()>minSize)
+					{				
+						debug ("Check, thread size of " + aDocIDList.size() + " is larger that minimum requested size of: " + minSize);
 					
-					this.addKV(aDocument); // Make sure we add the original document (the thread starter)
+						this.addKV(aDocument); // Make sure we add the original document (the thread starter)
 					
-					for (int j=0;j<aDocIDList.size();j++)
-					{					
-						long targetID=Long.parseLong((String) aDocIDList.get(j));
+						for (int j=0;j<aDocIDList.size();j++)
+						{					
+							long targetID=Long.parseLong((String) aDocIDList.get(j));
 					
-						debug ("Document ID: " + targetID);
+							debug ("Document ID: " + targetID);
 						
-						HoopKVDocument retrievedDocument=inp.get(targetID);
+							HoopKVDocument retrievedDocument=inp.get(targetID);
 						
-						if (retrievedDocument!=null)
-						{
-							debug ("Adding document: " + retrievedDocument.getKeyString());
+							if (retrievedDocument!=null)
+							{
+								debug ("Adding document: " + retrievedDocument.getKeyString());
 							
-							this.addKV(retrievedDocument);
+								this.addKV(retrievedDocument);
+							}
+							else
+								debug ("Document " + targetID + " not found in data set");
 						}
-						else
-							debug ("Document " + targetID + " not found in data set");
-					}
-				}	
+					}	
+				}
 			}
 		}
+		
+		//>--------------------------------------------------------------------------------
+		
+		if (incomingType.getValue().equalsIgnoreCase("Threads")==true)
+		{
+			for (int i=0;i<data.size();i++)
+			{
+				HoopKVLong aThread=(HoopKVLong) data.get(i);
+			
+				debug ("Procedding thread: " + aThread.getKeyString());
+				
+				if (aThread.getValueSize()>minSize)
+				{
+					ArrayList <Object> aDocIDList=aThread.getValuesRaw ();
+					
+					if (aDocIDList.size()>minSize)
+					{				
+						debug ("Check, thread size of " + aDocIDList.size() + " is larger that minimum requested size of: " + minSize);
+										
+						for (int j=0;j<aDocIDList.size();j++)
+						{					
+							long targetID=Long.parseLong((String) aDocIDList.get(j));
+					
+							debug ("Document ID: " + targetID);
 						
+							HoopKVDocument retrievedDocument=inp.get(targetID);
+						
+							if (retrievedDocument!=null)
+							{
+								debug ("Adding document: " + retrievedDocument.getKeyString());
+							
+								this.addKV(retrievedDocument);
+							}
+							else
+								debug ("Document " + targetID + " not found in data set");
+						}
+					}						
+				}
+			}
+		}	
+		
+		//>--------------------------------------------------------------------------------
+					
 		return (true);
 	}
 	/**

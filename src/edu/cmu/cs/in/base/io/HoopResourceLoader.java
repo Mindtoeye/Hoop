@@ -20,7 +20,10 @@ package edu.cmu.cs.in.base.io;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringWriter;
 import java.net.URISyntaxException;
+import java.util.Scanner;
 
 import org.apache.uima.resource.ResourceManager;
 import org.apache.uima.util.FileUtils;
@@ -136,14 +139,17 @@ public class HoopResourceLoader extends HoopRoot
 	/**
 	 * 
 	 */
+	/*
 	public String getTextResource2(String aFile) 
 	{
-		debug("getTextResouce2 ()");
+		debug("getTextResource2 ()");
 
-		try {
-			debug(getClass().getClassLoader().getResource(aFile).toURI()
-					.toString());
-		} catch (URISyntaxException e1) {
+		try 
+		{
+			debug(getClass().getClassLoader().getResource(aFile).toURI().toString());
+		} 
+		catch (URISyntaxException e1) 
+		{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 			return (null);
@@ -151,10 +157,12 @@ public class HoopResourceLoader extends HoopRoot
 
 		File file = null;
 
-		try {
-			file = new File(getClass().getClassLoader().getResource(aFile)
-					.toURI());
-		} catch (URISyntaxException e) {
+		try 
+		{
+			file = new File(getClass().getClassLoader().getResource(aFile).toURI());
+		} 
+		catch (URISyntaxException e) 
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return (null);
@@ -164,14 +172,18 @@ public class HoopResourceLoader extends HoopRoot
 
 		String text = null;
 
-		try {
+		try 
+		{
 			text = FileUtils.file2String(file, "UTF-8");
-		} catch (IOException e) {
+		} 
+		catch (IOException e) 
+		{
 			e.printStackTrace();
 			return (null);
 		}
 
-		if (text == null) {
+		if (text == null) 
+		{
 			debug("Input error, unable to read: " + aFile);
 			return (null);
 		}
@@ -180,4 +192,33 @@ public class HoopResourceLoader extends HoopRoot
 
 		return (text);
 	}
+	*/
+	/**
+	 * 
+	 */
+	public String getTextResource2(String aFile) 
+	{
+		debug("getTextResource2 ()");
+		
+		InputStream is = getClass().getResourceAsStream(aFile);
+		
+		if (is!=null)
+		{
+			String theString = convertStreamToString (is);		
+		
+			return (theString);
+		}
+		else
+			debug ("Error: unable to open " + aFile);
+		
+		return (null);
+	}
+	/**
+	 * 
+	 */
+	public static String convertStreamToString(InputStream is) 
+	{
+	    java.util.Scanner s = new Scanner(is).useDelimiter("\\A");
+	    return s.hasNext() ? s.next() : "";
+	}	
 }
