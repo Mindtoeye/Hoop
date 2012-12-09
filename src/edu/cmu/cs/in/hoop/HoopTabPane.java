@@ -32,11 +32,11 @@
 package edu.cmu.cs.in.hoop;
 
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicButtonUI;
+//import javax.swing.plaf.basic.BasicButtonUI;
 
-import edu.cmu.cs.in.base.HoopLink;
 //import edu.cmu.cs.in.base.HoopLink;
-import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
+//import edu.cmu.cs.in.base.HoopLink;
+//import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 import edu.cmu.cs.in.controls.base.HoopJPanel;
 
 import java.awt.*;
@@ -49,43 +49,47 @@ import java.awt.event.*;
 public class HoopTabPane extends HoopJPanel 
 {
 	private static final long serialVersionUID = 1L;
-	private final JTabbedPane pane;
+	
+	private JTabbedPane pane=null;
 	private JButton icon = null;
 	private JButton button = null;
+	private JLabel label=null;
 
     /** 
      * @param pane
      */
-    public HoopTabPane (final JTabbedPane pane) 
+    public HoopTabPane (final JTabbedPane aPane) 
     {		
         //unset default FlowLayout' gaps
-        super (new FlowLayout(FlowLayout.LEFT, 0, 0));
+        //super (new FlowLayout(FlowLayout.LEFT, 0, 0));
+    	
+    	//super (new BorderLayout());
+    	
+    	this.setLayout(new BoxLayout (this,BoxLayout.X_AXIS));
         
 		setClassName ("HoopTabPane");
 		debug ("HoopTabPane ()");
 			
-		//this.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-		//this.setMargin(new Insets(0,0,0,0));
+		//this.setBorder (BorderFactory.createLineBorder(Color.green));		
 		
-        if (pane == null) 
+        if (aPane == null) 
         {
             throw new NullPointerException("TabbedPane is null");
         }
         else
         {        
-        	this.pane=pane;
+        	this.pane=aPane;
         
-        	setOpaque (true);
+        	setOpaque (false);
         	                	
         	icon=new JButton ();
         	icon.setOpaque (false);
         	icon.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
         	
-
-        	add (icon);
+        	this.add (icon);
         	
         	//	make JLabel read titles from JTabbedPane
-        	JLabel label = new JLabel() 
+        	label = new JLabel() 
         	{
         		private static final long serialVersionUID = 1L;
 
@@ -105,14 +109,17 @@ public class HoopTabPane extends HoopJPanel
         	};
                 
         	label.setFont(new Font("Dialog", 1, 10));
-        	add (label);
-        	
         	label.setBorder(BorderFactory.createEmptyBorder(0, 1, 0, 1));
+        	
+        	this.add (label);
+        	        	
+        	this.add(Box.createHorizontalGlue());
 
-        	button=new HoopTabButton();
+        	button=new HoopTabButton(pane,buttonMouseListener);
+        	button.setPreferredSize(new Dimension (20,20));
         	button.setBorder(BorderFactory.createEmptyBorder(0, 1, 0, 1));
                 
-        	add (button);        	
+        	this.add (button);        	
         }	
     }
     /** 
@@ -143,101 +150,42 @@ public class HoopTabPane extends HoopJPanel
     	}	    	
     }
     /** 
-     * 
-     */
-    private class HoopTabButton extends JButton implements ActionListener 
-    {
-		private static final long serialVersionUID = 1L;
-	
-        /**
-		 * 
-		 */		
-		public HoopTabButton() 
-        {
-            int size = 25;
-            
-            this.setPreferredSize(new Dimension(size, size));
-            this.setToolTipText("Close this tab");
-            this.setMargin(new Insets(0,0,0,0));
-            this.setBorder(BorderFactory.createEmptyBorder(0,0, 0, 0));
-
-            this.setUI (new BasicButtonUI());
-            
-            this.setContentAreaFilled(false);
-            
-            this.setFocusable(false);
-            this.setBorderPainted(false);            
-            this.addMouseListener(buttonMouseListener);
-            this.setRolloverEnabled(true);
-            this.addActionListener(this);
-        }
-        /** 
-         * 
-         */
-        public void actionPerformed(ActionEvent e) 
-        {
-            int i = pane.indexOfTabComponent (HoopTabPane.this);
-            
-            if (i != -1) 
-            {
-            	HoopEmbeddedJPanel aContent=(HoopEmbeddedJPanel) pane.getComponentAt(i);
-            	if (aContent!=null)
-            	{
-            		HoopLink.removeWindow(aContent);
-            	}
-                pane.remove(i);
-            }
-        }
-        /** 
-         * we don't want to update UI for this button
-         */
-        public void updateUI() 
-        {
-        	
-        }
-        /** 
-         * paint the cross
-         */
-        protected void paintComponent(Graphics g) 
-        {
-            super.paintComponent(g);
-                        
-            Graphics2D g2 = (Graphics2D) g.create();
-            
-            //shift the image for pressed buttons
-            if (getModel().isPressed()) 
-            {
-                g2.translate(1, 1);
-            }
-            
-            g2.setStroke (new BasicStroke(2));
-            g2.setColor (Color.BLACK);
-            
-            if (getModel().isRollover()) 
-            {
-                g2.setColor (Color.WHITE);
-            }
-            
-            int delta = 6;
-            g2.drawLine(delta, delta, getWidth() - delta - 1, getHeight() - delta - 1);
-            g2.drawLine(getWidth() - delta - 1, delta, delta, getHeight() - delta - 1);
-            g2.dispose();
-        }
-    }
-    /** 
      * paint the cross
      */
+    /*
     protected void paintComponent(Graphics g) 
-    {
+    {    	
     	super.paintComponent(g);
     	
     	g.setColor(Color.RED);
-    	g.drawRect(0,0,this.getWidth(),this.getHeight());
+    	g.drawRect(0,0,this.getWidth(),this.getHeight());    	
     }
+    */
+	/**
+	 *
+	 */	
+	public void updateSize() 
+	{
+		debug ("updateSize ()");
+		    
+		super.updateSize();
+			
+    	debug ("Adjusting font size for width: " + this.getWidth());
+    	
+    	int fontSize=Math.round(this.getWidth()/20);
+    	
+    	if (fontSize<8)
+    		fontSize=8;
+    	
+    	if (fontSize>11)
+    		fontSize=11;
+    	
+    	label.setFont(new Font("Dialog", 1, fontSize));    	
+	}	    
     /**
 	 * 
 	 */
-    private final static MouseListener buttonMouseListener = new MouseAdapter() 
+    private static MouseListener buttonMouseListener = new MouseAdapter() 
     {
         /**
 		 * 
@@ -245,6 +193,7 @@ public class HoopTabPane extends HoopJPanel
         public void mouseEntered(MouseEvent e) 
         {
             Component component = e.getComponent();
+            
             if (component instanceof AbstractButton) 
             {
                 AbstractButton button = (AbstractButton) component;

@@ -1060,5 +1060,6 @@ public class HoopBackingDBInspector extends HoopEmbeddedJPanel implements MouseL
 	{
 		debug ("updateSize ()");
 		
+		super.updateSize();
 	}		
 }

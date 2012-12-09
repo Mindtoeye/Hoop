@@ -177,9 +177,13 @@ public class HoopMultiViewFrame extends HoopPreferencesJFrame
         cp.add (Box.createRigidArea(new Dimension(0,2)));
 		
 		HoopLink.left=new HoopTabDraggable ();		
+		HoopLink.left.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 		HoopLink.right=new HoopTabDraggable ();		
+		HoopLink.right.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 		HoopLink.center=new HoopTabDraggable ();		
+		HoopLink.center.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 		HoopLink.bottom=new HoopTabDraggable ();
+		HoopLink.bottom.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 		
 		/*
  			(ROW weight=1.0 

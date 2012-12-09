@@ -372,6 +372,8 @@ public class HoopTablePanel extends HoopEmbeddedJPanel implements ActionListener
 	{
 		debug ("updateSize ()");
 		
+		super.updateSize();
+		
 		TableColumn col1 = table.getColumnModel().getColumn(0);
 		col1.setPreferredWidth(primColWidth);		
 	 

@@ -1,1 +1,2215 @@
-Error: Could not find or load main class Hoop
+[07-57-12-656] [1] <HoopApplicationManager> Listening for application instances on socket 44331
+[07-57-12-906] [2] <HoopBaseLink> HoopBaseLink ()
+[07-57-12-937] [3] <HoopEnvironment> HoopEnvironment ()
+[07-57-12-968] [4] <HoopVFSL> HoopVFSL ()
+[07-57-13-031] [5] <HoopFileTools> HoopFileTools ()
+[07-57-13-031] [6] <HoopFileManager> HoopFileManager ()
+[07-57-13-031] [7] <HoopLangLink> HoopLangLink ()
+[07-57-13-125] [8] <HoopLingModel> HoopLingModel ()
+[07-57-13-125] [9] <HoopEngPronounModel> HoopEngPronounModel ()
+[07-57-13-125] [10] <HoopResourceLoader> HoopResourceLoader ()
+[07-57-13-125] [11] <HoopResourceLoader> getTextResource2 ()
+[07-57-13-125] [12] <HoopResourceLoader> Error: unable to open EngPronouns.csv
+[07-57-13-125] [13] <HoopLink> HoopLink ()
+[07-57-13-156] [14] <HoopStatistics> HoopStatistics ()
+[07-57-13-265] [15] <HoopVisual> HoopVisual ()
+[07-57-13-265] [16] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-13-265] [17] <HoopBase> HoopBase ()
+[07-57-13-468] [18] <HoopManager> HoopManager ()
+[07-57-13-468] [19] <HoopManager> initHoopTemplates ()
+[07-57-13-468] [20] <HoopVisual> HoopVisual ()
+[07-57-13-468] [21] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-13-468] [22] <HoopBase> HoopBase ()
+[07-57-13-468] [23] <HoopDisplayBase> HoopDisplayBase ()
+[07-57-13-468] [24] <HoopManager> addTemplate ()
+[07-57-13-468] [25] <HoopVisual> HoopVisual ()
+[07-57-13-468] [26] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-13-468] [27] <HoopBase> HoopBase ()
+[07-57-13-468] [28] <HoopIOBase> HoopIOBase ()
+[07-57-13-468] [29] <HoopLoadBase> HoopLoadBase ()
+[07-57-13-500] [30] <HoopSerializable> HoopSerializable ()
+[07-57-13-500] [31] <HoopSerializable> Adding this to parent properties list
+[07-57-13-500] [32] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-13-500] [33] <HoopSerializable> HoopSerializable ()
+[07-57-13-500] [34] <HoopSerializable> Adding this to parent properties list
+[07-57-13-500] [35] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-13-515] [36] <HoopSerializable> HoopSerializable ()
+[07-57-13-515] [37] <HoopSerializable> Adding this to parent properties list
+[07-57-13-515] [38] <HoopEnumSerializable> HoopEnumSerializable ()
+[07-57-13-515] [39] <HoopFileLoadBase> HoopFileLoadBase ()
+[07-57-13-515] [40] <HoopSerializable> HoopSerializable ()
+[07-57-13-515] [41] <HoopSerializable> Adding this to parent properties list
+[07-57-13-515] [42] <HoopURISerializable> HoopURISerializable ()
+[07-57-13-515] [43] <HoopFileTools> HoopFileTools ()
+[07-57-13-515] [44] <HoopManager> addTemplate ()
+[07-57-13-515] [45] <HoopVisual> HoopVisual ()
+[07-57-13-515] [46] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-13-515] [47] <HoopBase> HoopBase ()
+[07-57-13-515] [48] <HoopIOBase> HoopIOBase ()
+[07-57-13-515] [49] <HoopSaveBase> HoopSaveBase ()
+[07-57-13-515] [50] <HoopFileSaveBase> HoopFileSaveBase ()
+[07-57-13-515] [51] <HoopSerializable> HoopSerializable ()
+[07-57-13-515] [52] <HoopSerializable> Adding this to parent properties list
+[07-57-13-515] [53] <HoopURISerializable> HoopURISerializable ()
+[07-57-13-515] [54] <HoopManager> addTemplate ()
+[07-57-13-515] [55] <HoopVisual> HoopVisual ()
+[07-57-13-515] [56] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-13-515] [57] <HoopBase> HoopBase ()
+[07-57-13-515] [58] <HoopBatch> HoopBatch ()
+[07-57-13-515] [59] <HoopSerializable> HoopSerializable ()
+[07-57-13-515] [60] <HoopSerializable> Adding this to parent properties list
+[07-57-13-515] [61] <HoopIntegerSerializable> HoopIntegerSerializable (HoopPropertyContainer aParent,String aName,Integer aPropValue)
+[07-57-13-515] [62] <HoopIntegerSerializable> setPropValue (0)
+[07-57-13-515] [63] <HoopIntegerSerializable> Check: 0
+[07-57-13-515] [64] <HoopTransformBase> HoopTransformBase ()
+[07-57-13-531] [65] <HoopSerializable> HoopSerializable ()
+[07-57-13-531] [66] <HoopSerializable> Adding this to parent properties list
+[07-57-13-531] [67] <HoopBooleanSerializable> HoopBooleanSerializable ()
+[07-57-13-531] [68] <HoopSerializable> HoopSerializable ()
+[07-57-13-531] [69] <HoopSerializable> Adding this to parent properties list
+[07-57-13-531] [70] <HoopEnumSerializable> HoopEnumSerializable ()
+[07-57-13-531] [71] <HoopText2Sentence> HoopText2Sentence ()
+[07-57-13-531] [72] <HoopSerializable> HoopSerializable ()
+[07-57-13-531] [73] <HoopSerializable> Adding this to parent properties list
+[07-57-13-531] [74] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-13-531] [75] <HoopManager> addTemplate ()
+[07-57-13-531] [76] <HoopVisual> HoopVisual ()
+[07-57-13-531] [77] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-13-531] [78] <HoopBase> HoopBase ()
+[07-57-13-531] [79] <HoopBatch> HoopBatch ()
+[07-57-13-531] [80] <HoopSerializable> HoopSerializable ()
+[07-57-13-531] [81] <HoopSerializable> Adding this to parent properties list
+[07-57-13-531] [82] <HoopIntegerSerializable> HoopIntegerSerializable (HoopPropertyContainer aParent,String aName,Integer aPropValue)
+[07-57-13-531] [83] <HoopIntegerSerializable> setPropValue (0)
+[07-57-13-531] [84] <HoopIntegerSerializable> Check: 0
+[07-57-13-531] [85] <HoopTransformBase> HoopTransformBase ()
+[07-57-13-531] [86] <HoopSerializable> HoopSerializable ()
+[07-57-13-531] [87] <HoopSerializable> Adding this to parent properties list
+[07-57-13-531] [88] <HoopBooleanSerializable> HoopBooleanSerializable ()
+[07-57-13-531] [89] <HoopSerializable> HoopSerializable ()
+[07-57-13-531] [90] <HoopSerializable> Adding this to parent properties list
+[07-57-13-531] [91] <HoopEnumSerializable> HoopEnumSerializable ()
+[07-57-13-531] [92] <HoopSentence2Tokens> HoopSentence2Tokens ()
+[07-57-13-531] [93] <HoopSerializable> HoopSerializable ()
+[07-57-13-531] [94] <HoopSerializable> Adding this to parent properties list
+[07-57-13-531] [95] <HoopEnumSerializable> HoopEnumSerializable ()
+[07-57-13-531] [96] <HoopSerializable> HoopSerializable ()
+[07-57-13-531] [97] <HoopSerializable> Adding this to parent properties list
+[07-57-13-531] [98] <HoopBooleanSerializable> HoopBooleanSerializable ()
+[07-57-13-531] [99] <HoopSerializable> HoopSerializable ()
+[07-57-13-531] [100] <HoopSerializable> Adding this to parent properties list
+[07-57-13-531] [101] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-13-531] [102] <HoopSerializable> HoopSerializable ()
+[07-57-13-531] [103] <HoopSerializable> Adding this to parent properties list
+[07-57-13-531] [104] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-13-531] [105] <HoopSerializable> HoopSerializable ()
+[07-57-13-531] [106] <HoopSerializable> Adding this to parent properties list
+[07-57-13-531] [107] <HoopEnumSerializable> HoopEnumSerializable ()
+[07-57-13-531] [108] <HoopManager> addTemplate ()
+[07-57-13-546] [109] <HoopVisual> HoopVisual ()
+[07-57-13-546] [110] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-13-546] [111] <HoopBase> HoopBase ()
+[07-57-13-546] [112] <HoopIOBase> HoopIOBase ()
+[07-57-13-546] [113] <HoopSaveBase> HoopSaveBase ()
+[07-57-13-546] [114] <HoopStdout> HoopStdout ()
+[07-57-13-546] [115] <HoopManager> addTemplate ()
+[07-57-13-546] [116] <HoopVisual> HoopVisual ()
+[07-57-13-546] [117] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-13-546] [118] <HoopBase> HoopBase ()
+[07-57-13-546] [119] <HoopIOBase> HoopIOBase ()
+[07-57-13-546] [120] <HoopLoadBase> HoopLoadBase ()
+[07-57-13-546] [121] <HoopSerializable> HoopSerializable ()
+[07-57-13-546] [122] <HoopSerializable> Adding this to parent properties list
+[07-57-13-546] [123] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-13-546] [124] <HoopSerializable> HoopSerializable ()
+[07-57-13-546] [125] <HoopSerializable> Adding this to parent properties list
+[07-57-13-546] [126] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-13-546] [127] <HoopSerializable> HoopSerializable ()
+[07-57-13-546] [128] <HoopSerializable> Adding this to parent properties list
+[07-57-13-546] [129] <HoopEnumSerializable> HoopEnumSerializable ()
+[07-57-13-546] [130] <HoopStdin> HoopStdin ()
+[07-57-13-546] [131] <HoopManager> addTemplate ()
+[07-57-13-562] [132] <HoopVisual> HoopVisual ()
+[07-57-13-562] [133] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-13-562] [134] <HoopBase> HoopBase ()
+[07-57-13-562] [135] <HoopBatch> HoopBatch ()
+[07-57-13-562] [136] <HoopSerializable> HoopSerializable ()
+[07-57-13-562] [137] <HoopSerializable> Adding this to parent properties list
+[07-57-13-562] [138] <HoopIntegerSerializable> HoopIntegerSerializable (HoopPropertyContainer aParent,String aName,Integer aPropValue)
+[07-57-13-562] [139] <HoopIntegerSerializable> setPropValue (0)
+[07-57-13-562] [140] <HoopIntegerSerializable> Check: 0
+[07-57-13-562] [141] <HoopTransformBase> HoopTransformBase ()
+[07-57-13-562] [142] <HoopSerializable> HoopSerializable ()
+[07-57-13-562] [143] <HoopSerializable> Adding this to parent properties list
+[07-57-13-562] [144] <HoopBooleanSerializable> HoopBooleanSerializable ()
+[07-57-13-562] [145] <HoopSerializable> HoopSerializable ()
+[07-57-13-562] [146] <HoopSerializable> Adding this to parent properties list
+[07-57-13-562] [147] <HoopEnumSerializable> HoopEnumSerializable ()
+[07-57-13-562] [148] <HoopFilterStopWords> HoopFilterStopWords ()
+[07-57-13-562] [149] <HoopSerializable> HoopSerializable ()
+[07-57-13-562] [150] <HoopSerializable> Adding this to parent properties list
+[07-57-13-562] [151] <HoopURISerializable> HoopURISerializable ()
+[07-57-13-562] [152] <HoopManager> addTemplate ()
+[07-57-13-562] [153] <HoopVisual> HoopVisual ()
+[07-57-13-562] [154] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-13-562] [155] <HoopBase> HoopBase ()
+[07-57-13-562] [156] <HoopBatch> HoopBatch ()
+[07-57-13-562] [157] <HoopSerializable> HoopSerializable ()
+[07-57-13-562] [158] <HoopSerializable> Adding this to parent properties list
+[07-57-13-562] [159] <HoopIntegerSerializable> HoopIntegerSerializable (HoopPropertyContainer aParent,String aName,Integer aPropValue)
+[07-57-13-562] [160] <HoopIntegerSerializable> setPropValue (0)
+[07-57-13-562] [161] <HoopIntegerSerializable> Check: 0
+[07-57-13-562] [162] <HoopTransformBase> HoopTransformBase ()
+[07-57-13-562] [163] <HoopSerializable> HoopSerializable ()
+[07-57-13-562] [164] <HoopSerializable> Adding this to parent properties list
+[07-57-13-562] [165] <HoopBooleanSerializable> HoopBooleanSerializable ()
+[07-57-13-562] [166] <HoopSerializable> HoopSerializable ()
+[07-57-13-562] [167] <HoopSerializable> Adding this to parent properties list
+[07-57-13-562] [168] <HoopEnumSerializable> HoopEnumSerializable ()
+[07-57-13-562] [169] <HoopUniqueTerms> HoopUniqueTerms ()
+[07-57-13-562] [170] <HoopManager> addTemplate ()
+[07-57-13-562] [171] <HoopVisual> HoopVisual ()
+[07-57-13-562] [172] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-13-562] [173] <HoopBase> HoopBase ()
+[07-57-13-562] [174] <HoopBatch> HoopBatch ()
+[07-57-13-562] [175] <HoopSerializable> HoopSerializable ()
+[07-57-13-562] [176] <HoopSerializable> Adding this to parent properties list
+[07-57-13-562] [177] <HoopIntegerSerializable> HoopIntegerSerializable (HoopPropertyContainer aParent,String aName,Integer aPropValue)
+[07-57-13-562] [178] <HoopIntegerSerializable> setPropValue (0)
+[07-57-13-562] [179] <HoopIntegerSerializable> Check: 0
+[07-57-13-562] [180] <HoopTransformBase> HoopTransformBase ()
+[07-57-13-562] [181] <HoopSerializable> HoopSerializable ()
+[07-57-13-562] [182] <HoopSerializable> Adding this to parent properties list
+[07-57-13-562] [183] <HoopBooleanSerializable> HoopBooleanSerializable ()
+[07-57-13-562] [184] <HoopSerializable> HoopSerializable ()
+[07-57-13-562] [185] <HoopSerializable> Adding this to parent properties list
+[07-57-13-562] [186] <HoopEnumSerializable> HoopEnumSerializable ()
+[07-57-13-562] [187] <HoopTokenCaseChange> HoopTokenCaseChange ()
+[07-57-13-562] [188] <HoopSerializable> HoopSerializable ()
+[07-57-13-562] [189] <HoopSerializable> Adding this to parent properties list
+[07-57-13-562] [190] <HoopEnumSerializable> HoopEnumSerializable ()
+[07-57-13-562] [191] <HoopManager> addTemplate ()
+[07-57-13-562] [192] <HoopVisual> HoopVisual ()
+[07-57-13-562] [193] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-13-562] [194] <HoopBase> HoopBase ()
+[07-57-13-562] [195] <HoopBatch> HoopBatch ()
+[07-57-13-562] [196] <HoopSerializable> HoopSerializable ()
+[07-57-13-562] [197] <HoopSerializable> Adding this to parent properties list
+[07-57-13-562] [198] <HoopIntegerSerializable> HoopIntegerSerializable (HoopPropertyContainer aParent,String aName,Integer aPropValue)
+[07-57-13-578] [199] <HoopIntegerSerializable> setPropValue (0)
+[07-57-13-578] [200] <HoopIntegerSerializable> Check: 0
+[07-57-13-578] [201] <HoopTransformBase> HoopTransformBase ()
+[07-57-13-578] [202] <HoopSerializable> HoopSerializable ()
+[07-57-13-578] [203] <HoopSerializable> Adding this to parent properties list
+[07-57-13-578] [204] <HoopBooleanSerializable> HoopBooleanSerializable ()
+[07-57-13-578] [205] <HoopSerializable> HoopSerializable ()
+[07-57-13-578] [206] <HoopSerializable> Adding this to parent properties list
+[07-57-13-578] [207] <HoopEnumSerializable> HoopEnumSerializable ()
+[07-57-13-578] [208] <HoopPorterStemmer> HoopPorterStemmer ()
+[07-57-13-578] [209] <HoopSerializable> HoopSerializable ()
+[07-57-13-578] [210] <HoopSerializable> Adding this to parent properties list
+[07-57-13-578] [211] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-13-578] [212] <HoopManager> addTemplate ()
+[07-57-13-578] [213] <HoopVisual> HoopVisual ()
+[07-57-13-578] [214] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-13-578] [215] <HoopBase> HoopBase ()
+[07-57-13-578] [216] <HoopBatch> HoopBatch ()
+[07-57-13-578] [217] <HoopSerializable> HoopSerializable ()
+[07-57-13-578] [218] <HoopSerializable> Adding this to parent properties list
+[07-57-13-578] [219] <HoopIntegerSerializable> HoopIntegerSerializable (HoopPropertyContainer aParent,String aName,Integer aPropValue)
+[07-57-13-578] [220] <HoopIntegerSerializable> setPropValue (0)
+[07-57-13-578] [221] <HoopIntegerSerializable> Check: 0
+[07-57-13-578] [222] <HoopTransformBase> HoopTransformBase ()
+[07-57-13-578] [223] <HoopSerializable> HoopSerializable ()
+[07-57-13-578] [224] <HoopSerializable> Adding this to parent properties list
+[07-57-13-578] [225] <HoopBooleanSerializable> HoopBooleanSerializable ()
+[07-57-13-578] [226] <HoopSerializable> HoopSerializable ()
+[07-57-13-578] [227] <HoopSerializable> Adding this to parent properties list
+[07-57-13-578] [228] <HoopEnumSerializable> HoopEnumSerializable ()
+[07-57-13-578] [229] <HoopCleanTokens> HoopCleanTokens ()
+[07-57-13-578] [230] <HoopManager> addTemplate ()
+[07-57-13-578] [231] <HoopVisual> HoopVisual ()
+[07-57-13-578] [232] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-13-578] [233] <HoopBase> HoopBase ()
+[07-57-13-578] [234] <HoopBatch> HoopBatch ()
+[07-57-13-578] [235] <HoopSerializable> HoopSerializable ()
+[07-57-13-578] [236] <HoopSerializable> Adding this to parent properties list
+[07-57-13-578] [237] <HoopIntegerSerializable> HoopIntegerSerializable (HoopPropertyContainer aParent,String aName,Integer aPropValue)
+[07-57-13-578] [238] <HoopIntegerSerializable> setPropValue (0)
+[07-57-13-578] [239] <HoopIntegerSerializable> Check: 0
+[07-57-13-578] [240] <HoopTransformBase> HoopTransformBase ()
+[07-57-13-578] [241] <HoopSerializable> HoopSerializable ()
+[07-57-13-578] [242] <HoopSerializable> Adding this to parent properties list
+[07-57-13-578] [243] <HoopBooleanSerializable> HoopBooleanSerializable ()
+[07-57-13-578] [244] <HoopSerializable> HoopSerializable ()
+[07-57-13-578] [245] <HoopSerializable> Adding this to parent properties list
+[07-57-13-578] [246] <HoopEnumSerializable> HoopEnumSerializable ()
+[07-57-13-578] [247] <HoopFilterGarbage> HoopFilterGarbage ()
+[07-57-13-578] [248] <HoopSerializable> HoopSerializable ()
+[07-57-13-578] [249] <HoopSerializable> Adding this to parent properties list
+[07-57-13-578] [250] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-13-578] [251] <HoopSerializable> HoopSerializable ()
+[07-57-13-578] [252] <HoopSerializable> Adding this to parent properties list
+[07-57-13-578] [253] <HoopBooleanSerializable> HoopBooleanSerializable ()
+[07-57-13-578] [254] <HoopSerializable> HoopSerializable ()
+[07-57-13-578] [255] <HoopSerializable> Adding this to parent properties list
+[07-57-13-578] [256] <HoopBooleanSerializable> HoopBooleanSerializable ()
+[07-57-13-578] [257] <HoopManager> addTemplate ()
+[07-57-13-593] [258] <HoopVisual> HoopVisual ()
+[07-57-13-593] [259] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-13-593] [260] <HoopBase> HoopBase ()
+[07-57-13-593] [261] <HoopBatch> HoopBatch ()
+[07-57-13-593] [262] <HoopSerializable> HoopSerializable ()
+[07-57-13-593] [263] <HoopSerializable> Adding this to parent properties list
+[07-57-13-593] [264] <HoopIntegerSerializable> HoopIntegerSerializable (HoopPropertyContainer aParent,String aName,Integer aPropValue)
+[07-57-13-593] [265] <HoopIntegerSerializable> setPropValue (0)
+[07-57-13-593] [266] <HoopIntegerSerializable> Check: 0
+[07-57-13-593] [267] <HoopTransformBase> HoopTransformBase ()
+[07-57-13-593] [268] <HoopSerializable> HoopSerializable ()
+[07-57-13-593] [269] <HoopSerializable> Adding this to parent properties list
+[07-57-13-593] [270] <HoopBooleanSerializable> HoopBooleanSerializable ()
+[07-57-13-593] [271] <HoopSerializable> HoopSerializable ()
+[07-57-13-593] [272] <HoopSerializable> Adding this to parent properties list
+[07-57-13-593] [273] <HoopEnumSerializable> HoopEnumSerializable ()
+[07-57-13-593] [274] <HoopKV2TXT> HoopKV2TXT ()
+[07-57-13-593] [275] <HoopManager> addTemplate ()
+[07-57-13-593] [276] <HoopVisual> HoopVisual ()
+[07-57-13-593] [277] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-13-593] [278] <HoopBase> HoopBase ()
+[07-57-13-593] [279] <HoopIOBase> HoopIOBase ()
+[07-57-13-593] [280] <HoopSaveBase> HoopSaveBase ()
+[07-57-13-593] [281] <HoopFileSaveBase> HoopFileSaveBase ()
+[07-57-13-593] [282] <HoopSerializable> HoopSerializable ()
+[07-57-13-593] [283] <HoopSerializable> Adding this to parent properties list
+[07-57-13-593] [284] <HoopURISerializable> HoopURISerializable ()
+[07-57-13-593] [285] <HoopCSVWriter> HoopCSVWriter ()
+[07-57-13-593] [286] <HoopSerializable> HoopSerializable ()
+[07-57-13-593] [287] <HoopSerializable> Adding this to parent properties list
+[07-57-13-593] [288] <HoopEnumSerializable> HoopEnumSerializable ()
+[07-57-13-593] [289] <HoopSerializable> HoopSerializable ()
+[07-57-13-593] [290] <HoopSerializable> Adding this to parent properties list
+[07-57-13-593] [291] <HoopEnumSerializable> HoopEnumSerializable ()
+[07-57-13-593] [292] <HoopSerializable> HoopSerializable ()
+[07-57-13-593] [293] <HoopSerializable> Adding this to parent properties list
+[07-57-13-593] [294] <HoopBooleanSerializable> HoopBooleanSerializable ()
+[07-57-13-593] [295] <HoopManager> addTemplate ()
+[07-57-13-593] [296] <HoopVisual> HoopVisual ()
+[07-57-13-593] [297] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-13-593] [298] <HoopBase> HoopBase ()
+[07-57-13-593] [299] <HoopBatch> HoopBatch ()
+[07-57-13-593] [300] <HoopSerializable> HoopSerializable ()
+[07-57-13-593] [301] <HoopSerializable> Adding this to parent properties list
+[07-57-13-593] [302] <HoopIntegerSerializable> HoopIntegerSerializable (HoopPropertyContainer aParent,String aName,Integer aPropValue)
+[07-57-13-593] [303] <HoopIntegerSerializable> setPropValue (0)
+[07-57-13-593] [304] <HoopIntegerSerializable> Check: 0
+[07-57-13-593] [305] <HoopTransformBase> HoopTransformBase ()
+[07-57-13-593] [306] <HoopSerializable> HoopSerializable ()
+[07-57-13-593] [307] <HoopSerializable> Adding this to parent properties list
+[07-57-13-593] [308] <HoopBooleanSerializable> HoopBooleanSerializable ()
+[07-57-13-593] [309] <HoopSerializable> HoopSerializable ()
+[07-57-13-593] [310] <HoopSerializable> Adding this to parent properties list
+[07-57-13-593] [311] <HoopEnumSerializable> HoopEnumSerializable ()
+[07-57-13-593] [312] <HoopCSVReader> HoopCSVReader ()
+[07-57-13-593] [313] <HoopSerializable> HoopSerializable ()
+[07-57-13-593] [314] <HoopSerializable> Adding this to parent properties list
+[07-57-13-593] [315] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-13-593] [316] <HoopManager> addTemplate ()
+[07-57-13-593] [317] <HoopVisual> HoopVisual ()
+[07-57-13-593] [318] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-13-593] [319] <HoopBase> HoopBase ()
+[07-57-13-593] [320] <HoopBatch> HoopBatch ()
+[07-57-13-593] [321] <HoopSerializable> HoopSerializable ()
+[07-57-13-593] [322] <HoopSerializable> Adding this to parent properties list
+[07-57-13-593] [323] <HoopIntegerSerializable> HoopIntegerSerializable (HoopPropertyContainer aParent,String aName,Integer aPropValue)
+[07-57-13-593] [324] <HoopIntegerSerializable> setPropValue (0)
+[07-57-13-593] [325] <HoopIntegerSerializable> Check: 0
+[07-57-13-593] [326] <HoopAnalyze> HoopAnalyze ()
+[07-57-13-593] [327] <HoopNaiveBayes> HoopNaiveBayes ()
+[07-57-13-593] [328] <HoopManager> addTemplate ()
+[07-57-13-593] [329] <HoopVisual> HoopVisual ()
+[07-57-13-593] [330] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-13-593] [331] <HoopBase> HoopBase ()
+[07-57-13-593] [332] <HoopBatch> HoopBatch ()
+[07-57-13-593] [333] <HoopSerializable> HoopSerializable ()
+[07-57-13-593] [334] <HoopSerializable> Adding this to parent properties list
+[07-57-13-593] [335] <HoopIntegerSerializable> HoopIntegerSerializable (HoopPropertyContainer aParent,String aName,Integer aPropValue)
+[07-57-13-593] [336] <HoopIntegerSerializable> setPropValue (0)
+[07-57-13-593] [337] <HoopIntegerSerializable> Check: 0
+[07-57-13-593] [338] <HoopTransformBase> HoopTransformBase ()
+[07-57-13-593] [339] <HoopSerializable> HoopSerializable ()
+[07-57-13-593] [340] <HoopSerializable> Adding this to parent properties list
+[07-57-13-609] [341] <HoopBooleanSerializable> HoopBooleanSerializable ()
+[07-57-13-609] [342] <HoopSerializable> HoopSerializable ()
+[07-57-13-609] [343] <HoopSerializable> Adding this to parent properties list
+[07-57-13-609] [344] <HoopEnumSerializable> HoopEnumSerializable ()
+[07-57-13-609] [345] <HoopArffReader> HoopArffReader ()
+[07-57-13-609] [346] <HoopManager> addTemplate ()
+[07-57-13-609] [347] <HoopVisual> HoopVisual ()
+[07-57-13-609] [348] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-13-609] [349] <HoopBase> HoopBase ()
+[07-57-13-609] [350] <HoopIOBase> HoopIOBase ()
+[07-57-13-609] [351] <HoopSaveBase> HoopSaveBase ()
+[07-57-13-609] [352] <HoopFileSaveBase> HoopFileSaveBase ()
+[07-57-13-609] [353] <HoopSerializable> HoopSerializable ()
+[07-57-13-609] [354] <HoopSerializable> Adding this to parent properties list
+[07-57-13-609] [355] <HoopURISerializable> HoopURISerializable ()
+[07-57-13-609] [356] <HoopArffWriter> HoopArffWriter ()
+[07-57-13-609] [357] <HoopVFSL> HoopVFSL ()
+[07-57-13-609] [358] <HoopFileTools> HoopFileTools ()
+[07-57-13-609] [359] <HoopFileManager> HoopFileManager ()
+[07-57-13-609] [360] <HoopSerializable> HoopSerializable ()
+[07-57-13-609] [361] <HoopSerializable> Adding this to parent properties list
+[07-57-13-609] [362] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-13-609] [363] <HoopManager> addTemplate ()
+[07-57-13-609] [364] <HoopVisual> HoopVisual ()
+[07-57-13-609] [365] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-13-609] [366] <HoopBase> HoopBase ()
+[07-57-13-609] [367] <HoopBatch> HoopBatch ()
+[07-57-13-609] [368] <HoopSerializable> HoopSerializable ()
+[07-57-13-609] [369] <HoopSerializable> Adding this to parent properties list
+[07-57-13-609] [370] <HoopIntegerSerializable> HoopIntegerSerializable (HoopPropertyContainer aParent,String aName,Integer aPropValue)
+[07-57-13-609] [371] <HoopIntegerSerializable> setPropValue (0)
+[07-57-13-609] [372] <HoopIntegerSerializable> Check: 0
+[07-57-13-609] [373] <HoopTransformBase> HoopTransformBase ()
+[07-57-13-609] [374] <HoopSerializable> HoopSerializable ()
+[07-57-13-609] [375] <HoopSerializable> Adding this to parent properties list
+[07-57-13-609] [376] <HoopBooleanSerializable> HoopBooleanSerializable ()
+[07-57-13-609] [377] <HoopSerializable> HoopSerializable ()
+[07-57-13-609] [378] <HoopSerializable> Adding this to parent properties list
+[07-57-13-609] [379] <HoopEnumSerializable> HoopEnumSerializable ()
+[07-57-13-609] [380] <HoopXML2Features> HoopXML2Features ()
+[07-57-13-609] [381] <HoopManager> addTemplate ()
+[07-57-13-640] [382] <HoopVisual> HoopVisual ()
+[07-57-13-640] [383] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-13-640] [384] <HoopBase> HoopBase ()
+[07-57-13-640] [385] <HoopIOBase> HoopIOBase ()
+[07-57-13-640] [386] <HoopLoadBase> HoopLoadBase ()
+[07-57-13-640] [387] <HoopSerializable> HoopSerializable ()
+[07-57-13-640] [388] <HoopSerializable> Adding this to parent properties list
+[07-57-13-640] [389] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-13-640] [390] <HoopSerializable> HoopSerializable ()
+[07-57-13-640] [391] <HoopSerializable> Adding this to parent properties list
+[07-57-13-640] [392] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-13-640] [393] <HoopSerializable> HoopSerializable ()
+[07-57-13-640] [394] <HoopSerializable> Adding this to parent properties list
+[07-57-13-640] [395] <HoopEnumSerializable> HoopEnumSerializable ()
+[07-57-13-640] [396] <HoopMySQLReader> HoopMySQLReader ()
+[07-57-13-640] [397] <HoopSerializable> HoopSerializable ()
+[07-57-13-640] [398] <HoopSerializable> Adding this to parent properties list
+[07-57-13-640] [399] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-13-640] [400] <HoopSerializable> HoopSerializable ()
+[07-57-13-640] [401] <HoopSerializable> Adding this to parent properties list
+[07-57-13-640] [402] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-13-640] [403] <HoopSerializable> HoopSerializable ()
+[07-57-13-640] [404] <HoopSerializable> Adding this to parent properties list
+[07-57-13-640] [405] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-13-640] [406] <HoopSerializable> HoopSerializable ()
+[07-57-13-640] [407] <HoopSerializable> Adding this to parent properties list
+[07-57-13-640] [408] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-13-640] [409] <HoopSerializable> HoopSerializable ()
+[07-57-13-640] [410] <HoopSerializable> Adding this to parent properties list
+[07-57-13-640] [411] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-13-640] [412] <HoopSerializable> HoopSerializable ()
+[07-57-13-640] [413] <HoopSerializable> Adding this to parent properties list
+[07-57-13-640] [414] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-13-656] [415] <HoopSerializable> HoopSerializable ()
+[07-57-13-656] [416] <HoopSerializable> Adding this to parent properties list
+[07-57-13-656] [417] <HoopEnumSerializable> HoopEnumSerializable ()
+[07-57-13-656] [418] <HoopManager> addTemplate ()
+[07-57-13-656] [419] <HoopVisual> HoopVisual ()
+[07-57-13-656] [420] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-13-656] [421] <HoopBase> HoopBase ()
+[07-57-13-656] [422] <HoopIOBase> HoopIOBase ()
+[07-57-13-656] [423] <HoopLoadBase> HoopLoadBase ()
+[07-57-13-656] [424] <HoopSerializable> HoopSerializable ()
+[07-57-13-656] [425] <HoopSerializable> Adding this to parent properties list
+[07-57-13-656] [426] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-13-656] [427] <HoopSerializable> HoopSerializable ()
+[07-57-13-656] [428] <HoopSerializable> Adding this to parent properties list
+[07-57-13-656] [429] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-13-656] [430] <HoopSerializable> HoopSerializable ()
+[07-57-13-656] [431] <HoopSerializable> Adding this to parent properties list
+[07-57-13-656] [432] <HoopEnumSerializable> HoopEnumSerializable ()
+[07-57-13-656] [433] <HoopFileLoadBase> HoopFileLoadBase ()
+[07-57-13-656] [434] <HoopSerializable> HoopSerializable ()
+[07-57-13-656] [435] <HoopSerializable> Adding this to parent properties list
+[07-57-13-656] [436] <HoopURISerializable> HoopURISerializable ()
+[07-57-13-656] [437] <HoopFileTools> HoopFileTools ()
+[07-57-13-656] [438] <HoopBerkeleyDBReader> HoopBerkeleyDBReader ()
+[07-57-13-656] [439] <HoopManager> addTemplate ()
+[07-57-13-656] [440] <HoopVisual> HoopVisual ()
+[07-57-13-656] [441] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-13-656] [442] <HoopBase> HoopBase ()
+[07-57-13-656] [443] <HoopControlBase> HoopControlBase ()
+[07-57-13-656] [444] <HoopPathChooser> HoopPathChooser ()
+[07-57-13-656] [445] <HoopSerializable> HoopSerializable ()
+[07-57-13-656] [446] <HoopSerializable> Adding this to parent properties list
+[07-57-13-656] [447] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-13-656] [448] <HoopManager> addTemplate ()
+[07-57-13-656] [449] <HoopVisual> HoopVisual ()
+[07-57-13-656] [450] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-13-656] [451] <HoopBase> HoopBase ()
+[07-57-13-656] [452] <HoopControlBase> HoopControlBase ()
+[07-57-13-656] [453] <HoopScheduler> HoopScheduler ()
+[07-57-13-656] [454] <HoopManager> addTemplate ()
+[07-57-13-656] [455] <HoopVisual> HoopVisual ()
+[07-57-13-656] [456] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-13-656] [457] <HoopBase> HoopBase ()
+[07-57-13-656] [458] <HoopIOBase> HoopIOBase ()
+[07-57-13-656] [459] <HoopSaveBase> HoopSaveBase ()
+[07-57-13-656] [460] <HoopBerkeleyDBWriter> HoopBerkeleyDBWriter ()
+[07-57-13-656] [461] <HoopSerializable> HoopSerializable ()
+[07-57-13-656] [462] <HoopSerializable> Adding this to parent properties list
+[07-57-13-656] [463] <HoopEnumSerializable> HoopEnumSerializable ()
+[07-57-13-656] [464] <HoopSerializable> HoopSerializable ()
+[07-57-13-656] [465] <HoopSerializable> Adding this to parent properties list
+[07-57-13-656] [466] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-13-671] [467] <HoopBerkeleyDB> HoopBerkeleyDB ()
+[07-57-13-671] [468] <HoopManager> addTemplate ()
+[07-57-13-671] [469] <HoopVisual> HoopVisual ()
+[07-57-13-671] [470] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-13-671] [471] <HoopBase> HoopBase ()
+[07-57-13-671] [472] <HoopIOBase> HoopIOBase ()
+[07-57-13-671] [473] <HoopSaveBase> HoopSaveBase ()
+[07-57-13-671] [474] <HoopFileSaveBase> HoopFileSaveBase ()
+[07-57-13-671] [475] <HoopSerializable> HoopSerializable ()
+[07-57-13-671] [476] <HoopSerializable> Adding this to parent properties list
+[07-57-13-671] [477] <HoopURISerializable> HoopURISerializable ()
+[07-57-13-671] [478] <HoopXMLWriter> HoopXMLWriter ()
+[07-57-13-671] [479] <HoopSerializable> HoopSerializable ()
+[07-57-13-671] [480] <HoopSerializable> Adding this to parent properties list
+[07-57-13-671] [481] <HoopEnumSerializable> HoopEnumSerializable ()
+[07-57-13-671] [482] <HoopSerializable> HoopSerializable ()
+[07-57-13-671] [483] <HoopSerializable> Adding this to parent properties list
+[07-57-13-671] [484] <HoopBooleanSerializable> HoopBooleanSerializable ()
+[07-57-13-671] [485] <HoopManager> addTemplate ()
+[07-57-13-671] [486] <HoopVisual> HoopVisual ()
+[07-57-13-671] [487] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-13-671] [488] <HoopBase> HoopBase ()
+[07-57-13-671] [489] <HoopIOBase> HoopIOBase ()
+[07-57-13-671] [490] <HoopLoadBase> HoopLoadBase ()
+[07-57-13-671] [491] <HoopSerializable> HoopSerializable ()
+[07-57-13-671] [492] <HoopSerializable> Adding this to parent properties list
+[07-57-13-671] [493] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-13-671] [494] <HoopSerializable> HoopSerializable ()
+[07-57-13-671] [495] <HoopSerializable> Adding this to parent properties list
+[07-57-13-671] [496] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-13-671] [497] <HoopSerializable> HoopSerializable ()
+[07-57-13-671] [498] <HoopSerializable> Adding this to parent properties list
+[07-57-13-671] [499] <HoopEnumSerializable> HoopEnumSerializable ()
+[07-57-13-687] [500] <HoopURLReader> HoopURLReader ()
+[07-57-13-687] [501] <HoopSerializable> HoopSerializable ()
+[07-57-13-687] [502] <HoopSerializable> Adding this to parent properties list
+[07-57-13-687] [503] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-13-687] [504] <HoopHTTPReader> HoopHTTPReader ()
+[07-57-13-687] [505] <HoopManager> addTemplate ()
+[07-57-13-687] [506] <HoopVisual> HoopVisual ()
+[07-57-13-687] [507] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-13-687] [508] <HoopBase> HoopBase ()
+[07-57-13-687] [509] <HoopIOBase> HoopIOBase ()
+[07-57-13-687] [510] <HoopSaveBase> HoopSaveBase ()
+[07-57-13-687] [511] <HoopFileSaveBase> HoopFileSaveBase ()
+[07-57-13-687] [512] <HoopSerializable> HoopSerializable ()
+[07-57-13-687] [513] <HoopSerializable> Adding this to parent properties list
+[07-57-13-687] [514] <HoopURISerializable> HoopURISerializable ()
+[07-57-13-687] [515] <HoopXMLWriter> HoopXMLWriter ()
+[07-57-13-687] [516] <HoopSerializable> HoopSerializable ()
+[07-57-13-687] [517] <HoopSerializable> Adding this to parent properties list
+[07-57-13-687] [518] <HoopEnumSerializable> HoopEnumSerializable ()
+[07-57-13-687] [519] <HoopSerializable> HoopSerializable ()
+[07-57-13-687] [520] <HoopSerializable> Adding this to parent properties list
+[07-57-13-687] [521] <HoopBooleanSerializable> HoopBooleanSerializable ()
+[07-57-13-687] [522] <HoopXMLDocumentWriter> HoopXMLDocumentWriter ()
+[07-57-13-687] [523] <HoopSerializable> HoopSerializable ()
+[07-57-13-687] [524] <HoopSerializable> Adding this to parent properties list
+[07-57-13-687] [525] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-13-687] [526] <HoopSerializable> HoopSerializable ()
+[07-57-13-687] [527] <HoopSerializable> Adding this to parent properties list
+[07-57-13-687] [528] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-13-687] [529] <HoopSerializable> HoopSerializable ()
+[07-57-13-687] [530] <HoopSerializable> Adding this to parent properties list
+[07-57-13-687] [531] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-13-687] [532] <HoopSerializable> HoopSerializable ()
+[07-57-13-687] [533] <HoopSerializable> Adding this to parent properties list
+[07-57-13-687] [534] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-13-687] [535] <HoopSerializable> HoopSerializable ()
+[07-57-13-687] [536] <HoopSerializable> Adding this to parent properties list
+[07-57-13-687] [537] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-13-687] [538] <HoopSerializable> HoopSerializable ()
+[07-57-13-687] [539] <HoopSerializable> Adding this to parent properties list
+[07-57-13-687] [540] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-13-687] [541] <HoopSerializable> HoopSerializable ()
+[07-57-13-687] [542] <HoopSerializable> Adding this to parent properties list
+[07-57-13-687] [543] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-13-687] [544] <HoopSerializable> HoopSerializable ()
+[07-57-13-687] [545] <HoopSerializable> Adding this to parent properties list
+[07-57-13-687] [546] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-13-687] [547] <HoopSerializable> HoopSerializable ()
+[07-57-13-687] [548] <HoopSerializable> Adding this to parent properties list
+[07-57-13-687] [549] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-13-687] [550] <HoopSerializable> HoopSerializable ()
+[07-57-13-687] [551] <HoopSerializable> Adding this to parent properties list
+[07-57-13-687] [552] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-13-687] [553] <HoopManager> addTemplate ()
+[07-57-13-687] [554] <HoopVisual> HoopVisual ()
+[07-57-13-687] [555] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-13-687] [556] <HoopBase> HoopBase ()
+[07-57-13-687] [557] <HoopBatch> HoopBatch ()
+[07-57-13-687] [558] <HoopSerializable> HoopSerializable ()
+[07-57-13-687] [559] <HoopSerializable> Adding this to parent properties list
+[07-57-13-687] [560] <HoopIntegerSerializable> HoopIntegerSerializable (HoopPropertyContainer aParent,String aName,Integer aPropValue)
+[07-57-13-687] [561] <HoopIntegerSerializable> setPropValue (0)
+[07-57-13-687] [562] <HoopIntegerSerializable> Check: 0
+[07-57-13-687] [563] <HoopTransformBase> HoopTransformBase ()
+[07-57-13-687] [564] <HoopSerializable> HoopSerializable ()
+[07-57-13-687] [565] <HoopSerializable> Adding this to parent properties list
+[07-57-13-687] [566] <HoopBooleanSerializable> HoopBooleanSerializable ()
+[07-57-13-687] [567] <HoopSerializable> HoopSerializable ()
+[07-57-13-687] [568] <HoopSerializable> Adding this to parent properties list
+[07-57-13-687] [569] <HoopEnumSerializable> HoopEnumSerializable ()
+[07-57-13-687] [570] <HoopColumnRenamer> HoopColumnRenamer ()
+[07-57-13-687] [571] <HoopManager> addTemplate ()
+[07-57-13-687] [572] <HoopVisual> HoopVisual ()
+[07-57-13-687] [573] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-13-687] [574] <HoopBase> HoopBase ()
+[07-57-13-687] [575] <HoopIOBase> HoopIOBase ()
+[07-57-13-687] [576] <HoopSaveBase> HoopSaveBase ()
+[07-57-13-687] [577] <HoopFileSaveBase> HoopFileSaveBase ()
+[07-57-13-687] [578] <HoopSerializable> HoopSerializable ()
+[07-57-13-687] [579] <HoopSerializable> Adding this to parent properties list
+[07-57-13-687] [580] <HoopURISerializable> HoopURISerializable ()
+[07-57-13-687] [581] <HoopTextFileSave> HoopTextFileSave ()
+[07-57-13-687] [582] <HoopManager> addTemplate ()
+[07-57-13-687] [583] <HoopVisual> HoopVisual ()
+[07-57-13-687] [584] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-13-687] [585] <HoopBase> HoopBase ()
+[07-57-13-687] [586] <HoopBatch> HoopBatch ()
+[07-57-13-687] [587] <HoopSerializable> HoopSerializable ()
+[07-57-13-687] [588] <HoopSerializable> Adding this to parent properties list
+[07-57-13-687] [589] <HoopIntegerSerializable> HoopIntegerSerializable (HoopPropertyContainer aParent,String aName,Integer aPropValue)
+[07-57-13-687] [590] <HoopIntegerSerializable> setPropValue (0)
+[07-57-13-687] [591] <HoopIntegerSerializable> Check: 0
+[07-57-13-687] [592] <HoopTransformBase> HoopTransformBase ()
+[07-57-13-687] [593] <HoopSerializable> HoopSerializable ()
+[07-57-13-687] [594] <HoopSerializable> Adding this to parent properties list
+[07-57-13-687] [595] <HoopBooleanSerializable> HoopBooleanSerializable ()
+[07-57-13-687] [596] <HoopSerializable> HoopSerializable ()
+[07-57-13-687] [597] <HoopSerializable> Adding this to parent properties list
+[07-57-13-687] [598] <HoopEnumSerializable> HoopEnumSerializable ()
+[07-57-13-687] [599] <HoopKeySort> HoopKeySort ()
+[07-57-13-687] [600] <HoopManager> addTemplate ()
+[07-57-13-687] [601] <HoopVisual> HoopVisual ()
+[07-57-13-687] [602] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-13-687] [603] <HoopBase> HoopBase ()
+[07-57-13-687] [604] <HoopBatch> HoopBatch ()
+[07-57-13-687] [605] <HoopSerializable> HoopSerializable ()
+[07-57-13-687] [606] <HoopSerializable> Adding this to parent properties list
+[07-57-13-687] [607] <HoopIntegerSerializable> HoopIntegerSerializable (HoopPropertyContainer aParent,String aName,Integer aPropValue)
+[07-57-13-703] [608] <HoopIntegerSerializable> setPropValue (0)
+[07-57-13-703] [609] <HoopIntegerSerializable> Check: 0
+[07-57-13-703] [610] <HoopAnalyze> HoopAnalyze ()
+[07-57-13-703] [611] <HoopKVStats> HoopKVStats ()
+[07-57-13-703] [612] <HoopManager> addTemplate ()
+[07-57-13-703] [613] <HoopVisual> HoopVisual ()
+[07-57-13-703] [614] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-13-703] [615] <HoopBase> HoopBase ()
+[07-57-13-703] [616] <HoopBatch> HoopBatch ()
+[07-57-13-703] [617] <HoopSerializable> HoopSerializable ()
+[07-57-13-703] [618] <HoopSerializable> Adding this to parent properties list
+[07-57-13-703] [619] <HoopIntegerSerializable> HoopIntegerSerializable (HoopPropertyContainer aParent,String aName,Integer aPropValue)
+[07-57-13-703] [620] <HoopIntegerSerializable> setPropValue (0)
+[07-57-13-703] [621] <HoopIntegerSerializable> Check: 0
+[07-57-13-703] [622] <HoopTransformBase> HoopTransformBase ()
+[07-57-13-703] [623] <HoopSerializable> HoopSerializable ()
+[07-57-13-703] [624] <HoopSerializable> Adding this to parent properties list
+[07-57-13-703] [625] <HoopBooleanSerializable> HoopBooleanSerializable ()
+[07-57-13-703] [626] <HoopSerializable> HoopSerializable ()
+[07-57-13-703] [627] <HoopSerializable> Adding this to parent properties list
+[07-57-13-703] [628] <HoopEnumSerializable> HoopEnumSerializable ()
+[07-57-13-703] [629] <HoopMap2Document> HoopMap2Document ()
+[07-57-13-703] [630] <HoopSerializable> HoopSerializable ()
+[07-57-13-703] [631] <HoopSerializable> Adding this to parent properties list
+[07-57-13-703] [632] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-13-703] [633] <HoopSerializable> HoopSerializable ()
+[07-57-13-703] [634] <HoopSerializable> Adding this to parent properties list
+[07-57-13-703] [635] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-13-703] [636] <HoopSerializable> HoopSerializable ()
+[07-57-13-703] [637] <HoopSerializable> Adding this to parent properties list
+[07-57-13-703] [638] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-13-703] [639] <HoopSerializable> HoopSerializable ()
+[07-57-13-703] [640] <HoopSerializable> Adding this to parent properties list
+[07-57-13-703] [641] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-13-703] [642] <HoopSerializable> HoopSerializable ()
+[07-57-13-703] [643] <HoopSerializable> Adding this to parent properties list
+[07-57-13-703] [644] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-13-703] [645] <HoopSerializable> HoopSerializable ()
+[07-57-13-703] [646] <HoopSerializable> Adding this to parent properties list
+[07-57-13-703] [647] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-13-703] [648] <HoopSerializable> HoopSerializable ()
+[07-57-13-703] [649] <HoopSerializable> Adding this to parent properties list
+[07-57-13-703] [650] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-13-703] [651] <HoopSerializable> HoopSerializable ()
+[07-57-13-703] [652] <HoopSerializable> Adding this to parent properties list
+[07-57-13-703] [653] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-13-703] [654] <HoopSerializable> HoopSerializable ()
+[07-57-13-703] [655] <HoopSerializable> Adding this to parent properties list
+[07-57-13-703] [656] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-13-703] [657] <HoopManager> addTemplate ()
+[07-57-13-703] [658] <HoopVisual> HoopVisual ()
+[07-57-13-703] [659] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-13-703] [660] <HoopBase> HoopBase ()
+[07-57-13-703] [661] <HoopIOBase> HoopIOBase ()
+[07-57-13-703] [662] <HoopLoadBase> HoopLoadBase ()
+[07-57-13-703] [663] <HoopSerializable> HoopSerializable ()
+[07-57-13-703] [664] <HoopSerializable> Adding this to parent properties list
+[07-57-13-703] [665] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-13-703] [666] <HoopSerializable> HoopSerializable ()
+[07-57-13-703] [667] <HoopSerializable> Adding this to parent properties list
+[07-57-13-703] [668] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-13-703] [669] <HoopSerializable> HoopSerializable ()
+[07-57-13-703] [670] <HoopSerializable> Adding this to parent properties list
+[07-57-13-703] [671] <HoopEnumSerializable> HoopEnumSerializable ()
+[07-57-13-703] [672] <HoopDocumentReader> HoopDocumentReader ()
+[07-57-13-703] [673] <HoopDocumentReader> getProperty (URI)
+[07-57-13-703] [674] <HoopDocumentReader> Comparing batchSize to: URI
+[07-57-13-703] [675] <HoopDocumentReader> Comparing queryMax to: URI
+[07-57-13-703] [676] <HoopDocumentReader> Comparing mode to: URI
+[07-57-13-703] [677] <HoopSerializable> HoopSerializable ()
+[07-57-13-703] [678] <HoopSerializable> Adding this to parent properties list
+[07-57-13-703] [679] <HoopEnumSerializable> HoopEnumSerializable ()
+[07-57-13-703] [680] <HoopManager> addTemplate ()
+[07-57-13-796] [681] <HoopVisual> HoopVisual ()
+[07-57-13-796] [682] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-13-796] [683] <HoopBase> HoopBase ()
+[07-57-13-796] [684] <HoopIOBase> HoopIOBase ()
+[07-57-13-796] [685] <HoopSaveBase> HoopSaveBase ()
+[07-57-13-796] [686] <HoopDocumentWriter> HoopDocumentWriter ()
+[07-57-13-796] [687] <HoopSerializable> HoopSerializable ()
+[07-57-13-796] [688] <HoopSerializable> Adding this to parent properties list
+[07-57-13-796] [689] <HoopBooleanSerializable> HoopBooleanSerializable ()
+[07-57-13-796] [690] <HoopManager> addTemplate ()
+[07-57-13-796] [691] <HoopVisual> HoopVisual ()
+[07-57-13-796] [692] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-13-796] [693] <HoopBase> HoopBase ()
+[07-57-13-796] [694] <HoopIOBase> HoopIOBase ()
+[07-57-13-796] [695] <HoopSaveBase> HoopSaveBase ()
+[07-57-13-796] [696] <HoopDocumentUpdater> HoopDocumentUpdater ()
+[07-57-13-796] [697] <HoopSerializable> HoopSerializable ()
+[07-57-13-796] [698] <HoopSerializable> Adding this to parent properties list
+[07-57-13-796] [699] <HoopEnumSerializable> HoopEnumSerializable ()
+[07-57-13-796] [700] <HoopManager> addTemplate ()
+[07-57-13-796] [701] <HoopVisual> HoopVisual ()
+[07-57-13-796] [702] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-13-796] [703] <HoopBase> HoopBase ()
+[07-57-13-796] [704] <HoopBatch> HoopBatch ()
+[07-57-13-796] [705] <HoopSerializable> HoopSerializable ()
+[07-57-13-796] [706] <HoopSerializable> Adding this to parent properties list
+[07-57-13-796] [707] <HoopIntegerSerializable> HoopIntegerSerializable (HoopPropertyContainer aParent,String aName,Integer aPropValue)
+[07-57-13-796] [708] <HoopIntegerSerializable> setPropValue (0)
+[07-57-13-796] [709] <HoopIntegerSerializable> Check: 0
+[07-57-13-796] [710] <HoopTransformBase> HoopTransformBase ()
+[07-57-13-796] [711] <HoopSerializable> HoopSerializable ()
+[07-57-13-796] [712] <HoopSerializable> Adding this to parent properties list
+[07-57-13-796] [713] <HoopBooleanSerializable> HoopBooleanSerializable ()
+[07-57-13-796] [714] <HoopSerializable> HoopSerializable ()
+[07-57-13-796] [715] <HoopSerializable> Adding this to parent properties list
+[07-57-13-796] [716] <HoopEnumSerializable> HoopEnumSerializable ()
+[07-57-13-796] [717] <HoopLabelKV> HoopLabelKV ()
+[07-57-13-796] [718] <HoopSerializable> HoopSerializable ()
+[07-57-13-796] [719] <HoopSerializable> Adding this to parent properties list
+[07-57-13-796] [720] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-13-796] [721] <HoopSerializable> HoopSerializable ()
+[07-57-13-796] [722] <HoopSerializable> Adding this to parent properties list
+[07-57-13-796] [723] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-13-796] [724] <HoopManager> addTemplate ()
+[07-57-13-796] [725] <HoopVisual> HoopVisual ()
+[07-57-13-796] [726] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-13-796] [727] <HoopBase> HoopBase ()
+[07-57-13-796] [728] <HoopBatch> HoopBatch ()
+[07-57-13-796] [729] <HoopSerializable> HoopSerializable ()
+[07-57-13-796] [730] <HoopSerializable> Adding this to parent properties list
+[07-57-13-796] [731] <HoopIntegerSerializable> HoopIntegerSerializable (HoopPropertyContainer aParent,String aName,Integer aPropValue)
+[07-57-13-796] [732] <HoopIntegerSerializable> setPropValue (0)
+[07-57-13-796] [733] <HoopIntegerSerializable> Check: 0
+[07-57-13-796] [734] <HoopAnalyze> HoopAnalyze ()
+[07-57-13-796] [735] <HoopCrossFold> HoopCrossFold ()
+[07-57-13-796] [736] <HoopManager> addTemplate ()
+[07-57-13-796] [737] <HoopVisual> HoopVisual ()
+[07-57-13-796] [738] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-13-796] [739] <HoopBase> HoopBase ()
+[07-57-13-796] [740] <HoopBatch> HoopBatch ()
+[07-57-13-796] [741] <HoopSerializable> HoopSerializable ()
+[07-57-13-796] [742] <HoopSerializable> Adding this to parent properties list
+[07-57-13-796] [743] <HoopIntegerSerializable> HoopIntegerSerializable (HoopPropertyContainer aParent,String aName,Integer aPropValue)
+[07-57-13-796] [744] <HoopIntegerSerializable> setPropValue (0)
+[07-57-13-796] [745] <HoopIntegerSerializable> Check: 0
+[07-57-13-796] [746] <HoopAnalyze> HoopAnalyze ()
+[07-57-13-796] [747] <HoopMatcher> HoopMatcher ()
+[07-57-13-796] [748] <HoopPatternMatcher> HoopPatternMatcher ()
+[07-57-13-812] [749] <HoopSerializable> HoopSerializable ()
+[07-57-13-812] [750] <HoopSerializable> Adding this to parent properties list
+[07-57-13-812] [751] <HoopURISerializable> HoopURISerializable ()
+[07-57-13-812] [752] <HoopSerializable> HoopSerializable ()
+[07-57-13-812] [753] <HoopSerializable> Adding this to parent properties list
+[07-57-13-812] [754] <HoopBooleanSerializable> HoopBooleanSerializable ()
+[07-57-13-812] [755] <HoopMatcher> createPanel ()
+[07-57-14-078] [756] <HoopSemanticPatterns> HoopSemanticPatterns ()
+[07-57-14-078] [757] <HoopSerializable> HoopSerializable ()
+[07-57-14-078] [758] <HoopSerializable> Adding this to parent properties list
+[07-57-14-078] [759] <HoopIntegerSerializable> HoopIntegerSerializable (HoopPropertyContainer aParent,String aName,Integer aPropValue)
+[07-57-14-078] [760] <HoopIntegerSerializable> setPropValue (0)
+[07-57-14-078] [761] <HoopIntegerSerializable> Check: 0
+[07-57-14-078] [762] <HoopManager> addTemplate ()
+[07-57-14-093] [763] <HoopVisual> HoopVisual ()
+[07-57-14-093] [764] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-14-093] [765] <HoopBase> HoopBase ()
+[07-57-14-093] [766] <HoopBatch> HoopBatch ()
+[07-57-14-093] [767] <HoopSerializable> HoopSerializable ()
+[07-57-14-093] [768] <HoopSerializable> Adding this to parent properties list
+[07-57-14-093] [769] <HoopIntegerSerializable> HoopIntegerSerializable (HoopPropertyContainer aParent,String aName,Integer aPropValue)
+[07-57-14-093] [770] <HoopIntegerSerializable> setPropValue (0)
+[07-57-14-093] [771] <HoopIntegerSerializable> Check: 0
+[07-57-14-093] [772] <HoopAnalyze> HoopAnalyze ()
+[07-57-14-093] [773] <HoopDocumentTag> HoopDocumentTag ()
+[07-57-14-093] [774] <HoopSerializable> HoopSerializable ()
+[07-57-14-093] [775] <HoopSerializable> Adding this to parent properties list
+[07-57-14-093] [776] <HoopEnumSerializable> HoopEnumSerializable ()
+[07-57-14-093] [777] <HoopSerializable> HoopSerializable ()
+[07-57-14-093] [778] <HoopSerializable> Adding this to parent properties list
+[07-57-14-093] [779] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-14-093] [780] <HoopSerializable> HoopSerializable ()
+[07-57-14-093] [781] <HoopSerializable> Adding this to parent properties list
+[07-57-14-093] [782] <HoopBooleanSerializable> HoopBooleanSerializable ()
+[07-57-14-093] [783] <HoopManager> addTemplate ()
+[07-57-14-093] [784] <HoopVisual> HoopVisual ()
+[07-57-14-093] [785] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-14-093] [786] <HoopBase> HoopBase ()
+[07-57-14-093] [787] <HoopBatch> HoopBatch ()
+[07-57-14-093] [788] <HoopSerializable> HoopSerializable ()
+[07-57-14-093] [789] <HoopSerializable> Adding this to parent properties list
+[07-57-14-093] [790] <HoopIntegerSerializable> HoopIntegerSerializable (HoopPropertyContainer aParent,String aName,Integer aPropValue)
+[07-57-14-093] [791] <HoopIntegerSerializable> setPropValue (0)
+[07-57-14-093] [792] <HoopIntegerSerializable> Check: 0
+[07-57-14-093] [793] <HoopTransformBase> HoopTransformBase ()
+[07-57-14-093] [794] <HoopSerializable> HoopSerializable ()
+[07-57-14-093] [795] <HoopSerializable> Adding this to parent properties list
+[07-57-14-093] [796] <HoopBooleanSerializable> HoopBooleanSerializable ()
+[07-57-14-093] [797] <HoopSerializable> HoopSerializable ()
+[07-57-14-093] [798] <HoopSerializable> Adding this to parent properties list
+[07-57-14-093] [799] <HoopEnumSerializable> HoopEnumSerializable ()
+[07-57-14-093] [800] <HoopDocumentCreator> HoopDocumentCreator ()
+[07-57-14-093] [801] <HoopSerializable> HoopSerializable ()
+[07-57-14-093] [802] <HoopSerializable> Adding this to parent properties list
+[07-57-14-093] [803] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-14-093] [804] <HoopSerializable> HoopSerializable ()
+[07-57-14-093] [805] <HoopSerializable> Adding this to parent properties list
+[07-57-14-093] [806] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-14-093] [807] <HoopSerializable> HoopSerializable ()
+[07-57-14-093] [808] <HoopSerializable> Adding this to parent properties list
+[07-57-14-093] [809] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-14-093] [810] <HoopSerializable> HoopSerializable ()
+[07-57-14-093] [811] <HoopSerializable> Adding this to parent properties list
+[07-57-14-093] [812] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-14-093] [813] <HoopSerializable> HoopSerializable ()
+[07-57-14-093] [814] <HoopSerializable> Adding this to parent properties list
+[07-57-14-093] [815] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-14-093] [816] <HoopSerializable> HoopSerializable ()
+[07-57-14-093] [817] <HoopSerializable> Adding this to parent properties list
+[07-57-14-093] [818] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-14-093] [819] <HoopSerializable> HoopSerializable ()
+[07-57-14-093] [820] <HoopSerializable> Adding this to parent properties list
+[07-57-14-093] [821] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-14-093] [822] <HoopSerializable> HoopSerializable ()
+[07-57-14-093] [823] <HoopSerializable> Adding this to parent properties list
+[07-57-14-093] [824] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-14-093] [825] <HoopSerializable> HoopSerializable ()
+[07-57-14-093] [826] <HoopSerializable> Adding this to parent properties list
+[07-57-14-093] [827] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-14-093] [828] <HoopSerializable> HoopSerializable ()
+[07-57-14-093] [829] <HoopSerializable> Adding this to parent properties list
+[07-57-14-093] [830] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-14-093] [831] <HoopSerializable> HoopSerializable ()
+[07-57-14-093] [832] <HoopSerializable> Adding this to parent properties list
+[07-57-14-093] [833] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-14-093] [834] <HoopSerializable> HoopSerializable ()
+[07-57-14-093] [835] <HoopSerializable> Adding this to parent properties list
+[07-57-14-093] [836] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-14-093] [837] <HoopSerializable> HoopSerializable ()
+[07-57-14-093] [838] <HoopSerializable> Adding this to parent properties list
+[07-57-14-093] [839] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-14-093] [840] <HoopSerializable> HoopSerializable ()
+[07-57-14-093] [841] <HoopSerializable> Adding this to parent properties list
+[07-57-14-093] [842] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-14-093] [843] <HoopManager> addTemplate ()
+[07-57-14-093] [844] <HoopVisual> HoopVisual ()
+[07-57-14-093] [845] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-14-093] [846] <HoopBase> HoopBase ()
+[07-57-14-093] [847] <HoopIOBase> HoopIOBase ()
+[07-57-14-093] [848] <HoopSaveBase> HoopSaveBase ()
+[07-57-14-093] [849] <HoopFileSaveBase> HoopFileSaveBase ()
+[07-57-14-093] [850] <HoopSerializable> HoopSerializable ()
+[07-57-14-093] [851] <HoopSerializable> Adding this to parent properties list
+[07-57-14-093] [852] <HoopURISerializable> HoopURISerializable ()
+[07-57-14-093] [853] <HoopSASLink> HoopSASLink ()
+[07-57-14-093] [854] <HoopSerializable> HoopSerializable ()
+[07-57-14-093] [855] <HoopSerializable> Adding this to parent properties list
+[07-57-14-093] [856] <HoopEnumSerializable> HoopEnumSerializable ()
+[07-57-14-093] [857] <HoopSerializable> HoopSerializable ()
+[07-57-14-093] [858] <HoopSerializable> Adding this to parent properties list
+[07-57-14-093] [859] <HoopEnumSerializable> HoopEnumSerializable ()
+[07-57-14-093] [860] <HoopManager> addTemplate ()
+[07-57-14-093] [861] <HoopVisual> HoopVisual ()
+[07-57-14-093] [862] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-14-093] [863] <HoopBase> HoopBase ()
+[07-57-14-093] [864] <HoopBatch> HoopBatch ()
+[07-57-14-093] [865] <HoopSerializable> HoopSerializable ()
+[07-57-14-093] [866] <HoopSerializable> Adding this to parent properties list
+[07-57-14-093] [867] <HoopIntegerSerializable> HoopIntegerSerializable (HoopPropertyContainer aParent,String aName,Integer aPropValue)
+[07-57-14-093] [868] <HoopIntegerSerializable> setPropValue (0)
+[07-57-14-093] [869] <HoopIntegerSerializable> Check: 0
+[07-57-14-093] [870] <HoopAnalyze> HoopAnalyze ()
+[07-57-14-109] [871] <HoopMatcher> HoopMatcher ()
+[07-57-14-109] [872] <HoopPatternMatcher> HoopPatternMatcher ()
+[07-57-14-109] [873] <HoopSerializable> HoopSerializable ()
+[07-57-14-109] [874] <HoopSerializable> Adding this to parent properties list
+[07-57-14-109] [875] <HoopURISerializable> HoopURISerializable ()
+[07-57-14-109] [876] <HoopSerializable> HoopSerializable ()
+[07-57-14-109] [877] <HoopSerializable> Adding this to parent properties list
+[07-57-14-109] [878] <HoopBooleanSerializable> HoopBooleanSerializable ()
+[07-57-14-109] [879] <HoopMatcher> createPanel ()
+[07-57-14-109] [880] <HoopManager> addTemplate ()
+[07-57-14-109] [881] <HoopVisual> HoopVisual ()
+[07-57-14-109] [882] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-14-109] [883] <HoopBase> HoopBase ()
+[07-57-14-109] [884] <HoopBatch> HoopBatch ()
+[07-57-14-109] [885] <HoopSerializable> HoopSerializable ()
+[07-57-14-109] [886] <HoopSerializable> Adding this to parent properties list
+[07-57-14-109] [887] <HoopIntegerSerializable> HoopIntegerSerializable (HoopPropertyContainer aParent,String aName,Integer aPropValue)
+[07-57-14-109] [888] <HoopIntegerSerializable> setPropValue (0)
+[07-57-14-109] [889] <HoopIntegerSerializable> Check: 0
+[07-57-14-109] [890] <HoopTransformBase> HoopTransformBase ()
+[07-57-14-109] [891] <HoopSerializable> HoopSerializable ()
+[07-57-14-109] [892] <HoopSerializable> Adding this to parent properties list
+[07-57-14-109] [893] <HoopBooleanSerializable> HoopBooleanSerializable ()
+[07-57-14-109] [894] <HoopSerializable> HoopSerializable ()
+[07-57-14-109] [895] <HoopSerializable> Adding this to parent properties list
+[07-57-14-109] [896] <HoopEnumSerializable> HoopEnumSerializable ()
+[07-57-14-109] [897] <HoopReKey> HoopReKey ()
+[07-57-14-109] [898] <HoopSerializable> HoopSerializable ()
+[07-57-14-109] [899] <HoopSerializable> Adding this to parent properties list
+[07-57-14-109] [900] <HoopIntegerSerializable> HoopIntegerSerializable (HoopPropertyContainer aParent,String aName,Integer aPropValue)
+[07-57-14-109] [901] <HoopIntegerSerializable> setPropValue (0)
+[07-57-14-109] [902] <HoopIntegerSerializable> Check: 0
+[07-57-14-109] [903] <HoopReKey> getProperty (reKey)
+[07-57-14-109] [904] <HoopReKey> Comparing batchSize to: reKey
+[07-57-14-109] [905] <HoopReKey> Comparing reKey to: reKey
+[07-57-14-109] [906] <HoopManager> addTemplate ()
+[07-57-14-109] [907] <HoopVisual> HoopVisual ()
+[07-57-14-109] [908] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-14-109] [909] <HoopBase> HoopBase ()
+[07-57-14-109] [910] <HoopBatch> HoopBatch ()
+[07-57-14-109] [911] <HoopSerializable> HoopSerializable ()
+[07-57-14-109] [912] <HoopSerializable> Adding this to parent properties list
+[07-57-14-109] [913] <HoopIntegerSerializable> HoopIntegerSerializable (HoopPropertyContainer aParent,String aName,Integer aPropValue)
+[07-57-14-109] [914] <HoopIntegerSerializable> setPropValue (0)
+[07-57-14-109] [915] <HoopIntegerSerializable> Check: 0
+[07-57-14-109] [916] <HoopManager> addTemplate ()
+[07-57-14-109] [917] <HoopVisual> HoopVisual ()
+[07-57-14-109] [918] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-14-109] [919] <HoopBase> HoopBase ()
+[07-57-14-109] [920] <HoopKVTest> HoopKVTest ()
+[07-57-14-109] [921] <HoopSerializable> HoopSerializable ()
+[07-57-14-109] [922] <HoopSerializable> Adding this to parent properties list
+[07-57-14-109] [923] <HoopIntegerSerializable> HoopIntegerSerializable (HoopPropertyContainer aParent,String aName,Integer aPropValue)
+[07-57-14-109] [924] <HoopIntegerSerializable> setPropValue (0)
+[07-57-14-109] [925] <HoopIntegerSerializable> Check: 0
+[07-57-14-109] [926] <HoopSerializable> HoopSerializable ()
+[07-57-14-109] [927] <HoopSerializable> Adding this to parent properties list
+[07-57-14-109] [928] <HoopEnumSerializable> HoopEnumSerializable ()
+[07-57-14-109] [929] <HoopManager> addTemplate ()
+[07-57-14-109] [930] <HoopVisual> HoopVisual ()
+[07-57-14-109] [931] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-14-109] [932] <HoopBase> HoopBase ()
+[07-57-14-109] [933] <HoopBatch> HoopBatch ()
+[07-57-14-109] [934] <HoopSerializable> HoopSerializable ()
+[07-57-14-109] [935] <HoopSerializable> Adding this to parent properties list
+[07-57-14-109] [936] <HoopIntegerSerializable> HoopIntegerSerializable (HoopPropertyContainer aParent,String aName,Integer aPropValue)
+[07-57-14-109] [937] <HoopIntegerSerializable> setPropValue (0)
+[07-57-14-109] [938] <HoopIntegerSerializable> Check: 0
+[07-57-14-109] [939] <HoopCopy> HoopCopy ()
+[07-57-14-109] [940] <HoopManager> addTemplate ()
+[07-57-14-109] [941] <HoopVisual> HoopVisual ()
+[07-57-14-109] [942] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-14-109] [943] <HoopBase> HoopBase ()
+[07-57-14-109] [944] <HoopBatch> HoopBatch ()
+[07-57-14-109] [945] <HoopSerializable> HoopSerializable ()
+[07-57-14-109] [946] <HoopSerializable> Adding this to parent properties list
+[07-57-14-109] [947] <HoopIntegerSerializable> HoopIntegerSerializable (HoopPropertyContainer aParent,String aName,Integer aPropValue)
+[07-57-14-109] [948] <HoopIntegerSerializable> setPropValue (0)
+[07-57-14-109] [949] <HoopIntegerSerializable> Check: 0
+[07-57-14-109] [950] <HoopAnalyze> HoopAnalyze ()
+[07-57-14-109] [951] <HoopEvaluate> HoopEvaluate ()
+[07-57-14-109] [952] <HoopManager> addTemplate ()
+[07-57-14-125] [953] <HoopVisual> HoopVisual ()
+[07-57-14-125] [954] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-14-125] [955] <HoopBase> HoopBase ()
+[07-57-14-125] [956] <HoopDisplayBase> HoopDisplayBase ()
+[07-57-14-125] [957] <HoopParseTree> HoopParseTree ()
+[07-57-14-125] [958] <HoopManager> addTemplate ()
+[07-57-14-125] [959] <HoopVisual> HoopVisual ()
+[07-57-14-125] [960] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-14-125] [961] <HoopBase> HoopBase ()
+[07-57-14-125] [962] <HoopTest> HoopTest ()
+[07-57-14-125] [963] <HoopManager> addTemplate ()
+[07-57-14-125] [964] <HoopVisual> HoopVisual ()
+[07-57-14-125] [965] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-14-125] [966] <HoopBase> HoopBase ()
+[07-57-14-125] [967] <HoopIOBase> HoopIOBase ()
+[07-57-14-125] [968] <HoopLoadBase> HoopLoadBase ()
+[07-57-14-125] [969] <HoopSerializable> HoopSerializable ()
+[07-57-14-125] [970] <HoopSerializable> Adding this to parent properties list
+[07-57-14-125] [971] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-14-125] [972] <HoopSerializable> HoopSerializable ()
+[07-57-14-125] [973] <HoopSerializable> Adding this to parent properties list
+[07-57-14-125] [974] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-14-125] [975] <HoopSerializable> HoopSerializable ()
+[07-57-14-125] [976] <HoopSerializable> Adding this to parent properties list
+[07-57-14-125] [977] <HoopEnumSerializable> HoopEnumSerializable ()
+[07-57-14-125] [978] <HoopDocumentThreadReader> HoopDocumentThreadReader ()
+[07-57-14-125] [979] <HoopDocumentThreadReader> getProperty (URI)
+[07-57-14-125] [980] <HoopDocumentThreadReader> Comparing batchSize to: URI
+[07-57-14-125] [981] <HoopDocumentThreadReader> Comparing queryMax to: URI
+[07-57-14-125] [982] <HoopDocumentThreadReader> Comparing mode to: URI
+[07-57-14-125] [983] <HoopSerializable> HoopSerializable ()
+[07-57-14-125] [984] <HoopSerializable> Adding this to parent properties list
+[07-57-14-125] [985] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-14-125] [986] <HoopSerializable> HoopSerializable ()
+[07-57-14-125] [987] <HoopSerializable> Adding this to parent properties list
+[07-57-14-125] [988] <HoopEnumSerializable> HoopEnumSerializable ()
+[07-57-14-125] [989] <HoopManager> addTemplate ()
+[07-57-14-125] [990] <HoopVisual> HoopVisual ()
+[07-57-14-125] [991] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-14-125] [992] <HoopBase> HoopBase ()
+[07-57-14-125] [993] <HoopBatch> HoopBatch ()
+[07-57-14-125] [994] <HoopSerializable> HoopSerializable ()
+[07-57-14-125] [995] <HoopSerializable> Adding this to parent properties list
+[07-57-14-125] [996] <HoopIntegerSerializable> HoopIntegerSerializable (HoopPropertyContainer aParent,String aName,Integer aPropValue)
+[07-57-14-125] [997] <HoopIntegerSerializable> setPropValue (0)
+[07-57-14-125] [998] <HoopIntegerSerializable> Check: 0
+[07-57-14-125] [999] <HoopAnalyze> HoopAnalyze ()
+[07-57-14-125] [1000] <HoopCustomExperimentTest> HoopCustomExperimentTest ()
+[07-57-14-125] [1001] <HoopSerializable> HoopSerializable ()
+[07-57-14-125] [1002] <HoopSerializable> Adding this to parent properties list
+[07-57-14-125] [1003] <HoopEnumSerializable> HoopEnumSerializable ()
+[07-57-14-125] [1004] <HoopManager> addTemplate ()
+[07-57-14-140] [1005] <HoopVisual> HoopVisual ()
+[07-57-14-140] [1006] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-14-140] [1007] <HoopBase> HoopBase ()
+[07-57-14-140] [1008] <HoopIOBase> HoopIOBase ()
+[07-57-14-140] [1009] <HoopSaveBase> HoopSaveBase ()
+[07-57-14-140] [1010] <HoopIndexDocuments> HoopIndexDocuments ()
+[07-57-14-140] [1011] <HoopManager> addTemplate ()
+[07-57-14-140] [1012] <HoopVisual> HoopVisual ()
+[07-57-14-140] [1013] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-14-140] [1014] <HoopBase> HoopBase ()
+[07-57-14-140] [1015] <HoopIOBase> HoopIOBase ()
+[07-57-14-140] [1016] <HoopLoadBase> HoopLoadBase ()
+[07-57-14-140] [1017] <HoopSerializable> HoopSerializable ()
+[07-57-14-140] [1018] <HoopSerializable> Adding this to parent properties list
+[07-57-14-140] [1019] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-14-140] [1020] <HoopSerializable> HoopSerializable ()
+[07-57-14-140] [1021] <HoopSerializable> Adding this to parent properties list
+[07-57-14-140] [1022] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-14-140] [1023] <HoopSerializable> HoopSerializable ()
+[07-57-14-140] [1024] <HoopSerializable> Adding this to parent properties list
+[07-57-14-140] [1025] <HoopEnumSerializable> HoopEnumSerializable ()
+[07-57-14-140] [1026] <HoopWikipediaAccess> HoopWikipediaAccess ()
+[07-57-14-140] [1027] <HoopHTTPReader> HoopHTTPReader ()
+[07-57-14-140] [1028] <HoopManager> addTemplate ()
+[07-57-14-140] [1029] <HoopVisual> HoopVisual ()
+[07-57-14-140] [1030] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-14-140] [1031] <HoopBase> HoopBase ()
+[07-57-14-140] [1032] <HoopIOBase> HoopIOBase ()
+[07-57-14-140] [1033] <HoopLoadBase> HoopLoadBase ()
+[07-57-14-140] [1034] <HoopSerializable> HoopSerializable ()
+[07-57-14-140] [1035] <HoopSerializable> Adding this to parent properties list
+[07-57-14-140] [1036] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-14-140] [1037] <HoopSerializable> HoopSerializable ()
+[07-57-14-140] [1038] <HoopSerializable> Adding this to parent properties list
+[07-57-14-140] [1039] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-14-140] [1040] <HoopSerializable> HoopSerializable ()
+[07-57-14-140] [1041] <HoopSerializable> Adding this to parent properties list
+[07-57-14-140] [1042] <HoopEnumSerializable> HoopEnumSerializable ()
+[07-57-14-140] [1043] <HoopThreadReader> HoopThreadReader ()
+[07-57-14-140] [1044] <HoopThreadReader> getProperty (URI)
+[07-57-14-140] [1045] <HoopThreadReader> Comparing batchSize to: URI
+[07-57-14-140] [1046] <HoopThreadReader> Comparing queryMax to: URI
+[07-57-14-140] [1047] <HoopThreadReader> Comparing mode to: URI
+[07-57-14-140] [1048] <HoopManager> addTemplate ()
+[07-57-14-140] [1049] <HoopVisual> HoopVisual ()
+[07-57-14-140] [1050] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-14-140] [1051] <HoopBase> HoopBase ()
+[07-57-14-140] [1052] <HoopGraphManager> HoopGraphManager ()
+[07-57-14-140] [1053] <Hoop> loadPlugins ()
+[07-57-14-140] [1054] <HoopFileTools> HoopFileTools ()
+[07-57-14-140] [1055] <HoopFileManager> HoopFileManager ()
+[07-57-14-140] [1056] <HoopFileManager> listFiles (./plugins)
+[07-57-14-140] [1057] <Hoop> [0] Found potential plugin jar (HoopMisc.jar), examining ...
+[07-57-14-140] [1058] <HoopClassLoader> loadHoopInterfaces (./plugins/HoopMisc.jar,false)
+[07-57-14-187] [1059] <HoopClassLoader> Examining jar entry: META-INF/MANIFEST.MF
+[07-57-14-187] [1060] <HoopClassLoader> Examining jar entry: HoopDummy.class
+[07-57-14-187] [1061] <HoopClassLoader> jarEntryToBytes ()
+[07-57-14-187] [1062] <HoopClassLoader> Determine whether this byte array is a class file, and if it is, whether it implements HoopInterface interface ...
+[07-57-14-187] [1063] <HoopClassLoader> Check if it implements the interface by defining the class ...
+[07-57-14-187] [1064] <HoopClassLoader> Trying to define class ...
+[07-57-14-187] [1065] <HoopClassLoader> Running namespace check ...
+[07-57-14-187] [1066] <HoopClassLoader> Found interface: edu.cmu.cs.in.hoop.hoops.base.HoopInterface
+[07-57-14-187] [1067] <HoopClassLoader> Adding to internal list of classes if resolved ...
+[07-57-14-187] [1068] <Hoop> Found 1 classes
+[07-57-14-187] [1069] <Hoop> Trying to instantiate interface: HoopInterface
+[07-57-14-187] [1070] <HoopVisual> HoopVisual ()
+[07-57-14-187] [1071] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-14-187] [1072] <HoopBase> HoopBase ()
+[07-57-14-187] [1073] <HoopBatch> HoopBatch ()
+[07-57-14-187] [1074] <HoopSerializable> HoopSerializable ()
+[07-57-14-187] [1075] <HoopSerializable> Adding this to parent properties list
+[07-57-14-187] [1076] <HoopIntegerSerializable> HoopIntegerSerializable (HoopPropertyContainer aParent,String aName,Integer aPropValue)
+[07-57-14-187] [1077] <HoopIntegerSerializable> setPropValue (0)
+[07-57-14-187] [1078] <HoopIntegerSerializable> Check: 0
+[07-57-14-187] [1079] <HoopTransformBase> HoopTransformBase ()
+[07-57-14-187] [1080] <HoopSerializable> HoopSerializable ()
+[07-57-14-187] [1081] <HoopSerializable> Adding this to parent properties list
+[07-57-14-187] [1082] <HoopBooleanSerializable> HoopBooleanSerializable ()
+[07-57-14-187] [1083] <HoopSerializable> HoopSerializable ()
+[07-57-14-187] [1084] <HoopSerializable> Adding this to parent properties list
+[07-57-14-187] [1085] <HoopEnumSerializable> HoopEnumSerializable ()
+[07-57-14-187] [1086] <HoopDummy> HoopDummy ()
+[07-57-14-187] [1087] <HoopManager> addTemplate ()
+[07-57-14-187] [1088] <Hoop> main ()
+[07-57-14-578] [1089] <HoopJFrame> HoopJFrame ()
+[07-57-14-578] [1090] <HoopPreferencesJFrame> HoopPreferencesJFrame ()
+[07-57-14-578] [1091] <HoopEnvironment> getProfileLocation ()
+[07-57-14-578] [1092] <HoopPreferencesJFrame> Determined profile directory to be: C:\Documents and Settings\Martin van Velsen\Application Data
+[07-57-14-593] [1093] <HoopMultiViewFrame> HoopMultiViewFrame ()
+[07-57-14-593] [1094] <HoopMultiViewFrame> loadImageIcons ()
+[07-57-14-937] [1095] <HoopMultiViewFrame> Unable to load image (/assets/images/weka.png) icon from jar
+[07-57-14-953] [1096] <HoopLink> Error: image machine.jpg not found
+[07-57-14-953] [1097] <HoopVFSL> HoopVFSL ()
+[07-57-14-953] [1098] <HoopFileTools> HoopFileTools ()
+[07-57-14-953] [1099] <HoopFileManager> HoopFileManager ()
+[07-57-14-968] [1100] <HoopEditorMenuBar> HoopEditorMenuBar ()
+[07-57-14-984] [1101] <HoopJPanel> HoopJPanel ()
+[07-57-14-984] [1102] <HoopStatusBar> HoopStatusBar ()
+[07-57-15-203] [1103] <HoopJPanel> HoopJPanel ()
+[07-57-15-203] [1104] <GhostGlassPane> GhostGlassPane ()
+[07-57-15-234] [1105] <CDropTargetListener> CDropTargetListener ()
+[07-57-15-359] [1106] <HoopJPanel> HoopJPanel ()
+[07-57-15-359] [1107] <GhostGlassPane> GhostGlassPane ()
+[07-57-15-359] [1108] <CDropTargetListener> CDropTargetListener ()
+[07-57-15-359] [1109] <HoopJPanel> HoopJPanel ()
+[07-57-15-359] [1110] <GhostGlassPane> GhostGlassPane ()
+[07-57-15-359] [1111] <CDropTargetListener> CDropTargetListener ()
+[07-57-15-359] [1112] <HoopJPanel> HoopJPanel ()
+[07-57-15-359] [1113] <GhostGlassPane> GhostGlassPane ()
+[07-57-15-359] [1114] <CDropTargetListener> CDropTargetListener ()
+[07-57-15-375] [1115] <HoopMultiSplitNode> HoopMultiSplitNode ()
+[07-57-15-375] [1116] <HoopMultiSplitSplitter> HoopMultiSplitSplitter ()
+[07-57-15-375] [1117] <HoopMultiSplitNode> HoopMultiSplitNode ()
+[07-57-15-375] [1118] <HoopMultiSplitSplitter> HoopMultiSplitSplitter ()
+[07-57-15-375] [1119] <HoopMultiSplitNode> HoopMultiSplitNode ()
+[07-57-15-375] [1120] <HoopMultiSplitLeaf> HoopMultiSplitLeaf ()
+[07-57-15-375] [1121] <HoopMultiSplitNode> HoopMultiSplitNode ()
+[07-57-15-375] [1122] <HoopMultiSplitSplitter> HoopMultiSplitSplitter ()
+[07-57-15-375] [1123] <HoopMultiSplitNode> HoopMultiSplitNode ()
+[07-57-15-375] [1124] <HoopMultiSplitDivider> HoopMultiSplitDivider ()
+[07-57-15-375] [1125] <HoopMultiSplitNode> HoopMultiSplitNode ()
+[07-57-15-375] [1126] <HoopMultiSplitLeaf> HoopMultiSplitLeaf ()
+[07-57-15-375] [1127] <HoopMultiSplitNode> HoopMultiSplitNode ()
+[07-57-15-375] [1128] <HoopMultiSplitLeaf> HoopMultiSplitLeaf ()
+[07-57-15-375] [1129] <HoopMultiSplitNode> HoopMultiSplitNode ()
+[07-57-15-375] [1130] <HoopMultiSplitDivider> HoopMultiSplitDivider ()
+[07-57-15-375] [1131] <HoopMultiSplitNode> HoopMultiSplitNode ()
+[07-57-15-375] [1132] <HoopMultiSplitLeaf> HoopMultiSplitLeaf ()
+[07-57-15-375] [1133] <HoopMultiSplitNode> HoopMultiSplitNode ()
+[07-57-15-375] [1134] <HoopMultiSplitDivider> HoopMultiSplitDivider ()
+[07-57-15-390] [1135] <HoopMultiSplitNode> HoopMultiSplitNode ()
+[07-57-15-390] [1136] <HoopMultiSplitLayout> HoopMultiSplitLayout ()
+[07-57-15-390] [1137] <HoopMultiSplitLayout> HoopMultiSplitLayout ()
+[07-57-15-390] [1138] <HoopJPanel> HoopJPanel ()
+[07-57-15-390] [1139] <HoopMultiSplitPane> HoopMultiSplitPane ()
+[07-57-15-390] [1140] <HoopMultiViewFrame> Ready for input
+[07-57-15-390] [1141] <HoopMainFrame> HoopMainFrame ()
+[07-57-15-390] [1142] <HoopExecute> HoopExecute ()
+[07-57-15-390] [1143] <HoopExecuteInEditor> HoopExecuteInEditor ()
+[07-57-15-468] [1144] <HoopMainFrame> addButtons ()
+[07-57-15-484] [1145] <HoopMainFrame> startEditor ()
+[07-57-15-546] [1146] <HoopJPanel> HoopJPanel ()
+[07-57-15-546] [1147] <HoopEmbeddedJPanel> HoopEmbeddedJPanel ()
+[07-57-15-562] [1148] <HoopTextViewer> HoopTextViewer ()
+[07-57-15-718] [1149] <HoopTextViewer> setContentPane ()
+[07-57-15-718] [1150] <HoopMainFrame> addView (Text Viewer,HoopEmbeddedJPanel,JTabbedPane)
+[07-57-15-718] [1151] <HoopLink> addView ()
+[07-57-15-718] [1152] <HoopLink> addWindow ()
+[07-57-15-734] [1153] <HoopTextViewer> componentHidden ()
+[07-57-15-734] [1154] <HoopTextViewer> componentHidden ()
+[07-57-15-734] [1155] <HoopTextViewer> updateSize ()
+[07-57-15-734] [1156] <HoopJPanel> HoopJPanel ()
+[07-57-15-734] [1157] <HoopTabPane> HoopTabPane ()
+[07-57-15-734] [1158] <HoopTabPane> update ()
+[07-57-15-734] [1159] <HoopTabPane> Setting icon for tab at index: 0
+[07-57-15-750] [1160] <HoopJPanel> HoopJPanel ()
+[07-57-15-750] [1161] <HoopEmbeddedJPanel> HoopEmbeddedJPanel ()
+[07-57-15-750] [1162] <HoopDocumentList> HoopDocumentList ()
+[07-57-15-750] [1163] <HoopJPanel> HoopJPanel ()
+[07-57-15-750] [1164] <HoopButtonBox> HoopButtonBox ()
+[07-57-15-750] [1165] <HoopButtonBox> addComponent ()
+[07-57-15-750] [1166] <HoopButtonBox> addComponent ()
+[07-57-15-750] [1167] <HoopButtonBox> addComponent ()
+[07-57-15-750] [1168] <HoopButtonBox> addComponent ()
+[07-57-15-750] [1169] <HoopButtonBox> addComponent ()
+[07-57-15-750] [1170] <HoopButtonBox> addComponent ()
+[07-57-15-750] [1171] <HoopButtonBox> addComponent ()
+[07-57-15-750] [1172] <HoopButtonBox> addComponent ()
+[07-57-15-750] [1173] <HoopButtonBox> addComponent ()
+[07-57-15-750] [1174] <HoopButtonBox> addComponent ()
+[07-57-15-750] [1175] <HoopButtonBox> addComponent ()
+[07-57-15-750] [1176] <HoopJPanel> HoopJPanel ()
+[07-57-15-750] [1177] <HoopButtonBox> HoopButtonBox ()
+[07-57-15-750] [1178] <HoopButtonBox> addComponent ()
+[07-57-15-750] [1179] <HoopButtonBox> addComponent ()
+[07-57-15-750] [1180] <HoopJPanel> HoopJPanel ()
+[07-57-15-750] [1181] <HoopDocumentListRenderer> HoopDocumentListRenderer ()
+[07-57-15-765] [1182] <HoopDocumentList> setContentPane ()
+[07-57-15-765] [1183] <HoopDocumentList> updateContents ()
+[07-57-15-796] [1184] <HoopDataSet> HoopDataSet ()
+[07-57-15-796] [1185] <HoopDataSet> checkDB ()
+[07-57-15-796] [1186] <HoopDataSet> No project yet, aborting db boot
+[07-57-15-796] [1187] <HoopDocumentList> Dataset checked, showing first entries in document list ...
+[07-57-15-796] [1188] <HoopMainFrame> addView ()
+[07-57-15-796] [1189] <HoopLink> addView ()
+[07-57-15-796] [1190] <HoopLink> addView ()
+[07-57-15-796] [1191] <HoopLink> addWindow ()
+[07-57-15-796] [1192] <HoopDocumentList> componentHidden ()
+[07-57-15-796] [1193] <HoopDocumentList> componentHidden ()
+[07-57-15-796] [1194] <HoopDocumentList> updateSize ()
+[07-57-15-796] [1195] <HoopJPanel> HoopJPanel ()
+[07-57-15-796] [1196] <HoopTabPane> HoopTabPane ()
+[07-57-15-796] [1197] <HoopLink> Setting appropriate dimensions for right panel ...
+[07-57-15-796] [1198] <HoopTabPane> update ()
+[07-57-15-796] [1199] <HoopTabPane> Setting icon for tab at index: 0
+[07-57-15-796] [1200] <HoopLink> getWindow ()
+[07-57-15-796] [1201] <HoopJPanel> HoopJPanel ()
+[07-57-15-796] [1202] <HoopEmbeddedJPanel> HoopEmbeddedJPanel ()
+[07-57-15-796] [1203] <HoopConsole> HoopConsole ()
+[07-57-15-812] [1204] <HoopMainFrame> addView (Console,HoopEmbeddedJPanel,JTabbedPane)
+[07-57-15-812] [1205] <HoopLink> addView ()
+[07-57-15-812] [1206] <HoopLink> addWindow ()
+[07-57-15-812] [1207] <HoopConsole> componentHidden ()
+[07-57-15-812] [1208] <HoopJPanel> HoopJPanel ()
+[07-57-15-812] [1209] <HoopConsole> componentHidden ()
+[07-57-15-812] [1210] <HoopTabPane> HoopTabPane ()
+[07-57-15-812] [1211] <HoopConsole> updateSize ()
+[07-57-15-812] [1212] <HoopLink> Setting appropriate dimensions for bottom panel ...
+[07-57-15-812] [1213] <HoopTabPane> update ()
+[07-57-15-812] [1214] <HoopTabPane> Setting icon for tab at index: 0
+[07-57-15-812] [1215] <HoopLink> getWindow ()
+[07-57-15-812] [1216] <HoopJPanel> HoopJPanel ()
+[07-57-15-812] [1217] <HoopEmbeddedJPanel> HoopEmbeddedJPanel ()
+[07-57-15-812] [1218] <HoopExecuteProgressPanel> HoopExecuteProgressPanel ()
+[07-57-15-812] [1219] <HoopJPanel> HoopJPanel ()
+[07-57-15-812] [1220] <HoopExecutionListRenderer> HoopExecutionListRenderer ()
+[07-57-15-828] [1221] <HoopJPanel> HoopJPanel ()
+[07-57-15-828] [1222] <HoopProgressPainter> HoopProgressPainter ()
+[07-57-15-828] [1223] <HoopExecuteProgressPanel> setContentPane ()
+[07-57-15-828] [1224] <HoopMainFrame> addView (Execution Monitor,HoopEmbeddedJPanel,JTabbedPane)
+[07-57-15-828] [1225] <HoopLink> addView ()
+[07-57-15-828] [1226] <HoopLink> addWindow ()
+[07-57-15-828] [1227] <HoopJPanel> HoopJPanel ()
+[07-57-15-828] [1228] <HoopTabPane> HoopTabPane ()
+[07-57-15-828] [1229] <HoopExecuteProgressPanel> componentHidden ()
+[07-57-15-828] [1230] <HoopLink> Setting appropriate dimensions for bottom panel ...
+[07-57-15-828] [1231] <HoopTabPane> update ()
+[07-57-15-828] [1232] <HoopTabPane> Setting icon for tab at index: 1
+[07-57-15-828] [1233] <HoopConsole> componentHidden ()
+[07-57-15-828] [1234] <HoopLink> getWindow ()
+[07-57-15-828] [1235] <HoopExecuteProgressPanel> componentHidden ()
+[07-57-15-828] [1236] <HoopExecuteProgressPanel> updateSize ()
+[07-57-15-828] [1237] <HoopJPanel> HoopJPanel ()
+[07-57-15-828] [1238] <HoopEmbeddedJPanel> HoopEmbeddedJPanel ()
+[07-57-15-828] [1239] <HoopDialogConsole> HoopDialogConsole ()
+[07-57-15-828] [1240] <HoopLink> addView ()
+[07-57-15-828] [1241] <HoopLink> addWindow ()
+[07-57-15-828] [1242] <HoopDialogConsole> componentHidden ()
+[07-57-15-828] [1243] <HoopJPanel> HoopJPanel ()
+[07-57-15-828] [1244] <HoopTabPane> HoopTabPane ()
+[07-57-15-828] [1245] <HoopLink> Setting appropriate dimensions for bottom panel ...
+[07-57-15-828] [1246] <HoopTabPane> update ()
+[07-57-15-828] [1247] <HoopTabPane> Setting icon for tab at index: 2
+[07-57-15-828] [1248] <HoopExecuteProgressPanel> componentHidden ()
+[07-57-15-828] [1249] <HoopLink> getWindow ()
+[07-57-15-828] [1250] <HoopLink> getWindow ()
+[07-57-15-828] [1251] <HoopDialogConsole> componentHidden ()
+[07-57-15-828] [1252] <HoopDialogConsole> updateSize ()
+[07-57-15-843] [1253] <HoopJPanel> HoopJPanel ()
+[07-57-15-843] [1254] <HoopEmbeddedJPanel> HoopEmbeddedJPanel ()
+[07-57-15-843] [1255] <HoopProjectPanel> HoopProjectPanel ()
+[07-57-15-859] [1256] <HoopProjectPanel> setContentPane ()
+[07-57-15-859] [1257] <HoopProjectPanel> updateContents ()
+[07-57-15-859] [1258] <HoopProjectPanel> Error: no project available yet
+[07-57-15-859] [1259] <HoopMainFrame> addView (Project,HoopEmbeddedJPanel,JTabbedPane)
+[07-57-15-859] [1260] <HoopLink> addView ()
+[07-57-15-859] [1261] <HoopLink> addWindow ()
+[07-57-15-859] [1262] <HoopProjectPanel> componentHidden ()
+[07-57-15-859] [1263] <HoopProjectPanel> Disabling certain file menu options
+[07-57-15-859] [1264] <HoopJPanel> HoopJPanel ()
+[07-57-15-859] [1265] <HoopTabPane> HoopTabPane ()
+[07-57-15-859] [1266] <HoopProjectPanel> componentShown ()
+[07-57-15-859] [1267] <HoopProjectPanel> componentHidden ()
+[07-57-15-859] [1268] <HoopProjectPanel> updateSize ()
+[07-57-15-859] [1269] <HoopProjectPanel> Enabling certain file menu options
+[07-57-15-859] [1270] <HoopLink> Setting appropriate dimensions for left panel ...
+[07-57-15-859] [1271] <HoopTabPane> update ()
+[07-57-15-859] [1272] <HoopTabPane> Setting icon for tab at index: 0
+[07-57-15-859] [1273] <HoopLink> getWindow ()
+[07-57-15-859] [1274] <HoopJPanel> HoopJPanel ()
+[07-57-15-859] [1275] <HoopEmbeddedJPanel> HoopEmbeddedJPanel ()
+[07-57-15-859] [1276] <HoopTreeList> HoopTreeList ()
+[07-57-15-906] [1277] <HoopTreeList> setContentPane ()
+[07-57-15-906] [1278] <HoopMainFrame> addView (Hoop List,HoopEmbeddedJPanel,JTabbedPane)
+[07-57-15-906] [1279] <HoopLink> addView ()
+[07-57-15-906] [1280] <HoopLink> addWindow ()
+[07-57-15-906] [1281] <HoopTreeList> componentHidden ()
+[07-57-15-906] [1282] <HoopJPanel> HoopJPanel ()
+[07-57-15-906] [1283] <HoopTabPane> HoopTabPane ()
+[07-57-15-921] [1284] <HoopLink> Setting appropriate dimensions for left panel ...
+[07-57-15-921] [1285] <HoopTabPane> update ()
+[07-57-15-921] [1286] <HoopTabPane> Setting icon for tab at index: 1
+[07-57-15-921] [1287] <HoopProjectPanel> componentHidden ()
+[07-57-15-921] [1288] <HoopLink> getWindow ()
+[07-57-15-921] [1289] <HoopProjectPanel> Disabling certain file menu options
+[07-57-15-921] [1290] <HoopTreeList> componentHidden ()
+[07-57-15-921] [1291] <HoopTreeList> updateSize ()
+[07-57-15-921] [1292] <HoopJPanel> HoopJPanel ()
+[07-57-15-921] [1293] <HoopEmbeddedJPanel> HoopEmbeddedJPanel ()
+[07-57-15-921] [1294] <HoopPropertyPanel> HoopPropertyPanel ()
+[07-57-15-937] [1295] <HoopPropertyPanel> setContentPane ()
+[07-57-15-937] [1296] <HoopMainFrame> addView (Properties,HoopEmbeddedJPanel,JTabbedPane)
+[07-57-15-937] [1297] <HoopLink> addView ()
+[07-57-15-937] [1298] <HoopLink> addWindow ()
+[07-57-15-937] [1299] <HoopJPanel> HoopJPanel ()
+[07-57-15-937] [1300] <HoopTabPane> HoopTabPane ()
+[07-57-15-937] [1301] <HoopPropertyPanel> componentHidden ()
+[07-57-15-937] [1302] <HoopLink> Setting appropriate dimensions for right panel ...
+[07-57-15-937] [1303] <HoopTabPane> update ()
+[07-57-15-937] [1304] <HoopTabPane> Setting icon for tab at index: 1
+[07-57-15-937] [1305] <HoopLink> getWindow ()
+[07-57-15-937] [1306] <HoopDocumentList> componentHidden ()
+[07-57-15-937] [1307] <HoopPropertyPanel> componentHidden ()
+[07-57-15-937] [1308] <HoopPropertyPanel> updateSize ()
+[07-57-16-218] [1309] <HoopVisualGraphComponent> createCanvas ()
+[07-57-16-234] [1310] <HoopVisualGraphCanvas> HoopVisualGraphCanvas ()
+[07-57-16-250] [1311] <HoopVisualGraphComponent> createComponents ()
+[07-57-16-250] [1312] <HoopVisualGraphComponent> mxCellState valid: false
+[07-57-16-250] [1313] <HoopVisualGraphComponent> createComponents ()
+[07-57-16-250] [1314] <HoopVisualGraphComponent> mxCellState valid: false
+[07-57-16-250] [1315] <HoopVisualGraphComponent> createConnectionHandler()
+[07-57-16-250] [1316] <HoopVisualGraphConnectionHandler> HoopVisualGraphConnectionHandler ()
+[07-57-16-390] [1317] <HoopVisualGraphComponent> HoopVisualGraphComponent ()
+[07-57-16-390] [1318] <HoopJPanel> HoopJPanel ()
+[07-57-16-390] [1319] <HoopEmbeddedJPanel> HoopEmbeddedJPanel ()
+[07-57-16-390] [1320] <HoopBasicGraphEditor> HoopBasicGraphEditor ()
+[07-57-16-390] [1321] <HoopBasicGraphEditor> createUndoManager ()
+[07-57-16-390] [1322] <HoopBasicGraphEditor> installRepaintListener ()
+[07-57-16-390] [1323] <HoopBasicGraphEditor> setContentPane ()
+[07-57-16-390] [1324] <HoopBasicGraphEditor> installHandlers ()
+[07-57-16-437] [1325] <HoopBasicGraphEditor> installListeners ()
+[07-57-16-437] [1326] <HoopGraphEditor> HoopGraphEditor ()
+[07-57-16-437] [1327] <HoopGraphEditor> HoopGraphEditor ()
+[07-57-16-437] [1328] <HoopMainFrame> addView (Hoop Editor,HoopEmbeddedJPanel,JTabbedPane)
+[07-57-16-437] [1329] <HoopLink> addView ()
+[07-57-16-437] [1330] <HoopLink> addWindow ()
+[07-57-16-437] [1331] <HoopGraphEditor> componentHidden ()
+[07-57-16-437] [1332] <HoopJPanel> HoopJPanel ()
+[07-57-16-437] [1333] <HoopTabPane> HoopTabPane ()
+[07-57-16-437] [1334] <HoopTabPane> update ()
+[07-57-16-437] [1335] <HoopTabPane> Setting icon for tab at index: 1
+[07-57-16-437] [1336] <HoopTextViewer> componentHidden ()
+[07-57-16-437] [1337] <HoopMainFrame> newProjectInternal ()
+[07-57-16-437] [1338] <HoopGraphEditor> componentHidden ()
+[07-57-16-437] [1339] <HoopGraphEditor> updateSize ()
+[07-57-16-453] [1340] <HoopProject> HoopProject ()
+[07-57-16-453] [1341] <HoopGraphFile> HoopGraphFile ()
+[07-57-16-453] [1342] <HoopProject> addFileTemplate ()
+[07-57-16-453] [1343] <HoopStopWords> HoopStopWords ()
+[07-57-16-453] [1344] <HoopProject> addFileTemplate ()
+[07-57-16-453] [1345] <HoopVocabulary> HoopVocabulary ()
+[07-57-16-453] [1346] <HoopProject> addFileTemplate ()
+[07-57-16-453] [1347] <HoopWrapperFile> HoopWrapperFile ()
+[07-57-16-453] [1348] <HoopProject> addFileTemplate ()
+[07-57-16-453] [1349] <HoopProject> newProject (null)
+[07-57-16-453] [1350] <HoopProject> newProject ()
+[07-57-16-453] [1351] <HoopProject> setFileURI (.hprj)
+[07-57-16-453] [1352] <HoopProject> Setting instance name to: .hprj
+[07-57-16-453] [1353] <HoopGraphFile> HoopGraphFile ()
+[07-57-16-453] [1354] <HoopGraphFile> setFileURI (graph.xml)
+[07-57-16-453] [1355] <HoopGraphFile> Setting instance name to: graph.xml
+[07-57-16-453] [1356] <HoopLink> getWindow ()
+[07-57-16-453] [1357] <HoopVisual> HoopVisual ()
+[07-57-16-453] [1358] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-16-453] [1359] <HoopBase> HoopBase ()
+[07-57-16-453] [1360] <HoopControlBase> HoopControlBase ()
+[07-57-16-453] [1361] <HoopStart> HoopStart ()
+[07-57-16-453] [1362] <HoopGraphManager> addHoop ()
+[07-57-16-453] [1363] <HoopLink> getGraphRoot ()
+[07-57-16-453] [1364] <HoopGraphFile> HoopGraphFile ()
+[07-57-16-453] [1365] <HoopGraphManager> Error: unable to get graph root, creating one ...
+[07-57-16-453] [1366] <HoopProject> setGraphRoot ()
+[07-57-16-453] [1367] <HoopGraphFile> HoopGraphFile ()
+[07-57-16-484] [1368] <HoopVisualGraphComponent> createComponents ()
+[07-57-16-484] [1369] <HoopVisualGraphComponent> mxCellState valid: false
+[07-57-16-484] [1370] <HoopVisualGraphComponent> createComponents ()
+[07-57-16-484] [1371] <HoopVisualGraphComponent> mxCellState valid: false
+[07-57-16-484] [1372] <HoopVisualGraphComponent> createComponents ()
+[07-57-16-484] [1373] <HoopVisualGraphComponent> mxCellState valid: false
+[07-57-16-484] [1374] <HoopVisualGraphComponent> Cell represents a vertex
+[07-57-16-484] [1375] <HoopVisualGraphComponent> We've got a vertex cell here, configuring ...
+[07-57-16-484] [1376] <HoopVisualGraphComponent> User object: a1d8226b-3eda-4ab3-8795-a3937d0eaac7
+[07-57-16-484] [1377] <HoopVisualGraphComponent> Assigning pre-configured Hoop to new vertex and panel ...
+[07-57-16-484] [1378] <HoopVisualGraph> cellToHoop ()
+[07-57-16-484] [1379] <HoopJComponent> HoopJComponent ()
+[07-57-16-484] [1380] <HoopNodeRenderer> HoopNodeRenderer ()
+[07-57-16-484] [1381] <HoopNodePanel> HoopNodePanel ()
+[07-57-16-484] [1382] <HoopLink> getWindow ()
+[07-57-16-484] [1383] <HoopLink> getWindow ()
+[07-57-16-515] [1384] <HoopJPanel> HoopJPanel ()
+[07-57-16-515] [1385] <HoopEmbeddedJPanel> HoopEmbeddedJPanel ()
+[07-57-16-515] [1386] <HoopTablePanel> HoopTablePanel ()
+[07-57-16-531] [1387] <HoopJTable> HoopJTable ()
+[07-57-16-531] [1388] <HoopTablePanel> setContentPane ()
+[07-57-16-531] [1389] <HoopLink> addView ()
+[07-57-16-531] [1390] <HoopLink> addView ()
+[07-57-16-531] [1391] <HoopLink> addWindow ()
+[07-57-16-531] [1392] <HoopJPanel> HoopJPanel ()
+[07-57-16-531] [1393] <HoopTabPane> HoopTabPane ()
+[07-57-16-531] [1394] <HoopTablePanel> componentHidden ()
+[07-57-16-531] [1395] <HoopLink> Setting appropriate dimensions for bottom panel ...
+[07-57-16-531] [1396] <HoopTabPane> update ()
+[07-57-16-531] [1397] <HoopTabPane> Setting icon for tab at index: 3
+[07-57-16-531] [1398] <HoopDialogConsole> componentHidden ()
+[07-57-16-531] [1399] <HoopLink> getWindow ()
+[07-57-16-531] [1400] <HoopTablePanel> componentHidden ()
+[07-57-16-531] [1401] <HoopNodePanel> setHoop ()
+[07-57-16-531] [1402] <HoopTablePanel> updateSize ()
+[07-57-16-531] [1403] <HoopNodePanel> addOutPort (KV)
+[07-57-16-531] [1404] <HoopTablePanel> Total width: 0
+[07-57-16-546] [1405] <HoopNodePanel> addOutPort (Stats)
+[07-57-16-546] [1406] <HoopNodePanel> addOutPort (Model)
+[07-57-16-546] [1407] <HoopNodePanel> popupPropertyPanel ()
+[07-57-16-546] [1408] <HoopNodePanel> setHoop () done
+[07-57-16-546] [1409] <HoopNodePanel> HoopNodePanel () done
+[07-57-16-546] [1410] <HoopNodePanel> fixDimensions ()
+[07-57-16-546] [1411] <HoopEditorMenuBar> create ()
+[07-57-16-625] [1412] <HoopGraphEditor> graphLayout ()
+[07-57-16-625] [1413] <HoopGraphEditor> createLayout ()
+[07-57-16-640] [1414] <HoopGraphEditor> graphLayout ()
+[07-57-16-640] [1415] <HoopGraphEditor> createLayout ()
+[07-57-16-640] [1416] <HoopGraphEditor> graphLayout ()
+[07-57-16-640] [1417] <HoopGraphEditor> createLayout ()
+[07-57-16-640] [1418] <HoopGraphEditor> graphLayout ()
+[07-57-16-640] [1419] <HoopGraphEditor> createLayout ()
+[07-57-16-640] [1420] <HoopGraphEditor> graphLayout ()
+[07-57-16-640] [1421] <HoopGraphEditor> createLayout ()
+[07-57-16-640] [1422] <HoopGraphEditor> graphLayout ()
+[07-57-16-640] [1423] <HoopGraphEditor> createLayout ()
+[07-57-16-656] [1424] <HoopGraphEditor> graphLayout ()
+[07-57-16-656] [1425] <HoopGraphEditor> createLayout ()
+[07-57-16-656] [1426] <HoopGraphEditor> graphLayout ()
+[07-57-16-656] [1427] <HoopGraphEditor> createLayout ()
+[07-57-16-656] [1428] <HoopGraphEditor> graphLayout ()
+[07-57-16-656] [1429] <HoopGraphEditor> createLayout ()
+[07-57-16-656] [1430] <HoopGraphEditor> graphLayout ()
+[07-57-16-656] [1431] <HoopGraphEditor> createLayout ()
+[07-57-16-656] [1432] <HoopGraphEditor> graphLayout ()
+[07-57-16-656] [1433] <HoopGraphEditor> createLayout ()
+[07-57-16-656] [1434] <HoopGraphEditor> graphLayout ()
+[07-57-16-656] [1435] <HoopGraphEditor> createLayout ()
+[07-57-16-687] [1436] <HoopEditorMenuBar> create () done
+[07-57-16-687] [1437] <HoopEditorToolBar> create ()
+[07-57-16-828] [1438] <HoopEditorToolBar> create () done
+[07-57-16-828] [1439] <HoopProjectPanel> updateContents ()
+[07-57-22-609] [1440] <HoopMultiSplitPane> componentHidden ()
+[07-57-22-609] [1441] <HoopMultiSplitPane> updateSize ()
+[07-57-22-609] [1442] <HoopMultiSplitPane> componentMoved ()
+[07-57-22-609] [1443] <HoopStatusBar> componentHidden ()
+[07-57-22-609] [1444] <HoopStatusBar> updateSize ()
+[07-57-22-609] [1445] <HoopStatusBar> componentMoved ()
+[07-57-22-609] [1446] <HoopProjectPanel> componentHidden ()
+[07-57-22-609] [1447] <HoopProjectPanel> updateSize ()
+[07-57-22-609] [1448] <HoopProjectPanel> componentMoved ()
+[07-57-22-609] [1449] <HoopTreeList> componentHidden ()
+[07-57-22-609] [1450] <HoopTreeList> updateSize ()
+[07-57-22-609] [1451] <HoopTreeList> componentMoved ()
+[07-57-22-609] [1452] <HoopTabPane> componentHidden ()
+[07-57-22-609] [1453] <HoopTabPane> updateSize ()
+[07-57-22-609] [1454] <HoopTabPane> componentMoved ()
+[07-57-22-609] [1455] <HoopTabPane> componentHidden ()
+[07-57-22-609] [1456] <HoopTabPane> updateSize ()
+[07-57-22-609] [1457] <HoopTabPane> componentMoved ()
+[07-57-22-609] [1458] <HoopDocumentList> componentHidden ()
+[07-57-22-609] [1459] <HoopDocumentList> updateSize ()
+[07-57-22-609] [1460] <HoopDocumentList> componentMoved ()
+[07-57-22-609] [1461] <HoopPropertyPanel> componentHidden ()
+[07-57-22-609] [1462] <HoopPropertyPanel> updateSize ()
+[07-57-22-609] [1463] <HoopPropertyPanel> componentMoved ()
+[07-57-22-609] [1464] <HoopTabPane> componentHidden ()
+[07-57-22-609] [1465] <HoopTabPane> updateSize ()
+[07-57-22-609] [1466] <HoopTabPane> componentMoved ()
+[07-57-22-609] [1467] <HoopTabPane> componentHidden ()
+[07-57-22-609] [1468] <HoopTabPane> updateSize ()
+[07-57-22-609] [1469] <HoopTabPane> componentMoved ()
+[07-57-22-609] [1470] <HoopButtonBox> componentHidden ()
+[07-57-22-609] [1471] <HoopButtonBox> updateSize ()
+[07-57-22-609] [1472] <HoopButtonBox> componentHidden ()
+[07-57-22-609] [1473] <HoopButtonBox> updateSize ()
+[07-57-22-609] [1474] <HoopButtonBox> componentMoved ()
+[07-57-22-609] [1475] <HoopTextViewer> componentHidden ()
+[07-57-22-609] [1476] <HoopTextViewer> updateSize ()
+[07-57-22-609] [1477] <HoopTextViewer> componentMoved ()
+[07-57-22-609] [1478] <HoopGraphEditor> componentHidden ()
+[07-57-22-609] [1479] <HoopGraphEditor> updateSize ()
+[07-57-22-609] [1480] <HoopGraphEditor> componentMoved ()
+[07-57-22-609] [1481] <HoopTabPane> componentHidden ()
+[07-57-22-609] [1482] <HoopTabPane> updateSize ()
+[07-57-22-609] [1483] <HoopTabPane> componentMoved ()
+[07-57-22-609] [1484] <HoopTabPane> componentHidden ()
+[07-57-22-609] [1485] <HoopTabPane> updateSize ()
+[07-57-22-609] [1486] <HoopTabPane> componentMoved ()
+[07-57-22-609] [1487] <HoopConsole> componentHidden ()
+[07-57-22-609] [1488] <HoopConsole> updateSize ()
+[07-57-22-609] [1489] <HoopConsole> componentMoved ()
+[07-57-22-609] [1490] <HoopExecuteProgressPanel> componentHidden ()
+[07-57-22-609] [1491] <HoopExecuteProgressPanel> updateSize ()
+[07-57-22-609] [1492] <HoopExecuteProgressPanel> componentMoved ()
+[07-57-22-609] [1493] <HoopDialogConsole> componentHidden ()
+[07-57-22-609] [1494] <HoopDialogConsole> updateSize ()
+[07-57-22-609] [1495] <HoopDialogConsole> componentMoved ()
+[07-57-22-609] [1496] <HoopTablePanel> componentHidden ()
+[07-57-22-609] [1497] <HoopTablePanel> updateSize ()
+[07-57-22-609] [1498] <HoopTablePanel> Total width: 867
+[07-57-22-609] [1499] <HoopTablePanel> componentMoved ()
+[07-57-22-609] [1500] <HoopTabPane> componentHidden ()
+[07-57-22-609] [1501] <HoopTabPane> updateSize ()
+[07-57-22-625] [1502] <HoopTabPane> componentMoved ()
+[07-57-22-625] [1503] <HoopTabPane> componentHidden ()
+[07-57-22-625] [1504] <HoopTabPane> updateSize ()
+[07-57-22-625] [1505] <HoopTabPane> componentMoved ()
+[07-57-22-625] [1506] <HoopTabPane> componentHidden ()
+[07-57-22-625] [1507] <HoopTabPane> updateSize ()
+[07-57-22-625] [1508] <HoopTabPane> componentMoved ()
+[07-57-22-625] [1509] <HoopTabPane> componentHidden ()
+[07-57-22-625] [1510] <HoopTabPane> updateSize ()
+[07-57-22-625] [1511] <HoopTabPane> componentMoved ()
+[07-57-24-546] [1512] <HoopMainFrame> openProject
+[07-57-24-546] [1513] <HoopProject> isEmpty ()
+[07-57-30-406] [1514] <HoopJFileChooser> actionPerformed (ApproveSelection)
+[07-57-30-406] [1515] <HoopLink> getWindow ()
+[07-57-30-406] [1516] <HoopPropertyPanel> reset ()
+[07-57-30-406] [1517] <HoopPropertyPanel> removePropertyPanel ()
+[07-57-30-406] [1518] <HoopLink> getWindow ()
+[07-57-30-406] [1519] <HoopDocumentList> reset ()
+[07-57-30-421] [1520] <HoopDocumentListRenderer> reset ()
+[07-57-30-421] [1521] <HoopMainFrame> Loading: E:\Data\HoopSIDETest ...
+[07-57-30-437] [1522] <HoopJDialog> HoopJDialog ()
+[07-57-30-437] [1523] <HoopJDialog> resizeAndCenter (250,200)
+[07-57-30-437] [1524] <HoopProject> HoopProject ()
+[07-57-30-437] [1525] <HoopGraphFile> HoopGraphFile ()
+[07-57-30-437] [1526] <HoopProject> addFileTemplate ()
+[07-57-30-437] [1527] <HoopStopWords> HoopStopWords ()
+[07-57-30-437] [1528] <HoopProject> addFileTemplate ()
+[07-57-30-437] [1529] <HoopVocabulary> HoopVocabulary ()
+[07-57-30-437] [1530] <HoopProject> addFileTemplate ()
+[07-57-30-437] [1531] <HoopWrapperFile> HoopWrapperFile ()
+[07-57-30-437] [1532] <HoopProject> addFileTemplate ()
+[07-57-30-437] [1533] <HoopProject> load (E:\Data\HoopSIDETest)
+[07-57-30-437] [1534] <HoopProject> setFileURI (E:\Data\HoopSIDETest/.hprj)
+[07-57-30-437] [1535] <HoopProject> Setting instance name to: .hprj
+[07-57-30-437] [1536] <HoopVFSL> doesFileExist ()
+[07-57-30-437] [1537] <HoopFileManager> getContents (E:\Data\HoopSIDETest/.hprj)
+[07-57-30-437] [1538] <HoopProject> reset ()
+[07-57-30-437] [1539] <HoopProject> load (E:\Data\HoopSIDETest/.hprj)
+[07-57-30-437] [1540] <HoopProject> setFileURI (E:\Data\HoopSIDETest/.hprj)
+[07-57-30-437] [1541] <HoopProject> Setting instance name to: .hprj
+[07-57-30-437] [1542] <HoopVFSL> loadContents ()
+[07-57-30-437] [1543] <HoopFileManager> loadContents (E:\Data\HoopSIDETest/.hprj)
+[07-57-30-437] [1544] <HoopFileManager> getContents (E:\Data\HoopSIDETest/.hprj)
+[07-57-30-453] [1545] <HoopFileManager> Loaded 163 characters
+[07-57-30-453] [1546] <HoopProject> fromXMLString ()
+[07-57-30-453] [1547] <HoopProject> loadXMLFromString ()
+[07-57-30-453] [1548] <HoopProject> <?xml version="1.0" encoding="UTF-8"?>
+<hoopfile class="HoopProject" instance=".hprj">
+  <hoopfile class="HoopGraphFile" instance="graph.xml" />
+</hoopfile>
+
+
+[07-57-30-843] [1549] <HoopProject> fromXML ()
+[07-57-30-843] [1550] <HoopProject> Parsing files in graph file
+[07-57-30-843] [1551] <HoopProject> instantiateFile (HoopGraphFile)
+[07-57-30-843] [1552] <HoopGraphFile> reset ()
+[07-57-30-843] [1553] <HoopProject> Loading project file: null/graph.xml
+[07-57-30-843] [1554] <HoopGraphFile> load (E:\Data\HoopSIDETest/graph.xml)
+[07-57-30-843] [1555] <HoopGraphFile> setFileURI (E:\Data\HoopSIDETest/graph.xml)
+[07-57-30-843] [1556] <HoopGraphFile> Setting instance name to: graph.xml
+[07-57-30-843] [1557] <HoopVFSL> loadContents ()
+[07-57-30-843] [1558] <HoopFileManager> loadContents (E:\Data\HoopSIDETest/graph.xml)
+[07-57-30-843] [1559] <HoopFileManager> getContents (E:\Data\HoopSIDETest/graph.xml)
+[07-57-30-875] [1560] <HoopFileManager> Loaded 1437 characters
+[07-57-30-875] [1561] <HoopGraphFile> fromXMLString ()
+[07-57-30-875] [1562] <HoopGraphFile> loadXMLFromString ()
+[07-57-30-875] [1563] <HoopGraphFile> <?xml version="1.0" encoding="UTF-8"?>
+<hoopfile class="HoopGraphFile" instance="graph.xml">
+  <graph scale="1.0">
+    <hoops>
+      <hoop id="9f326fb1-2d7b-42e7-a04a-2f23bc96e97d" class="HoopStart" name="59" active="true">
+        <visual x="20" y="20" width="150" height="100" />
+        <properties />
+      </hoop>
+      <hoop id="804862e3-f88c-44e1-8137-cedd800c043c" class="HoopFileLoadBase" name="60" active="true">
+        <visual x="150" y="190" width="150" height="100" />
+        <properties>
+          <serializable class="HoopStringSerializable" instance="batchSize">
+            <value format="Text" type="STRING">100</value>
+          </serializable>
+          <serializable class="HoopStringSerializable" instance="queryMax">
+            <value format="Text" type="STRING" />
+          </serializable>
+          <serializable class="HoopEnumSerializable" instance="mode">
+            <value format="Text" type="ENUM" options="LINEAR,SAMPLE">LINEAR</value>
+          </serializable>
+          <serializable class="HoopURISerializable" instance="URI">
+            <value format="Text" type="URI" fileExtension="txt" dirsOnly="false" />
+          </serializable>
+        </properties>
+      </hoop>
+    </hoops>
+    <connections>
+      <connection name="Edge" from="9f326fb1-2d7b-42e7-a04a-2f23bc96e97d" to="804862e3-f88c-44e1-8137-cedd800c043c" />
+    </connections>
+  </graph>
+</hoopfile>
+
+
+[07-57-30-890] [1564] <HoopGraphFile> fromXML (hoopfile)
+[07-57-30-890] [1565] <HoopGraphFile> reset ()
+[07-57-30-890] [1566] <HoopGraphFile> Looking at element: graph
+[07-57-30-890] [1567] <HoopGraphFile> Parsing 2 hoop element(s)
+[07-57-30-890] [1568] <HoopGraphFile> Found a hoop node ...
+[07-57-30-890] [1569] <HoopGraphFile> hoopFactory (HoopStart)
+[07-57-30-890] [1570] <HoopManager> instantiate (HoopStart)
+[07-57-30-890] [1571] <HoopVisual> HoopVisual ()
+[07-57-30-890] [1572] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-30-890] [1573] <HoopBase> HoopBase ()
+[07-57-30-890] [1574] <HoopControlBase> HoopControlBase ()
+[07-57-30-890] [1575] <HoopStart> HoopStart ()
+[07-57-30-890] [1576] <HoopStart> fromXML ()
+[07-57-30-890] [1577] <HoopStart> Assigning visual information to hoop ...
+[07-57-30-890] [1578] <HoopStart> Hoop visuals: 20,20 with: 150,100
+[07-57-30-890] [1579] <HoopStart> Assigning visual information to hoop ...
+[07-57-30-890] [1580] <HoopGraphFile> Found a hoop node ...
+[07-57-30-890] [1581] <HoopGraphFile> hoopFactory (HoopFileLoadBase)
+[07-57-30-890] [1582] <HoopManager> instantiate (HoopFileLoadBase)
+[07-57-30-890] [1583] <HoopVisual> HoopVisual ()
+[07-57-30-890] [1584] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-30-890] [1585] <HoopBase> HoopBase ()
+[07-57-30-890] [1586] <HoopIOBase> HoopIOBase ()
+[07-57-30-890] [1587] <HoopLoadBase> HoopLoadBase ()
+[07-57-30-890] [1588] <HoopSerializable> HoopSerializable ()
+[07-57-30-890] [1589] <HoopSerializable> Adding this to parent properties list
+[07-57-30-890] [1590] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-30-890] [1591] <HoopSerializable> HoopSerializable ()
+[07-57-30-890] [1592] <HoopSerializable> Adding this to parent properties list
+[07-57-30-890] [1593] <HoopStringSerializable> HoopStringSerializable ()
+[07-57-30-890] [1594] <HoopSerializable> HoopSerializable ()
+[07-57-30-890] [1595] <HoopSerializable> Adding this to parent properties list
+[07-57-30-890] [1596] <HoopEnumSerializable> HoopEnumSerializable ()
+[07-57-30-890] [1597] <HoopFileLoadBase> HoopFileLoadBase ()
+[07-57-30-890] [1598] <HoopSerializable> HoopSerializable ()
+[07-57-30-890] [1599] <HoopSerializable> Adding this to parent properties list
+[07-57-30-890] [1600] <HoopURISerializable> HoopURISerializable ()
+[07-57-30-890] [1601] <HoopFileTools> HoopFileTools ()
+[07-57-30-890] [1602] <HoopFileLoadBase> fromXML ()
+[07-57-30-890] [1603] <HoopFileLoadBase> Assigning visual information to hoop ...
+[07-57-30-890] [1604] <HoopFileLoadBase> Hoop visuals: 150,190 with: 150,100
+[07-57-30-890] [1605] <HoopFileLoadBase> Assigning visual information to hoop ...
+[07-57-30-890] [1606] <HoopFileLoadBase> Configuring serialized property batchSize from xml ...
+[07-57-30-890] [1607] <HoopFileLoadBase> getProperty (batchSize)
+[07-57-30-890] [1608] <HoopFileLoadBase> Comparing batchSize to: batchSize
+[07-57-30-890] [1609] <HoopStringSerializable> fromXML ()
+[07-57-30-890] [1610] <HoopStringSerializable> fromXML ()
+[07-57-30-890] [1611] <HoopStringSerializable> Parsing text node (value)...
+[07-57-30-890] [1612] <HoopStringSerializable> Setting value to: 100
+[07-57-30-890] [1613] <HoopFileLoadBase> Configuring serialized property queryMax from xml ...
+[07-57-30-890] [1614] <HoopFileLoadBase> getProperty (queryMax)
+[07-57-30-890] [1615] <HoopFileLoadBase> Comparing batchSize to: queryMax
+[07-57-30-890] [1616] <HoopFileLoadBase> Comparing queryMax to: queryMax
+[07-57-30-890] [1617] <HoopStringSerializable> fromXML ()
+[07-57-30-890] [1618] <HoopStringSerializable> fromXML ()
+[07-57-30-890] [1619] <HoopStringSerializable> Parsing text node (value)...
+[07-57-30-890] [1620] <HoopStringSerializable> Setting value to: 
+[07-57-30-890] [1621] <HoopFileLoadBase> Configuring serialized property mode from xml ...
+[07-57-30-890] [1622] <HoopFileLoadBase> getProperty (mode)
+[07-57-30-890] [1623] <HoopFileLoadBase> Comparing batchSize to: mode
+[07-57-30-890] [1624] <HoopFileLoadBase> Comparing queryMax to: mode
+[07-57-30-890] [1625] <HoopFileLoadBase> Comparing mode to: mode
+[07-57-30-890] [1626] <HoopEnumSerializable> fromXML ()
+[07-57-30-890] [1627] <HoopEnumSerializable> fromXML ()
+[07-57-30-890] [1628] <HoopEnumSerializable> fromXML ()
+[07-57-30-890] [1629] <HoopEnumSerializable> Parsing text node (value)...
+[07-57-30-890] [1630] <HoopEnumSerializable> Setting value to: LINEAR
+[07-57-30-890] [1631] <HoopEnumSerializable> Parsing text node (value)...
+[07-57-30-890] [1632] <HoopEnumSerializable> Setting value to: LINEAR
+[07-57-30-890] [1633] <HoopFileLoadBase> Configuring serialized property URI from xml ...
+[07-57-30-890] [1634] <HoopFileLoadBase> getProperty (URI)
+[07-57-30-890] [1635] <HoopFileLoadBase> Comparing batchSize to: URI
+[07-57-30-890] [1636] <HoopFileLoadBase> Comparing queryMax to: URI
+[07-57-30-890] [1637] <HoopFileLoadBase> Comparing mode to: URI
+[07-57-30-890] [1638] <HoopFileLoadBase> Comparing URI to: URI
+[07-57-30-890] [1639] <HoopURISerializable> fromXML (serializable)
+[07-57-30-890] [1640] <HoopURISerializable> Parsing text node (value)...
+[07-57-30-890] [1641] <HoopURISerializable> format: Text
+[07-57-30-890] [1642] <HoopURISerializable> fileExtension: txt
+[07-57-30-890] [1643] <HoopURISerializable> dirsOnly: false
+[07-57-30-890] [1644] <HoopURISerializable> Setting value to: 
+[07-57-30-890] [1645] <HoopGraphFile> Parsing connections element
+[07-57-30-890] [1646] <HoopGraphFile> Parsing 'connections' element in graph file
+[07-57-30-890] [1647] <HoopGraphFile> Found connection from: 9f326fb1-2d7b-42e7-a04a-2f23bc96e97d to: 804862e3-f88c-44e1-8137-cedd800c043c
+[07-57-30-890] [1648] <HoopConnection> HoopConnection ()
+[07-57-30-890] [1649] <HoopGraphFile> getByID (9f326fb1-2d7b-42e7-a04a-2f23bc96e97d)
+[07-57-30-890] [1650] <HoopConnection> setFromHoop ()
+[07-57-30-890] [1651] <HoopGraphFile> getByID (804862e3-f88c-44e1-8137-cedd800c043c)
+[07-57-30-890] [1652] <HoopGraphFile> processConnections ()
+[07-57-30-890] [1653] <HoopGraphFile> getByID (9f326fb1-2d7b-42e7-a04a-2f23bc96e97d)
+[07-57-30-890] [1654] <HoopGraphFile> getByID (804862e3-f88c-44e1-8137-cedd800c043c)
+[07-57-30-890] [1655] <HoopGraphFile> Making connection: HoopStart -> HoopFileLoadBase
+[07-57-30-890] [1656] <HoopStart> addOutHoop ()
+[07-57-30-890] [1657] <HoopGraphFile> printHoopData ()
+Hoop: HoopFileLoadBase (HoopStart->HoopFileLoadBase)
+[07-57-30-890] [1658] <HoopLink> getWindow ()
+[07-57-30-890] [1659] <HoopGraphEditor> reset ()
+[07-57-30-890] [1660] <HoopVisualGraph> removeCells (Object[] cells)
+[07-57-30-890] [1661] <HoopVisualGraph> containsStartHoop ()
+[07-57-30-890] [1662] <HoopVisualGraph> removeCells (Object[] cells,boolean includeEdges)
+[07-57-30-890] [1663] <HoopVisualGraph> containsStartHoop ()
+[07-57-30-890] [1664] <HoopVisualGraph> invoke ()
+[07-57-30-890] [1665] <HoopVisualGraph> CELLS_REMOVED
+[07-57-30-890] [1666] <HoopVisualGraph> Processing invoke on 1 objects ...
+[07-57-30-890] [1667] <HoopVisualGraph> Checking edges first ...
+[07-57-30-890] [1668] <HoopVisualGraph> Checking nodes next ...
+[07-57-30-890] [1669] <HoopVisualGraph> Removing node ...
+[07-57-30-890] [1670] <HoopVisualGraph> cellToHoop ()
+[07-57-30-890] [1671] <HoopGraphManager> removeHoop ()
+[07-57-30-890] [1672] <HoopLink> getGraphRoot ()
+[07-57-30-890] [1673] <HoopGraphFile> HoopGraphFile ()
+[07-57-30-890] [1674] <HoopLink> getWindow ()
+[07-57-30-890] [1675] <HoopPropertyPanel> removePropertyPanel ()
+[07-57-30-890] [1676] <HoopGraphManager> listConnections ()
+[07-57-30-890] [1677] <HoopProject> getGraphConnections ()
+[07-57-30-890] [1678] <HoopGraphFile> HoopGraphFile ()
+[07-57-30-906] [1679] <HoopGraphManager> Connection 0, from: 9f326fb1-2d7b-42e7-a04a-2f23bc96e97d, to: 804862e3-f88c-44e1-8137-cedd800c043c
+[07-57-30-906] [1680] <HoopVisualGraphComponent> createComponents ()
+[07-57-30-906] [1681] <HoopVisualGraphComponent> mxCellState valid: false
+[07-57-30-906] [1682] <HoopVisualGraphComponent> createComponents ()
+[07-57-30-906] [1683] <HoopVisualGraphComponent> mxCellState valid: false
+[07-57-30-906] [1684] <HoopVisualGraphComponent> createComponents ()
+[07-57-30-906] [1685] <HoopVisualGraphComponent> mxCellState valid: false
+[07-57-30-906] [1686] <HoopVisualGraphComponent> createComponents ()
+[07-57-30-906] [1687] <HoopVisualGraphComponent> mxCellState valid: false
+[07-57-30-906] [1688] <HoopGraphEditor> instantiateFromFile ()
+[07-57-30-906] [1689] <HoopVisualGraphComponent> createComponents ()
+[07-57-30-906] [1690] <HoopVisualGraphComponent> mxCellState valid: false
+[07-57-30-906] [1691] <HoopVisualGraphComponent> createComponents ()
+[07-57-30-906] [1692] <HoopVisualGraphComponent> mxCellState valid: false
+[07-57-30-906] [1693] <HoopVisualGraphComponent> createComponents ()
+[07-57-30-906] [1694] <HoopVisualGraphComponent> mxCellState valid: false
+[07-57-30-906] [1695] <HoopVisualGraphComponent> Cell represents a vertex
+[07-57-30-906] [1696] <HoopVisualGraphComponent> We've got a vertex cell here, configuring ...
+[07-57-30-906] [1697] <HoopVisualGraphComponent> User object: 9f326fb1-2d7b-42e7-a04a-2f23bc96e97d
+[07-57-30-906] [1698] <HoopVisualGraphComponent> Assigning pre-configured Hoop to new vertex and panel ...
+[07-57-30-906] [1699] <HoopVisualGraph> cellToHoop ()
+[07-57-30-906] [1700] <HoopJComponent> HoopJComponent ()
+[07-57-30-906] [1701] <HoopNodeRenderer> HoopNodeRenderer ()
+[07-57-30-906] [1702] <HoopNodePanel> HoopNodePanel ()
+[07-57-30-906] [1703] <HoopLink> getWindow ()
+[07-57-30-906] [1704] <HoopLink> getWindow ()
+[07-57-30-906] [1705] <HoopNodePanel> setHoop ()
+[07-57-30-906] [1706] <HoopNodePanel> addOutPort (KV)
+[07-57-30-906] [1707] <HoopNodePanel> addOutPort (Stats)
+[07-57-30-906] [1708] <HoopNodePanel> addOutPort (Model)
+[07-57-30-906] [1709] <HoopNodePanel> popupPropertyPanel ()
+[07-57-30-906] [1710] <HoopNodePanel> setHoop () done
+[07-57-30-906] [1711] <HoopNodePanel> HoopNodePanel () done
+[07-57-30-906] [1712] <HoopNodePanel> fixDimensions ()
+[07-57-30-906] [1713] <HoopVisualGraphComponent> createComponents ()
+[07-57-30-906] [1714] <HoopVisualGraphComponent> mxCellState valid: false
+[07-57-30-906] [1715] <HoopVisualGraphComponent> Cell represents a vertex
+[07-57-30-906] [1716] <HoopVisualGraphComponent> We've got a vertex cell here, configuring ...
+[07-57-30-906] [1717] <HoopVisualGraphComponent> User object: 804862e3-f88c-44e1-8137-cedd800c043c
+[07-57-30-906] [1718] <HoopVisualGraphComponent> Assigning pre-configured Hoop to new vertex and panel ...
+[07-57-30-906] [1719] <HoopVisualGraph> cellToHoop ()
+[07-57-30-906] [1720] <HoopJComponent> HoopJComponent ()
+[07-57-30-906] [1721] <HoopNodeRenderer> HoopNodeRenderer ()
+[07-57-30-906] [1722] <HoopNodePanel> HoopNodePanel ()
+[07-57-30-906] [1723] <HoopLink> getWindow ()
+[07-57-30-906] [1724] <HoopLink> getWindow ()
+[07-57-30-906] [1725] <HoopNodePanel> setHoop ()
+[07-57-30-906] [1726] <HoopNodePanel> addOutPort (KV)
+[07-57-30-906] [1727] <HoopNodePanel> addOutPort (Stats)
+[07-57-30-906] [1728] <HoopNodePanel> addOutPort (Model)
+[07-57-30-906] [1729] <HoopNodePanel> popupPropertyPanel ()
+[07-57-30-921] [1730] <HoopJPanel> HoopJPanel ()
+[07-57-30-921] [1731] <HoopInspectablePanel> HoopInspectablePanel ()
+[07-57-30-921] [1732] <HoopInspectablePanel> create ()
+[07-57-30-921] [1733] <HoopJTable> HoopJTable ()
+[07-57-30-921] [1734] <HoopJTable> HoopPropertyTable ()
+[07-57-30-921] [1735] <HoopSheetCellRenderer> HoopSheetCellRenderer ()
+[07-57-30-937] [1736] <HoopJPanel> HoopJPanel ()
+[07-57-30-937] [1737] <HoopSheetCellColor> HoopSheetCellColor ()
+[07-57-30-937] [1738] <HoopJPanel> HoopJPanel ()
+[07-57-30-937] [1739] <HoopSheetPathRenderer> HoopSheetPathRenderer ()
+[07-57-30-937] [1740] <HoopPropertyPanel> addPropertyPanel (-1)
+[07-57-30-937] [1741] <HoopPropertyPanel> addPropertyPanel () done
+[07-57-30-937] [1742] <HoopNodePanel> No custom config panel provided, switching to properties panel instead
+[07-57-30-937] [1743] <HoopInspectablePanel> setHoop ()
+[07-57-30-937] [1744] <HoopInspectablePanel> configComponentPanel ()
+[07-57-30-937] [1745] <HoopVisual> HoopVisual ()
+[07-57-30-937] [1746] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-30-937] [1747] <HoopBase> HoopBase ()
+[07-57-30-937] [1748] <HoopSerializableTableEntry> HoopSerializableTableEntry ()
+[07-57-30-937] [1749] <HoopVisual> HoopVisual ()
+[07-57-30-937] [1750] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-30-937] [1751] <HoopBase> HoopBase ()
+[07-57-30-937] [1752] <HoopSerializableTableEntry> HoopSerializableTableEntry ()
+[07-57-30-937] [1753] <HoopVisual> HoopVisual ()
+[07-57-30-937] [1754] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-30-937] [1755] <HoopBase> HoopBase ()
+[07-57-30-937] [1756] <HoopSerializableTableEntry> HoopSerializableTableEntry ()
+[07-57-30-937] [1757] <HoopVisual> HoopVisual ()
+[07-57-30-937] [1758] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-30-937] [1759] <HoopBase> HoopBase ()
+[07-57-30-937] [1760] <HoopSerializableTableEntry> HoopSerializableTableEntry ()
+[07-57-30-937] [1761] <HoopVisual> HoopVisual ()
+[07-57-30-937] [1762] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-30-937] [1763] <HoopBase> HoopBase ()
+[07-57-30-937] [1764] <HoopSerializableTableEntry> HoopSerializableTableEntry ()
+[07-57-30-937] [1765] <HoopVisual> HoopVisual ()
+[07-57-30-937] [1766] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-30-937] [1767] <HoopBase> HoopBase ()
+[07-57-30-937] [1768] <HoopSerializableTableEntry> HoopSerializableTableEntry ()
+[07-57-30-937] [1769] <HoopVisual> HoopVisual ()
+[07-57-30-937] [1770] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-30-937] [1771] <HoopBase> HoopBase ()
+[07-57-30-937] [1772] <HoopSerializableTableEntry> HoopSerializableTableEntry ()
+[07-57-30-937] [1773] <HoopVisual> HoopVisual ()
+[07-57-30-937] [1774] <HoopBaseTyped> HoopBaseTyped ()
+[07-57-30-937] [1775] <HoopBase> HoopBase ()
+[07-57-30-937] [1776] <HoopSerializableTableEntry> HoopSerializableTableEntry ()
+[07-57-30-953] [1777] <HoopSheetCellEditor> HoopSheetCellEditor ()
+[07-57-30-953] [1778] <null> setEditable ()
+[07-57-30-953] [1779] <HoopJTextField> HoopJTextField ()
+[07-57-30-953] [1780] <HoopJTextField> setMaxLength ()
+[07-57-30-953] [1781] <HoopSheetCellNumber> HoopSheetCellNumber (int,int)
+[07-57-30-953] [1782] <HoopSheetCellNumber> HoopSheetCellNumber ()
+[07-57-30-953] [1783] <HoopNodePanel> setHoop () done
+[07-57-30-953] [1784] <HoopNodePanel> HoopNodePanel () done
+[07-57-30-953] [1785] <HoopNodePanel> fixDimensions ()
+[07-57-30-953] [1786] <HoopGraphFile> getByID (9f326fb1-2d7b-42e7-a04a-2f23bc96e97d)
+[07-57-30-953] [1787] <HoopGraphFile> getByID (804862e3-f88c-44e1-8137-cedd800c043c)
+[07-57-30-953] [1788] <HoopGraphEditor> Inserting new edge ...
+[07-57-30-953] [1789] <HoopVisualGraph> createEdge ()
+[07-57-30-953] [1790] <HoopVisualGraph> isPort ()
+[07-57-30-968] [1791] <HoopVisualGraph> isPort ()
+[07-57-30-968] [1792] <HoopVisualGraphComponent> createComponents ()
+[07-57-30-968] [1793] <HoopVisualGraphComponent> mxCellState valid: false
+[07-57-30-968] [1794] <HoopVisualGraphComponent> createComponents ()
+[07-57-30-968] [1795] <HoopVisualGraphComponent> mxCellState valid: false
+[07-57-30-968] [1796] <HoopVisualGraphComponent> createComponents ()
+[07-57-30-968] [1797] <HoopVisualGraphComponent> mxCellState valid: false
+[07-57-30-968] [1798] <HoopVisualGraphComponent> Cell represents an edge
+[07-57-30-968] [1799] <HoopVisualGraphComponent> We've got an edge cell here, configuring ...
+[07-57-30-968] [1800] <HoopVisualGraph> cellToHoop ()
+[07-57-30-968] [1801] <HoopVisualGraph> cellToHoop ()
+[07-57-30-968] [1802] <HoopVisualGraphComponent> We have an edge cell with id: 2 (edu.cmu.cs.in.hoop.hoops.task.HoopStart@14d1f5f -> edu.cmu.cs.in.hoop.hoops.load.HoopFileLoadBase@46aa21)
+[07-57-30-968] [1803] <HoopVisualGraphComponent> We have a valid source and target hoop, linking them together ...
+[07-57-30-968] [1804] <HoopGraphManager> connectHoops ()
+[07-57-30-968] [1805] <HoopGraphManager> getConnection ()
+[07-57-30-968] [1806] <HoopProject> getGraphConnections ()
+[07-57-30-968] [1807] <HoopGraphFile> HoopGraphFile ()
+[07-57-30-968] [1808] <HoopGraphManager> Found connection in connection list, removing ...
+[07-57-30-968] [1809] <HoopGraphManager> Connection already exists, returning found connection
+[07-57-30-968] [1810] <HoopVisualGraphComponent> Edge created
+[07-57-30-968] [1811] <HoopStart> propagateVisualProperties ()
+[07-57-30-968] [1812] <HoopNodePanel> propagateVisualProperties ()
+[07-57-30-968] [1813] <HoopFileLoadBase> propagateVisualProperties ()
+[07-57-30-968] [1814] <HoopNodePanel> propagateVisualProperties ()
+[07-57-30-968] [1815] <HoopGraphManager> listConnections ()
+[07-57-30-968] [1816] <HoopProject> getGraphConnections ()
+[07-57-30-968] [1817] <HoopGraphFile> HoopGraphFile ()
+[07-57-30-968] [1818] <HoopGraphManager> Connection 0, from: 9f326fb1-2d7b-42e7-a04a-2f23bc96e97d, to: 804862e3-f88c-44e1-8137-cedd800c043c
+[07-57-30-968] [1819] <HoopMainFrame> refreshProjectPane ()
+[07-57-30-968] [1820] <HoopLink> getWindow ()
+[07-57-30-968] [1821] <HoopProjectPanel> refresh ()
+[07-57-30-968] [1822] <HoopProject> refresh ()
+[07-57-30-968] [1823] <HoopDataSet> checkDB ()
+[07-57-30-968] [1824] <HoopDataSet> Driver is null, starting db boot process ...
+[07-57-30-968] [1825] <HoopDataSet> Document database directory exists, excellent
+[07-57-30-968] [1826] <HoopBerkeleyDB> HoopBerkeleyDB ()
+[07-57-30-968] [1827] <HoopBerkeleyDBBase> HoopBerkeleyDBBase ()
+[07-57-30-968] [1828] <HoopBerkeleyDocumentDB> HoopBerkeleyDocumentDB ()
+[07-57-30-968] [1829] <HoopBerkeleyDB> startDBService ()
+[07-57-31-125] [1830] <HoopBerkeleyDB> configureLogging ()
+[07-57-31-125] [1831] <HoopBerkeleyDB> Configuring logging to go to: E:\Data\HoopSIDETest//logs
+Dec 08, 2012 7:57:31 AM edu.cmu.cs.in.base.io.HoopBerkeleyDB configureLogging
+INFO: BerkeleyDB logging enabled
+[07-57-31-171] [1832] <HoopBerkeleyDB> EnvironmentConfig.setAllowCreate(true);
+[07-57-32-015] [1833] <HoopBerkeleyDocumentDB> openDB ()
+[07-57-32-031] [1834] <HoopBerkeleyDocumentDB> Database should be open and available for binding
+[07-57-32-031] [1835] <HoopBerkeleyDBBase> HoopBerkeleyDBBase ()
+[07-57-32-031] [1836] <HoopBerkeleyDBInstance> HoopBerkeleyDBInstance ()
+[07-57-32-031] [1837] <HoopBerkeleyDB> openDB (edu.cmu.cs.in.base.io.HoopBerkeleyDBInstance@1baf0fc)
+[07-57-32-031] [1838] <HoopBerkeleyDBInstance> openDB ()
+[07-57-32-031] [1839] <HoopBerkeleyDBInstance> Database should be open and available for binding
+[07-57-32-031] [1840] <HoopBerkeleyDB> Database should be open and available
+[07-57-32-078] [1841] <HoopBerkeleyDocumentDB> bind ()
+[07-57-32-109] [1842] <HoopBerkeleyDBBase> HoopBerkeleyDBBase ()
+[07-57-32-109] [1843] <HoopBerkeleyThreadDB> HoopBerkeleyThreadDB ()
+[07-57-32-109] [1844] <HoopBerkeleyDB> openDB (edu.cmu.cs.in.base.io.HoopBerkeleyThreadDB@8de093)
+[07-57-32-109] [1845] <HoopBerkeleyThreadDB> openDB ()
+[07-57-32-109] [1846] <HoopBerkeleyThreadDB> Database should be open and available for binding
+[07-57-32-109] [1847] <HoopBerkeleyDB> Database should be open and available
+[07-57-32-109] [1848] <HoopBerkeleyThreadDB> bind ()
+[07-57-32-109] [1849] <HoopProject> scan the project directory for any new files ...
+[07-57-32-109] [1850] <HoopVFSL> listDirectoryEntries ()
+[07-57-32-109] [1851] <HoopFileManager> listDirectoryEntries (E:\Data\HoopSIDETest)
+[07-57-32-109] [1852] <HoopProject> Found 6 files
+[07-57-32-109] [1853] <HoopProject> Testing file: data
+[07-57-32-109] [1854] <HoopProject> refreshSubDir ()
+[07-57-32-109] [1855] <HoopVFSL> listDirectoryEntries ()
+[07-57-32-109] [1856] <HoopFileManager> listDirectoryEntries (E:\Data\HoopSIDETest\data)
+[07-57-32-109] [1857] <HoopProject> Testing file: graph.xml
+[07-57-32-109] [1858] <HoopProject> Testing file: logs
+[07-57-32-109] [1859] <HoopProject> refreshSubDir ()
+[07-57-32-109] [1860] <HoopVFSL> listDirectoryEntries ()
+[07-57-32-109] [1861] <HoopFileManager> listDirectoryEntries (E:\Data\HoopSIDETest\logs)
+[07-57-32-109] [1862] <HoopProject> Testing file: saved
+[07-57-32-109] [1863] <HoopProject> refreshSubDir ()
+[07-57-32-109] [1864] <HoopVFSL> listDirectoryEntries ()
+[07-57-32-109] [1865] <HoopFileManager> listDirectoryEntries (E:\Data\HoopSIDETest\saved)
+[07-57-32-109] [1866] <HoopProject> Testing file: system
+[07-57-32-109] [1867] <HoopProject> refreshSubDir ()
+[07-57-32-109] [1868] <HoopVFSL> listDirectoryEntries ()
+[07-57-32-109] [1869] <HoopFileManager> listDirectoryEntries (E:\Data\HoopSIDETest\system)
+[07-57-32-109] [1870] <HoopProject> refreshSubDir ()
+[07-57-32-109] [1871] <HoopVFSL> listDirectoryEntries ()
+[07-57-32-109] [1872] <HoopFileManager> listDirectoryEntries (E:\Data\HoopSIDETest\system/documents)
+[07-57-32-109] [1873] <HoopProject> save (5)
+[07-57-32-109] [1874] <HoopProject> Ensuring proper basepath: E:\Data\HoopSIDETest
+[07-57-32-109] [1875] <HoopProject> File path re-configured to be: E:\Data\HoopSIDETest/graph.xml
+[07-57-32-109] [1876] <HoopGraphFile> save ()
+[07-57-32-109] [1877] <HoopGraphFile> toXML ()
+[07-57-32-109] [1878] <HoopGraphFile> toXML ()
+[07-57-32-109] [1879] <HoopGraphFile> toXML ()
+[07-57-32-109] [1880] <HoopGraphFile> toXMLID ()
+[07-57-32-109] [1881] <HoopStart> propagateVisualProperties ()
+[07-57-32-109] [1882] <HoopNodePanel> propagateVisualProperties ()
+[07-57-32-109] [1883] <HoopStart> toXML ()
+[07-57-32-109] [1884] <HoopFileLoadBase> propagateVisualProperties ()
+[07-57-32-109] [1885] <HoopNodePanel> propagateVisualProperties ()
+[07-57-32-109] [1886] <HoopFileLoadBase> toXML ()
+[07-57-32-125] [1887] <HoopStringSerializable> toXML ()
+[07-57-32-125] [1888] <HoopStringSerializable> toXML ()
+[07-57-32-125] [1889] <HoopStringSerializable> toXMLID ()
+[07-57-32-125] [1890] <HoopStringSerializable> toXML ()
+[07-57-32-125] [1891] <HoopStringSerializable> toXML ()
+[07-57-32-125] [1892] <HoopStringSerializable> toXMLID ()
+[07-57-32-125] [1893] <HoopEnumSerializable> toXML ()
+[07-57-32-125] [1894] <HoopEnumSerializable> toXMLID ()
+[07-57-32-125] [1895] <HoopURISerializable> toXML ()
+[07-57-32-125] [1896] <HoopURISerializable> toXMLID ()
+[07-57-32-125] [1897] <HoopVFSL> saveContents ()
+[07-57-32-125] [1898] <HoopFileManager> saveContents (E:\Data\HoopSIDETest/graph.xml)
+[07-57-32-125] [1899] <HoopFileManager> checkCreate ()
+[07-57-32-125] [1900] <HoopFileManager> createDirectory (E:\Data\HoopSIDETest)
+[07-57-32-125] [1901] <HoopFileManager> getContents (E:\Data\HoopSIDETest)
+[07-57-32-125] [1902] <HoopFileManager> Directory already exists
+[07-57-32-140] [1903] <HoopProject> save ()
+[07-57-32-140] [1904] <HoopProject> toXML ()
+[07-57-32-140] [1905] <HoopProject> toXML ()
+[07-57-32-140] [1906] <HoopProject> toXML ()
+[07-57-32-140] [1907] <HoopProject> toXMLID ()
+[07-57-32-140] [1908] <HoopGraphFile> toXMLID ()
+[07-57-32-140] [1909] <HoopVFSL> saveContents ()
+[07-57-32-140] [1910] <HoopFileManager> saveContents (E:\Data\HoopSIDETest/.hprj)
+[07-57-32-140] [1911] <HoopFileManager> checkCreate ()
+[07-57-32-140] [1912] <HoopFileManager> createDirectory (E:\Data\HoopSIDETest)
+[07-57-32-140] [1913] <HoopFileManager> getContents (E:\Data\HoopSIDETest)
+[07-57-32-140] [1914] <HoopFileManager> Directory already exists
+[07-57-32-140] [1915] <HoopProjectPanel> updateContents ()
+[07-57-32-140] [1916] <HoopLink> getWindow ()
+[07-57-32-140] [1917] <HoopExecuteProgressPanel> reset ()
+[07-57-32-140] [1918] <HoopLink> getWindow ()
+[07-57-32-140] [1919] <HoopDocumentList> updateContents ()
+[07-57-32-140] [1920] <HoopDataSet> checkDB ()
+[07-57-32-140] [1921] <HoopDataSet> Driver exists, assuming that the database has been initialized
+[07-57-32-140] [1922] <HoopDocumentList> Dataset checked, showing first entries in document list ...
+[07-57-32-156] [1923] <HoopDocumentList> There are currently 0 entries available
+[07-57-32-171] [1924] <HoopDocumentList> showDocumentThreads ()
+[07-57-32-171] [1925] <HoopDocumentList> Thread data size: 0 adjusted: 0
+[07-57-32-171] [1926] <HoopDocumentList> There are a total of 0 documents in the database
+[07-57-32-359] [1927] <HoopInspectablePanel> componentHidden ()
+[07-57-32-359] [1928] <HoopInspectablePanel> updateSize ()
+[07-57-40-890] [1929] <HoopMainFrame> startSIDE ()
+[07-57-40-890] [1930] <HoopLink> getWindow ()
+[07-57-40-937] [1931] <HoopJPanel> HoopJPanel ()
+[07-57-40-937] [1932] <HoopEmbeddedJPanel> HoopEmbeddedJPanel ()
+[07-57-40-937] [1933] <SimpleWorkbench> SimpleWorkbench ()
+[07-57-40-953] [1934] <SimpleWorkbench> setup ()
+[07-57-40-953] [1935] <HoopFileTools> HoopFileTools ()
+[07-57-40-953] [1936] <SimpleWorkbench> SIDE base path: E:\Data\HoopSIDETest\
+[07-57-40-953] [1937] <SimpleWorkbench> SIDE application path: C:\Martin\Echidne\Hydra (Science)\Development\Hoop
+[07-57-40-953] [1938] <SimpleWorkbench> SIDE plugin path: C:\Martin\Echidne\Hydra (Science)\Development\Hoop\plugins\SIDE
+[07-57-40-953] [1939] <HoopFileTools> createDirectory (E:\Data\HoopSIDETest\data)
+[07-57-40-953] [1940] <HoopFileTools> getContents (E:\Data\HoopSIDETest\data)
+[07-57-40-953] [1941] <HoopFileTools> Directory already exists
+[07-57-40-953] [1942] <HoopFileTools> createDirectory (E:\Data\HoopSIDETest\saved)
+[07-57-40-953] [1943] <HoopFileTools> getContents (E:\Data\HoopSIDETest\saved)
+[07-57-40-953] [1944] <HoopFileTools> Directory already exists
+[07-57-40-953] [1945] <PluginManager> PluginManager ()
+[07-57-40-984] [1946] <PluginManager> createPluginTypeMap ()
+[07-57-40-984] [1947] <PluginManager> createPluginOfFolder ()
+[07-57-41-390] [1948] <PluginWrapper> PluginWrapper ()
+[07-57-41-390] [1949] <PluginWrapper> fromXML ()
+[07-57-41-390] [1950] <PluginWrapper> PluginWrapper ()
+[07-57-41-390] [1951] <PluginWrapper> fromXML ()
+[07-57-41-390] [1952] <PluginWrapper> PluginWrapper ()
+[07-57-41-390] [1953] <PluginWrapper> fromXML ()
+[07-57-41-390] [1954] <PluginWrapper> PluginWrapper ()
+[07-57-41-390] [1955] <PluginWrapper> fromXML ()
+[07-57-41-390] [1956] <PluginWrapper> PluginWrapper ()
+[07-57-41-390] [1957] <PluginWrapper> fromXML ()
+[07-57-41-390] [1958] <PluginWrapper> PluginWrapper ()
+[07-57-41-390] [1959] <PluginWrapper> fromXML ()
+[07-57-41-390] [1960] <PluginWrapper> PluginWrapper ()
+[07-57-41-390] [1961] <PluginWrapper> fromXML ()
+[07-57-41-390] [1962] <PluginWrapper> PluginWrapper ()
+[07-57-41-390] [1963] <PluginWrapper> fromXML ()
+[07-57-41-390] [1964] <PluginWrapper> PluginWrapper ()
+[07-57-41-390] [1965] <PluginWrapper> fromXML ()
+[07-57-41-390] [1966] <PluginWrapper> PluginWrapper ()
+[07-57-41-390] [1967] <PluginWrapper> fromXML ()
+[07-57-41-390] [1968] <PluginWrapper> getType ()
+[07-57-41-390] [1969] <PluginWrapper> getSIDEPlugin ()
+[07-57-41-390] [1970] <PluginWrapper> getJarFile ()
+[07-57-41-390] [1971] <PluginWrapper> Getting SIDE plugin for: C:\Martin\Echidne\Hydra (Science)\Development\Hoop\plugins\SIDE\light.jar
+[07-57-41-390] [1972] <PluginLoader> PluginLoader ()
+[07-57-41-390] [1973] <PluginLoader> Attempting to load class: plugin.simple.features.TagHelperTools
+[07-57-41-421] [1974] <PluginWrapper> getType ()
+[07-57-41-421] [1975] <PluginWrapper> getSIDEPlugin ()
+[07-57-41-421] [1976] <PluginWrapper> getJarFile ()
+[07-57-41-421] [1977] <PluginWrapper> Getting SIDE plugin for: C:\Martin\Echidne\Hydra (Science)\Development\Hoop\plugins\SIDE\light.jar
+[07-57-41-421] [1978] <PluginLoader> PluginLoader ()
+[07-57-41-437] [1979] <PluginLoader> Attempting to load class: plugin.simple.features.Metafeatures
+[07-57-41-437] [1980] <PluginWrapper> getType ()
+[07-57-41-437] [1981] <PluginWrapper> getSIDEPlugin ()
+[07-57-41-437] [1982] <PluginWrapper> getJarFile ()
+[07-57-41-437] [1983] <PluginWrapper> Getting SIDE plugin for: C:\Martin\Echidne\Hydra (Science)\Development\Hoop\plugins\SIDE\light.jar
+[07-57-41-437] [1984] <PluginLoader> PluginLoader ()
+[07-57-41-437] [1985] <PluginLoader> Attempting to load class: plugin.simple.features.RegexSearch
+[07-57-41-437] [1986] <PluginWrapper> getType ()
+[07-57-41-437] [1987] <PluginWrapper> getSIDEPlugin ()
+[07-57-41-437] [1988] <PluginWrapper> getJarFile ()
+[07-57-41-437] [1989] <PluginWrapper> Getting SIDE plugin for: C:\Martin\Echidne\Hydra (Science)\Development\Hoop\plugins\SIDE\light.jar
+[07-57-41-437] [1990] <PluginLoader> PluginLoader ()
+[07-57-41-437] [1991] <PluginLoader> Attempting to load class: plugin.simple.features.StretchPatterns
+[07-57-41-453] [1992] <PluginWrapper> getType ()
+[07-57-41-453] [1993] <PluginWrapper> getSIDEPlugin ()
+[07-57-41-453] [1994] <PluginWrapper> getJarFile ()
+[07-57-41-453] [1995] <PluginWrapper> Getting SIDE plugin for: C:\Martin\Echidne\Hydra (Science)\Development\Hoop\plugins\SIDE\weka.jar
+[07-57-41-453] [1996] <PluginLoader> PluginLoader ()
+[07-57-41-453] [1997] <PluginLoader> Attempting to load class: plugin.simple.learning.WekaLearning
+Refreshing GOE props...
+error with class 'plugin.simple.learning.WekaLearning'
+ASSERTION FAILED
+java.lang.reflect.InvocationTargetException
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
+	at java.lang.reflect.Constructor.newInstance(Unknown Source)
+	at edu.cmu.side.plugin.PluginLoader.<init>(PluginLoader.java:55)
+	at edu.cmu.side.plugin.PluginWrapper.getSIDEPlugin(PluginWrapper.java:107)
+	at edu.cmu.side.plugin.PluginWrapper.getType(PluginWrapper.java:125)
+	at edu.cmu.side.plugin.PluginManager.createPluginTypeMap(PluginManager.java:233)
+	at edu.cmu.side.plugin.PluginManager.<init>(PluginManager.java:61)
+	at edu.cmu.side.SimpleWorkbench.setup(SimpleWorkbench.java:120)
+	at edu.cmu.side.SimpleWorkbench.<init>(SimpleWorkbench.java:76)
+	at edu.cmu.cs.in.hoop.HoopMainFrame.startSIDE(HoopMainFrame.java:1529)
+	at edu.cmu.cs.in.hoop.HoopMainFrame.access$10(HoopMainFrame.java:1511)
+	at edu.cmu.cs.in.hoop.HoopMainFrame$22.actionPerformed(HoopMainFrame.java:503)
+	at javax.swing.AbstractButton.fireActionPerformed(Unknown Source)
+	at javax.swing.AbstractButton$Handler.actionPerformed(Unknown Source)
+	at javax.swing.DefaultButtonModel.fireActionPerformed(Unknown Source)
+	at javax.swing.DefaultButtonModel.setPressed(Unknown Source)
+	at javax.swing.AbstractButton.doClick(Unknown Source)
+	at javax.swing.plaf.basic.BasicMenuItemUI.doClick(Unknown Source)
+	at javax.swing.plaf.basic.BasicMenuItemUI$Handler.mouseReleased(Unknown Source)
+	at java.awt.Component.processMouseEvent(Unknown Source)
+	at javax.swing.JComponent.processMouseEvent(Unknown Source)
+	at java.awt.Component.processEvent(Unknown Source)
+	at java.awt.Container.processEvent(Unknown Source)
+	at java.awt.Component.dispatchEventImpl(Unknown Source)
+	at java.awt.Container.dispatchEventImpl(Unknown Source)
+	at java.awt.Component.dispatchEvent(Unknown Source)
+	at java.awt.LightweightDispatcher.retargetMouseEvent(Unknown Source)
+	at java.awt.LightweightDispatcher.processMouseEvent(Unknown Source)
+	at java.awt.LightweightDispatcher.dispatchEvent(Unknown Source)
+	at java.awt.Container.dispatchEventImpl(Unknown Source)
+	at java.awt.Window.dispatchEventImpl(Unknown Source)
+	at java.awt.Component.dispatchEvent(Unknown Source)
+	at java.awt.EventQueue.dispatchEventImpl(Unknown Source)
+	at java.awt.EventQueue.access$200(Unknown Source)
+	at java.awt.EventQueue$3.run(Unknown Source)
+	at java.awt.EventQueue$3.run(Unknown Source)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(Unknown Source)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(Unknown Source)
+	at java.awt.EventQueue$4.run(Unknown Source)
+	at java.awt.EventQueue$4.run(Unknown Source)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(Unknown Source)
+	at java.awt.EventQueue.dispatchEvent(Unknown Source)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.run(Unknown Source)
+Caused by: java.lang.ExceptionInInitializerError
+	at java.lang.Class.forName0(Native Method)
+	at java.lang.Class.forName(Unknown Source)
+	at weka.core.ClassDiscovery.find(ClassDiscovery.java:344)
+	at weka.gui.GenericPropertiesCreator.generateOutputProperties(GenericPropertiesCreator.java:515)
+	at weka.gui.GenericPropertiesCreator.execute(GenericPropertiesCreator.java:607)
+	at weka.gui.GenericPropertiesCreator.<clinit>(GenericPropertiesCreator.java:150)
+	at weka.core.WekaPackageManager.refreshGOEProperties(WekaPackageManager.java:642)
+	at weka.core.WekaPackageManager.loadPackages(WekaPackageManager.java:636)
+	at weka.core.WekaPackageManager.loadPackages(WekaPackageManager.java:578)
+	at weka.gui.GenericObjectEditor.determineClasses(GenericObjectEditor.java:173)
+	at weka.gui.GenericObjectEditor.<clinit>(GenericObjectEditor.java:252)
+	at plugin.simple.learning.WekaCore.<init>(WekaCore.java:57)
+	at plugin.simple.learning.WekaLearning.<init>(WekaLearning.java:57)
+	... 52 more
+Caused by: java.lang.NullPointerException
+	at weka.gui.GenericObjectEditor.getClassnames(GenericObjectEditor.java:1765)
+	at weka.core.converters.ConverterUtils.initialize(ConverterUtils.java:759)
+	at weka.core.converters.ConverterUtils.<clinit>(ConverterUtils.java:712)
+	... 65 more
+[07-57-45-453] [1998] <PluginWrapper> getType ()
+[07-57-45-453] [1999] <PluginWrapper> getSIDEPlugin ()
+[07-57-45-453] [2000] <PluginWrapper> getJarFile ()
+[07-57-45-453] [2001] <PluginWrapper> Getting SIDE plugin for: C:\Martin\Echidne\Hydra (Science)\Development\Hoop\plugins\SIDE\light.jar
+[07-57-45-453] [2002] <PluginLoader> PluginLoader ()
+[07-57-45-453] [2003] <PluginLoader> Attempting to load class: plugin.simple.svml.SVMLightPlugin
+[07-57-45-468] [2004] <PluginWrapper> getType ()
+[07-57-45-468] [2005] <PluginWrapper> getSIDEPlugin ()
+[07-57-45-468] [2006] <PluginWrapper> getJarFile ()
+[07-57-45-468] [2007] <PluginWrapper> Getting SIDE plugin for: C:\Martin\Echidne\Hydra (Science)\Development\Hoop\plugins\SIDE\light.jar
+[07-57-45-468] [2008] <PluginLoader> PluginLoader ()
+[07-57-45-468] [2009] <PluginLoader> Attempting to load class: plugin.simple.evaluation.HorizontalComparison
+[07-57-45-484] [2010] <PluginWrapper> getType ()
+[07-57-45-484] [2011] <PluginWrapper> getSIDEPlugin ()
+[07-57-45-484] [2012] <PluginWrapper> getJarFile ()
+[07-57-45-484] [2013] <PluginWrapper> Getting SIDE plugin for: C:\Martin\Echidne\Hydra (Science)\Development\Hoop\plugins\SIDE\light.jar
+[07-57-45-484] [2014] <PluginLoader> PluginLoader ()
+[07-57-45-484] [2015] <PluginLoader> Attempting to load class: plugin.simple.evaluation.AbsHorizontalComparison
+[07-57-45-484] [2016] <PluginWrapper> getType ()
+[07-57-45-484] [2017] <PluginWrapper> getSIDEPlugin ()
+[07-57-45-484] [2018] <PluginWrapper> getJarFile ()
+[07-57-45-484] [2019] <PluginWrapper> Getting SIDE plugin for: C:\Martin\Echidne\Hydra (Science)\Development\Hoop\plugins\SIDE\light.jar
+[07-57-45-484] [2020] <PluginLoader> PluginLoader ()
+[07-57-45-484] [2021] <PluginLoader> Attempting to load class: plugin.simple.evaluation.VerticalComparison
+[07-57-45-484] [2022] <PluginWrapper> getType ()
+[07-57-45-484] [2023] <PluginWrapper> getSIDEPlugin ()
+[07-57-45-484] [2024] <PluginWrapper> getJarFile ()
+[07-57-45-484] [2025] <PluginWrapper> Getting SIDE plugin for: C:\Martin\Echidne\Hydra (Science)\Development\Hoop\plugins\SIDE\light.jar
+[07-57-45-484] [2026] <PluginLoader> PluginLoader ()
+[07-57-45-484] [2027] <PluginLoader> Attempting to load class: plugin.simple.evaluation.CellValueComparison
+[07-57-45-859] [2028] <PluginManager> getSIDEPluginArrayByType ()
+[07-57-45-859] [2029] <PluginWrapper> getSIDEPlugin ()
+[07-57-46-187] [2030] <PluginManager> getSIDEPluginArrayByType ()
+[07-57-46-187] [2031] <PluginWrapper> getSIDEPlugin ()
+[07-57-46-187] [2032] <PluginWrapper> getSIDEPlugin ()
+[07-57-46-187] [2033] <PluginWrapper> getSIDEPlugin ()
+[07-57-46-187] [2034] <PluginWrapper> getSIDEPlugin ()
+[07-57-46-187] [2035] <PluginManager> getSIDEPluginArrayByType ()
+[07-57-46-187] [2036] <PluginWrapper> getSIDEPlugin ()
+[07-57-46-187] [2037] <PluginWrapper> getSIDEPlugin ()
+[07-57-46-187] [2038] <PluginWrapper> getSIDEPlugin ()
+[07-57-46-187] [2039] <PluginWrapper> getSIDEPlugin ()
+[07-57-46-187] [2040] <PluginManager> getSIDEPluginArrayByType ()
+[07-57-46-187] [2041] <PluginWrapper> getSIDEPlugin ()
+[07-57-46-187] [2042] <PluginManager> getSIDEPluginArrayByType ()
+[07-57-46-187] [2043] <PluginWrapper> getSIDEPlugin ()
+[07-57-46-187] [2044] <PluginWrapper> getSIDEPlugin ()
+[07-57-46-187] [2045] <PluginWrapper> getSIDEPlugin ()
+[07-57-46-187] [2046] <PluginWrapper> getSIDEPlugin ()
+[07-57-46-187] [2047] <PluginManager> getSIDEPluginArrayByType ()
+[07-57-46-187] [2048] <PluginWrapper> getSIDEPlugin ()
+[07-57-46-187] [2049] <PluginManager> getSIDEPluginArrayByType ()
+[07-57-46-187] [2050] <PluginWrapper> getSIDEPlugin ()
+[07-57-46-187] [2051] <PluginWrapper> getSIDEPlugin ()
+[07-57-46-187] [2052] <PluginWrapper> getSIDEPlugin ()
+[07-57-46-187] [2053] <PluginWrapper> getSIDEPlugin ()
+[07-57-46-187] [2054] <SimpleWorkbench> setContentPane ()
+[07-57-46-187] [2055] <HoopMainFrame> addView (SIDE,HoopEmbeddedJPanel,JTabbedPane)
+[07-57-46-187] [2056] <HoopLink> addView ()
+[07-57-46-187] [2057] <HoopLink> addWindow ()
+[07-57-46-203] [2058] <HoopJPanel> HoopJPanel ()
+[07-57-46-203] [2059] <HoopTabPane> HoopTabPane ()
+[07-57-46-203] [2060] <HoopTabPane> update ()
+[07-57-46-203] [2061] <HoopTabPane> Setting icon for tab at index: 2
+[07-57-46-328] [2062] <SimpleWorkbench> componentHidden ()
+[07-57-46-328] [2063] <HoopGraphEditor> componentHidden ()
+[07-57-46-328] [2064] <SimpleWorkbench> componentHidden ()
+[07-57-46-328] [2065] <SimpleWorkbench> updateSize ()
+[07-57-46-375] [2066] <HoopProjectPanel> componentHidden ()
+[07-57-46-375] [2067] <HoopProjectPanel> updateSize ()
+[07-57-46-375] [2068] <HoopTreeList> componentHidden ()
+[07-57-46-375] [2069] <HoopTreeList> updateSize ()
+[07-57-46-375] [2070] <HoopDocumentList> componentHidden ()
+[07-57-46-375] [2071] <HoopDocumentList> updateSize ()
+[07-57-46-375] [2072] <HoopPropertyPanel> componentHidden ()
+[07-57-46-375] [2073] <HoopPropertyPanel> updateSize ()
+[07-57-46-375] [2074] <HoopTabPane> componentMoved ()
+[07-57-46-375] [2075] <HoopTabPane> componentMoved ()
+[07-57-46-375] [2076] <HoopButtonBox> componentHidden ()
+[07-57-46-375] [2077] <HoopButtonBox> updateSize ()
+[07-57-46-375] [2078] <HoopButtonBox> componentHidden ()
+[07-57-46-375] [2079] <HoopButtonBox> updateSize ()
+[07-57-46-375] [2080] <HoopTextViewer> componentHidden ()
+[07-57-46-375] [2081] <HoopTextViewer> updateSize ()
+[07-57-46-375] [2082] <HoopGraphEditor> componentHidden ()
+[07-57-46-375] [2083] <HoopGraphEditor> updateSize ()
+[07-57-46-375] [2084] <SimpleWorkbench> componentHidden ()
+[07-57-46-375] [2085] <SimpleWorkbench> updateSize ()
+[07-57-46-375] [2086] <SimpleWorkbench> componentMoved ()
+[07-57-46-375] [2087] <HoopTabPane> componentMoved ()
+[07-57-46-375] [2088] <HoopTabPane> componentHidden ()
+[07-57-46-375] [2089] <HoopTabPane> updateSize ()
+[07-57-46-375] [2090] <HoopTabPane> componentMoved ()
+[07-57-46-375] [2091] <HoopConsole> componentHidden ()
+[07-57-46-375] [2092] <HoopConsole> updateSize ()
+[07-57-46-375] [2093] <HoopExecuteProgressPanel> componentHidden ()
+[07-57-46-375] [2094] <HoopExecuteProgressPanel> updateSize ()
+[07-57-46-375] [2095] <HoopDialogConsole> componentHidden ()
+[07-57-46-375] [2096] <HoopDialogConsole> updateSize ()
+[07-57-46-375] [2097] <HoopTablePanel> componentHidden ()
+[07-57-46-375] [2098] <HoopTablePanel> updateSize ()
+[07-57-46-375] [2099] <HoopTablePanel> Total width: 951

@@ -28,6 +28,8 @@ import javax.swing.*;
 
 import edu.cmu.cs.in.base.HoopRoot;
 import edu.cmu.cs.in.controls.base.HoopJPanel;
+import edu.cmu.cs.in.controls.templates.HoopAquaBarTabbedPaneUI;
+//import edu.cmu.cs.in.controls.templates.HoopCWTabbedPaneUI;
 
 public class HoopTabDraggable extends JTabbedPane 
 {	
@@ -57,7 +59,10 @@ public class HoopTabDraggable extends JTabbedPane
 		
 		if (useBasicStyle==false)
 		{
-			this.setUI(new HoopTabUI());
+			//this.setUI(new HoopTabUI(this));			
+			//this.setUI(HoopCWTabbedPaneUI.createUI(this));
+			this.setUI(HoopAquaBarTabbedPaneUI.createUI(this));
+			
 		}	
 	    
 	    final DragSourceListener dsl = new DragSourceListener() 
@@ -518,7 +523,7 @@ public class HoopTabDraggable extends JTabbedPane
 	   */
 	  private Rectangle getTabAreaBounds() 
 	  {
-		  //HoopBase.debug ("HoopTabDraggable","getTabAreaBounds ()");
+		  HoopRoot.debug ("HoopTabDraggable","getTabAreaBounds ()");
 		  
 		  Rectangle tabbedRect = getBounds();
 		  //pointed out by daryl. NullPointerException: i.e. addTab("Tab",null)
@@ -554,6 +559,9 @@ public class HoopTabDraggable extends JTabbedPane
 		  }
 		  
 		  tabbedRect.grow(2, 2);
+		  
+		  HoopRoot.debug ("HoopTabDraggable","w: " + tabbedRect.width + " h: " + tabbedRect.height);
+		  
 		  return tabbedRect;
 	  }
 	  
