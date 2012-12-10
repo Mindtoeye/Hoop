@@ -20,8 +20,8 @@ package edu.cmu.cs.in.controls.base;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
+//import java.awt.event.ComponentEvent;
+//import java.awt.event.ComponentListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
@@ -137,7 +137,7 @@ public class HoopEmbeddedJPanel extends HoopJPanel
 	 */	
 	public void updateContents() 
 	{
-		debug ("updateContents ()");
+		//debug ("updateContents ()");
 		
 		// Implement in child class!!
 	}

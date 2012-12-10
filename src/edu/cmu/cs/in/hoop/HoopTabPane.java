@@ -59,19 +59,12 @@ public class HoopTabPane extends HoopJPanel
      * @param pane
      */
     public HoopTabPane (final JTabbedPane aPane) 
-    {		
-        //unset default FlowLayout' gaps
-        //super (new FlowLayout(FlowLayout.LEFT, 0, 0));
-    	
-    	//super (new BorderLayout());
-    	
+    {		    	
     	this.setLayout(new BoxLayout (this,BoxLayout.X_AXIS));
         
 		setClassName ("HoopTabPane");
 		debug ("HoopTabPane ()");
-			
-		//this.setBorder (BorderFactory.createLineBorder(Color.green));		
-		
+					
         if (aPane == null) 
         {
             throw new NullPointerException("TabbedPane is null");
@@ -127,7 +120,7 @@ public class HoopTabPane extends HoopJPanel
      */
     public void update ()
     {
-    	debug ("update ()");
+    	//debug ("update ()");
     	
     	if (icon!=null)
     	{
@@ -135,7 +128,8 @@ public class HoopTabPane extends HoopJPanel
     		
     		if (j!=-1)
     		{
-    			debug ("Setting icon for tab at index: "+ j);
+    			//debug ("Setting icon for tab at index: "+ j);
+    			
     			Icon tabIcon=pane.getIconAt(j);
     			
     			if (tabIcon!=null)
@@ -149,28 +143,16 @@ public class HoopTabPane extends HoopJPanel
     			debug ("Unable to find tab index");
     	}	    	
     }
-    /** 
-     * paint the cross
-     */
-    /*
-    protected void paintComponent(Graphics g) 
-    {    	
-    	super.paintComponent(g);
-    	
-    	g.setColor(Color.RED);
-    	g.drawRect(0,0,this.getWidth(),this.getHeight());    	
-    }
-    */
 	/**
 	 *
 	 */	
 	public void updateSize() 
 	{
-		debug ("updateSize ()");
+		//debug ("updateSize ()");
 		    
 		super.updateSize();
 			
-    	debug ("Adjusting font size for width: " + this.getWidth());
+    	//debug ("Adjusting font size for width: " + this.getWidth());
     	
     	int fontSize=Math.round(this.getWidth()/20);
     	

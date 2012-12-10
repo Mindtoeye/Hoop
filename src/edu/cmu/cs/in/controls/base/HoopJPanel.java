@@ -193,7 +193,7 @@ public class HoopJPanel extends JPanel implements ComponentListener
 	@Override
 	public void componentHidden (ComponentEvent arg0) 
 	{
-		debug ("componentHidden ()");
+		//debug ("componentHidden ()");
 	}
 	/**
 	 * 
@@ -201,7 +201,7 @@ public class HoopJPanel extends JPanel implements ComponentListener
 	@Override
 	public void componentMoved(ComponentEvent arg0) 
 	{
-		debug ("componentMoved ()");		
+		//debug ("componentMoved ()");		
 	}
 	/**
 	 * 
@@ -209,7 +209,7 @@ public class HoopJPanel extends JPanel implements ComponentListener
 	@Override
 	public void componentResized(ComponentEvent arg0) 
 	{
-		debug ("componentHidden ()");
+		//debug ("componentResized ()");
 		
 		updateSize();	
 	}
@@ -219,7 +219,7 @@ public class HoopJPanel extends JPanel implements ComponentListener
 	@Override
 	public void componentShown(ComponentEvent arg0) 
 	{
-		debug ("componentHidden ()");
+		//debug ("componentShown ()");
 		
 		updateSize();	
 	}
@@ -228,7 +228,7 @@ public class HoopJPanel extends JPanel implements ComponentListener
 	 */	
 	public void updateSize() 
 	{
-		debug ("updateSize ()");
+		//debug ("updateSize ()");
 		
 		// Implement in child class !!
 	}			
