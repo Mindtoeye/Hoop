@@ -198,7 +198,7 @@ public class HoopResourceLoader extends HoopRoot
 	 */
 	public String getTextResource2(String aFile) 
 	{
-		debug("getTextResource2 ()");
+		debug("getTextResource2 ("+aFile+")");
 		
 		InputStream is = getClass().getResourceAsStream(aFile);
 		
@@ -216,8 +216,10 @@ public class HoopResourceLoader extends HoopRoot
 	/**
 	 * 
 	 */
-	public static String convertStreamToString(InputStream is) 
+	public String convertStreamToString(InputStream is) 
 	{
+		debug ("convertStreamToString ()");
+		
 	    java.util.Scanner s = new Scanner(is).useDelimiter("\\A");
 	    return s.hasNext() ? s.next() : "";
 	}	

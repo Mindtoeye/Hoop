@@ -108,6 +108,7 @@ public class HoopExecuteInEditor extends HoopExecute implements ActionListener
 		
 		HoopLink.runner=this;
 		
+		/*
 		HoopGraphEditor editor=(HoopGraphEditor) HoopLink.getWindow("Hoop Editor");
 		
 		if (editor!=null)
@@ -128,6 +129,7 @@ public class HoopExecuteInEditor extends HoopExecute implements ActionListener
 		{
 			propPanel.setLocked(true);
 		}
+		*/
 	}	
 	/**
 	 * 
@@ -141,19 +143,18 @@ public class HoopExecuteInEditor extends HoopExecute implements ActionListener
 			HoopLink.executionMonitor.stop ();
 		}
 		
+		/*
 		HoopGraphEditor editor=(HoopGraphEditor) HoopLink.getWindow("Hoop Editor");
 		
 		if (editor!=null)
-		{
-			//editor.setEnabled(false);
+		{		
 			editor.setLocked(false);
 		}	
 				
 		HoopTreeList hoopWindow=(HoopTreeList) HoopLink.getWindow("Hoop List");
 		
 		if (hoopWindow!=null)
-		{
-			//hoopWindow.setEnabled(false);
+		{		
 			hoopWindow.setLocked(false);
 		}	
 		
@@ -162,7 +163,8 @@ public class HoopExecuteInEditor extends HoopExecute implements ActionListener
 		if (propPanel!=null)
 		{
 			propPanel.setLocked(false);
-		}		
+		}
+		*/		
 	}		
 	/**
 	 * 

@@ -18,6 +18,9 @@
 
 package edu.cmu.cs.in.base;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -38,7 +41,12 @@ public class HoopRoot extends HoopDataType
 	private String classType="Unknown"; // Used for serialization and should be a base type
 	private String errorString="";
 	
+	public static boolean logToDisk=true;
+	
 	private ArrayList<HoopFilterBase> filters=null;
+	
+	public static FileWriter dbgFile=null;
+	public static PrintWriter dbgOut = null;
 		
 	/**
 	 *
@@ -50,6 +58,24 @@ public class HoopRoot extends HoopDataType
 		
 		df=new SimpleDateFormat ("HH:mm:ss.SSS");
 		filters=new ArrayList<HoopFilterBase> ();
+		
+		if (HoopRoot.logToDisk==true)
+		{
+			if (HoopRoot.dbgFile==null)
+			{
+				try 
+				{
+					HoopRoot.dbgFile = new FileWriter("log.txt");
+					HoopRoot.dbgOut=new PrintWriter(HoopRoot.dbgFile);
+				} 
+				catch (IOException e) 
+				{
+					HoopRoot.dbgFile=null;
+					HoopRoot.dbgOut=null;
+					e.printStackTrace();
+				}
+			}	
+		}			
 	}
 	/**
 	 *
@@ -140,6 +166,14 @@ public class HoopRoot extends HoopDataType
 		{
 			HoopLink.console.appendString (buffer.toString ());		
 		}
+		
+		if (HoopRoot.logToDisk==true)
+		{
+			if (HoopRoot.dbgOut!=null)
+			{
+				dbgOut.print(buffer.toString());
+			}
+		}		
 	}    
 	/**
 	 *
@@ -159,6 +193,14 @@ public class HoopRoot extends HoopDataType
 		{
 			HoopLink.console.appendString (buffer.toString ());
 		}
+		
+		if (HoopRoot.logToDisk==true)
+		{
+			if (HoopRoot.dbgOut!=null)
+			{
+				dbgOut.print(buffer.toString());
+			}
+		}		
 	}  
 	/**
 	 *

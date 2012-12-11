@@ -55,16 +55,9 @@ public class HoopThreadReader extends HoopLoadBase
 	{
 		dbIterator=null;
 		threadData=null;
-	}
-	/**
-	 *
-	 */
-	public Boolean runHoop (HoopBase inHoop)
-	{		
-		debug ("runHoop ()");
-					
+		
 		debug ("Mapping project path ("+getProjectPath ()+") to db dir ...");
-				
+		
 		if (HoopLink.dataSet==null)
 		{
 			HoopLink.dataSet=new HoopDataSet ();
@@ -73,21 +66,36 @@ public class HoopThreadReader extends HoopLoadBase
 		else
 			HoopLink.dataSet.checkDB ();
 		
-		if (threadData==null)
+		if (HoopLink.dataSet!=null)
 		{
 			threadData=HoopLink.dataSet.getThreads();
 			
 			dbIterator = threadData.values().iterator();
-		}		
+		}				
+	}
+	/**
+	 *
+	 */
+	public Boolean runHoop (HoopBase inHoop)
+	{		
+		debug ("runHoop ()");
 		
+		if (threadData==null)
+		{
+			this.setErrorString("Error: thread data is null");
+			return (false);
+		}
+										
 		int actualSize=threadData.size();
 		
 		calculateIndexingSizes (actualSize);
-				
+						
 		if (mode.getValue().equals("LINEAR")==true)
 			processLinear ();
 		else
 			processSample ();
+		
+		getVisualizer ().setExecutionInfo (" R: " + bCount + " = ("+loadIndex+") out of " + loadMax);
 						
 		return (true);
 	}

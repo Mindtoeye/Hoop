@@ -39,7 +39,7 @@ public class HoopEngPronounModel extends HoopLingModel
 		loader=new HoopResourceLoader ();
 		
 		//String rawMatrix=loader.getTextResource2("assets/ling/EngPronouns.csv");
-		String rawMatrix=loader.getTextResource2("EngPronouns.csv");
+		String rawMatrix=loader.getTextResource2("/assets/ling/EngPronouns.csv");
 		
 		if (rawMatrix!=null)
 			processRawData (rawMatrix);

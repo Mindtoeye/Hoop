@@ -35,7 +35,7 @@ public class HoopLoadBase extends HoopIOBase implements HoopInterface
     public HoopStringSerializable queryMax=null;
 	public HoopEnumSerializable mode=null; // LINEAR,SAMPLE
 	
-    protected Integer bSize=100;
+    protected Integer bSize=-1;
     protected Integer bCount=0;
     protected Integer loadMax=100;
     protected Integer loadIndex=0;
@@ -123,7 +123,7 @@ public class HoopLoadBase extends HoopIOBase implements HoopInterface
 			else
 				loadMax=Integer.parseInt(queryMax.getPropValue());
 				
-			if (actualSize<loadMax)
+			if ((actualSize<loadMax) || (loadMax==0))
 				loadMax=actualSize;
 			
 			if (actualSize<bSize)
@@ -133,7 +133,9 @@ public class HoopLoadBase extends HoopIOBase implements HoopInterface
 				loadMax=bSize;
 		}	
 		else
-			debug ("We're already in a run, no need to prep indexing variables");		
+			debug ("We're already in a run, no need to prep indexing variables");
+		
+		debug ("Batch size: " + bSize + " loadmax: " + loadMax);
 	}	
 	/**
 	 * 

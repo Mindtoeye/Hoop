@@ -110,7 +110,7 @@ public class HoopCustomExperimentTest extends HoopAnalyze implements HoopInterfa
 						analysisResult=new HoopKVString (threadTracker,"*");
 						this.addKV(analysisResult);
 						
-						//debug ("Procedding document " + aDocument.getKeyString() + " with thread id: " + aDocument.threadID.getValue());
+						debug ("Adding document " + aDocument.getKeyString() + " with thread id: " + aDocument.threadID.getValue());
 						
 						if (aDocument.threadID.getValue()!=null)
 						{
@@ -177,13 +177,15 @@ public class HoopCustomExperimentTest extends HoopAnalyze implements HoopInterfa
 	 */
 	private Boolean processDocument (HoopKVDocument aDocument)
 	{
-		//debug ("processDocument ()");
+		debug ("processDocument ("+aDocument.threadID.getValue()+")");
 		
+		/*
 		if (aDocument==null)
 		{
 			this.setErrorString("Error: a document provided null");
 			return (false);
 		}
+		*/
 		
 		if (analysisResult==null)
 		{
@@ -191,6 +193,12 @@ public class HoopCustomExperimentTest extends HoopAnalyze implements HoopInterfa
 			return (false);
 		}
 		
+		if (model.getTerms().size()==0)
+		{
+			this.setErrorString("Error: pronoun model doesn't contain any entries");
+			return (false);
+		}
+				
 		//String aKey=aDocument.threadID.getValue();
 		
 		HoopKVString basicTokenView=aDocument.getView ("Simple Tokens");
@@ -209,7 +217,7 @@ public class HoopCustomExperimentTest extends HoopAnalyze implements HoopInterfa
 			return (false);
 		}
 		
-		//debug ("Examining " + tokens.size() + " tokens");
+		debug ("Examining " + tokens.size() + " tokens");
 		
 		for (int i=0;i<tokens.size();i++)
 		{
@@ -225,24 +233,24 @@ public class HoopCustomExperimentTest extends HoopAnalyze implements HoopInterfa
 												
 				if ((typeCache.equals("in")==true) && (typeFound.equals ("out")))
 				{
-					analysisResult.add("+");
+					analysisResult.add("1");
 				}
 				
 				if ((typeCache.equals("out")==true) && (typeFound.equals ("in")))
 				{
-					analysisResult.add("-");
+					analysisResult.add("0");
 				}
 				
 				if (patternGeneration.getPropValue().equalsIgnoreCase("additive")==true)
 				{				
 					if ((typeCache.equals("in")==true) && (typeFound.equals ("in")))
 					{
-						analysisResult.add("+");
+						analysisResult.add("0");
 					}
 				
 					if ((typeCache.equals("out")==true) && (typeFound.equals ("out")))
 					{
-						analysisResult.add("+");
+						analysisResult.add("1");
 					}
 				}	
 				
