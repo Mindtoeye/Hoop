@@ -25,13 +25,15 @@ import java.awt.event.ActionEvent;
 //import java.awt.geom.*;
 import java.awt.image.*;
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import edu.cmu.cs.in.base.HoopRoot;
 import edu.cmu.cs.in.controls.base.HoopJPanel;
 import edu.cmu.cs.in.controls.templates.HoopAquaBarTabbedPaneUI;
 //import edu.cmu.cs.in.controls.templates.HoopCWTabbedPaneUI;
 
-public class HoopTabDraggable extends JTabbedPane 
+public class HoopTabDraggable extends JTabbedPane implements ChangeListener 
 {	
 	private static final long serialVersionUID = 1L;	
 	private static final int LHoopEWIDTH = 3;
@@ -56,6 +58,8 @@ public class HoopTabDraggable extends JTabbedPane
 	public HoopTabDraggable() 
 	{
 		super();
+		
+		this.addChangeListener(this);
 		
 		if (useBasicStyle==false)
 		{
@@ -196,6 +200,13 @@ public class HoopTabDraggable extends JTabbedPane
 	    new DragSource().createDefaultDragGestureRecognizer(this, DnDConstants.ACTION_COPY_OR_MOVE, dgl);
 	}
 	/**
+	 * 
+	 */
+	private void debug (String aMessage)
+	{
+		HoopRoot.debug ("HoopTabDraggable",aMessage);
+	}
+	/**
 	  * 
 	  */
 	public Boolean getUseBasicStyle() 
@@ -279,24 +290,24 @@ public class HoopTabDraggable extends JTabbedPane
 		}
 	}	
 
-	  class CDropTargetListener extends HoopRoot implements DropTargetListener
-	  {
-		  public CDropTargetListener ()
-		  {
-			  setClassName ("CDropTargetListener");
-			  debug ("CDropTargetListener ()");
-		  }
+	class CDropTargetListener extends HoopRoot implements DropTargetListener
+	{
+		public CDropTargetListener ()
+		{
+			setClassName ("CDropTargetListener");
+			debug ("CDropTargetListener ()");
+		}
 		  
-		  @Override public void dragEnter(DropTargetDragEvent e) 
-		  {
-			  if (isDragAcceptable(e)) 
-				  e.acceptDrag(e.getDropAction());
-			  else 
-				  e.rejectDrag();
-		  }
+		@Override public void dragEnter(DropTargetDragEvent e) 
+		{
+			if (isDragAcceptable(e)) 
+				e.acceptDrag(e.getDropAction());
+			else 
+				e.rejectDrag();
+		}
 		  
-		  @Override public void dragExit(DropTargetEvent e) {}
-		  @Override public void dropActionChanged(DropTargetDragEvent e) {}
+		@Override public void dragExit(DropTargetEvent e) {}
+		@Override public void dropActionChanged(DropTargetDragEvent e) {}
 
 		  private Point _glassPt = new Point();
 		  
@@ -632,4 +643,35 @@ public class HoopTabDraggable extends JTabbedPane
 			  }
 		  }
   	}
+	/**
+	 * 
+	 */
+	@Override
+	public void stateChanged(ChangeEvent e) 
+	{
+		debug ("stateChanged ()");
+		
+        JTabbedPane pane = (JTabbedPane) e.getSource();
+        int selectedIndex = pane.getSelectedIndex();
+        
+        debug ("selectedIndex = " + selectedIndex);		
+        
+        int totalTabs = this.getTabCount();
+        for(int i = 0; i < totalTabs; i++)
+        {
+        	HoopTabPane aTab = (HoopTabPane) this.getTabComponentAt(i);
+           
+        	if (aTab!=null)
+        	{
+        		if (i==selectedIndex)
+        		{
+        			aTab.setSelected (true);
+        		}
+        		else
+        		{
+        			aTab.setSelected (false);
+        		}
+        	}	
+        }
+	}
 }

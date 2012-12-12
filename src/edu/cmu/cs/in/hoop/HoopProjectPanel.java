@@ -79,6 +79,8 @@ public class HoopProjectPanel extends HoopEmbeddedJPanel implements MouseListene
 	 */
 	public HoopProjectPanel ()  
     {    	
+		super (HoopLink.getImageByName("project.png"));
+		
 		setClassName ("HoopProjectPanel");
 		debug ("HoopProjectPanel ()");    	
 		

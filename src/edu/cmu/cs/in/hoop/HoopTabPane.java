@@ -55,6 +55,8 @@ public class HoopTabPane extends HoopJPanel
 	private JButton button = null;
 	private JLabel label=null;
 
+	private Boolean selected=false;
+	
     /** 
      * @param pane
      */
@@ -121,6 +123,22 @@ public class HoopTabPane extends HoopJPanel
                 
         	this.add (button);        	
         }	
+    }
+    /**
+     * 
+     */
+    public void setSelected (Boolean aValue)
+    {
+    	selected=aValue;
+    	
+    	if (selected==true)
+    	{
+    		button.setVisible(true);
+    	}
+    	else
+    	{
+    		button.setVisible(false);
+    	}
     }
     /** 
      * 
@@ -202,6 +220,13 @@ public class HoopTabPane extends HoopJPanel
                 button.setBorderPainted(false);
             }
         }
+        /**
+         * 
+         */
+        public void mouseClicked(MouseEvent e) 
+        {
+        	
+        }        
     };
 }
 

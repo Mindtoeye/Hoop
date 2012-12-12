@@ -893,11 +893,11 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 			userIO=(HoopDialogConsole) HoopLink.getWindow("User Dialog");
 		}					
 		
-    	HoopProjectPanel projectPanel=(HoopProjectPanel) HoopLink.getWindow("Project");
+    	HoopProjectPanel projectPanel=(HoopProjectPanel) HoopLink.getWindow("Project Explorer");
     	if (projectPanel==null)
     	{
     		projectPanel=new HoopProjectPanel ();
-    		addView ("Project",projectPanel,HoopLink.left);
+    		addView ("Project Explorer",projectPanel,HoopLink.left);
     	}	
     	
 		HoopTreeList hoopList=(HoopTreeList) HoopLink.getWindow("HoopList");
@@ -1416,7 +1416,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 	{
 		debug ("refreshProjectPane ()");
 		
-		HoopProjectPanel projectPane=(HoopProjectPanel) HoopLink.getWindow("Project");
+		HoopProjectPanel projectPane=(HoopProjectPanel) HoopLink.getWindow("Project Explorer");
        	if (projectPane!=null)
        	{
        		projectPane.refresh();

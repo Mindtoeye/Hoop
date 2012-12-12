@@ -76,6 +76,8 @@ public class HoopDialogConsole extends HoopEmbeddedJPanel implements ActionListe
 	 */	
 	public HoopDialogConsole()
 	{
+		super (HoopLink.getImageByName("splash_icon_word_balloon.gif"));
+		
 		setClassName ("HoopDialogConsole");
 		debug ("HoopDialogConsole ()");
 		

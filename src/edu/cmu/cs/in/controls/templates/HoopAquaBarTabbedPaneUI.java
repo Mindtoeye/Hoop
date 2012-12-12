@@ -27,6 +27,7 @@ import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.basic.BasicTabbedPaneUI;
 
+import edu.cmu.cs.in.base.HoopRoot;
 import edu.cmu.cs.in.hoop.HoopTabPane;
 
 /**
@@ -182,16 +183,29 @@ public class HoopAquaBarTabbedPaneUI extends BasicTabbedPaneUI
 	protected void paintTabArea(Graphics g, int tabPlacement, int selectedIndex) 
 	{
 		Graphics2D g2d = (Graphics2D) g;
-		g2d.setPaint(new GradientPaint(0, 0, defaultColorSet.topGradColor1, 0,
-				10, defaultColorSet.topGradColor2));
-		g2d.fillRect(0, 0, tabPane.getWidth(), 10);
+		
+		g2d.setPaint(new GradientPaint(0,
+									   0,
+									   defaultColorSet.topGradColor1,
+									   0,
+									   10,
+									   defaultColorSet.topGradColor2));
+		
+		g2d.fillRect (0, 0, tabPane.getWidth(), 10);
 
-		g2d.setPaint(new GradientPaint(0, 10, defaultColorSet.bottomGradColor1,
-				0, 21, defaultColorSet.bottomGradColor2));
-		g2d.fillRect(0, 10, tabPane.getWidth(), 11);
-		super.paintTabArea(g, tabPlacement, selectedIndex);
+		g2d.setPaint (new GradientPaint(0,
+										10,
+										defaultColorSet.bottomGradColor1,				
+										0,
+										21,
+										defaultColorSet.bottomGradColor2));
+		
+		g2d.fillRect (0,10,tabPane.getWidth(),11);
+		
+		super.paintTabArea (g,tabPlacement, selectedIndex);
 
-		if (contentTopBorderDrawn) {
+		if (contentTopBorderDrawn) 
+		{
 			g2d.setColor(lineColor);
 			g2d.drawLine(0, 20, tabPane.getWidth() - 1, 20);
 		}
@@ -211,11 +225,16 @@ public class HoopAquaBarTabbedPaneUI extends BasicTabbedPaneUI
 
 		Rectangle rect = rects[tabIndex];
 
-		if (isSelected) {
+		if (isSelected) 
+		{
 			colorSet = selectedColorSet;
-		} else if (getRolloverTab() == tabIndex) {
+		} 
+		else if (getRolloverTab() == tabIndex) 
+		{
 			colorSet = hoverColorSet;
-		} else {
+		} 
+		else 
+		{
 			colorSet = defaultColorSet;
 		}
 
@@ -344,6 +363,9 @@ public class HoopAquaBarTabbedPaneUI extends BasicTabbedPaneUI
 		Color bottomGradColor2;
 	}
 
+	/**
+	 * 
+	 */
 	private class RollOverListener implements MouseMotionListener, MouseListener 
 	{
 		public void mouseDragged(MouseEvent e) 
@@ -356,8 +378,14 @@ public class HoopAquaBarTabbedPaneUI extends BasicTabbedPaneUI
 			checkRollOver();
 		}
 
+		/**
+		 * Don't use this one because it will fire too many times for the
+		 * one click we're actually looking for. Instead look at the stagechange
+		 * code in HoopTabDraggable
+		 */
 		public void mouseClicked(MouseEvent e) 
 		{
+			//HoopRoot.debug ("RollOverListener","Tab clicked");
 		}
 	
 		public void mousePressed(MouseEvent e) 		
