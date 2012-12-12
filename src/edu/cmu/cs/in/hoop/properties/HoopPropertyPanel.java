@@ -66,7 +66,9 @@ public class HoopPropertyPanel extends HoopEmbeddedJPanel implements ActionListe
 	 * Creates a new JPanel with a double buffer and a flow layout.
 	 */	
 	public HoopPropertyPanel()
-	{
+	{		
+		super (HoopLink.getImageByName("gtk-properties.png"));
+		
 		setClassName ("HoopPropertyPanel");
 		debug ("HoopPropertyPanel ()");
 						

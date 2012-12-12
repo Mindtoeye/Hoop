@@ -62,7 +62,7 @@ public class HoopStatistics extends HoopEmbeddedJPanel implements ActionListener
 	 */	
 	public HoopStatistics()
 	{
-		//super("Console", true, true, true, true);
+		super (HoopLink.getImageByName("graph-icon2.gif"));
 		
 		setClassName ("HoopStatistics");
 		debug ("HoopStatistics ()");

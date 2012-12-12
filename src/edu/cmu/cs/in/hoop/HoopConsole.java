@@ -78,7 +78,7 @@ public class HoopConsole extends HoopEmbeddedJPanel implements HoopConsoleInterf
 	 */	
 	public HoopConsole()
 	{
-		//super("Console", true, true, true, true);
+		super (HoopLink.getImageByName("console.png"));
 		
 		setClassName ("HoopConsole");
 		debug ("HoopConsole ()");

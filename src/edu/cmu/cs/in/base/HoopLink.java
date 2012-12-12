@@ -302,7 +302,11 @@ public class HoopLink extends HoopProperties
 		 							 "debug.png",
 		 							 "delete.png",
 		 							 "data.gif",
-		 							 "Hoop-logo.png"
+		 							 "Hoop-logo.png",
+		 							 "graph-icon2.gif",
+		 							 "console.png",
+		 							 "hoop-graph.png",
+		 							 "data-inspector.png"
 		 							 };
 	
 	public static JFrame mainFrame=null;
@@ -411,7 +415,18 @@ public class HoopLink extends HoopProperties
     		String test=imgURLs [i];
     		
     		if (test.toLowerCase().equals(aName.toLowerCase())==true)
-    			return (imageIcons [i]);
+    		{
+    			ImageIcon target=imageIcons [i];
+
+    			/*
+    			if (target!=null)
+    			{
+
+    			}
+    			*/
+    			
+    			return (target);
+    		}
     	}
     	
     	HoopRoot.debug ("HoopLink","Error: image " + aName + " not found");
@@ -601,7 +616,7 @@ public class HoopLink extends HoopProperties
    		HoopLink.addWindow(aContent);
    	
    		aPane.addTab(aTitle,
-   					 HoopLink.imageIcons [5],
+   					 aContent.getIcon(),
    					 aContent,
    					 "New Panel");
    		int index=aPane.indexOfComponent (aContent);

@@ -206,11 +206,7 @@ public class HoopDocumentWriter extends HoopSaveBase
 					if (threadCache.getKey().equals(newThreadID)==true)
 					{
 						debug ("Thread cache hit: " + newThreadID);
-												
-						// Add the new document to the thread ...
-						
-						//threadCache.bump(aDocument.createDate.getValue());
-						
+																		
 						threadCache.add(aDocument.getKeyString());
 												
 						return (threadCache);
@@ -232,7 +228,6 @@ public class HoopDocumentWriter extends HoopSaveBase
 										
 					testThread=new HoopKVLong ();
 					testThread.setKey(newThreadID);
-					//testThread.setValue(aDocument.createDate.getValue());
 					testThread.setValue(aDocument.getKeyString());
 					threadData.put(newThreadID,testThread);
 															
@@ -260,7 +255,6 @@ public class HoopDocumentWriter extends HoopSaveBase
 						{
 							debug ("Bumping thread ID ("+newThreadID+") with document: "+aDocument.createDate.getValue()+" ...");
 														
-							//testThread.bump(aDocument.createDate.getValue());
 							testThread.add(aDocument.getKeyString());
 							
 							threadData.put(newThreadID,testThread);
@@ -272,7 +266,6 @@ public class HoopDocumentWriter extends HoopSaveBase
 					{
 						debug ("Bumping thread ID ("+newThreadID+") with document: "+aDocument.createDate.getValue()+" ...");
 						
-						//testThread.bump(aDocument.createDate.getValue());
 						testThread.add(aDocument.getKeyString());
 						
 						threadData.put(newThreadID,testThread);

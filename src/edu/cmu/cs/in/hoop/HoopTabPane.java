@@ -73,13 +73,20 @@ public class HoopTabPane extends HoopJPanel
         {        
         	this.pane=aPane;
         
+        	this.add (Box.createRigidArea(new Dimension(2,0)));	 
+        	
         	setOpaque (false);
         	                	
         	icon=new JButton ();
-        	icon.setOpaque (false);
+        	icon.setBorderPainted(false); 
+        	icon.setContentAreaFilled(false); 
+        	icon.setFocusPainted(false); 
+        	icon.setOpaque(false); 
         	icon.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        	
+        	        	
         	this.add (icon);
+        	
+        	this.add (Box.createRigidArea(new Dimension(2,0)));
         	
         	//	make JLabel read titles from JTabbedPane
         	label = new JLabel() 

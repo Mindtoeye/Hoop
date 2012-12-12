@@ -86,6 +86,8 @@ public class HoopTablePanel extends HoopEmbeddedJPanel implements ActionListener
 	 */	
 	public HoopTablePanel()
 	{
+		super (HoopLink.getImageByName("data-inspector.png"));
+		
 		setClassName ("HoopTablePanel");
 		debug ("HoopTablePanel ()");
 		

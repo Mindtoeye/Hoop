@@ -157,19 +157,14 @@ public class HoopAquaBarTabbedPaneUI extends BasicTabbedPaneUI
     protected int calculateTabWidth(int tabPlacement, 
     								int tabIndex, 
     								FontMetrics metrics)
-    {    	
-    	//HoopRoot.debug("HoopAquaBarTabbedPaneUI", "calculateTabWidth ("+tabIndex+")");
-    	
+    {    	    	
     	int tabWidth=Math.round(sizeReference.getWidth()/sizeReference.getTabCount())-4;
     	
     	HoopTabPane sizer=(HoopTabPane) sizeReference.getTabComponentAt(tabIndex);
     	
     	if (sizer!=null)
-    	{
-    		//HoopRoot.debug("HoopAquaBarTabbedPaneUI","Setting new tab component size to: " + tabWidth + "," +sizer.getHeight());
-    	
-    		sizer.setPreferredSize(new Dimension (tabWidth-4,20));
-    		//sizer.setSize(tabWidth,sizer.getHeight());
+    	{    	
+    		sizer.setPreferredSize(new Dimension (tabWidth-1,20));
     	}	
     	
 		return tabWidth; // the width of the tab    	

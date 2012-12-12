@@ -94,7 +94,9 @@ public class HoopDocumentList extends HoopEmbeddedJPanel implements ActionListen
 	 * Constructs a new frame that is initially invisible.
 	 */	
 	public HoopDocumentList()
-	{		
+	{				
+		super (HoopLink.getImageByName("gtk-copy.png"));
+		
 		setClassName ("HoopDocumentList");
 		debug ("HoopDocumentList ()");
 		

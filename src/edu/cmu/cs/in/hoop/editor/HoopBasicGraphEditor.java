@@ -18,14 +18,10 @@
 
 package edu.cmu.cs.in.hoop.editor;
 
-import java.awt.BorderLayout;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
-//import java.awt.event.ComponentAdapter;
-//import java.awt.event.ComponentEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-//import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
@@ -39,7 +35,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-//import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -54,8 +49,6 @@ import com.mxgraph.layout.mxPartitionLayout;
 import com.mxgraph.layout.mxStackLayout;
 import com.mxgraph.layout.hierarchical.mxHierarchicalLayout;
 import com.mxgraph.swing.mxGraphComponent;
-//import com.mxgraph.swing.handler.mxGraphHandler;
-//import com.mxgraph.swing.mxGraphOutline;
 import com.mxgraph.swing.handler.mxKeyboardHandler;
 import com.mxgraph.swing.handler.mxPanningHandler;
 import com.mxgraph.swing.handler.mxRubberband;
@@ -71,11 +64,9 @@ import com.mxgraph.util.mxUndoableEdit.mxUndoableChange;
 import com.mxgraph.view.mxGraph;
 
 import edu.cmu.cs.in.base.HoopLink;
-//import edu.cmu.cs.in.controls.HoopDragMoveListener;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 
 public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWheelListener, KeyListener, MouseMotionListener
-//public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements KeyListener
 {
 	private static final long serialVersionUID = -1L;
 	protected mxGraphComponent graphComponent;
@@ -117,6 +108,8 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 	 */
 	public HoopBasicGraphEditor (String appTitle, mxGraphComponent component)
 	{
+		super (HoopLink.getImageByName("hoop-graph.png"));
+		
 		setClassName ("HoopBasicGraphEditor");
 		debug ("HoopBasicGraphEditor ()");		
 		

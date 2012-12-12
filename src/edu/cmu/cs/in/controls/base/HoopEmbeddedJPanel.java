@@ -24,6 +24,7 @@ import java.awt.Component;
 //import java.awt.event.ComponentListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -57,6 +58,8 @@ public class HoopEmbeddedJPanel extends HoopJPanel
 	private LockableUI blurUI = null;
 	private JXLayer<JComponent> layer=null;
 	
+	private ImageIcon icon=null;
+	
 	/**
 	 * 
 	 */	
@@ -64,6 +67,36 @@ public class HoopEmbeddedJPanel extends HoopJPanel
 	{
 		setClassName ("HoopEmbeddedJPanel");
 		debug ("HoopEmbeddedJPanel ()");
+		
+		icon=HoopLink.imageIcons [5];
+		
+		this.setBorder(BorderFactory.createEmptyBorder(HoopProperties.tabPadding,HoopProperties.tabPadding,HoopProperties.tabPadding,HoopProperties.tabPadding));		
+		this.setLayout(new BorderLayout(2,2));
+		//this.addComponentListener(this);
+
+		blurUI = new LockableUI(new BufferedImageOpEffect(new BlurFilter()));
+		
+		view=new JPanel ();
+		view.setLayout(new BorderLayout(0,0));
+		
+		layer=new JXLayer<JComponent>(view);
+		layer.setUI (blurUI);
+		
+		this.add(layer);
+		
+		//contentPane=view;
+		
+		//setContentPane (layer);
+	}	
+	/**
+	 * 
+	 */	
+	public HoopEmbeddedJPanel(ImageIcon anIcon)
+	{
+		setClassName ("HoopEmbeddedJPanel");
+		debug ("HoopEmbeddedJPanel (ImageIcon)");
+		
+		icon=anIcon;
 		
 		this.setBorder(BorderFactory.createEmptyBorder(HoopProperties.tabPadding,HoopProperties.tabPadding,HoopProperties.tabPadding,HoopProperties.tabPadding));		
 		this.setLayout(new BorderLayout(2,2));
@@ -83,6 +116,20 @@ public class HoopEmbeddedJPanel extends HoopJPanel
 		
 		//setContentPane (layer);
 	}
+	/**
+	 * 
+	 */
+	public ImageIcon getIcon() 
+	{
+		return icon;
+	}
+	/**
+	 * 
+	 */
+	public void setIcon(ImageIcon icon) 
+	{
+		this.icon = icon;
+	}	
 	/**
 	 * 
 	 */	

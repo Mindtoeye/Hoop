@@ -73,7 +73,7 @@ public class HoopEditor extends HoopEmbeddedJPanel implements ActionListener, Mo
 	 */	
 	public HoopEditor()
 	{
-		//super("Hoop Editor", true, true, true, true);
+		super (HoopLink.getImageByName("hoop-graph.png"));
 		
 		setClassName ("HoopEditor");
 		debug ("HoopEditor ()");
