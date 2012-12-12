@@ -63,7 +63,7 @@ public class HoopDocumentWriter extends HoopSaveBase
 	
 	private StoredMap<Long,HoopKVLong> threadData=null;
 	
-	// Lucense variables ...
+	// Lucene variables ...
 	
 	private IndexWriter writer=null;
 	private boolean create = false; // This will setup an append if the index is already available
