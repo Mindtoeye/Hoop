@@ -39,6 +39,7 @@ import edu.cmu.cs.in.hoop.hoops.load.HoopBerkeleyDBReader;
 import edu.cmu.cs.in.hoop.hoops.load.HoopCSVReader;
 import edu.cmu.cs.in.hoop.hoops.load.HoopDocumentReader;
 import edu.cmu.cs.in.hoop.hoops.load.HoopDocumentThreadReader;
+import edu.cmu.cs.in.hoop.hoops.load.HoopFTPReader;
 import edu.cmu.cs.in.hoop.hoops.load.HoopFileLoadBase;
 import edu.cmu.cs.in.hoop.hoops.load.HoopMySQLReader;
 import edu.cmu.cs.in.hoop.hoops.load.HoopStdin;
@@ -239,5 +240,6 @@ public class HoopManager extends HoopBase
     	addTemplate (new HoopIndexDocuments ());
     	addTemplate (new HoopWikipediaAccess ());
     	addTemplate (new HoopThreadReader ());
+    	addTemplate (new HoopFTPReader ());
     }
 }

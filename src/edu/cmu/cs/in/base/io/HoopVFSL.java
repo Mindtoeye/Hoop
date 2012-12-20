@@ -18,6 +18,8 @@
 
 package edu.cmu.cs.in.base.io;
 
+import java.io.OutputStream;
+import java.io.Writer;
 import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.HoopRoot;
@@ -116,6 +118,40 @@ public class HoopVFSL extends HoopRoot implements HoopVFSLInterface
 	 * 
 	 */
 	@Override
+	public Writer getOutputStream() 
+	{
+		debug ("getOutputStream ()");
+		
+		if (layers.size()>0)
+		{
+			HoopVFSLInterface aLayer=layers.get(0);
+			return (aLayer.getOutputStream());
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * 
+	 */
+	@Override
+	public OutputStream getOutputStreamBinary() 
+	{
+		debug ("getOutputStreamBinary ()");
+		
+		if (layers.size()>0)
+		{
+			HoopVFSLInterface aLayer=layers.get(0);
+			return (aLayer.getOutputStreamBinary());
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * 
+	 */
+	@Override
 	public boolean openStream(String aFileURI) 
 	{
 		debug ("openStream ()");
@@ -129,6 +165,19 @@ public class HoopVFSL extends HoopRoot implements HoopVFSLInterface
 		return false;
 	}
 
+	@Override
+	public boolean openStreamBinary(String aFileURI) 
+	{
+		debug ("openStreamBinary ()");
+		
+		if (layers.size()>0)
+		{
+			HoopVFSLInterface aLayer=layers.get(0);
+			return (aLayer.openStreamBinary(aFileURI));
+		}
+		return false;
+	}
+	
 	/**
 	 * 
 	 */

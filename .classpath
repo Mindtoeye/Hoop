@@ -50,5 +50,6 @@
 	<classpathentry kind="lib" path="plugins/SIDE/weka.jar"/>
 	<classpathentry kind="lib" path="plugins/SIDE"/>
 	<classpathentry kind="var" path="MYSQLJDBC"/>
+	<classpathentry kind="lib" path="lib/commons-net-3.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

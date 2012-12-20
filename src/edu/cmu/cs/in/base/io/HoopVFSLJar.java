@@ -25,6 +25,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.jar.JarEntry;
@@ -74,6 +76,17 @@ public class HoopVFSLJar extends HoopRoot implements HoopVFSLInterface
 		return false;
 	}
 
+	/**
+	 * 
+	 */
+	@Override
+	public Writer getOutputStream() 
+	{
+		debug ("getOutputStream ()");
+				
+		return null;
+	}
+	
 	@Override
 	public boolean openStream(String aFileURI) 
 	{
@@ -646,5 +659,17 @@ public class HoopVFSLJar extends HoopRoot implements HoopVFSLInterface
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}		
+	}
+
+	@Override
+	public OutputStream getOutputStreamBinary() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean openStreamBinary(String aFileURI) {
+		// TODO Auto-generated method stub
+		return false;
 	}	
 }

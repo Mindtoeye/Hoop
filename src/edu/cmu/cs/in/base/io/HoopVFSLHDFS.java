@@ -19,6 +19,8 @@
 package edu.cmu.cs.in.base.io;
 
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.Writer;
 import java.util.ArrayList;
 
 import org.apache.hadoop.conf.Configuration;
@@ -80,6 +82,17 @@ public class HoopVFSLHDFS extends HoopRoot implements HoopVFSLInterface
 	{
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	/**
+	 * 
+	 */
+	@Override
+	public Writer getOutputStream() 
+	{
+		debug ("getOutputStream ()");
+				
+		return null;
 	}
 
 	@Override
@@ -198,5 +211,19 @@ public class HoopVFSLHDFS extends HoopRoot implements HoopVFSLInterface
 			System.err.println("IOException during operation " + ioe.toString());
 			System.exit(1);
 		}
+	}
+
+	@Override
+	public OutputStream getOutputStreamBinary() 
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean openStreamBinary(String aFileURI) 
+	{
+		// TODO Auto-generated method stub
+		return false;
 	}	
 }

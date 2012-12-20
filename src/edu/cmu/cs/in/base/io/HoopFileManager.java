@@ -21,9 +21,11 @@ package edu.cmu.cs.in.base.io;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.Writer;
 
 /**
@@ -46,6 +48,7 @@ public class HoopFileManager extends HoopFileTools implements HoopVFSLInterface
 	private StringBuilder 		contents=null;
 	private BufferedReader 		permInput=null;
 	private Writer 				streamOut=null;
+	private FileOutputStream	streamOutBinary=null;
 	
 	/**
 	 *
@@ -77,11 +80,25 @@ public class HoopFileManager extends HoopFileTools implements HoopVFSLInterface
 		URI = uRI;
 	}	
 	/**
+	 * 
+	 */
+	public Writer getOutputStream ()
+	{
+		return (streamOut);
+	}
+	/**
+	 * 
+	 */
+	public OutputStream getOutputStreamBinary ()
+	{
+		return (streamOutBinary);
+	}	
+	/**
 	 *
 	 */  
 	public boolean isStreamOpen ()
 	{
-		if (streamOut!=null)
+		if ((streamOut!=null) || (streamOutBinary!=null))
 			return (true);
 		
 		return (false);
@@ -141,6 +158,61 @@ public class HoopFileManager extends HoopFileTools implements HoopVFSLInterface
 		
 		return (true);
 	}	
+	/**
+	 *
+	 */  
+	public boolean openStreamBinary (String aFileURI) 
+	{
+		debug ("openStreamBinary ("+aFileURI+")");
+		
+		if (streamOut!=null)
+		{
+			debug ("Stream already open");
+			return (true);
+		}
+		
+		File aFile=new File (aFileURI);
+		
+		try 
+		{
+			aFile.createNewFile();
+		} 
+		catch (IOException e1) 
+		{		
+			e1.printStackTrace();
+			return (false);
+		} 
+						
+		if (!aFile.exists()) 
+		{
+			debug ("File does not exist: " + aFile);
+			return (false);
+		}
+				
+		if (!aFile.isFile()) 
+		{
+			debug ("Should not be a directory: " + aFile);
+			return (false);
+		}
+				
+		if (!aFile.canWrite()) 
+		{
+			debug ("File cannot be written: " + aFile);
+			return (false);
+		}
+
+		//use buffering
+		try 
+		{			
+			streamOutBinary=new FileOutputStream (aFile);
+		}
+		catch (IOException e) 
+		{
+			return (false);			
+		}			
+		
+		return (true);
+	}		
 	/**
 	 *
 	 */  

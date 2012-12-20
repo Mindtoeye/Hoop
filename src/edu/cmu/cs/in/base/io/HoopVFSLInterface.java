@@ -18,6 +18,8 @@
 
 package edu.cmu.cs.in.base.io;
 
+import java.io.OutputStream;
+import java.io.Writer;
 import java.util.ArrayList;
 
 /**
@@ -38,16 +40,32 @@ public interface HoopVFSLInterface
 	/**
 	 *
 	 */	
-	public void setURI(String uRI);	
+	public void setURI(String uRI);
+	
 	/**
 	 *
 	 */  
 	public boolean isStreamOpen ();
 
 	/**
+	 * 
+	 */
+	public Writer getOutputStream ();
+	
+	/**
+	 * 
+	 */
+	public OutputStream getOutputStreamBinary ();
+	
+	/**
 	 *
 	 */  
-	public boolean openStream (String aFileURI); 
+	public boolean openStream (String aFileURI);
+	
+	/**
+	 *
+	 */  
+	public boolean openStreamBinary (String aFileURI);	
 
 	/**
 	 *
