@@ -18,6 +18,7 @@
 
 package edu.cmu.cs.in.hoop.hoops.load;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
@@ -29,7 +30,7 @@ import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.io.CopyStreamException;
 
 import edu.cmu.cs.in.base.HoopLink;
-import edu.cmu.cs.in.base.io.HoopHTTPReader;
+//import edu.cmu.cs.in.base.io.HoopHTTPReader;
 import edu.cmu.cs.in.base.kv.HoopKVString;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopLoadBase;
@@ -53,7 +54,7 @@ public class HoopFTPReader extends HoopLoadBase
 		setClassName ("HoopFTPReader");
 		debug ("HoopFTPReader ()");
 				
-		setHoopDescription ("Read text data from a URL");	
+		setHoopDescription ("Load file through FTP");	
 	
 		URL=new HoopStringSerializable (this,"URL","ftp://localhost/robots.txt");
 		
@@ -88,12 +89,14 @@ public class HoopFTPReader extends HoopLoadBase
 		String downloadPath=this.projectToFullPath ("<PROJECTPATH>/tmp/download/");
 		HoopLink.fManager.createDirectory(downloadPath);
 		
-		String localFileName="<PROJECTPATH>/tmp/download/"+urlObject.getFile();
+		File translator=new File (urlObject.getFile());
+		
+		String localFileName="<PROJECTPATH>/tmp/download/"+translator.getName();
 		String serverPath=urlObject.getPath();
 	 			
 		OutputStream fileStream=null;
 		
-		if (HoopLink.fManager.openStream (this.projectToFullPath(urlObject.getFile()))==false)
+		if (HoopLink.fManager.openStreamBinary (this.projectToFullPath(localFileName))==false)
 		{
 			this.setErrorString("Error opening temporary output file");
 			return (null);
@@ -107,16 +110,20 @@ public class HoopFTPReader extends HoopLoadBase
 			return (null);
 		}			
 		
+		debug ("Starting FTP client ...");
+		
 		FTPClient ftp = new FTPClient();
      
 		try 
 		{
 			int reply;
+			
+			debug ("Connecting ...");
 	      
 			ftp.connect(urlObject.getHost());
 	      
-			System.out.println ("Connected to " + urlObject.getHost() + ".");
-			System.out.print (ftp.getReplyString());
+			debug ("Connected to " + urlObject.getHost() + ".");
+			debug (ftp.getReplyString());
 
 			// After connection attempt, you should check the reply code to verify
 			// success.
@@ -130,7 +137,7 @@ public class HoopFTPReader extends HoopLoadBase
 			}
 			else
 			{
-				ftp.login ("anonymous","narratoria-dev@gmail.com");
+				ftp.login ("anonymous","hoop-dev@gmail.com");
 	    	  
 				reply=ftp.getReplyCode();
 
@@ -145,16 +152,17 @@ public class HoopFTPReader extends HoopLoadBase
 
 				boolean rep=true;
 		      
-				rep=ftp.changeWorkingDirectory (serverPath);
+				rep=ftp.changeWorkingDirectory (translator.getParent());
 				if (rep==false)
 				{
-					debug ("Unable to change working directory to: " + serverPath);
+					debug ("Unable to change working directory to: " + translator.getParent());
 					return (null);
 				}
 				else
 				{
-					debug ("Current working directory: " + serverPath);
+					debug ("Current working directory: " + translator.getParent());
 					debug ("Retrieving file ...");
+					
 					try
 					{
 						rep=ftp.retrieveFile (urlObject.getFile(),fileStream);
@@ -202,8 +210,17 @@ public class HoopFTPReader extends HoopLoadBase
 	  			}
 	  		}
 	  	}	
-	  		
-		String result=HoopLink.fManager.loadContents(localFileName);
+	  	
+		try 
+		{
+			fileStream.close();
+		} 
+		catch (IOException e) 
+		{	
+			e.printStackTrace();
+		}
+		
+		String result=HoopLink.fManager.loadContents(this.projectToFullPath(localFileName));
 		
 		return (result);
 	}	
@@ -234,6 +251,12 @@ public class HoopFTPReader extends HoopLoadBase
 		String aResult="";
 				
 		aResult=retrieveFTP (URL.getValue());
+		
+		if (aResult==null)
+		{
+			this.setErrorString ("FTP routine returned null data");
+			return (false);
+		}
 		
 		newData.setValue (aResult);
 		
