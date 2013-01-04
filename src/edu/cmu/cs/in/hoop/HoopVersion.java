@@ -30,7 +30,7 @@ import edu.cmu.cs.in.base.HoopRoot;
  */
 public class HoopVersion extends HoopRoot
 {
-	public static String version="0.55";
+	public static String version="0.75A";
 	public static String compiledBy="vvelsen";
 	public static String compiledDate="**undef***";
 	

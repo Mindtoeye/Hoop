@@ -36,7 +36,12 @@ public class HoopExecute extends HoopRoot implements Runnable
 	private Boolean loopExecuting=false;
 	private Boolean inEditor=false;
 	
+	static public int LOCAL=0;
+	static public int CLUSTER=1;
+		
 	private HoopBase currentRunner=null;
+	
+	private int location=LOCAL;
 			
 	/**
 	 *
@@ -47,6 +52,20 @@ public class HoopExecute extends HoopRoot implements Runnable
 		debug ("HoopExecute ()");	
 		
 		HoopLink.runner=this;
+	}
+	/**
+	 * 
+	 */	
+	public int getLocation() 
+	{
+		return location;
+	}
+	/**
+	 * 
+	 */	
+	public void setLocation(int location) 
+	{
+		this.location = location;
 	}	
 	/**
 	 * 

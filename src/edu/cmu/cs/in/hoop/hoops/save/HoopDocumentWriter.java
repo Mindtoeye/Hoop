@@ -499,7 +499,7 @@ public class HoopDocumentWriter extends HoopSaveBase
 			// Existing index (an old copy of this document may have been indexed) so 
 			// we use updateDocument instead to replace the old one matching the exact 
 			// path, if present:
-			//System.out.println("updating " + file);
+
 			debug ("Updating " + aDocument.url.getValue() + " in search index");
 			try 
 			{

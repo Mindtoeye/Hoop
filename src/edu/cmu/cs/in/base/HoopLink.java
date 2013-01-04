@@ -308,7 +308,8 @@ public class HoopLink extends HoopProperties
 		 							 "hoop-graph.png",
 		 							 "data-inspector.png",
 		 							 "project.png",
-		 							 "splash_icon_word_balloon.gif"
+		 							 "splash_icon_word_balloon.gif",
+		 							 "run-cluster.png"
 		 							 };
 	
 	public static JFrame mainFrame=null;
