@@ -19,6 +19,9 @@
 package edu.cmu.cs.in.base;
 
 import java.awt.Color;
+import java.util.ArrayList;
+
+import edu.cmu.cs.in.hoop.properties.types.HoopSerializable;
 
 /**
 *
@@ -40,4 +43,6 @@ public class HoopProperties extends HoopLangLink
 	public static Color graphBackgroundColor=new Color (140,140,140);
 	public static Color graphPanelContent=new Color (132,132,132);
 	public static Color graphPanelColor=new Color (120,120,120);	
+	
+	public static ArrayList<HoopSerializable> props=null;
 }

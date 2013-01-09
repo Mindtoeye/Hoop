@@ -19,29 +19,25 @@
 package edu.cmu.cs.in.controls.dialogs;
 
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
-import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.text.JTextComponent;
+import javax.swing.table.TableColumn;
 
+import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.controls.base.HoopJDialog;
 import edu.cmu.cs.in.hoop.properties.HoopPropertyTable;
 import edu.cmu.cs.in.hoop.properties.HoopSerializableTableEntry;
+import edu.cmu.cs.in.hoop.properties.HoopSheetCellEditor;
 import edu.cmu.cs.in.hoop.properties.types.HoopSerializable;
-
 
 /**
  * 
@@ -49,10 +45,6 @@ import edu.cmu.cs.in.hoop.properties.types.HoopSerializable;
 public class HoopPreferencesDialog extends HoopJDialog implements ActionListener, TableModelListener 
 {	
 	private static final long serialVersionUID = -1222994810612036014L;
-
-	private GridBagLayout gbl = null;
-	
-	private JTextField htdocs=null;
 	
 	private String[] columnNames = {"Name","Value"};	
 	
@@ -71,13 +63,7 @@ public class HoopPreferencesDialog extends HoopJDialog implements ActionListener
 		debug ("HoopPreferencesDialog ()");				
 
 		JPanel contentFrame=getFrame ();
-		
-		/*
-		JPanel configPanel=createConfigPanel ();
-		
-		JScrollPane aConfigScroller=new JScrollPane (configPanel);
-		*/
-		
+				
         parameterModel=new DefaultTableModel (null,columnNames);
         parameterModel.addTableModelListener (this);
 		
@@ -93,55 +79,10 @@ public class HoopPreferencesDialog extends HoopJDialog implements ActionListener
 		
 		contentFrame.add(parameterScrollList);
 		
+		configPanel ();
+		
 		this.setSize(new Dimension (300,250));
     }
-	/**
-	 * 
-	 */
-	private JPanel createConfigPanel ()
-	{
-		JPanel tfp = new JPanel();
-		gbl = new GridBagLayout();
-		tfp.setLayout(gbl);
-		
-		addLabeledComponent (tfp, "Enable disk logging ", htdocs = new JTextField("true", 15));
-		addLabeledComponent (tfp, "Preference B: ", htdocs = new JTextField("Default", 15));
-		addLabeledComponent (tfp, "Preference C: ", htdocs = new JTextField("Default", 15));
-		addLabeledComponent (tfp, "Preference D: ", htdocs = new JTextField("Default", 15));
-		addLabeledComponent (tfp, "Preference E: ", htdocs = new JTextField("Default", 15));
-		addLabeledComponent (tfp, "Preference F: ", htdocs = new JTextField("Default", 15));
-		
-		return (tfp);
-	}
-	/** 
-	 * @param tfp
-	 * @param labelText
-	 * @param comp
-	 */
-	private void addLabeledComponent (JPanel tfp, String labelText,JComponent comp) 
-	{
-		debug ("addLabeledComponent ()");
-		
-		GridBagConstraints c = new GridBagConstraints();
-		
-		if (comp instanceof JTextComponent)
-		{
-			c.insets = new Insets(2, 2, 2, 2);
-		}
-		
-	    c.anchor = GridBagConstraints.EAST;
-	    JLabel label = new JLabel(labelText);
-	    c.gridwidth = GridBagConstraints.RELATIVE; //next-to-last
-	    c.fill = GridBagConstraints.NONE;      //reset to default
-	    c.weightx = 0.0;                       //reset to default
-	    tfp.add(label, c);
-
-	    c.gridwidth = GridBagConstraints.REMAINDER;  //end of row
-	    c.fill = GridBagConstraints.HORIZONTAL;
-	    c.weightx = 1.0;
-	    
-	    tfp.add(comp, c);
-	}
 	/**
 	 * 
 	 */
@@ -161,18 +102,49 @@ public class HoopPreferencesDialog extends HoopJDialog implements ActionListener
 			
 			HoopSerializableTableEntry value=(HoopSerializableTableEntry) parameterModel.getValueAt(tEvent.getFirstRow(),1);
 			HoopSerializable entry=(HoopSerializable) value.getEntry();
+			
 			if (entry!=null)
 			{							
-				debug ("Entry: " + entry.toString());
-				
-				/*
-				HoopBase target=value.getComponent();
-			
-				entry.setTouched(true);
-									
-				entry.setTouched(false);
-				*/												
+				debug ("Entry: " + entry.toString());																
 			}	
 		}		
 	}
+	/**
+	 *
+	 */
+	private void configPanel ()
+	{				
+		debug ("configPanel ()");
+		
+		if (parameterTable!=null)
+		{						
+			parameterModel=new DefaultTableModel (null,columnNames);
+												
+			for (int i=0;i<HoopLink.props.size();i++)
+			{
+				HoopSerializable prop=HoopLink.props.get(i);
+				
+				if (prop.getEnabled()==true)
+				{							
+					HoopSerializableTableEntry entry1=new HoopSerializableTableEntry (prop.getName());				
+				
+					HoopSerializableTableEntry entry2=new HoopSerializableTableEntry (prop.getValue());
+					entry2.setEntry(prop);
+					//entry2.setComponent(getHoop());
+				
+					HoopSerializableTableEntry[] parameterData = {entry1,entry2};
+				
+					parameterModel.addRow (parameterData);
+				}	
+			}
+			
+			parameterTable.setModel(parameterModel);
+			parameterTable.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+			
+	        TableColumn colP = parameterTable.getColumnModel().getColumn(1);
+	        colP.setCellEditor(new HoopSheetCellEditor());	        					
+		}
+		else
+			debug ("Error: no parameter table available for property sheet");		
+	}	
 }

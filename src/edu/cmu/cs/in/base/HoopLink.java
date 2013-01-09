@@ -47,6 +47,7 @@ import edu.cmu.cs.in.hoop.editor.HoopEditorToolBar;
 import edu.cmu.cs.in.hoop.execute.HoopExecute;
 import edu.cmu.cs.in.hoop.execute.HoopExecutionMonitor;
 import edu.cmu.cs.in.hoop.project.HoopProject;
+import edu.cmu.cs.in.hoop.properties.types.HoopSerializable;
 import edu.cmu.cs.in.search.HoopTextSearch;
 import edu.cmu.cs.in.stats.HoopPerformanceMetrics;
 import edu.cmu.cs.in.stats.HoopStatistics;
@@ -374,6 +375,8 @@ public class HoopLink extends HoopProperties
     {
 		setClassName ("HoopLink");
 		debug ("HoopLink ()");
+		
+		props=new ArrayList<HoopSerializable> ();
 		
 		//whitespace=Pattern.compile("["  + whitespace_chars + "]");
 		//Matcher matcher = whitespace.matcher ("test");

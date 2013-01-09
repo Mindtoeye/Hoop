@@ -39,7 +39,6 @@ public class HoopPreferencesJFrame extends HoopJFrame
 	private int inset=50;
 	
 	private Preferences root;
-	//private Preferences node;	
 	
 	/**
 	 * 
@@ -66,7 +65,7 @@ public class HoopPreferencesJFrame extends HoopJFrame
     	root=Preferences.userNodeForPackage(this.getClass());
     	
     	HoopLink.preferences=root;
-
+    	
     	int left = root.getInt("left", inset);
     	int top = root.getInt("top", inset);
     	int width = root.getInt("width", screenSize.width-inset*2);
