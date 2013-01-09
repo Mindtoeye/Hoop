@@ -71,6 +71,13 @@ public class HoopPreferencesJFrame extends HoopJFrame
     	int width = root.getInt("width", screenSize.width-inset*2);
     	int height = root.getInt("height", screenSize.height-inset*2);
     	
+    	String storedProps=root.get("props","");
+    	
+    	if (storedProps.isEmpty()==false)
+    	{
+    		HoopLink.props.fromXMLString(storedProps);
+    	}
+    	
     	setBounds(left, top, width, height);
 	}
 	/**
@@ -82,6 +89,8 @@ public class HoopPreferencesJFrame extends HoopJFrame
         root.putInt("top", getY());
         root.putInt("width", getWidth());
         root.putInt("height", getHeight());
+        
+        root.put("props",HoopLink.props.toXMLString());
         
         System.exit(0);		
 	}

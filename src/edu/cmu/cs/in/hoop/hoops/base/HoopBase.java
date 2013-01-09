@@ -724,7 +724,7 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 						{
 							debug ("Configuring serialized property " + targetInstance + " from xml ...");
 							
-							HoopSerializable prop=this.getProperty(targetInstance);
+							HoopSerializable prop=props.getProperty(targetInstance);
 							if (prop!=null)
 							{
 								prop.fromXML(propNode);

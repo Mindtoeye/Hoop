@@ -21,6 +21,7 @@ package edu.cmu.cs.in.controls.dialogs;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+//import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -119,10 +120,12 @@ public class HoopPreferencesDialog extends HoopJDialog implements ActionListener
 		if (parameterTable!=null)
 		{						
 			parameterModel=new DefaultTableModel (null,columnNames);
+			
+			ArrayList <HoopSerializable> props=HoopLink.props.getProperties();
 												
-			for (int i=0;i<HoopLink.props.size();i++)
+			for (int i=0;i<props.size();i++)
 			{
-				HoopSerializable prop=HoopLink.props.get(i);
+				HoopSerializable prop=props.get(i);
 				
 				if (prop.getEnabled()==true)
 				{							

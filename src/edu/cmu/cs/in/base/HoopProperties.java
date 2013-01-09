@@ -19,30 +19,26 @@
 package edu.cmu.cs.in.base;
 
 import java.awt.Color;
-import java.util.ArrayList;
 
-import edu.cmu.cs.in.hoop.properties.types.HoopSerializable;
+import edu.cmu.cs.in.hoop.properties.HoopStoredProperties;
 
 /**
 *
 */
 public class HoopProperties extends HoopLangLink
 {    		    	
-	// multi view properties
+	// Multi view properties
 	
 	public static int tabPadding=4;
 	
-	// graph settings
-	
-	/*
-	public static Color graphBackgroundColor=new Color (47,46,47);
-	public static Color graphPanelContent=new Color (29,29,29);
-	public static Color graphPanelColor=new Color (50,50,50);
-	*/
+	// Graph settings
 	
 	public static Color graphBackgroundColor=new Color (140,140,140);
 	public static Color graphPanelContent=new Color (132,132,132);
-	public static Color graphPanelColor=new Color (120,120,120);	
+	public static Color graphPanelColor=new Color (120,120,120);
 	
-	public static ArrayList<HoopSerializable> props=null;
+	// Dynamic structure that maintains global properties. This
+	// structure should be storable on disk
+	
+	public static HoopStoredProperties props=null;
 }

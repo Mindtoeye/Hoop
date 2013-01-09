@@ -21,6 +21,7 @@ package edu.cmu.cs.in.hoop.hoops.base;
 import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.HoopDataType;
+import edu.cmu.cs.in.hoop.properties.HoopStoredProperties;
 import edu.cmu.cs.in.hoop.properties.types.HoopSerializable;
 
 /**
@@ -29,7 +30,7 @@ import edu.cmu.cs.in.hoop.properties.types.HoopSerializable;
 public class HoopBaseTyped extends HoopVisual implements HoopPropertyContainer
 {    			
 	private ArrayList <HoopDataType> types=null;
-	private ArrayList <HoopSerializable> properties=null;
+	protected HoopStoredProperties props=null;
 	
 	/**
 	 *
@@ -43,7 +44,7 @@ public class HoopBaseTyped extends HoopVisual implements HoopPropertyContainer
 		types.add(new HoopDataType (HoopDataType.STRING,"Key"));
 		types.add(new HoopDataType (HoopDataType.STRING,"Value"));
 		
-		properties=new ArrayList<HoopSerializable> ();		
+		props=new HoopStoredProperties ();
     }
     /**
      * 
@@ -88,78 +89,6 @@ public class HoopBaseTyped extends HoopVisual implements HoopPropertyContainer
     public ArrayList <HoopDataType> getTypes ()
     {
     	return (types);
-    }
-    /**
-     * 
-     */
-    public ArrayList <HoopSerializable> getProperties ()
-    {
-    	return (properties);
-    }
-    /**
-     * 
-     */
-    public HoopSerializable getProperty (String anInstance)
-    {
-    	debug ("getProperty ("+anInstance+")");
-    	
-    	for (int i=0;i<properties.size();i++)
-    	{
-    		HoopSerializable prop=properties.get(i);
-    	
-    		debug ("Comparing " + prop.getInstanceName() + " to: " + anInstance);
-    		
-    		if (prop.getInstanceName().equalsIgnoreCase(anInstance)==true)
-    			return (prop);
-    	}
-    	
-    	return (null);
-    }
-    /**
-     * 
-     */
-    public int getPropertyIndex (String anInstance)
-    {
-    	debug ("getProperty ("+anInstance+")");
-    	
-    	for (int i=0;i<properties.size();i++)
-    	{
-    		HoopSerializable prop=properties.get(i);
-    		
-    		if (prop.getInstanceName().equals(anInstance.toLowerCase())==true)
-    			return (i);
-    	}
-    	
-    	return (-1);
-    }
-    /**
-     * 
-     */
-    public void removeProperty (String aProperty)
-    {
-    	HoopSerializable checker=getProperty (aProperty);
-    	
-    	if (checker!=null)
-    	{
-    		properties.remove(checker);
-    	}
-    }    
-    /**
-     * 
-     */
-    public void enableProperty (String aProperty,Boolean aVal)
-    {
-    	HoopSerializable checker=getProperty (aProperty);
-    	
-    	if (checker!=null)    
-    		checker.setEnabled (aVal);
-    }    
-    /**
-     * 
-     */
-    public void enableProperty (HoopSerializable aProperty,Boolean aVal)
-    {
-    	aProperty.setEnabled (aVal);
     }
     /**
      * 
@@ -261,5 +190,45 @@ public class HoopBaseTyped extends HoopVisual implements HoopPropertyContainer
 	{
 		// TODO Auto-generated method stub
 		
+	}
+	@Override
+	public ArrayList<HoopSerializable> getProperties() 
+	{
+		return props.getProperties();
 	}    
+    /**
+     * 
+     */
+    public HoopSerializable getProperty (String anInstance)
+    {
+    	return (props.getProperty(anInstance));
+    }
+    /**
+     * 
+     */
+    public int getPropertyIndex (String anInstance)
+    {
+    	return (props.getPropertyIndex(anInstance));
+    }
+    /**
+     * 
+     */
+    public void removeProperty (String aProperty)
+    {
+    	props.removeProperty(aProperty);
+    }    
+    /**
+     * 
+     */
+    public void enableProperty (String aProperty,Boolean aVal)
+    {
+    	props.enableProperty(aProperty, aVal);
+    }    
+    /**
+     * 
+     */
+    public void enableProperty (HoopSerializable aProperty,Boolean aVal)
+    {
+    	props.enableProperty(aProperty, aVal);
+    }    	
 }

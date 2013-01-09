@@ -19,7 +19,6 @@
 package edu.cmu.cs.in.base;
 
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
 import java.util.ArrayList;
 import java.util.prefs.Preferences;
 
@@ -47,7 +46,8 @@ import edu.cmu.cs.in.hoop.editor.HoopEditorToolBar;
 import edu.cmu.cs.in.hoop.execute.HoopExecute;
 import edu.cmu.cs.in.hoop.execute.HoopExecutionMonitor;
 import edu.cmu.cs.in.hoop.project.HoopProject;
-import edu.cmu.cs.in.hoop.properties.types.HoopSerializable;
+import edu.cmu.cs.in.hoop.properties.HoopStoredProperties;
+//import edu.cmu.cs.in.hoop.properties.types.HoopSerializable;
 import edu.cmu.cs.in.search.HoopTextSearch;
 import edu.cmu.cs.in.stats.HoopPerformanceMetrics;
 import edu.cmu.cs.in.stats.HoopStatistics;
@@ -340,9 +340,7 @@ public class HoopLink extends HoopProperties
 	public static HoopTabDraggable right=null;
 	public static HoopTabDraggable center=null;
 	public static HoopTabDraggable bottom=null;	
-	
-	//public static GridBagConstraints gbc = null;
-	
+		
 	// Networking access
 	
 	public static HoopStreamedSocket brokerConnection=null;
@@ -376,7 +374,7 @@ public class HoopLink extends HoopProperties
 		setClassName ("HoopLink");
 		debug ("HoopLink ()");
 		
-		props=new ArrayList<HoopSerializable> ();
+		props=new HoopStoredProperties ();
 		
 		//whitespace=Pattern.compile("["  + whitespace_chars + "]");
 		//Matcher matcher = whitespace.matcher ("test");
@@ -400,16 +398,7 @@ public class HoopLink extends HoopProperties
 			hoopManager=new HoopManager ();
 		
 		if (hoopGraphManager==null)
-			hoopGraphManager=new HoopGraphManager ();
-		
-		/*
-		gbc = new GridBagConstraints();
-		gbc.fill = GridBagConstraints.NONE;
-		//gbc.anchor = GridBagConstraints.NORTHWEST;
-		gbc.anchor=GridBagConstraints.PAGE_START;
-		gbc.weightx = 1;
-		gbc.weighty = 0;
-		*/
+			hoopGraphManager=new HoopGraphManager ();		
     }  
     /**
      * 
@@ -423,13 +412,6 @@ public class HoopLink extends HoopProperties
     		if (test.toLowerCase().equals(aName.toLowerCase())==true)
     		{
     			ImageIcon target=imageIcons [i];
-
-    			/*
-    			if (target!=null)
-    			{
-
-    			}
-    			*/
     			
     			return (target);
     		}
