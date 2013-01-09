@@ -29,22 +29,36 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.text.JTextComponent;
 
 import edu.cmu.cs.in.controls.base.HoopJDialog;
+import edu.cmu.cs.in.hoop.properties.HoopPropertyTable;
+import edu.cmu.cs.in.hoop.properties.HoopSerializableTableEntry;
+import edu.cmu.cs.in.hoop.properties.types.HoopSerializable;
 
 
 /**
  * 
  */
-public class HoopPreferencesDialog extends HoopJDialog implements ActionListener 
+public class HoopPreferencesDialog extends HoopJDialog implements ActionListener, TableModelListener 
 {	
 	private static final long serialVersionUID = -1222994810612036014L;
 
 	private GridBagLayout gbl = null;
 	
 	private JTextField htdocs=null;
+	
+	private String[] columnNames = {"Name","Value"};	
+	
+	private DefaultTableModel parameterModel=null;	
+	
+	private HoopPropertyTable parameterTable=null;
 	
 	/**
      * 
@@ -57,12 +71,27 @@ public class HoopPreferencesDialog extends HoopJDialog implements ActionListener
 		debug ("HoopPreferencesDialog ()");				
 
 		JPanel contentFrame=getFrame ();
-								
+		
+		/*
 		JPanel configPanel=createConfigPanel ();
 		
 		JScrollPane aConfigScroller=new JScrollPane (configPanel);
+		*/
 		
-		contentFrame.add(aConfigScroller);
+        parameterModel=new DefaultTableModel (null,columnNames);
+        parameterModel.addTableModelListener (this);
+		
+		HoopPropertyTable parameterTable=new HoopPropertyTable ();
+        parameterTable.setModel(parameterModel);
+        parameterTable.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+                                
+        JScrollPane parameterScrollList=new JScrollPane (parameterTable);
+        parameterScrollList.setMinimumSize(new Dimension (10,10));
+        parameterScrollList.setPreferredSize(new Dimension (100,100));   
+        parameterScrollList.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);        
+        parameterScrollList.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);		
+		
+		contentFrame.add(parameterScrollList);
 		
 		this.setSize(new Dimension (300,250));
     }
@@ -75,7 +104,7 @@ public class HoopPreferencesDialog extends HoopJDialog implements ActionListener
 		gbl = new GridBagLayout();
 		tfp.setLayout(gbl);
 		
-		addLabeledComponent (tfp, "Preference A: ", htdocs = new JTextField("Default", 15));
+		addLabeledComponent (tfp, "Enable disk logging ", htdocs = new JTextField("true", 15));
 		addLabeledComponent (tfp, "Preference B: ", htdocs = new JTextField("Default", 15));
 		addLabeledComponent (tfp, "Preference C: ", htdocs = new JTextField("Default", 15));
 		addLabeledComponent (tfp, "Preference D: ", htdocs = new JTextField("Default", 15));
@@ -112,5 +141,38 @@ public class HoopPreferencesDialog extends HoopJDialog implements ActionListener
 	    c.weightx = 1.0;
 	    
 	    tfp.add(comp, c);
+	}
+	/**
+	 * 
+	 */
+	@Override
+	public void tableChanged(TableModelEvent tEvent) 
+	{
+		debug ("tableChanged ()");
+		
+		debug ("Table changed: " + tEvent.getFirstRow() + "," + tEvent.getType());
+		
+		if (tEvent.getType()==TableModelEvent.UPDATE)
+		{
+			debug ("Propagating parameter value back into Hoop object ...");
+			
+			Object tester=parameterTable.getValueAt(tEvent.getFirstRow(),1);
+			debug ("Style object: " + tester.getClass().getName() + " with value: " + tester);						
+			
+			HoopSerializableTableEntry value=(HoopSerializableTableEntry) parameterModel.getValueAt(tEvent.getFirstRow(),1);
+			HoopSerializable entry=(HoopSerializable) value.getEntry();
+			if (entry!=null)
+			{							
+				debug ("Entry: " + entry.toString());
+				
+				/*
+				HoopBase target=value.getComponent();
+			
+				entry.setTouched(true);
+									
+				entry.setTouched(false);
+				*/												
+			}	
+		}		
 	}
 }
