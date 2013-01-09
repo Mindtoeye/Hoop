@@ -39,6 +39,7 @@ import edu.cmu.cs.in.controls.dialogs.HoopCleanProjectDialog;
 import edu.cmu.cs.in.controls.dialogs.HoopGenericNameDialog;
 import edu.cmu.cs.in.controls.dialogs.HoopGenericProgressdialog;
 import edu.cmu.cs.in.controls.dialogs.HoopEnvironmentInspector;
+import edu.cmu.cs.in.controls.dialogs.HoopPreferencesDialog;
 import edu.cmu.cs.in.hoop.builder.HoopAppBuilder;
 import edu.cmu.cs.in.hoop.editor.HoopEditorToolBar;
 import edu.cmu.cs.in.hoop.execute.HoopExecute;
@@ -889,8 +890,10 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 	 */	
     public void openPrefsWindow() 
     {
-        //MetalworksPrefs dialog = new MetalworksPrefs(this);
-        //dialog.show();
+    	debug ("openPrefsWindow ()");
+    	
+    	HoopPreferencesDialog prefs=new HoopPreferencesDialog (HoopLink.mainFrame,false);
+   		prefs.setVisible (true);
     }
 	/**
 	 *
