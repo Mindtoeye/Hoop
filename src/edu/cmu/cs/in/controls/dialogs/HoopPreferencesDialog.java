@@ -68,7 +68,7 @@ public class HoopPreferencesDialog extends HoopJDialog implements ActionListener
         parameterModel=new DefaultTableModel (null,columnNames);
         parameterModel.addTableModelListener (this);
 		
-		HoopPropertyTable parameterTable=new HoopPropertyTable ();
+		parameterTable=new HoopPropertyTable ();
         parameterTable.setModel(parameterModel);
         parameterTable.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
                                 

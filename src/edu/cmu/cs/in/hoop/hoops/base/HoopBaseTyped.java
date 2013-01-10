@@ -177,11 +177,13 @@ public class HoopBaseTyped extends HoopVisual implements HoopPropertyContainer
     /**
      * 
      */
+    /*
 	@Override
 	public HoopBaseTyped getPropParent() 
 	{	
 		return this;
 	}
+	*/
 	/**
 	 * 
 	 */

@@ -24,12 +24,14 @@ import java.util.List;
 import org.jdom.Element;
 
 import edu.cmu.cs.in.base.HoopXMLBase;
+import edu.cmu.cs.in.hoop.hoops.base.HoopBaseTyped;
+import edu.cmu.cs.in.hoop.hoops.base.HoopPropertyContainer;
 import edu.cmu.cs.in.hoop.properties.types.HoopSerializable;
 
 /**
 *
 */
-public class HoopStoredProperties extends HoopXMLBase
+public class HoopStoredProperties extends HoopXMLBase implements HoopPropertyContainer
 {    			
 	private ArrayList <HoopSerializable> properties=null;
 	
@@ -179,5 +181,24 @@ public class HoopStoredProperties extends HoopXMLBase
 		}		
 				
 		return (propertiesElement);
+	}
+	/**
+	 * 
+	 */
+	/*
+	@Override
+	public HoopBaseTyped getPropParent() 
+	{
+	
+		return this;
+	}
+	*/
+	/**
+	 * 
+	 */
+	@Override
+	public void propertyChanged() 
+	{
+		// event listener
 	}		    
-}    
+}

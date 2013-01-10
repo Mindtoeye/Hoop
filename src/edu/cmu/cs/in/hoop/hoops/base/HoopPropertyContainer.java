@@ -30,7 +30,7 @@ public interface HoopPropertyContainer
 	/** 
 	 * @return HoopBaseTyped
 	 */
-	public HoopBaseTyped getPropParent ();
+	//public HoopBaseTyped getPropParent ();
 	
 	/** 
 	 * @return ArrayList <HoopSerializable>
