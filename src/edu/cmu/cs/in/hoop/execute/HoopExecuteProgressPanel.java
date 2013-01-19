@@ -53,7 +53,7 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 {	
 	private static final long serialVersionUID = -9132114294178560223L;
 	private JList executionTrace=null;	
-	private DefaultListModel model=null;
+	private DefaultListModel<HoopBase> model=null;
 	
 	private JButton statusButton=null;
 	
@@ -68,6 +68,8 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
     private Long timeCounter=(long) 0;
     
     private int executionResolution=1000;
+    
+    private Boolean calculating=false;
 	
 	/**
 	 * 
@@ -166,7 +168,7 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 								
 		ListCellRenderer renderer = new HoopExecutionListRenderer ();
 		
-		model = new DefaultListModel();
+		model = new DefaultListModel<HoopBase>();
 		
 		executionTrace=new JList (model);
 		executionTrace.setOpaque(true);
@@ -278,10 +280,14 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 			int pos = executionTrace.getModel().getSize();
 			model.add (pos,aHoop);
 		}
+		/*
 		else
 		{
 			executionTrace.repaint(executionTrace.getCellBounds(elementIndex, elementIndex));
 		}
+		*/
+		
+		executionTrace.repaint();
 		
 		updateDependencyProgress ();
 	}
@@ -295,12 +301,18 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 		if (model==null)
 			return;
 		
+		// This ensures that this method isn't re-entrant
+		if (calculating==true)
+			return;
+		
+		calculating=true;
+		
 		HoopExecutionListRenderer.maxMs=(long) 1;
-		
+
 		Long totalMeasure=(long) 0;
-		
+
 		HoopExecutionListRenderer.totalCount=model.size();
-		
+
 		for (int t=0;t<model.size();t++)
 		{
 			HoopBase aHoop=(HoopBase) model.get(t);
@@ -365,7 +377,9 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 					offset+=vizProps.durationWidth;
 				}	
 			}
-		}	
+		}
+		
+		calculating=false;
 	}	
 	/**
 	 * 
