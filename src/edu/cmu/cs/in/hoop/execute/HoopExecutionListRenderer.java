@@ -34,10 +34,15 @@ import javax.swing.SwingConstants;
 import edu.cmu.cs.in.controls.HoopProgressPainter;
 import edu.cmu.cs.in.controls.base.HoopJPanel;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
+import edu.cmu.cs.in.hoop.properties.HoopVisualProperties;
 import edu.cmu.cs.in.stats.HoopPerformanceMetrics;
 
 /**
- * 
+ * A cell renderer is essentially a singleton instance, which 
+ * means that for example per list entry there isn't an associated 
+ * renderer. There is only one per listbox. So if you have a progress
+ * painter you will have to make sure you know if you have multiple 
+ * copies or just one. 
  */
 public class HoopExecutionListRenderer extends HoopJPanel implements ListCellRenderer 
 {
@@ -174,8 +179,10 @@ public class HoopExecutionListRenderer extends HoopJPanel implements ListCellRen
 						timeIndicator.setText(formatDuration (result));
 					}	
 				
+					HoopVisualProperties vizProps=aHoop.getVisualProperties();
+					
 					// progressIndicator.setLevels(metrics.getYValue(),HoopExecutionListRenderer.maxMs);
-					progressIndicator.setLevels(aHoop.durationOffset,aHoop.durationWidth);
+					progressIndicator.setLevels(vizProps.durationOffset,vizProps.durationWidth);
 				}
 			}	
 			else

@@ -19,30 +19,19 @@
 package edu.cmu.cs.in.hoop.hoops.base;
 
 import edu.cmu.cs.in.base.HoopRoot;
+import edu.cmu.cs.in.hoop.properties.HoopVisualProperties;
 
 /**
-*
+* To separate any non-hoop related objects from the core hoop classes we
+* created a new class that stores any visual properties and attributes of
+* a hoop. This way when we run a hoop graph on a cluster we don't create
+* massive amounts of objects that are not relevant. Please see the
+* class HoopVisualProperties class for the place where we actually store
+* all visual properties.
 */
 public class HoopVisual extends HoopRoot
-{
-	protected int x=0;
-	protected int y=0;
-	
-	protected int width=150; 
-	protected int height=100;
-	
-	protected int originalWidth=150; 
-	protected int originalHeight=100;	
-	
-	// used by HoopJCheckListItem
-	private Boolean highlighted=false;
-	
-	// used by HoopExecutionListRenderer
-	public Long duration=(long) 1;
-	public int durationOffset=0;
-	public int durationWidth=1;
-	
-	public int preferredPanelHeight=-1; // figure out dynamically
+{	
+	private HoopVisualProperties vizProps=null;
 	
 	/**
 	 *
@@ -52,112 +41,13 @@ public class HoopVisual extends HoopRoot
 		setClassName ("HoopVisual");
 		debug ("HoopVisual ()");
 						
+		vizProps=new HoopVisualProperties ();
+    }    
+    /**
+     * 
+     */
+    public HoopVisualProperties getVisualProperties ()
+    {
+    	return (vizProps);
     }
-	/**
-	 *
-	 */
-	public int getX() 
-	{
-		return x;
-	}
-	/**
-	 *
-	 */
-	public void setX(int x) 
-	{
-		this.x = x;
-	}
-	/**
-	 *
-	 */
-	public int getY() 
-	{
-		return y;
-	}
-	/**
-	 *
-	 */
-	public void setY(int y) 
-	{
-		this.y = y;
-	}
-	
-	
-	
-	/**
-	 *
-	 */
-	public int getWidth() 
-	{
-		return width;
-	}
-	/**
-	 *
-	 */
-	public void setWidth(int width) 
-	{
-		this.width = width;
-	}
-	/**
-	 *
-	 */
-	public int getHeight() 
-	{
-		return height;
-	}
-	/**
-	 *
-	 */
-	public void setHeight(int height) 
-	{
-		this.height = height;
-	}
-	
-
-	/**
-	 *
-	 */
-	public int getOriginalWidth() 
-	{
-		return originalWidth;
-	}
-	/**
-	 *
-	 */
-	public void setOriginalWidth(int width) 
-	{
-		this.originalWidth = width;
-	}
-	/**
-	 *
-	 */
-	public int getOriginalHeight() 
-	{
-		return originalHeight;
-	}
-	/**
-	 *
-	 */
-	public void setOriginalHeight(int height) 
-	{
-		this.originalHeight = height;
-	}	
-	
-	
-	/**
-	 * 
-	 * @param highlighted
-	 */
-	public void setHighlighted(Boolean highlighted) 
-	{
-		this.highlighted = highlighted;
-	}
-	/**
-	 * 
-	 * @return
-	 */
-	public Boolean getHighlighted() 
-	{
-		return highlighted;
-	}    
 }

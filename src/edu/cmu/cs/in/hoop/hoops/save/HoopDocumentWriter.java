@@ -412,7 +412,7 @@ public class HoopDocumentWriter extends HoopDocumentIndexer
     	if (dSize<totalShown)
     		totalShown=dSize;
     	
-    	debug ("Thread data size: " + dSize + " adjusted: " + totalShown);
+    	//debug ("Thread data size: " + dSize + " adjusted: " + totalShown);
     	    	
 		Iterator<HoopKVLong> iterator = threadData.values().iterator();
 
@@ -422,7 +422,7 @@ public class HoopDocumentWriter extends HoopDocumentIndexer
 		if (threadData.size()<100)
 			count=threadData.size ();
 		
-		debug ("Thread data size: " + dSize + " adjusted: " + count);
+		//debug ("Thread data size: " + dSize + " adjusted: " + count);
 												
 		while ((iterator.hasNext()) && (index<count)) 
 		{

@@ -37,6 +37,7 @@ import edu.cmu.cs.in.base.HoopProperties;
 import edu.cmu.cs.in.controls.HoopJViewport;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopConnection;
+import edu.cmu.cs.in.hoop.properties.HoopVisualProperties;
 
 /**
  * 
@@ -284,9 +285,11 @@ public class HoopVisualGraphComponent extends mxGraphComponent
 							
 								aHoop.setGraphCellReference(cell);
 																				
+								HoopVisualProperties vizProps=aHoop.getVisualProperties();
+								
 								aPanel=new HoopNodePanel (aHoop,cell, this);
-								aPanel.setLocation(aHoop.getX(),aHoop.getY());
-								aPanel.setPreferredSize(new Dimension (aHoop.getWidth(),aHoop.getHeight()));
+								aPanel.setLocation(vizProps.getX(),vizProps.getY());
+								aPanel.setPreferredSize(new Dimension (vizProps.getWidth(),vizProps.getHeight()));
 								aPanel.fixDimensions (getGraph ().getView ().getScale ());
 							
 								aHoop.setVisualizer (aPanel);

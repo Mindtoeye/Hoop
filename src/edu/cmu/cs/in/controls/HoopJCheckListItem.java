@@ -31,6 +31,7 @@ import javax.swing.UIManager;
 
 import edu.cmu.cs.in.base.HoopRoot;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
+import edu.cmu.cs.in.hoop.properties.HoopVisualProperties;
   
 public class HoopJCheckListItem extends JCheckBox implements ListCellRenderer, ItemListener 
 {
@@ -90,7 +91,9 @@ public class HoopJCheckListItem extends JCheckBox implements ListCellRenderer, I
 		{		
 			HoopBase aHoop=(HoopBase) obj;
 			
-			if (aHoop.getHighlighted()==true)
+			HoopVisualProperties vizProps=aHoop.getVisualProperties();
+			
+			if (vizProps.getHighlighted()==true)
 				setBackground(new Color (220,220,220));				
 			else
 				setBackground(listBox.getBackground());

@@ -330,11 +330,13 @@ public class HoopInspectablePanel extends HoopJPanel implements ActionListener, 
 		
 		this.hoop=aHoop;
 		
+		HoopVisualProperties vizProps=aHoop.getVisualProperties();
+		
 		if (hoop!=null)
 		{
-			if (hoop.preferredPanelHeight!=-1)
+			if (vizProps.preferredPanelHeight!=-1)
 			{
-				fixedHeight=hoop.preferredPanelHeight;
+				fixedHeight=vizProps.preferredPanelHeight;
 				
 				debug ("Setting panel height to: " + fixedHeight);
 				
@@ -435,11 +437,13 @@ public class HoopInspectablePanel extends HoopJPanel implements ActionListener, 
 			return;
 		}
 		
+		HoopVisualProperties vizProps=aHoop.getVisualProperties();
+		
 		if (aHoop!=null)
 		{
-			if (aHoop.preferredPanelHeight!=-1)
+			if (vizProps.preferredPanelHeight!=-1)
 			{
-				fixedHeight=aHoop.preferredPanelHeight;
+				fixedHeight=vizProps.preferredPanelHeight;
 				
 				debug ("Setting panel height to: " + fixedHeight);
 				

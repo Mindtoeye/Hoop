@@ -32,6 +32,7 @@ import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.base.kv.HoopKVTable;
 import edu.cmu.cs.in.hoop.editor.HoopVisualRepresentation;
+import edu.cmu.cs.in.hoop.properties.HoopVisualProperties;
 import edu.cmu.cs.in.hoop.properties.types.HoopSerializable;
 import edu.cmu.cs.in.stats.HoopPerformanceMetrics;
 import edu.cmu.cs.in.stats.HoopStatisticsMeasure;
@@ -701,10 +702,12 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 				
 				debug ("Hoop visuals: " + xmlX +"," +xmlY + " with: " + xmlWidth + "," + xmlHeight);
 				
-				this.setX(xmlX);
-				this.setY(xmlY);
-				this.setWidth(xmlWidth);
-				this.setHeight(xmlHeight);
+				HoopVisualProperties vizProps=this.getVisualProperties();
+				
+				vizProps.setX(xmlX);
+				vizProps.setY(xmlY);
+				vizProps.setWidth(xmlWidth);
+				vizProps.setHeight(xmlHeight);
 			}
 			
 			if (node.getName().equals("properties")==true)
@@ -754,11 +757,13 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 		hoopElement.setAttribute("name",this.getInstanceName());
 		hoopElement.setAttribute("active",this.getActive().toString());
 		
+		HoopVisualProperties vizProps=this.getVisualProperties();
+		
 		Element visualElement=new Element ("visual");			
-		visualElement.setAttribute("x",String.format("%d",this.getX()));
-		visualElement.setAttribute("y",String.format("%d",this.getY()));		
-		visualElement.setAttribute("width",String.format("%d",this.getWidth()));
-		visualElement.setAttribute("height",String.format("%d",this.getHeight()));
+		visualElement.setAttribute("x",String.format("%d",vizProps.getX()));
+		visualElement.setAttribute("y",String.format("%d",vizProps.getY()));		
+		visualElement.setAttribute("width",String.format("%d",vizProps.getWidth()));
+		visualElement.setAttribute("height",String.format("%d",vizProps.getHeight()));
 		hoopElement.addContent(visualElement);		
 		
 		Element propertiesElement=new Element ("properties");							

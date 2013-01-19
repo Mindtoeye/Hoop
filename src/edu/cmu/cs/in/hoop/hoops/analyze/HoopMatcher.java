@@ -35,6 +35,7 @@ import edu.cmu.cs.in.controls.base.HoopJDialog;
 import edu.cmu.cs.in.hoop.hoops.base.HoopAnalyze;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
+import edu.cmu.cs.in.hoop.properties.HoopVisualProperties;
 import edu.cmu.cs.in.hoop.properties.types.HoopBooleanSerializable;
 import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
 import edu.cmu.cs.in.ling.HoopPatternMatch;
@@ -93,7 +94,9 @@ public class HoopMatcher extends HoopAnalyze implements HoopInterface, ActionLis
     	
     	editorPanel.add (editorButton,BorderLayout.CENTER);
     	
-    	preferredPanelHeight=50;
+    	HoopVisualProperties vizProps=this.getVisualProperties();
+    	
+    	vizProps.preferredPanelHeight=50;
     }
     /**
      * 

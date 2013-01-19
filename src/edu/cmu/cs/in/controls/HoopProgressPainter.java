@@ -61,7 +61,14 @@ public class HoopProgressPainter extends HoopJPanel
 		this.hoopEnabled = hoopEnabled;
 	}	
 	/**
-	 * 
+	 * This is our only access method to configure the values used by
+	 * the painter. Please make sure you drive this properly from 
+	 * other objects such as cell renderers. A cell renderer is 
+	 * essentially a singleton instance, which means that for
+	 * example per list entry there isn't an associated renderer.
+	 * There is only one per listbox. So if you have a progress
+	 * painter you will have to make sure you know if you have
+	 * multiple copies or just one.
 	 */
 	public void setLevels (int aCurrent,int aMax)
 	{

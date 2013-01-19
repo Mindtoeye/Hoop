@@ -42,6 +42,7 @@ import edu.cmu.cs.in.controls.HoopVisualFeature;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.task.HoopPathChooser;
+import edu.cmu.cs.in.hoop.properties.HoopVisualProperties;
 
 /**
  * 
@@ -114,8 +115,10 @@ public class HoopPathOrderEditor extends HoopEmbeddedJPanel implements ActionLis
 	    			if (rep instanceof HoopBase)
 	    			{	    			    					    				
 	    				HoopBase item=(HoopBase) rep;
+	    				
+	    				HoopVisualProperties vizProps=item.getVisualProperties();
 	     
-	    				item.setHighlighted(true);
+	    				vizProps.setHighlighted(true);
 	    				
 	    				list.repaint (list.getCellBounds(index, index));
 	    				//	updateDependends ();
@@ -185,8 +188,10 @@ public class HoopPathOrderEditor extends HoopEmbeddedJPanel implements ActionLis
     		if (rep instanceof HoopBase)
     		{	    			    					    				
     			HoopBase item=(HoopBase) rep;
+    			
+    			HoopVisualProperties vizProps=item.getVisualProperties();
      
-    			item.setHighlighted(false);
+    			vizProps.setHighlighted(false);
     		}	
 		}
 	}
@@ -266,8 +271,10 @@ public class HoopPathOrderEditor extends HoopEmbeddedJPanel implements ActionLis
     		if (rep instanceof HoopBase)
     		{	    			    					    				
     			HoopBase item=(HoopBase) rep;
+    			
+    			HoopVisualProperties vizProps=item.getVisualProperties();
      
-    			if (item.getHighlighted()==true)
+    			if (vizProps.getHighlighted()==true)
     				return (item);
     		}	
 		}

@@ -25,7 +25,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.concurrent.TimeUnit;
 
-//import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -33,7 +32,6 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
-//import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
@@ -45,6 +43,7 @@ import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.controls.HoopControlTools;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
+import edu.cmu.cs.in.hoop.properties.HoopVisualProperties;
 import edu.cmu.cs.in.stats.HoopPerformanceMetrics;
 
 /** 
@@ -320,7 +319,9 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 				if (aMeasure==0)
 					aMeasure=(long) 1;
 			
-				aHoop.duration=aMeasure;
+				HoopVisualProperties vizProps=aHoop.getVisualProperties();
+				
+				vizProps.duration=aMeasure;
 			
 				totalMeasure+=aMeasure;
 			
@@ -349,17 +350,19 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 			
 				if ((aHoop.getExecutionCount()>0) && (aHoop.getExecutionState().equals("STOPPED")==true))
 				{							
-					float mult=aHoop.duration/totalMeasure;
+					HoopVisualProperties vizProps=aHoop.getVisualProperties();
+					
+					float mult=vizProps.duration/totalMeasure;
 			
 					//debug ("duration: " + aHoop.duration + ", mult: " + mult);
 			
-					aHoop.durationOffset=offset;
+					vizProps.durationOffset=offset;
 					//aHoop.durationWidth=(int) (divver*mult);
-					aHoop.durationWidth=(int) (aHoop.duration/divver);
+					vizProps.durationWidth=(int) (vizProps.duration/divver);
 			
 					//debug ("Offset: " + offset + ", width: " + aHoop.durationWidth);
 			
-					offset+=aHoop.durationWidth;
+					offset+=vizProps.durationWidth;
 				}	
 			}
 		}	

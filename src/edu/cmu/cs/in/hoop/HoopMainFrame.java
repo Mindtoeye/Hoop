@@ -51,6 +51,7 @@ import edu.cmu.cs.in.hoop.hoops.task.HoopStart;
 import edu.cmu.cs.in.hoop.project.HoopGraphFile;
 import edu.cmu.cs.in.hoop.project.HoopProject;
 import edu.cmu.cs.in.hoop.properties.HoopPropertyPanel;
+import edu.cmu.cs.in.hoop.properties.HoopVisualProperties;
 import edu.cmu.cs.in.hoop.visualizers.HoopBackingDBInspector;
 import edu.cmu.cs.in.hoop.visualizers.HoopCluster;
 import edu.cmu.cs.in.hoop.visualizers.HoopParseTreeViewer;
@@ -1017,13 +1018,15 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 			
 			HoopLink.hoopGraphManager.addHoop (startNode);
 			
+			HoopVisualProperties vizProps=startNode.getVisualProperties();
+			
 			mxCell graphObject=(mxCell) graph.insertVertex (parent, 
 															startNode.getClassName(),
 															startNode,
 															20,
 															20,
-															startNode.getWidth(),
-															startNode.getHeight());
+															vizProps.getWidth(),
+															vizProps.getHeight());
 			
 			graphObject.setValue(startNode.getHoopID());			
 		}

@@ -37,6 +37,7 @@ import edu.cmu.cs.in.hoop.editor.HoopVisualGraphComponent;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopConnection;
 import edu.cmu.cs.in.hoop.project.HoopGraphFile;
+import edu.cmu.cs.in.hoop.properties.HoopVisualProperties;
 
 public class HoopGraphEditor extends HoopBasicGraphEditor implements mxIEventListener
 {
@@ -136,14 +137,16 @@ public class HoopGraphEditor extends HoopBasicGraphEditor implements mxIEventLis
 			for (int i=0;i<hoopList.size();i++)
 			{	
 				HoopBase aHoop=hoopList.get(i);
+				
+				HoopVisualProperties vizProps=aHoop.getVisualProperties();
 			
 				mxCell graphObject=(mxCell) graph.insertVertex (parent, 
 																aHoop.getClassName(),
 																aHoop,
-																aHoop.getX(),
-																aHoop.getY(),
-																aHoop.getWidth(),
-																aHoop.getHeight());
+																vizProps.getX(),
+																vizProps.getY(),
+																vizProps.getWidth(),
+																vizProps.getHeight());
 				
 				//graphObject.setValue(aHoop);				
 				graphObject.setValue(aHoop.getHoopID());

@@ -32,6 +32,7 @@ import edu.cmu.cs.in.hoop.HoopTablePanel;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.properties.HoopInspectablePanel;
 import edu.cmu.cs.in.hoop.properties.HoopPropertyPanel;
+import edu.cmu.cs.in.hoop.properties.HoopVisualProperties;
 
 /**   
  * An easy access class to the panel that represents a node in the Hoop graph.
@@ -103,10 +104,12 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 		
 		if (hoop!=null)
 		{
-			hoop.setX(this.getX());
-			hoop.setY(this.getY());
-			hoop.setWidth(this.getWidth());
-			hoop.setHeight(this.getHeight());
+			HoopVisualProperties vizProps=hoop.getVisualProperties();
+			
+			vizProps.setX(this.getX());
+			vizProps.setY(this.getY());
+			vizProps.setWidth(this.getWidth());
+			vizProps.setHeight(this.getHeight());
 			
 			setStatus ("Ex: " + hoop.getExecutionCount());
 		}
@@ -122,8 +125,10 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 		
 		if (hoop!=null)
 		{
-			hoop.setOriginalWidth (this.getWidth());
-			hoop.setOriginalHeight (this.getHeight());
+			HoopVisualProperties vizProps=hoop.getVisualProperties();
+			
+			vizProps.setOriginalWidth (this.getWidth());
+			vizProps.setOriginalHeight (this.getHeight());
 		}
 		else
 			debug ("Internal error: no hoop object available to fix dimensions");
