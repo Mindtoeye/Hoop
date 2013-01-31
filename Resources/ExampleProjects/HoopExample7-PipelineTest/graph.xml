@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hoopfile class="HoopGraphFile" instance="graph.xml">
+  <graph scale="1.0">
+    <hoops>
+      <hoop id="1a8105cf-51ff-4cfa-9fb8-9617c5da10d4" class="HoopStart" name="54" active="true">
+        <visual x="20" y="20" width="150" height="100" />
+        <properties />
+      </hoop>
+      <hoop id="0aaaa8ab-b4df-433f-a018-03c10d781929" class="HoopKVTest" name="55" active="true">
+        <visual x="140" y="210" width="150" height="100" />
+        <properties>
+          <serializable class="HoopIntegerSerializable" instance="dataSize">
+            <value format="Text" type="INT">100</value>
+          </serializable>
+          <serializable class="HoopEnumSerializable" instance="KVType">
+            <value format="Text" type="ENUM" options="CLASS,INT,LONG,STRING,FLOAT,BOOLEAN,ENUM,TABLE,DOCUMENT,DATE,COLOR,FONT,URI,URL">STRING</value>
+          </serializable>
+        </properties>
+      </hoop>
+      <hoop id="7bd62d47-db91-4570-a38a-060cfcd65ac9" class="HoopTest" name="60" active="true">
+        <visual x="340" y="30" width="150" height="100" />
+        <properties />
+      </hoop>
+      <hoop id="7587a0b8-f314-4062-b535-4c0643ea1afc" class="HoopTest" name="61" active="true">
+        <visual x="550" y="220" width="150" height="100" />
+        <properties />
+      </hoop>
+      <hoop id="67fb67c1-8a5c-404a-a7a5-0d4b0c47bbcf" class="HoopTest" name="65" active="true">
+        <visual x="690" y="30" width="150" height="100" />
+        <properties />
+      </hoop>
+    </hoops>
+    <connections>
+      <connection name="Edge" from="1a8105cf-51ff-4cfa-9fb8-9617c5da10d4" to="0aaaa8ab-b4df-433f-a018-03c10d781929" />
+      <connection name="Edge" from="0aaaa8ab-b4df-433f-a018-03c10d781929" to="7bd62d47-db91-4570-a38a-060cfcd65ac9" />
+      <connection name="Edge" from="7bd62d47-db91-4570-a38a-060cfcd65ac9" to="7587a0b8-f314-4062-b535-4c0643ea1afc" />
+      <connection name="Edge" from="7587a0b8-f314-4062-b535-4c0643ea1afc" to="67fb67c1-8a5c-404a-a7a5-0d4b0c47bbcf" />
+    </connections>
+  </graph>
+</hoopfile>
+

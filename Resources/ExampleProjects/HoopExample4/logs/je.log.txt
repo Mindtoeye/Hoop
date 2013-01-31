@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2013-01-31T09:14:19</date>
+  <millis>1359641659313</millis>
+  <sequence>0</sequence>
+  <logger>com.sleepycat.je</logger>
+  <level>INFO</level>
+  <class>edu.cmu.cs.in.base.io.HoopBerkeleyDB</class>
+  <method>configureLogging</method>
+  <thread>14</thread>
+  <message>BerkeleyDB logging enabled</message>
+</record>
+</log>
