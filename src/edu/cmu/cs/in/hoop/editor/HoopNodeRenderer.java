@@ -35,6 +35,7 @@ import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JCheckBox;
 //import javax.swing.ImageIcon;
 //import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -83,6 +84,7 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 	protected JLabel statusPanel=null;
 	protected JPanel toolBar=null;
 	protected JPanel bottomPanel=null;
+	protected JCheckBox nodeSelectCheckbox=null;
 	protected JButton kvExamineButton=null;
 	protected JButton showHelpButton=null;
 		
@@ -134,7 +136,16 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 		toolBar.setLayout(new FlowLayout(FlowLayout.LEFT, 1, 2));
 		toolBar.setBackground(HoopProperties.graphPanelColor);
 		toolBar.setOpaque(true);
-				
+
+    nodeSelectCheckbox=new JCheckBox();
+    nodeSelectCheckbox.setToolTipText("Select node");
+    nodeSelectCheckbox.setBackground(HoopProperties.graphPanelColor);
+    nodeSelectCheckbox.setOpaque(true);
+    nodeSelectCheckbox.setSelected(false); 
+    nodeSelectCheckbox.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+    nodeSelectCheckbox.addActionListener(this);
+    toolBar.add(nodeSelectCheckbox);		
+		
 		kvExamineButton=new JButton ();
 		kvExamineButton.setIcon(HoopLink.getImageByName("zoom.png"));
 		kvExamineButton.setPreferredSize(new Dimension(16, 16));
