@@ -87,36 +87,77 @@ public class HoopFilterStopWords extends HoopTransformBase implements HoopInterf
 		debug ("runHoop ()");
 				
 		ArrayList <HoopKV> inData=inHoop.getData();
+		
 		if (inData!=null)
 		{					
 			for (int i=0;i<inData.size();i++)
 			{
 				HoopKVInteger aKV=(HoopKVInteger) inData.get(i);
 				
-				Boolean isStop=false;
-				
-				for (int j=0;j<HoopLink.stops.length;j++)
-				{				
-					if (aKV.getValue().toLowerCase().equals(HoopLink.stops [j])==true)
-					{
-						isStop=true;
-					}	
-				}	
-				
 				Integer keyString=i;
-								
-				HoopKV newKV=HoopKVTools.getLikeKVType(aKV);				
-				newKV.setKeyString (keyString.toString());
-				newKV.setValue(aKV.getValue(),0);
 				
-				if (isStop==false)
+				if (aKV.getValueSize()>1)
 				{
-					addKV (newKV);
+					// Processing horizontal value model ...
+					
+					ArrayList<Object> aValues=aKV.getValuesRaw();
+					
+					HoopKV newKV=HoopKVTools.getLikeKVType(aKV);				
+					newKV.setKeyString (keyString.toString());
+					
+					for (int t=0;t<aValues.size();t++)
+					{							
+						//debug ("Checking " + aValues.size () + " tokens ...");
+						
+						String test=(String) aValues.get(t);
+						
+						for (int j=0;j<HoopLink.stops.length;j++)
+						{	
+							// Copy the value/token if it's not a stop word
+							
+							if (test.toLowerCase().equals(HoopLink.stops [j])==false)
+							{							
+								newKV.setValue(test,t);
+							}
+							//else
+							//	debug ("Tossing stopword: " + test);
+						}						
+					}
+					
+					if (newKV.getValueSize()>0)
+					{
+						addKV (newKV);
+					}
+					else
+						toss (newKV);
 				}
 				else
 				{
-					toss (newKV);
-				}
+					// Processing vertical value model ...
+					
+					Boolean isStop=false;
+				
+					for (int j=0;j<HoopLink.stops.length;j++)
+					{				
+						if (aKV.getValue().toLowerCase().equals(HoopLink.stops [j])==true)
+						{
+							isStop=true;
+						}	
+					}	
+												
+					HoopKV newKV=HoopKVTools.getLikeKVType(aKV);				
+					newKV.setKeyString (keyString.toString());
+					newKV.setValue(aKV.getValue(),0);
+				
+					if (isStop==false)
+					{
+						addKV (newKV);
+					}
+					else
+					{
+						toss (newKV);
+					}
+				}	
 			}						
 		}
 		else

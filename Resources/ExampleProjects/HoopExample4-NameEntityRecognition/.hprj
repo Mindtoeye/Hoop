@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hoopfile class="HoopProject" instance=".hprj">
+  <hoopfile class="HoopStopWords" instance="stopwords.xml" />
+  <hoopfile class="HoopGraphFile" instance="graph.xml" />
+</hoopfile>
+

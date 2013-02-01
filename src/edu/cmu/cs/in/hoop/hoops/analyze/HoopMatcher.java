@@ -23,6 +23,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -31,7 +32,7 @@ import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.base.kv.HoopKVString;
 import edu.cmu.cs.in.controls.HoopPatternEditor;
-import edu.cmu.cs.in.controls.base.HoopJDialog;
+//+import edu.cmu.cs.in.controls.base.HoopJDialog;
 import edu.cmu.cs.in.hoop.hoops.base.HoopAnalyze;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
@@ -56,6 +57,9 @@ public class HoopMatcher extends HoopAnalyze implements HoopInterface, ActionLis
 	private JPanel editorPanel=null;
 	private JButton editorButton=null;	
 	private HoopPatternEditor editor=null;
+	
+	private static final String stubPatternMain ="[A-Z]+-*[A-Z]*[0-9]*"; //alpha-numeric uppercase
+	private static final String stubPatternSecondary ="[a-zA-Z]+-[0-9]*"; //alpha-numeric uppercase
 	
 	/**
 	 *
@@ -130,6 +134,64 @@ public class HoopMatcher extends HoopAnalyze implements HoopInterface, ActionLis
     	return (true);
     }    
 	/**
+	 *
+	 */
+	public Boolean runHoop (HoopBase inHoop)
+	{		
+		debug ("runHoop ()");
+		
+		ArrayList <HoopKV> inData=inHoop.getData();
+		
+		if (inData==null)
+		{
+			this.setErrorString("No data found in previous hoop");
+			return (false);
+		}
+		
+		for (int t=0;t<inData.size();t++)
+		{
+			HoopKV aKV=inData.get(t);		
+				
+			ArrayList<Object> vals=aKV.getValuesRaw();
+
+			for (int i=0;i<vals.size();i++)
+			{
+				//debug ("Checking " + vals.size() + " values ...");
+						
+				String value=(String) vals.get(i);
+			
+				boolean result=Pattern.matches(stubPatternMain,value);
+			
+				if (result==false)
+					result=Pattern.matches(stubPatternSecondary, value);
+			
+				if (result==true)
+				{
+					HoopKVString newKV=new HoopKVString ();
+					newKV.setKeyString(aKV.getKeyString());
+		
+					Double converter=1.0;						
+					newKV.setValue(converter.toString(),0);
+		
+					newKV.setValue(value,1);
+								
+					debug ("Adding new match KV: " + value);
+	
+					addKV (newKV);					
+				}
+				else
+					debug ("Value " + value + " does not match");
+
+				/*
+				else
+					toss (newKV);
+				 */
+			}
+		}	
+		
+		return (true);
+	}	
+	/**
 	 * We assume here a stream of tokens or terms with a sliding window that
 	 * gets reset when an end of sentence marker is found. End of sentence
 	 * markers are either newlines, periods, question marks or exclamation
@@ -151,6 +213,7 @@ public class HoopMatcher extends HoopAnalyze implements HoopInterface, ActionLis
 	 * Linguistics, Stroudsburg, PA, USA, 334-343.
 	 * 
 	 */
+	/*
 	protected Boolean processKVBatch (ArrayList <HoopKV> inData,int currentIndex,int batchSize)
 	{
 		debug ("processKVBatch ()");
@@ -166,6 +229,8 @@ public class HoopMatcher extends HoopAnalyze implements HoopInterface, ActionLis
 
 			for (int i=0;i<vals.size();i++)
 			{
+				debug ("Checking " + vals.size() + " values ...");
+				
 				ArrayList <HoopPatternMatch> matchList=matcher.matchPattern(vals, i);					
 			
 				if (matchList.size()>0)
@@ -199,12 +264,13 @@ public class HoopMatcher extends HoopAnalyze implements HoopInterface, ActionLis
 						
 						}
 					}
-				}	
+				}				
 			}
 		}	
 		
 		return (true);
 	}
+	*/
 	/**
 	 * 
 	 */
