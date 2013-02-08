@@ -83,9 +83,11 @@ public class HoopProgressPainter extends HoopJPanel
 	 */
 	@Override
 	protected void paintComponent(Graphics g)
-	{
-		if (getHoopEnabled ()==true)
-		{
+	{		
+		//if (getHoopEnabled ()==true)
+		//{
+			debug ("paintComponent ("+currentLevel+","+maxLevel+")");
+			
 			Graphics2D g2 = (Graphics2D)g.create();
 
 			Paint p = new GradientPaint (0,
@@ -105,6 +107,6 @@ public class HoopProgressPainter extends HoopJPanel
 			g2.drawRect(currentLevel,2, width,this.getHeight()-4);
 		
 			g2.dispose ();
-		}	
+		//}	
 	}	
 }

@@ -180,9 +180,11 @@ public class HoopExecutionListRenderer extends HoopJPanel implements ListCellRen
 					}	
 				
 					HoopVisualProperties vizProps=aHoop.getVisualProperties();
-					
-					// progressIndicator.setLevels(metrics.getYValue(),HoopExecutionListRenderer.maxMs);
-					progressIndicator.setLevels(vizProps.durationOffset,vizProps.durationWidth);
+										
+					if (mode==HoopExecutionListRenderer.MODEDEFAULT)
+						progressIndicator.setLevels(0,vizProps.durationWidth);
+					else
+						progressIndicator.setLevels(vizProps.durationOffset,vizProps.durationWidth);
 				}
 			}	
 			else

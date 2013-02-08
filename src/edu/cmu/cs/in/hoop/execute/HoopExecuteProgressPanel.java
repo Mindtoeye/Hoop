@@ -176,7 +176,8 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 		executionTrace.setCellRenderer(renderer);
 		
 		JScrollPane traceContainer=new JScrollPane (executionTrace);
-		traceContainer.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		//traceContainer.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		traceContainer.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
 		
 		// Wrap it all up ...
 		
@@ -296,7 +297,24 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 	 */
 	private void calcVisualStats ()
 	{
-		//debug ("calcVisualStats ()");
+		debug ("calcVisualStats ()");
+		
+		if (HoopExecutionListRenderer.mode==HoopExecutionListRenderer.MODEDEFAULT)
+		{
+			calcVisualStatsLinear ();
+		}
+		
+		if (HoopExecutionListRenderer.mode==HoopExecutionListRenderer.MODESTAGGERED)
+		{
+			calcVisualStatsStaggered ();
+		}		
+	}
+	/**
+	 * 
+	 */
+	private void calcVisualStatsLinear ()
+	{
+		debug ("calcVisualStatsLinear ()");
 		
 		if (model==null)
 			return;
@@ -341,19 +359,13 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 					HoopExecutionListRenderer.maxMs=aMeasure;
 			}	
 		}
-		
-		//debug ("Max time: " + HoopExecutionListRenderer.maxMs + "ms, total: " + totalMeasure + ", for pixel count: " + HoopExecutionListRenderer.totalWidth + ", with " + HoopExecutionListRenderer.totalCount + " hoops");
-		
+				
 		// Calculate transforms ...
 		
 		if (HoopExecutionListRenderer.totalWidth>0)
 		{
-			float divver=totalMeasure/HoopExecutionListRenderer.totalWidth;
-		
-			//debug ("divver: " + divver);
-		
-			//	Update all the visual settings ...
-		
+			float divver=totalMeasure/(HoopExecutionListRenderer.totalWidth-4); // account for a small amount of padding
+				
 			int offset=0;
 		
 			for (int i=0;i<model.size();i++)
@@ -363,17 +375,11 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 				if ((aHoop.getExecutionCount()>0) && (aHoop.getExecutionState().equals("STOPPED")==true))
 				{							
 					HoopVisualProperties vizProps=aHoop.getVisualProperties();
-					
-					float mult=vizProps.duration/totalMeasure;
-			
-					//debug ("duration: " + aHoop.duration + ", mult: " + mult);
-			
+											
 					vizProps.durationOffset=offset;
-					//aHoop.durationWidth=(int) (divver*mult);
+
 					vizProps.durationWidth=(int) (vizProps.duration/divver);
-			
-					//debug ("Offset: " + offset + ", width: " + aHoop.durationWidth);
-			
+						
 					offset+=vizProps.durationWidth;
 				}	
 			}
@@ -381,6 +387,79 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 		
 		calculating=false;
 	}	
+	/**
+	 * 
+	 */
+	private void calcVisualStatsStaggered ()
+	{
+		debug ("calcVisualStatsStaggered ()");
+		
+		if (model==null)
+			return;
+		
+		// This ensures that this method isn't re-entrant
+		if (calculating==true)
+			return;
+		
+		calculating=true;
+		
+		Long totalMeasure=(long) 0;
+
+		HoopExecutionListRenderer.totalCount=model.size();
+
+		for (int t=0;t<model.size();t++)
+		{
+			HoopBase aHoop=(HoopBase) model.get(t);
+			
+			if (aHoop.getExecutionCount()>0)
+			{
+				HoopPerformanceMetrics metrics=aHoop.getPerformanceMetrics();
+			
+				Long aMeasure=metrics.getYValue();
+			
+				if (HoopExecutionListRenderer.modeTime==HoopExecutionListRenderer.TIMEAVERAGE)
+				{
+					aMeasure=(long) Math.round(metrics.getAverage());
+				}
+			
+				if (aMeasure==0)
+					aMeasure=(long) 1;
+			
+				HoopVisualProperties vizProps=aHoop.getVisualProperties();
+				
+				vizProps.duration=aMeasure;
+			
+				totalMeasure+=aMeasure;			
+			}	
+		}
+				
+		// Calculate transforms ...
+		
+		if (HoopExecutionListRenderer.totalWidth>0)
+		{
+			float divver=totalMeasure/(HoopExecutionListRenderer.totalWidth-4); // account for a small amount of padding
+				
+			int offset=0;
+		
+			for (int i=0;i<model.size();i++)
+			{
+				HoopBase aHoop=(HoopBase) model.get(i);
+			
+				if ((aHoop.getExecutionCount()>0) && (aHoop.getExecutionState().equals("STOPPED")==true))
+				{							
+					HoopVisualProperties vizProps=aHoop.getVisualProperties();
+											
+					vizProps.durationOffset=offset;
+
+					vizProps.durationWidth=(int) (vizProps.duration/divver);
+						
+					offset+=vizProps.durationWidth;
+				}	
+			}
+		}
+		
+		calculating=false;
+	}		
 	/**
 	 * 
 	 */
@@ -404,6 +483,8 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 			
 			calcVisualStats ();
 			
+			executionTrace.repaint();
+			
 			return;			
 		}
 		
@@ -415,6 +496,8 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 			
 			calcVisualStats ();
 			
+			executionTrace.repaint();
+			
 			return;			
 		}
 	    
@@ -425,6 +508,8 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 			HoopExecutionListRenderer.modeTime=HoopExecutionListRenderer.TIMEAVERAGE;
 			
 			calcVisualStats ();
+			
+			executionTrace.repaint();
 			
 			return;			
 		}
@@ -454,6 +539,8 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 												Math.abs((minutes*60)-seconds)));
 			
 			calcVisualStats ();
+			
+			executionTrace.repaint();
 		}
 	}
 }
