@@ -352,8 +352,6 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 		
 		HoopExecutionListRenderer.maxMs=(long) 1;
 
-		Long totalMeasure=(long) 0;
-
 		HoopExecutionListRenderer.totalCount=model.size();
 
 		for (int t=0;t<model.size();t++)
@@ -382,9 +380,7 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 				HoopVisualProperties vizProps=aHoop.getVisualProperties();
 				
 				vizProps.duration=aMeasure;
-			
-				totalMeasure+=aMeasure;
-			
+						
 				if (aMeasure>HoopExecutionListRenderer.maxMs)
 					HoopExecutionListRenderer.maxMs=aMeasure;
 			}	
@@ -394,7 +390,7 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 		
 		if (HoopExecutionListRenderer.totalWidth>0)
 		{
-			float divver=totalMeasure/(HoopExecutionListRenderer.totalWidth-4); // account for a small amount of padding
+			float divver=HoopExecutionListRenderer.maxMs/(HoopExecutionListRenderer.totalWidth-4); // account for a small amount of padding
 				
 			int offset=0;
 		
