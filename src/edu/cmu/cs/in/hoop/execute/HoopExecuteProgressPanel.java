@@ -30,6 +30,7 @@ import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JRadioButton;
@@ -61,7 +62,9 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
     private JRadioButton showStaggered = null;
     
     private JRadioButton showAverage = null;   
-    private JRadioButton showLatest = null;    
+    private JRadioButton showLatest = null;
+    
+    private JComboBox traceChooser=null;
     
     private JLabel timeIndicator=null;    
     private Timer displayTimer=null;
@@ -161,6 +164,28 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 	    sep3.setMaximumSize(new Dimension (5,22));
 	    
 	    controlBox.add(sep3);
+	    
+		JLabel traceLabel=new JLabel ();
+		traceLabel.setText("Current Trace:");
+		traceLabel.setFont(new Font("Dialog", 1, 10));
+		traceLabel.setMinimumSize(new Dimension (100,23));
+		traceLabel.setPreferredSize(new Dimension (100,23));
+		traceLabel.setMaximumSize(new Dimension (100,23));
+		traceLabel.setHorizontalTextPosition(JLabel.CENTER);
+	    
+		controlBox.add(traceLabel);
+	    	    
+		traceChooser = new JComboBox();
+		traceChooser.setFont(new Font("Dialog",1,10));
+		traceChooser.setPreferredSize(new Dimension (50,20));
+		traceChooser.setMaximumSize(new Dimension (50,20));	    
+		
+		controlBox.add(traceChooser);
+		
+	    JSeparator sep4=new JSeparator(SwingConstants.VERTICAL);
+	    sep3.setMaximumSize(new Dimension (5,22));
+	    
+	    controlBox.add(sep4);
 		
 		controlBox.add(Box.createHorizontalGlue());
 		
@@ -176,8 +201,8 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 		executionTrace.setCellRenderer(renderer);
 		
 		JScrollPane traceContainer=new JScrollPane (executionTrace);
-		//traceContainer.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		traceContainer.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+		traceContainer.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		
 		// Wrap it all up ...
 		
