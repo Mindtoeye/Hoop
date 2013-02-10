@@ -584,4 +584,50 @@ public class HoopProject extends HoopProjectFile
 		
 		debug ("clean () Done");
 	}
+	/**
+	 * 
+	 */
+	public void resetChanged ()
+	{
+		debug ("resetChanged ()");
+		
+		for (int i=0;i<files.size();i++)
+		{
+			HoopFile tFile=files.get(i);
+			
+			if (tFile instanceof HoopProjectFile)
+			{			
+				HoopProjectFile saver=(HoopProjectFile) tFile;
+				
+				saver.resetChanged();
+			}	
+		}				
+
+		super.resetChanged();
+	}		
+	/**
+	 * 
+	 */
+	public boolean hasChanged ()
+	{
+		debug ("hasChanged ()");
+		
+		for (int i=0;i<files.size();i++)
+		{
+			HoopFile tFile=files.get(i);
+			
+			if (tFile instanceof HoopProjectFile)
+			{			
+				HoopProjectFile saver=(HoopProjectFile) tFile;
+				
+				if (saver.hasChanged()==true)
+					return (true);
+			}	
+		}				
+		
+		if (super.hasChanged()==true)
+			return (true);
+        
+		return (false);
+	}	
 }

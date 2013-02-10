@@ -366,6 +366,11 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 			
 				Long aMeasure=metrics.getYValue();
 			
+				if (HoopExecutionListRenderer.modeTime==HoopExecutionListRenderer.TIMEDEFAULT)
+				{
+					aMeasure=(long) Math.round(metrics.getMeasure());
+				}
+				
 				if (HoopExecutionListRenderer.modeTime==HoopExecutionListRenderer.TIMEAVERAGE)
 				{
 					aMeasure=(long) Math.round(metrics.getAverage());
@@ -442,6 +447,11 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 			
 				Long aMeasure=metrics.getYValue();
 			
+				if (HoopExecutionListRenderer.modeTime==HoopExecutionListRenderer.TIMEDEFAULT)
+				{
+					aMeasure=(long) Math.round(metrics.getMeasure());
+				}				
+				
 				if (HoopExecutionListRenderer.modeTime==HoopExecutionListRenderer.TIMEAVERAGE)
 				{
 					aMeasure=(long) Math.round(metrics.getAverage());
@@ -546,6 +556,8 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 			HoopExecutionListRenderer.modeTime=HoopExecutionListRenderer.TIMEDEFAULT;
 			
 			calcVisualStats ();
+			
+			executionTrace.repaint();
 			
 			return;
 		}

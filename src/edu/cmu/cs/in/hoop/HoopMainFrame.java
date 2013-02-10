@@ -1034,7 +1034,9 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 		finally
 		{
 			graph.getModel().endUpdate();
-		}												
+		}
+		
+		HoopLink.project.resetChanged();
 	}
 	/**
 	 * 
@@ -1064,34 +1066,39 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 		{
 			debug ("We already have an open project!");
 			
-			Object[] options = {"Yes","No","Cancel"};
-           	int n = JOptionPane.showOptionDialog (compReference,
-           										  "You already have a project open, save and close this project first?",
-           										  "Hoop Info Panel",
-           										  JOptionPane.YES_NO_CANCEL_OPTION,
-           										  JOptionPane.QUESTION_MESSAGE,
-           										  null,
-           										  options,
-           										  options[2]);
+			if (HoopLink.project.hasChanged()==true)
+			{			
+				debug ("Existing project has changed!");
+				
+				Object[] options = {"Yes","No","Cancel"};
+				int n = JOptionPane.showOptionDialog (compReference,
+														"You already have a project open, save and close this project first?",
+														"Hoop Info Panel",
+														JOptionPane.YES_NO_CANCEL_OPTION,
+														JOptionPane.QUESTION_MESSAGE,
+														null,
+														options,
+														options[2]);
            	
-           	if (n==0)
-           	{          	
-           		debug ("Saving project ...");
+				if (n==0)
+				{          	
+					debug ("Saving project ...");
            		
-           		startWaitCursor ();
+					startWaitCursor ();
            		
-           		HoopLink.project.save();
+					HoopLink.project.save();
            		
-           		HoopComponentSnapshot.saveScreenShot(this,HoopLink.project.getBasePath()+"/preview.png");
+					HoopComponentSnapshot.saveScreenShot(this,HoopLink.project.getBasePath()+"/preview.png");
            		
-           		endWaitCursor ();
-           	}
+					endWaitCursor ();
+				}
            	
-           	if (n==2)
-           	{
-           		debug ("Aborting creating new project");
-           		return (false);
-           	}
+				if (n==2)
+				{
+					debug ("Aborting creating new project");
+					return (false);
+				}
+			}	
 		}
 				
 		HoopJFileChooser fc = new HoopJFileChooser();
@@ -1158,60 +1165,55 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 				
 		if (HoopLink.project!=null)
 		{
-			//HoopGraphFile graphFile=(HoopGraphFile) HoopLink.project.getFileByClass ("HoopGraphFile");
-			
-			//if (graphFile!=null)
-			//{
-				//if (graphFile.getHoops().size()>0)
-				//{
 			if (HoopLink.project.isEmpty()==false)
 			{
 					debug ("We already have an open project!");
 			
-					Object[] options = {"Yes","No","Cancel"};
-					int n = JOptionPane.showOptionDialog (compReference,
-														  "You already have a project open, save and close this project first?",
-														  "Hoop Info Panel",
-           									  		  	  JOptionPane.YES_NO_CANCEL_OPTION,
-           									  		  	  JOptionPane.QUESTION_MESSAGE,
-           									  		  	  null,
-           									  		  	  options,
-           									  		  	  options[2]);
-           	
-					if (n==0)
-					{          	
-						debug ("Saving project ...");
-           		
-						if (HoopLink.project.getVirginFile()==true)
-	    				{
-							if (projectSaveAs ()==false)
-								return (false);
-	    				}
-						else
-						{
-				           	try
-				           	{
-				           		startWaitCursor ();
-				           		
-				           		HoopLink.project.save();
-				           		
-				           		HoopComponentSnapshot.saveScreenShot(this,HoopLink.project.getBasePath()+"/preview.png");
-				           	}
-				           	finally
-				           	{
-				           		endWaitCursor ();
-				           	}
-						}
-					}
-           	
-					if (n==2)
+					if (HoopLink.project.hasChanged()==true)
 					{
-						debug ("Aborting creating new project");
-						return (false);
-					}
+						Object[] options = {"Yes","No","Cancel"};
+						int n = JOptionPane.showOptionDialog (compReference,
+																"You already have a project open, save and close this project first?",
+																"Hoop Info Panel",
+           									  		  	  	JOptionPane.YES_NO_CANCEL_OPTION,
+           									  		  	  	JOptionPane.QUESTION_MESSAGE,
+           									  		  	  	null,
+           									  		  	  	options,
+           									  		  	  	options[2]);
+           	
+						if (n==0)
+						{          	
+							debug ("Saving project ...");
+           		
+							if (HoopLink.project.getVirginFile()==true)
+							{
+								if (projectSaveAs ()==false)
+									return (false);
+							}
+							else
+							{
+								try
+								{
+									startWaitCursor ();
+				           		
+									HoopLink.project.save();
+				           		
+									HoopComponentSnapshot.saveScreenShot(this,HoopLink.project.getBasePath()+"/preview.png");
+								}
+								finally
+								{
+									endWaitCursor ();
+								}
+							}
+						}
+           	
+						if (n==2)
+						{
+							debug ("Aborting creating new project");
+							return (false);
+						}
+					}	
 			}		
-				//}	
-			//}	
 		}    			
 				
 		/*

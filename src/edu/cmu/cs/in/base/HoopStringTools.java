@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.zip.CRC32;
+import java.util.zip.Checksum;
 
 public class HoopStringTools extends HoopRoot
 {    				
@@ -157,4 +159,32 @@ public class HoopStringTools extends HoopRoot
 			//debug ("* "+aLines.get(i)+" *");
 		}
 	}	
+	/**
+	 * 
+	 */
+	public static long calculateChecksum (String aString)
+	{
+        //Convert string to bytes
+        byte bytes[] = aString.getBytes();
+       
+        Checksum checksum = new CRC32();
+       
+        /*
+         * To compute the CRC32 checksum for byte array, use
+         *
+         * void update(bytes[] b, int start, int length)
+         * method of CRC32 class.
+         */
+         
+        checksum.update(bytes,0,bytes.length);
+       
+        /*
+         * Get the generated checksum using
+         * getValue method of CRC32 class.
+         */
+                
+    	long currentChecksum = checksum.getValue();
+    	
+    	return (currentChecksum);
+	}
 }

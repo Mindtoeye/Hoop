@@ -24,6 +24,7 @@ import org.jdom.Document;
 import org.jdom.output.Format;
 
 import edu.cmu.cs.in.base.HoopLink;
+import edu.cmu.cs.in.base.HoopStringTools;
 
 /** 
  * 
@@ -31,6 +32,8 @@ import edu.cmu.cs.in.base.HoopLink;
 public class HoopProjectFile extends HoopFile
 {
 	private Boolean virginFile=true;
+	
+	private long lastChecksum=0;
 	
 	/**
 	 * 
@@ -82,6 +85,8 @@ public class HoopProjectFile extends HoopFile
 		XMLOutputter outputter = new XMLOutputter(Format.getPrettyFormat());
         String xmlString = outputter.outputString(document);
 		
+        prepContents (xmlString);
+        
 		return (HoopLink.fManager.saveContents(getFileURI(),xmlString));
 	}	
 	/**
@@ -105,6 +110,8 @@ public class HoopProjectFile extends HoopFile
 		setFileURI (aURI);
 		
 		String aContent=HoopLink.fManager.loadContents (aURI);
+		
+		prepContents (aContent);
 		
 		Element root=this.fromXMLString (aContent);
 		
@@ -135,4 +142,56 @@ public class HoopProjectFile extends HoopFile
 	
 		return (super.toXML());
 	}	
+	/**
+	 * 
+	 */
+	protected void prepContents (String aContents)
+	{
+		debug ("prepContents ()");
+		
+        lastChecksum = HoopStringTools.calculateChecksum(aContents);
+	}
+	/**
+	 * 
+	 */
+	public void resetChanged ()
+	{
+		debug ("resetChanged ()");
+		
+		Document document = new Document();
+		
+		Element root=this.toXML();
+		
+		document.setContent(root);
+		
+		XMLOutputter outputter = new XMLOutputter(Format.getPrettyFormat());
+        String xmlString = outputter.outputString(document);		
+		
+        lastChecksum=HoopStringTools.calculateChecksum(xmlString);        
+	}	
+	/**
+	 * 
+	 */
+	public boolean hasChanged ()
+	{
+		debug ("hasChanged ()");
+		
+		Document document = new Document();
+		
+		Element root=this.toXML();
+		
+		document.setContent(root);
+		
+		XMLOutputter outputter = new XMLOutputter(Format.getPrettyFormat());
+        String xmlString = outputter.outputString(document);		
+		
+        long currentChecksum=HoopStringTools.calculateChecksum(xmlString);
+    	
+        debug ("Comparing last: " + lastChecksum + " to: " + currentChecksum);
+        
+    	if (lastChecksum!=currentChecksum)
+    		return (true);
+        
+		return (false);
+	}
 }

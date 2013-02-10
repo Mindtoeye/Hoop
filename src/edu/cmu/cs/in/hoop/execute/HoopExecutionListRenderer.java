@@ -173,7 +173,8 @@ public class HoopExecutionListRenderer extends HoopJPanel implements ListCellRen
 					{
 						timeIndicator.setText("~"+metrics.getAverage());
 					}
-					else
+					
+					if (HoopExecutionListRenderer.modeTime==HoopExecutionListRenderer.TIMEDEFAULT)
 					{
 						Long result=metrics.getYValue();
 						timeIndicator.setText(formatDuration (result));
