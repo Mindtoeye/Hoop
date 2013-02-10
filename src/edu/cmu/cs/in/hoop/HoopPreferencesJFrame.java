@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.prefs.Preferences;
 
 import edu.cmu.cs.in.base.HoopLink;
+import edu.cmu.cs.in.controls.HoopComponentSnapshot;
 import edu.cmu.cs.in.controls.base.HoopJFrame;
 
 /**
@@ -85,6 +86,14 @@ public class HoopPreferencesJFrame extends HoopJFrame
 	 */
 	protected void quit ()
 	{
+		if (HoopLink.project!=null)
+		{
+			if (HoopLink.project.getVirginFile()==false)
+			{
+				HoopComponentSnapshot.saveScreenShot(this,HoopLink.project.getBasePath()+"/preview.png");
+			}	
+		}	
+		
         root.putInt("left", getX());
         root.putInt("top", getY());
         root.putInt("width", getWidth());

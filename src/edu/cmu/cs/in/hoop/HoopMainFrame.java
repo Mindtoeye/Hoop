@@ -31,6 +31,7 @@ import com.mxgraph.view.mxGraph;
 
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.io.HoopMessageReceiver;
+import edu.cmu.cs.in.controls.HoopComponentSnapshot;
 import edu.cmu.cs.in.controls.HoopControlTools;
 import edu.cmu.cs.in.controls.HoopJFileChooser;
 import edu.cmu.cs.in.controls.HoopSentenceWall;
@@ -1081,6 +1082,8 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
            		
            		HoopLink.project.save();
            		
+           		HoopComponentSnapshot.saveScreenShot(this,HoopLink.project.getBasePath()+"/preview.png");
+           		
            		endWaitCursor ();
            	}
            	
@@ -1191,6 +1194,8 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 				           		startWaitCursor ();
 				           		
 				           		HoopLink.project.save();
+				           		
+				           		HoopComponentSnapshot.saveScreenShot(this,HoopLink.project.getBasePath()+"/preview.png");
 				           	}
 				           	finally
 				           	{
