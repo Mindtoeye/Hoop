@@ -18,6 +18,8 @@
 
 package edu.cmu.cs.in.hoop.editor;
 
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -31,11 +33,16 @@ import java.util.List;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
+import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
@@ -64,6 +71,7 @@ import com.mxgraph.util.mxUndoableEdit.mxUndoableChange;
 import com.mxgraph.view.mxGraph;
 
 import edu.cmu.cs.in.base.HoopLink;
+import edu.cmu.cs.in.controls.HoopButtonBox;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 
 public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWheelListener, KeyListener, MouseMotionListener
@@ -144,10 +152,36 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 		// Display some useful information about repaint events
 		installRepaintListener();
 
-		// Puts everything together
-		//setLayout(new BorderLayout());
-		//add (graphComponent,BorderLayout.CENTER);
-		this.setContentPane(graphComponent);
+		Box mainBox = new Box (BoxLayout.Y_AXIS);
+				
+		HoopButtonBox graphTools=new HoopButtonBox ();
+		graphTools.setMinimumSize(new Dimension (100,24));
+		graphTools.setPreferredSize(new Dimension (100,24));		
+
+		JButton expandButton=new JButton ();
+	    expandButton.setFont(new Font("Dialog", 1, 8));
+	    expandButton.setPreferredSize(new Dimension (20,20));
+	    expandButton.setMaximumSize(new Dimension (20,20));
+	    expandButton.setIcon(HoopLink.getImageByName("tree-expand-icon.png"));
+	   // expandButton.addActionListener(this);
+
+	    graphTools.addComponent(expandButton);
+		
+	    /*
+		Box controlBox = new Box (BoxLayout.X_AXIS);
+		
+		controlBox.setMinimumSize(new Dimension (100,24));
+		controlBox.setPreferredSize(new Dimension (100,24));		
+		controlBox.setMaximumSize(new Dimension (100,24));
+		
+		controlBox.add(graphTools);
+		*/
+		
+		mainBox.add(graphTools);
+    	mainBox.add(Box.createRigidArea(new Dimension(0,2)));
+		mainBox.add(graphComponent);
+		
+		this.setContentPane(mainBox);
 
 		installHandlers();
 		installListeners();				

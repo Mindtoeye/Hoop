@@ -52,7 +52,7 @@ public class HoopButtonBox extends HoopJPanel
 		setClassName ("HoopButtonBox");
 		debug ("HoopButtonBox ()");
 		
-		//this.setBorder (BorderFactory.createLineBorder(Color.red));		
+		this.setBorder (BorderFactory.createLineBorder(Color.red));		
 		this.setLayout(new BoxLayout (this,BoxLayout.X_AXIS));
 		
 		buttonBox=new Box (BoxLayout.X_AXIS);

@@ -57,7 +57,6 @@ import edu.cmu.cs.in.hoop.visualizers.HoopBackingDBInspector;
 import edu.cmu.cs.in.hoop.visualizers.HoopCluster;
 import edu.cmu.cs.in.hoop.visualizers.HoopParseTreeViewer;
 import edu.cmu.cs.in.hoop.visualizers.HoopScatterPlot;
-import edu.cmu.side.SimpleWorkbench;
 
 /** 
  *
@@ -479,8 +478,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     {
     	JMenu tools = new JMenu("Tools");
 
-    	JMenuItem searchItem = new JMenuItem("Search");
-    	JMenuItem SIDEItem = new JMenuItem("SIDE");    	
+    	JMenuItem searchItem = new JMenuItem("Search");    	
     	JMenuItem clusterItem = new JMenuItem("Cluster Monitor");
     	JMenuItem experimentItem = new JMenuItem("Experimenter");
     	JMenuItem reporterItem = new JMenuItem("Reporter");
@@ -499,15 +497,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     			addView ("Search",new HoopSearch (),HoopLink.center);
     		}
     	});
-    	
-    	SIDEItem.addActionListener(new ActionListener() 
-    	{
-    		public void actionPerformed(ActionEvent e) 
-    		{
-    			startSIDE ();
-    		}
-    	});
-   	
+    	   	
     	clusterItem.addActionListener(new ActionListener() 
     	{
     		public void actionPerformed(ActionEvent e) 
@@ -595,7 +585,6 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     	*/
     	    	    	
     	tools.add (searchItem);
-    	tools.add (SIDEItem);
     	tools.add (clusterItem);
     	tools.add (experimentItem);
     	tools.add (reporterItem);
@@ -1568,29 +1557,4 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 	    	//debug ("The answer stored in CustomDialog is 'false' (i.e. user clicked no button.)");
 		}							
 	}	
-	/**
-	 * 
-	 */
-	private void startSIDE ()
-	{
-		debug ("startSIDE ()");
-		   		
-		if (HoopLink.project.getVirginFile()==true)
-		{
-			alert ("Please save your project first");
-			return;
-		}
-		
-		SimpleWorkbench SIDEPane=(SimpleWorkbench) HoopLink.getWindow("SIDE");
-       	if (SIDEPane!=null)
-       	{
-       		HoopLink.popWindow("SIDE");
-           	SIDEPane.setup();
-       	}
-       	else	
-       	{
-       		SIDEPane=new SimpleWorkbench ();
-       		addView ("SIDE",SIDEPane,HoopLink.center);
-       	}       	
-	}
 }
