@@ -151,37 +151,8 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 
 		// Display some useful information about repaint events
 		installRepaintListener();
-
-		Box mainBox = new Box (BoxLayout.Y_AXIS);
-				
-		HoopButtonBox graphTools=new HoopButtonBox ();
-		graphTools.setMinimumSize(new Dimension (100,24));
-		graphTools.setPreferredSize(new Dimension (100,24));		
-
-		JButton expandButton=new JButton ();
-	    expandButton.setFont(new Font("Dialog", 1, 8));
-	    expandButton.setPreferredSize(new Dimension (20,20));
-	    expandButton.setMaximumSize(new Dimension (20,20));
-	    expandButton.setIcon(HoopLink.getImageByName("tree-expand-icon.png"));
-	   // expandButton.addActionListener(this);
-
-	    graphTools.addComponent(expandButton);
-		
-	    /*
-		Box controlBox = new Box (BoxLayout.X_AXIS);
-		
-		controlBox.setMinimumSize(new Dimension (100,24));
-		controlBox.setPreferredSize(new Dimension (100,24));		
-		controlBox.setMaximumSize(new Dimension (100,24));
-		
-		controlBox.add(graphTools);
-		*/
-		
-		mainBox.add(graphTools);
-    	mainBox.add(Box.createRigidArea(new Dimension(0,2)));
-		mainBox.add(graphComponent);
-		
-		this.setContentPane(mainBox);
+						
+		this.setContentPane(graphComponent);
 
 		installHandlers();
 		installListeners();				
