@@ -51,6 +51,8 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.task.HoopStart;
 import edu.cmu.cs.in.hoop.project.HoopGraphFile;
 import edu.cmu.cs.in.hoop.project.HoopProject;
+import edu.cmu.cs.in.hoop.project.export.HoopProjectExportInterface;
+import edu.cmu.cs.in.hoop.project.export.HoopProjectZipExport;
 import edu.cmu.cs.in.hoop.properties.HoopPropertyPanel;
 import edu.cmu.cs.in.hoop.properties.HoopVisualProperties;
 import edu.cmu.cs.in.hoop.visualizers.HoopBackingDBInspector;
@@ -72,6 +74,8 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 	private Component compReference=null;
 	
 	private	HoopExecuteInEditor runtime=null;
+	
+	private ArrayList <HoopProjectExportInterface> exportPlugins=null;
 			
 	/**
 	 *
@@ -85,12 +89,25 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     	
     	compReference=this;
     	runtime=new HoopExecuteInEditor ();
+    	
+    	exportPlugins=new ArrayList<HoopProjectExportInterface> ();
+    	
+    	buildExportPlugins ();
     	    	    	    
         buildMenus();       
         
         addButtons (this.getToolBar());
                         
         startEditor ();
+    }
+    /**
+     * 
+     */
+    protected void buildExportPlugins ()
+    {
+    	debug ("buildExportPlugins ()");
+    	
+    	exportPlugins.add(new HoopProjectZipExport ());
     }
     /**
      * 
@@ -221,17 +238,29 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     			importFiles ();
     		}
     	});    	
+    	    	
+    	JMenu exportMenu=new JMenu ("Export Project");
     	
-    	JMenuItem exp = new JMenuItem("Export ...");
-    	exp.setEnabled(false);
+    	//exp.add(exportMenu);
     	
+    	for (int i=0;i<exportPlugins.size();i++)
+    	{
+    		HoopProjectExportInterface aPlugin=exportPlugins.get(i);
+    		
+    		JMenuItem aPluginItem = new JMenuItem(aPlugin.getDescription());
+    		
+    		exportMenu.add(aPluginItem);
+    	}
+    	
+    	/*
     	exp.addActionListener(new ActionListener() 
     	{
     		public void actionPerformed(ActionEvent e) 
     		{
     		
     		}
-    	});    	
+    	});
+    	*/    	
     	
     	//>------------------------------------------------------    	
     	
@@ -261,7 +290,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     	file.add(revert);
     	file.addSeparator();
     	file.add(imp);
-    	file.add(exp);
+    	file.add(exportMenu);
     	file.addSeparator();
     	file.add(props);   
     	file.addSeparator();    	

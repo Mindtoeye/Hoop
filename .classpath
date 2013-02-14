@@ -10,7 +10,6 @@
 	<classpathentry kind="lib" path="lib/hadoop-core-1.0.0.jar"/>
 	<classpathentry kind="lib" path="lib/hadoop-tools-1.0.0.jar"/>
 	<classpathentry kind="lib" path="lib/xercesImpl.jar"/>
-	<classpathentry kind="lib" path="lib/xml-apis.jar"/>
 	<classpathentry kind="lib" path="lib/jdom.jar"/>
 	<classpathentry kind="lib" path="lib/je-5.0.34.jar"/>
 	<classpathentry kind="lib" path="lib/jcalendar-1.4.jar"/>
@@ -51,5 +50,13 @@
 	<classpathentry kind="lib" path="plugins/SIDE"/>
 	<classpathentry kind="var" path="MYSQLJDBC"/>
 	<classpathentry kind="lib" path="lib/commons-net-3.2.jar"/>
+	<classpathentry kind="lib" path="lib/batik-all.jar"/>
+	<classpathentry kind="lib" path="lib/forms-1.2.0.jar"/>
+	<classpathentry kind="lib" path="lib/js.jar"/>
+	<classpathentry kind="lib" path="lib/pdf-transcoder.jar"/>
+	<classpathentry kind="lib" path="lib/svnkit.jar"/>
+	<classpathentry kind="lib" path="lib/trident.jar"/>
+	<classpathentry kind="lib" path="lib/xml-apis.jar"/>
+	<classpathentry kind="lib" path="lib/xml-apis-ext.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

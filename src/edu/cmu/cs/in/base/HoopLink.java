@@ -311,7 +311,8 @@ public class HoopLink extends HoopProperties
 		 							 "data-inspector.png",
 		 							 "project.png",
 		 							 "splash_icon_word_balloon.gif",
-		 							 "run-cluster.png"
+		 							 "run-cluster.png",
+		 							 "annotation.gif"
 		 							 };
 	
 	public static JFrame mainFrame=null;

@@ -176,14 +176,14 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
      * large amounts of them and the base class does have a decent memory
      * footprint.
      */
-    private void debug (String aMessage)
+    protected void debug (String aMessage)
     {
     	HoopRoot.debug("HoopKVDocument",aMessage);
     }
     /**
      * 
      */
-    public HoopKVString getView (String aViewLabel)
+    public HoopKVString getDocumentView (String aViewLabel)
     {
     	ArrayList<HoopKV> viewData=views.getData ();
     	
@@ -202,11 +202,11 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
     /**
      * 
      */
-    public HoopKVString addView (String aViewLabel)
+    public HoopKVString addDocumentView (String aViewLabel)
     {
     	debug ("addView ("+aViewLabel+")");
     	
-    	HoopKVString newView=getView (aViewLabel);
+    	HoopKVString newView=getDocumentView (aViewLabel);
     	
     	if (newView==null)
     	{
@@ -454,7 +454,7 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 		
 		StringBuffer formatted=new StringBuffer ();
 		
-		HoopKVString basicTokenView=getView (aView);
+		HoopKVString basicTokenView=getDocumentView (aView);
 		
 		if (basicTokenView!=null)
 		{
@@ -484,7 +484,7 @@ public class HoopKVDocument extends HoopKVClass implements HoopKVInterface, Seri
 		
 		HoopSimpleFeatureMaker tokenizer=new HoopSimpleFeatureMaker ();
 		
-		HoopKVString basicTokenView=addView ("Simple Tokens");
+		HoopKVString basicTokenView=addDocumentView ("Simple Tokens");
 		
 		if (basicTokenView!=null)
 		{

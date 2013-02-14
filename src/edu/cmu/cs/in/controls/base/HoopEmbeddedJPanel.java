@@ -18,46 +18,25 @@
 
 package edu.cmu.cs.in.controls.base;
 
-import java.awt.BorderLayout;
 import java.awt.Component;
-//import java.awt.event.ComponentEvent;
-//import java.awt.event.ComponentListener;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JComponent;
-import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import org.jdesktop.jxlayer.JXLayer;
-import org.jdesktop.jxlayer.plaf.effect.BufferedImageOpEffect;
-import org.jdesktop.jxlayer.plaf.ext.LockableUI;
-
-import com.jhlabs.image.BlurFilter;
-
 import edu.cmu.cs.in.base.HoopLink;
-import edu.cmu.cs.in.base.HoopProperties;
 
 /** 
- * @author vvelsen
  *
  */
-public class HoopEmbeddedJPanel extends HoopJPanel
+public class HoopEmbeddedJPanel extends HoopLockableJPanel
 {	
 	private static final long serialVersionUID = 1L;
-	
-	private Component contentPane=null;
-	
+		
 	/// Most of them are single instances, we'll let selected panels override this
 	private Boolean singleInstance=true;
 	
 	private JTabbedPane host=null;
-	
-	private JPanel view=null;
-	
-	private LockableUI blurUI = null;
-	private JXLayer<JComponent> layer=null;
-	
+			
 	private ImageIcon icon=null;
 	
 	/**
@@ -68,25 +47,7 @@ public class HoopEmbeddedJPanel extends HoopJPanel
 		setClassName ("HoopEmbeddedJPanel");
 		debug ("HoopEmbeddedJPanel ()");
 		
-		icon=HoopLink.imageIcons [5];
-		
-		this.setBorder(BorderFactory.createEmptyBorder(HoopProperties.tabPadding,HoopProperties.tabPadding,HoopProperties.tabPadding,HoopProperties.tabPadding));		
-		this.setLayout(new BorderLayout(2,2));
-		//this.addComponentListener(this);
-
-		blurUI = new LockableUI(new BufferedImageOpEffect(new BlurFilter()));
-		
-		view=new JPanel ();
-		view.setLayout(new BorderLayout(0,0));
-		
-		layer=new JXLayer<JComponent>(view);
-		layer.setUI (blurUI);
-		
-		this.add(layer);
-		
-		//contentPane=view;
-		
-		//setContentPane (layer);
+		icon=HoopLink.imageIcons [5];		
 	}	
 	/**
 	 * 
@@ -97,24 +58,6 @@ public class HoopEmbeddedJPanel extends HoopJPanel
 		debug ("HoopEmbeddedJPanel (ImageIcon)");
 		
 		icon=anIcon;
-		
-		this.setBorder(BorderFactory.createEmptyBorder(HoopProperties.tabPadding,HoopProperties.tabPadding,HoopProperties.tabPadding,HoopProperties.tabPadding));		
-		this.setLayout(new BorderLayout(2,2));
-		//this.addComponentListener(this);
-
-		blurUI = new LockableUI(new BufferedImageOpEffect(new BlurFilter()));
-		
-		view=new JPanel ();
-		view.setLayout(new BorderLayout(0,0));
-		
-		layer=new JXLayer<JComponent>(view);
-		layer.setUI (blurUI);
-		
-		this.add(layer);
-		
-		//contentPane=view;
-		
-		//setContentPane (layer);
 	}
 	/**
 	 * 
@@ -202,14 +145,4 @@ public class HoopEmbeddedJPanel extends HoopJPanel
 	{
 		this.singleInstance = singleInstance;
 	}	
-	/**
-	 * 
-	 */
-	public void setLocked (Boolean aVal)
-	{
-		debug ("setLocked ()");
-		
-		if (blurUI!=null)
-			blurUI.setLocked (aVal);
-	}
 }

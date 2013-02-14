@@ -20,8 +20,11 @@ package edu.cmu.cs.in.hoop.editor;
 
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -29,22 +32,23 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JSeparator;
+import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.SwingConstants;
+import javax.swing.JToggleButton;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+
+import org.pushingpixels.flamingo.api.bcb.JBreadcrumbBar;
+import org.pushingpixels.flamingo.api.bcb.core.BreadcrumbFileSelector;
 
 import com.mxgraph.layout.mxCircleLayout;
 import com.mxgraph.layout.mxCompactTreeLayout;
@@ -71,17 +75,25 @@ import com.mxgraph.util.mxUndoableEdit.mxUndoableChange;
 import com.mxgraph.view.mxGraph;
 
 import edu.cmu.cs.in.base.HoopLink;
+import edu.cmu.cs.in.controls.HoopBreadCrumbBar;
 import edu.cmu.cs.in.controls.HoopButtonBox;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
+import edu.cmu.cs.in.controls.base.HoopLockableJPanel;
 
-public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWheelListener, KeyListener, MouseMotionListener
+public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWheelListener, KeyListener, MouseMotionListener, ActionListener
 {
 	private static final long serialVersionUID = -1L;
 	protected mxGraphComponent graphComponent;
 	protected mxGraph graph=null;
 	protected mxUndoManager undoManager;
+	
 	protected String appTitle;
 	protected File currentFile;
+	
+	protected JToggleButton annotateToggle=null;
+	protected HoopLockableJPanel graphContainer=null;
+	
+	protected HoopBreadCrumbBar phaseBreadCrumbBar=null;
 
 	/// Flag indicating whether the current graph has been modified 
 	protected boolean modified = false;
@@ -114,7 +126,8 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 	/**
 	 * 
 	 */
-	public HoopBasicGraphEditor (String appTitle, mxGraphComponent component)
+	public HoopBasicGraphEditor (String appTitle, 
+								 mxGraphComponent component)
 	{
 		super (HoopLink.getImageByName("hoop-graph.png"));
 		
@@ -152,7 +165,7 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 		// Display some useful information about repaint events
 		installRepaintListener();
 						
-		this.setContentPane(graphComponent);
+		createEditorGUI ();
 
 		installHandlers();
 		installListeners();				
@@ -165,6 +178,82 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 			graphComponent.getSelectionCellsHandler().setEnabled(false);
 			graphComponent.getSelectionCellsHandler().setVisible(false);			
 		}	
+	}
+	/**
+	 * 
+	 */
+	private void createEditorGUI ()
+	{
+		debug ("createEditorGUI ()");
+		
+		JPanel container=(JPanel) this.getContentPane();
+		
+		graphContainer=new HoopLockableJPanel ();
+		
+		graphContainer.add(graphComponent);
+		
+		container.setLayout(new GridBagLayout());
+		
+        GridBagConstraints c = new GridBagConstraints();
+        				
+		HoopButtonBox graphControls=new HoopButtonBox ();
+		graphControls.setMinimumSize(new Dimension (100,24));
+		graphControls.setPreferredSize(new Dimension (100,24));
+		
+		c.gridx=0;
+		c.gridy=0;
+		c.weightx=1.0;
+		c.weighty=0.0;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		
+		container.add(graphControls,c);
+		//container.add(Box.createRigidArea(new Dimension(0,2)));
+		
+		c.gridx=0;
+		c.gridy=1;
+		c.weightx=1.0;
+		c.weighty=1.0;		
+		c.fill = GridBagConstraints.BOTH;
+		
+		container.add(graphContainer,c);
+		
+		// setup buttons and breadcrumb menu ...
+		
+		annotateToggle=new JToggleButton ();
+		annotateToggle.setFont(new Font("Dialog", 1, 8));
+		annotateToggle.setPreferredSize(new Dimension (20,20));
+		annotateToggle.setMaximumSize(new Dimension (20,20));
+		annotateToggle.setIcon(HoopLink.getImageByName("annotation.gif"));
+		annotateToggle.addActionListener(this);		
+	    
+	    graphControls.addComponent(annotateToggle);
+	    
+	    /*
+	    phaseBreadCrumbBar=new HoopBreadCrumbBar (null);
+	    phaseBreadCrumbBar.setMinimumSize(new Dimension (100,24));
+	    
+	    graphControls.addComponent(phaseBreadCrumbBar);
+	    
+	    createBreadCrumbs ();
+	    */
+	    
+	    BreadcrumbFileSelector bar=new BreadcrumbFileSelector ();
+	    graphControls.addComponent(bar);
+	}
+	/**
+	 * 
+	 */
+	private void createBreadCrumbs ()
+	{
+		debug ("createBreadCrumbs ()");
+		
+		ArrayList<String> demoCrumbs=new ArrayList<String> ();
+		
+		demoCrumbs.add("First");
+		demoCrumbs.add("Second");
+		demoCrumbs.add("Third");
+		
+		phaseBreadCrumbBar.setPath(demoCrumbs);
 	}
 	/** 
 	 * @return JTabbedPane
@@ -745,5 +834,27 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 		}
 		else
 			status("S: "+ graphComponent.getGraph ().getView ().getScale () + ", "+ e.getX() + ", " + e.getY());		
+	}
+	/**
+	 * 
+	 */
+	@Override
+	public void actionPerformed(ActionEvent e) 
+	{
+		debug ("actionPerformed ()");
+		
+		if (e.getSource()==annotateToggle)
+		{
+			debug ("Toggling annotation view ...");
+			
+			if (annotateToggle.isSelected()==true)
+			{				
+				graphContainer.setLocked(true);
+			}
+			else
+			{
+				graphContainer.setLocked(false);
+			}
+		}
 	}
 }

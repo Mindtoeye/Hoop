@@ -201,7 +201,7 @@ public class HoopCustomExperimentTest extends HoopAnalyze implements HoopInterfa
 				
 		//String aKey=aDocument.threadID.getValue();
 		
-		HoopKVString basicTokenView=aDocument.getView ("Simple Tokens");
+		HoopKVString basicTokenView=aDocument.getDocumentView ("Simple Tokens");
 		
 		if (basicTokenView==null)
 		{
