@@ -100,33 +100,33 @@ public class HoopDataType extends HoopAnnotation
 		switch (aType)
 		{
 			case CLASS:
-						return ("CLASS");
+							return ("CLASS");
 			case INT:						
-						return ("INT");
+							return ("INT");
 			case LONG:			
-						return ("LONG");
+							return ("LONG");
 			case STRING:			
-						return ("STRING");
+							return ("STRING");
 			case FLOAT:			
-						return ("FLOAT");
+							return ("FLOAT");
 			case BOOLEAN:			
-						return ("BOOLEAN");
+							return ("BOOLEAN");
 			case ENUM:			
-						return ("ENUM");
+							return ("ENUM");
 			case TABLE:			
-						return ("TABLE");
+							return ("TABLE");
 			case DOCUMENT:			
-						return ("DOCUMENT");
+							return ("DOCUMENT");
 			case DATE:			
-						return ("DATE");
+							return ("DATE");
 			case COLOR:			
-						return ("COLOR");
+							return ("COLOR");
 			case FONT:			
-						return ("FONT");
+							return ("FONT");
 			case URI:			
-						return ("URI");
+							return ("URI");
 			case URL:			
-						return ("URL");
+							return ("URL");
 		}
 		
 		return ("CLASS");		
@@ -139,33 +139,33 @@ public class HoopDataType extends HoopAnnotation
 		switch (type)
 		{
 			case CLASS:
-						return ("CLASS");
+							return ("CLASS");
 			case INT:						
-						return ("INT");
+							return ("INT");
 			case LONG:			
-						return ("LONG");
+							return ("LONG");
 			case STRING:			
-						return ("STRING");
+							return ("STRING");
 			case FLOAT:			
-						return ("FLOAT");
+							return ("FLOAT");
 			case BOOLEAN:			
-						return ("BOOLEAN");
+							return ("BOOLEAN");
 			case ENUM:			
-						return ("ENUM");
+							return ("ENUM");
 			case TABLE:			
-						return ("TABLE");
+							return ("TABLE");
 			case DOCUMENT:			
-						return ("DOCUMENT");
+							return ("DOCUMENT");
 			case DATE:			
-						return ("DATE");
+							return ("DATE");
 			case COLOR:			
-						return ("COLOR");
+							return ("COLOR");
 			case FONT:			
-						return ("FONT");
+							return ("FONT");
 			case URI:			
-						return ("URI");
+							return ("URI");
 			case URL:			
-						return ("URL");
+							return ("URL");
 		}
 		
 		return ("CLASS");

@@ -31,6 +31,8 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
 */
 public class HoopEvaluate extends HoopAnalyze implements HoopInterface
 {    					
+	private static final long serialVersionUID = -7513235673511956350L;
+	
 	/**
 	 *
 	 */

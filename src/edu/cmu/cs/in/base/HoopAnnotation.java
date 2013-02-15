@@ -21,7 +21,11 @@ package edu.cmu.cs.in.base;
 /**
  * We mimic the UIMA annotation class here, but it is important to
  * not that we do not derive from it since that would create 
- * incredibly large memory footprints. 
+ * incredibly large memory footprints. Also the precise implementation
+ * and meaning might be slightly different. The begin and end 
+ * pointers are not just used to index into text but could also be
+ * used to index into lists of KV objects or any other structured
+ * data set
  */
 public class HoopAnnotation
 {	
@@ -34,5 +38,33 @@ public class HoopAnnotation
     public HoopAnnotation () 
     {
 
+    }
+    /**
+     * 
+     */
+    public Boolean isAnnotationValid ()
+    {
+    	if (begin<end)
+    		return (true);
+    	
+    	return (false);
+    }
+    /**
+     * 
+     */
+    public int getAnnotationLength ()
+    {
+    	if (isAnnotationValid ()==false)
+    		return (0);
+    	
+    	return (end-begin);
+    }
+    /**
+     * 
+     */
+    public void resetAnnotation ()
+    {
+    	begin=0;
+    	end=0;
     }
 }

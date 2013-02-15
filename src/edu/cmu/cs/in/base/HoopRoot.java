@@ -33,21 +33,24 @@ import org.jdom.Element;
 import edu.cmu.cs.in.base.HoopFilterBase;
 import edu.cmu.cs.in.base.io.HoopVFSL;
 
+/**
+ * 
+ */
 public class HoopRoot extends HoopDataType
 {
-	private SimpleDateFormat df;	
+	public static SimpleDateFormat df=new SimpleDateFormat ("HH:mm:ss.SSS");
+	public static FileWriter dbgFile=null;
+	public static PrintWriter dbgOut = null;
+	
 	private String instanceName="Undefined";
 	private String className="HoopBase";
 	private String classType="Unknown"; // Used for serialization and should be a base type
 	private String errorString="";
 	
-	public static boolean logToDisk=true;
+	public static boolean logToDisk=false;
 	
 	private ArrayList<HoopFilterBase> filters=null;
-	
-	public static FileWriter dbgFile=null;
-	public static PrintWriter dbgOut = null;
-		
+			
 	/**
 	 *
 	 */
@@ -56,7 +59,6 @@ public class HoopRoot extends HoopDataType
 		setClassName ("HoopRoot");
 		//debug ("HoopRoot ()");
 		
-		df=new SimpleDateFormat ("HH:mm:ss.SSS");
 		filters=new ArrayList<HoopFilterBase> ();
 		
 		if (HoopRoot.logToDisk==true)
@@ -94,10 +96,10 @@ public class HoopRoot extends HoopDataType
 	/**
 	 *
 	 */
-   public void setClassType (String aName)
-   {
-   	classType=aName;
-   }
+	public void setClassType (String aName)
+	{
+		classType=aName;
+	}
 	/**
 	 *
 	 */

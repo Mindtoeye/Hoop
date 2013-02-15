@@ -28,6 +28,7 @@ import edu.cmu.cs.in.hoop.hoops.analyze.HoopKVStats;
 import edu.cmu.cs.in.hoop.hoops.analyze.HoopMatcher;
 import edu.cmu.cs.in.hoop.hoops.analyze.HoopNaiveBayes;
 import edu.cmu.cs.in.hoop.hoops.analyze.HoopSemanticPatterns;
+import edu.cmu.cs.in.hoop.hoops.analyze.HoopWekaML;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBatch;
 import edu.cmu.cs.in.hoop.hoops.base.HoopCopy;
@@ -243,5 +244,6 @@ public class HoopManager extends HoopBase
     	addTemplate (new HoopThreadReader ());
     	addTemplate (new HoopFTPReader ());
     	addTemplate (new HoopDocumentIndexer ());
+    	addTemplate (new HoopWekaML ());
     }
 }
