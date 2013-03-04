@@ -28,7 +28,7 @@ import org.apache.hadoop.mapred.*;
 import edu.cmu.cs.in.base.HoopDf;
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.HoopLink;
-import edu.cmu.cs.in.stats.HoopPerformanceMetrics;
+import edu.cmu.cs.in.stats.HoopPerformanceMeasure;
 import edu.cmu.cs.in.base.HoopToken;
 
 /** 
@@ -38,7 +38,7 @@ import edu.cmu.cs.in.base.HoopToken;
 public class HoopInvertedListReducer extends HoopHadoopReporter implements Reducer<Text, Text, Text, Text> 
 { 
 	private ArrayList <HoopDf>documents=null;
-	private HoopPerformanceMetrics reducerMarker=null;
+	private HoopPerformanceMeasure reducerMarker=null;
 	
 	/**
 	 * 
@@ -137,7 +137,7 @@ public class HoopInvertedListReducer extends HoopHadoopReporter implements Reduc
 		
 		if (HoopLink.metrics!=null)
 		{
-			reducerMarker=new HoopPerformanceMetrics ();
+			reducerMarker=new HoopPerformanceMeasure ();
 			reducerMarker.setMarker("Reducer");
 			HoopLink.metrics.add(reducerMarker);
 		}

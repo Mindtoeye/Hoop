@@ -35,7 +35,7 @@ import edu.cmu.cs.in.controls.HoopProgressPainter;
 import edu.cmu.cs.in.controls.base.HoopJPanel;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.properties.HoopVisualProperties;
-import edu.cmu.cs.in.stats.HoopPerformanceMetrics;
+import edu.cmu.cs.in.stats.HoopPerformanceMeasure;
 
 /**
  * A cell renderer is essentially a singleton instance, which 
@@ -163,7 +163,7 @@ public class HoopExecutionListRenderer extends HoopJPanel implements ListCellRen
 			{				  
 				progressIndicator.setEnabled(true);
 				
-				HoopPerformanceMetrics metrics=aHoop.getPerformanceMetrics();
+				HoopPerformanceMeasure metrics=aHoop.getPerformanceMetrics();
 				  
 				if (metrics!=null)
 				{				

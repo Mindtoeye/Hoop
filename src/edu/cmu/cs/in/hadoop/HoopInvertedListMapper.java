@@ -26,7 +26,7 @@ import org.apache.hadoop.mapred.*;
 
 import edu.cmu.cs.in.HoopDocumentParser;
 import edu.cmu.cs.in.base.HoopLink;
-import edu.cmu.cs.in.stats.HoopPerformanceMetrics;
+import edu.cmu.cs.in.stats.HoopPerformanceMeasure;
 import edu.cmu.cs.in.base.HoopToken;
 
 /** 
@@ -37,7 +37,7 @@ public class HoopInvertedListMapper extends HoopHadoopReporter implements Mapper
 {
 	//private final static LongWritable one=new LongWritable (1);
 	private Text word=new Text();
-	private HoopPerformanceMetrics mapperMarker=null;
+	private HoopPerformanceMeasure mapperMarker=null;
 	private HoopPartitioner partitioner=null;
 		
 	/**
@@ -85,7 +85,7 @@ public class HoopInvertedListMapper extends HoopHadoopReporter implements Mapper
 				
 		if (HoopLink.metrics!=null)
 		{
-			mapperMarker=new HoopPerformanceMetrics ();
+			mapperMarker=new HoopPerformanceMeasure ();
 			mapperMarker.setMarker("Mapper");
 			HoopLink.metrics.add(mapperMarker);
 		}

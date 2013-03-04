@@ -22,8 +22,11 @@ import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.HoopRoot;
 import edu.cmu.cs.in.base.HoopLink;
-import edu.cmu.cs.in.stats.HoopPerformanceMetrics;
+import edu.cmu.cs.in.stats.HoopPerformanceMeasure;
 
+/**
+ * 
+ */
 public class HoopStatistics extends HoopRoot
 {    			
 	private ArrayList <HoopStatisticsMeasure> measures=null;
@@ -82,7 +85,7 @@ public class HoopStatistics extends HoopRoot
     	
     	for (int i=0;i<HoopLink.metrics.size();i++)
     	{    		
-    		HoopPerformanceMetrics entry=HoopLink.metrics.get(i);
+    		HoopPerformanceMeasure entry=HoopLink.metrics.get(i);
     		
     		if (entry.isOpen()==false)
     		{

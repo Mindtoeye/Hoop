@@ -26,8 +26,8 @@ import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 import edu.cmu.cs.in.hoop.HoopStatistics;
 import edu.cmu.cs.in.hoop.visualizers.HoopCluster;
 import edu.cmu.cs.in.hoop.visualizers.HoopScatterPlot;
-import edu.cmu.cs.in.stats.HoopPerformanceMetrics;
 import edu.cmu.cs.in.network.HoopMessageHandlerInterface;
+import edu.cmu.cs.in.stats.HoopPerformanceMeasure;
 
 /**
 *
@@ -49,11 +49,11 @@ public class HoopMessageHandler extends HoopRoot implements HoopMessageHandlerIn
 	 * know we have small amounts of data or where the calculation
 	 * time doesn't matter.
 	 */
-    private HoopPerformanceMetrics findPerformanceMetric (String guid)
+    private HoopPerformanceMeasure findPerformanceMetric (String guid)
     {
     	for (int i=0;i<HoopLink.metrics.size();i++)
     	{
-    		HoopPerformanceMetrics check=HoopLink.metrics.get(i);
+    		HoopPerformanceMeasure check=HoopLink.metrics.get(i);
     		if (check.getGuid().equals(guid)==true)
     		{
     			return (check);
@@ -131,7 +131,7 @@ public class HoopMessageHandler extends HoopRoot implements HoopMessageHandlerIn
 			hadoopNode=root.getAttributeValue("node");			
 			time=Long.parseLong(root.getAttributeValue("time"));    	
 			
-			HoopPerformanceMetrics measure=new HoopPerformanceMetrics ();
+			HoopPerformanceMeasure measure=new HoopPerformanceMeasure ();
 			measure.setLabel(hadoopID);
 			measure.setGuid(hadoopGUID);
 			measure.setInPoint(time);
@@ -167,7 +167,7 @@ public class HoopMessageHandler extends HoopRoot implements HoopMessageHandlerIn
 			hadoopNode=root.getAttribute("node");			
 			time=Long.parseLong(root.getAttribute("time"));
 			
-			HoopPerformanceMetrics measure=new HoopPerformanceMetrics ();
+			HoopPerformanceMeasure measure=new HoopPerformanceMeasure ();
 			measure.setLabel(hadoopID);
 			measure.setGuid(hadoopGUID);
 			measure.setInPoint(time);
@@ -201,7 +201,7 @@ public class HoopMessageHandler extends HoopRoot implements HoopMessageHandlerIn
 			hadoopNode=root.getAttributeValue("node");
 			time=Long.parseLong(root.getAttributeValue("time"));
 			
-			HoopPerformanceMetrics update=findPerformanceMetric (hadoopGUID);
+			HoopPerformanceMeasure update=findPerformanceMetric (hadoopGUID);
 			
 			if (update!=null)
 			{    		
@@ -251,7 +251,7 @@ public class HoopMessageHandler extends HoopRoot implements HoopMessageHandlerIn
 			hadoopNode=root.getAttribute("node");
 			time=Long.parseLong(root.getAttribute("time"));
 			
-			HoopPerformanceMetrics update=findPerformanceMetric (hadoopGUID);
+			HoopPerformanceMeasure update=findPerformanceMetric (hadoopGUID);
 			if (update!=null)
 			{
 				debug ("Updating: " + update.getLabel()+" with outpoint: " + time + "for inpoint:" + update.getInPoint());

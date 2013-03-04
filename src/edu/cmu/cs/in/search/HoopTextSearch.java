@@ -28,7 +28,7 @@ import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.search.HoopQueryOperator;
 import edu.cmu.cs.in.search.HoopPositionEntry;
 import edu.cmu.cs.in.search.HoopPositionList;
-import edu.cmu.cs.in.stats.HoopPerformanceMetrics;
+import edu.cmu.cs.in.stats.HoopPerformanceMeasure;
 
 /**
 * Here you will find a term query full text search class. In 
@@ -97,7 +97,7 @@ public class HoopTextSearch extends HoopRoot
 		
 		// First set a marker so that we can see how long it all took
 		
-		HoopPerformanceMetrics metrics=new HoopPerformanceMetrics ();
+		HoopPerformanceMeasure metrics=new HoopPerformanceMeasure ();
 		metrics.setMarker ("Query ");
 		HoopLink.metrics.add(metrics);
 		

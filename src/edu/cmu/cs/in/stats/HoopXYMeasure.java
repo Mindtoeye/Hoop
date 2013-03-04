@@ -20,7 +20,13 @@ package edu.cmu.cs.in.stats;
 
 import edu.cmu.cs.in.base.HoopRoot;
 
-public class HoopXYMeasure extends HoopRoot
+//import edu.cmu.cs.in.base.HoopRoot;
+
+/**
+ * Careful here, we don't want to inherit from HoopRoot since this object
+ * will be instantiated lots and lots of times.
+ */
+public class HoopXYMeasure //extends HoopRoot
 {    						
 	protected long xValue=0;
 	protected long yValue=0;
@@ -30,9 +36,16 @@ public class HoopXYMeasure extends HoopRoot
 	 */
     public HoopXYMeasure () 
     {
-		setClassName ("HoopXYMeasure");
+		//setClassName ("HoopXYMeasure");
 		//debug ("HoopXYMeasure ()");						
     }  
+    /**
+     * 
+     */
+    protected void debug (String aMessage)
+    {
+    	HoopRoot.debug("HoopXYMeasure",aMessage);
+    }
 	/**
 	 *
 	 */	
@@ -52,7 +65,7 @@ public class HoopXYMeasure extends HoopRoot
 	 */	
 	public void setYValue(long aValue) 
 	{
-		debug ("setYValue ("+aValue+")");
+		//debug ("setYValue ("+aValue+")");
 				
 		if (aValue!=0)
 			yValue=aValue;

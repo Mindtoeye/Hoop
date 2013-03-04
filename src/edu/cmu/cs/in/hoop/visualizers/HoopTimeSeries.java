@@ -29,13 +29,13 @@ import javax.swing.BorderFactory;
 
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
-import edu.cmu.cs.in.stats.HoopPerformanceMetrics;
+import edu.cmu.cs.in.stats.HoopPerformanceMeasure;
 
 public class HoopTimeSeries extends HoopEmbeddedJPanel
 {		
 	private static final long serialVersionUID = 316985892467849872L;
 	
-	private ArrayList <HoopPerformanceMetrics>data=null;
+	private ArrayList <HoopPerformanceMeasure>data=null;
 	
 	private float min=5000000;
 	private float max=-5000000;
@@ -64,7 +64,7 @@ public class HoopTimeSeries extends HoopEmbeddedJPanel
 	/**
 	 *
 	 */
-	public void setData (ArrayList<HoopPerformanceMetrics> aData)
+	public void setData (ArrayList<HoopPerformanceMeasure> aData)
 	{
 		data=aData;
 		dataPrep=false;
@@ -90,7 +90,7 @@ public class HoopTimeSeries extends HoopEmbeddedJPanel
     	    	
     	for (int j=0;j<data.size();j++) // OPTIMIZE THIS!
     	{    		
-    		HoopPerformanceMetrics test=data.get(j);
+    		HoopPerformanceMeasure test=data.get(j);
     		    		
     		if ((test.isOpen()==false) && (test.getLabel().equals("Main")==false))
     		{    		
@@ -194,7 +194,7 @@ public class HoopTimeSeries extends HoopEmbeddedJPanel
     	    	
     	for (int i=0;i<data.size();i++)
     	{    		
-    		HoopPerformanceMetrics measure=data.get(i);
+    		HoopPerformanceMeasure measure=data.get(i);
     		
     		if ((measure.isOpen()==false) && (measure.getLabel().equals("Main")==false))
     		{

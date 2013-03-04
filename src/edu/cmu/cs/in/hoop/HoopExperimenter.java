@@ -52,7 +52,7 @@ import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 //import edu.cmu.cs.in.controls.base.HoopJInternalFrame;
 //import edu.cmu.cs.in.controls.HoopVisualFeature;
 import edu.cmu.cs.in.search.HoopTextSearch;
-import edu.cmu.cs.in.stats.HoopPerformanceMetrics;
+import edu.cmu.cs.in.stats.HoopPerformanceMeasure;
 //import edu.cmu.cs.in.stats.HoopTrecEval;
 
 /**
@@ -232,7 +232,7 @@ public class HoopExperimenter extends HoopEmbeddedJPanel implements ActionListen
 			
 			debug ("Running experiment ...");
 			
-			HoopPerformanceMetrics metrics=new HoopPerformanceMetrics ();
+			HoopPerformanceMeasure metrics=new HoopPerformanceMeasure ();
 			metrics.setMarker ("Query Experiment");
 			HoopLink.metrics.add(metrics);
 			

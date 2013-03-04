@@ -25,7 +25,11 @@ import java.util.Date;
 
 //import edu.cmu.cs.in.base.HoopBase;
 
-public class HoopPerformanceMetrics extends HoopXYMeasure implements Serializable
+/**
+ * Careful here, we don't want to inherit from HoopRoot since this object
+ * will be instantiated lots and lots of times.
+ */
+public class HoopPerformanceMeasure extends HoopSampleMeasure implements Serializable
 {    							
 	private static final long serialVersionUID = 4186308870928663985L;
 	
@@ -33,42 +37,26 @@ public class HoopPerformanceMetrics extends HoopXYMeasure implements Serializabl
 	private Date outPoint=null;
 	private String label="";
 	private String guid="";
-	private Boolean open=true;
-	
-	private ArrayList<HoopXYMeasure> values=null;
 	
 	/**
 	 *
 	 */
-    public HoopPerformanceMetrics () 
+    public HoopPerformanceMeasure () 
     {
-		setClassName ("HoopPerformanceMetrics");
-		//debug ("HoopPerformanceMetrics ()");
-		
-		values=new ArrayList<HoopXYMeasure> ();
+
     }  
-	/**
-	 *
-	 */
-    public Boolean isOpen ()
-    {
-    	return (open);
-    }    
 	/**
 	 *
 	 */
     public void reset ()
     {
-    	debug ("reset ()");
-    	
-    	values=new ArrayList<HoopXYMeasure> ();
+    	super.reset();
     	
     	xValue=0;
     	yValue=0;    	
     	
     	inPoint=null;
     	outPoint=null;
-    	open=true;
     	label="";
     }
 	/**
@@ -96,7 +84,8 @@ public class HoopPerformanceMetrics extends HoopXYMeasure implements Serializabl
     	
     	HoopXYMeasure newValue=new HoopXYMeasure ();
     	newValue.setYValue(this.getYValue());    	
-    	values.add(newValue);
+    	
+    	addValue (newValue);    	
     }
     /**
      * 
@@ -114,27 +103,28 @@ public class HoopPerformanceMetrics extends HoopXYMeasure implements Serializabl
     	setYValue (outPoint.getTime()-inPoint.getTime());
     	
     	HoopXYMeasure newValue=new HoopXYMeasure ();
-    	newValue.setYValue(this.getYValue());    	
-    	values.add(newValue);
+    	newValue.setYValue(this.getYValue());
+    	
+    	addValue (newValue);
     }    
     /**
      * 
      */
     public float getAverage ()
     {
-    	if (values.size()==0)
+    	if (getValuesSize ()==0)
     		return (float) (0.0);
     	
     	long total=0;
     	
-    	for (int i=0;i<values.size();i++)
+    	for (int i=0;i<getValuesSize ();i++)
     	{
-    		HoopXYMeasure measure=values.get (i);
+    		HoopXYMeasure measure=getValue (i);
     		    		
     		total+=measure.getYValue();
     	}
     	
-    	return (total/values.size());
+    	return (total/getValuesSize ());
     }
 	/**
 	 *
@@ -159,7 +149,7 @@ public class HoopPerformanceMetrics extends HoopXYMeasure implements Serializabl
    	
       	outPoint=new Date (aPoint);
       	setYValue (outPoint.getTime()-inPoint.getTime());
-      	open=false;
+      	setOpen (false);
     }    
 	/**
 	 *

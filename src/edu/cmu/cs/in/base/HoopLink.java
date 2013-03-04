@@ -48,9 +48,8 @@ import edu.cmu.cs.in.hoop.execute.HoopExecutionMonitor;
 import edu.cmu.cs.in.hoop.project.HoopProject;
 import edu.cmu.cs.in.hoop.properties.HoopStoredProperties;
 import edu.cmu.cs.in.hoop.properties.types.HoopBooleanSerializable;
-//import edu.cmu.cs.in.hoop.properties.types.HoopSerializable;
 import edu.cmu.cs.in.search.HoopTextSearch;
-import edu.cmu.cs.in.stats.HoopPerformanceMetrics;
+import edu.cmu.cs.in.stats.HoopPerformanceMeasure;
 import edu.cmu.cs.in.stats.HoopStatistics;
 
 /**
@@ -319,7 +318,7 @@ public class HoopLink extends HoopProperties
 	
 	public static String vocabularyPath="./";
 	public static ArrayList <String> posFiles=null;	
-	public static ArrayList <HoopPerformanceMetrics> metrics=null;
+	public static ArrayList <HoopPerformanceMeasure> metrics=null;
 	public static ArrayList <HoopEmbeddedJPanel> windows=null;
 	public static ArrayList <HoopTextSearch> searchHistory=null;
 	public static ArrayList <String>jobs=null;
@@ -387,7 +386,7 @@ public class HoopLink extends HoopProperties
 			stats=new HoopStatistics ();
 		
 		if (metrics==null)
-			metrics=new ArrayList<HoopPerformanceMetrics> ();
+			metrics=new ArrayList<HoopPerformanceMeasure> ();
 		
 		if (windows==null)
 			windows=new ArrayList<HoopEmbeddedJPanel>();

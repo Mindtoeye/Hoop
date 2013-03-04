@@ -27,7 +27,7 @@ import edu.cmu.cs.in.base.HoopRoot;
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.io.HoopMessageReceiver;
 import edu.cmu.cs.in.base.io.HoopStreamedSocket;
-import edu.cmu.cs.in.stats.HoopPerformanceMetrics;
+import edu.cmu.cs.in.stats.HoopPerformanceMeasure;
 
 /**
 *
@@ -37,7 +37,7 @@ public class HoopHadoopReporter extends HoopRoot implements HoopMessageReceiver
 	private HoopStreamedSocket socket=null;	
 	private String guid="";
 	private String hadoopClass="Undefined";
-	private HoopPerformanceMetrics marker=null;
+	private HoopPerformanceMeasure marker=null;
 	public static String cachedMachineName="undefined";	
 	private JobConf job=null;
 	
@@ -50,7 +50,7 @@ public class HoopHadoopReporter extends HoopRoot implements HoopMessageReceiver
 		//debug ("HoopHadoopReporter ()");
 		
 		setGuid(UUID.randomUUID().toString());
-		marker=new HoopPerformanceMetrics ();
+		marker=new HoopPerformanceMeasure ();
     }
 	/**
 	 *

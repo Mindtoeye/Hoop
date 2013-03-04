@@ -45,7 +45,7 @@ import edu.cmu.cs.in.controls.HoopControlTools;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.properties.HoopVisualProperties;
-import edu.cmu.cs.in.stats.HoopPerformanceMetrics;
+import edu.cmu.cs.in.stats.HoopPerformanceMeasure;
 
 /** 
  *
@@ -360,7 +360,7 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 			
 			if (aHoop.getExecutionCount()>0)
 			{
-				HoopPerformanceMetrics metrics=aHoop.getPerformanceMetrics();
+				HoopPerformanceMeasure metrics=aHoop.getPerformanceMetrics();
 			
 				Long aMeasure=metrics.getYValue();
 			
@@ -439,7 +439,7 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 			
 			if (aHoop.getExecutionCount()>0)
 			{
-				HoopPerformanceMetrics metrics=aHoop.getPerformanceMetrics();
+				HoopPerformanceMeasure metrics=aHoop.getPerformanceMetrics();
 			
 				Long aMeasure=metrics.getYValue();
 			

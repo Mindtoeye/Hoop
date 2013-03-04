@@ -49,9 +49,7 @@ import edu.cmu.cs.in.base.HoopRoot;
 import edu.cmu.cs.in.base.HoopStringTools;
 import edu.cmu.cs.in.base.io.HoopFileManager;
 import edu.cmu.cs.in.base.HoopLink;
-//import edu.cmu.cs.in.base.HoopBaseLink;
-//import edu.cmu.cs.in.network.HoopSocketServerBase;
-import edu.cmu.cs.in.stats.HoopPerformanceMetrics;
+import edu.cmu.cs.in.stats.HoopPerformanceMeasure;
 import edu.cmu.cs.in.stats.HoopStatistics;
 import edu.cmu.cs.in.hadoop.HoopHadoopReporter;
 import edu.cmu.cs.in.hadoop.HoopInvertedListMapper;
@@ -61,9 +59,6 @@ import edu.cmu.cs.in.hadoop.HoopWordCountMapper;
 import edu.cmu.cs.in.hadoop.HoopWordCountReducer;
 import edu.cmu.cs.in.hadoop.HoopWholeFileInputFormat;
 
-//import edu.cmu.cs.in.hadoop.HoopPartitioner;
-
-//public class HoopRemoteTask extends HoopSocketServerBase
 public class HoopRemoteTask extends HoopHadoopReporter
 {	
 	public static final String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss";
@@ -581,10 +576,8 @@ public class HoopRemoteTask extends HoopHadoopReporter
     	 * Although chances are I will switch to using Hoop to collect much better performance and distribution 
     	 * statistics. See Hoop.java for more information
     	 */ 
-    	
-    	//HoopStatistics stats=new HoopStatistics ();
-    	
-    	HoopPerformanceMetrics metrics=new HoopPerformanceMetrics ();
+    	    	
+    	HoopPerformanceMeasure metrics=new HoopPerformanceMeasure ();
     	metrics.setMarker ("main");
     	HoopLink.metrics.add(metrics);
     	    	

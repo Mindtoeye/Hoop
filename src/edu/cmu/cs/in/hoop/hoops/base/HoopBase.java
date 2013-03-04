@@ -34,7 +34,7 @@ import edu.cmu.cs.in.base.kv.HoopKVTable;
 import edu.cmu.cs.in.hoop.editor.HoopVisualRepresentation;
 import edu.cmu.cs.in.hoop.properties.HoopVisualProperties;
 import edu.cmu.cs.in.hoop.properties.types.HoopSerializable;
-import edu.cmu.cs.in.stats.HoopPerformanceMetrics;
+import edu.cmu.cs.in.stats.HoopPerformanceMeasure;
 import edu.cmu.cs.in.stats.HoopStatisticsMeasure;
 
 /**
@@ -63,7 +63,7 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 	/// One of: STOPPED, WAITING, RUNNING, PAUSED, ERROR
 	private String executionState="STOPPED"; 
 		
-	private HoopPerformanceMetrics performance=null;
+	private HoopPerformanceMeasure performance=null;
 	private HoopStatisticsMeasure stats=null;
 	private HoopVisualRepresentation visualizer=null;
 	
@@ -97,7 +97,7 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 		inPorts=new ArrayList<String> ();
 		outPorts=new ArrayList<String> ();
 				
-		performance=new HoopPerformanceMetrics ();
+		performance=new HoopPerformanceMeasure ();
 				
 		setHoopDescription ("Abstract Hoop");
 		setInstanceName(HoopLink.hoopInstanceIndex.toString());
@@ -111,7 +111,7 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
     /**
      * 
      */
-    public HoopPerformanceMetrics getPerformanceMetrics ()
+    public HoopPerformanceMeasure getPerformanceMetrics ()
     {
     	return (performance);
     }

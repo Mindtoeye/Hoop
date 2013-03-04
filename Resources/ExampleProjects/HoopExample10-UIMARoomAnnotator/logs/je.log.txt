@@ -2,9 +2,9 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2013-02-10T11:50:15</date>
-  <millis>1360515015333</millis>
-  <sequence>39</sequence>
+  <date>2013-03-04T15:24:51</date>
+  <millis>1362428691884</millis>
+  <sequence>0</sequence>
   <logger>com.sleepycat.je</logger>
   <level>INFO</level>
   <class>edu.cmu.cs.in.base.io.HoopBerkeleyDB</class>
