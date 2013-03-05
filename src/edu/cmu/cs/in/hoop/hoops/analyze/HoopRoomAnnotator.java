@@ -84,10 +84,15 @@ public class HoopRoomAnnotator extends HoopAnalyze implements HoopInterface
 		      	annotation.addToIndexes();
 		      	*/
 		    	
+		    	Integer start=matcher.start();
+		    	Integer end=matcher.end();
+		    	
 		    	HoopKVString newKV=new HoopKVString ();
 		    	newKV.setKeyString(aKV.getKeyString());
 		    	newKV.setValue("Yorktown",0);
 		    	newKV.setValue(value.substring(matcher.start(), matcher.end()),1);
+		    	newKV.setValue(start.toString(),2);
+		    	newKV.setValue(end.toString(),3);
 		    	
 		    	this.addKV(newKV);
 		    }
@@ -106,10 +111,16 @@ public class HoopRoomAnnotator extends HoopAnalyze implements HoopInterface
 		    	annotation.addToIndexes();
 		    	*/
 		    	
+		    	Integer start=matcher.start();
+		    	Integer end=matcher.end();		    	
+		    	
 		    	HoopKVString newKV=new HoopKVString ();
 		    	newKV.setKeyString(aKV.getKeyString());
 		    	newKV.setValue("Hawthorne",0);
 		    	newKV.setValue(value.substring(matcher.start(), matcher.end()),1);
+		    	
+		    	newKV.setValue(start.toString(),2);
+		    	newKV.setValue(end.toString(),3);		    	
 		    	
 		    	this.addKV(newKV);		    	
 		    }
