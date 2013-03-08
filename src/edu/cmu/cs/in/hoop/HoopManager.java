@@ -28,6 +28,7 @@ import edu.cmu.cs.in.hoop.hoops.analyze.HoopKVStats;
 import edu.cmu.cs.in.hoop.hoops.analyze.HoopMatcher;
 import edu.cmu.cs.in.hoop.hoops.analyze.HoopNaiveBayes;
 import edu.cmu.cs.in.hoop.hoops.analyze.HoopRoomAnnotator;
+import edu.cmu.cs.in.hoop.hoops.analyze.HoopRoomAnnotatorHitesh;
 import edu.cmu.cs.in.hoop.hoops.analyze.HoopSemanticPatterns;
 import edu.cmu.cs.in.hoop.hoops.analyze.HoopWekaML;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
@@ -247,5 +248,6 @@ public class HoopManager extends HoopBase
     	addTemplate (new HoopDocumentIndexer ());
     	addTemplate (new HoopWekaML ());
     	addTemplate (new HoopRoomAnnotator ());
+    	addTemplate (new HoopRoomAnnotatorHitesh ());
     }
 }
