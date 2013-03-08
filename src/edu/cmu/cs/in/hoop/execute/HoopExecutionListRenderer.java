@@ -21,6 +21,7 @@ package edu.cmu.cs.in.hoop.execute;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.util.concurrent.TimeUnit;
 
 import javax.swing.BorderFactory;
@@ -70,6 +71,8 @@ public class HoopExecutionListRenderer extends HoopJPanel implements ListCellRen
 	public static Long totalMs=(long) 1;
 	public static int totalWidth=-1;
 	public static int totalCount=1;
+	
+	private HoopBase hoop=null;
 			
 	/**
 	 * 
@@ -147,49 +150,17 @@ public class HoopExecutionListRenderer extends HoopJPanel implements ListCellRen
 		  										   boolean isSelected, 
 		  										   boolean cellHasFocus) 
 	{
+		debug ("getListCellRendererComponent ()");		
+		
 		//>---------------------------------------------------------
 		
 		HoopExecutionListRenderer.totalWidth=progressIndicator.getWidth();
 			  
 		if (value instanceof HoopBase)
 		{
-			HoopBase aHoop=(HoopBase) value;
+			hoop=(HoopBase) value;
 				  				  
-			textInfo.setText(aHoop.getClassName());
-				
-			stateInfo.setText(aHoop.getExecutionState());
-			
-			if (aHoop.getExecutionState().equals("STOPPED")==true)
-			{				  
-				progressIndicator.setEnabled(true);
-				
-				HoopPerformanceMeasure metrics=aHoop.getPerformanceMetrics();
-				  
-				if (metrics!=null)
-				{				
-					cycleIndicator.setText("Ex: "+aHoop.getExecutionCount());
-			
-					if (HoopExecutionListRenderer.modeTime==HoopExecutionListRenderer.TIMEAVERAGE)
-					{
-						timeIndicator.setText("~"+metrics.getAverage());
-					}
-					
-					if (HoopExecutionListRenderer.modeTime==HoopExecutionListRenderer.TIMEDEFAULT)
-					{
-						Long result=metrics.getYValue();
-						timeIndicator.setText(formatDuration (result));
-					}	
-				
-					HoopVisualProperties vizProps=aHoop.getVisualProperties();
-										
-					if (mode==HoopExecutionListRenderer.MODEDEFAULT)
-						progressIndicator.setLevels(0,vizProps.durationWidth);
-					else
-						progressIndicator.setLevels(vizProps.durationOffset,vizProps.durationWidth);
-				}
-			}	
-			else
-				progressIndicator.setEnabled(false);
+			updateVisuals ();
 		}
 			  
 		//>---------------------------------------------------------			  
@@ -223,5 +194,65 @@ public class HoopExecutionListRenderer extends HoopJPanel implements ListCellRen
 		}
 		
 		return (aDuration+" ms");
+	}
+	/**
+	 * 
+	 */
+	@Override
+	protected void paintComponent(Graphics g)
+	{		
+		debug ("paintComponent ()");
+		
+		super.paintComponent(g);
+		
+		updateVisuals ();
+	}
+	/**
+	 * 
+	 */
+	private void updateVisuals ()
+	{
+		debug ("updateVisuals ()");
+		
+		if (hoop==null)
+			return;
+		
+		textInfo.setText(hoop.getClassName());
+		
+		stateInfo.setText(hoop.getExecutionState());
+		
+		if (hoop.getExecutionState().equals("STOPPED")==true)
+		{				  
+			progressIndicator.setEnabled(true);
+			
+			HoopPerformanceMeasure metrics=hoop.getPerformanceMetrics();
+			  
+			if (metrics!=null)
+			{				
+				cycleIndicator.setText("Ex: "+hoop.getExecutionCount());
+		
+				if (HoopExecutionListRenderer.modeTime==HoopExecutionListRenderer.TIMEAVERAGE)
+				{
+					timeIndicator.setText("~"+metrics.getAverage());
+				}
+				
+				if (HoopExecutionListRenderer.modeTime==HoopExecutionListRenderer.TIMEDEFAULT)
+				{
+					Long result=metrics.getYValue();
+					timeIndicator.setText(formatDuration (result));
+				}	
+			
+				HoopVisualProperties vizProps=hoop.getVisualProperties();
+									
+				if (mode==HoopExecutionListRenderer.MODEDEFAULT)
+					progressIndicator.setLevels(0,vizProps.durationWidth);
+				else
+					progressIndicator.setLevels(vizProps.durationOffset,vizProps.durationWidth);
+			}
+			else
+				debug ("Error: metrics object is null!");
+		}	
+		else
+			progressIndicator.setEnabled(false);		
 	}
 }

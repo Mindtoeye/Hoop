@@ -332,7 +332,9 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 		if (HoopExecutionListRenderer.mode==HoopExecutionListRenderer.MODESTAGGERED)
 		{
 			calcVisualStatsStaggered ();
-		}		
+		}
+		
+		executionTrace.repaint();
 	}
 	/**
 	 * 
@@ -378,6 +380,8 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 					aMeasure=(long) 1;
 			
 				HoopVisualProperties vizProps=aHoop.getVisualProperties();
+				
+				debug ("vizProps.duration="+aMeasure);
 				
 				vizProps.duration=aMeasure;
 						

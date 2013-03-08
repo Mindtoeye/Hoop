@@ -72,6 +72,8 @@ public class HoopProgressPainter extends HoopJPanel
 	 */
 	public void setLevels (int aCurrent,int aMax)
 	{
+		debug ("setLevels ("+aCurrent+","+aMax+")");
+		
 		currentLevel=aCurrent;
 		maxLevel=aMax;
 		
@@ -84,29 +86,26 @@ public class HoopProgressPainter extends HoopJPanel
 	@Override
 	protected void paintComponent(Graphics g)
 	{		
-		//if (getHoopEnabled ()==true)
-		//{
-			debug ("paintComponent ("+currentLevel+","+maxLevel+")");
+		debug ("paintComponent ("+currentLevel+","+maxLevel+")");
 			
-			Graphics2D g2 = (Graphics2D)g.create();
+		Graphics2D g2 = (Graphics2D)g.create();
 
-			Paint p = new GradientPaint (0,
-										4, 
-										new Color(180,180,180),
-										0,
-										getHeight ()-8,
-										new Color(220,220,220),
-										true);
+		Paint p = new GradientPaint (0,
+									4, 
+									new Color(180,180,180),
+									0,
+									getHeight ()-8,
+									new Color(220,220,220),
+									true);
 
-			int width=(maxLevel-4);
-								
-			g2.setPaint (p);
-			g2.fillRect (currentLevel,2,width,getHeight()-4);
+		int width=(maxLevel-4);
+							
+		g2.setPaint (p);
+		g2.fillRect (currentLevel,2,width,getHeight()-4);
 		
-			g2.setColor(new Color (0,0,0));
-			g2.drawRect(currentLevel,2, width,this.getHeight()-4);
-		
-			g2.dispose ();
-		//}	
+		g2.setColor(new Color (0,0,0));
+		g2.drawRect(currentLevel,2, width,this.getHeight()-4);
+	
+		g2.dispose ();	
 	}	
 }
