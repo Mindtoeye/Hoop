@@ -133,13 +133,14 @@ public class HoopCSVWriter extends HoopFileSaveBase
 				aStatus.append (inData.size());
 			}
 			
+			String filePath = URI.getValue() + "." + URI.getFileExtension();
 			if (writeMode.getValue().equals("OVERWRITE")==true)
 			{
-				HoopLink.fManager.saveContents (this.projectToFullPath(URI.getValue()),formatted.toString());
+				HoopLink.fManager.saveContents (this.projectToFullPath(filePath),formatted.toString());
 			}
 			else
 			{
-				HoopLink.fManager.appendContents (this.projectToFullPath(URI.getValue()),formatted.toString());
+				HoopLink.fManager.appendContents (this.projectToFullPath(filePath),formatted.toString());
 			}
 		}	
 						
