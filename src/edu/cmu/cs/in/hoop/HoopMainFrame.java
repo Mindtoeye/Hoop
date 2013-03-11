@@ -194,7 +194,11 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     		{
     			debug ("Save ...");
     		
-    			projectSave ();
+    			if ( projectSave () )
+    				JOptionPane.showMessageDialog(compReference, "Project saved");
+    			else
+    				JOptionPane.showMessageDialog(compReference, "Error saving project");
+;
     		}
     	});
     	
@@ -204,7 +208,10 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     		{
     			debug ("SaveAs ...");
     		        		
-    			projectSaveAs ();
+    			if ( projectSaveAs () )
+    				JOptionPane.showMessageDialog(compReference, "Project saved");
+    			else
+    				JOptionPane.showMessageDialog(compReference, "Error saving project");
     		}
     	});
     	
