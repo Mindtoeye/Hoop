@@ -304,6 +304,8 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 	{
 		debug ("mousePressed ()");
 		
+		super.mousePressed(arg0);
+		
 		propPanel.highlightHoop(hoop);
 	}
 	/**

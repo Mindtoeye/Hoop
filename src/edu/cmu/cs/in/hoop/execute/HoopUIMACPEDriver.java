@@ -34,7 +34,7 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
  * command-line argument and instantiates the CPE. It also registers a callback listener with the
  * CPE, which will print progress and statistics to System.out. 
  */
-public class HoopUIMACPE extends Thread 
+public class HoopUIMACPEDriver extends Thread 
 {
   /// The CPE instance.
   private CollectionProcessingEngine mCPE;
@@ -45,7 +45,7 @@ public class HoopUIMACPE extends Thread
    * @param args
    *          command line arguments into the program - see class description
    */
-  public HoopUIMACPE(String args[]) throws Exception 
+  public HoopUIMACPEDriver(String args[]) throws Exception 
   {
 	  debug ("HoopUIMACPE ()");
 	  
@@ -113,6 +113,6 @@ public class HoopUIMACPE extends Thread
    */
   public static void main(String[] args) throws Exception 
   {
-	  new HoopUIMACPE(args);
+	  new HoopUIMACPEDriver(args);
   }
 }

@@ -20,23 +20,29 @@ package edu.cmu.cs.in.hoop.hoops.task;
 
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopControlBase;
+import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
 
 /**
 * 
 */
-public class HoopStart extends HoopControlBase
-{    			
-	private static final long serialVersionUID = -675107389905935662L;
+public class HoopUIMACPE extends HoopControlBase implements HoopInterface
+{    					
+	private static final long serialVersionUID = 8756323464548123680L;
 	
 	/**
 	 *
 	 */
-    public HoopStart () 
+    public HoopUIMACPE () 
     {
-		setClassName ("HoopStart");
-		debug ("HoopStart ()");
+		setClassName ("HoopUIMACPE");
+		debug ("HoopUIMACPE ()");
 										
-		setHoopDescription ("Required Start of Graph Hoop");		
+		setHoopDescription ("Run Native UIMA CPE");
+		
+		removeInPort ("KV");
+		addInPort ("CAS");
+		
+		removeOutPort ("KV");		
     }
 	/**
 	 *
@@ -44,7 +50,7 @@ public class HoopStart extends HoopControlBase
 	public Boolean runHoop (HoopBase inHoop)
 	{		
 		debug ("runHoop ()");
-								
+						
 		return (true);
 	}	
 	/**
@@ -52,6 +58,6 @@ public class HoopStart extends HoopControlBase
 	 */
 	public HoopBase copy ()
 	{
-		return (new HoopStart ());
-	}		
+		return (new HoopUIMACPE ());
+	}	
 }
