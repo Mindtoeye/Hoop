@@ -39,6 +39,7 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JSeparator;
@@ -96,7 +97,9 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 	protected JButton showHelpButton=null;
 	
 	protected JPopupMenu popup=null;
-		
+	protected JCheckBoxMenuItem beforeCheck=null;
+	protected JCheckBoxMenuItem afterCheck=null;
+	
 	Box leftPortBox = null;
 	Box rightPortBox = null;	
 	
@@ -104,7 +107,7 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 	
 	protected HoopBase hoop=null;
 	private   HoopBase hoopTemplate=null;
-		
+			
 	/**
 	 * 
 	 */
@@ -283,21 +286,28 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 		debug ("setupContextPopup ()");
 		
         popup = new JPopupMenu();
-        popup.add(new JMenuItem(new AbstractAction("Break Before") 
+        
+        
+        
+        beforeCheck=new JCheckBoxMenuItem(new AbstractAction("Break Before") 
         {
 			public void actionPerformed(ActionEvent e) 
             {
 				setBreakBefore ();
             }
-        }));
+        });
         
-        popup.add(new JMenuItem(new AbstractAction("Break After") 
+        popup.add(beforeCheck);
+        
+        afterCheck=new JCheckBoxMenuItem(new AbstractAction("Break After") 
         {
             public void actionPerformed(ActionEvent e) 
             {            	
             	setBreakAfter ();
             }
-        }));
+        });
+        
+        popup.add(afterCheck);
         
         popup.add(new JSeparator());
         
@@ -623,6 +633,20 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 	private void setBreakBefore ()
 	{
 		debug ("setBreakBefore ()");
+		
+		if (hoop!=null)
+		{
+			if (hoop.getBreakBefore()==false)
+			{
+				beforeCheck.setSelected(true);
+				hoop.setBreakBefore(true);
+			}
+			else
+			{
+				beforeCheck.setSelected(false);
+				hoop.setBreakBefore(false);
+			}
+		}		
 	}
 	/**
 	 *  
@@ -630,6 +654,20 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 	private void setBreakAfter ()
 	{
 		debug ("setBreakAfter ()");
+		
+		if (hoop!=null)
+		{
+			if (hoop.getBreakAfter()==false)
+			{
+				afterCheck.setSelected(true);
+				hoop.setBreakAfter(true);
+			}
+			else
+			{
+				afterCheck.setSelected(true);
+				hoop.setBreakAfter(false);
+			}	
+		}
 	}	
 	/**
 	 *  
