@@ -875,16 +875,20 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 		
 		getVisualizer ().setExecutionInfo (aStatus.toString ());
 	}
-	public Boolean getBreakBefore() {
+	public Boolean getBreakBefore() 
+	{
 		return breakBefore;
 	}
-	public void setBreakBefore(Boolean breakBefore) {
+	public void setBreakBefore(Boolean breakBefore) 
+	{
 		this.breakBefore = breakBefore;
 	}
-	public Boolean getBreakAfter() {
+	public Boolean getBreakAfter() 
+	{
 		return breakAfter;
 	}
-	public void setBreakAfter(Boolean breakAfter) {
+	public void setBreakAfter(Boolean breakAfter) 
+	{
 		this.breakAfter = breakAfter;
 	}		
 }

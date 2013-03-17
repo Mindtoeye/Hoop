@@ -38,6 +38,7 @@ import java.util.List;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -91,6 +92,7 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 	protected File currentFile;
 	
 	protected JToggleButton annotateToggle=null;
+	protected JButton clearBreakPoints=null;
 	protected HoopLockableJPanel graphContainer=null;
 	
 	protected HoopBreadCrumbBar phaseBreadCrumbBar=null;
@@ -227,6 +229,15 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 		annotateToggle.addActionListener(this);		
 	    
 	    graphControls.addComponent(annotateToggle);
+	    
+	    clearBreakPoints=new JButton ();
+	    clearBreakPoints.setFont(new Font("Dialog", 1, 8));
+	    clearBreakPoints.setPreferredSize(new Dimension (20,20));
+	    clearBreakPoints.setMaximumSize(new Dimension (20,20));
+	    clearBreakPoints.setIcon(HoopLink.getImageByName("gtk-cancel.png"));
+	    clearBreakPoints.addActionListener(this);		
+	    
+	    graphControls.addComponent(clearBreakPoints);
 	    
 	    /*
 	    phaseBreadCrumbBar=new HoopBreadCrumbBar (null);
@@ -855,6 +866,27 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 			{
 				graphContainer.setLocked(false);
 			}
+		}
+		
+		if (e.getSource()==clearBreakPoints)
+		{
+			debug ("Clearing breakpoints ...");
+			
+			Object[] options = {"Ok","Cancel"};
+			int n = JOptionPane.showOptionDialog (this,
+												  "Are you sure you want to clear all breakpoints?",
+													"Hoop Info Panel",
+													JOptionPane.OK_CANCEL_OPTION,
+													JOptionPane.QUESTION_MESSAGE,
+													null,
+													options,
+													options[1]);
+			if (n==0)
+			{
+				// Clear all breakpoints ...
+				
+			}
+			
 		}
 	}
 }
