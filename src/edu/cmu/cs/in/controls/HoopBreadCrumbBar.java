@@ -24,7 +24,7 @@ import org.pushingpixels.flamingo.api.bcb.*;
 import edu.cmu.cs.in.base.HoopRoot;
 
 /**
- * 
+ * http://stackoverflow.com/questions/5355977/how-to-create-the-flamingo-ribbon-menu
  */
 public class HoopBreadCrumbBar extends JBreadcrumbBar<String> 
 {

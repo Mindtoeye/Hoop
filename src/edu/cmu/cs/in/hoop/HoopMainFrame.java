@@ -36,6 +36,7 @@ import edu.cmu.cs.in.controls.HoopControlTools;
 import edu.cmu.cs.in.controls.HoopJFileChooser;
 import edu.cmu.cs.in.controls.HoopSentenceWall;
 import edu.cmu.cs.in.controls.base.HoopJDialog;
+import edu.cmu.cs.in.controls.base.HoopViewInterface;
 import edu.cmu.cs.in.controls.dialogs.HoopCleanProjectDialog;
 import edu.cmu.cs.in.controls.dialogs.HoopGenericNameDialog;
 import edu.cmu.cs.in.controls.dialogs.HoopGenericProgressdialog;
@@ -497,6 +498,29 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     	views.add (propertiesItem);
     	views.add (sWallItem);
     	views.add (dbViewItem);
+    	views.add (new JSeparator());
+    	
+    	for (int i=0;i<HoopLink.windowsPlugins.size();i++)
+    	{
+    		HoopViewInterface aView=HoopLink.windowsPlugins.get(i);
+    		
+    		JMenuItem aViewItem=new JMenuItem(aView.getDescription());
+    		
+    		views.add (aViewItem);
+    		
+    		aViewItem.addActionListener(new ActionListener() 
+        	{
+        		public void actionPerformed(ActionEvent e) 
+        		{
+        		   	for (int t=0;t<HoopLink.windowsPlugins.size();t++)
+        	    	{
+        	    		HoopViewInterface aView=HoopLink.windowsPlugins.get(t);
+        	    	
+        	    		addView (aView.getDescription(),aView.getPanel(),HoopLink.center);
+        	    	}	
+        		}
+        	});   
+    	}
     	
     	return (views);
     }

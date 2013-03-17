@@ -137,14 +137,14 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 		toolBar.setBackground(HoopProperties.graphPanelColor);
 		toolBar.setOpaque(true);
 
-    nodeSelectCheckbox=new JCheckBox();
-    nodeSelectCheckbox.setToolTipText("Select node");
-    nodeSelectCheckbox.setBackground(HoopProperties.graphPanelColor);
-    nodeSelectCheckbox.setOpaque(true);
-    nodeSelectCheckbox.setSelected(false); 
-    nodeSelectCheckbox.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-    nodeSelectCheckbox.addActionListener(this);
-    toolBar.add(nodeSelectCheckbox);		
+		nodeSelectCheckbox=new JCheckBox();
+		nodeSelectCheckbox.setToolTipText("Select node");
+		nodeSelectCheckbox.setBackground(HoopProperties.graphPanelColor);
+		nodeSelectCheckbox.setOpaque(true);
+		nodeSelectCheckbox.setSelected(false); 
+		nodeSelectCheckbox.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+		nodeSelectCheckbox.addActionListener(this);
+		toolBar.add(nodeSelectCheckbox);		
 		
 		kvExamineButton=new JButton ();
 		kvExamineButton.setIcon(HoopLink.getImageByName("zoom.png"));

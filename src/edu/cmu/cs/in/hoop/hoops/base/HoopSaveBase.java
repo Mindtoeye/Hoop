@@ -37,6 +37,10 @@ public class HoopSaveBase extends HoopIOBase implements HoopInterface
 		setHoopCategory ("Save");
 		
 		setHoopDescription ("Abstract Hoop Saving");
+		
+		removeOutPort ("KV");
+		removeOutPort ("CAS");
+		removeOutPort ("Model");
     }
 	/**
 	 *

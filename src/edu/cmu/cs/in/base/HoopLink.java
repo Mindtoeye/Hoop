@@ -32,6 +32,7 @@ import edu.cmu.cs.in.search.HoopDataSet;
 import edu.cmu.cs.in.base.io.HoopVFSL;
 import edu.cmu.cs.in.base.io.HoopStreamedSocket;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
+import edu.cmu.cs.in.controls.base.HoopViewInterface;
 import edu.cmu.cs.in.hoop.HoopConsoleInterface;
 import edu.cmu.cs.in.hoop.HoopGraphManager;
 import edu.cmu.cs.in.hoop.HoopHelp;
@@ -320,6 +321,7 @@ public class HoopLink extends HoopProperties
 	public static ArrayList <String> posFiles=null;	
 	public static ArrayList <HoopPerformanceMeasure> metrics=null;
 	public static ArrayList <HoopEmbeddedJPanel> windows=null;
+	public static ArrayList <HoopViewInterface> windowsPlugins=null;
 	public static ArrayList <HoopTextSearch> searchHistory=null;
 	public static ArrayList <String>jobs=null;
 	public static HoopVFSL fManager=null;	
@@ -390,6 +392,9 @@ public class HoopLink extends HoopProperties
 		
 		if (windows==null)
 			windows=new ArrayList<HoopEmbeddedJPanel>();
+		
+		if (windowsPlugins==null)
+			windowsPlugins=new ArrayList<HoopViewInterface>();
 		
 		if (searchHistory==null)
 			searchHistory=new ArrayList<HoopTextSearch>();

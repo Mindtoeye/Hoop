@@ -104,9 +104,10 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 		HoopLink.hoopInstanceIndex++;
 		
 		addInPort ("KV");
+		
 		addOutPort ("KV");
-		addOutPort ("Stats");
-		addOutPort ("Model");
+		addOutPort ("CAS");
+		//addOutPort ("Model");
     }
     /**
      * 
