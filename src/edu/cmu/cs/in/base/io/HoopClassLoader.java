@@ -19,8 +19,8 @@
 package edu.cmu.cs.in.base.io;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.Hashtable;
 import java.util.jar.JarFile;
 import java.util.jar.JarEntry;
 
@@ -31,14 +31,14 @@ import edu.cmu.cs.in.base.HoopRoot;
  */
 public class HoopClassLoader extends ClassLoader
 {
-	private Hashtable<String, Class> classes; // map from class-name to class
+	private ArrayList<HoopPluginClassProxy> classes; // map from class-name to class
 
 	/**
 	 * 
 	 */
 	public HoopClassLoader()
 	{
-		classes = new Hashtable<String, Class>();
+		classes = new ArrayList<HoopPluginClassProxy>();
 	}
 	/**
 	 * 
@@ -50,7 +50,7 @@ public class HoopClassLoader extends ClassLoader
 	/**
 	 * 
 	 */
-	public Hashtable<String, Class> getClasses ()
+	public ArrayList<HoopPluginClassProxy> getClasses ()
 	{
 		debug ("getClasses ()");
 		
@@ -59,120 +59,11 @@ public class HoopClassLoader extends ClassLoader
 	/**
 	 * 
 	 */
-	/*
-	public Class loadClass(String name) throws ClassNotFoundException
-	{
-		debug ("loadClass ("+name+")");
-		
-		return loadClass(name, true);
-	}
-	*/
-	/**
-	 * 
-	 */
-	/*
-	public Class loadClass(String name, boolean resolve) throws ClassNotFoundException
-	{
-		debug ("loadClass ("+name+","+resolve+")");
-		
-		// first check local cache of classes
-		Class cached = classes.get(name);
-		if(cached != null)
-		{
-			debug ("Found class in cache");
-			return cached;
-		}
-
-		// special case if we're looking for a "ThingDoer"
-		if(name.equals("HoopInterface"))
-		{
-			debug ("Class is a HoopInterface, resolving ...");
-			return loadHoopInterface(resolve);
-		}
-
-		debug ("Checking system classes ...");
-		
-		// check with the system class loader
-		Class c = super.findSystemClass(name);
-		classes.put(name, c);
-		return c;
-	}
-	*/
-	/**
-	 * 
-	 */
-	private Class loadHoopInterface(boolean resolve) throws ClassNotFoundException
-	{
-		debug ("loadHoopInterface ("+resolve+")");
-		
-		JarFile jf;
-		try
-		{
-			jf = new JarFile("lib.jar");
-		}
-		catch(IOException ioe)
-		{
-			throw new ClassNotFoundException();
-		}
-
-		for(Enumeration<JarEntry> entries = jf.entries(); entries.hasMoreElements(); )
-		{
-			JarEntry entry = entries.nextElement();
-			
-			byte[] bytes = jarEntryToBytes (jf,entry);
-
-			/* determine whether this byte array is a class file, and if it is, whether it implements ThingDoer interface */
-			try
-			{
-				/* Check if it implements the interface by defining the class */
-				try
-				{
-					Class c = defineClass(null, bytes, 0, bytes.length);
-					if(c == null)
-					{
-						continue;
-					}
-					Class[] interfaces = c.getInterfaces();
-					boolean isThingDoer = false;
-					for(Class thisInterface : interfaces)
-					{
-						if(thisInterface.getName().equals("ThingDoer") || thisInterface.getName().endsWith(".ThingDoer"))
-						{
-							isThingDoer = true;
-							break;
-						}
-					}
-					if(isThingDoer)
-					{
-						if(resolve)
-						{
-							resolveClass(c);
-						}
-						classes.put ("HoopInterface", c);
-						return c;
-					}
-				}
-				catch(ClassFormatError cfe)
-				{
-					continue; // move on to the next class in the jar file
-				}
-			}
-			catch(IndexOutOfBoundsException ioobe)
-			{
-				continue; // this file is not long enough to be a class file; move on to the next one
-			}
-		}
-
-		throw new ClassNotFoundException();
-	}
-	/**
-	 * 
-	 */
-	public Hashtable<String, Class> loadHoopInterfaces (String aJarFile,boolean resolve)
+	public ArrayList<HoopPluginClassProxy> loadHoopInterfaces (String aJarFile,boolean resolve)
 	{
 		debug ("loadHoopInterfaces ("+aJarFile+","+resolve+")");
 						
-		classes = new Hashtable<String, Class>();
+		classes = new ArrayList<HoopPluginClassProxy>();
 		
 		if (aJarFile.indexOf("Hoop")==-1)
 		{
@@ -217,38 +108,52 @@ public class HoopClassLoader extends ClassLoader
 						{
 							continue;
 						}
-					
-						debug ("Running namespace check ...");
-					
+										
 						Class[] interfaces = c.getInterfaces();
-						boolean isThingDoer = false;
+
+						debug ("Running namespace check on "+interfaces.length+" declared interfaces ...");
 					
 						for (Class thisInterface : interfaces)
 						{
+							debug ("Checking: " + thisInterface.getName());
+							
 							if (thisInterface.getName().equals("HoopInterface") || thisInterface.getName().endsWith(".HoopInterface"))
 							{
-								debug ("Found interface: " + thisInterface.getName());
+								debug ("Found interface (HoopInterface): " + thisInterface.getName());
 							
-								isThingDoer = true;
-								break;
+								if(resolve)
+								{
+									resolveClass(c);
+								}
+							
+								HoopPluginClassProxy newProxy=new HoopPluginClassProxy ();
+								newProxy.classType="HoopInterface";
+								newProxy.reference=c;
+								
+								classes.add(newProxy);					
 							}
-						}
-					
-						debug ("Adding to internal list of classes if resolved ...");
-					
-						if(isThingDoer)
-						{					 
-							if(resolve)
+							
+							if (thisInterface.getName().equals("HoopViewInterface") || thisInterface.getName().endsWith(".HoopViewInterface"))
 							{
-								resolveClass(c);
+								debug ("Found interface (HoopViewInterface): " + thisInterface.getName());
+							
+								if(resolve)
+								{
+									resolveClass(c);
+								}
+							
+								HoopPluginClassProxy newProxy=new HoopPluginClassProxy ();
+								newProxy.classType="HoopViewInterface";
+								newProxy.reference=c;
+								
+								classes.add(newProxy);					
 							}
-						
-							classes.put("HoopInterface", c);
 						}
 					}
 					catch(ClassFormatError cfe)
 					{
-						continue; // move on to the next class in the jar file
+						debug ("Ignoring ClassFormatError ..., moving on to the next class in the jar file");
+						continue;
 					}
 				}
 				catch(IndexOutOfBoundsException ioobe)

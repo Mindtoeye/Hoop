@@ -18,9 +18,6 @@
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.Set;
 
 import javax.swing.*;
 
@@ -30,6 +27,9 @@ import edu.cmu.cs.in.base.HoopRoot;
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.io.HoopClassLoader;
 import edu.cmu.cs.in.base.io.HoopFileManager;
+import edu.cmu.cs.in.base.io.HoopPluginClassProxy;
+//import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
+import edu.cmu.cs.in.controls.base.HoopViewInterface;
 import edu.cmu.cs.in.hoop.HoopMainFrame;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 
@@ -72,29 +72,45 @@ public class Hoop
 				
 				HoopClassLoader loader=new HoopClassLoader ();
 				
-				Hashtable<String, Class> classes=loader.loadHoopInterfaces("./plugins/"+aFile,false);
+				//                      Load Hoops First
+				//>-------------------------------------------------------------------------------------
+				
+				ArrayList<HoopPluginClassProxy> classes=loader.loadHoopInterfaces("./plugins/"+aFile,false);
 				
 				if (classes!=null)
 				{
 					HoopRoot.debug ("Hoop","Found " + classes.size() + " classes");
 					
-					Set<String> set = classes.keySet();
-					Iterator it = set.iterator();
-
-					while (it.hasNext()) 
-					{				
-						String interfaceName=(String) it.next ();
-						
-						Class hoopClass=classes.get(interfaceName);
+					for (int cl=0;cl<classes.size();cl++)
+					{					
+						HoopPluginClassProxy proxy=classes.get(cl);
+						Class hoopClass=proxy.reference;
 						
 						if (hoopClass!=null)
 						{
-							HoopRoot.debug ("Hoop","Trying to instantiate interface: " + interfaceName);
+							HoopRoot.debug ("Hoop","Trying to instantiate interface: " + proxy.classType);
 							
 							try 
 							{
+								HoopRoot.debug ("Hoop","Attempting to create instance ...");
 								Object object=hoopClass.newInstance();
-								HoopLink.hoopManager.addTemplate((HoopBase) object);
+								HoopRoot.debug ("Hoop","We have an instance, post processing ...");
+								
+								HoopRoot.debug ("Hoop","Processing plugin class with type: " + proxy.classType);
+								
+								if (proxy.classType.equalsIgnoreCase("HoopInterface")==true)
+								{
+									HoopRoot.debug ("Hoop","Adding Hoop plugin: " + proxy.classType);
+									
+									HoopLink.hoopManager.addTemplate((HoopBase) object);
+								}	
+								
+								if (proxy.classType.equalsIgnoreCase("HoopViewInterface")==true)
+								{
+									HoopRoot.debug ("Hoop","Adding Hoop plugin: " + proxy.classType);
+									
+									HoopLink.windowsPlugins.add((HoopViewInterface) object);
+								}									
 							} 
 							catch (InstantiationException e) 
 							{						
@@ -111,6 +127,8 @@ public class Hoop
 				}
 				else
 					HoopRoot.debug ("Hoop","Error loading jar");
+								
+				//>-------------------------------------------------------------------------------------
 			}
 		}
 	}
@@ -149,6 +167,8 @@ public class Hoop
 		HoopLink link = new HoopLink();
    	
     	loadPlugins ();
+    	
+    	//System.exit(1);
     	
     	HoopRoot.debug ("Hoop","main ()");
     	

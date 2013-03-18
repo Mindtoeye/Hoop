@@ -16,28 +16,33 @@
  * 
  */
 
-package edu.cmu.cs.in.hoop.hoops.base;
+package edu.cmu.cs.in.hoop.hoops.task;
+
+import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
+import edu.cmu.cs.in.hoop.hoops.base.HoopControlBase;
+import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
 
 /**
 * 
 */
-public class HoopAnalyze extends HoopBatch implements HoopInterface
-{    				
-	private static final long serialVersionUID = -6088955964935019964L;
+public class HoopUIMACPE extends HoopControlBase implements HoopInterface
+{    					
+	private static final long serialVersionUID = 8756323464548123680L;
 	
 	/**
 	 *
 	 */
-    public HoopAnalyze () 
+    public HoopUIMACPE () 
     {
-		setClassName ("HoopAnalyze");
-		debug ("HoopAnalyze ()");
+		setClassName ("HoopUIMACPE");
+		debug ("HoopUIMACPE ()");
+										
+		setHoopDescription ("Run Native UIMA CPE");
 		
-		setHoopCategory ("Analyze");
+		removeInPort ("KV");
+		addInPort ("CAS");
 		
-		setHoopDescription ("Analyze or Classify");		
-		
-		addOutPort ("Model");
+		removeOutPort ("KV");		
     }
 	/**
 	 *
@@ -45,15 +50,14 @@ public class HoopAnalyze extends HoopBatch implements HoopInterface
 	public Boolean runHoop (HoopBase inHoop)
 	{		
 		debug ("runHoop ()");
-		
-				
+						
 		return (true);
-	}	 
+	}	
 	/**
 	 * 
 	 */
 	public HoopBase copy ()
 	{
-		return (new HoopAnalyze ());
+		return (new HoopUIMACPE ());
 	}	
 }

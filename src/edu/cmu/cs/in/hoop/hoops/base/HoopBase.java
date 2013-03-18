@@ -77,6 +77,9 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 	private Boolean done=false;
 	private Boolean inEditor=false;
 	
+	private Boolean breakBefore=false;
+	private Boolean breakAfter=false;
+	
 	/**
 	 *
 	 */
@@ -104,9 +107,10 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 		HoopLink.hoopInstanceIndex++;
 		
 		addInPort ("KV");
+		
 		addOutPort ("KV");
-		addOutPort ("Stats");
-		addOutPort ("Model");
+		addOutPort ("CAS");
+		//addOutPort ("Model");
     }
     /**
      * 
@@ -870,5 +874,21 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 		aStatus.append (aTotal);
 		
 		getVisualizer ().setExecutionInfo (aStatus.toString ());
+	}
+	public Boolean getBreakBefore() 
+	{
+		return breakBefore;
+	}
+	public void setBreakBefore(Boolean breakBefore) 
+	{
+		this.breakBefore = breakBefore;
+	}
+	public Boolean getBreakAfter() 
+	{
+		return breakAfter;
+	}
+	public void setBreakAfter(Boolean breakAfter) 
+	{
+		this.breakAfter = breakAfter;
 	}		
 }

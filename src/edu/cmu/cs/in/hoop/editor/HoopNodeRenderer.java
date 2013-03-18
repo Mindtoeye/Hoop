@@ -28,14 +28,21 @@ import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 //import java.awt.event.MouseEvent;
 //import java.awt.event.MouseListener;
 //import java.awt.event.MouseMotionListener;
 
+import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
+import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
+import javax.swing.JSeparator;
 //import javax.swing.ImageIcon;
 //import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -65,7 +72,7 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
  * Default index is 7 (bottom right). 
  * 
  */
-public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener, MouseMotionListener,*/ ActionListener
+public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener, MouseMotionListener,*/ ActionListener, MouseListener
 {
 	private static final long serialVersionUID = -1L;
 
@@ -84,10 +91,15 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 	protected JLabel statusPanel=null;
 	protected JPanel toolBar=null;
 	protected JPanel bottomPanel=null;
-	protected JCheckBox nodeSelectCheckbox=null;
+	//protected JCheckBox nodeSelectCheckbox=null;
 	protected JButton kvExamineButton=null;
+	protected JButton hoopOptionButton=null;
 	protected JButton showHelpButton=null;
-		
+	
+	protected JPopupMenu popup=null;
+	protected JCheckBoxMenuItem beforeCheck=null;
+	protected JCheckBoxMenuItem afterCheck=null;
+	
 	Box leftPortBox = null;
 	Box rightPortBox = null;	
 	
@@ -95,7 +107,7 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 	
 	protected HoopBase hoop=null;
 	private   HoopBase hoopTemplate=null;
-		
+			
 	/**
 	 * 
 	 */
@@ -105,7 +117,9 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 		debug ("HoopNodeRenderer ()");
 		
 		//Border blackborder=BorderFactory.createLineBorder(Color.black);
-		//Border redborder=BorderFactory.createLineBorder(Color.red);		
+		//Border redborder=BorderFactory.createLineBorder(Color.red);
+		
+		setupContextPopup ();
 		
 		this.cell = cell;
 		this.graphContainer = graphContainer;
@@ -137,14 +151,16 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 		toolBar.setBackground(HoopProperties.graphPanelColor);
 		toolBar.setOpaque(true);
 
-    nodeSelectCheckbox=new JCheckBox();
-    nodeSelectCheckbox.setToolTipText("Select node");
-    nodeSelectCheckbox.setBackground(HoopProperties.graphPanelColor);
-    nodeSelectCheckbox.setOpaque(true);
-    nodeSelectCheckbox.setSelected(false); 
-    nodeSelectCheckbox.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-    nodeSelectCheckbox.addActionListener(this);
-    toolBar.add(nodeSelectCheckbox);		
+		/*
+		nodeSelectCheckbox=new JCheckBox();
+		nodeSelectCheckbox.setToolTipText("Select node");
+		nodeSelectCheckbox.setBackground(HoopProperties.graphPanelColor);
+		nodeSelectCheckbox.setOpaque(true);
+		nodeSelectCheckbox.setSelected(false); 
+		nodeSelectCheckbox.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+		nodeSelectCheckbox.addActionListener(this);
+		toolBar.add(nodeSelectCheckbox);
+		*/		
 		
 		kvExamineButton=new JButton ();
 		kvExamineButton.setIcon(HoopLink.getImageByName("zoom.png"));
@@ -157,6 +173,19 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 		kvExamineButton.setMargin(new Insets (0,0,0,0));
 		kvExamineButton.addActionListener(this);
 		toolBar.add(kvExamineButton);
+		
+		hoopOptionButton=new JButton ();
+		hoopOptionButton.setIcon(HoopLink.getImageByName("gtk-execute.png"));
+		hoopOptionButton.setPreferredSize(new Dimension(16, 16));
+		hoopOptionButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+		hoopOptionButton.setToolTipText("Hoop Runtime Configuration");
+		hoopOptionButton.setBackground(HoopProperties.graphPanelColor);
+		hoopOptionButton.setOpaque(true);
+		hoopOptionButton.setBorder(null);
+		hoopOptionButton.setMargin(new Insets (0,0,0,0));
+		//hoopOptionButton.addActionListener(this);
+		hoopOptionButton.addMouseListener(this);
+		toolBar.add(hoopOptionButton);		
 		
 		showHelpButton=new JButton ();
 		showHelpButton.setIcon(HoopLink.getImageByName("help_icon.png"));
@@ -248,6 +277,47 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 		setMinimumSize(new Dimension(20, 30));
 		
 		setTitle ("Hoop Node");
+	}
+	/**
+	 * 
+	 */
+	private void setupContextPopup ()
+	{
+		debug ("setupContextPopup ()");
+		
+        popup = new JPopupMenu();
+        
+        
+        
+        beforeCheck=new JCheckBoxMenuItem(new AbstractAction("Break Before") 
+        {
+			public void actionPerformed(ActionEvent e) 
+            {
+				setBreakBefore ();
+            }
+        });
+        
+        popup.add(beforeCheck);
+        
+        afterCheck=new JCheckBoxMenuItem(new AbstractAction("Break After") 
+        {
+            public void actionPerformed(ActionEvent e) 
+            {            	
+            	setBreakAfter ();
+            }
+        });
+        
+        popup.add(afterCheck);
+        
+        popup.add(new JSeparator());
+        
+        popup.add(new JMenuItem(new AbstractAction("Add Stats Probe") 
+        {
+            public void actionPerformed(ActionEvent e) 
+            {            	
+            	addStatsProbe ();
+            }
+        }));
 	}
 	/**
 	 * 
@@ -493,20 +563,15 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
     	    	    	    	
 		if (button==kvExamineButton) 
 		{		
-			examineData ();
-							
-			/*
-			if (graph!=null)
-			{
-				graph.foldCells (graph.isCellCollapsed(cell), false,	new Object[] { cell });
-		
-				if (graph.isCellCollapsed(cell))
-					((JButton) e.getSource()).setIcon(HoopLink.getImageByName("maximize.gif"));
-				else
-					((JButton) e.getSource()).setIcon(HoopLink.getImageByName("minimize.gif"));
-			}
-			*/
+			examineData ();							
 		}	
+		
+		/*
+		if (button==hoopOptionButton)
+		{
+			popup.show(e.getComponent(), event.getX(), event.getY());
+		}
+		*/
 		
 		if (button==showHelpButton)
 		{
@@ -535,4 +600,80 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 			contentArea.setVisible(true);
 		*/	
 	}
+	@Override
+	public void mouseClicked(MouseEvent arg0) 
+	{
+		
+	}
+	@Override
+	public void mouseEntered(MouseEvent arg0) 
+	{
+		
+	}
+	@Override
+	public void mouseExited(MouseEvent arg0) 
+	{
+		
+	}
+	@Override
+	public void mousePressed(MouseEvent event) 
+	{
+		debug ("Showing context menu ...");
+		
+		popup.show(event.getComponent(), event.getX(), event.getY());	
+	}
+	@Override
+	public void mouseReleased(MouseEvent arg0) 
+	{
+		
+	}
+	/**
+	 *  
+	 */
+	private void setBreakBefore ()
+	{
+		debug ("setBreakBefore ()");
+		
+		if (hoop!=null)
+		{
+			if (hoop.getBreakBefore()==false)
+			{
+				beforeCheck.setSelected(true);
+				hoop.setBreakBefore(true);
+			}
+			else
+			{
+				beforeCheck.setSelected(false);
+				hoop.setBreakBefore(false);
+			}
+		}		
+	}
+	/**
+	 *  
+	 */
+	private void setBreakAfter ()
+	{
+		debug ("setBreakAfter ()");
+		
+		if (hoop!=null)
+		{
+			if (hoop.getBreakAfter()==false)
+			{
+				afterCheck.setSelected(true);
+				hoop.setBreakAfter(true);
+			}
+			else
+			{
+				afterCheck.setSelected(true);
+				hoop.setBreakAfter(false);
+			}	
+		}
+	}	
+	/**
+	 *  
+	 */
+	private void addStatsProbe ()
+	{
+		debug ("addStatsProbe ()");
+	}	
 }

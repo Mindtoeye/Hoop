@@ -26,6 +26,8 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopControlBase;
 */
 public class HoopStart extends HoopControlBase
 {    			
+	private static final long serialVersionUID = -675107389905935662L;
+	
 	/**
 	 *
 	 */

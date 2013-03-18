@@ -27,6 +27,8 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
 */
 public class HoopScheduler extends HoopControlBase implements HoopInterface
 {    					
+	private static final long serialVersionUID = 5343404003031040810L;
+	
 	/**
 	 *
 	 */

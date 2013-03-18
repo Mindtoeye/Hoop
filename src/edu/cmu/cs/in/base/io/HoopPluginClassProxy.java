@@ -16,44 +16,13 @@
  * 
  */
 
-package edu.cmu.cs.in.hoop.hoops.base;
+package edu.cmu.cs.in.base.io;
 
 /**
-* 
-*/
-public class HoopAnalyze extends HoopBatch implements HoopInterface
-{    				
-	private static final long serialVersionUID = -6088955964935019964L;
-	
-	/**
-	 *
-	 */
-    public HoopAnalyze () 
-    {
-		setClassName ("HoopAnalyze");
-		debug ("HoopAnalyze ()");
-		
-		setHoopCategory ("Analyze");
-		
-		setHoopDescription ("Analyze or Classify");		
-		
-		addOutPort ("Model");
-    }
-	/**
-	 *
-	 */
-	public Boolean runHoop (HoopBase inHoop)
-	{		
-		debug ("runHoop ()");
-		
-				
-		return (true);
-	}	 
-	/**
-	 * 
-	 */
-	public HoopBase copy ()
-	{
-		return (new HoopAnalyze ());
-	}	
+ * 
+ */
+public class HoopPluginClassProxy
+{
+	public String classType="";
+	public Class reference=null;
 }

@@ -138,7 +138,7 @@ public class HoopJPanel extends JPanel implements ComponentListener
 	 * 
 	 */
 	protected void debug (String aMessage)
-	{
+	{		
 		HoopRoot.debug(getClassName(),aMessage);
 	}
 	/**

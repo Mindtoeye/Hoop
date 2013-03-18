@@ -28,9 +28,14 @@ import edu.cmu.cs.in.base.HoopLink;
 /** 
  *
  */
-public class HoopEmbeddedJPanel extends HoopLockableJPanel
+public class HoopEmbeddedJPanel extends HoopLockableJPanel implements HoopViewInterface
 {	
 	private static final long serialVersionUID = 1L;
+	
+	public static int VIEW_GENERIC=0;
+	public static int VIEW_TOOL=1;
+	public static int VIEW_EDITOR=2;
+	public static int VIEW_VISUALIZER=3;
 		
 	/// Most of them are single instances, we'll let selected panels override this
 	private Boolean singleInstance=true;
@@ -39,6 +44,12 @@ public class HoopEmbeddedJPanel extends HoopLockableJPanel
 			
 	private ImageIcon icon=null;
 	
+	private int viewType=VIEW_GENERIC;
+	
+	private String windowDescription="Generic Window";
+	
+	protected HoopLink privateLink=null;
+	
 	/**
 	 * 
 	 */	
@@ -46,9 +57,24 @@ public class HoopEmbeddedJPanel extends HoopLockableJPanel
 	{
 		setClassName ("HoopEmbeddedJPanel");
 		debug ("HoopEmbeddedJPanel ()");
-		
-		icon=HoopLink.imageIcons [5];		
+				
+		if (privateLink!=null)
+		{
+			icon=privateLink.imageIcons [5];
+		}	
 	}	
+	/**
+	 * 
+	 */	
+	public HoopEmbeddedJPanel(HoopLink aLink)
+	{
+		setClassName ("HoopEmbeddedJPanel");
+		debug ("HoopEmbeddedJPanel ()");
+		
+		privateLink=aLink;
+				
+		icon=privateLink.imageIcons [5];		
+	}		
 	/**
 	 * 
 	 */	
@@ -58,6 +84,27 @@ public class HoopEmbeddedJPanel extends HoopLockableJPanel
 		debug ("HoopEmbeddedJPanel (ImageIcon)");
 		
 		icon=anIcon;
+	}
+	/**
+	 * 
+	 */
+	public void setLink (HoopLink aLink)
+	{
+		privateLink=aLink;
+	}
+	/*
+	 * 
+	 */
+	public void setDescription (String aDescription)
+	{
+		windowDescription=aDescription;
+	}
+	/**
+	 * 
+	 */
+	public String getDescription ()
+	{
+		return (windowDescription);
 	}
 	/**
 	 * 
@@ -111,7 +158,11 @@ public class HoopEmbeddedJPanel extends HoopLockableJPanel
 	public void close ()
 	{
 		handleCloseEvent ();
-		HoopLink.removeWindowInternal (this);
+		
+		if (privateLink!=null)
+		{			
+			privateLink.removeWindowInternal (this);
+		}	
 	}
 	/**
 	 * 
@@ -144,5 +195,24 @@ public class HoopEmbeddedJPanel extends HoopLockableJPanel
 	public void setSingleInstance(Boolean singleInstance) 
 	{
 		this.singleInstance = singleInstance;
+	}
+	/**
+	 * 
+	 */
+	public int getViewType() 
+	{
+		return viewType;
+	}
+	/**
+	 * 
+	 */
+	public void setViewType(int viewType) 
+	{
+		this.viewType = viewType;
+	}
+	@Override
+	public HoopEmbeddedJPanel getPanel() 
+	{
+		return (this);
 	}	
 }
