@@ -20,7 +20,7 @@ package edu.cmu.cs.in.hoop.hoops.load;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Random;
+//import java.util.Random;
 
 import edu.cmu.cs.in.base.HoopDataType;
 import edu.cmu.cs.in.base.HoopLink;
@@ -185,7 +185,7 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 			
 			if (mode.getValue().equals("LINEAR")==true)
 			{			
-				while (checkLoopDone ()==false)		
+				while ((checkLoopDone ()==false) && (checkDone ()==false))	
 				{				
 					if (loadDataObject (loadIndex)==false)
 						return (false);
@@ -196,7 +196,7 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 			}
 			else
 			{
-				while (checkLoopDone ()==false)		
+				while ((checkLoopDone ()==false) && (checkDone ()==false))		
 				{				
 					if (loadDataObject (getSample (originalSize))==false)
 						return (false);

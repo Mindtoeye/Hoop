@@ -275,20 +275,22 @@ public class HoopProjectPanel extends HoopEmbeddedJPanel implements MouseListene
 	/**
 	 *
 	 */	
-	public void collapseAll(JTree tree, TreePath parent) 
+	public void collapseAll(JTree tree, TreePath parent,Boolean isRoot) 
 	{
 	    TreeNode node = (TreeNode) parent.getLastPathComponent();
+	    
 	    if (node.getChildCount() >= 0) 
 	    {
 	    	for (Enumeration<?> e = node.children(); e.hasMoreElements();) 
 	    	{
 	    		TreeNode n = (TreeNode) e.nextElement();
 	    		TreePath path = parent.pathByAddingChild(n);
-	    		collapseAll(tree, path);
+	    		collapseAll(tree, path,false);
 	    	}
 	    }
 	    	   
-	    tree.collapsePath(parent);
+	    if (isRoot==false)
+	    	tree.collapsePath(parent);
 	  }		
 	/**
 	 *
@@ -501,7 +503,7 @@ public class HoopProjectPanel extends HoopEmbeddedJPanel implements MouseListene
 		if (button==foldButton)
 		{
 			TreeNode root = (TreeNode) tree.getModel().getRoot();
-			collapseAll (tree, new TreePath(root));
+			collapseAll (tree, new TreePath(root),false);
 		}						
 		
 		if (button==refreshButton)

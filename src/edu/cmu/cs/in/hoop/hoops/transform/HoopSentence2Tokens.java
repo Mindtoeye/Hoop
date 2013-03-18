@@ -84,6 +84,8 @@ public class HoopSentence2Tokens extends HoopTransformBase implements HoopInterf
 			{
 				HoopKVInteger aKV=(HoopKVInteger) inData.get(i);
 				
+				HoopKV newKV=createKV (aKV);
+				
 				//debug ("Processing item: " + i + " with value: " + aKV.getValueAsString());
 				
 				//>------------------------------------------------------------------------
@@ -100,7 +102,7 @@ public class HoopSentence2Tokens extends HoopTransformBase implements HoopInterf
 					{
 						//debug ("Generate mode is Add");
 						
-						HoopKVInteger newToken=new HoopKVInteger ();
+						//HoopKVInteger newToken=new HoopKVInteger ();
 						
 						for (int j=0;j<tokens.size();j++)
 						{							
@@ -113,11 +115,15 @@ public class HoopSentence2Tokens extends HoopTransformBase implements HoopInterf
 							if (removePunctuation.getPropValue ()==true)
 								strippedInput = aToken.replaceAll(splitRegEx.getValue(), "");
 						
-							newToken.setKey (i);
-							newToken.setValue (strippedInput, j);							
+							//newToken.setKey (i);
+							//newToken.setValue (strippedInput, j);
+							Integer keyFormatter=i;
+							newKV.setKeyString(keyFormatter.toString());
+							newKV.setValue(strippedInput, j);
 						}	
 						
-						addKV (newToken);
+						//addKV (newToken);
+						addKV (newKV);
 					}
 					else
 					{
@@ -134,10 +140,22 @@ public class HoopSentence2Tokens extends HoopTransformBase implements HoopInterf
 							
 							//debug ("final input for new token: " + strippedInput);
 						
-							if (this.reKey.getPropValue()==false)						
-								addKV (new HoopKVInteger (j,strippedInput));
+							if (this.reKey.getPropValue()==false)				
+							{
+								Integer keyFormatter=j;
+								newKV.setKeyString(keyFormatter.toString());
+								newKV.setValue(strippedInput);
+								addKV (newKV);
+								//addKV (new HoopKVInteger (j,strippedInput));
+							}
 							else
-								addKV (new HoopKVInteger (i,strippedInput));							
+							{
+								Integer keyFormatter=i;
+								newKV.setKeyString(keyFormatter.toString());
+								newKV.setValue(strippedInput);
+								addKV (newKV);								
+								//addKV (new HoopKVInteger (i,strippedInput));
+							}
 						}							
 					}
 				}					
@@ -169,11 +187,16 @@ public class HoopSentence2Tokens extends HoopTransformBase implements HoopInterf
 							if (removePunctuation.getPropValue ()==true)
 								strippedInput = aToken.replaceAll(splitRegEx.getValue(), "");
 						
-							newToken.setKey (i);
-							newToken.setValue (strippedInput, j);							
+							//newToken.setKey (i);
+							//newToken.setValue (strippedInput, j);
+
+							Integer keyFormatter=i;
+							newKV.setKeyString(keyFormatter.toString());
+							newKV.setValue(strippedInput, j);							
 						}	
 						
-						addKV (newToken);
+						//addKV (newToken);
+						addKV (newKV);
 					}
 					else
 					{
@@ -190,10 +213,22 @@ public class HoopSentence2Tokens extends HoopTransformBase implements HoopInterf
 							
 							//debug ("final input for new token: " + strippedInput);
 						
-							if (this.reKey.getPropValue()==false)						
-								addKV (new HoopKVInteger (j,strippedInput));
+							if (this.reKey.getPropValue()==false)				
+							{
+								Integer keyFormatter=j;
+								newKV.setKeyString(keyFormatter.toString());
+								newKV.setValue(strippedInput);
+								addKV (newKV);
+								//addKV (new HoopKVInteger (j,strippedInput));
+							}
 							else
-								addKV (new HoopKVInteger (i,strippedInput));							
+							{
+								Integer keyFormatter=i;
+								newKV.setKeyString(keyFormatter.toString());
+								newKV.setValue(strippedInput);
+								addKV (newKV);								
+								//addKV (new HoopKVInteger (i,strippedInput));
+							}						
 						}							
 					}
 				}	
@@ -214,10 +249,22 @@ public class HoopSentence2Tokens extends HoopTransformBase implements HoopInterf
 				    {
 				    	Word aTerm=sTokens.get(t);
 					    	
-				    	if (this.reKey.getPropValue()==false)
-				    		addKV (new HoopKVInteger (t,aTerm.toString()));
-				    	else
-				    		addKV (new HoopKVInteger (i,aTerm.toString()));
+						if (this.reKey.getPropValue()==false)				
+						{
+							Integer keyFormatter=t;
+							newKV.setKeyString(keyFormatter.toString());
+							newKV.setValue(aTerm.toString());
+							addKV (newKV);
+							//addKV (new HoopKVInteger (j,strippedInput));
+						}
+						else
+						{
+							Integer keyFormatter=i;
+							newKV.setKeyString(keyFormatter.toString());
+							newKV.setValue(aTerm.toString());
+							addKV (newKV);								
+							//addKV (new HoopKVInteger (i,strippedInput));
+						}
 				    }					    						
 				}
 					

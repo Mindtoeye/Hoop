@@ -103,7 +103,7 @@ public class HoopVFSL extends HoopRoot implements HoopVFSLInterface
 	@Override
 	public boolean isStreamOpen() 
 	{
-		debug ("isStreamOpen ()");
+		//debug ("isStreamOpen ()");
 		
 		if (layers.size()>0)
 		{
@@ -120,7 +120,7 @@ public class HoopVFSL extends HoopRoot implements HoopVFSLInterface
 	@Override
 	public Writer getOutputStream() 
 	{
-		debug ("getOutputStream ()");
+		//debug ("getOutputStream ()");
 		
 		if (layers.size()>0)
 		{
@@ -137,7 +137,7 @@ public class HoopVFSL extends HoopRoot implements HoopVFSLInterface
 	@Override
 	public OutputStream getOutputStreamBinary() 
 	{
-		debug ("getOutputStreamBinary ()");
+		//debug ("getOutputStreamBinary ()");
 		
 		if (layers.size()>0)
 		{
@@ -154,7 +154,7 @@ public class HoopVFSL extends HoopRoot implements HoopVFSLInterface
 	@Override
 	public boolean openStream(String aFileURI) 
 	{
-		debug ("openStream ()");
+		//debug ("openStream ()");
 		
 		if (layers.size()>0)
 		{
@@ -168,7 +168,7 @@ public class HoopVFSL extends HoopRoot implements HoopVFSLInterface
 	@Override
 	public boolean openStreamBinary(String aFileURI) 
 	{
-		debug ("openStreamBinary ()");
+		//debug ("openStreamBinary ()");
 		
 		if (layers.size()>0)
 		{
@@ -184,7 +184,7 @@ public class HoopVFSL extends HoopRoot implements HoopVFSLInterface
 	@Override
 	public void closeStream() 
 	{
-		debug ("closeStream ()");
+		//debug ("closeStream ()");
 		
 		if (layers.size()>0)
 		{
@@ -199,7 +199,7 @@ public class HoopVFSL extends HoopRoot implements HoopVFSLInterface
 	@Override
 	public void writeToStream(String aContents) 
 	{
-		debug ("writeToStream ()");
+		//debug ("writeToStream ()");
 		
 		if (layers.size()>0)
 		{
@@ -214,7 +214,7 @@ public class HoopVFSL extends HoopRoot implements HoopVFSLInterface
 	@Override
 	public String loadContents(String aFileURI) 
 	{
-		debug ("loadContents ()");
+		//debug ("loadContents ()");
 		
 		if (layers.size()>0)
 		{
@@ -231,7 +231,7 @@ public class HoopVFSL extends HoopRoot implements HoopVFSLInterface
 	@Override
 	public boolean saveContents(String aFileURI, String aContents) 
 	{
-		debug ("saveContents ()");
+		//debug ("saveContents ()");
 		
 		if (layers.size()>0)
 		{
@@ -248,7 +248,7 @@ public class HoopVFSL extends HoopRoot implements HoopVFSLInterface
 	@Override
 	public boolean appendContents(String aFileURI, String aContents) 
 	{
-		debug ("appendContents ()");
+		//debug ("appendContents ()");
 		
 		if (layers.size()>0)
 		{
@@ -265,7 +265,7 @@ public class HoopVFSL extends HoopRoot implements HoopVFSLInterface
 	@Override
 	public boolean createDirectory(String aDirURI) 
 	{
-		debug ("createDirectory ()");
+		//debug ("createDirectory ()");
 		
 		if (layers.size()>0)
 		{
@@ -282,7 +282,7 @@ public class HoopVFSL extends HoopRoot implements HoopVFSLInterface
 	@Override
 	public boolean removeDirectory(String aDirURI) 
 	{
-		debug ("removeDirectory ()");
+		//debug ("removeDirectory ()");
 		
 		if (layers.size()>0)
 		{
@@ -299,7 +299,7 @@ public class HoopVFSL extends HoopRoot implements HoopVFSLInterface
 	@Override
 	public boolean doesFileExist(String aFileURI) 
 	{
-		debug ("doesFileExist ()");
+		//debug ("doesFileExist ()");
 		
 		if (layers.size()>0)
 		{
@@ -316,7 +316,7 @@ public class HoopVFSL extends HoopRoot implements HoopVFSLInterface
 	@Override
 	public ArrayList<String> listDirectoryEntries(String aDirURI) 
 	{
-		debug ("listDirectoryEntries ()");
+		//debug ("listDirectoryEntries ()");
 		
 		if (layers.size()>0)
 		{
@@ -333,7 +333,7 @@ public class HoopVFSL extends HoopRoot implements HoopVFSLInterface
 	@Override
 	public ArrayList<String> listFiles(String aDirURI) 
 	{
-		debug ("listFiles ()");
+		//debug ("listFiles ()");
 		
 		if (layers.size()>0)
 		{
@@ -350,7 +350,7 @@ public class HoopVFSL extends HoopRoot implements HoopVFSLInterface
 	@Override
 	public Long getFileTime(String aPath) 
 	{
-		debug ("getFileTime ()");
+		//debug ("getFileTime ()");
 		
 		if (layers.size()>0)
 		{

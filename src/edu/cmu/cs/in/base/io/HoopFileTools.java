@@ -88,7 +88,7 @@ public class HoopFileTools extends HoopRoot
 	 */	
 	public boolean doesFileExist (String aFileURI)
 	{
-		debug ("getContents ("+aFileURI+")");
+		debug ("doesFileExist ("+aFileURI+")");
 		
 		File file=new File (aFileURI);
 		

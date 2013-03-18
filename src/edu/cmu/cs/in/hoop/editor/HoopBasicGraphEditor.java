@@ -59,6 +59,7 @@ import com.mxgraph.layout.mxParallelEdgeLayout;
 import com.mxgraph.layout.mxPartitionLayout;
 import com.mxgraph.layout.mxStackLayout;
 import com.mxgraph.layout.hierarchical.mxHierarchicalLayout;
+import com.mxgraph.model.mxCell;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.swing.handler.mxKeyboardHandler;
 import com.mxgraph.swing.handler.mxPanningHandler;
@@ -73,12 +74,15 @@ import com.mxgraph.util.mxUndoableEdit;
 import com.mxgraph.util.mxEventSource.mxIEventListener;
 import com.mxgraph.util.mxUndoableEdit.mxUndoableChange;
 import com.mxgraph.view.mxGraph;
+import com.mxgraph.view.mxGraphSelectionModel;
 
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.controls.HoopBreadCrumbBar;
 import edu.cmu.cs.in.controls.HoopButtonBox;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 import edu.cmu.cs.in.controls.base.HoopLockableJPanel;
+import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
+import edu.cmu.cs.in.hoop.properties.HoopPropertyPanel;
 
 public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWheelListener, KeyListener, MouseMotionListener, ActionListener
 {
@@ -294,6 +298,50 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 		//mxGraphHandler handler=new mxGraphHandler (graphComponent);
 				
 		keyboardHandler = new HoopEditorKeyboardHandler(graphComponent);
+		
+	    graph.getSelectionModel().addListener(mxEvent.CHANGE, new mxIEventListener() 
+	    {
+	        @Override
+	        public void invoke(Object sender, mxEventObject evt) 
+	        {
+	            debug ("evt.toString() = " + evt.toString());
+	            debug ("Selection in graph component");
+	            
+	            if (sender instanceof mxGraphSelectionModel) 
+	            {
+	                for (Object cell : ((mxGraphSelectionModel)sender).getCells()) 
+	                {
+	                    debug ("cell=" + graph.getLabel(cell));
+	                    	                    
+						if (cell instanceof mxCell)
+						{
+							debug ("We've got a vertex cell here, configuring ...");
+				
+							mxCell aCell=(mxCell) cell;
+												
+							Object userObject=aCell.getValue();
+											
+							if (userObject instanceof String)
+							{										
+								debug ("This selection is a template, not an id");														
+							}
+							else
+							{
+								HoopVisualGraph vizGraph=(HoopVisualGraph) graph;
+								
+								HoopBase aHoop=vizGraph.cellToHoop(cell);
+								
+								HoopPropertyPanel propPanel=(HoopPropertyPanel) HoopLink.getWindow("Properties");
+								if (propPanel!=null)
+								{
+									propPanel.highlightHoop (aHoop);
+								}
+							}
+						}
+	                }
+	            }
+	        }
+	    });
 	}
 	/**
 	 * 
@@ -595,8 +643,7 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 					final mxGraph graph = graphComponent.getGraph();
 					Object cell = graph.getSelectionCell();
 
-					if (cell == null
-							|| graph.getModel().getChildCount(cell) == 0)
+					if (cell == null || graph.getModel().getChildCount(cell) == 0)
 					{
 						cell = graph.getDefaultParent();
 					}

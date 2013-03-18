@@ -322,6 +322,7 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 	 */
 	private void calcVisualStats ()
 	{
+		/*
 		debug ("calcVisualStats ()");
 		
 		if (HoopExecutionListRenderer.mode==HoopExecutionListRenderer.MODEDEFAULT)
@@ -335,6 +336,7 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 		}
 		
 		executionTrace.repaint();
+		*/
 	}
 	/**
 	 * 

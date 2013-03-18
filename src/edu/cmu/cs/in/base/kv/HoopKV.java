@@ -178,6 +178,13 @@ public class HoopKV extends HoopDataType implements HoopKVInterface, Serializabl
 	/**
 	 *
 	 */
+	public void setValue(Object value) 
+	{
+		setValue (value,0);
+	}			
+	/**
+	 *
+	 */
 	public void setValue(Object value, int anIndex) 
 	{
 		if (anIndex>(values.size()-1))

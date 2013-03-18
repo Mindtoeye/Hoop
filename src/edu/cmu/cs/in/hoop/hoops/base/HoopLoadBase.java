@@ -123,13 +123,22 @@ public class HoopLoadBase extends HoopIOBase implements HoopInterface
 			else
 				loadMax=Integer.parseInt(queryMax.getPropValue());
 				
+			// If the total amount of KV objects is less than loadMax then
+			// simply load all of them
+			
 			if ((actualSize<loadMax) || (loadMax==0))
 				loadMax=actualSize;
 			
+			// If the total amount of KV objects is less than the batch size
+			// then ignore the batch size
+			
 			if (actualSize<bSize)
 				bSize=actualSize;
+			
+			// If the batch size is larger than loadMax then set the batch
+			// size to the loadMax value
 					
-			if (bSize>loadMax)
+			if (bSize>=loadMax)
 				loadMax=bSize;
 		}	
 		else
@@ -138,11 +147,15 @@ public class HoopLoadBase extends HoopIOBase implements HoopInterface
 		debug ("Batch size: " + bSize + " loadmax: " + loadMax);
 	}	
 	/**
-	 * 
+	 * We have to be careful here because we're comparing and index to a size
+	 * so we have to increment the count/index by one to make the comparison
+	 * make sense.
 	 */
 	protected boolean checkLoopDone ()
 	{
-		if (bCount<bSize)
+		debug ("checkLoopDone ("+bCount+","+bSize+")");
+		
+		if ((bCount+1)<bSize)
 			return (false);
 			
 		return (true);
@@ -152,9 +165,15 @@ public class HoopLoadBase extends HoopIOBase implements HoopInterface
 	 */
 	protected boolean checkDone ()
 	{
-		if (loadIndex<loadMax)
-			return (false);
+		debug ("checkDone ("+loadIndex+","+loadMax+")");
 		
+		if (loadIndex<loadMax)
+		{
+			debug ("false");
+			return (false);
+		}
+		
+		debug ("true");
 		return (true);
 	}
 	/**

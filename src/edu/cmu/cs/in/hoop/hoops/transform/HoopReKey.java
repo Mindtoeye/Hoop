@@ -72,6 +72,8 @@ public class HoopReKey extends HoopTransformBase implements HoopInterface
 			return (false);
 		}
 		
+		targetIndex--;
+		
 		debug ("Using index " + targetIndex + " as new index, with data size: " + inData.size());
 							
 		for (int i=0;i<inData.size();i++)

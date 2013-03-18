@@ -326,7 +326,7 @@ public class HoopFileManager extends HoopFileTools implements HoopVFSLInterface
 	 */	
 	public String loadContents (String aFileURI)
 	{    
-		debug ("loadContents ("+aFileURI+")");
+		//debug ("loadContents ("+aFileURI+")");
 		
 		setURI (aFileURI);
 
@@ -374,7 +374,7 @@ public class HoopFileManager extends HoopFileTools implements HoopVFSLInterface
 			return (null);
 		}
 		
-		debug ("Loaded " + contents.length() + " characters");
+		//debug ("Loaded " + contents.length() + " characters");
     
 		return (contents.toString());
 	}

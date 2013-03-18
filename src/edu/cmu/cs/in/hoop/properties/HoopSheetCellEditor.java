@@ -289,7 +289,8 @@ public class HoopSheetCellEditor extends AbstractCellEditor implements TableCell
     			//obj.setValue(numberComponent.getText());
     			//textComponent.setText(obj.getValue());
     			intStandin.setPropValue(numberComponent.getInt());
-    			return (numberComponent.getText());
+    			//return (numberComponent.getText());
+    			return (numberComponent.getNumber().toString());
     		}    	
     	
     		if (obj.getDataType()==HoopDataType.ENUM)
@@ -326,7 +327,7 @@ public class HoopSheetCellEditor extends AbstractCellEditor implements TableCell
 	 * 2 For double-click activation      
 	 * 3 For triple-click activation      
 	 */    
-    public boolean isCellEditable(EventObject evt) 
+    public boolean isCellEditable(EventObject evt)
     {
         if (evt instanceof MouseEvent)
         {

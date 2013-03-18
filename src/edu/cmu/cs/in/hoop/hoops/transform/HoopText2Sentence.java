@@ -35,6 +35,9 @@ public class HoopText2Sentence extends HoopTransformBase implements HoopInterfac
 	private static final long serialVersionUID = 6939927189106023532L;
 	private HoopStringSerializable splitRegEx=null;
 	
+	private HoopStringSerializable skipFirstLines=null;
+	private HoopStringSerializable ignoreLastLines=null;
+	
 	/**
 	 *
 	 */
@@ -46,6 +49,8 @@ public class HoopText2Sentence extends HoopTransformBase implements HoopInterfac
 		setHoopDescription ("Parse File into Sentences");
 		
 		splitRegEx=new HoopStringSerializable (this,"splitRegEx","[\\r\\n]+");
+		skipFirstLines=new HoopStringSerializable (this,"skipFirstLines","0");
+		ignoreLastLines=new HoopStringSerializable (this,"ignoreLastLines","0");
     }
 	/**
 	 *
@@ -55,6 +60,11 @@ public class HoopText2Sentence extends HoopTransformBase implements HoopInterfac
 		debug ("runHoop ()");
 		
 		ArrayList <HoopKV> inData=inHoop.getData();
+		
+		Integer skipLines=Integer.parseInt(this.skipFirstLines.getPropValue());
+		Integer ignoreLines=Integer.parseInt(this.ignoreLastLines.getPropValue());
+		
+		debug ("Skipping the first " + skipLines + " lines");
 		
 		if (inData!=null)
 		{			
@@ -75,32 +85,28 @@ public class HoopText2Sentence extends HoopTransformBase implements HoopInterfac
 					String lines[] =aFullText.split(splitRegEx.getValue());
 				
 					for (int i=0;i<lines.length;i++)
-					{					
-						HoopKVInteger sentenceKV=new HoopKVInteger ();
+					{
+						if (((i+1)>skipLines) && ((i+1)<(lines.length-ignoreLines)))
+						{													
+							HoopKV sentenceKV=createKV (aKV);
 						
-						if (this.reKey.getPropValue()==true)
-						{
-							int createdKey=(t+1)*(i+1);
+							if (this.reKey.getPropValue()==true)
+							{
+								Integer createdKey=(t+1)*(i+1);
 							
-							//debug ("createdKey:" + createdKey);
-							
-							sentenceKV.setKey(createdKey);
-						}
-						else
-						{
-							//debug ("Using key: " + t);
-							sentenceKV.setKey(t);
-						}
+								sentenceKV.setKeyString (createdKey.toString());
+							}
 						
-						String newSentence=lines [i];
+							String newSentence=lines [i];
 						
-						sentenceKV.setValue(newSentence);
-						sentenceKV.begin=0;
-						sentenceKV.end=newSentence.length();
+							sentenceKV.setValue(newSentence);
+							sentenceKV.begin=0;
+							sentenceKV.end=newSentence.length();
 				
-						addKV (sentenceKV);
+							addKV (sentenceKV);
+						}
 					}	
-				}	
+				}					
 			}		
 		}		
 		else

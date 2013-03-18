@@ -63,6 +63,7 @@ import com.mxgraph.util.mxRectangle;
 
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.HoopStringTools;
+import edu.cmu.cs.in.controls.HoopButtonBox;
 //import edu.cmu.cs.in.controls.HoopShadowBorder;
 import edu.cmu.cs.in.controls.HoopJTreeHoopRenderer;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
@@ -98,7 +99,12 @@ public class HoopTreeList extends HoopEmbeddedJPanel implements MouseListener, A
 		
 		Box mainBox = new Box (BoxLayout.Y_AXIS);
 					    
-	    Box buttonBox = new Box (BoxLayout.X_AXIS);
+	    //Box buttonBox = new Box (BoxLayout.X_AXIS);
+		
+		HoopButtonBox buttonBox=new HoopButtonBox ();
+	   	buttonBox.setMinimumSize(new Dimension (100,24));
+	   	buttonBox.setPreferredSize(new Dimension (200,24));
+	   	buttonBox.setMaximumSize(new Dimension (2000,24));		
 	    
 	    expandButton=new JButton ();
 	    expandButton.setFont(new Font("Dialog", 1, 8));
@@ -108,8 +114,8 @@ public class HoopTreeList extends HoopEmbeddedJPanel implements MouseListener, A
 	    expandButton.setIcon(HoopLink.getImageByName("tree-expand-icon.png"));
 	    expandButton.addActionListener(this);
 
-	    buttonBox.add (expandButton);
-	    buttonBox.add (Box.createRigidArea(new Dimension(2,0)));
+	    buttonBox.addComponent (expandButton);
+	    //buttonBox.add (Box.createRigidArea(new Dimension(2,0)));
 	    
 	    foldButton=new JButton ();
 	    foldButton.setFont(new Font("Dialog", 1, 8));
@@ -119,8 +125,8 @@ public class HoopTreeList extends HoopEmbeddedJPanel implements MouseListener, A
 	    //foldButton.setText("None");
 	    foldButton.addActionListener(this);
 	    
-	    buttonBox.add (foldButton);
-	    buttonBox.add (Box.createRigidArea(new Dimension(2,0)));
+	    buttonBox.addComponent (foldButton);
+	    //buttonBox.add (Box.createRigidArea(new Dimension(2,0)));
 	    
 	    inverseButton=new JButton ();
 	    inverseButton.setFont(new Font("Dialog", 1, 8));
@@ -129,8 +135,8 @@ public class HoopTreeList extends HoopEmbeddedJPanel implements MouseListener, A
 	    inverseButton.setText("Inverse");
 	    inverseButton.addActionListener(this);
 	    
-	    buttonBox.add (inverseButton);
-	    buttonBox.add (Box.createRigidArea(new Dimension(2,0)));
+	    buttonBox.addComponent (inverseButton);
+	    //buttonBox.add (Box.createRigidArea(new Dimension(2,0)));
 	    
 	    selectedButton=new JButton ();
 	    selectedButton.setFont(new Font("Dialog", 1, 8));
@@ -140,10 +146,10 @@ public class HoopTreeList extends HoopEmbeddedJPanel implements MouseListener, A
 	    selectedButton.addActionListener(this);
 	    selectedButton.setEnabled(false);
 	    
-	    buttonBox.add (selectedButton);
-	    buttonBox.add (Box.createRigidArea(new Dimension(2,0)));
+	    buttonBox.addComponent (selectedButton);
+	    //buttonBox.add (Box.createRigidArea(new Dimension(2,0)));
 	    
-	    buttonBox.add(Box.createHorizontalGlue());
+	    //buttonBox.add(Box.createHorizontalGlue());
 		
 		treeHoopRenderer=new HoopJTreeHoopRenderer ();
 				
@@ -240,7 +246,7 @@ public class HoopTreeList extends HoopEmbeddedJPanel implements MouseListener, A
 	/**
 	 *
 	 */	
-	public void collapseAll(JTree tree, TreePath parent) 
+	public void collapseAll(JTree tree, TreePath parent,Boolean isRoot) 
 	{
 	    TreeNode node = (TreeNode) parent.getLastPathComponent();
 	    if (node.getChildCount() >= 0) 
@@ -249,11 +255,12 @@ public class HoopTreeList extends HoopEmbeddedJPanel implements MouseListener, A
 	    	{
 	    		TreeNode n = (TreeNode) e.nextElement();
 	    		TreePath path = parent.pathByAddingChild(n);
-	    		collapseAll(tree, path);
+	    		collapseAll(tree, path,false);
 	    	}
 	    }
-	    	   
-	    tree.collapsePath(parent);
+	    
+	    if (isRoot==false)
+	    	tree.collapsePath(parent);
 	  }		
 	/**
 	 *
@@ -452,7 +459,7 @@ public class HoopTreeList extends HoopEmbeddedJPanel implements MouseListener, A
 		if (button==foldButton)
 		{
 			TreeNode root = (TreeNode) tree.getModel().getRoot();
-			collapseAll (tree, new TreePath(root));
+			collapseAll (tree, new TreePath(root),true);
 		}				
 	}    
 }
