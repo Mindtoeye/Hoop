@@ -33,6 +33,7 @@ import edu.cmu.cs.in.ling.HoopPorterStemmerOriginal;
 */
 public class HoopPorterStemmer extends HoopTransformBase implements HoopInterface
 {    	
+	private static final long serialVersionUID = -318931670446625716L;
 	
 	public	HoopStringSerializable minChars = null;
 	private HoopPorterStemmerOriginal stemmer=null;
