@@ -91,6 +91,7 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 	protected JLabel statusPanel=null;
 	protected JPanel toolBar=null;
 	protected JPanel bottomPanel=null;
+	protected JPanel progressPanel=null;
 	//protected JCheckBox nodeSelectCheckbox=null;
 	protected JButton kvExamineButton=null;
 	protected JButton hoopOptionButton=null;
