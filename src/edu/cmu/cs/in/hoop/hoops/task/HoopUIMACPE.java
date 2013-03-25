@@ -18,9 +18,12 @@
 
 package edu.cmu.cs.in.hoop.hoops.task;
 
+import edu.cmu.cs.in.base.HoopLink;
+import edu.cmu.cs.in.hoop.execute.HoopUIMACPEDriver;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopControlBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
+import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
 
 /**
 * 
@@ -28,6 +31,9 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
 public class HoopUIMACPE extends HoopControlBase implements HoopInterface
 {    					
 	private static final long serialVersionUID = 8756323464548123680L;
+	private HoopUIMACPEDriver UIMADriver=null;
+	
+	public HoopURISerializable URI=null;
 	
 	/**
 	 *
@@ -42,6 +48,8 @@ public class HoopUIMACPE extends HoopControlBase implements HoopInterface
 		removeInPort ("KV");
 		addInPort ("CAS");
 		
+		URI=new HoopURISerializable (this,"URI","");
+		
 		removeOutPort ("KV");		
     }
 	/**
@@ -50,6 +58,13 @@ public class HoopUIMACPE extends HoopControlBase implements HoopInterface
 	public Boolean runHoop (HoopBase inHoop)
 	{		
 		debug ("runHoop ()");
+		
+		String fullXMLPath=HoopLink.relativeToAbsolute(URI.getValue());
+		
+		debug ("Processing UIMA XML descriptor: " + fullXMLPath);
+		
+		UIMADriver=new HoopUIMACPEDriver ();
+		UIMADriver.runCPE (fullXMLPath);
 						
 		return (true);
 	}	

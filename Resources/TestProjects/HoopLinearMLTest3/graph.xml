@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hoopfile class="HoopGraphFile" instance="graph.xml">
+  <graph scale="1.0">
+    <hoops>
+      <hoop id="b32343b3-3da0-4bab-8417-6940fad26fd0" class="HoopStart" name="66" active="true">
+        <visual x="20" y="20" width="150" height="100" />
+        <properties />
+      </hoop>
+    </hoops>
+    <connections />
+  </graph>
+</hoopfile>
+

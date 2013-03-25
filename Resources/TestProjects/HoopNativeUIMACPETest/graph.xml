@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hoopfile class="HoopGraphFile" instance="graph.xml">
+  <graph scale="1.0">
+    <hoops>
+      <hoop id="725d18ba-2e18-4d74-9ffd-9754b7b0a2f9" class="HoopStart" name="65" active="true">
+        <visual x="20" y="20" width="150" height="100" />
+        <properties />
+      </hoop>
+      <hoop id="318d27ea-a99d-422d-a912-01ac75588694" class="HoopUIMACPE" name="66" active="true">
+        <visual x="240" y="180" width="150" height="100" />
+        <properties>
+          <serializable class="HoopURISerializable" instance="URI">
+            <value format="Text" type="URI" fileExtension="txt" dirsOnly="false">&lt;PROJECTPATH&gt;\RoomNumberAnnotator.xml</value>
+          </serializable>
+        </properties>
+      </hoop>
+    </hoops>
+    <connections>
+      <connection name="Edge" from="725d18ba-2e18-4d74-9ffd-9754b7b0a2f9" to="318d27ea-a99d-422d-a912-01ac75588694" />
+    </connections>
+  </graph>
+</hoopfile>
+
