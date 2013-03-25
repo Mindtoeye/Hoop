@@ -164,6 +164,9 @@ public class HoopStringTools extends HoopRoot
 	 */
 	public static long calculateChecksum (String aString)
 	{
+		if (aString==null)
+			return (0);
+		
         //Convert string to bytes
         byte bytes[] = aString.getBytes();
        

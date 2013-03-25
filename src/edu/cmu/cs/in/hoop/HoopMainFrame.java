@@ -1160,6 +1160,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 
 		if (returnVal==HoopJFileChooser.APPROVE_OPTION) 
 		{
+			/*
 			Object[] options = {"Yes","No","Cancel"};
            	int n = JOptionPane.showOptionDialog (compReference,
            										  "Loading a saved set will override any existing selections, do you want to continue?",
@@ -1181,18 +1182,18 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
            		File file = fc.getSelectedFile();
 
            		debug ("Creating in directory: " + file.getAbsolutePath() + " ...");
-                   	           		
-           		/*
-           		HoopLink.project=new HoopProject ();
-           		if (HoopLink.project.newProject (file.getAbsolutePath()))
-           		{
-           			debug ("Error creating project!");
-           			return (false);
-           		}
-           		*/
-           		
+                   	           		           		
            		newProjectInternal (file.getAbsolutePath());
-           	}	
+           	}
+           	*/
+			
+       		File file = fc.getSelectedFile();
+
+       		debug ("Creating in directory: " + file.getAbsolutePath() + " ...");
+               	           		           		
+       		newProjectInternal (file.getAbsolutePath());			
+       		
+       		HoopLink.project.save ();
 		} 
 		else 
 		{
@@ -1334,6 +1335,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
            	else
            	{
            		alert ("Unable to find graph file in project");
+           		
            		return (false);
            	}
 		} 

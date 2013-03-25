@@ -36,6 +36,7 @@ public class HoopProperties extends HoopLangLink
 	public static Color graphBackgroundColor=new Color (140,140,140);
 	public static Color graphPanelContent=new Color (132,132,132);
 	public static Color graphPanelColor=new Color (120,120,120);
+	public static Color graphPanelColorLight=new Color (160,160,160);
 	
 	// Dynamic structure that maintains global properties. This
 	// structure should be storable on disk

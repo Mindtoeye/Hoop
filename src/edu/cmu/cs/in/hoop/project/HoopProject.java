@@ -56,6 +56,18 @@ public class HoopProject extends HoopProjectFile
 	/**
 	 * 
 	 */
+	public void addGraph ()
+	{
+		debug ("addGraph ()");
+	
+		HoopGraphFile aGraph=new HoopGraphFile ();
+		aGraph.setFileURI("graph.xml");
+		
+		files.add(aGraph);		
+	}
+	/**
+	 * 
+	 */
 	public Boolean isEmpty ()
 	{
 		debug ("isEmpty ()");
@@ -221,10 +233,7 @@ public class HoopProject extends HoopProjectFile
 		
 		setFileURI (".hprj");
 		
-		HoopGraphFile aGraph=new HoopGraphFile ();
-		aGraph.setFileURI("graph.xml");
-		
-		files.add(aGraph);
+		addGraph();
 		
 		return (true);
 	}

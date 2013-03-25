@@ -24,6 +24,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Paint;
 
+import edu.cmu.cs.in.base.HoopProperties;
 import edu.cmu.cs.in.controls.base.HoopJPanel;
 
 /**
@@ -33,13 +34,22 @@ public class HoopProgressPainter extends HoopJPanel
 {
 	private static final long serialVersionUID = 8372398146730004932L;
 		
+	public static int VIZ_FLAT=0;
+	public static int VIZ_GRADIENT=1;
+	
+	public static int BAR_MANUAL=0;
+	public static int BAR_AUTO=1;
+	
+	private int progressVisualization=VIZ_FLAT;
+	private int progressBarType=BAR_MANUAL;
+	
 	private int currentLevel=1;
 	private int maxLevel=1;	
 	
 	private Boolean hoopEnabled=false;
 	
 	/**
-	 * Creates a new JPanel with a double buffer and a flow layout.
+	 * 
 	 */	
 	public HoopProgressPainter()
 	{
@@ -87,25 +97,129 @@ public class HoopProgressPainter extends HoopJPanel
 	protected void paintComponent(Graphics g)
 	{		
 		debug ("paintComponent ("+currentLevel+","+maxLevel+")");
-			
-		Graphics2D g2 = (Graphics2D)g.create();
-
-		Paint p = new GradientPaint (0,
-									4, 
-									new Color(180,180,180),
-									0,
-									getHeight ()-8,
-									new Color(220,220,220),
-									true);
-
-		int width=(maxLevel-4);
-							
-		g2.setPaint (p);
-		g2.fillRect (currentLevel,2,width,getHeight()-4);
 		
-		g2.setColor(new Color (0,0,0));
-		g2.drawRect(currentLevel,2, width,this.getHeight()-4);
+		if (progressBarType==BAR_MANUAL)
+			drawBarManual (g);
+								
+		if (progressBarType==BAR_AUTO)
+			drawBarAuto (g);																
+	}
+	/**
+	 * 
+	 * @param g
+	 */
+	protected void drawBarManual(Graphics g)
+	{		
+		debug ("drawBarManual ("+currentLevel+","+maxLevel+")");
+						
+		if (progressVisualization==HoopProgressPainter.VIZ_FLAT)
+		{
+			Graphics2D g2 = (Graphics2D)g.create();
+			
+			int width=(maxLevel-4);
+			
+			g2.setColor(new Color (220,220,220));
+			
+			g2.fillRect (currentLevel,2,width,getHeight()-4);
+			
+			g2.dispose ();
+		}
+		else
+		{
+			Graphics2D g2 = (Graphics2D)g.create();
+
+			Paint p = new GradientPaint (0,
+										 4, 
+										 new Color(180,180,180),
+										 0,
+										 getHeight ()-8,
+										 new Color(220,220,220),
+										 true);
+
+			int width=(maxLevel-4);
+							
+			g2.setPaint (p);
+			g2.fillRect (currentLevel,2,width,getHeight()-4);
+		
+			g2.setColor(new Color (0,0,0));
+			g2.drawRect(currentLevel,2, width,this.getHeight()-4);
 	
-		g2.dispose ();	
+			g2.dispose ();
+		}	
+	}
+	/**
+	 * 
+	 * @param g
+	 */
+	protected void drawBarAuto(Graphics g)
+	{		
+		debug ("drawBarAuto ("+currentLevel+","+maxLevel+")");
+						
+		if (progressVisualization==HoopProgressPainter.VIZ_FLAT)
+		{
+			Graphics2D g2 = (Graphics2D)g.create();
+			
+			int width=(maxLevel-4);
+			
+			g2.setColor(new Color (220,220,220));
+			
+			g2.fillRect (currentLevel,2,width,getHeight()-4);
+			
+			g2.dispose ();
+		}
+		else
+		{
+			Graphics2D g2 = (Graphics2D)g.create();
+
+			Paint p = new GradientPaint (0,
+										 4, 
+										 new Color(180,180,180),
+										 0,
+										 getHeight ()-8,
+										 new Color(220,220,220),
+										 true);
+
+			int width=(maxLevel-4);
+							
+			g2.setPaint (p);
+			g2.fillRect (currentLevel,2,width,getHeight()-4);
+		
+			g2.setColor(new Color (0,0,0));
+			g2.drawRect(currentLevel,2, width,this.getHeight()-4);
+	
+			g2.dispose ();
+		}	
+	}	
+	/**
+	 * 
+	 * @return
+	 */
+	public int getProgressVisualization() 
+	{
+		return progressVisualization;
+	}
+	/**
+	 * 
+	 * @param progressVisualization
+	 */
+	public void setProgressVisualization(int progressVisualization) 
+	{
+		this.progressVisualization = progressVisualization;
+	}
+	/**
+	 * 
+	 * @return
+	 */
+	public int getProgressBarType() 
+	{
+		return progressBarType;
+	}
+	/**
+	 * 
+	 * @param progressBarType
+	 */
+	public void setProgressBarType(int progressBarType) 
+	{
+		this.progressBarType = progressBarType;
 	}	
 }

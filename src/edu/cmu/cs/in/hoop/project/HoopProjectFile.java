@@ -111,6 +111,9 @@ public class HoopProjectFile extends HoopFile
 		
 		String aContent=HoopLink.fManager.loadContents (aURI);
 		
+		if (aContent==null) // file not available
+			return (false);
+		
 		prepContents (aContent);
 		
 		Element root=this.fromXMLString (aContent);

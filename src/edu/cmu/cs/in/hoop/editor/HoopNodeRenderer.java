@@ -30,36 +30,27 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-//import java.awt.event.MouseEvent;
-//import java.awt.event.MouseListener;
-//import java.awt.event.MouseMotionListener;
 
 import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.JCheckBox;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JSeparator;
-//import javax.swing.ImageIcon;
-//import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-//import javax.swing.JSeparator;
-//import javax.swing.JTextArea;
-//import javax.swing.SwingConstants;
-//import javax.swing.SwingUtilities;
 import javax.swing.border.BevelBorder;
+//import javax.swing.border.Border;
 
 import com.mxgraph.swing.mxGraphComponent;
-//import com.mxgraph.swing.handler.mxCellHandler;
 import com.mxgraph.view.mxGraph;
 
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.HoopProperties;
+import edu.cmu.cs.in.controls.HoopProgressPainter;
 import edu.cmu.cs.in.controls.HoopShadowBorder;
 import edu.cmu.cs.in.controls.base.HoopJComponent;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
@@ -91,8 +82,7 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 	protected JLabel statusPanel=null;
 	protected JPanel toolBar=null;
 	protected JPanel bottomPanel=null;
-	protected JPanel progressPanel=null;
-	//protected JCheckBox nodeSelectCheckbox=null;
+	protected HoopProgressPainter progressPanel=null;
 	protected JButton kvExamineButton=null;
 	protected JButton hoopOptionButton=null;
 	protected JButton showHelpButton=null;
@@ -225,19 +215,6 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 		
 		contentArea=new JLabel ();
 		contentArea.setOpaque(false);
-		//contentArea.setFont(new Font("Dialog", 1, 10));
-		//contentArea.setForeground(Color.WHITE);
-		//contentArea.setLineWrap(true);
-		//contentArea.setWrapStyleWord(true);
-		//contentArea.setEditable(false);
-		
-		//ImageIcon icon=HoopLink.getImageByName("wait_animated.gif");
-		//contentArea.setIcon(icon);
-		//contentArea.setVisible(false);
-		//icon.setImageObserver(contentArea);
-			
-		//contentArea.setBackground(HoopProperties.graphPanelContent);
-		//contentArea.setBorder(BorderFactory.createLoweredBevelBorder());
 				
 		contentBox.add(leftPortBox);
 		contentBox.add(contentArea);
@@ -246,6 +223,18 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 		
 		add (contentBox, BorderLayout.CENTER);
 		
+		Box progressBox = new Box (BoxLayout.X_AXIS);	
+		progressBox.setMinimumSize(new Dimension(50,5));
+		progressBox.setPreferredSize(new Dimension(100,5));
+		progressBox.setBorder(BorderFactory.createEmptyBorder(2,2,0,2));
+		
+		progressPanel=new HoopProgressPainter ();
+		progressPanel.setProgressBarType (HoopProgressPainter.BAR_AUTO);
+		progressPanel.setBackground(HoopProperties.graphPanelColorLight);
+		progressPanel.setOpaque(true);		
+		
+		progressBox.add(progressPanel);
+				
 		statusLabel = new JLabel();
 		statusLabel.setText("Ex: ");
 		statusLabel.setFont(new Font("Dialog", 1, 10));
@@ -264,20 +253,34 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 		bottomPanel.setBackground(HoopProperties.graphPanelColor);
 		bottomPanel.setOpaque(true);
 		
+		bottomPanel.add(progressBox,BorderLayout.NORTH);
 		bottomPanel.add(statusLabel,BorderLayout.WEST);
-		//bottomPanel.add (Box.createRigidArea(new Dimension(4,0)));
-		//bottomPanel.add(new JSeparator(SwingConstants.VERTICAL));
 		bottomPanel.add(statusPanel,BorderLayout.CENTER);
 		bottomPanel.add(label, BorderLayout.EAST);
 
 		add(bottomPanel, BorderLayout.SOUTH);
 		
-		//label.addMouseListener(this);
-		//label.addMouseMotionListener(this);
-
 		setMinimumSize(new Dimension(20, 30));
 		
 		setTitle ("Hoop Node");
+		
+		initPanel ();
+	}
+	/**
+	 * 
+	 */
+	private void initPanel ()
+	{
+		debug ("initPanel ()");
+		
+		progressPanel.setLevels (50,100);
+	}
+	/**
+	 * 
+	 */
+	public HoopProgressPainter getProgressPainter ()
+	{
+		return (progressPanel);
 	}
 	/**
 	 * 
