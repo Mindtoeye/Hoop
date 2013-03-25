@@ -82,7 +82,8 @@ public class HoopSentence2Tokens extends HoopTransformBase implements HoopInterf
 			
 			for (int i=0;i<inData.size();i++)
 			{
-				HoopKVInteger aKV=(HoopKVInteger) inData.get(i);
+				//HoopKVInteger aKV=(HoopKVInteger) inData.get(i);
+				HoopKV aKV=inData.get(i);
 				
 				HoopKV newKV=createKV (aKV);
 				
@@ -94,7 +95,7 @@ public class HoopSentence2Tokens extends HoopTransformBase implements HoopInterf
 				{									
 					//debug ("Using builtin tokenizer ...");
 					
-					List<String> tokens=featureMaker.unigramTokenizeOnCharacter (aKV.getValue(),splitCharacter.getPropValue());
+					List<String> tokens=featureMaker.unigramTokenizeOnCharacter (aKV.getValueAsString(),splitCharacter.getPropValue());
 											
 					//debug ("Extracted " + tokens.size());
 					
@@ -166,7 +167,7 @@ public class HoopSentence2Tokens extends HoopTransformBase implements HoopInterf
 				{									
 					//debug ("Using builtin tokenizer ...");
 					
-					List<String> tokens=featureMaker.unigramTokenizeBasic (aKV.getValue());
+					List<String> tokens=featureMaker.unigramTokenizeBasic (aKV.getValueAsString());
 											
 					//debug ("Extracted " + tokens.size());
 					
@@ -187,9 +188,6 @@ public class HoopSentence2Tokens extends HoopTransformBase implements HoopInterf
 							if (removePunctuation.getPropValue ()==true)
 								strippedInput = aToken.replaceAll(splitRegEx.getValue(), "");
 						
-							//newToken.setKey (i);
-							//newToken.setValue (strippedInput, j);
-
 							Integer keyFormatter=i;
 							newKV.setKeyString(keyFormatter.toString());
 							newKV.setValue(strippedInput, j);							
@@ -239,7 +237,7 @@ public class HoopSentence2Tokens extends HoopTransformBase implements HoopInterf
 				{					    
 					//debug ("Using stanford tokenizer ...");
 					
-				    Tokenizer<Word> tokenizer = factory.getTokenizer(new StringReader(aKV.getValue()));
+				    Tokenizer<Word> tokenizer = factory.getTokenizer(new StringReader(aKV.getValueAsString()));
 					    
 				    List<Word> sTokens=tokenizer.tokenize();
 				    

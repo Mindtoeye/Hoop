@@ -1156,7 +1156,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 		fc.setFileFilter(filter);    			
 		fc.setFileSelectionMode(HoopJFileChooser.DIRECTORIES_ONLY);
 		
-		int returnVal=fc.showOpenDialog (compReference);
+		int returnVal=fc.showSaveDialog (compReference);
 
 		if (returnVal==HoopJFileChooser.APPROVE_OPTION) 
 		{
