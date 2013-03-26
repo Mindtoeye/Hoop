@@ -28,10 +28,10 @@ import java.util.ArrayList;
 import javax.swing.BorderFactory;
 
 import edu.cmu.cs.in.base.HoopLink;
-import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
+import edu.cmu.cs.in.controls.base.HoopJPanel;
 import edu.cmu.cs.in.stats.HoopPerformanceMeasure;
 
-public class HoopScatterPlot extends HoopEmbeddedJPanel
+public class HoopScatterPlot extends HoopJPanel
 {		
 	private static final long serialVersionUID = 316985892467849872L;
 	

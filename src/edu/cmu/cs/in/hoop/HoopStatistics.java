@@ -23,6 +23,7 @@ import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -34,7 +35,9 @@ import javax.swing.JTextField;
 import edu.cmu.cs.in.base.HoopFixedSizeQueue;
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
+import edu.cmu.cs.in.hoop.visualizers.HoopScatterPlot;
 //import edu.cmu.cs.in.controls.base.HoopJInternalFrame;
+import edu.cmu.cs.in.stats.HoopPerformanceMeasure;
 
 /** 
  * @author vvelsen
@@ -54,6 +57,8 @@ public class HoopStatistics extends HoopEmbeddedJPanel implements ActionListener
 	private JButton setButton=null;
 	private JButton inButton=null;
 	private JButton outButton=null;	
+	
+	private HoopScatterPlot plotter=null;
 	
 	private int fontSize=8;
 	
@@ -143,6 +148,18 @@ public class HoopStatistics extends HoopEmbeddedJPanel implements ActionListener
 				
 		setContentPane (mainBox);
 	}
+	/**
+	 *
+	 */
+	public void setData (ArrayList<HoopPerformanceMeasure> aData,String aLabel)
+	{
+		debug ("setData ("+aLabel+")");
+		
+		if (plotter!=null)
+		{
+			plotter.setData(null);
+		}
+	}	
 	/**
 	 * 
 	 */	

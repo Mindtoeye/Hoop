@@ -297,16 +297,28 @@ public class HoopMessageHandler extends HoopRoot implements HoopMessageHandlerIn
 		}
     	*/
 		
+    	/*
 		HoopScatterPlot plotter=(HoopScatterPlot) HoopLink.getWindow ("Main Data Plotter");
 		
 		if (plotter!=null)
 			plotter.setData(HoopLink.metrics);
+		*/
+    	
+    	HoopStatistics stats=(HoopStatistics) HoopLink.getWindow("Statistics");
+    	
+    	if (stats!=null)
+    	{
+    		stats.setData(HoopLink.metrics,"Cluster Performance");
+    		stats.updateContents();
+    	}
 
+    	/*	
 		HoopEmbeddedJPanel plotwin=HoopLink.getWindow ("Plotter");
 		if (plotwin!=null)
 		{
 			plotwin.updateContents();
-		}			
+		}
+		*/			
 		
 		if (hadoopID.toLowerCase().equals("main")==false)
 		{
