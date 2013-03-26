@@ -87,7 +87,7 @@ public class HoopInvertedListMapper extends HoopHadoopReporter implements Mapper
 		{
 			mapperMarker=new HoopPerformanceMeasure ();
 			mapperMarker.setMarker("Mapper");
-			HoopLink.metrics.add(mapperMarker);
+			HoopLink.metrics.getDataSet().add(mapperMarker);
 		}
 		
 		if (value==null)

@@ -234,7 +234,7 @@ public class HoopExperimenter extends HoopEmbeddedJPanel implements ActionListen
 			
 			HoopPerformanceMeasure metrics=new HoopPerformanceMeasure ();
 			metrics.setMarker ("Query Experiment");
-			HoopLink.metrics.add(metrics);
+			HoopLink.metrics.getDataSet().add(metrics);
 			
 			DefaultListModel mdl=new DefaultListModel ();
 			

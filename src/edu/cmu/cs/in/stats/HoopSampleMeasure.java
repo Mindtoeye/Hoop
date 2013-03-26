@@ -98,4 +98,18 @@ public class HoopSampleMeasure extends HoopXYMeasure implements Serializable
 	{
 		return (values.get (anIndex));		
 	}
+	/**
+	 *
+	 */	
+	public Long getMeasure() 
+	{
+		return getYValue ();
+	}
+	/**
+	 *
+	 */	
+	public void setMeasure(Long measure) 
+	{
+		setYValue (measure);
+	}	
 }

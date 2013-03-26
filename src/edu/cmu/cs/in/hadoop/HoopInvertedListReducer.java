@@ -139,7 +139,7 @@ public class HoopInvertedListReducer extends HoopHadoopReporter implements Reduc
 		{
 			reducerMarker=new HoopPerformanceMeasure ();
 			reducerMarker.setMarker("Reducer");
-			HoopLink.metrics.add(reducerMarker);
+			HoopLink.metrics.getDataSet().add(reducerMarker);
 		}
 		
 		/**

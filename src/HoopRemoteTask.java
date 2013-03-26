@@ -579,7 +579,7 @@ public class HoopRemoteTask extends HoopHadoopReporter
     	    	
     	HoopPerformanceMeasure metrics=new HoopPerformanceMeasure ();
     	metrics.setMarker ("main");
-    	HoopLink.metrics.add(metrics);
+    	HoopLink.metrics.getDataSet().add(metrics);
     	    	
     	if (parseArgs (args)==false)
     	{

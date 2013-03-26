@@ -28,9 +28,7 @@ import edu.cmu.cs.in.stats.HoopPerformanceMeasure;
  * 
  */
 public class HoopStatistics extends HoopRoot
-{    			
-	private ArrayList <HoopStatisticsMeasure> measures=null;
-	
+{    				
 	/**
 	 *
 	 */
@@ -38,62 +36,16 @@ public class HoopStatistics extends HoopRoot
     {
 		setClassName ("HoopStatistics");
 		debug ("HoopStatistics ()");		
-		
-		measures=new ArrayList<HoopStatisticsMeasure> ();
+				
     }  
-    /**
-     * 
-     */
-    private HoopStatisticsMeasure findMeasure (String label)
-    {
-    	for (int i=0;i<measures.size();i++)
-    	{
-    		HoopStatisticsMeasure test=measures.get(i);
-    		if (test.getLabel().equals(label)==true)
-    			return (test);
-    	}
-    	
-    	return (null);
-    }
-    /**
-     * 
-     */
-    private void incMeasure (String label,float aValue)
-    {
-    	HoopStatisticsMeasure incer=findMeasure (label);
-    	if (incer==null)
-    	{
-    		incer=new HoopStatisticsMeasure ();
-    		incer.setLabel(label);
-    		measures.add(incer);
-    	}
-    	
-    	incer.increment(aValue);
-    }
 	/**
 	 *
 	 */
-    public void calcStatistics ()
+    public void calcStatistics (HoopSampleDataSet aSet) 
     {
     	debug ("calcStatistics ();");
    
-    	if (HoopLink.metrics==null)
-    	{
-    		debug ("Error: no metrics data available");
-    		return;
-    	}
-    	
-    	for (int i=0;i<HoopLink.metrics.size();i++)
-    	{    		
-    		HoopPerformanceMeasure entry=HoopLink.metrics.get(i);
-    		
-    		if (entry.isOpen()==false)
-    		{
-    			debug ("Adding measure: " + entry.getLabel() + " with measure: " + entry.getMeasure());
-    		
-    			incMeasure (entry.getLabel(),entry.getMeasure()/1000); // to keep things sane
-    		}	
-    	}
+
     }
 	/**
 	 *
@@ -103,13 +55,7 @@ public class HoopStatistics extends HoopRoot
     	debug ("printStatistics ();");
     	    	
     	StringBuffer results=new StringBuffer ();
-    	
-    	for (int i=0;i<measures.size();i++)
-    	{
-    		HoopStatisticsMeasure measure=measures.get(i);
-    		results.append("Measure: "+measure.getLabel()+" N:"+measure.getN ()+" Avg: " + measure.getAvg()+" Total value: "+measure.getValue()+"\n");
-    	}
-    	
+    	    	
     	return (results.toString());
     }
 }

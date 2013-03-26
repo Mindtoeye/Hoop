@@ -49,11 +49,12 @@ public class HoopMessageHandler extends HoopRoot implements HoopMessageHandlerIn
 	 * know we have small amounts of data or where the calculation
 	 * time doesn't matter.
 	 */
+	/*
     private HoopPerformanceMeasure findPerformanceMetric (String guid)
     {
     	for (int i=0;i<HoopLink.metrics.size();i++)
     	{
-    		HoopPerformanceMeasure check=HoopLink.metrics.get(i);
+    		HoopPerformanceMeasure check=(HoopPerformanceMeasure) HoopLink.metrics.get(i);
     		if (check.getGuid().equals(guid)==true)
     		{
     			return (check);
@@ -62,6 +63,7 @@ public class HoopMessageHandler extends HoopRoot implements HoopMessageHandlerIn
     	
     	return (null);
     }
+    */
 	/**
 	 *
 	 */
@@ -111,15 +113,7 @@ public class HoopMessageHandler extends HoopRoot implements HoopMessageHandlerIn
     	{
     		debug ("Processing ack message ...");
     	}
-    	
-    	/*
-		if (root.getNodeName().equals("ack")==true)
-		{	
-			debug ("Processing acknowledge messsage ...");
-			
-		}
-		*/
-    	
+    	    	
     	if (root.getName().equals("register")==true)
     	{
     		debug ("Processing register messsage ...");
@@ -138,7 +132,7 @@ public class HoopMessageHandler extends HoopRoot implements HoopMessageHandlerIn
 			
 			debug ("Adding: " + measure.getLabel()+" at: " + time);			
     		
-			HoopLink.metrics.add(measure);
+			HoopLink.metrics.getDataSet().add(measure);
 			
 			HoopEmbeddedJPanel win=HoopLink.getWindow ("Cluster");
 			if (win!=null)
@@ -154,45 +148,8 @@ public class HoopMessageHandler extends HoopRoot implements HoopMessageHandlerIn
 				//win.updateContents();
 			}			
     	}
-    	
-    	/*
-		if (root.getNodeName().equals("register")==true)
-		{			
-			debug ("Processing register messsage ...");
-			
-			addJob (root.getAttribute("job"));
-						
-			hadoopID=root.getAttribute("class");
-			hadoopGUID=root.getAttribute("guid");
-			hadoopNode=root.getAttribute("node");			
-			time=Long.parseLong(root.getAttribute("time"));
-			
-			HoopPerformanceMeasure measure=new HoopPerformanceMeasure ();
-			measure.setLabel(hadoopID);
-			measure.setGuid(hadoopGUID);
-			measure.setInPoint(time);
-			
-			debug ("Adding: " + measure.getLabel()+" at: " + time);
-											
-			HoopLink.metrics.add(measure);
-			
-			HoopEmbeddedJPanel win=HoopLink.getWindow ("Cluster");
-			if (win!=null)
-			{
-				HoopCluster cluster=(HoopCluster) win;
-				
-				if (hadoopID.equals("Mapper")==true)
-					cluster.getDriver().incNodeMapper (hadoopNode);
-				
-				if (hadoopID.equals("Reducer")==true)
-					cluster.getDriver().incNodeReducer (hadoopNode);
-				
-				//win.updateContents();
-			}
-		}
-		*/
-    	
-    	if (root.getName().equals("register")==true)
+    	    	
+    	if (root.getName().equals("unregister")==true)
     	{
 			debug ("Processing unregister messsage ...");
 			
@@ -201,6 +158,7 @@ public class HoopMessageHandler extends HoopRoot implements HoopMessageHandlerIn
 			hadoopNode=root.getAttributeValue("node");
 			time=Long.parseLong(root.getAttributeValue("time"));
 			
+			/*
 			HoopPerformanceMeasure update=findPerformanceMetric (hadoopGUID);
 			
 			if (update!=null)
@@ -227,7 +185,7 @@ public class HoopMessageHandler extends HoopRoot implements HoopMessageHandlerIn
 			if (hadoopID.toLowerCase().equals("main")==true)
 			{
 				debug ("Received unregister of Main task, calculating statistics ...");
-				HoopLink.stats.calcStatistics();
+				HoopLink.stats.calcStatistics(HoopLink.metrics);
 				String results=HoopLink.stats.printStatistics();
 				debug (results);
 				
@@ -238,72 +196,10 @@ public class HoopMessageHandler extends HoopRoot implements HoopMessageHandlerIn
 					statsPanel.appendString ("Status: Done\n");
 					statsPanel.appendString(results);
 				}			
-			}			
+			}
+			*/			
     	}
-		
-    	/*
-		if (root.getNodeName().equals("unregister")==true)
-		{			
-			debug ("Processing unregister messsage ...");
-			
-			hadoopID=root.getAttribute("class");
-			hadoopGUID=root.getAttribute("guid");
-			hadoopNode=root.getAttribute("node");
-			time=Long.parseLong(root.getAttribute("time"));
-			
-			HoopPerformanceMeasure update=findPerformanceMetric (hadoopGUID);
-			if (update!=null)
-			{
-				debug ("Updating: " + update.getLabel()+" with outpoint: " + time + "for inpoint:" + update.getInPoint());
-				
-				update.setOutPoint(time);
-				
-				HoopEmbeddedJPanel win=HoopLink.getWindow ("Cluster");
-				if (win!=null)
-				{
-					HoopCluster cluster=(HoopCluster) win;
-					
-					if (hadoopID.equals("Mapper")==true)
-						cluster.getDriver().decNodeMapper (hadoopNode);
-					
-					if (hadoopID.equals("Reducer")==true)
-						cluster.getDriver().decNodeReducer (hadoopNode);
-					
-					//win.updateContents();
-				}				
-			}
-			
-			if (hadoopID.toLowerCase().equals("main")==true)
-			{
-				debug ("Received unregister of Main task, calculating statistics ...");
-				HoopLink.stats.calcStatistics();
-				String results=HoopLink.stats.printStatistics();
-				debug (results);
-				
-				HoopStatistics statsPanel=(HoopStatistics) HoopLink.getWindow ("Statistics");
-				
-				if (statsPanel!=null)
-				{
-					statsPanel.appendString ("Status: Done\n");
-					statsPanel.appendString(results);
-				}			
-			}
-			
-			//HoopEmbeddedJPanel win=HoopLink.getWindow ("Cluster");
-			//if (win!=null)
-			//{
-			//	win.updateContents();
-			//}			
-		}
-    	*/
-		
-    	/*
-		HoopScatterPlot plotter=(HoopScatterPlot) HoopLink.getWindow ("Main Data Plotter");
-		
-		if (plotter!=null)
-			plotter.setData(HoopLink.metrics);
-		*/
-    	
+		    	
     	HoopStatisticsPanel stats=(HoopStatisticsPanel) HoopLink.getWindow("Statistics");
     	
     	if (stats!=null)
@@ -311,14 +207,6 @@ public class HoopMessageHandler extends HoopRoot implements HoopMessageHandlerIn
     		stats.setData(HoopLink.metrics,"Cluster Performance");
     		stats.updateContents();
     	}
-
-    	/*	
-		HoopEmbeddedJPanel plotwin=HoopLink.getWindow ("Plotter");
-		if (plotwin!=null)
-		{
-			plotwin.updateContents();
-		}
-		*/			
 		
 		if (hadoopID.toLowerCase().equals("main")==false)
 		{
@@ -329,7 +217,7 @@ public class HoopMessageHandler extends HoopRoot implements HoopMessageHandlerIn
 			{
 				StringBuffer formatter=new StringBuffer ();
 				formatter.append("Status: Running\n");
-				formatter.append("Nr. Measures: " + HoopLink.metrics.size()+"\n");
+				formatter.append("Nr. Measures: " + HoopLink.metrics.getDataSet().size()+"\n");
 				
 				statsPanel.appendString (formatter.toString());
 			}		

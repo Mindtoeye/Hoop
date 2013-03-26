@@ -99,7 +99,7 @@ public class HoopTextSearch extends HoopRoot
 		
 		HoopPerformanceMeasure metrics=new HoopPerformanceMeasure ();
 		metrics.setMarker ("Query ");
-		HoopLink.metrics.add(metrics);
+		HoopLink.metrics.getDataSet().add(metrics);
 		
 		// Also measure memory, might be useful
 		

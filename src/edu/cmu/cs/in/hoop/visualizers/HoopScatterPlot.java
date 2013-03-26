@@ -27,15 +27,17 @@ import java.awt.font.TextLayout;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 
-import edu.cmu.cs.in.base.HoopLink;
+//import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.controls.base.HoopJPanel;
-import edu.cmu.cs.in.stats.HoopPerformanceMeasure;
+import edu.cmu.cs.in.stats.HoopSampleDataSet;
+import edu.cmu.cs.in.stats.HoopSampleMeasure;
 
 public class HoopScatterPlot extends HoopJPanel
 {		
 	private static final long serialVersionUID = 316985892467849872L;
 	
-	private ArrayList <HoopPerformanceMeasure>data=null;
+	//private ArrayList <HoopSampleMeasure>data=null;
+	private HoopSampleDataSet dataSet=null;
 	
 	private float min=5000000;
 	private float max=-5000000;
@@ -64,10 +66,11 @@ public class HoopScatterPlot extends HoopJPanel
 	/**
 	 *
 	 */
-	public void setData (ArrayList<HoopPerformanceMeasure> aData)
+	public void setData (HoopSampleDataSet aData)
 	{
-		data=aData;
+		dataSet=aData;
 		dataPrep=false;
+		
 		this.repaint ();
 	}
 	/**
@@ -75,24 +78,29 @@ public class HoopScatterPlot extends HoopJPanel
 	 */
 	private void prepData ()
 	{
-		//debug ("prepData ()");
+		debug ("prepData ()");
 	
-    	if (data==null)
+    	if (dataSet==null)
     		return;		
 		
 		if (dataPrep==true)
 			return;
-		
+				
 	   	min=5000000;
     	max=-5000000;
     	
     	visualN=0;
+    	
+    	ArrayList <HoopSampleMeasure> data=dataSet.getDataSet();
+    	
+		debug ("Analyzing " + data.size() + " entries ...");
     	    	
     	for (int j=0;j<data.size();j++) // OPTIMIZE THIS!
     	{    		
-    		HoopPerformanceMeasure test=data.get(j);
+    		HoopSampleMeasure test=data.get(j);
     		    		
-    		if ((test.isOpen()==false) && (test.getLabel().equals("Main")==false))
+    		//if ((test.isOpen()==false) && (test.getLabel().equals("Main")==false))
+    		if (test.isOpen()==false)
     		{    		
     			if (test.getMeasure()<min)
     				min=test.getMeasure();
@@ -151,6 +159,8 @@ public class HoopScatterPlot extends HoopJPanel
 	 */	
     public void paint(Graphics g) 
     {   
+    	debug ("paint ()");
+    	
     	super.paint(g);
     	
     	g.clearRect(2, 2,this.getWidth()-4,this.getHeight()-4);
@@ -160,13 +170,15 @@ public class HoopScatterPlot extends HoopJPanel
     	int width=this.getWidth();
     	int height=this.getHeight();    	
     	
-    	if (data==null)
+    	if (dataSet==null)
     		return;
     	    	    
     	if (busy==true)
     		return;
     	
     	busy=true;
+    	
+    	ArrayList <HoopSampleMeasure> data=dataSet.getDataSet();
     	
     	if (data.size()==0)
     		return;
@@ -192,11 +204,14 @@ public class HoopScatterPlot extends HoopJPanel
     	
     	//debug ("xDensity: " + xDensity + " divver:" + divver + " max: " + max +" min: " + min + " width: " +winWidth);
     	    	
+    	
+    	
     	for (int i=0;i<data.size();i++)
     	{    		
-    		HoopPerformanceMeasure measure=data.get(i);
+    		HoopSampleMeasure measure=data.get(i);
     		
-    		if ((measure.isOpen()==false) && (measure.getLabel().equals("Main")==false))
+    		//if ((measure.isOpen()==false) && (measure.getLabel().equals("Main")==false))
+    		if (measure.isOpen()==false)
     		{
     			yPlot=height-((measure.getMeasure()-min)*yDensity)-windowBottom;
     			
@@ -236,9 +251,8 @@ public class HoopScatterPlot extends HoopJPanel
 	public void updateContents() 
 	{
 		debug ("updateContents ()");
-		
-		//this.updateUI();
-		this.setData(HoopLink.metrics);
+
+		//this.setData(HoopLink.metrics);
 	}	    
 }
 

@@ -19,11 +19,7 @@
 package edu.cmu.cs.in.stats;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-//import java.io.Serializable;
 import java.util.Date;
-
-//import edu.cmu.cs.in.base.HoopBase;
 
 /**
  * Careful here, we don't want to inherit from HoopRoot since this object
@@ -196,20 +192,6 @@ public class HoopPerformanceMeasure extends HoopSampleMeasure implements Seriali
 	public void setLabel(String label) 
 	{
 		this.label = label;
-	}
-	/**
-	 *
-	 */	
-	public Long getMeasure() 
-	{
-		return getYValue ();
-	}
-	/**
-	 *
-	 */	
-	public void setMeasure(Long measure) 
-	{
-		setYValue (measure);
 	}
 	/**
 	 *

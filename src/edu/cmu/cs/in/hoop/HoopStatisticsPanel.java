@@ -26,6 +26,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -44,6 +45,8 @@ import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 import edu.cmu.cs.in.hoop.visualizers.HoopScatterPlot;
 //import edu.cmu.cs.in.controls.base.HoopJInternalFrame;
 import edu.cmu.cs.in.stats.HoopPerformanceMeasure;
+import edu.cmu.cs.in.stats.HoopSampleDataSet;
+import edu.cmu.cs.in.stats.HoopSampleMeasure;
 
 /** 
  * 
@@ -72,6 +75,7 @@ public class HoopStatisticsPanel extends HoopEmbeddedJPanel implements ActionLis
     private JComboBox <String>datasetChooser=null;
     
     private JButton generateData=null;
+    private int genIndex=0;
 	
 	/**
 	 * 
@@ -163,14 +167,13 @@ public class HoopStatisticsPanel extends HoopEmbeddedJPanel implements ActionLis
 	/**
 	 *
 	 */
-	public void setData (ArrayList<HoopPerformanceMeasure> aData,String aLabel)
+	public void setData (HoopSampleDataSet aData,String aLabel)
 	{
 		debug ("setData ("+aLabel+")");
 		
-		if (plotter!=null)
-		{
-			plotter.setData(null);
-		}
+		plotter.setData(aData);
+			
+		addDataSet (aLabel);
 	}	
 	/**
 	 * 
@@ -236,10 +239,8 @@ public class HoopStatisticsPanel extends HoopEmbeddedJPanel implements ActionLis
 		}
 		
 		if (button==generateData)
-		{
-			debug ("Generating test data ...");
-			
-			
+		{			
+			generateDataSet ();
 		}
 		
 		if (button==inButton)
@@ -275,18 +276,7 @@ public class HoopStatisticsPanel extends HoopEmbeddedJPanel implements ActionLis
 	public void addDataSet (String aLabel)
 	{
 		debug ("addDataSet ("+aLabel+")");
-		
-		/*
-		filterText.removeAllItems();
-		
-		for (int i=0;i<internalDocument.getValueSize ();i++)
-		{
-			Integer fauxLabel=i;
-			
-			filterText.addItem(fauxLabel.toString());
-		}
-		*/
-		
+				
 		datasetChooser.addItem(aLabel);
 	}
 	@Override
@@ -295,4 +285,53 @@ public class HoopStatisticsPanel extends HoopEmbeddedJPanel implements ActionLis
 		debug ("itemStateChanged ()");
 		
 	}
+	/**
+	 * 
+	 */
+	private void generateDataSet ()
+	{
+		HoopSampleDataSet aSet=new HoopSampleDataSet ("Generated"+genIndex);
+		
+		ArrayList<HoopSampleMeasure> aData=aSet.getDataSet();
+		
+		Random randomGenerator = new Random();
+		
+		for (int i=0;i<1000;i++)
+		{
+			HoopSampleMeasure aMeasure=new HoopSampleMeasure ();
+			
+			long randomLong = nextLong (randomGenerator,500);
+			
+			aMeasure.setXValue(i);
+			aMeasure.setMeasure(randomLong);
+			aMeasure.setOpen(false);
+			
+			aData.add(aMeasure);
+		}
+		
+		plotter.setData(aSet);
+		
+		addDataSet ("Generated"+genIndex);
+		
+		genIndex++;
+	}
+	/**
+	 * 
+	 * @param rng
+	 * @param n
+	 * @return
+	 */
+	long nextLong(Random rng, long n) 
+	{
+	   // error checking and 2^x checking removed for simplicity.
+	   long bits, val;
+	   
+	   do 
+	   {
+		   bits = (rng.nextLong() << 1) >>> 1;
+		   val = bits % n;
+	   } while (bits-val+(n-1) < 0L);
+	   
+	   return val;
+	}	
 }
