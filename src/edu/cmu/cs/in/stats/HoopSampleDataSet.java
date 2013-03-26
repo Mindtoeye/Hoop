@@ -33,6 +33,9 @@ public class HoopSampleDataSet extends HoopRoot
 	private double stddev=0;
 	private double stderr=0;
 	
+	private double min=0;
+	private double max=0;
+	
 	/**
 	 * 
 	 */
@@ -117,5 +120,33 @@ public class HoopSampleDataSet extends HoopRoot
 	public void setStderr(double stderr) 
 	{
 		this.stderr = stderr;
+	}
+	/**
+	 * 
+	 */	
+	public double getMin() 
+	{
+		return min;
+	}
+	/**
+	 * 
+	 */	
+	public void setMin(double min) 
+	{
+		this.min = min;
+	}
+	/**
+	 * 
+	 */	
+	public double getMax() 
+	{
+		return max;
+	}
+	/**
+	 * 
+	 */	
+	public void setMax(double max) 
+	{
+		this.max = max;
 	}
 }

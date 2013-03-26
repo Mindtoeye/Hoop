@@ -45,7 +45,31 @@ public class HoopStatistics extends HoopRoot
     {
     	debug ("calcStatistics ();");
    
-
+    	long min=5000000;
+    	long max=-5000000;
+    	long total=0;
+    	
+    	ArrayList <HoopSampleMeasure> list=aSet.getDataSet();
+    	
+    	if (list.size()==0)
+    		return;
+    	
+    	for (int i=0;i<list.size();i++)
+    	{
+    		HoopSampleMeasure aMeasure=list.get(i);
+    		
+    		total+=aMeasure.getMeasure();
+    		
+    		if (aMeasure.getMeasure()<min)
+    			min=aMeasure.getMeasure();
+    		
+    		if (aMeasure.getMeasure()>max)
+    			max=aMeasure.getMeasure();
+    	}
+    	
+    	aSet.setMin(min);
+    	aSet.setMax(max);
+    	aSet.setMean(total/list.size());
     }
 	/**
 	 *
