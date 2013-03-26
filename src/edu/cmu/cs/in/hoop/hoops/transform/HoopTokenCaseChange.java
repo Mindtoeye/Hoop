@@ -91,6 +91,8 @@ public class HoopTokenCaseChange extends HoopTransformBase implements HoopInterf
 				}
 				
 				addKV (newKV);
+				
+				updateProgressStatus (i,inData.size());
 			}						
 		}
 		else

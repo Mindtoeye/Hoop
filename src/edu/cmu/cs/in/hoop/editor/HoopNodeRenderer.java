@@ -229,6 +229,7 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 		progressBox.setBorder(BorderFactory.createEmptyBorder(2,2,0,2));
 		
 		progressPanel=new HoopProgressPainter ();
+		progressPanel.setProgressVisualization(HoopProgressPainter.VIZ_FLAT);
 		progressPanel.setProgressBarType (HoopProgressPainter.BAR_AUTO);
 		progressPanel.setBackground(HoopProperties.graphPanelColorLight);
 		progressPanel.setOpaque(true);		

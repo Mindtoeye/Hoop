@@ -82,7 +82,9 @@ public class HoopPorterStemmer extends HoopTransformBase implements HoopInterfac
 				{
 					addKV (new HoopKVInteger (i,aKV.getValue()));
 				}
-			}						
+				
+				updateProgressStatus (i,inData.size());
+			}									
 		}
 		else
 			return (false);		

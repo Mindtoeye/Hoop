@@ -153,6 +153,8 @@ public class HoopDocumentTag extends HoopAnalyze implements HoopInterface
 				}
 				else
 					debug ("Not tagging non document object: " + aKV.toString());
+				
+				updateProgressStatus (t,inData.size());
 			}			
 		}	
 						

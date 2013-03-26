@@ -69,6 +69,8 @@ public class HoopTextFileSave extends HoopFileSaveBase
 				}
 				
 				formatted.append("\n");
+				
+				updateProgressStatus (t,inData.size());
 			}
 			
 			debug ("Saving to: " + URI.getValue());

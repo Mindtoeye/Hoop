@@ -102,6 +102,8 @@ public class HoopDocumentIndexer extends HoopSaveBase
 								
 				addToSearchIndex (newDocument);				
 			}			
+			
+			updateProgressStatus (t,inData.size());
 		}			
 						
 		return (true);

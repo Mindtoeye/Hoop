@@ -99,6 +99,8 @@ public class HoopFilterGarbage extends HoopTransformBase implements HoopInterfac
 				}	
 				else
 					toss (new HoopKVInteger (i,aKV.getValue()));
+				
+				updateProgressStatus (i,inData.size());
 			}						
 		}
 		else

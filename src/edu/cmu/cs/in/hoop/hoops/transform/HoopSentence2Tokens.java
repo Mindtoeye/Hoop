@@ -175,7 +175,7 @@ public class HoopSentence2Tokens extends HoopTransformBase implements HoopInterf
 					{
 						//debug ("Generate mode is Add");
 						
-						HoopKVInteger newToken=new HoopKVInteger ();
+						//HoopKVInteger newToken=new HoopKVInteger ();
 						
 						for (int j=0;j<tokens.size();j++)
 						{							
@@ -266,7 +266,9 @@ public class HoopSentence2Tokens extends HoopTransformBase implements HoopInterf
 				    }					    						
 				}
 					
-				//>------------------------------------------------------------------------								
+				//>------------------------------------------------------------------------				
+				
+				updateProgressStatus (i,inData.size());
 			}						
 		}
 		else

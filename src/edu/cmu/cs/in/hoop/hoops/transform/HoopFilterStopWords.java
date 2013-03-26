@@ -158,6 +158,8 @@ public class HoopFilterStopWords extends HoopTransformBase implements HoopInterf
 						toss (newKV);
 					}
 				}	
+				
+				updateProgressStatus (i,inData.size());
 			}						
 		}
 		else

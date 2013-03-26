@@ -124,6 +124,8 @@ public class HoopRoomAnnotator extends HoopAnalyze implements HoopInterface
 		    	
 		    	this.addKV(newKV);		    	
 		    }
+		    
+		    updateProgressStatus (t,inData.size());
 		}	
 		
 		return (true);

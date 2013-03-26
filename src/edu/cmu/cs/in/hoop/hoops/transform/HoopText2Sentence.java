@@ -107,6 +107,8 @@ public class HoopText2Sentence extends HoopTransformBase implements HoopInterfac
 						}
 					}	
 				}					
+				
+				updateProgressStatus (t,inData.size());
 			}		
 		}		
 		else

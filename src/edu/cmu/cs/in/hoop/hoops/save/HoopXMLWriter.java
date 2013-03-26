@@ -147,6 +147,8 @@ public class HoopXMLWriter extends HoopFileSaveBase
 			}
 			
 			dataElement.addContent(keyElement);
+			
+			updateProgressStatus (t,inData.size());
 		}	
 					
 		fileElement.addContent (dataElement);

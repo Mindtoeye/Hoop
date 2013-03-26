@@ -196,6 +196,8 @@ public class HoopDocumentCreator extends HoopTransformBase
 			
 			this.addKV(newDocument);
 						
+			updateProgressStatus (t,inData.size());
+			
 			debug ("<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
 		}			
 		

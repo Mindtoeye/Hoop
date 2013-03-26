@@ -66,6 +66,8 @@ public class HoopKeySort extends HoopTransformBase implements HoopInterface
 				HoopKVInteger aKV=(HoopKVInteger) inData.get(i);
 				
 				uniqueHash.put(aKV.getValue(),i);					
+				
+				updateProgressStatus (i,inData.size());
 			}						
 			
 			Iterator<Map.Entry<String, Integer>> it = uniqueHash.entrySet().iterator();

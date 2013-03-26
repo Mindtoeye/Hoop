@@ -21,6 +21,8 @@ package edu.cmu.cs.in.hoop.hoops.base;
 import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.kv.HoopKV;
+import edu.cmu.cs.in.controls.HoopProgressPainter;
+import edu.cmu.cs.in.hoop.editor.HoopVisualRepresentation;
 
 /**
 * 
@@ -39,17 +41,6 @@ public class HoopCopy extends HoopBatch implements HoopInterface
 				
 		setHoopDescription ("Abstract Hoop KV copier");		
     }   
-	/**
-	 *
-	 */
-    /*
-	public Boolean runHoop (HoopBase inHoop)
-	{		
-		debug ("runHoop ()");
-													
-		return (true);
-	}
-	*/
 	/** 
 	 * @param aKV
 	 * @return
@@ -58,9 +49,17 @@ public class HoopCopy extends HoopBatch implements HoopInterface
 	{	
 		debug ("processKVBatch ()");
 		
+		HoopVisualRepresentation viz=this.getVisualizer();
+		
+		HoopProgressPainter progress=viz.getProgressPainter();
+		
+		progress.setLevels(0,inData.size());
+		
 		for (int i=0;i<currentIndex;i++)
 		{
 			HoopKV aKV=inData.get(i);
+						
+			updateProgressStatus (i,inData.size());
 			
 			addKV (aKV);
 		}

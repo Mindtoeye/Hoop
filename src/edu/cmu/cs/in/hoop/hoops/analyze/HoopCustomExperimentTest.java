@@ -123,6 +123,8 @@ public class HoopCustomExperimentTest extends HoopAnalyze implements HoopInterfa
 							debug ("Error: document.threadID is null");						
 					}
 				}
+				
+				updateProgressStatus (t,inData.size());
 			}			
 		}	
 						

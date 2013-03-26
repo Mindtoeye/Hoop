@@ -103,7 +103,9 @@ public class HoopIndexDocuments extends HoopSaveBase
 				// This call will associate a timestamp with a document, but
 				
 				addToSearchIndex (newDocument);				
-			}			
+			}		
+			
+			updateProgressStatus (t,inData.size());
 		}			
 		
 		/*

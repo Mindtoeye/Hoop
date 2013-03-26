@@ -151,6 +151,8 @@ public class HoopXMLDocumentWriter extends HoopXMLWriter
 					
 				if (result==false)
 					return (false);
+				
+				updateProgressStatus (t,inData.size());
 			}
 		}
 		

@@ -152,6 +152,8 @@ public class HoopCSVReader extends HoopTransformBase implements HoopInterface
 						this.addKV(currentKV);
 					}	
 				}
+				
+				updateProgressStatus (t,inData.size());
 			}
 		}	
 		else

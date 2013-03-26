@@ -127,10 +127,7 @@ public class HoopCSVWriter extends HoopFileSaveBase
 				
 				StringBuffer aStatus=new StringBuffer ();
 				
-				aStatus.append (" R: ");
-				aStatus.append (t+1);
-				aStatus.append (" out of ");
-				aStatus.append (inData.size());
+				updateProgressStatus (t+1,inData.size());
 			}
 			
 			String filePath = URI.getValue() + "." + URI.getFileExtension();

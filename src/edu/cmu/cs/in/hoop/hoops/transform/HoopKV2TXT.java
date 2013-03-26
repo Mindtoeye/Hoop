@@ -60,6 +60,8 @@ public class HoopKV2TXT extends HoopTransformBase
 			HoopKVInteger aKV=(HoopKVInteger) inData.get(i);
 			
 			textRepresentation.append(aKV.getKeyString()+" : " + aKV.getValue() + "\n");
+			
+			updateProgressStatus (i,inData.size());
 		}		
 				
 		return (true);

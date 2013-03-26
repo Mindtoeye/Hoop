@@ -70,7 +70,9 @@ public class HoopKVStats extends HoopAnalyze implements HoopInterface
 				for (int i=0;i<vals.size();i++)
 				{
 
-				}				
+				}			
+				
+				updateProgressStatus (t,inData.size());
 			}			
 		}	
 						

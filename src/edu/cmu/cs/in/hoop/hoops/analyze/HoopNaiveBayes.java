@@ -73,6 +73,8 @@ public class HoopNaiveBayes extends HoopAnalyze implements HoopInterface
 				}
 				
 				//formatted.append("\n");
+				
+				updateProgressStatus (t,inData.size());
 			}			
 		}	
 						

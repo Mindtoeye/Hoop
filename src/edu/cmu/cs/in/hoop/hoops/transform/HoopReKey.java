@@ -107,10 +107,7 @@ public class HoopReKey extends HoopTransformBase implements HoopInterface
 			
 			StringBuffer aStatus=new StringBuffer ();
 			
-			aStatus.append (" R: ");
-			aStatus.append (i+1);
-			aStatus.append (" out of ");
-			aStatus.append (inData.size());			
+			updateProgressStatus (i+1,inData.size());			
 		}
 		
 		return (true);

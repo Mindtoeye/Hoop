@@ -187,6 +187,8 @@ public class HoopMatcher extends HoopAnalyze implements HoopInterface, ActionLis
 					toss (newKV);
 				 */
 			}
+			
+			updateProgressStatus (t,inData.size());
 		}	
 		
 		return (true);

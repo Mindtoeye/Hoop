@@ -31,6 +31,7 @@ import org.jdom.Element;
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.base.kv.HoopKVTable;
+import edu.cmu.cs.in.controls.HoopProgressPainter;
 import edu.cmu.cs.in.hoop.editor.HoopVisualRepresentation;
 import edu.cmu.cs.in.hoop.properties.HoopVisualProperties;
 import edu.cmu.cs.in.hoop.properties.types.HoopSerializable;
@@ -576,6 +577,12 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 						this.setErrorString("Error: data size is 0");
 						return (false);
 					}
+					
+					HoopVisualRepresentation viz=this.getVisualizer();
+					
+					HoopProgressPainter progress=viz.getProgressPainter();
+					
+					progress.setLevels(0,inData.size());
 				}	
 				else
 				{
@@ -865,6 +872,7 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 	 */
 	protected void updateProgressStatus (int anIndex,int aTotal)
 	{
+		debug("updateProgressStatus ("+anIndex+","+aTotal+")");
 		
 		StringBuffer aStatus=new StringBuffer ();
 		
@@ -874,19 +882,39 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 		aStatus.append (aTotal);
 		
 		getVisualizer ().setExecutionInfo (aStatus.toString ());
+				
+		HoopProgressPainter progress=getVisualizer ().getProgressPainter();
+		
+		progress.setLevels(anIndex,aTotal);		
 	}
+	/**
+	 * 
+	 * @return
+	 */
 	public Boolean getBreakBefore() 
 	{
 		return breakBefore;
 	}
+	/**
+	 * 
+	 * @param breakBefore
+	 */
 	public void setBreakBefore(Boolean breakBefore) 
 	{
 		this.breakBefore = breakBefore;
 	}
+	/**
+	 * 
+	 * @return
+	 */
 	public Boolean getBreakAfter() 
 	{
 		return breakAfter;
 	}
+	/**
+	 * 
+	 * @param breakAfter
+	 */
 	public void setBreakAfter(Boolean breakAfter) 
 	{
 		this.breakAfter = breakAfter;

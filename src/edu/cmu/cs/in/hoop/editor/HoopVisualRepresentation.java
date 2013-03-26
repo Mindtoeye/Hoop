@@ -18,6 +18,8 @@
 
 package edu.cmu.cs.in.hoop.editor;
 
+import edu.cmu.cs.in.controls.HoopProgressPainter;
+
 /**
  *
  */
@@ -41,4 +43,9 @@ public interface HoopVisualRepresentation
 	 * hoop.
 	 */
 	public void propagateVisualProperties ();
+	
+	/**
+	 * 
+	 */
+	public HoopProgressPainter getProgressPainter ();
 }

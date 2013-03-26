@@ -45,8 +45,14 @@ public class HoopProgressPainter extends HoopJPanel
 	
 	private int currentLevel=1;
 	private int maxLevel=1;	
+	private int currentPixelPosition=0;
+	private float divver=(float) 1.0;
 	
 	private Boolean hoopEnabled=false;
+	
+	private Boolean painting=false;
+	
+	private Graphics2D g2=null;
 	
 	/**
 	 * 
@@ -82,13 +88,22 @@ public class HoopProgressPainter extends HoopJPanel
 	 */
 	public void setLevels (int aCurrent,int aMax)
 	{
-		debug ("setLevels ("+aCurrent+","+aMax+")");
+		debug ("setLevels ("+aCurrent+","+aMax+","+this.getWidth()+")");
 		
 		currentLevel=aCurrent;
 		maxLevel=aMax;
 		
-		if (currentLevel==0) // Otherwise divide by zero
-			currentLevel=1;	 
+		if (maxLevel<1)
+			maxLevel=1;
+		
+		if (currentLevel<1) // Otherwise divide by zero
+			currentLevel=1;
+		
+		divver=(float) this.getWidth()/maxLevel;
+		
+		currentPixelPosition=(int) (divver*((float) currentLevel));
+		
+		this.repaint();
 	}	
 	/**
 	 * 
@@ -98,11 +113,22 @@ public class HoopProgressPainter extends HoopJPanel
 	{		
 		debug ("paintComponent ("+currentLevel+","+maxLevel+")");
 		
+		if (painting==true)
+			return;
+		
+		painting=true;
+		
+		g2=(Graphics2D)g.create();
+		
 		if (progressBarType==BAR_MANUAL)
 			drawBarManual (g);
 								
 		if (progressBarType==BAR_AUTO)
-			drawBarAuto (g);																
+			drawBarAuto (g);
+		
+		g2.dispose ();
+		
+		painting=false;
 	}
 	/**
 	 * 
@@ -114,7 +140,7 @@ public class HoopProgressPainter extends HoopJPanel
 						
 		if (progressVisualization==HoopProgressPainter.VIZ_FLAT)
 		{
-			Graphics2D g2 = (Graphics2D)g.create();
+			//Graphics2D g2 = (Graphics2D)g.create();
 			
 			int width=(maxLevel-4);
 			
@@ -122,11 +148,11 @@ public class HoopProgressPainter extends HoopJPanel
 			
 			g2.fillRect (currentLevel,2,width,getHeight()-4);
 			
-			g2.dispose ();
+			//g2.dispose ();
 		}
 		else
 		{
-			Graphics2D g2 = (Graphics2D)g.create();
+			//Graphics2D g2 = (Graphics2D)g.create();
 
 			Paint p = new GradientPaint (0,
 										 4, 
@@ -144,7 +170,7 @@ public class HoopProgressPainter extends HoopJPanel
 			g2.setColor(new Color (0,0,0));
 			g2.drawRect(currentLevel,2, width,this.getHeight()-4);
 	
-			g2.dispose ();
+			//g2.dispose ();
 		}	
 	}
 	/**
@@ -153,41 +179,32 @@ public class HoopProgressPainter extends HoopJPanel
 	 */
 	protected void drawBarAuto(Graphics g)
 	{		
-		debug ("drawBarAuto ("+currentLevel+","+maxLevel+")");
-						
+		debug ("drawBarAuto ("+currentLevel+","+maxLevel+","+divver+")");
+										
 		if (progressVisualization==HoopProgressPainter.VIZ_FLAT)
-		{
-			Graphics2D g2 = (Graphics2D)g.create();
-			
-			int width=(maxLevel-4);
-			
+		{						
 			g2.setColor(new Color (220,220,220));
 			
-			g2.fillRect (currentLevel,2,width,getHeight()-4);
+			g2.fillRect (0,2,currentPixelPosition,getHeight()-4);
 			
-			g2.dispose ();
+			//g2.dispose ();
 		}
 		else
 		{
-			Graphics2D g2 = (Graphics2D)g.create();
-
 			Paint p = new GradientPaint (0,
 										 4, 
 										 new Color(180,180,180),
 										 0,
 										 getHeight ()-8,
 										 new Color(220,220,220),
-										 true);
-
-			int width=(maxLevel-4);
-							
+										 true);							
 			g2.setPaint (p);
-			g2.fillRect (currentLevel,2,width,getHeight()-4);
+			g2.fillRect (0,2,currentPixelPosition,getHeight()-4);
 		
 			g2.setColor(new Color (0,0,0));
-			g2.drawRect(currentLevel,2, width,this.getHeight()-4);
+			g2.drawRect(0,2, currentPixelPosition,this.getHeight()-4);
 	
-			g2.dispose ();
+			//g2.dispose ();
 		}	
 	}	
 	/**

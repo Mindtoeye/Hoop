@@ -65,6 +65,8 @@ public class HoopCleanTokens extends HoopTransformBase implements HoopInterface
 				}	
 				else
 					toss (new HoopKVInteger (i,aKV.getValue()));
+				
+				updateProgressStatus (i,inData.size());
 			}						
 		}
 		else

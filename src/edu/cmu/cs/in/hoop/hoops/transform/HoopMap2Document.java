@@ -96,6 +96,8 @@ public class HoopMap2Document extends HoopTransformBase implements HoopInterface
 			{
 				
 			}
+			
+			updateProgressStatus (t,inData.size());
 		}	
 		
 		return (true);

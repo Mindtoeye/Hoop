@@ -28,6 +28,7 @@ import javax.swing.JPanel;
 import com.mxgraph.swing.mxGraphComponent;
 
 import edu.cmu.cs.in.base.HoopLink;
+import edu.cmu.cs.in.controls.HoopProgressPainter;
 import edu.cmu.cs.in.hoop.HoopTablePanel;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.properties.HoopInspectablePanel;
@@ -316,4 +317,11 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 	{
 		// Not implemented, see baseclass
 	}	
+	/**
+	 * 
+	 */
+	public HoopProgressPainter getProgressPainter ()
+	{
+		return (progressPanel);
+	}
 }

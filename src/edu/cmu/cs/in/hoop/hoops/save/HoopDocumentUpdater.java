@@ -155,6 +155,8 @@ public class HoopDocumentUpdater extends HoopSaveBase
 					return (false);
 				}
 			}	
+			
+			updateProgressStatus (t,inData.size());
 		}			
 				
 		return (true);

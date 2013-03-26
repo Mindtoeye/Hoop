@@ -143,6 +143,8 @@ public class HoopWekaML extends HoopAnalyze implements HoopInterface
 				}
 				
 				//formatted.append("\n");
+				
+				updateProgressStatus (t,inData.size());
 			}			
 		}	
 						

@@ -73,6 +73,8 @@ public class HoopKVTest extends HoopBase implements HoopInterface
 			aKV.setKey(UUID.randomUUID().toString());
 			aKV.setValue(UUID.randomUUID().toString());
 			
+			updateProgressStatus (i,totalSize);
+			
 			addKV (aKV);
 		}
 		

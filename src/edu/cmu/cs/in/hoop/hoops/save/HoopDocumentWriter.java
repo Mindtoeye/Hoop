@@ -105,7 +105,7 @@ public class HoopDocumentWriter extends HoopDocumentIndexer
 		checkCounter=0;
 		
 		for (int t=0;t<inData.size();t++)
-		{			
+		{
 			HoopKV aKV=inData.get(t);
 									
 			if (aKV instanceof HoopKVDocument)
@@ -126,6 +126,8 @@ public class HoopDocumentWriter extends HoopDocumentIndexer
 				
 				checkCounter++;
 			}			
+			
+			updateProgressStatus (t,inData.size());
 		}			
 		
 		debug ("Check: processed " + checkCounter + " documents, with " + errorCounter + " errors");

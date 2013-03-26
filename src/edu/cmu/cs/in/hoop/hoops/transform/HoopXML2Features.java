@@ -111,6 +111,8 @@ public class HoopXML2Features extends HoopTransformBase implements HoopInterface
 						}					
 					}
 				}	
+				
+				updateProgressStatus (t,inData.size());
 			}		
 		}		
 		else

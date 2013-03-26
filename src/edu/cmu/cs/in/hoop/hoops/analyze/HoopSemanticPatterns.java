@@ -94,6 +94,8 @@ public class HoopSemanticPatterns extends HoopMatcher implements HoopInterface
 				{
 
 				}
+				
+				updateProgressStatus (t,inData.size());
 			}			
 		}	
 						
