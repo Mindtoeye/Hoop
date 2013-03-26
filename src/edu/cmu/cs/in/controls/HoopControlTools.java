@@ -39,14 +39,11 @@ public class HoopControlTools extends HoopRoot
     											String toolTipText,    									   
     											ImageIcon icon) 
     {
-    	//Create and initialize the button.
-    	JButton button = new JButton();
-    	//button.setBorder (null);
+    	JButton button = new JButton();    
     	button.setMinimumSize(new Dimension (22,22));
     	button.setPreferredSize(new Dimension (22,22));
     	button.setActionCommand(actionCommand);
     	button.setToolTipText (toolTipText);
-    	//button.addActionListener(this);
     	button.setIcon(icon);
     	button.setBorder(BorderFactory.createEmptyBorder(2,2,2,2));
 

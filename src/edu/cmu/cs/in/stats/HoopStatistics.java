@@ -113,3 +113,76 @@ public class HoopStatistics extends HoopRoot
     	return (results.toString());
     }
 }
+
+/*
+$mean  =0;
+$stddev=0;
+$stderr=0;
+
+function get_mean ()
+{
+ global $mean;
+ return round ($mean,2);
+}
+
+function get_stddev ()
+{
+ global $stddev;
+ return round ($stddev,2);
+}
+
+function get_stderr ()
+{
+ global $stderr;
+ return round ($stderr,2);
+}
+
+function get_stats ($data)
+{
+ global $mean,$stddev,$stderr;
+ 
+ $tempdata=array ();
+ $results="";
+ $total=0;
+ $ss   =0;
+ $count=0;
+ 
+ $min  =500000;
+ $max  =0;
+ 
+ foreach ($data as $entry)
+ {
+  $tempdata [$count]=array ();
+  $tempdata [$count][0]=$entry;
+  $tempdata [$count][1]=$entry;
+  
+  $total+=$entry;
+  $count++;
+  
+  if ($entry>$max)
+   $max=$entry;
+  
+  if ($entry<$min)
+   $min=$entry;
+ }
+ 
+ $mean=$total/$count;
+ 
+ $count=0;
+ 
+ foreach ($tempdata as $entry)
+ {
+  $raw=$tempdata [$count][1]-$mean;
+  $tempdata [$count][1]=($raw*$raw);
+  $ss+=$tempdata [$count][1]; 
+  $count++;
+ } 
+ 
+ $stddev=sqrt ($ss/($count-1));
+ $stderr=$stddev/sqrt ($count);
+ 
+ $results="Moments:<br> <ul><li>Minimum: ".number_format ($min,2)."</li><li>Mean: ".number_format ($mean,2)."</li><li>Std Dev: ".number_format ($stddev,2)."</li><li>Std Err Mean: ".number_format ($stderr,2)."</li><li>Max: ".number_format ($max,2)."</li><li>N: ".$count."</li></ul>";
+ 
+ return $results;
+}
+*/

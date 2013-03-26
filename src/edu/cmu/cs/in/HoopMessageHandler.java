@@ -23,7 +23,7 @@ import org.jdom.Element;
 import edu.cmu.cs.in.base.HoopRoot;
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
-import edu.cmu.cs.in.hoop.HoopStatistics;
+import edu.cmu.cs.in.hoop.HoopStatisticsPanel;
 import edu.cmu.cs.in.hoop.visualizers.HoopCluster;
 import edu.cmu.cs.in.hoop.visualizers.HoopScatterPlot;
 import edu.cmu.cs.in.network.HoopMessageHandlerInterface;
@@ -231,7 +231,7 @@ public class HoopMessageHandler extends HoopRoot implements HoopMessageHandlerIn
 				String results=HoopLink.stats.printStatistics();
 				debug (results);
 				
-				HoopStatistics statsPanel=(HoopStatistics) HoopLink.getWindow ("Statistics");
+				HoopStatisticsPanel statsPanel=(HoopStatisticsPanel) HoopLink.getWindow ("Statistics");
 				
 				if (statsPanel!=null)
 				{
@@ -304,7 +304,7 @@ public class HoopMessageHandler extends HoopRoot implements HoopMessageHandlerIn
 			plotter.setData(HoopLink.metrics);
 		*/
     	
-    	HoopStatistics stats=(HoopStatistics) HoopLink.getWindow("Statistics");
+    	HoopStatisticsPanel stats=(HoopStatisticsPanel) HoopLink.getWindow("Statistics");
     	
     	if (stats!=null)
     	{
@@ -323,7 +323,7 @@ public class HoopMessageHandler extends HoopRoot implements HoopMessageHandlerIn
 		if (hadoopID.toLowerCase().equals("main")==false)
 		{
 
-			HoopStatistics statsPanel=(HoopStatistics) HoopLink.getWindow ("Statistics");
+			HoopStatisticsPanel statsPanel=(HoopStatisticsPanel) HoopLink.getWindow ("Statistics");
 			
 			if (statsPanel!=null)
 			{

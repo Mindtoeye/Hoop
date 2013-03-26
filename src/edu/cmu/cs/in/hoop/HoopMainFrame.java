@@ -452,7 +452,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     	{
     		public void actionPerformed(ActionEvent e) 
     		{
-    	    	HoopStatistics statsPanel=new HoopStatistics ();
+    			HoopStatisticsPanel statsPanel=new HoopStatisticsPanel ();
     	    	
     	    	addView ("Statistics",statsPanel,HoopLink.bottom);    	    	
     		}
