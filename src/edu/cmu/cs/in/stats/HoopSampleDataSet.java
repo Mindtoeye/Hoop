@@ -36,6 +36,10 @@ public class HoopSampleDataSet extends HoopRoot
 	private double min=0;
 	private double max=0;
 	
+	private double tTest=0;
+	
+	private long hypothesis=0;
+		
 	/**
 	 * 
 	 */
@@ -149,4 +153,48 @@ public class HoopSampleDataSet extends HoopRoot
 	{
 		this.max = max;
 	}
+	/**
+	 * 
+	 */
+	public int getSampleSize ()
+	{
+		return (dataSet.size());
+	}
+	/**
+	 * 
+	 */
+	public int getN ()
+	{
+		return (dataSet.size());
+	}
+	/**
+	 * 
+	 */
+	public double gettTest() 
+	{
+		return tTest;
+	}
+	/**
+	 * 
+	 */
+	public void settTest(double tTest) 
+	{
+		this.tTest = tTest;
+	}
+	/**
+	 * 
+	 * @return
+	 */
+	public long getHypothesis() 
+	{
+		return hypothesis;
+	}
+	/**
+	 * 
+	 * @param hypothesis
+	 */
+	public void setHypothesis(long hypothesis) 
+	{
+		this.hypothesis = hypothesis;
+	}	
 }

@@ -70,15 +70,47 @@ public class HoopStatistics extends HoopRoot
     	aSet.setMin(min);
     	aSet.setMax(max);
     	aSet.setMean(total/list.size());
+    	
+    	double ss=0;
+    	
+    	for (int j=0;j<list.size();j++)
+    	{
+    		HoopSampleMeasure aMeasure=list.get(j);
+    		
+    		double raw=aMeasure.getMeasure()-aSet.getMean();
+    		
+    		ss+=(raw*raw);
+    		
+    	}
+    	
+    	// Calculate basic stats ...
+    	
+    	aSet.setStddev(Math.sqrt (ss/(list.size()-1)));
+    	aSet.setStderr(aSet.getStddev()/Math.sqrt (list.size ()));    	
+    	
+    	// Generate one sample t-test from hypothesis ...
+    	
+    	aSet.settTest((aSet.getMean()-aSet.getHypothesis())/(aSet.getStddev()/Math.sqrt((int) list.size())));
     }
 	/**
 	 *
 	 */
-    public String printStatistics ()
+    public String printStatistics (HoopSampleDataSet aSet)
     {
-    	debug ("printStatistics ();");
-    	    	
+    	debug ("printStatistics ()");
+
+    	if (aSet==null)
+    		return ("Error: provided data set is null!");
+    	
     	StringBuffer results=new StringBuffer ();
+    	
+    	results.append("Measure: "+aSet.getLabel()+"\n");
+    	results.append("N:"+aSet.getN ()+"\n");
+    	results.append("Mean: " + aSet.getMean() + "\n");
+    	results.append("Standard Deviation: " + aSet.getStddev() + "\n");
+    	results.append("Standard Error: " + aSet.getStderr() + "\n");
+    	results.append("Hypothesis: " + aSet.getHypothesis() + "\n");
+    	results.append("T-Test (One Sample): " + aSet.gettTest() + "\n");
     	    	
     	return (results.toString());
     }

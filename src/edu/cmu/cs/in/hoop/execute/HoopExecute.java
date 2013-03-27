@@ -19,6 +19,7 @@
 package edu.cmu.cs.in.hoop.execute;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.HoopRoot;
@@ -43,6 +44,8 @@ public class HoopExecute extends HoopRoot implements Runnable
 	
 	private int location=LOCAL;
 			
+    private String experimentID=UUID.randomUUID().toString();   
+	
 	/**
 	 *
 	 */
@@ -146,7 +149,7 @@ public class HoopExecute extends HoopRoot implements Runnable
 							
 		if (loopExecuting==false)
 			return (true);
-		
+					
 		// Execution phase of the current Hoop ...
 		
 		if (aRoot.getActive()==false)
@@ -154,6 +157,8 @@ public class HoopExecute extends HoopRoot implements Runnable
 			debug ("This hoop is not active, skipping execution of connected hoops as well");
 			return (true);
 		}
+		
+		experimentID=UUID.randomUUID().toString();
 		
 		startHoopExecution (aRoot);
 		

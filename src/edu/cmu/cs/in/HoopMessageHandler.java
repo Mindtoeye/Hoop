@@ -204,7 +204,7 @@ public class HoopMessageHandler extends HoopRoot implements HoopMessageHandlerIn
     	
     	if (stats!=null)
     	{
-    		stats.setData(HoopLink.metrics,"Cluster Performance");
+    		stats.setData(HoopLink.metrics);
     		stats.updateContents();
     	}
 		

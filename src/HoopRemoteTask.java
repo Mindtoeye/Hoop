@@ -524,7 +524,7 @@ public class HoopRemoteTask extends HoopHadoopReporter
     	}	
     	
     	HoopStatistics stats=new HoopStatistics ();
-    	String results=stats.printStatistics();
+    	String results=stats.printStatistics(null);
     	dbg (results);
     }
     /**

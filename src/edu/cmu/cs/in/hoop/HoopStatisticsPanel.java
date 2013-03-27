@@ -25,6 +25,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -41,12 +42,14 @@ import edu.cmu.cs.in.base.HoopFixedSizeQueue;
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.controls.HoopButtonBox;
 import edu.cmu.cs.in.controls.HoopControlTools;
+import edu.cmu.cs.in.controls.HoopJFileChooser;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 import edu.cmu.cs.in.hoop.visualizers.HoopScatterPlot;
 //import edu.cmu.cs.in.controls.base.HoopJInternalFrame;
 import edu.cmu.cs.in.stats.HoopPerformanceMeasure;
 import edu.cmu.cs.in.stats.HoopSampleDataSet;
 import edu.cmu.cs.in.stats.HoopSampleMeasure;
+import edu.cmu.cs.in.stats.HoopStatistics;
 
 /** 
  * 
@@ -62,9 +65,11 @@ public class HoopStatisticsPanel extends HoopEmbeddedJPanel implements ActionLis
 	private JButton clearButton=null;
 	private JButton saveButton=null;	
 	private JTextField maxLines=null;
+	private JTextArea moments=null;
 	private JButton setButton=null;
 	private JButton inButton=null;
 	private JButton outButton=null;	
+	private JButton saveXLSButton=null;
 	
 	private HoopButtonBox buttonBox=null;
 	
@@ -76,6 +81,10 @@ public class HoopStatisticsPanel extends HoopEmbeddedJPanel implements ActionLis
     
     private JButton generateData=null;
     private int genIndex=0;
+    
+    private ArrayList <HoopSampleDataSet> dataSets=null;
+    
+    private HoopSampleDataSet lastSet=null;
 	
 	/**
 	 * 
@@ -88,6 +97,7 @@ public class HoopStatisticsPanel extends HoopEmbeddedJPanel implements ActionLis
 		debug ("HoopStatisticsPanel ()");
 		
 		consoleData=new HoopFixedSizeQueue<String>(consoleSize);
+		dataSets=new ArrayList<HoopSampleDataSet> ();
 		
 		Box mainBox = new Box (BoxLayout.Y_AXIS);
 		
@@ -129,7 +139,11 @@ public class HoopStatisticsPanel extends HoopEmbeddedJPanel implements ActionLis
 		generateData.setText("Generate");
 		generateData.setPreferredSize(new Dimension (100,22));
 		generateData.addActionListener(this);
-						
+		
+		saveXLSButton=HoopControlTools.makeNavigationButton ("savexls","Dump to Spreadsheet",HoopLink.getImageByName("gtk-save-as.png"));
+		saveXLSButton.setPreferredSize(new Dimension (100,22));
+		saveXLSButton.addActionListener(this);		
+									
 		buttonBox.addComponent(datasetChooser);		
 		
 		buttonBox.addComponent(clearButton);
@@ -139,6 +153,7 @@ public class HoopStatisticsPanel extends HoopEmbeddedJPanel implements ActionLis
 		buttonBox.addComponent(inButton);
 		buttonBox.addComponent(outButton);
 		buttonBox.addComponent(generateData);
+		buttonBox.addComponent(saveXLSButton);
 								
 		console=new JTextArea ();
 		console.setEditable (false);
@@ -149,31 +164,43 @@ public class HoopStatisticsPanel extends HoopEmbeddedJPanel implements ActionLis
 		consoleContainer.setMinimumSize(new Dimension (50,50));
 		consoleContainer.setPreferredSize(new Dimension (500,50));
 							
-		JTabbedPane tabbedPane = new JTabbedPane();
+		Box subBox = new Box (BoxLayout.X_AXIS);
 		
+		JTabbedPane tabbedPane = new JTabbedPane();
+				
 		tabbedPane.addTab("Console",null,consoleContainer,"Raw input from external sources");
 		
 		plotter=new HoopScatterPlot ();
 		
 		tabbedPane.addTab("Plotter",null,plotter,"Statistics graph visualization");
 		
-		mainBox.add(buttonBox);
-		mainBox.add(tabbedPane);
-				
-		setContentPane (mainBox);
+		moments=new JTextArea ();
+		moments.setEditable (false);
+		moments.setFont(new Font("Courier",1,10));
 		
-		addDataSet ("Cluster Performance");
+		JScrollPane momentContainer = new JScrollPane (moments);
+		
+		momentContainer.setMinimumSize(new Dimension (100,100));
+		momentContainer.setPreferredSize(new Dimension (100,100));
+		
+		subBox.add(momentContainer);
+		subBox.add(tabbedPane);
+		
+		mainBox.add(buttonBox);
+		mainBox.add(subBox);
+				
+		setContentPane (mainBox);				
 	}
 	/**
 	 *
 	 */
-	public void setData (HoopSampleDataSet aData,String aLabel)
+	public void setData (HoopSampleDataSet aSet)
 	{
-		debug ("setData ("+aLabel+")");
+		debug ("setData ("+aSet.getLabel()+")");
 		
-		plotter.setData(aData);
+		plotter.setData(aSet);
 			
-		addDataSet (aLabel);
+		addDataSet (aSet);
 	}	
 	/**
 	 * 
@@ -243,6 +270,11 @@ public class HoopStatisticsPanel extends HoopEmbeddedJPanel implements ActionLis
 			generateDataSet ();
 		}
 		
+		if (button==saveXLSButton)
+		{
+			dumpXLSFile ();
+		}
+		
 		if (button==inButton)
 		{
 			fontSize++;
@@ -273,12 +305,15 @@ public class HoopStatisticsPanel extends HoopEmbeddedJPanel implements ActionLis
 	/**
 	 * 
 	 */
-	public void addDataSet (String aLabel)
+	public void addDataSet (HoopSampleDataSet aSet)
 	{
-		debug ("addDataSet ("+aLabel+")");
+		debug ("addDataSet ("+aSet.getLabel()+")");
 				
-		datasetChooser.addItem(aLabel);
+		datasetChooser.addItem(aSet.getLabel());
 	}
+	/**
+	 * 
+	 */
 	@Override
 	public void itemStateChanged(ItemEvent e) 
 	{
@@ -292,15 +327,28 @@ public class HoopStatisticsPanel extends HoopEmbeddedJPanel implements ActionLis
 	{
 		HoopSampleDataSet aSet=new HoopSampleDataSet ("Generated"+genIndex);
 		
+		lastSet=aSet;
+		
 		ArrayList<HoopSampleMeasure> aData=aSet.getDataSet();
+		
+		long N=1000;
+		long H=500; // Hypothesis
+		
+		// The random function will generate a value between 0 and H
+		// We set our data set hypothesis to half of that and use that
+		// to see if the calculate mean and other tests show this to be
+		// so
+		
+		aSet.setHypothesis(H/2);
 		
 		Random randomGenerator = new Random();
 		
-		for (int i=0;i<1000;i++)
+		for (int i=0;i<N;i++)
 		{
 			HoopSampleMeasure aMeasure=new HoopSampleMeasure ();
 			
-			long randomLong = nextLong (randomGenerator,500);
+			//long randomLong = nextLong (randomGenerator,aSet.getHypothesis());
+			long randomLong = randomGenerator.nextInt((int) H);
 			
 			aMeasure.setXValue(i);
 			aMeasure.setMeasure(randomLong);
@@ -311,7 +359,13 @@ public class HoopStatisticsPanel extends HoopEmbeddedJPanel implements ActionLis
 		
 		plotter.setData(aSet);
 		
-		addDataSet ("Generated"+genIndex);
+		addDataSet (aSet);
+		
+		HoopStatistics calculator=new HoopStatistics ();
+		
+		calculator.calcStatistics (aSet);
+		
+		moments.setText(calculator.printStatistics(aSet));
 		
 		genIndex++;
 	}
@@ -334,4 +388,42 @@ public class HoopStatisticsPanel extends HoopEmbeddedJPanel implements ActionLis
 	   
 	   return val;
 	}	
+	/**
+	 * 
+	 */
+	private void dumpXLSFile ()
+	{
+		debug ("dumpXLSFile ()");
+		
+		if (lastSet==null)
+		{
+			return;
+		}
+		
+		HoopJFileChooser fc = new HoopJFileChooser();
+		
+		int returnVal=fc.showSaveDialog (this);
+
+		if (returnVal==HoopJFileChooser.APPROVE_OPTION) 
+		{
+	       	File file = fc.getSelectedFile();
+
+	       	debug ("Creating in directory: " + file.getAbsolutePath() + " ...");
+	       	
+	       	StringBuffer formatter=new StringBuffer ();
+	       	
+	       	ArrayList <HoopSampleMeasure> sampleSet=lastSet.getDataSet ();
+	       	
+	       	for (int i=0;i<sampleSet.size();i++)
+	       	{
+	       		HoopSampleMeasure aMeasure=sampleSet.get(i);
+	       		
+	       		Long transformer=aMeasure.getMeasure();
+	       		
+	       		formatter.append(transformer.toString()+"\n");
+	       	}
+	       	
+	       	HoopLink.fManager.saveContents(file.getAbsolutePath(),formatter.toString());
+		}   	
+	}
 }
