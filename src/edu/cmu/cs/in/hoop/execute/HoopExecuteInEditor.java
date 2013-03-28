@@ -26,11 +26,8 @@ import javax.swing.JButton;
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.hoop.HoopDocumentList;
 import edu.cmu.cs.in.hoop.HoopErrorPanel;
-import edu.cmu.cs.in.hoop.HoopGraphEditor;
 import edu.cmu.cs.in.hoop.HoopProjectPanel;
-import edu.cmu.cs.in.hoop.HoopTreeList;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
-import edu.cmu.cs.in.hoop.properties.HoopPropertyPanel;
 
 /** 
  * 

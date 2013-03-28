@@ -74,7 +74,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 	
 	private Component compReference=null;
 	
-	private	HoopExecuteInEditor runtime=null;
+	//private	HoopExecuteInEditor runtime=null;
 	
 	private ArrayList <HoopProjectExportInterface> exportPlugins=null;
 			
@@ -89,7 +89,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     	this.setIconImage (HoopLink.getImageByName("hoop.png").getImage());
     	
     	compReference=this;
-    	runtime=new HoopExecuteInEditor ();
+    	HoopLink.runner=new HoopExecuteInEditor ();
     	
     	exportPlugins=new ArrayList<HoopProjectExportInterface> ();
     	
@@ -790,11 +790,11 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     			
     			HoopLink.popWindow("Execution Monitor");
     			
-    			runtime.setRoot(HoopLink.hoopGraphManager.getRoot());
-    			runtime.setLoopCount(1);
-    			runtime.setLocation (HoopExecute.LOCAL);
+    			HoopLink.runner.setRoot(HoopLink.hoopGraphManager.getRoot());
+    			HoopLink.runner.setLoopCount(1);
+    			HoopLink.runner.setLocation (HoopExecute.LOCAL);
     			    			
-    			Thread runner=new Thread (runtime);
+    			Thread runner=new Thread (HoopLink.runner);
     			runner.setUncaughtExceptionHandler(new HoopExecuteExceptionHandler ());    			
     			runner.start();
     		}
@@ -824,11 +824,11 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     			
     			HoopLink.popWindow("Cluster Monitor");
     			
-    			runtime.setRoot(HoopLink.hoopGraphManager.getRoot());
-    			runtime.setLoopCount(1);
-    			runtime.setLocation (HoopExecute.CLUSTER);
+    			HoopLink.runner.setRoot(HoopLink.hoopGraphManager.getRoot());
+    			HoopLink.runner.setLoopCount(1);
+    			HoopLink.runner.setLocation (HoopExecute.CLUSTER);
     			    			
-    			Thread runner=new Thread (runtime);
+    			Thread runner=new Thread (HoopLink.runner);
     			runner.setUncaughtExceptionHandler(new HoopExecuteExceptionHandler ());    			
     			runner.start();
     		}
@@ -896,13 +896,13 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     	debug ("addButtons ()");
     	
         JButton runButton = HoopControlTools.makeNavigationButton ("run","Run",HoopLink.getImageByName("run.png"));
-        runButton.addActionListener(runtime);
+        runButton.addActionListener((HoopExecuteInEditor) HoopLink.runner);
         
         JButton runClusterButton = HoopControlTools.makeNavigationButton ("runCluster","Run on Cluster",HoopLink.getImageByName("run-cluster.png"));
-        runClusterButton.addActionListener(runtime);        
+        runClusterButton.addActionListener((HoopExecuteInEditor) HoopLink.runner);        
         
         JButton debugButton = HoopControlTools.makeNavigationButton ("debug","Debug",HoopLink.getImageByName("debug.png"));
-        debugButton.addActionListener(runtime);
+        debugButton.addActionListener((HoopExecuteInEditor) HoopLink.runner);
         
         /*
         JButton runNButton = HoopControlTools.makeNavigationButton ("runN","Run N Times",HoopLink.getImageByName("run-n.png"));
@@ -917,7 +917,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
         sep.setMaximumSize(new Dimension (5,50));
         
         JButton stopButton = HoopControlTools.makeNavigationButton ("Stop","Stop",HoopLink.getImageByName("run-stopped.png"));
-        stopButton.addActionListener(runtime);
+        stopButton.addActionListener((HoopExecuteInEditor) HoopLink.runner);
         
         toolBar.add (runButton);
         toolBar.add (Box.createRigidArea(new Dimension(2,0)));

@@ -58,6 +58,13 @@ public class HoopExecute extends HoopRoot implements Runnable
 	}
 	/**
 	 * 
+	 */
+	public String getExperimentID ()
+	{
+		return (experimentID);
+	}
+	/**
+	 * 
 	 */	
 	public int getLocation() 
 	{

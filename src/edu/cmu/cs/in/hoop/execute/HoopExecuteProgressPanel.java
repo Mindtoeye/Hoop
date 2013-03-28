@@ -53,7 +53,7 @@ import edu.cmu.cs.in.stats.HoopPerformanceMeasure;
 public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements HoopExecutionMonitor, ActionListener
 {	
 	private static final long serialVersionUID = -9132114294178560223L;
-	private JList executionTrace=null;	
+	private JList<HoopBase> executionTrace=null;	
 	private DefaultListModel<HoopBase> model=null;
 	
 	private JButton statusButton=null;
@@ -64,11 +64,13 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
     private JRadioButton showAverage = null;   
     private JRadioButton showLatest = null;
     
-    private JComboBox traceChooser=null;
+    private JComboBox<String> traceChooser=null;
     
     private JLabel timeIndicator=null;    
     private Timer displayTimer=null;
     private Long timeCounter=(long) 0;
+    
+    private JLabel experiment=null;    
     
     private int executionResolution=1000;
     
@@ -175,7 +177,7 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 	    
 		controlBox.add(traceLabel);
 	    	    
-		traceChooser = new JComboBox();
+		traceChooser = new JComboBox<String>();
 		traceChooser.setFont(new Font("Dialog",1,10));
 		traceChooser.setPreferredSize(new Dimension (50,20));
 		traceChooser.setMaximumSize(new Dimension (50,20));	    
@@ -186,7 +188,17 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 	    sep3.setMaximumSize(new Dimension (5,22));
 	    
 	    controlBox.add(sep4);
+	    
+		experiment=new JLabel ();
+		experiment.setText("Experiment: ");
+		experiment.setFont(new Font("Dialog", 1, 10));
+		experiment.setMinimumSize(new Dimension (200,23));
+		experiment.setPreferredSize(new Dimension (200,23));
+		experiment.setMaximumSize(new Dimension (200,23));
+		experiment.setHorizontalTextPosition(JLabel.LEFT);
 		
+		controlBox.add(experiment);
+				
 		controlBox.add(Box.createHorizontalGlue());
 		
 		// Add the actual progress controls ...
@@ -226,13 +238,15 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 	{
 		debug ("reset ()");
 	
-		model = new DefaultListModel();
+		model = new DefaultListModel<HoopBase>();
 		
 		executionTrace.setModel(model);
 				
 		displayTimer.stop();
 		timeCounter=(long) 0;
 		timeIndicator.setText("00:00:00");
+		
+		experiment.setText("Experiment: ");
 	}
 	/**
 	 * 
@@ -245,6 +259,8 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 		displayTimer.start();
 		
 		statusButton.setEnabled(true);
+		
+		experiment.setText("Experiment: " + HoopLink.runner.getExperimentID());
 	}
 	/**
 	 * 

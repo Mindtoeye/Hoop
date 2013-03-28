@@ -321,8 +321,6 @@ public class HoopLink extends HoopProperties
 	
 	public static String vocabularyPath="./";
 	public static ArrayList <String> posFiles=null;	
-	//public static ArrayList <HoopPerformanceMeasure> metrics=null;
-	//public static ArrayList <HoopSampleMeasure> metrics=null;
 	public static HoopSampleDataSet metrics=null;
 	public static ArrayList <HoopEmbeddedJPanel> windows=null;
 	public static ArrayList <HoopViewInterface> windowsPlugins=null;
