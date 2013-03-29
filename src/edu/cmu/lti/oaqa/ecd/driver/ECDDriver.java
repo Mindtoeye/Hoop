@@ -39,60 +39,104 @@ import edu.cmu.lti.oaqa.ecd.flow.FunneledFlow;
 import edu.cmu.lti.oaqa.ecd.flow.strategy.FunnelingStrategy;
 import edu.cmu.lti.oaqa.ecd.impl.DefaultFunnelingStrategy;
 
-public final class ECDDriver {
+/**
+ * 
+ */
+public final class ECDDriver 
+{
+	private final ExperimentBuilder builder;
 
-  private final ExperimentBuilder builder;
+	private final AnyObject config;
 
-  private final AnyObject config;
-
-  private final List<Long> processedItems = Lists.newArrayList();
-  
-  public ECDDriver(String resource, String uuid) throws Exception {
-    TypeSystemDescription typeSystem = TypeSystemDescriptionFactory.createTypeSystemDescription();
-    this.builder = new BaseExperimentBuilder(uuid, resource, typeSystem);
-    this.config = builder.getConfiguration();
-  }
-
-  public void run() throws Exception {
-    StagedConfiguration stagedConfig = new StagedConfigurationImpl(config);
-    FunnelingStrategy ps = getProcessingStrategy();
-    for (Stage stage : stagedConfig) {
-      FunneledFlow funnel = ps.newFunnelStrategy(builder.getExperimentUuid());
-      AnyObject conf = stage.getConfiguration();
-      CollectionReader reader = builder.buildCollectionReader(conf, stage.getId());
-      AnalysisEngine pipeline = builder.buildPipeline(conf, "pipeline", stage.getId(), funnel);
-      if (conf.getIterable("post-process") != null) {
-        AnalysisEngine post = builder.buildPipeline(conf, "post-process", stage.getId());
-        SimplePipelineRev803.runPipeline(reader, pipeline, post);
-      } else {
-        SimplePipelineRev803.runPipeline(reader, pipeline);
-      }
-      Progress progress = reader.getProgress()[0];
-      long total = progress.getCompleted();
-      processedItems.add(total);
-    }
-  }
-  
-  private FunnelingStrategy getProcessingStrategy() throws ResourceInitializationException {
-    FunnelingStrategy ps = new DefaultFunnelingStrategy();
-    AnyObject map = config.getAnyObject("processing-strategy");
-    if (map != null) {
-      ps = BaseExperimentBuilder.loadProvider(map, FunnelingStrategy.class);
-    }
-    return ps;
-  }
-  
-  Iterable<Long> getProcessedItems() {
-    return processedItems;
-  }
-
-  public static void main(String[] args) throws Exception {
-    String uuid = UUID.randomUUID().toString();    
-    if (args.length > 1) {
-      uuid = args[1];
-    }
-    System.out.println("Experiment UUID: " + uuid);
-    ECDDriver driver = new ECDDriver(args[0], uuid);
-    driver.run();
-  }
+	private final List<Long> processedItems = Lists.newArrayList();
+ 
+	/**
+	 *
+	 * @param resource
+	 * @param uuid
+	 * @throws Exception
+	 */
+	public ECDDriver(String resource, String uuid) throws Exception 
+	{
+		TypeSystemDescription typeSystem = TypeSystemDescriptionFactory.createTypeSystemDescription();
+    
+		this.builder = new BaseExperimentBuilder(uuid, resource, typeSystem);
+    
+		this.config = builder.getConfiguration();
+	}
+	/**
+	 *
+	 * @throws Exception
+	 */
+	public void run() throws Exception 
+	{
+		StagedConfiguration stagedConfig = new StagedConfigurationImpl(config);
+		FunnelingStrategy ps = getProcessingStrategy();
+    
+		for (Stage stage : stagedConfig) 
+		{
+			FunneledFlow funnel = ps.newFunnelStrategy(builder.getExperimentUuid());
+			AnyObject conf = stage.getConfiguration();
+			CollectionReader reader = builder.buildCollectionReader(conf, stage.getId());
+			AnalysisEngine pipeline = builder.buildPipeline(conf, "pipeline", stage.getId(), funnel);
+      
+			if (conf.getIterable("post-process") != null) 
+			{
+				AnalysisEngine post = builder.buildPipeline(conf, "post-process", stage.getId());
+				SimplePipelineRev803.runPipeline(reader, pipeline, post);
+			} 
+			else 
+			{
+				SimplePipelineRev803.runPipeline(reader, pipeline);
+			}
+      
+			Progress progress = reader.getProgress()[0];
+			long total = progress.getCompleted();
+			processedItems.add(total);
+		}
+	}
+	/**
+	 *
+	 * @return
+	 * @throws ResourceInitializationException
+	 */
+	private FunnelingStrategy getProcessingStrategy() throws ResourceInitializationException 
+	{
+		FunnelingStrategy ps = new DefaultFunnelingStrategy();
+		
+		AnyObject map = config.getAnyObject("processing-strategy");
+		if (map != null) 
+		{
+			ps = BaseExperimentBuilder.loadProvider(map, FunnelingStrategy.class);
+		}
+		return ps;
+	}
+	/**
+	 *
+	 * @return
+	 */
+	Iterable<Long> getProcessedItems() 
+	{
+		return processedItems;
+	}
+	/**
+	 *
+	 * @param args
+	 * @throws Exception
+	 */
+	public static void main(String[] args) throws Exception 
+	{
+		String uuid = UUID.randomUUID().toString();
+    
+		if (args.length > 1) 
+		{
+			uuid = args[1];
+		}
+    
+		System.out.println("Experiment UUID: " + uuid);
+    
+		ECDDriver driver = new ECDDriver(args[0], uuid);
+    
+		driver.run();
+	}
 }
