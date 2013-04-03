@@ -70,7 +70,8 @@ public class HoopUIMAPipeline
 	 * @throws UIMAException
 	 * @throws IOException
 	 */
-	public static void runPipeline(final CollectionReader reader, final AnalysisEngineDescription... descs) throws UIMAException, IOException 
+	public static void runPipeline (final CollectionReader reader, 
+									final AnalysisEngineDescription... descs) throws UIMAException, IOException 
 	{
 		// Create AAE
 		final AnalysisEngineDescription aaeDesc = createAggregateDescription(descs);
@@ -78,12 +79,12 @@ public class HoopUIMAPipeline
 		// Instantiate AAE
 		final AnalysisEngine aae = createAggregate(aaeDesc);
 
-		// Create CAS from merged metadata
+		// Create 1 CAS from merged metadata
 		final CAS cas = CasCreationUtils.createCas(asList(reader.getMetaData(), aae.getMetaData()));
     
 		try 
 		{
-			// Process
+			// Process and pass the CAS along the pipeline ...
 			while (reader.hasNext()) 
 			{
 				reader.getNext(cas);
@@ -116,7 +117,8 @@ public class HoopUIMAPipeline
 	 * @throws UIMAException
 	 * @throws IOException
 	 */
-	public static void runPipeline(final CollectionReaderDescription readerDesc, final AnalysisEngineDescription... descs) throws UIMAException, IOException 
+	public static void runPipeline (final CollectionReaderDescription readerDesc,
+									final AnalysisEngineDescription... descs) throws UIMAException, IOException 
 	{
 		// Create the components
 		final CollectionReader reader = createCollectionReader(readerDesc);
