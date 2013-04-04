@@ -48,7 +48,7 @@ import javax.swing.JToggleButton;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
-import org.pushingpixels.flamingo.api.bcb.JBreadcrumbBar;
+//import org.pushingpixels.flamingo.api.bcb.JBreadcrumbBar;
 import org.pushingpixels.flamingo.api.bcb.core.BreadcrumbFileSelector;
 
 import com.mxgraph.layout.mxCircleLayout;
@@ -82,6 +82,7 @@ import edu.cmu.cs.in.controls.HoopBreadCrumbBar;
 import edu.cmu.cs.in.controls.HoopButtonBox;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 import edu.cmu.cs.in.controls.base.HoopLockableJPanel;
+import edu.cmu.cs.in.hoop.execute.HoopExecuteInEditor;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.properties.HoopPropertyPanel;
 
@@ -97,6 +98,7 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 	
 	protected JToggleButton annotateToggle=null;
 	protected JButton clearBreakPoints=null;
+	protected JButton speedButton=null;
 	protected HoopLockableJPanel graphContainer=null;
 	
 	protected HoopBreadCrumbBar phaseBreadCrumbBar=null;
@@ -234,6 +236,15 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 	    
 	    graphControls.addComponent(annotateToggle);
 	    
+	    speedButton=new JButton ();
+	    speedButton.setFont(new Font("Dialog", 1, 8));
+	    speedButton.setPreferredSize(new Dimension (36,20));
+	    speedButton.setMaximumSize(new Dimension (36,20));
+	    speedButton.setIcon(HoopLink.getImageByName("speed-1.png"));
+	    speedButton.addActionListener(this);
+	    
+		graphControls.addComponent(speedButton);
+			    	    
 	    clearBreakPoints=new JButton ();
 	    clearBreakPoints.setFont(new Font("Dialog", 1, 8));
 	    clearBreakPoints.setPreferredSize(new Dimension (20,20));
@@ -913,6 +924,32 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 			{
 				graphContainer.setLocked(false);
 			}
+		}
+		
+		if (e.getSource ()==speedButton)
+		{
+			HoopExecuteInEditor execution=(HoopExecuteInEditor) HoopLink.runner;
+			
+			if (execution.getExecuteSpeed ()==HoopExecuteInEditor.SPEED_SLOW)
+			{
+				execution.setExecuteSpeed(HoopExecuteInEditor.SPEED_NORMAL);
+				speedButton.setIcon(HoopLink.getImageByName("speed-2.png"));
+				return;
+			}
+			
+			if (execution.getExecuteSpeed ()==HoopExecuteInEditor.SPEED_NORMAL)
+			{
+				execution.setExecuteSpeed(HoopExecuteInEditor.SPEED_FAST);
+				speedButton.setIcon(HoopLink.getImageByName("speed-3.png"));
+				return;
+			}
+			
+			if (execution.getExecuteSpeed ()==HoopExecuteInEditor.SPEED_FAST)
+			{
+				execution.setExecuteSpeed(HoopExecuteInEditor.SPEED_SLOW);
+				speedButton.setIcon(HoopLink.getImageByName("speed-1.png"));
+				return;
+			}			
 		}
 		
 		if (e.getSource()==clearBreakPoints)

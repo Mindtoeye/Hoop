@@ -33,7 +33,13 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
  * 
  */
 public class HoopExecuteInEditor extends HoopExecute implements ActionListener
-{			
+{		
+	public static int SPEED_SLOW=0;
+	public static int SPEED_NORMAL=1;
+	public static int SPEED_FAST=2;
+	
+	private int executeSpeed=SPEED_SLOW;
+	
 	/**
 	 *
 	 */
@@ -233,6 +239,23 @@ public class HoopExecuteInEditor extends HoopExecute implements ActionListener
 		{
 			HoopLink.executionMonitor.updateHoopEndExecution(aHoop);
 		}
+	}
+	/**
+	 * 
+	 * @return
+	 */
+	public int getExecuteSpeed() 
+	{
+		return executeSpeed;
+	}
+	/**
+	 * 
+	 * @param executeSpeed
+	 */
+	public void setExecuteSpeed(int executeSpeed) 
+	{
+		debug ("setExecuteSped ("+executeSpeed+")");
+		
+		this.executeSpeed = executeSpeed;
 	}		
 }
-
