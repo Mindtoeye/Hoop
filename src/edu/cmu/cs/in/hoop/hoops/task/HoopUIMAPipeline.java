@@ -40,20 +40,21 @@ import org.apache.uima.resource.Resource;
 import org.apache.uima.resource.metadata.ResourceMetaData;
 import org.apache.uima.util.CasCreationUtils;
 
+import edu.cmu.cs.in.base.HoopRoot;
+
 // We added this file here to bring uimaFit 1.3.1 bug improved pipeline 
 // while preserving compatibility with UIMA 2.3.1
 // Elmer
 
-/**
- * @author Steven Bethard, Philip Ogren
- * @author Richard Eckart de Castilho
- *
+/** 
+ * Based on the original UIMA version with an extensive rewrite for Hoop
  */
-public class HoopUIMAPipeline
+public class HoopUIMAPipeline extends HoopRoot
 {
-	private HoopUIMAPipeline() 
+	public HoopUIMAPipeline() 
 	{
-		// This class is not meant to be instantiated
+		setClassName ("HoopUIMAPipeline");
+		debug ("HoopUIMAPipeline ()");		
 	}
 	/**
 	 * Run the CollectionReader and AnalysisEngines as a pipeline. After processing all CASes
@@ -70,9 +71,11 @@ public class HoopUIMAPipeline
 	 * @throws UIMAException
 	 * @throws IOException
 	 */
-	public static void runPipeline (final CollectionReader reader, 
-									final AnalysisEngineDescription... descs) throws UIMAException, IOException 
+	public void runPipeline (CollectionReader reader, 
+							 AnalysisEngineDescription... descs) throws UIMAException, IOException 
 	{
+		debug ("runPipeline ()");
+		
 		// Create AAE
 		final AnalysisEngineDescription aaeDesc = createAggregateDescription(descs);
 
@@ -117,9 +120,11 @@ public class HoopUIMAPipeline
 	 * @throws UIMAException
 	 * @throws IOException
 	 */
-	public static void runPipeline (final CollectionReaderDescription readerDesc,
-									final AnalysisEngineDescription... descs) throws UIMAException, IOException 
+	public void runPipeline (final CollectionReaderDescription readerDesc,
+			            	 final AnalysisEngineDescription... descs) throws UIMAException, IOException 
 	{
+		debug ("runPipeline (CollectionReaderDescription,AnalysisEngineDescription)");
+		
 		// Create the components
 		final CollectionReader reader = createCollectionReader(readerDesc);
 
@@ -147,8 +152,10 @@ public class HoopUIMAPipeline
 	 * @throws UIMAException
 	 * @throws IOException
 	 */
-	public static void runPipeline(final CollectionReader reader, final AnalysisEngine... engines) throws UIMAException, IOException 
+	public void runPipeline(CollectionReader reader, AnalysisEngine... engines) throws UIMAException, IOException 
 	{
+		debug ("runPipeline (CollectionReader,AnalysisEngine) MAIN");
+		
 		final List<ResourceMetaData> metaData = new ArrayList<ResourceMetaData>();
 		
 		metaData.add(reader.getMetaData());
@@ -186,8 +193,10 @@ public class HoopUIMAPipeline
 	 * @throws UIMAException
 	 * @throws IOException
 	 */
-	public static void runPipeline(final CAS aCas, final AnalysisEngineDescription... aDescs) throws UIMAException, IOException 
+	public void runPipeline(CAS aCas,AnalysisEngineDescription... aDescs) throws UIMAException, IOException 
 	{
+		debug ("runPipeline (aCas,AnalysisEngineDescription)");
+		
 		// Create aggregate AE
 		final AnalysisEngineDescription aaeDesc = createAggregateDescription(aDescs);
 
@@ -219,8 +228,10 @@ public class HoopUIMAPipeline
 	 * @throws UIMAException
 	 * @throws IOException
 	 */
-	public static void runPipeline(final JCas jCas, final AnalysisEngineDescription... descs) throws UIMAException, IOException 
+	public void runPipeline(JCas jCas,AnalysisEngineDescription... descs) throws UIMAException, IOException 
 	{
+		debug ("runPipeline (JCas,AnalysisEngineDescription)");
+		
 		runPipeline(jCas.getCas(), descs);
 	}
 	/**
@@ -235,8 +246,10 @@ public class HoopUIMAPipeline
 	 * @throws UIMAException
 	 * @throws IOException
 	 */
-	public static void runPipeline(final JCas jCas, final AnalysisEngine... engines) throws UIMAException, IOException 
+	public void runPipeline(JCas jCas,AnalysisEngine... engines) throws UIMAException, IOException 
 	{
+		debug ("runPipeline (JCas,AnalysisEngine)");
+		
 		for (AnalysisEngine engine : engines) 
 		{
 			engine.process(jCas);
@@ -254,8 +267,10 @@ public class HoopUIMAPipeline
 	 * @throws UIMAException
 	 * @throws IOException
 	 */
-	public static void runPipeline(final CAS cas, final AnalysisEngine... engines)throws UIMAException, IOException 
+	public void runPipeline(CAS cas,AnalysisEngine... engines)throws UIMAException, IOException 
 	{
+		debug ("runPipeline (CAS,AnalysisEngine)");
+		
 		for (AnalysisEngine engine : engines) 
 		{
 			engine.process(cas);
@@ -264,8 +279,10 @@ public class HoopUIMAPipeline
 	/**
 	 * Notify a set of {@link AnalysisEngine analysis engines} that the collection process is complete.
 	 */
-	public static void collectionProcessComplete(final AnalysisEngine... engines) throws AnalysisEngineProcessException 
+	public void collectionProcessComplete(AnalysisEngine... engines) throws AnalysisEngineProcessException 
 	{
+		debug ("collectionProcessComplete (AnalysisEngine)");
+		
 		for (AnalysisEngine e : engines) 
 		{
 			e.collectionProcessComplete();
@@ -274,8 +291,10 @@ public class HoopUIMAPipeline
 	/**
 	 * Destroy a set of {@link Resource resources}.
 	 */
-	public static void destroy(final Resource... resources)
+	public void destroy(Resource... resources)
 	{
+		debug ("destroy (Resource)");
+		
 		for (Resource r : resources) 
 		{
 			if (r != null) 
@@ -288,8 +307,10 @@ public class HoopUIMAPipeline
 	 * 
 	 * @param aReader
 	 */
-	private static void close(final BaseCollectionReader aReader)
+	private void close(BaseCollectionReader aReader)
 	{
+		debug ("close (BaseCollectionReader)");
+		
 		if (aReader == null) 
 		{
 			return;

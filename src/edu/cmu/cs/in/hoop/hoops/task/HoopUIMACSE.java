@@ -93,6 +93,8 @@ public class HoopUIMACSE extends HoopControlBase implements HoopInterface
 	{		
 		debug ("runHoop ()");
 		
+		HoopUIMAPipeline CSEPipeline=new HoopUIMAPipeline();
+		
 		try 
 		{
 			initExperiment ();
@@ -116,13 +118,19 @@ public class HoopUIMACSE extends HoopControlBase implements HoopInterface
 			e.printStackTrace();
 			return (false);
 		}
+		
+		debug ("For each staged config, get a stage ...");
     
 		for (Stage stage : stagedConfig) 
 		{
+			debug ("Processing stage ...");
+			
 			FunneledFlow funnel = ps.newFunnelStrategy(builder.getExperimentUuid());
 			AnyObject conf = stage.getConfiguration();
 			
 			CollectionReader reader=null;
+			
+			debug ("Attempting to build collection reader ...");
 			
 			try 
 			{
@@ -137,6 +145,8 @@ public class HoopUIMACSE extends HoopControlBase implements HoopInterface
 			
 			AnalysisEngine pipeline=null;
 			
+			debug ("Building main pipeline ...");
+			
 			try 
 			{
 				pipeline = builder.buildPipeline(conf, "pipeline", stage.getId(), funnel);
@@ -147,6 +157,8 @@ public class HoopUIMACSE extends HoopControlBase implements HoopInterface
 				e.printStackTrace();
 				return (false);
 			}
+			
+			debug ("Building post-process pipeline ...");
       
 			if (conf.getIterable("post-process") != null) 
 			{
@@ -165,7 +177,7 @@ public class HoopUIMACSE extends HoopControlBase implements HoopInterface
 				
 				try 
 				{
-					HoopUIMAPipeline.runPipeline(reader, pipeline, post);
+					CSEPipeline.runPipeline(reader, pipeline, post);
 				} 
 				catch (UIMAException e) 
 				{
@@ -182,9 +194,11 @@ public class HoopUIMACSE extends HoopControlBase implements HoopInterface
 			} 
 			else 
 			{
+				debug ("Attempting to execute pipeline ...");
+				
 				try 
 				{
-					HoopUIMAPipeline.runPipeline(reader, pipeline);
+					CSEPipeline.runPipeline(reader, pipeline);
 				} 
 				catch (UIMAException e) 
 				{
@@ -201,7 +215,9 @@ public class HoopUIMACSE extends HoopControlBase implements HoopInterface
 			}
       
 			Progress progress = reader.getProgress()[0];
+			
 			long total = progress.getCompleted();
+			
 			processedItems.add(total);
 		}		
 						
@@ -212,6 +228,8 @@ public class HoopUIMACSE extends HoopControlBase implements HoopInterface
 	 */
 	private void initExperiment () throws Exception 
 	{
+		debug ("initExperiment ()");
+		
 		TypeSystemDescription typeSystem = TypeSystemDescriptionFactory.createTypeSystemDescription();
 	    
 		this.builder = new BaseExperimentBuilder(HoopLink.runner.getExperimentID(), URI.getValue(), typeSystem);
@@ -225,6 +243,8 @@ public class HoopUIMACSE extends HoopControlBase implements HoopInterface
 	 */
 	private FunnelingStrategy getProcessingStrategy() throws ResourceInitializationException 
 	{
+		debug ("getProcessingStrategy ()");
+		
 		FunnelingStrategy ps = new DefaultFunnelingStrategy();
 		
 		AnyObject map = config.getAnyObject("processing-strategy");
@@ -232,6 +252,7 @@ public class HoopUIMACSE extends HoopControlBase implements HoopInterface
 		{
 			ps = BaseExperimentBuilder.loadProvider(map, FunnelingStrategy.class);
 		}
+		
 		return ps;
 	}
 	/**
