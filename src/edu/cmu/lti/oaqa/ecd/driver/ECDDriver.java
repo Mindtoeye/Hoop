@@ -74,10 +74,13 @@ public final class ECDDriver
 		FunnelingStrategy ps = getProcessingStrategy();
     
 		for (Stage stage : stagedConfig) 
-		{
+		{					
 			FunneledFlow funnel = ps.newFunnelStrategy(builder.getExperimentUuid());
+						
 			AnyObject conf = stage.getConfiguration();
+						
 			CollectionReader reader = builder.buildCollectionReader(conf, stage.getId());
+			
 			AnalysisEngine pipeline = builder.buildPipeline(conf, "pipeline", stage.getId(), funnel);
       
 			if (conf.getIterable("post-process") != null) 

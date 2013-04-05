@@ -89,13 +89,13 @@ class HoopSheetPathEditor extends HoopJPanel implements ActionListener
 	 */
 	public void actionPerformed(ActionEvent actionEvent) 
 	{
-		debug ("actionPerformed ()");
+		debug ("actionPerformed ("+pathObject.getFileExtension()+")");
 		
 	    JFileChooser fc=new JFileChooser ();
 	    
 	    if (pathObject.getDirsOnly()==false)
 	    {
-			FileNameExtensionFilter filter=new FileNameExtensionFilter ("."+pathObject.getFileExtension()+" files", pathObject.getFileExtension());
+			FileNameExtensionFilter filter=new FileNameExtensionFilter (pathObject.getFileExtension()+" files", pathObject.getFileExtension());
 			fc.setFileFilter(filter);
 			
 			int returnVal=fc.showOpenDialog (this);

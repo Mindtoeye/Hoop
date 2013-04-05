@@ -18,18 +18,20 @@ package edu.cmu.lti.oaqa.ecd.config;
 
 import mx.bigdata.anyobject.AnyObject;
 
-public final class Stage {
-
+public final class Stage 
+{
   private final int id;
   
   private final AnyObject config;
   
-  Stage(int id, AnyObject config) {
+  Stage(int id, AnyObject config) 
+  {
     this.id = id;
     this.config = config;
   }
   
-  public AnyObject getConfiguration() {
+  public AnyObject getConfiguration() 
+  {
     return config;
   }
   

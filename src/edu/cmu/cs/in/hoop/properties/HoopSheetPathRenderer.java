@@ -201,13 +201,13 @@ class HoopSheetPathRenderer extends HoopJPanel implements TableCellRenderer, Act
 	@Override	
 	public void actionPerformed(ActionEvent arg0) 
 	{
-		debug ("actionPerformed ()");
+		debug ("actionPerformed ("+pathObject.getFileExtension()+")");
 		
 	    JFileChooser fc=new JFileChooser ();
 	    
 	    if (pathObject.getDirsOnly()==false)
 	    {
-			FileNameExtensionFilter filter=new FileNameExtensionFilter ("."+pathObject.getFileExtension()+" files", pathObject.getFileExtension());
+			FileNameExtensionFilter filter=new FileNameExtensionFilter (pathObject.getFileExtension()+" files", "." + pathObject.getFileExtension());
 			fc.setFileFilter(filter);
 			
 			int returnVal=fc.showOpenDialog (this);

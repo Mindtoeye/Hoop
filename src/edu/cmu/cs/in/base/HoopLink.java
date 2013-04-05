@@ -722,7 +722,7 @@ public class HoopLink extends HoopProperties
 		String projectPath=HoopLink.project.getBasePath();
 		
 		formatted.append (projectPath);
-		formatted.append("//");
+		formatted.append("/");
 		formatted.append(lastPart);
 		
 		return (formatted.toString());

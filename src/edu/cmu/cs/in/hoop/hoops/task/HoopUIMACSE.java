@@ -75,7 +75,7 @@ public class HoopUIMACSE extends HoopControlBase implements HoopInterface
 		setHoopDescription ("Run a UIMA CSE");
 		
 		URI=new HoopURISerializable (this,"URI","");
-		URI.setFileExtension(".yaml");
+		URI.setFileExtension("yaml");
     }
     /**
      * 

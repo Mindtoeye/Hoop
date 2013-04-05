@@ -18,6 +18,7 @@
 
 package edu.cmu.cs.in.base.io;
 
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Writer;
 import java.util.ArrayList;
@@ -356,6 +357,18 @@ public class HoopVFSL extends HoopRoot implements HoopVFSLInterface
 		{
 			HoopVFSLInterface aLayer=layers.get(0);
 			return (aLayer.getFileTime(aPath));
+		}
+		
+		return null;
+	}
+
+	@Override
+	public InputStream openInputStream(String aFileURI) 
+	{
+		if (layers.size()>0)
+		{
+			HoopVFSLInterface aLayer=layers.get(0);
+			return (aLayer.openInputStream (aFileURI));
 		}
 		
 		return null;
