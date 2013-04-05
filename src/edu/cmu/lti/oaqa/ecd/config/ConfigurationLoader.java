@@ -94,24 +94,7 @@ public class ConfigurationLoader extends HoopRoot
 		HoopRoot.debug ("ConfigurationLoader","load ("+resource+")");
 		
 		String resourceLocation = getResourceLocation(HoopLink.relativeToAbsolute(resource));
-		
-		/*
-		InputStream in = ConfigurationLoader.class.getResourceAsStream(resourceLocation);
-		
-		if (in == null) 
-		{
-			throw new FileNotFoundException (resourceLocation + " is not found");
-		}
-		try 
-		{
-			return SnakeYAMLLoader.getInstance().load (in);
-		} 
-		finally 
-		{
-			in.close();
-		}
-		*/				
-		
+				
 		InputStream in=HoopLink.fManager.openInputStream(resourceLocation);
 		
 		if (in == null) 
