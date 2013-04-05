@@ -21,10 +21,13 @@ package edu.cmu.cs.in.base.io;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Writer;
 
@@ -49,6 +52,8 @@ public class HoopFileManager extends HoopFileTools implements HoopVFSLInterface
 	private BufferedReader 		permInput=null;
 	private Writer 				streamOut=null;
 	private FileOutputStream	streamOutBinary=null;
+	
+	private InputStream			streamInBinary=null;
 	
 	/**
 	 *
@@ -513,5 +518,26 @@ public class HoopFileManager extends HoopFileTools implements HoopVFSLInterface
 		}
 		
 		return (true);
+	}
+	/**
+	 * 
+	 */
+	public InputStream openInputStream (String aFileURI)
+	{
+		debug ("openInputStream ("+aFileURI+")");
+		
+		File f = new File(aFileURI);
+		
+		try 
+		{
+			streamInBinary=new FileInputStream(f);
+		} 
+		catch (FileNotFoundException e) 
+		{		
+			e.printStackTrace();
+			return (null);
+		}
+		
+		return (streamInBinary);
 	}	
 } 

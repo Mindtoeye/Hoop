@@ -660,16 +660,31 @@ public class HoopVFSLJar extends HoopRoot implements HoopVFSLInterface
 			e1.printStackTrace();
 		}		
 	}
-
+	/**
+	 * 
+	 */
 	@Override
-	public OutputStream getOutputStreamBinary() {
+	public OutputStream getOutputStreamBinary() 
+	{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	/**
+	 * 
+	 */
 	@Override
-	public boolean openStreamBinary(String aFileURI) {
+	public boolean openStreamBinary(String aFileURI) 
+	{
 		// TODO Auto-generated method stub
 		return false;
+	}
+	/**
+	 * 
+	 */
+	@Override
+	public InputStream openInputStream(String aFileURI) 
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}	
 }

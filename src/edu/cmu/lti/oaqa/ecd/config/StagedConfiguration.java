@@ -17,5 +17,7 @@
 package edu.cmu.lti.oaqa.ecd.config;
 
 
-public interface StagedConfiguration extends Iterable<Stage> {
+public interface StagedConfiguration extends Iterable<Stage> 
+{
+	
 }

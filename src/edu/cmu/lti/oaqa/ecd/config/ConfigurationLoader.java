@@ -16,6 +16,7 @@
 
 package edu.cmu.lti.oaqa.ecd.config;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,34 +28,109 @@ import mx.bigdata.anyobject.impl.SnakeYAMLLoader;
 
 import com.google.common.io.CharStreams;
 
-public class ConfigurationLoader {
+import edu.cmu.cs.in.base.HoopLink;
+import edu.cmu.cs.in.base.HoopRoot;
 
-  public static String getResourceLocation(String resource, boolean fullpath) {
-    String parsed = resource.replace(".", "/");
-    return (fullpath ? "/" : "") + parsed + ".yaml";
-  }
-
-  public static AnyObject load(String resource) throws IOException {
-    String resourceLocation = getResourceLocation(resource, true);
-    InputStream in = ConfigurationLoader.class.getResourceAsStream(resourceLocation);
-    if (in == null) {
-      throw new FileNotFoundException(resourceLocation + " is not present on classpath");
-    }
-    try {
-      return SnakeYAMLLoader.getInstance().load(in);
-    } finally {
-      in.close();
-    }
-  }
-
-  public static String getString(String resource) throws IOException {
-    String resourceLocation = ConfigurationLoader.getResourceLocation(resource, true);
-    InputStream in = ConfigurationLoader.class.getResourceAsStream(resourceLocation);
-    try {
-      Reader reader = new InputStreamReader(in);
-      return CharStreams.toString(reader);
-    } finally {
-      in.close();
-    }
-  }
+/** 
+ * Reworked by Martin van Velsen
+ */
+public class ConfigurationLoader extends HoopRoot
+{
+	/**
+	 * 
+	 */
+	public ConfigurationLoader ()
+	{
+		setClassName ("ConfigurationLoader");
+		debug ("ConfigurationLoader ()");		
+	}	
+	/**
+	 * I've reworked this method to allow normal path specifications. For example
+	 * you will find in java apps or Eclipse launch files this:
+	 * 
+	 * <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="helloqa.helloqa"/>
+	 * 
+	 * What this means is that the driver should load:
+	 *
+	 * helloqa.helloqa.yaml
+	 * 
+	 * However if someone already specified the path with yaml it will fail. Hence the
+	 * upgrade below. The method also allows specification of regular full paths such
+	 * as:
+	 * 
+	 * helloqa/helloqa.yaml
+	 * 
+	 * @param resource
+	 * @param fullpath
+	 * @return
+	 */
+	public static String getResourceLocation(String resource) 
+	{
+		HoopRoot.debug ("ConfigurationLoader","getResourceLocation ()");
+		
+		resource.replace ("\\", File.pathSeparator);
+		
+		if (resource.indexOf("/")==-1) // There are no regular path separators
+		{
+			String parsed = resource.replace (".", File.pathSeparator);
+			
+			if (parsed.indexOf(".yaml")==-1)			
+				return (parsed + ".yaml");
+			
+			return (parsed);
+		}	
+	
+	
+		return (resource);
+	}
+	/**
+	 * 
+	 * @param resource
+	 * @return
+	 * @throws IOException
+	 */
+	public static AnyObject load(String resource) throws IOException 
+	{
+		HoopRoot.debug ("ConfigurationLoader","load ("+resource+")");
+		
+		String resourceLocation = getResourceLocation(HoopLink.relativeToAbsolute(resource));
+				
+		InputStream in=HoopLink.fManager.openInputStream(resourceLocation);
+		
+		if (in == null) 
+		{
+			throw new FileNotFoundException (resourceLocation + " is not found");
+		}
+		try 
+		{
+			return SnakeYAMLLoader.getInstance().load (in);
+		} 
+		finally 
+		{
+			in.close();
+		}		
+	}
+	/**
+	 * 
+	 * @param resource
+	 * @return
+	 * @throws IOException
+	 */
+	public static String getString(String resource) throws IOException 
+	{
+		HoopRoot.debug ("ConfigurationLoader","getString ("+resource+")");
+		
+		String resourceLocation = ConfigurationLoader.getResourceLocation(HoopLink.relativeToAbsolute(resource));
+		InputStream in = ConfigurationLoader.class.getResourceAsStream(resourceLocation);
+		
+		try 
+		{
+			Reader reader = new InputStreamReader(in);
+			return CharStreams.toString(reader);
+		} 
+		finally 
+		{
+			in.close();
+		}
+	}
 }

@@ -19,6 +19,7 @@
 package edu.cmu.cs.in.base.io;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Writer;
 import java.util.ArrayList;
@@ -225,5 +226,11 @@ public class HoopVFSLHDFS extends HoopRoot implements HoopVFSLInterface
 	{
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public InputStream openInputStream(String aFileURI) {
+		// TODO Auto-generated method stub
+		return null;
 	}	
 }

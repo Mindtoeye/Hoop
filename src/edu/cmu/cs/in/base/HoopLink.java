@@ -314,7 +314,10 @@ public class HoopLink extends HoopProperties
 		 							 "project.png",
 		 							 "splash_icon_word_balloon.gif",
 		 							 "run-cluster.png",
-		 							 "annotation.gif"
+		 							 "annotation.gif",
+		 							 "speed-1.png",
+		 							 "speed-2.png",
+		 							 "speed-3.png"
 		 							 };
 	
 	public static JFrame mainFrame=null;
@@ -719,7 +722,7 @@ public class HoopLink extends HoopProperties
 		String projectPath=HoopLink.project.getBasePath();
 		
 		formatted.append (projectPath);
-		formatted.append("//");
+		formatted.append("/");
 		formatted.append(lastPart);
 		
 		return (formatted.toString());
