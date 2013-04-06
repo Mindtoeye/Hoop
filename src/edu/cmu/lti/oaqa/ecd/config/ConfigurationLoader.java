@@ -30,6 +30,7 @@ import com.google.common.io.CharStreams;
 
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.HoopRoot;
+import edu.cmu.cs.in.base.io.HoopVFSL;
 
 /** 
  * Reworked by Martin van Velsen
@@ -66,22 +67,32 @@ public class ConfigurationLoader extends HoopRoot
 	 */
 	public static String getResourceLocation(String resource) 
 	{
-		HoopRoot.debug ("ConfigurationLoader","getResourceLocation ()");
+		HoopRoot.debug ("ConfigurationLoader","getResourceLocation ("+resource+")");
+
+		String parsed=resource;
 		
-		resource.replace ("\\", File.pathSeparator);
-		
-		if (resource.indexOf("/")==-1) // There are no regular path separators
+		if (resource.indexOf(File.separator)==-1) // There are no regular path separators
 		{
-			String parsed = resource.replace (".", File.pathSeparator);
+			parsed = resource.replace (".", File.separator);
 			
-			if (parsed.indexOf(".yaml")==-1)			
-				return (parsed + ".yaml");
-			
-			return (parsed);
+			if (parsed.indexOf(".yaml")==-1)
+			{
+				parsed=parsed + ".yaml";
+			}
 		}	
-	
-	
-		return (resource);
+		
+		if (parsed.indexOf(HoopVFSL.PROJECTPATH)==-1)
+		{
+			parsed=HoopVFSL.PROJECTPATH + parsed;
+			
+			HoopRoot.debug ("ConfigurationLoader","Project relative: " + parsed);
+		}
+		
+		String absolute=HoopLink.relativeToAbsolute(parsed);
+		
+		absolute=absolute.replace ("\\", File.separator);
+				
+		return (absolute);
 	}
 	/**
 	 * 
@@ -93,7 +104,7 @@ public class ConfigurationLoader extends HoopRoot
 	{
 		HoopRoot.debug ("ConfigurationLoader","load ("+resource+")");
 		
-		String resourceLocation = getResourceLocation(HoopLink.relativeToAbsolute(resource));
+		String resourceLocation = getResourceLocation(resource);
 				
 		InputStream in=HoopLink.fManager.openInputStream(resourceLocation);
 		

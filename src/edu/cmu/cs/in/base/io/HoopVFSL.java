@@ -41,8 +41,10 @@ import edu.cmu.cs.in.base.HoopRoot;
  */
 public class HoopVFSL extends HoopRoot implements HoopVFSLInterface
 {
-	private ArrayList<HoopVFSLInterface> layers=null;
+	public static String PROJECTPATH="<PROJECTPATH>";
 	
+	private ArrayList<HoopVFSLInterface> layers=null;
+		
 	/**
 	 * 
 	 */

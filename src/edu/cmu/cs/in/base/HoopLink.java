@@ -712,9 +712,14 @@ public class HoopLink extends HoopProperties
 		if (HoopLink.project.getVirginFile()==true)
 			return (aPath);
 		
-		if (aPath.indexOf("<PROJECTPATH>")==-1)
+		if (aPath.indexOf(HoopVFSL.PROJECTPATH)==-1)
+		{
+			HoopRoot.debug ("HoopLink","Resource does not contain " + HoopVFSL.PROJECTPATH);
 			return (aPath); // Nothing to do
+		}
 				
+		HoopRoot.debug ("HoopLink","Replacing " + HoopVFSL.PROJECTPATH + " ...");
+		
 		StringBuffer formatted=new StringBuffer ();
 		
 		String lastPart=aPath.substring(13); // index of <PROJECTPATH> which is 13 long
