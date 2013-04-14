@@ -88,7 +88,7 @@ public class HoopProgressPainter extends HoopJPanel
 	 */
 	public void setLevels (int aCurrent,int aMax)
 	{
-		debug ("setLevels ("+aCurrent+","+aMax+","+this.getWidth()+")");
+		//debug ("setLevels ("+aCurrent+","+aMax+","+this.getWidth()+")");
 		
 		currentLevel=aCurrent;
 		maxLevel=aMax;

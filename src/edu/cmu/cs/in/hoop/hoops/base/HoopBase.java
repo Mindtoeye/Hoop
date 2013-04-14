@@ -872,7 +872,7 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 	 */
 	protected void updateProgressStatus (int anIndex,int aTotal)
 	{
-		debug("updateProgressStatus ("+anIndex+","+aTotal+")");
+		//debug("updateProgressStatus ("+anIndex+","+aTotal+")");
 		
 		StringBuffer aStatus=new StringBuffer ();
 		
