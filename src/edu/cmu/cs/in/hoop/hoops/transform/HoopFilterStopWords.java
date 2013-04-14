@@ -92,7 +92,7 @@ public class HoopFilterStopWords extends HoopTransformBase implements HoopInterf
 		{					
 			for (int i=0;i<inData.size();i++)
 			{
-				HoopKVInteger aKV=(HoopKVInteger) inData.get(i);
+				HoopKV aKV=(HoopKV) inData.get(i);
 				
 				Integer keyString=i;
 				
@@ -139,7 +139,7 @@ public class HoopFilterStopWords extends HoopTransformBase implements HoopInterf
 				
 					for (int j=0;j<HoopLink.stops.length;j++)
 					{				
-						if (aKV.getValue().toLowerCase().equals(HoopLink.stops [j])==true)
+						if (aKV.getValueAsString().toLowerCase().equals(HoopLink.stops [j])==true)
 						{
 							isStop=true;
 						}	
