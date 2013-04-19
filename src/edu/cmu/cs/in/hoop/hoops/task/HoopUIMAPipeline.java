@@ -42,12 +42,13 @@ import org.apache.uima.util.CasCreationUtils;
 
 import edu.cmu.cs.in.base.HoopRoot;
 
-// We added this file here to bring uimaFit 1.3.1 bug improved pipeline 
-// while preserving compatibility with UIMA 2.3.1
-// Elmer
-
 /** 
  * Based on the original UIMA version with an extensive rewrite for Hoop
+ * 
+ * Original note: We added this file here to bring uimaFit 1.3.1 bug improved 
+ * pipeline. while preserving compatibility with UIMA 2.3.1
+ * 
+ *  Elmer
  */
 public class HoopUIMAPipeline extends HoopRoot
 {
@@ -160,7 +161,7 @@ public class HoopUIMAPipeline extends HoopRoot
 		
 		metaData.add(reader.getMetaData());
 		
-		for (AnalysisEngine engine : engines) 
+		for (AnalysisEngine engine : engines)
 		{
 			metaData.add(engine.getMetaData());
 		}

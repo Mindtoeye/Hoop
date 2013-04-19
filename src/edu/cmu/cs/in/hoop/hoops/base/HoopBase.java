@@ -551,45 +551,44 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 	public Boolean runHoopInternal (HoopBase inHoop)
 	{	
 		debug ("runHoopInternal ()");
-				
+			
+		if ((inHoop==null) && (this.getClassName().equalsIgnoreCase("HoopStart")==true))
+		{
+			debug ("The incoming hoop is null but the hoop is the start state, so we're ok");
+			return (true);
+		}
+		
     	performance.reset();		
 		performance.setMarker ("start");
-				
+		
+		debug ("Processing data from: " + inHoop.getClassName());
+		
 		// Assume we're done unless the child hoop says we're not
 		this.setDone(true); 
 		
 		if (inPortExists ("KV")==true)
 		{
-			if (inHoop==null)
-			{
-				setExecutionState ("ERROR");
-				this.setErrorString("Error: incoming hoop object is null!");
-				return (false);
-			}
+			ArrayList <HoopKV> inData=inHoop.getData();
+				
+			if (inData!=null)
+			{			
+				if (inData.size()==0)
+				{
+					this.setErrorString("Error: data size is 0");
+					return (false);
+				}
+					
+				HoopVisualRepresentation viz=this.getVisualizer();
+					
+				HoopProgressPainter progress=viz.getProgressPainter();
+					
+				progress.setLevels(0,inData.size());
+			}	
 			else
 			{
-				ArrayList <HoopKV> inData=inHoop.getData();
-				
-				if (inData!=null)
-				{			
-					if (inData.size()==0)
-					{
-						this.setErrorString("Error: data size is 0");
-						return (false);
-					}
-					
-					HoopVisualRepresentation viz=this.getVisualizer();
-					
-					HoopProgressPainter progress=viz.getProgressPainter();
-					
-					progress.setLevels(0,inData.size());
-				}	
-				else
-				{
-					this.setErrorString("Error: no data found in incoming hoop");
-					return (false);
-				}					
-			}
+				this.setErrorString("Error: no data found in incoming hoop");
+				return (false);
+			}					
 		}	
 		
 		setExecutionState ("RUNNING");

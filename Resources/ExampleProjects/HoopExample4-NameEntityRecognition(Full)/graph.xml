@@ -119,7 +119,7 @@
             <value format="Text" type="ENUM" options="keep the same,CLASS,INT,LONG,STRING,FLOAT,BOOLEAN,ENUM,TABLE,DOCUMENT">STRING</value>
           </serializable>
           <serializable class="HoopIntegerSerializable" instance="keyIndex">
-            <value format="Text" type="INT">0</value>
+            <value format="Text" type="INT">1</value>
           </serializable>
         </properties>
       </hoop>
