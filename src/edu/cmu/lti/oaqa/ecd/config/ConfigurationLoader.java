@@ -81,14 +81,28 @@ public class ConfigurationLoader extends HoopRoot
 			}
 		}	
 		
-		if (parsed.indexOf(HoopVFSL.PROJECTPATH)==-1)
+		HoopRoot.debug ("ConfigurationLoader","Resource as file: " + parsed);
+		
+		String absolute=parsed;
+		
+		if (parsed.indexOf(HoopVFSL.PROJECTPATHMARKER)!=-1)
 		{
-			parsed=HoopVFSL.PROJECTPATH + parsed;
+			HoopRoot.debug ("ConfigurationLoader","Found " + HoopVFSL.PROJECTPATHMARKER + " replacing ...");
+			
+			//parsed=HoopVFSL.PROJECTPATH + parsed;
 			
 			HoopRoot.debug ("ConfigurationLoader","Project relative: " + parsed);
+			
+			absolute=HoopLink.relativeToAbsolute(parsed);
 		}
+		else
+		{
+			parsed=HoopVFSL.PROJECTPATH + File.separator + parsed;
 		
-		String absolute=HoopLink.relativeToAbsolute(parsed);
+			HoopRoot.debug ("ConfigurationLoader","Project relative: " + parsed);
+			
+			absolute=parsed;
+		}
 		
 		absolute=absolute.replace ("\\", File.separator);
 				
@@ -121,6 +135,31 @@ public class ConfigurationLoader extends HoopRoot
 			in.close();
 		}		
 	}
+	/**
+	 * 
+	 * @param resource
+	 * @return
+	 * @throws IOException
+	 */
+	public static AnyObject loadPreProcessedPath(String resource) throws IOException 
+	{
+		HoopRoot.debug ("ConfigurationLoader","loadPreProcessedPath ("+resource+")");
+						
+		InputStream in=HoopLink.fManager.openInputStream(resource);
+		
+		if (in == null) 
+		{
+			throw new FileNotFoundException (resource + " is not found");
+		}
+		try 
+		{
+			return SnakeYAMLLoader.getInstance().load (in);
+		} 
+		finally 
+		{
+			in.close();
+		}		
+	}	
 	/**
 	 * 
 	 * @param resource

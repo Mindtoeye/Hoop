@@ -22,6 +22,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Stack;
 
 import edu.cmu.cs.in.base.HoopRoot;
 
@@ -41,7 +42,9 @@ import edu.cmu.cs.in.base.HoopRoot;
  */
 public class HoopVFSL extends HoopRoot implements HoopVFSLInterface
 {
+	public static String PROJECTPATHMARKER="<PROJECTPATH>";
 	public static String PROJECTPATH="<PROJECTPATH>";
+	public static Stack<String> projectPathStack=null;
 	
 	private ArrayList<HoopVFSLInterface> layers=null;
 		
@@ -55,8 +58,26 @@ public class HoopVFSL extends HoopRoot implements HoopVFSLInterface
 		
 		layers=new ArrayList<HoopVFSLInterface> ();
 		layers.add(new HoopFileManager ());
+		
+		projectPathStack=new Stack<String> ();
 	}
 
+	/**
+	 * 	
+	 */
+	public static void pushProjectPath (String aPath)
+	{
+		HoopVFSL.projectPathStack.push(aPath);
+		
+		PROJECTPATH=aPath;
+	}
+	/**
+	 * 
+	 */
+	public static void popProjectPath ()
+	{
+		PROJECTPATH=HoopVFSL.projectPathStack.pop();
+	}
 	/**
 	 * 
 	 */

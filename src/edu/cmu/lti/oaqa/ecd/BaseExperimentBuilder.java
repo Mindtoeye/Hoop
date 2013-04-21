@@ -16,6 +16,7 @@
 
 package edu.cmu.lti.oaqa.ecd;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -57,6 +58,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import edu.cmu.cs.in.base.HoopRoot;
+import edu.cmu.cs.in.base.io.HoopVFSL;
 import edu.cmu.lti.oaqa.ecd.ResourceHandle.HandleType;
 import edu.cmu.lti.oaqa.ecd.config.ConfigurationLoader;
 import edu.cmu.lti.oaqa.ecd.flow.FixedFlowController797182;
@@ -93,8 +95,21 @@ public final class BaseExperimentBuilder extends HoopRoot implements ExperimentB
 		
 		this.typeSystem = typeSystem;
 		this.experimentUuid = experimentUuid;
-		this.configuration = ConfigurationLoader.load(resource);
+		
+		String yamlStart=ConfigurationLoader.getResourceLocation(resource);
+		
+		File baseFinder=new File (yamlStart);
+						
+		this.configuration = ConfigurationLoader.loadPreProcessedPath (yamlStart);
+
+		File base=new File (baseFinder.getParent());
+		
+		debug ("Pushing new project path to be: " + base.getParent());
+		
+		HoopVFSL.pushProjectPath (base.getParent());
+		
 		this.persistence = newPersistenceProvider(configuration);
+		
 		insertExperiment(configuration, resource);
 	}
 	/**
