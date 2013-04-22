@@ -19,6 +19,7 @@
 package edu.cmu.cs.in.base;
 
 import java.awt.Dimension;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.prefs.Preferences;
 
@@ -712,23 +713,38 @@ public class HoopLink extends HoopProperties
 		if (HoopLink.project.getVirginFile()==true)
 			return (aPath);
 		
-		if (aPath.indexOf(HoopVFSL.PROJECTPATH)==-1)
+		if (aPath.indexOf(HoopVFSL.PROJECTPATHMARKER)==-1)
 		{
-			HoopRoot.debug ("HoopLink","Resource does not contain " + HoopVFSL.PROJECTPATH);
-			return (aPath); // Nothing to do
+			HoopRoot.debug ("HoopLink","Resource does not contain " + HoopVFSL.PROJECTPATHMARKER);
+
+			if (HoopVFSL.projectPathStack.size()>1)
+			{
+				HoopRoot.debug ("HoopLink","However we have a modified project-relative path stack, using that ...");
+				
+				return (HoopVFSL.projectPathStack.get(0) + File.separator + aPath);
+			}
+			
+			return (aPath);
 		}
 				
-		HoopRoot.debug ("HoopLink","Replacing " + HoopVFSL.PROJECTPATH + " ...");
+		HoopRoot.debug ("HoopLink","Replacing " + HoopVFSL.PROJECTPATHMARKER + " ...");
 		
 		StringBuffer formatted=new StringBuffer ();
 		
-		String lastPart=aPath.substring(13); // index of <PROJECTPATH> which is 13 long
+		String lastPart=aPath.substring(HoopVFSL.PROJECTPATHMARKER.length()); // index of <PROJECTPATH> which is 13 long
 		
-		String projectPath=HoopLink.project.getBasePath();
+		if (HoopVFSL.projectPathStack.size()==0)
+		{
+			HoopVFSL.pushProjectPath(HoopLink.project.getBasePath());
+		}
+		
+		String projectPath=HoopVFSL.projectPathStack.get(0);
+		
+		HoopRoot.debug ("HoopLink","Using as the project base: " + projectPath);
 		
 		formatted.append (projectPath);
-		formatted.append("/");
-		formatted.append(lastPart);
+		formatted.append (File.separator);
+		formatted.append (lastPart);
 		
 		return (formatted.toString());
 	}

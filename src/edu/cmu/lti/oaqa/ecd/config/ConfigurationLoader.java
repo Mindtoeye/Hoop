@@ -85,12 +85,11 @@ public class ConfigurationLoader extends HoopRoot
 		
 		String absolute=parsed;
 		
+		/*
 		if (parsed.indexOf(HoopVFSL.PROJECTPATHMARKER)!=-1)
 		{
 			HoopRoot.debug ("ConfigurationLoader","Found " + HoopVFSL.PROJECTPATHMARKER + " replacing ...");
-			
-			//parsed=HoopVFSL.PROJECTPATH + parsed;
-			
+						
 			HoopRoot.debug ("ConfigurationLoader","Project relative: " + parsed);
 			
 			absolute=HoopLink.relativeToAbsolute(parsed);
@@ -103,6 +102,11 @@ public class ConfigurationLoader extends HoopRoot
 			
 			absolute=parsed;
 		}
+		*/
+				
+		HoopRoot.debug ("ConfigurationLoader","Project relative: " + parsed);
+		
+		absolute=HoopLink.relativeToAbsolute(parsed);
 		
 		absolute=absolute.replace ("\\", File.separator);
 				
@@ -169,18 +173,15 @@ public class ConfigurationLoader extends HoopRoot
 	public static String getString(String resource) throws IOException 
 	{
 		HoopRoot.debug ("ConfigurationLoader","getString ("+resource+")");
+				
+		HoopVFSL loader=new HoopVFSL ();
 		
-		String resourceLocation = ConfigurationLoader.getResourceLocation(HoopLink.relativeToAbsolute(resource));
-		InputStream in = ConfigurationLoader.class.getResourceAsStream(resourceLocation);
+		String resourceLocation = ConfigurationLoader.getResourceLocation(resource);
 		
-		try 
-		{
-			Reader reader = new InputStreamReader(in);
-			return CharStreams.toString(reader);
-		} 
-		finally 
-		{
-			in.close();
-		}
+		HoopRoot.debug ("ConfigurationLoader","Attempting to load resource: " + resourceLocation);
+		
+		String result=loader.loadContents(resourceLocation);
+		
+		return (result);
 	}
 }
