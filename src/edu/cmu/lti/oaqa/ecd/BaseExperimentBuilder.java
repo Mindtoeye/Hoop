@@ -111,6 +111,8 @@ public final class BaseExperimentBuilder extends HoopRoot implements ExperimentB
 		this.persistence = newPersistenceProvider(configuration);
 		
 		insertExperiment(configuration, resource);
+		
+		debug ("BaseExperimentBuilder () done");
 	}
 	/**
 	 * 
