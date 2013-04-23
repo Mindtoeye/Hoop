@@ -124,16 +124,22 @@ public final class BaseExperimentBuilder extends HoopRoot implements ExperimentB
 	{
 		debug ("newPersistenceProvider ()");
 		
+		ExperimentPersistenceProvider provider=null;
+		
 		AnyObject pprovider = config.getAnyObject("persistence-provider");
 		
 		if (pprovider == null) 
 		{
+			debug ("No persistence provider element found in yaml, returning default ...");
+			
 			return new DefaultExperimentPersistenceProvider();
 		}
 		
 		try 
 		{
-			return initializeResource(config, "persistence-provider", ExperimentPersistenceProvider.class);
+			debug ("We have a persistence provider elment, initializing resource ...");
+		
+			provider=initializeResource(config, "persistence-provider", ExperimentPersistenceProvider.class);			
 		} 
 		catch (Exception e) 
 		{
@@ -141,7 +147,11 @@ public final class BaseExperimentBuilder extends HoopRoot implements ExperimentB
 			{
                   "persistence-provider", config 
             }, e);
-		}
+		}		
+		
+		debug ("newPersistenceProvider ()");
+		
+		return (provider);
 	}
 	/**
 	 * 
@@ -313,7 +323,7 @@ public final class BaseExperimentBuilder extends HoopRoot implements ExperimentB
 	@Override
 	public <T extends Resource> T initializeResource(AnyObject config, String node, Class<T> type) throws Exception 
 	{
-		debug ("initializeResource ()");
+		debug ("initializeResource ("+node+")");
 		
 		AnyObject descriptor = config.getAnyObject(node);
 		
@@ -570,7 +580,7 @@ public final class BaseExperimentBuilder extends HoopRoot implements ExperimentB
 	 */
 	public static <C> Class<? extends C> getFromClassOrInherit(AnyObject descriptor, Class<C> ifaceClass, Map<String, Object> tuples) throws Exception 
 	{
-		HoopRoot.debug ("BaseExperimentBuilder","getFromClassOrInherit ()");
+		HoopRoot.debug ("BaseExperimentBuilder","getFromClassOrInherit (AnyObject descriptor, Class<C> ifaceClass, Map<String, Object> tuples)");
 		
 		for (AnyTuple tuple : descriptor.getTuples()) 
 		{
@@ -609,7 +619,7 @@ public final class BaseExperimentBuilder extends HoopRoot implements ExperimentB
 	 */
 	public static <C> Class<? extends C> loadFromClassOrInherit(ResourceHandle resource, Class<C> ifaceClass, Map<String, Object> tuples) throws Exception 
 	{
-		HoopRoot.debug ("BaseExperimentBuilder","getFromClassOrInherit ()");
+		HoopRoot.debug ("BaseExperimentBuilder","getFromClassOrInherit (ResourceHandle resource, Class<C> ifaceClass, Map<String, Object> tuples)");
 		
 		if (resource.getType() == HandleType.CLASS) 
 		{

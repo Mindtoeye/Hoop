@@ -719,9 +719,13 @@ public class HoopLink extends HoopProperties
 
 			if (HoopVFSL.projectPathStack.size()>1)
 			{
-				HoopRoot.debug ("HoopLink","However we have a modified project-relative path stack, using that ...");
+				HoopVFSL.listProjectPaths ();
 				
-				return (HoopVFSL.projectPathStack.get(0) + File.separator + aPath);
+				HoopRoot.debug ("HoopLink","However we have a modified project-relative path stack ("+HoopVFSL.projectPathStack.size()+"), using that ...");
+				
+				HoopRoot.debug ("HoopLink","Patching with: " + HoopVFSL.projectPathStack.get(0));
+				
+				return (HoopVFSL.projectPathStack.get(HoopVFSL.projectPathStack.size()-1) + File.separator + aPath);
 			}
 			
 			return (aPath);
@@ -738,7 +742,7 @@ public class HoopLink extends HoopProperties
 			HoopVFSL.pushProjectPath(HoopLink.project.getBasePath());
 		}
 		
-		String projectPath=HoopVFSL.projectPathStack.get(0);
+		String projectPath=HoopVFSL.projectPathStack.get(HoopVFSL.projectPathStack.size()-1);
 		
 		HoopRoot.debug ("HoopLink","Using as the project base: " + projectPath);
 		

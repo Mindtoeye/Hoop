@@ -84,26 +84,7 @@ public class ConfigurationLoader extends HoopRoot
 		HoopRoot.debug ("ConfigurationLoader","Resource as file: " + parsed);
 		
 		String absolute=parsed;
-		
-		/*
-		if (parsed.indexOf(HoopVFSL.PROJECTPATHMARKER)!=-1)
-		{
-			HoopRoot.debug ("ConfigurationLoader","Found " + HoopVFSL.PROJECTPATHMARKER + " replacing ...");
-						
-			HoopRoot.debug ("ConfigurationLoader","Project relative: " + parsed);
 			
-			absolute=HoopLink.relativeToAbsolute(parsed);
-		}
-		else
-		{
-			parsed=HoopVFSL.PROJECTPATH + File.separator + parsed;
-		
-			HoopRoot.debug ("ConfigurationLoader","Project relative: " + parsed);
-			
-			absolute=parsed;
-		}
-		*/
-				
 		HoopRoot.debug ("ConfigurationLoader","Project relative: " + parsed);
 		
 		absolute=HoopLink.relativeToAbsolute(parsed);
@@ -124,6 +105,8 @@ public class ConfigurationLoader extends HoopRoot
 		
 		String resourceLocation = getResourceLocation(resource);
 				
+		HoopRoot.debug ("ConfigurationLoader","File contents: " + HoopLink.fManager.loadContents(resourceLocation));
+		
 		InputStream in=HoopLink.fManager.openInputStream(resourceLocation);
 		
 		if (in == null) 

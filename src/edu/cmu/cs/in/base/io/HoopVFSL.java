@@ -67,9 +67,23 @@ public class HoopVFSL extends HoopRoot implements HoopVFSLInterface
 	 */
 	public static void pushProjectPath (String aPath)
 	{
+		HoopRoot.debug ("HoopVFSL","pushProjectPath ("+aPath+")");
+		
 		HoopVFSL.projectPathStack.push(aPath);
 		
 		PROJECTPATH=aPath;
+	}
+	/**
+	 * 
+	 */
+	public static void listProjectPaths ()
+	{
+		HoopRoot.debug("HoopVFSL","listProjectPaths ()");
+		
+		for (int i=0;i<HoopVFSL.projectPathStack.size();i++)
+		{
+			HoopRoot.debug("HoopVFSL","Path ["+i+"] " + HoopVFSL.projectPathStack.get(i));
+		}
 	}
 	/**
 	 * 
