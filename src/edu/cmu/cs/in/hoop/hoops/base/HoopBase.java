@@ -26,6 +26,7 @@ import java.util.UUID;
 
 import javax.swing.JPanel;
 
+import org.apache.uima.jcas.JCas;
 import org.jdom.Element;
 
 import edu.cmu.cs.in.base.HoopLink;
@@ -81,6 +82,10 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 	private Boolean breakBefore=false;
 	private Boolean breakAfter=false;
 	
+	//Cas code
+	private ArrayList <JCas> jCasList = null;
+	
+		
 	/**
 	 *
 	 */
@@ -97,6 +102,8 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 		outHoops=new ArrayList<HoopBase> ();
 		data=new ArrayList <HoopKV> ();
 		trash=new ArrayList <HoopKV> ();
+    	//initialize list of jCas
+    	jCasList = new ArrayList<JCas>();
 				
 		inPorts=new ArrayList<String> ();
 		outPorts=new ArrayList<String> ();
@@ -366,11 +373,15 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
     	
     	data=null;
     	trash=null;
+    	jCasList = null;
     	
     	gc();
     	
     	data=new ArrayList<HoopKV> ();
     	trash=new ArrayList<HoopKV> ();
+    
+    	//initialize list of jCas
+    	jCasList = new ArrayList<JCas>();
     }	
 	/**
 	 * 
@@ -403,6 +414,14 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
     	
     	//debug ("Data size: " + data.size());
     }  
+    
+    /**
+     * Add Cas
+     */
+    public void addCas (JCas tempJCas)
+    {    	
+    	jCasList.add(tempJCas);
+    }  
     /**
      * 
      */
@@ -424,6 +443,23 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 	{
 		return data;
 	}
+
+	/**
+	 * Get Cas List
+	 * @return
+	 */
+	public ArrayList<JCas> getjCasList() {
+		return jCasList;
+	}
+	
+	/**
+	 * Set Cas List
+	 * @param jCasList
+	 */
+	public void setjCasList(ArrayList<JCas> jCasList) {
+		this.jCasList = jCasList;
+	}
+	
 	/**
 	 *
 	 */    
