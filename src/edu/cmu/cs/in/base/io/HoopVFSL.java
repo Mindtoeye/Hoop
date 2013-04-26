@@ -18,12 +18,14 @@
 
 package edu.cmu.cs.in.base.io;
 
+import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Stack;
 
+import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.HoopRoot;
 
 /**
@@ -41,11 +43,7 @@ import edu.cmu.cs.in.base.HoopRoot;
  * be: hdfs -> jar -> file
  */
 public class HoopVFSL extends HoopRoot implements HoopVFSLInterface
-{
-	public static String PROJECTPATHMARKER="<PROJECTPATH>";
-	public static String PROJECTPATH="<PROJECTPATH>";
-	public static Stack<String> projectPathStack=null;
-	
+{	
 	private ArrayList<HoopVFSLInterface> layers=null;
 		
 	/**
@@ -59,38 +57,8 @@ public class HoopVFSL extends HoopRoot implements HoopVFSLInterface
 		layers=new ArrayList<HoopVFSLInterface> ();
 		layers.add(new HoopFileManager ());
 		
-		projectPathStack=new Stack<String> ();
-	}
-
-	/**
-	 * 	
-	 */
-	public static void pushProjectPath (String aPath)
-	{
-		HoopRoot.debug ("HoopVFSL","pushProjectPath ("+aPath+")");
-		
-		HoopVFSL.projectPathStack.push(aPath);
-		
-		PROJECTPATH=aPath;
-	}
-	/**
-	 * 
-	 */
-	public static void listProjectPaths ()
-	{
-		HoopRoot.debug("HoopVFSL","listProjectPaths ()");
-		
-		for (int i=0;i<HoopVFSL.projectPathStack.size();i++)
-		{
-			HoopRoot.debug("HoopVFSL","Path ["+i+"] " + HoopVFSL.projectPathStack.get(i));
-		}
-	}
-	/**
-	 * 
-	 */
-	public static void popProjectPath ()
-	{
-		PROJECTPATH=HoopVFSL.projectPathStack.pop();
+		if (HoopLink.projectPathStack==null)
+			HoopLink.projectPathStack=new Stack<String> ();
 	}
 	/**
 	 * 
@@ -106,7 +74,6 @@ public class HoopVFSL extends HoopRoot implements HoopVFSLInterface
 		
 		return null;
 	}
-
 	/**
 	 * 
 	 */
@@ -410,4 +377,116 @@ public class HoopVFSL extends HoopRoot implements HoopVFSLInterface
 		
 		return null;
 	}
+	/**
+	 * 
+	 */
+	public static String relativeToAbsolute (String aPath)
+	{		
+		HoopRoot.debug ("HoopVFSL","relativeToAbsolute (" + aPath + ")");
+		
+		if (HoopLink.project==null)
+			return (aPath); // Nothing to do
+
+		if (HoopLink.project.getVirginFile()==true)
+			return (aPath);
+		
+		if (aPath.indexOf(HoopLink.PROJECTPATHMARKER)==-1)
+		{
+			HoopRoot.debug ("HoopVFSL","Resource does not contain " + HoopLink.PROJECTPATHMARKER);
+
+			HoopVFSL.listProjectPaths ();
+			
+			if (HoopLink.projectPathStack.size()>1)
+			{								
+				//HoopRoot.debug ("HoopVFSL","However we have a modified project-relative path stack ("+HoopVFSL.projectPathStack.size()+"), using that ...");
+				
+				HoopRoot.debug ("HoopVFSL","Patching with: " + HoopLink.projectPathStack.get(0));
+				
+				return (HoopLink.projectPathStack.get(HoopLink.projectPathStack.size()-1) + File.separator + aPath);
+			}
+			else
+				HoopRoot.debug ("HoopVFSL","We do not have a project stack with a depth greater than 1: " + HoopLink.projectPathStack.size());
+			
+			return (aPath);
+		}
+				
+		HoopRoot.debug ("HoopVFSL","Replacing " + HoopLink.PROJECTPATHMARKER + " ...");
+		
+		StringBuffer formatted=new StringBuffer ();
+		
+		String lastPart=aPath.substring(HoopLink.PROJECTPATHMARKER.length()); // index of <PROJECTPATH> which is 13 long
+		
+		if (HoopLink.projectPathStack.size()==0)
+		{
+			HoopVFSL.pushProjectPath(HoopLink.project.getBasePath());
+		}
+		
+		String projectPath=HoopLink.projectPathStack.get(HoopLink.projectPathStack.size()-1);
+		
+		HoopRoot.debug ("HoopLink","Using as the project base: " + projectPath);
+		
+		formatted.append (projectPath);
+		formatted.append (File.separator);
+		formatted.append (lastPart);
+		
+		return (formatted.toString());
+	}
+	/**
+	 * 
+	 */
+	public static String absoluteToRelative (String aPath)
+	{				
+		if (HoopLink.project==null)
+			return (aPath);
+		
+		if (HoopLink.project.getVirginFile()==true)
+			return (aPath);
+		
+		String projectPath=HoopLink.project.getBasePath();
+		
+		if (aPath.indexOf(projectPath)==-1)
+			return (aPath);
+		
+		HoopRoot.debug ("HoopLink","Subtracting ["+HoopLink.project.getBasePath()+"] from path: " + aPath);
+		
+		String remainder=aPath.substring(HoopLink.project.getBasePath().length());
+		
+		StringBuffer formatted=new StringBuffer ();
+		
+		formatted.append("<PROJECTPATH>");
+
+		formatted.append(remainder);
+		
+		return (formatted.toString());
+	}		
+	/**
+	 * 	
+	 */
+	public static void pushProjectPath (String aPath)
+	{
+		HoopRoot.debug ("HoopVFSL","pushProjectPath ("+aPath+")");
+		
+		HoopLink.projectPathStack.push(aPath);
+		
+		HoopLink.PROJECTPATH=aPath;
+	}
+	/**
+	 * 
+	 */
+	public static void listProjectPaths ()
+	{
+		HoopRoot.debug("HoopVFSL","listProjectPaths ()");
+		
+		for (int i=0;i<HoopLink.projectPathStack.size();i++)
+		{
+			HoopRoot.debug("HoopVFSL","Path ["+i+"] " + HoopLink.projectPathStack.get(i));
+		}
+	}
+	/**
+	 * 
+	 */
+	public static void popProjectPath ()
+	{
+		HoopLink.PROJECTPATH=HoopLink.projectPathStack.pop();
+	}	
 }

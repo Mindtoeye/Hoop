@@ -87,7 +87,7 @@ public class ConfigurationLoader extends HoopRoot
 			
 		HoopRoot.debug ("ConfigurationLoader","Project relative: " + parsed);
 		
-		absolute=HoopLink.relativeToAbsolute(parsed);
+		absolute=HoopVFSL.relativeToAbsolute(parsed);
 		
 		absolute=absolute.replace ("\\", File.separator);
 				

@@ -169,6 +169,12 @@ public class HoopExecute extends HoopRoot implements Runnable
 		
 		startHoopExecution (aRoot);
 		
+		if (aRoot.getBreakBefore()==true)
+		{
+			debug ("Stopping execution!");
+			return (true);
+		}
+		
 		aRoot.resetData();
 		
 		while ((aRoot.getDone()==false) && (loopExecuting==true))
@@ -245,8 +251,14 @@ public class HoopExecute extends HoopRoot implements Runnable
 		
 		debug ("execute () pop");
 		
-		endHoopExecution (aRoot);
+		if (aRoot.getBreakAfter()==true)
+		{
+			debug ("Stopping execution!");
+			return (true);
+		}
 		
+		endHoopExecution (aRoot);
+				
 		return (true);
 	}	
 	/**

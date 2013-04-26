@@ -21,6 +21,7 @@ package edu.cmu.cs.in.base;
 import java.awt.Dimension;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Stack;
 import java.util.prefs.Preferences;
 
 import javax.swing.ImageIcon;
@@ -374,6 +375,12 @@ public class HoopLink extends HoopProperties
 	// Hoop support variables
 	
 	public static Integer hoopInstanceIndex=1;
+	
+	// VFSL support
+	
+	public static String PROJECTPATHMARKER="<PROJECTPATH>";
+	public static String PROJECTPATH="<PROJECTPATH>";
+	public static Stack<String> projectPathStack=null;
 				
 	/**
 	 *
@@ -701,83 +708,5 @@ public class HoopLink extends HoopProperties
 			return (null);
 		
 		return (HoopLink.project.getGraphConnections());
-	}	
-	/**
-	 * 
-	 */
-	public static String relativeToAbsolute (String aPath)
-	{		
-		if (HoopLink.project==null)
-			return (aPath); // Nothing to do
-
-		if (HoopLink.project.getVirginFile()==true)
-			return (aPath);
-		
-		if (aPath.indexOf(HoopVFSL.PROJECTPATHMARKER)==-1)
-		{
-			HoopRoot.debug ("HoopLink","Resource does not contain " + HoopVFSL.PROJECTPATHMARKER);
-
-			if (HoopVFSL.projectPathStack.size()>1)
-			{
-				HoopVFSL.listProjectPaths ();
-				
-				HoopRoot.debug ("HoopLink","However we have a modified project-relative path stack ("+HoopVFSL.projectPathStack.size()+"), using that ...");
-				
-				HoopRoot.debug ("HoopLink","Patching with: " + HoopVFSL.projectPathStack.get(0));
-				
-				return (HoopVFSL.projectPathStack.get(HoopVFSL.projectPathStack.size()-1) + File.separator + aPath);
-			}
-			
-			return (aPath);
-		}
-				
-		HoopRoot.debug ("HoopLink","Replacing " + HoopVFSL.PROJECTPATHMARKER + " ...");
-		
-		StringBuffer formatted=new StringBuffer ();
-		
-		String lastPart=aPath.substring(HoopVFSL.PROJECTPATHMARKER.length()); // index of <PROJECTPATH> which is 13 long
-		
-		if (HoopVFSL.projectPathStack.size()==0)
-		{
-			HoopVFSL.pushProjectPath(HoopLink.project.getBasePath());
-		}
-		
-		String projectPath=HoopVFSL.projectPathStack.get(HoopVFSL.projectPathStack.size()-1);
-		
-		HoopRoot.debug ("HoopLink","Using as the project base: " + projectPath);
-		
-		formatted.append (projectPath);
-		formatted.append (File.separator);
-		formatted.append (lastPart);
-		
-		return (formatted.toString());
-	}
-	/**
-	 * 
-	 */
-	public static String absoluteToRelative (String aPath)
-	{				
-		if (HoopLink.project==null)
-			return (aPath);
-		
-		if (HoopLink.project.getVirginFile()==true)
-			return (aPath);
-		
-		String projectPath=HoopLink.project.getBasePath();
-		
-		if (aPath.indexOf(projectPath)==-1)
-			return (aPath);
-		
-		HoopRoot.debug ("HoopLink","Subtracting ["+HoopLink.project.getBasePath()+"] from path: " + aPath);
-		
-		String remainder=aPath.substring(HoopLink.project.getBasePath().length());
-		
-		StringBuffer formatted=new StringBuffer ();
-		
-		formatted.append("<PROJECTPATH>");
-		//formatted.append("/");
-		formatted.append(remainder);
-		
-		return (formatted.toString());
 	}	
 }

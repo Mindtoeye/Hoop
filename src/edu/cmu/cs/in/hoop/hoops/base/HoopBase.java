@@ -430,7 +430,8 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
     	trash.add(aKV);
     }
     /**
-     * BE VERY CAREFUL WITH THIS ONE!
+     * BE VERY CAREFUL WITH THIS ONE! Currently only used by
+     * HoopPathChooser
      */
     public void setData (ArrayList<HoopKV> aList)
     {
@@ -452,10 +453,10 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 		return jCasList;
 	}
 	
-	/**
-	 * Set Cas List
-	 * @param jCasList
-	 */
+    /**
+     * BE VERY CAREFUL WITH THIS ONE! Currently only used by
+     * HoopPathChooser
+     */
 	public void setjCasList(ArrayList<JCas> jCasList) {
 		this.jCasList = jCasList;
 	}
@@ -608,17 +609,14 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 				
 			if (inData!=null)
 			{			
-				if (inData.size()==0)
+				if (inData.size()>0)
 				{
-					this.setErrorString("Error: data size is 0");
-					return (false);
-				}
+					HoopVisualRepresentation viz=this.getVisualizer();
 					
-				HoopVisualRepresentation viz=this.getVisualizer();
+					HoopProgressPainter progress=viz.getProgressPainter();
 					
-				HoopProgressPainter progress=viz.getProgressPainter();
-					
-				progress.setLevels(0,inData.size());
+					progress.setLevels(0,inData.size());
+				}	
 			}	
 			else
 			{
@@ -626,6 +624,19 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 				return (false);
 			}					
 		}	
+		
+		if (inPortExists ("CAS")==true)
+		{
+			ArrayList <JCas> inJCas=inHoop.getjCasList();
+			
+			if (inJCas!=null)
+			{			
+				if (inJCas.size()>0)
+				{
+					debug ("We have JCas data");
+				}
+			}	
+		}
 		
 		setExecutionState ("RUNNING");
 		

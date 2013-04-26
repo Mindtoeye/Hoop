@@ -52,10 +52,14 @@ import edu.cmu.cs.in.base.HoopRoot;
  */
 public class HoopUIMAPipeline extends HoopRoot
 {
-	public HoopUIMAPipeline() 
+	private ArrayList <JCas> jCasList = null;
+	
+	public HoopUIMAPipeline(ArrayList <JCas> aCasList) 
 	{
 		setClassName ("HoopUIMAPipeline");
 		debug ("HoopUIMAPipeline ()");		
+		
+		jCasList=aCasList;
 	}
 	/**
 	 * Run the CollectionReader and AnalysisEngines as a pipeline. After processing all CASes

@@ -155,18 +155,28 @@
         </properties>
       </hoop>
       <hoop id="5e3525ec-78e6-43a1-87e4-255ad8ef6024" class="HoopPathChooser" name="278" active="true">
-        <visual x="210" y="230" width="150" height="100" />
-        <properties>
-          <serializable class="HoopStringSerializable" instance="activePath">
-            <value format="Text" type="STRING" />
-          </serializable>
-        </properties>
+        <visual x="230" y="230" width="150" height="100" />
+        <properties />
       </hoop>
       <hoop id="ca6725dc-afda-4e11-8647-2a091da198a8" class="HoopUIMACSE" name="279" active="true">
-        <visual x="360" y="400" width="150" height="100" />
+        <visual x="590" y="460" width="150" height="100" />
         <properties>
           <serializable class="HoopURISerializable" instance="URI">
             <value format="Text" type="URI" fileExtension=".yaml" dirsOnly="false">&lt;PROJECTPATH&gt;\resources\helloqa\helloqa.yaml</value>
+          </serializable>
+        </properties>
+      </hoop>
+      <hoop id="ea8080af-7f28-497a-99aa-b0700e886d43" class="HoopKV2Cas" name="339" active="true">
+        <visual x="360" y="420" width="150" height="100" />
+        <properties>
+          <serializable class="HoopIntegerSerializable" instance="batchSize">
+            <value format="Text" type="INT">0</value>
+          </serializable>
+          <serializable class="HoopBooleanSerializable" instance="reKey">
+            <value format="Text" type="BOOLEAN">FALSE</value>
+          </serializable>
+          <serializable class="HoopEnumSerializable" instance="changeKeyType">
+            <value format="Text" type="ENUM" options="keep the same,CLASS,INT,LONG,STRING,FLOAT,BOOLEAN,ENUM,TABLE,DOCUMENT">keep the same</value>
           </serializable>
         </properties>
       </hoop>
@@ -181,7 +191,8 @@
       <connection name="Edge" from="56e1e68a-6743-4623-a116-6486d5fc6459" to="4c3a1df6-dfa2-41e8-8caf-0bf07f1681c1" />
       <connection name="Edge" from="5e3525ec-78e6-43a1-87e4-255ad8ef6024" to="94fd3a6b-6f50-4951-811c-abc41cfe7051" />
       <connection name="Edge" from="8d5ff28f-b354-4487-b339-d533bcc875d1" to="5e3525ec-78e6-43a1-87e4-255ad8ef6024" />
-      <connection name="Edge" from="5e3525ec-78e6-43a1-87e4-255ad8ef6024" to="ca6725dc-afda-4e11-8647-2a091da198a8" />
+      <connection name="Edge" from="5e3525ec-78e6-43a1-87e4-255ad8ef6024" to="ea8080af-7f28-497a-99aa-b0700e886d43" />
+      <connection name="Edge" from="ea8080af-7f28-497a-99aa-b0700e886d43" to="ca6725dc-afda-4e11-8647-2a091da198a8" />
     </connections>
   </graph>
 </hoopfile>

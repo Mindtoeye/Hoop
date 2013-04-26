@@ -26,7 +26,6 @@ import org.apache.uima.UIMAException;
 import org.apache.uima.jcas.JCas;
 
 import edu.cmu.cs.in.base.kv.HoopKV;
-import edu.cmu.cs.in.base.kv.HoopKVInteger;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopTransformBase;
 
@@ -35,6 +34,10 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopTransformBase;
 */
 public class HoopKV2Cas extends HoopTransformBase
 {    	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4591940463123473326L;
 	private JCas jCas = null;
 	
 	/**
@@ -53,18 +56,23 @@ public class HoopKV2Cas extends HoopTransformBase
 	public Boolean runHoop (HoopBase inHoop)
 	{		
 		debug ("runHoop ()");
-				
-		
+						
 		ArrayList <HoopKV> inData=inHoop.getData();
 		
 		for (int i=0;i<inData.size();i++)
 		{
 			HoopKV aKV=inData.get(i);
-			try {
+			
+			try 
+			{
+				debug ("Creating JCas and setting document text ...");
+				
 				jCas = createJCas();
 				jCas.setDocumentText(aKV.getValueAsString());
 				addCas(jCas);
-			} catch (UIMAException e) {
+			} 
+			catch (UIMAException e) 
+			{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}			
