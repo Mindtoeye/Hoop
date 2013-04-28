@@ -18,10 +18,10 @@
 
 package edu.cmu.cs.in.hoop.hoops.task;
 
-import static java.util.Arrays.asList;
+//import static java.util.Arrays.asList;
 import static org.uimafit.factory.AnalysisEngineFactory.createAggregate;
 import static org.uimafit.factory.AnalysisEngineFactory.createAggregateDescription;
-import static org.uimafit.factory.CollectionReaderFactory.createCollectionReader;
+//import static org.uimafit.factory.CollectionReaderFactory.createCollectionReader;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,13 +32,13 @@ import org.apache.uima.analysis_engine.AnalysisEngine;
 import org.apache.uima.analysis_engine.AnalysisEngineDescription;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
 import org.apache.uima.cas.CAS;
-import org.apache.uima.collection.CollectionReader;
-import org.apache.uima.collection.CollectionReaderDescription;
-import org.apache.uima.collection.base_cpm.BaseCollectionReader;
+//import org.apache.uima.collection.CollectionReader;
+//import org.apache.uima.collection.CollectionReaderDescription;
+//import org.apache.uima.collection.base_cpm.BaseCollectionReader;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.resource.Resource;
 import org.apache.uima.resource.metadata.ResourceMetaData;
-import org.apache.uima.util.CasCreationUtils;
+//import org.apache.uima.util.CasCreationUtils;
 
 import edu.cmu.cs.in.base.HoopRoot;
 
@@ -339,6 +339,7 @@ public class HoopUIMAPipeline extends HoopRoot
 	 * 
 	 * @param aReader
 	 */
+	/*
 	private void close(BaseCollectionReader aReader)
 	{
 		debug ("close (BaseCollectionReader)");
@@ -357,4 +358,5 @@ public class HoopUIMAPipeline extends HoopRoot
 			// Ignore.
 		}
 	}
+	*/
 }

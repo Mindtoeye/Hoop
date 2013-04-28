@@ -179,9 +179,13 @@ public final class BaseExperimentBuilder extends HoopRoot implements ExperimentB
 		debug ("createNoOpEngine ()");
 		
 		Map<String, Object> tuples = Maps.newLinkedHashMap();
+		
 		Class<? extends AnalysisComponent> ac = loadFromClassOrInherit(NOOP_RESOURCE, AnalysisComponent.class, tuples);
+		
 		AnalysisEngineDescription aeDesc = createAnalysisEngineDescription(tuples, ac);
-		debug ("\t- " + aeDesc.getAnalysisEngineMetaData().getName());
+		
+		debug (aeDesc.getAnalysisEngineMetaData().getName());
+		
 		return produceAnalysisEngine(null, aeDesc);
 	}
 	/**

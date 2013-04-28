@@ -211,7 +211,7 @@ public class HoopClassLoader extends ClassLoader
 	 */
     public Class<?> loadClass(String name,String ifaceClass) throws ClassNotFoundException 
     {
-    	debug ("loadClass ("+name+","+ifaceClass+")");
+    	debug ("loadClass ("+name+ "," +ifaceClass+")");
     	    	
         String url = name;
         
@@ -240,7 +240,15 @@ public class HoopClassLoader extends ClassLoader
 
             byte[] classData = buffer.toByteArray();
 
-            return defineClass(ifaceClass, classData, 0, classData.length);
+            /**
+             * WARNING: currently we set the class name (first parameter) to null
+             * According to the documentation this is allowed but we might want to
+             * make this a bit more strict in future versions. See:
+             * 
+             * http://docs.oracle.com/javase/1.4.2/docs/api/java/lang/ClassLoader.html#defineClass%28java.lang.String,%20byte[],%20int,%20int%29
+             */
+            
+            return defineClass(null, classData, 0, classData.length);
 
         } 
         catch (MalformedURLException e) 
