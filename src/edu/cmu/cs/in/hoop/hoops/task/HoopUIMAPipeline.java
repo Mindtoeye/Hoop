@@ -76,8 +76,7 @@ public class HoopUIMAPipeline extends HoopRoot
 	 * @throws UIMAException
 	 * @throws IOException
 	 */
-	public void runPipeline (CollectionReader reader, 
-							 AnalysisEngineDescription... descs) throws UIMAException, IOException 
+	public void runPipeline (AnalysisEngineDescription... descs) throws UIMAException, IOException 
 	{
 		debug ("runPipeline ()");
 		
@@ -87,6 +86,7 @@ public class HoopUIMAPipeline extends HoopRoot
 		// Instantiate AAE
 		final AnalysisEngine aae = createAggregate(aaeDesc);
 
+		/*
 		// Create 1 CAS from merged metadata
 		final CAS cas = CasCreationUtils.createCas(asList(reader.getMetaData(), aae.getMetaData()));
     
@@ -109,6 +109,18 @@ public class HoopUIMAPipeline extends HoopRoot
 			aae.destroy();
 			destroy(reader);
 		}
+		*/
+		
+		for (int i=0;i<jCasList.size();i++)
+		{
+			CAS cas=(CAS) jCasList.get(i);
+			
+			aae.process(cas);
+			
+			cas.reset();	
+		}
+		
+		aae.collectionProcessComplete();
 	}
 	/**
 	 * Run the CollectionReader and AnalysisEngines as a pipeline. After processing all CASes
@@ -125,6 +137,7 @@ public class HoopUIMAPipeline extends HoopRoot
 	 * @throws UIMAException
 	 * @throws IOException
 	 */
+	/*
 	public void runPipeline (final CollectionReaderDescription readerDesc,
 			            	 final AnalysisEngineDescription... descs) throws UIMAException, IOException 
 	{
@@ -144,6 +157,7 @@ public class HoopUIMAPipeline extends HoopRoot
 			destroy(reader);
 		}
 	}
+	*/
 	/**
 	 * Provides a simple way to run a pipeline for a given collection reader and sequence of
 	 * analysis engines. After processing all CASes provided by the reader, the method calls
@@ -157,19 +171,20 @@ public class HoopUIMAPipeline extends HoopRoot
 	 * @throws UIMAException
 	 * @throws IOException
 	 */
-	public void runPipeline(CollectionReader reader, AnalysisEngine... engines) throws UIMAException, IOException 
+	public void runPipeline(AnalysisEngine... engines) throws UIMAException, IOException 
 	{
 		debug ("runPipeline (CollectionReader,AnalysisEngine) MAIN");
 		
 		final List<ResourceMetaData> metaData = new ArrayList<ResourceMetaData>();
 		
-		metaData.add(reader.getMetaData());
+		//metaData.add(reader.getMetaData());
 		
 		for (AnalysisEngine engine : engines)
 		{
 			metaData.add(engine.getMetaData());
 		}
 
+		/*
 		final CAS cas = CasCreationUtils.createCas(metaData);
 		
 		try 
@@ -186,6 +201,18 @@ public class HoopUIMAPipeline extends HoopRoot
 			collectionProcessComplete(engines);
 			destroy(reader);
 		}
+		*/
+		
+		for (int i=0;i<jCasList.size();i++)
+		{
+			CAS cas=(CAS) jCasList.get(i);
+			
+			runPipeline(cas, engines);
+			
+			cas.reset();
+		}
+		
+		collectionProcessComplete(engines);
 	}
 	/**
 	 * Run a sequence of {@link AnalysisEngine analysis engines} over a {@link JCas}. The result of

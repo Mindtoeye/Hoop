@@ -19,6 +19,9 @@
 package edu.cmu.cs.in.base.io;
 
 import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.jar.JarFile;
@@ -203,4 +206,53 @@ public class HoopClassLoader extends ClassLoader
 		
 		return (bytes);
 	}
+	/**
+	 * Based on: http://tutorials.jenkov.com/java-reflection/dynamic-class-loading-reloading.html
+	 */
+    public Class<?> loadClass(String name,String ifaceClass) throws ClassNotFoundException 
+    {
+    	debug ("loadClass ("+name+","+ifaceClass+")");
+    	    	
+        String url = name;
+        
+        if (name.indexOf("file:")==-1)
+        	url = "file:" + name;
+
+        debug ("Loading: " + url);
+                
+        try 
+        {
+            URL myUrl = new URL(url);
+            
+            URLConnection connection = myUrl.openConnection();
+            
+            InputStream input = connection.getInputStream();
+            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+            int data = input.read();
+
+            while(data != -1)
+            {
+                buffer.write(data);
+                data = input.read();
+            }
+
+            input.close();
+
+            byte[] classData = buffer.toByteArray();
+
+            return defineClass(ifaceClass, classData, 0, classData.length);
+
+        } 
+        catch (MalformedURLException e) 
+        {
+            e.printStackTrace();
+        } 
+        catch (IOException e) 
+        {
+            e.printStackTrace(); 
+        }
+
+        return null;
+    }
+	
 }

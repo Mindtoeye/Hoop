@@ -58,6 +58,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import edu.cmu.cs.in.base.HoopRoot;
+import edu.cmu.cs.in.base.io.HoopClassLoader;
 import edu.cmu.cs.in.base.io.HoopVFSL;
 import edu.cmu.lti.oaqa.ecd.ResourceHandle.HandleType;
 import edu.cmu.lti.oaqa.ecd.config.ConfigurationLoader;
@@ -189,7 +190,7 @@ public final class BaseExperimentBuilder extends HoopRoot implements ExperimentB
 	@Override
 	public AnalysisEngine buildPipeline(AnyObject config, String pipeline, int stageId) throws Exception 
 	{
-		debug ("buildPipeline ()");
+		debug ("buildPipeline (AnyObject config, "+pipeline+","+stageId+")");
 		
 		try 
 		{
@@ -212,7 +213,7 @@ public final class BaseExperimentBuilder extends HoopRoot implements ExperimentB
 										 int stageId,
 										 FixedFlow funnel) throws Exception 
 	{
-		debug ("buildPipeline ()");
+		debug ("buildPipeline (AnyObject config, "+pipeline+","+stageId+",FixedFlow funnel)");
 		
 		try 
 		{
@@ -233,7 +234,7 @@ public final class BaseExperimentBuilder extends HoopRoot implements ExperimentB
 	@Override
 	public AnalysisEngine buildPipeline(AnyObject config, String pipeline, int stageId,FixedFlow funnel, boolean outputNewCASes) throws Exception 
     {
-		debug ("buildPipeline ()");
+		debug ("buildPipeline (AnyObject config, "+pipeline+","+stageId+",FixedFlow funnel,"+outputNewCASes+")");
 		
 		Iterable<AnyObject> iterable = config.getIterable(pipeline);
 		FlowControllerDescription fcd = FlowControllerFactory.createFlowControllerDescription(FixedFlowController797182.class);
@@ -255,10 +256,11 @@ public final class BaseExperimentBuilder extends HoopRoot implements ExperimentB
 	/**
 	 * 
 	 */
-	private AnalysisEngineDescription buildPipeline(int stageId, Iterable<AnyObject> pipeline,
-          FlowControllerDescription fcd) throws Exception 
+	private AnalysisEngineDescription buildPipeline(int stageId, 
+													Iterable<AnyObject> pipeline,
+													FlowControllerDescription fcd) throws Exception 
     {
-		debug ("buildPipeline ()");
+		debug ("buildPipeline ("+stageId+",Iterable<AnyObject> pipeline,FlowControllerDescription fcd)");
 		
 		AggregateBuilder builder = new AggregateBuilder(null, null, fcd);
 		
@@ -279,7 +281,7 @@ public final class BaseExperimentBuilder extends HoopRoot implements ExperimentB
 	// Made this method public to invoke it from BasePhaseTest
 	public AnalysisEngineDescription buildComponent(int stageId, int phase, AnyObject aeDescription) throws Exception 
     {
-		debug ("buildComponent ()");
+		debug ("buildComponent ("+stageId+","+phase+"AnyObject aeDescription)");
 		
 		Map<String, Object> tuples = Maps.newLinkedHashMap();
 		tuples.put(BasePhase.QA_INTERNAL_PHASEID, new Integer(phase));
@@ -342,7 +344,7 @@ public final class BaseExperimentBuilder extends HoopRoot implements ExperimentB
 	 */
 	private void insertExperiment(AnyObject config, String resource) throws Exception 
 	{
-		debug ("insertExperiment ()");
+		debug ("insertExperiment (AnyObject config,"+resource+")");
 		
 		AnyObject experiment = config.getAnyObject("configuration");
 		String name = experiment.getString("name");
@@ -578,7 +580,9 @@ public final class BaseExperimentBuilder extends HoopRoot implements ExperimentB
 	/**
 	 * 
 	 */
-	public static <C> Class<? extends C> getFromClassOrInherit(AnyObject descriptor, Class<C> ifaceClass, Map<String, Object> tuples) throws Exception 
+	public static <C> Class<? extends C> getFromClassOrInherit (AnyObject descriptor,
+																Class<C> ifaceClass, 
+																Map<String, Object> tuples) throws Exception 
 	{
 		HoopRoot.debug ("BaseExperimentBuilder","getFromClassOrInherit (AnyObject descriptor, Class<C> ifaceClass, Map<String, Object> tuples)");
 		
@@ -587,17 +591,19 @@ public final class BaseExperimentBuilder extends HoopRoot implements ExperimentB
 			if (!FILTER.contains(tuple.getKey())) 
 			{
 				if (!tuples.containsKey(tuple.getKey())) 
-				{
+				{					
 					tuples.put(tuple.getKey(), tuple.getObject());
 				}
 			}
 		}
 		
-		String name = descriptor.getString("class");
+		String targetClassName = descriptor.getString("class");
 		
-		if (name != null) 
+		if (targetClassName != null) 
 		{
-			return Class.forName(name).asSubclass(ifaceClass);
+			HoopRoot.debug ("BaseExperimentBuilder","We've found a direct class definition, loading "+targetClassName+" ...");
+			
+			return (loadClass (targetClassName,ifaceClass));						
 		} 
 		else 
 		{
@@ -606,6 +612,7 @@ public final class BaseExperimentBuilder extends HoopRoot implements ExperimentB
 			if (resource != null) 
 			{
 				AnyObject yaml = ConfigurationLoader.load(resource);
+				
 				return getFromClassOrInherit(yaml, ifaceClass, tuples);
 			} 
 			else 
@@ -613,6 +620,46 @@ public final class BaseExperimentBuilder extends HoopRoot implements ExperimentB
 				throw new IllegalArgumentException("Illegal experiment descriptor, must contain one node of type <class> or <inherit>");
 			}
 		}
+	}
+	/**
+	 * 
+	 */
+	@SuppressWarnings("unchecked")
+	public static <C> Class<? extends C> loadClass (String targetClassName,Class<C> ifaceClass)
+	{
+		HoopRoot.debug ("BaseExperimentBuilder","loadClass ("+targetClassName+","+ifaceClass.toString()+")");
+		
+		Class<?> hit=null;
+		
+		try 
+		{
+			hit = Class.forName(targetClassName).asSubclass(ifaceClass);
+		} 
+		catch (ClassNotFoundException e) 
+		{
+			HoopRoot.debug ("BaseExperimentBuilder","Target class not found, attempting to load manually ...");
+			
+			String resolvedPath=ConfigurationLoader.getClassLocation (targetClassName);
+			
+			
+			HoopClassLoader loader=new HoopClassLoader ();
+			
+			try 
+			{
+				hit=loader.loadClass(resolvedPath,ifaceClass.getName());
+			} 
+			catch (ClassNotFoundException e1) 
+			{
+				HoopRoot.debug ("BaseExperimentBuilder","Error: class not found!");
+				return(null);
+			}
+			
+			return (Class<? extends C>) (hit);
+		}
+		
+		HoopRoot.debug ("BaseExperimentBuilder","We've found the target class, returning");
+			
+		return (Class<? extends C>) (hit);
 	}
 	/**
 	 * 

@@ -52,7 +52,8 @@ public class StagedConfigurationImpl extends HoopRoot implements StagedConfigura
 	public StagedConfigurationImpl(AnyObject config) 
 	{
 		setClassName ("ConfigurationLoader");
-		debug ("ConfigurationLoader ()");	  
+		debug ("ConfigurationLoader ()");
+		
 		this.original = config;
 	}
 	/**
@@ -62,6 +63,7 @@ public class StagedConfigurationImpl extends HoopRoot implements StagedConfigura
 	public Iterator<Stage> iterator() 
 	{
 		Iterable<AnyObject> stages = original.getIterable(STAGES_NODE_NAME);
+		
 		if (stages == null) 
 		{
 			return Iterators.singletonIterator(new Stage(1, original));

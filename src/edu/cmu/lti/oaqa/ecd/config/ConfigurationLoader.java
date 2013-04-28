@@ -94,6 +94,54 @@ public class ConfigurationLoader extends HoopRoot
 		return (absolute);
 	}
 	/**
+	 * I've reworked this method to allow normal path specifications. For example
+	 * you will find in java apps or Eclipse launch files this:
+	 * 
+	 * <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="helloqa.helloqa"/>
+	 * 
+	 * What this means is that the driver should load:
+	 *
+	 * helloqa.helloqa.yaml
+	 * 
+	 * However if someone already specified the path with yaml it will fail. Hence the
+	 * upgrade below. The method also allows specification of regular full paths such
+	 * as:
+	 * 
+	 * helloqa/helloqa.yaml
+	 * 
+	 * @param resource
+	 * @param fullpath
+	 * @return
+	 */
+	public static String getClassLocation(String resource) 
+	{
+		HoopRoot.debug ("ConfigurationLoader","getClassLocation ("+resource+")");
+
+		String parsed=resource;
+		
+		if (resource.indexOf(File.separator)==-1) // There are no regular path separators
+		{
+			parsed = resource.replace (".", File.separator);
+			
+			if (parsed.indexOf(".class")==-1)
+			{
+				parsed=parsed + ".class";
+			}
+		}	
+		
+		HoopRoot.debug ("ConfigurationLoader","Resource as file: " + parsed);
+		
+		String absolute=parsed;
+			
+		HoopRoot.debug ("ConfigurationLoader","Project relative: " + parsed);
+		
+		absolute=HoopVFSL.relativeToAbsolute(parsed);
+		
+		absolute=absolute.replace ("\\", File.separator);
+						
+		return (absolute);
+	}	
+	/**
 	 * 
 	 * @param resource
 	 * @return

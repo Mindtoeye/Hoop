@@ -16,12 +16,19 @@
 
 package edu.cmu.lti.oaqa.ecd;
 
-public class ResourceHandle {
-  
-  public enum HandleType {
+import edu.cmu.cs.in.base.HoopRoot;
+
+/**
+ * 
+ */
+public class ResourceHandle extends HoopRoot 
+{  
+  public enum HandleType 
+  {
     INHERIT, CLASS, PIPELINE;
     
-    public static HandleType getInstance(String value) {
+    public static HandleType getInstance(String value) 
+    {
       return HandleType.valueOf(value.toUpperCase());
     }
   }
@@ -30,34 +37,65 @@ public class ResourceHandle {
 
   final String resource;
 
-  private ResourceHandle(HandleType type, String resource) {
+  /**
+   * 
+   */
+  private ResourceHandle(HandleType type, String resource) 
+  {
     this.type = type;
     this.resource = resource;
+    
+	setClassName ("ResourceHandle");
+	debug ("ResourceHandle ("+resource+")");    
   }
-
-  public static ResourceHandle newInheritHandle(String resource) {
+  /**
+   * 
+   */
+  public static ResourceHandle newInheritHandle(String resource) 
+  {
     return new ResourceHandle(HandleType.INHERIT, resource);
   }
-
-  public static ResourceHandle newHandle(String type, String resource) {
-    try {
+  /**
+   * 
+   * @param type
+   * @param resource
+   * @return
+   */
+  public static ResourceHandle newHandle(String type, String resource) 
+  {
+    try 
+    {
       return new ResourceHandle(HandleType.valueOf(type.toUpperCase()), resource);
-    } catch (Exception e) {
+    } 
+    catch (Exception e) 
+    {
       throw new IllegalArgumentException(
               "Illegal experiment descriptor, must contain one node of type <class> or <inherit>");
     }
   }
-
+  /**
+   * 
+   * @param type
+   * @param resource
+   * @return
+   */
   public static ResourceHandle newHandle(HandleType type, String resource) {
     return new ResourceHandle(type, resource);
   }
-
-  HandleType getType() {
+  /**
+   * 
+   * @return
+   */
+  HandleType getType() 
+  {
     return type;
   }
-  
+  /**
+   * 	
+   */
   @Override
-  public String toString() {
+  public String toString() 
+  {
     return String.format("%s[%s]", type.toString().toLowerCase(), resource);
   }
 }

@@ -24,11 +24,9 @@ import java.util.List;
 
 import org.apache.uima.UIMAException;
 import org.apache.uima.analysis_engine.AnalysisEngine;
-import org.apache.uima.collection.CollectionReader;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.resource.ResourceInitializationException;
 import org.apache.uima.resource.metadata.TypeSystemDescription;
-import org.apache.uima.util.Progress;
 import org.uimafit.factory.TypeSystemDescriptionFactory;
 
 import mx.bigdata.anyobject.AnyObject;
@@ -137,22 +135,7 @@ public class HoopUIMACSE extends HoopControlBase implements HoopInterface
 			
 			FunneledFlow funnel = ps.newFunnelStrategy(builder.getExperimentUuid());
 			AnyObject conf = stage.getConfiguration();
-			
-			CollectionReader reader=null;
-			
-			debug ("Attempting to build collection reader ...");
-			
-			try 
-			{
-				reader = builder.buildCollectionReader(conf, stage.getId());
-			} 
-			catch (Exception e) 
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				return (false);
-			}
-			
+						
 			AnalysisEngine pipeline=null;
 			
 			debug ("Building main pipeline ...");
@@ -187,7 +170,7 @@ public class HoopUIMACSE extends HoopControlBase implements HoopInterface
 				
 				try 
 				{
-					CSEPipeline.runPipeline(reader, pipeline, post);
+					CSEPipeline.runPipeline(pipeline, post);
 				} 
 				catch (UIMAException e) 
 				{
@@ -208,7 +191,7 @@ public class HoopUIMACSE extends HoopControlBase implements HoopInterface
 				
 				try 
 				{
-					CSEPipeline.runPipeline(reader, pipeline);
+					CSEPipeline.runPipeline(pipeline);
 				} 
 				catch (UIMAException e) 
 				{
@@ -224,9 +207,10 @@ public class HoopUIMACSE extends HoopControlBase implements HoopInterface
 				}
 			}
       
-			Progress progress = reader.getProgress()[0];
+			//Progress progress = reader.getProgress()[0];			
+			//long total = progress.getCompleted();
 			
-			long total = progress.getCompleted();
+			long total = this.getjCasList().size();
 			
 			processedItems.add(total);
 		}		

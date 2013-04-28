@@ -16,27 +16,43 @@
 
 package edu.cmu.lti.oaqa.ecd.config;
 
+import edu.cmu.cs.in.base.HoopRoot;
 import mx.bigdata.anyobject.AnyObject;
 
-public final class Stage 
+/**
+ * 
+ */
+public final class Stage extends HoopRoot
 {
-  private final int id;
+	private final int id;
   
-  private final AnyObject config;
+	private final AnyObject config;
   
-  Stage(int id, AnyObject config) 
-  {
-    this.id = id;
-    this.config = config;
-  }
-  
-  public AnyObject getConfiguration() 
-  {
-    return config;
-  }
-  
-  public int getId() {
-    return id;
-  }
-  
+	/**
+	 * 
+	 */
+	Stage(int id, AnyObject config) 
+	{
+		setClassName ("Stage");
+		debug ("Stage ()");	  
+	  
+		this.id = id;
+		this.config = config;
+	}
+	/**
+	 * 
+	 * @return
+	 */
+	public AnyObject getConfiguration() 
+	{
+		return config;
+	}
+	/**
+	 * 
+	 * @return
+	 */
+	public int getId() 
+	{
+		return id;
+	}  
 }
