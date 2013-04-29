@@ -27,7 +27,9 @@ import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.hoop.HoopDocumentList;
 import edu.cmu.cs.in.hoop.HoopErrorPanel;
 import edu.cmu.cs.in.hoop.HoopProjectPanel;
+import edu.cmu.cs.in.hoop.HoopStatisticsPanel;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
+import edu.cmu.cs.in.stats.HoopSampleDataSet;
 
 /** 
  * 
@@ -97,6 +99,19 @@ public class HoopExecuteInEditor extends HoopExecute implements ActionListener
 	{
 		debug ("startExecution ()");
 		
+		
+		
+		HoopStatisticsPanel statsPanel;
+		if(HoopLink.getWindow("Statistics")!=null){
+			statsPanel=(HoopStatisticsPanel) HoopLink.getWindow("Statistics");
+		}else{
+			statsPanel=new HoopStatisticsPanel ();
+		}
+		statsPanel.clear();
+		HoopLink.addView ("Statistics",statsPanel,HoopLink.bottom);
+    	
+		
+		
 		if (HoopLink.executionMonitor!=null)
 		{
 			HoopLink.executionMonitor.reset ();
@@ -135,10 +150,21 @@ public class HoopExecuteInEditor extends HoopExecute implements ActionListener
 	{
 		debug ("endExecution ()");
 		
-		if (HoopLink.executionMonitor!=null)
-		{	
-			HoopLink.executionMonitor.stop ();
+		HoopStatisticsPanel statsPanel;
+		if(HoopLink.getWindow("Statistics")!=null){
+			statsPanel=(HoopStatisticsPanel) HoopLink.getWindow("Statistics");
+		}else{
+			statsPanel=new HoopStatisticsPanel ();
 		}
+		HoopLink.addView ("Statistics",statsPanel,HoopLink.bottom);
+    	statsPanel.appendString("\n"+"Hooooooooooooooooopppppppppppppppppppppppppp ended");
+    	
+    	HoopSampleDataSet sds = new HoopSampleDataSet("HOOPS");
+    	sds.setDataSet(HoopLink.timeTakenByHoops);
+    	
+    	statsPanel.setData(sds);
+    	
+    	
 		
 		/*
 		HoopGraphEditor editor=(HoopGraphEditor) HoopLink.getWindow("Hoop Editor");

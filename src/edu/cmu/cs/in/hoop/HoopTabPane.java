@@ -121,7 +121,9 @@ public class HoopTabPane extends HoopJPanel
         	button.setPreferredSize(new Dimension (20,20));
         	button.setBorder(BorderFactory.createEmptyBorder(0, 1, 0, 1));
                 
-        	this.add (button);        	
+        	this.add (button);
+        	
+        	
         }	
     }
     /**

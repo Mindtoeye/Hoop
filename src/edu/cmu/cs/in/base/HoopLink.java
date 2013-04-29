@@ -20,6 +20,7 @@ package edu.cmu.cs.in.base;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.prefs.Preferences;
 
 import javax.swing.ImageIcon;
@@ -28,9 +29,8 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
 
-import edu.cmu.cs.in.search.HoopDataSet;
-import edu.cmu.cs.in.base.io.HoopVFSL;
 import edu.cmu.cs.in.base.io.HoopStreamedSocket;
+import edu.cmu.cs.in.base.io.HoopVFSL;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 import edu.cmu.cs.in.controls.base.HoopViewInterface;
 import edu.cmu.cs.in.hoop.HoopConsoleInterface;
@@ -40,17 +40,17 @@ import edu.cmu.cs.in.hoop.HoopManager;
 import edu.cmu.cs.in.hoop.HoopStatusBar;
 import edu.cmu.cs.in.hoop.HoopTabDraggable;
 import edu.cmu.cs.in.hoop.HoopTabPane;
-import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
-import edu.cmu.cs.in.hoop.hoops.base.HoopConnection;
 import edu.cmu.cs.in.hoop.editor.HoopEditorMenuBar;
 import edu.cmu.cs.in.hoop.editor.HoopEditorToolBar;
 import edu.cmu.cs.in.hoop.execute.HoopExecute;
 import edu.cmu.cs.in.hoop.execute.HoopExecutionMonitor;
+import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
+import edu.cmu.cs.in.hoop.hoops.base.HoopConnection;
 import edu.cmu.cs.in.hoop.project.HoopProject;
 import edu.cmu.cs.in.hoop.properties.HoopStoredProperties;
 import edu.cmu.cs.in.hoop.properties.types.HoopBooleanSerializable;
+import edu.cmu.cs.in.search.HoopDataSet;
 import edu.cmu.cs.in.search.HoopTextSearch;
-import edu.cmu.cs.in.stats.HoopPerformanceMeasure;
 import edu.cmu.cs.in.stats.HoopSampleDataSet;
 import edu.cmu.cs.in.stats.HoopSampleMeasure;
 import edu.cmu.cs.in.stats.HoopStatistics;
@@ -370,6 +370,10 @@ public class HoopLink extends HoopProperties
 	// Hoop support variables
 	
 	public static Integer hoopInstanceIndex=1;
+	
+	public static ArrayList<HoopSampleMeasure> timeTakenByHoops;
+	
+	
 				
 	/**
 	 *
@@ -409,6 +413,10 @@ public class HoopLink extends HoopProperties
 		
 		if (hoopGraphManager==null)
 			hoopGraphManager=new HoopGraphManager ();		
+		
+		if(timeTakenByHoops==null)
+			timeTakenByHoops = new ArrayList<HoopSampleMeasure>();
+		
     }  
     /**
      * 

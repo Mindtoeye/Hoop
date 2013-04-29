@@ -22,20 +22,6 @@ import static com.google.common.base.Predicates.instanceOf;
 import static com.google.common.base.Predicates.not;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
-import com.google.common.annotations.Beta;
-import com.google.common.base.Function;
-import com.google.common.base.Objects;
-import com.google.common.base.Stopwatch;
-import com.google.common.collect.Collections2;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableMultimap;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Ordering;
-import com.google.common.collect.Queues;
-import com.google.common.util.concurrent.Service.State;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -50,8 +36,22 @@ import java.util.logging.Logger;
 
 import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.Immutable;
-import javax.inject.Inject;
-import javax.inject.Singleton;
+
+import com.google.common.annotations.Beta;
+import com.google.common.base.Function;
+import com.google.common.base.Objects;
+import com.google.common.base.Stopwatch;
+import com.google.common.collect.Collections2;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableMultimap;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.google.common.collect.Ordering;
+import com.google.common.collect.Queues;
+import com.google.common.util.concurrent.Service.State;
+//import javax.inject.Inject;
+//import javax.inject.Singleton;
 
 /**
  * A manager for monitoring and controlling a set of {@link Service services}. This class provides
@@ -105,7 +105,7 @@ import javax.inject.Singleton;
  * @since 14.0
  */
 @Beta
-@Singleton
+//@Singleton
 public final class ServiceManager {
   private static final Logger logger = Logger.getLogger(ServiceManager.class.getName());
   
@@ -194,7 +194,7 @@ public final class ServiceManager {
    * 
    * @throws IllegalStateException if not all services are {@link State#NEW new}.
    */
-  @Inject ServiceManager(Set<Service> services) {
+  ServiceManager(Set<Service> services) {
     this((Iterable<Service>) services);
   }
   

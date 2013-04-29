@@ -18,6 +18,7 @@
 
 package edu.cmu.cs.in.hoop.editor;
 
+import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ import javax.swing.JPanel;
 import com.mxgraph.swing.mxGraphComponent;
 
 import edu.cmu.cs.in.base.HoopLink;
+import edu.cmu.cs.in.base.HoopProperties;
 import edu.cmu.cs.in.controls.HoopProgressPainter;
 import edu.cmu.cs.in.hoop.HoopTablePanel;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
@@ -252,24 +254,28 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 		if (aState.equals("ERROR")==true)
 		{
 			icon.setIcon(HoopLink.getImageByName("led-red.png"));
+			setBackground(null);
 			setWaiting (false);
 		}
 		
 		if (aState.equals("STOPPED")==true)
 		{
 			icon.setIcon(HoopLink.getImageByName("led-yellow.png"));
+			setBackground(null);
 			setWaiting (false);
 		}
 		
 		if (aState.equals("WAITING")==true)
 		{
 			icon.setIcon(HoopLink.getImageByName("led-yellow.png"));
+			setBackground(null);
 			setWaiting (false);
 		}
 		
 		if (aState.equals("RUNNING")==true)
 		{
 			icon.setIcon(HoopLink.getImageByName("led-green.png"));
+			setBackground(Color.RED);
 			setWaiting (true);
 		}		
 	}

@@ -178,7 +178,14 @@ public class HoopPerformanceMeasure extends HoopSampleMeasure implements Seriali
     public void printMetrics ()
    	{    	
     	debug ("Time taken for "+label+" is: ("+getYValue ()+") ~ " +(getYValue ()/1000)+" seconds, " +getYValue ()+" milliseconds");
-   	}    
+   	}
+    /**
+	 *
+	 */
+   public String getMetrics ()
+  	{    	
+   	return ("Time taken for "+label+" is: ("+getYValue ()+") ~ " +(getYValue ()/1000)+" seconds, " +getYValue ()+" milliseconds");
+  	}
 	/**
 	 *
 	 */    

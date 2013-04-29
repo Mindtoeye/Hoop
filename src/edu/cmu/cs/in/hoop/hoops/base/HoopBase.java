@@ -32,10 +32,12 @@ import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.base.kv.HoopKVTable;
 import edu.cmu.cs.in.controls.HoopProgressPainter;
+import edu.cmu.cs.in.hoop.HoopStatisticsPanel;
 import edu.cmu.cs.in.hoop.editor.HoopVisualRepresentation;
 import edu.cmu.cs.in.hoop.properties.HoopVisualProperties;
 import edu.cmu.cs.in.hoop.properties.types.HoopSerializable;
 import edu.cmu.cs.in.stats.HoopPerformanceMeasure;
+import edu.cmu.cs.in.stats.HoopSampleMeasure;
 import edu.cmu.cs.in.stats.HoopStatisticsMeasure;
 
 /**
@@ -51,6 +53,7 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 	private Object graphCellReference=null;
 	
 	private Boolean active=true;
+	
 	
 	protected ArrayList <HoopBase> outHoops=null;	
 	private ArrayList <HoopKV> data=null;
@@ -80,6 +83,8 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 	
 	private Boolean breakBefore=false;
 	private Boolean breakAfter=false;
+
+	
 	
 	/**
 	 *
@@ -551,6 +556,7 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 	public Boolean runHoopInternal (HoopBase inHoop)
 	{	
 		debug ("runHoopInternal ()");
+		
 				
     	performance.reset();		
 		performance.setMarker ("start");
@@ -609,7 +615,25 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 		
 		performance.printMetrics ();
 		
+	//	HoopLink.timeTakenByHoops.put(this.getClassName(),(double)performance.getYValue());
+		
+		HoopSampleMeasure sm = new HoopSampleMeasure();
+		sm.setYValue(performance.getYValue());
+		sm.setXValue((long)executionCount);
+		sm.setOpen(false);
+		HoopLink.timeTakenByHoops.add(sm);
+		
+		HoopStatisticsPanel statsPanel;
+		if(HoopLink.getWindow("Statistics")!=null){
+			statsPanel=(HoopStatisticsPanel) HoopLink.getWindow("Statistics");
+		}else{
+			statsPanel=new HoopStatisticsPanel ();
+		}
+		HoopLink.addView ("Statistics",statsPanel,HoopLink.bottom);
+    	statsPanel.appendString("\n"+getPerformanceMetrics().getMetrics());
+    	
 		propagateVisualProperties ();
+		
 		
 		//debug ("Hoop executed in: " + metric+"ms");
 				

@@ -29,7 +29,7 @@ public class HoopSampleMeasure extends HoopXYMeasure implements Serializable
 {    							
 	private static final long serialVersionUID = 4186308870928663985L;
 	
-	private Boolean open=true;
+	private Boolean open=true; //to see if it is updated yet
 	
 	private ArrayList<HoopXYMeasure> values=null;
 	

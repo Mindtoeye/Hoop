@@ -170,8 +170,10 @@ public class HoopScatterPlot extends HoopJPanel
     	int width=this.getWidth();
     	int height=this.getHeight();    	
     	
-    	if (dataSet==null)
+    	if (dataSet==null){
+    		debug("found data set nulll!!!!!!!!!!!!!!!!!!");
     		return;
+    	}
     	    	    
     	if (busy==true)
     		return;
