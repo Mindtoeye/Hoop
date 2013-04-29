@@ -136,27 +136,9 @@ public class HoopUIMAConfigurationLoadBase extends HoopLoadBase implements HoopI
 	}
 
 	@Override
-	public JPanel getPropertiesPanel() {
+	public JPanel getPropertiesPanel() 
+	{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	@Override
-	public void fromXML(String aStream) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void fromXML(Element anElement) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Element toXML() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

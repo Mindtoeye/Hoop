@@ -34,6 +34,7 @@ import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.base.kv.HoopKVTable;
 import edu.cmu.cs.in.controls.HoopProgressPainter;
 import edu.cmu.cs.in.hoop.editor.HoopVisualRepresentation;
+import edu.cmu.cs.in.hoop.execute.HoopExecuteInEditor;
 import edu.cmu.cs.in.hoop.properties.HoopVisualProperties;
 import edu.cmu.cs.in.hoop.properties.types.HoopSerializable;
 import edu.cmu.cs.in.stats.HoopPerformanceMeasure;
@@ -595,6 +596,8 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 			return (true);
 		}
 		
+		HoopExecuteInEditor execution=(HoopExecuteInEditor) HoopLink.runner;
+		
     	performance.reset();		
 		performance.setMarker ("start");
 		
@@ -609,13 +612,16 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 				
 			if (inData!=null)
 			{			
-				if (inData.size()>0)
-				{
-					HoopVisualRepresentation viz=this.getVisualizer();
+				if ((inData.size()>0) && (execution!=null))
+				{					
+					if (execution.getExecuteSpeed ()==HoopExecuteInEditor.SPEED_SLOW)
+					{					
+						HoopVisualRepresentation viz=this.getVisualizer();
 					
-					HoopProgressPainter progress=viz.getProgressPainter();
+						HoopProgressPainter progress=viz.getProgressPainter();
 					
-					progress.setLevels(0,inData.size());
+						progress.setLevels(0,inData.size());
+					}	
 				}	
 			}	
 			else
@@ -705,7 +711,6 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 	/**
 	 * 
 	 */
-	@Override
 	public void fromXML(String aStream) 
 	{
 		debug ("fromXML ()");
@@ -714,7 +719,6 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 	/**
 	 * 
 	 */
-	@Override
 	public void fromXML(Element anElement) 
 	{
 		debug ("fromXML ()");

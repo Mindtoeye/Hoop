@@ -30,6 +30,7 @@ import com.mxgraph.swing.mxGraphComponent;
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.controls.HoopProgressPainter;
 import edu.cmu.cs.in.hoop.HoopTablePanel;
+import edu.cmu.cs.in.hoop.execute.HoopExecuteInEditor;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.properties.HoopInspectablePanel;
 import edu.cmu.cs.in.hoop.properties.HoopPropertyPanel;
@@ -102,6 +103,11 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 	public void propagateVisualProperties() 
 	{
 		debug ("propagateVisualProperties ()");
+		
+		HoopExecuteInEditor execution=(HoopExecuteInEditor) HoopLink.runner;
+		
+		if (execution.getExecuteSpeed ()==HoopExecuteInEditor.SPEED_FAST)
+			return;
 		
 		if (hoop!=null)
 		{

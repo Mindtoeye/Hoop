@@ -45,18 +45,4 @@ public interface HoopInterface
 	 */
 	public JPanel getPropertiesPanel ();
 	
-	/**
-	 * 
-	 */
-	public void fromXML (String aStream);
-	
-	/**
-	 * 
-	 */
-	public void fromXML (Element anElement);
-	
-	/**
-	 * 
-	 */
-	public Element toXML ();
 }
