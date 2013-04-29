@@ -19,8 +19,13 @@
 package edu.cmu.cs.in.hoop.hoops.task;
 
 import java.awt.Dimension;
+import java.util.ArrayList;
+
 import javax.swing.JPanel;
 
+import org.apache.uima.jcas.JCas;
+
+import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.hoop.HoopPathOrderEditor;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopControlBase;
@@ -33,8 +38,6 @@ import edu.cmu.cs.in.hoop.properties.types.HoopStringSerializable;
 public class HoopPathChooser extends HoopControlBase implements HoopInterface
 {    	
 	private static final long serialVersionUID = 7488640051868262267L;
-
-	private HoopStringSerializable activePath=null;
 	
 	private HoopPathOrderEditor orderEditor=null;
 		
@@ -46,46 +49,31 @@ public class HoopPathChooser extends HoopControlBase implements HoopInterface
 		setClassName ("HoopPathChooser");
 		debug ("HoopPathChooser ()");
 										
-		setHoopDescription ("Setup and Control Paths");
-		
-		activePath=new HoopStringSerializable (this,"activePath","");
+		setHoopDescription ("Setup and Control Paths");		
     }
+	/**
+	 * In any other hoop we reset all the data but since this particular
+	 * hoop simply passes the data along we have to be careful and make
+	 * sure we don't accidentally erase anything coming in.
+	 */
+    public void resetData ()
+    {
+    	debug ("resetData ()");
+    	
+    	debug ("NOP");
+    }	    
 	/**
 	 *
 	 */
 	public Boolean runHoop (HoopBase inHoop)
 	{		
 		debug ("runHoop ()");
-		
-		if (activePath.getValue().isEmpty()==true)
-		{
-			debug ("No path chosen");
-			return (true);
-		}
-		
+				
 		this.setData(inHoop.getData()); // Should work as a pass-through
+		this.setjCasList(inHoop.getjCasList()); // Should work as a pass-through
 		
-		// First reset all hoops to non-active
-		
-		for (int i=0;i<outHoops.size();i++)
-		{
-			HoopBase aHoop=outHoops.get(i);
-			
-			aHoop.setActive(false);
-		}
-		
-		// Then make those active the user has selected
-		
-		for (int j=0;j<outHoops.size();j++)
-		{
-			HoopBase aHoop=outHoops.get(j);
-			
-			if (aHoop.getHoopID().equals(activePath.getValue())==true)
-			{								
-				aHoop.setActive(true);
-			}					
-		}		
-						
+		debug ("We now have " + this.getData().size() + " entries");
+								
 		return (true);
 	}	
 	/**

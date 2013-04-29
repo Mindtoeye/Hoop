@@ -29,28 +29,53 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Ordering;
 import com.google.common.primitives.Ints;
 
+import edu.cmu.cs.in.base.HoopRoot;
 import edu.cmu.lti.oaqa.ecd.util.CasUtils;
 import edu.cmu.lti.oaqa.framework.types.ExperimentUUID;
 import edu.cmu.lti.oaqa.framework.types.InputElement;
 import edu.cmu.lti.oaqa.framework.types.ProcessingStep;
 
-public class ProcessingStepUtils {
-  
-  public static String getCurrentExperimentId(JCas jcas) {
+/**
+ * 
+ */
+public class ProcessingStepUtils extends HoopRoot 
+{
+  /**
+   * 
+   * @param jcas
+   * @return
+   */
+  public static String getCurrentExperimentId(JCas jcas) 
+  {
     ExperimentUUID experiment = getCurrentExperiment(jcas);
     final String uuid = experiment.getUuid();
     return uuid;
   }
-  
-  public static Trace getTrace(JCas jcas) {
+  /**
+   * 
+   * @param jcas
+   * @return
+   */
+  public static Trace getTrace(JCas jcas) 
+  {
     AnnotationIndex<Annotation> steps = jcas.getAnnotationIndex(ProcessingStep.type);
     return getTrace(steps);
   } 
-  
-  public static Trace getTrace(Iterable<Annotation> steps) {
+  /**
+   * 	
+   * @param steps
+   * @return
+   */
+  public static Trace getTrace(Iterable<Annotation> steps) 
+  {
     return getTraceString(steps, new ProcessingStepToString());
   } 
-  
+  /**
+   * 
+   * @param steps
+   * @param f
+   * @return
+   */
   private static Trace getTraceString(Iterable<Annotation> steps, 
           Function<Annotation,String> f) {
     Joiner joiner = Joiner.on(">").skipNulls();
@@ -58,12 +83,20 @@ public class ProcessingStepUtils {
     String trace = joiner.join(Lists.transform(list, f));
     return new Trace(trace);
   }
-  
+  /**
+   * 
+   * @param steps
+   * @return
+   */
   public static ProcessingStep getMax(Iterable<Annotation> steps) {
     List<Annotation> list = new ProcessingStepOrdering().sortedCopy(steps);
     return (ProcessingStep) list.get(list.size() - 1);
   }
-  
+  /**
+   * 
+   * @param steps
+   * @return
+   */
   public static String getPreviousCasId(Iterable<Annotation> steps) {
     List<Annotation> list = new ProcessingStepOrdering().sortedCopy(steps);
     if (list.size() == 0) {
@@ -71,7 +104,9 @@ public class ProcessingStepUtils {
     }
     return ((ProcessingStep) list.get(list.size() - 1)).getCasId();
   }
-  
+  /**
+   * 
+   */
   private static final class ProcessingStepToString implements Function<Annotation, String> {
     @Override
     public String apply(Annotation arg0) {
@@ -79,7 +114,13 @@ public class ProcessingStepUtils {
       return String.format("%s|%s", ps.getPhaseId(), ps.getComponent());
     }
   }
-  
+  /**
+   * 
+   * @param prevTrace
+   * @param phaseNo
+   * @param optionId
+   * @return
+   */
   public static Trace getPartialTrace(String prevTrace, int phaseNo, String optionId) {
     String key = phaseNo + "|" + optionId;
     if (prevTrace.length() > 0) {
@@ -90,25 +131,39 @@ public class ProcessingStepUtils {
       return new Trace(key);
     }
   }
-  
+  /**
+   * 
+   * @param nextCas
+   * @return
+   */
   public static int getSequenceId(JCas nextCas) {
     InputElement input = (InputElement) CasUtils.getFirst(nextCas, 
             InputElement.class.getName());
     int sequenceId = input.getSequenceId();
     return sequenceId;
   }
-  
+  /**
+   * 
+   * @param nextCas
+   * @return
+   */
   public static InputElement getInputElement(JCas nextCas) {
     return (InputElement) CasUtils.getFirst(nextCas, 
             InputElement.class.getName());
   }
-  
+  /**
+   * 
+   * @param jcas
+   * @return
+   */
   public static ExperimentUUID getCurrentExperiment(JCas jcas) {
     AnnotationIndex<Annotation> steps = jcas.getAnnotationIndex(ExperimentUUID.type);
     List<Annotation> list = new ExperimentUUIDOrdering().sortedCopy(steps);
     return (ExperimentUUID) list.get(list.size() - 1);
   }
-  
+  /**
+   * 
+   */
   private static final class ExperimentUUIDOrdering extends Ordering<Annotation> {
     @Override
     public int compare(Annotation arg0, Annotation arg1) {
@@ -116,7 +171,9 @@ public class ProcessingStepUtils {
               ((ExperimentUUID) arg1).getStageId());
     }
   } 
-  
+  /**
+   * 
+   */
   private static final class ProcessingStepOrdering extends Ordering<Annotation> {
     @Override
     public int compare(Annotation arg0, Annotation arg1) {

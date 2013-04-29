@@ -23,7 +23,8 @@ import org.apache.uima.jcas.JCas;
 import org.apache.uima.resource.Resource;
 import org.xml.sax.SAXException;
 
-public interface PhasePersistenceProvider extends Resource {
+public interface PhasePersistenceProvider extends Resource 
+{
   void insertExecutionTrace(String optionId, int sequenceId, String dataset,
           Integer phaseNo2, String uuid, long startTime, String hostName, String trace, String key)
           throws IOException;

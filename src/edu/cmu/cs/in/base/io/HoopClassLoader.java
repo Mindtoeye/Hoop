@@ -19,6 +19,9 @@
 package edu.cmu.cs.in.base.io;
 
 import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.jar.JarFile;
@@ -203,4 +206,61 @@ public class HoopClassLoader extends ClassLoader
 		
 		return (bytes);
 	}
+	/**
+	 * Based on: http://tutorials.jenkov.com/java-reflection/dynamic-class-loading-reloading.html
+	 */
+    public Class<?> loadClass(String name,String ifaceClass) throws ClassNotFoundException 
+    {
+    	debug ("loadClass ("+name+ "," +ifaceClass+")");
+    	    	
+        String url = name;
+        
+        if (name.indexOf("file:")==-1)
+        	url = "file:" + name;
+
+        debug ("Loading: " + url);
+                
+        try 
+        {
+            URL myUrl = new URL(url);
+            
+            URLConnection connection = myUrl.openConnection();
+            
+            InputStream input = connection.getInputStream();
+            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+            int data = input.read();
+
+            while(data != -1)
+            {
+                buffer.write(data);
+                data = input.read();
+            }
+
+            input.close();
+
+            byte[] classData = buffer.toByteArray();
+
+            /**
+             * WARNING: currently we set the class name (first parameter) to null
+             * According to the documentation this is allowed but we might want to
+             * make this a bit more strict in future versions. See:
+             * 
+             * http://docs.oracle.com/javase/1.4.2/docs/api/java/lang/ClassLoader.html#defineClass%28java.lang.String,%20byte[],%20int,%20int%29
+             */
+            
+            return defineClass(null, classData, 0, classData.length);
+
+        } 
+        catch (MalformedURLException e) 
+        {
+            e.printStackTrace();
+        } 
+        catch (IOException e) 
+        {
+            e.printStackTrace(); 
+        }
+
+        return null;
+    }
+	
 }

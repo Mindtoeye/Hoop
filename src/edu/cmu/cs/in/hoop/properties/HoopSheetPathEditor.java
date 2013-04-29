@@ -26,6 +26,7 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import edu.cmu.cs.in.base.HoopLink;
+import edu.cmu.cs.in.base.io.HoopVFSL;
 import edu.cmu.cs.in.controls.base.HoopJPanel;
 import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
 
@@ -71,7 +72,7 @@ class HoopSheetPathEditor extends HoopJPanel implements ActionListener
 			return;
 		}
 		
-		String translated=HoopLink.absoluteToRelative(aPath);
+		String translated=HoopVFSL.absoluteToRelative(aPath);
 		
 		pathObject.setValue (translated);
 		
@@ -89,13 +90,13 @@ class HoopSheetPathEditor extends HoopJPanel implements ActionListener
 	 */
 	public void actionPerformed(ActionEvent actionEvent) 
 	{
-		debug ("actionPerformed ()");
+		debug ("actionPerformed ("+pathObject.getFileExtension()+")");
 		
 	    JFileChooser fc=new JFileChooser ();
 	    
 	    if (pathObject.getDirsOnly()==false)
 	    {
-			FileNameExtensionFilter filter=new FileNameExtensionFilter ("."+pathObject.getFileExtension()+" files", pathObject.getFileExtension());
+			FileNameExtensionFilter filter=new FileNameExtensionFilter (pathObject.getFileExtension()+" files", pathObject.getFileExtension());
 			fc.setFileFilter(filter);
 			
 			int returnVal=fc.showOpenDialog (this);

@@ -34,6 +34,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -137,11 +138,11 @@ public class HoopStatisticsPanel extends HoopEmbeddedJPanel implements ActionLis
 		
 		generateData=HoopControlTools.makeNavigationButton ("generate","Generate",null);
 		generateData.setText("Generate");
-		generateData.setPreferredSize(new Dimension (100,22));
+		generateData.setPreferredSize(new Dimension (75,22));
 		generateData.addActionListener(this);
 		
 		saveXLSButton=HoopControlTools.makeNavigationButton ("savexls","Dump to Spreadsheet",HoopLink.getImageByName("gtk-save-as.png"));
-		saveXLSButton.setPreferredSize(new Dimension (100,22));
+		//saveXLSButton.setPreferredSize(new Dimension (22,22));
 		saveXLSButton.addActionListener(this);		
 									
 		buttonBox.addComponent(datasetChooser);		
@@ -183,8 +184,11 @@ public class HoopStatisticsPanel extends HoopEmbeddedJPanel implements ActionLis
 		momentContainer.setMinimumSize(new Dimension (100,100));
 		momentContainer.setPreferredSize(new Dimension (100,100));
 		
-		subBox.add(momentContainer);
-		subBox.add(tabbedPane);
+		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, momentContainer, tabbedPane);
+		splitPane.setOneTouchExpandable(true);
+		splitPane.setDividerLocation(150);
+		
+		subBox.add(splitPane);
 		
 		mainBox.add(buttonBox);
 		mainBox.add(subBox);
@@ -335,8 +339,8 @@ public class HoopStatisticsPanel extends HoopEmbeddedJPanel implements ActionLis
 		
 		ArrayList<HoopSampleMeasure> aData=aSet.getDataSet();
 		
-		long N=1000;
-		long H=500; // Hypothesis
+		long N=1000; // Df = N-1
+		long H=500; // Max value, which means the hypothesis is 250
 		
 		// The random function will generate a value between 0 and H
 		// We set our data set hypothesis to half of that and use that
@@ -416,6 +420,8 @@ public class HoopStatisticsPanel extends HoopEmbeddedJPanel implements ActionLis
 	       	
 	       	StringBuffer formatter=new StringBuffer ();
 	       	
+	       	formatter.append("Index\tGenerated\n");
+	       	
 	       	ArrayList <HoopSampleMeasure> sampleSet=lastSet.getDataSet ();
 	       	
 	       	for (int i=0;i<sampleSet.size();i++)
@@ -424,6 +430,7 @@ public class HoopStatisticsPanel extends HoopEmbeddedJPanel implements ActionLis
 	       		
 	       		Long transformer=aMeasure.getMeasure();
 	       		
+	       		formatter.append(i+"\t");
 	       		formatter.append(transformer.toString()+"\n");
 	       	}
 	       	

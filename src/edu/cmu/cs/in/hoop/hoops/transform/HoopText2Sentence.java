@@ -19,13 +19,9 @@
 package edu.cmu.cs.in.hoop.hoops.transform;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
-import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.kv.HoopKV;
-import edu.cmu.cs.in.base.kv.HoopKVInteger;
-import edu.cmu.cs.in.controls.dialogs.HoopAboutDialog;
-import edu.cmu.cs.in.hoop.HoopStatisticsPanel;
+//import edu.cmu.cs.in.base.kv.HoopKVInteger;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
 import edu.cmu.cs.in.hoop.hoops.base.HoopTransformBase;
@@ -38,7 +34,7 @@ public class HoopText2Sentence extends HoopTransformBase implements HoopInterfac
 {    	
 	private static final long serialVersionUID = 6939927189106023532L;
 	private HoopStringSerializable splitRegEx=null;
-	public static String msg = "";
+	
 	private HoopStringSerializable skipFirstLines=null;
 	private HoopStringSerializable ignoreLastLines=null;
 	
@@ -62,16 +58,14 @@ public class HoopText2Sentence extends HoopTransformBase implements HoopInterfac
 	public Boolean runHoop (HoopBase inHoop)
 	{		
 		debug ("runHoop ()");
-		System.out.println("------------------------------------------------------------------");
+		
 		ArrayList <HoopKV> inData=inHoop.getData();
 		
 		Integer skipLines=Integer.parseInt(this.skipFirstLines.getPropValue());
 		Integer ignoreLines=Integer.parseInt(this.ignoreLastLines.getPropValue());
-		int count = 0;
+		
 		debug ("Skipping the first " + skipLines + " lines");
-		long start = Calendar.getInstance().getTimeInMillis();
-		getPerformanceMetrics().reset();
-        getPerformanceMetrics().setMarker ("start");
+		
 		if (inData!=null)
 		{			
 			if (inData.size()==0)
@@ -110,8 +104,6 @@ public class HoopText2Sentence extends HoopTransformBase implements HoopInterfac
 							sentenceKV.end=newSentence.length();
 				
 							addKV (sentenceKV);
-							count++;
-							
 						}
 					}	
 				}					
@@ -124,17 +116,7 @@ public class HoopText2Sentence extends HoopTransformBase implements HoopInterfac
 			this.setErrorString("Error: no data found in incoming hoop");
 			return (false);
 		}	
-					
-		 getPerformanceMetrics().closeMarker (this.getClassName());
-
-	     //getPerformanceMetrics().printMetrics ();
-	     
-		System.out.println("count:: "+count);
-		msg ="Number of sentences generated:: "+count;
-		debug("count:: "+count);
-		
-    	
-    	
+						
 		return (true);
 	}	
 	/**
@@ -145,3 +127,4 @@ public class HoopText2Sentence extends HoopTransformBase implements HoopInterfac
 		return (new HoopText2Sentence ());
 	}		
 }
+

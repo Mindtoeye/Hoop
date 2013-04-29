@@ -18,7 +18,7 @@
 
 package edu.cmu.cs.in.hoop.hoops.base;
 
-import edu.cmu.cs.in.base.HoopLink;
+import edu.cmu.cs.in.base.io.HoopVFSL;
 
 /**
 * 
@@ -42,7 +42,7 @@ public class HoopIOBase extends HoopBase implements HoopInterface
      */
     protected String projectToFullPath (String aURI)
     {
-    	return (HoopLink.relativeToAbsolute (aURI));
+    	return (HoopVFSL.relativeToAbsolute (aURI));
     }    
     /**
      * 

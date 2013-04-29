@@ -51,7 +51,7 @@ public class HoopPathOrderEditor extends HoopEmbeddedJPanel implements ActionLis
 {
 	private static final long serialVersionUID = 1L;
 	    
-	private JList stopList=null;
+	private JList<HoopBase> stopList=null;
 	
 	private JButton moveUp=null;
 	private JButton moveDown=null;
@@ -90,7 +90,7 @@ public class HoopPathOrderEditor extends HoopEmbeddedJPanel implements ActionLis
 	    	    
 	    buttonBox.add(Box.createHorizontalGlue());		
 		
-		stopList=new JList ();
+		stopList=new JList<HoopBase> ();
 		stopList.setCellRenderer (new HoopJCheckListItem ());
 		stopList.setBorder(bevel);
 		stopList.setMinimumSize(new Dimension (50,5000));
@@ -222,19 +222,12 @@ public class HoopPathOrderEditor extends HoopEmbeddedJPanel implements ActionLis
 		{
 			ArrayList <HoopBase> hoopList=controller.getOutHoops();
 			
-			DefaultListModel filteredModel=new DefaultListModel();
+			DefaultListModel<HoopBase> filteredModel=new DefaultListModel<HoopBase>();
 			
         	for (int i=0;i<hoopList.size();i++) 
         	{
         		HoopBase aHoop=hoopList.get(i);
-        		
-        		/*
-        		StringBuffer formatter=new StringBuffer ();
-        		formatter.append(i+":"+aHoop.getClassName()+":"+aHoop.getInstanceName());
-        		
-        		filteredModel.addElement (formatter.toString());
-        		*/
-        		
+        		        		
         		filteredModel.addElement (aHoop);
         	}
         	

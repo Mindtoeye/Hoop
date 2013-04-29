@@ -19,8 +19,9 @@
 package edu.cmu.cs.in.base;
 
 import java.awt.Dimension;
+import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Stack;
 import java.util.prefs.Preferences;
 
 import javax.swing.ImageIcon;
@@ -29,8 +30,9 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
 
-import edu.cmu.cs.in.base.io.HoopStreamedSocket;
+import edu.cmu.cs.in.search.HoopDataSet;
 import edu.cmu.cs.in.base.io.HoopVFSL;
+import edu.cmu.cs.in.base.io.HoopStreamedSocket;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 import edu.cmu.cs.in.controls.base.HoopViewInterface;
 import edu.cmu.cs.in.hoop.HoopConsoleInterface;
@@ -40,17 +42,17 @@ import edu.cmu.cs.in.hoop.HoopManager;
 import edu.cmu.cs.in.hoop.HoopStatusBar;
 import edu.cmu.cs.in.hoop.HoopTabDraggable;
 import edu.cmu.cs.in.hoop.HoopTabPane;
+import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
+import edu.cmu.cs.in.hoop.hoops.base.HoopConnection;
 import edu.cmu.cs.in.hoop.editor.HoopEditorMenuBar;
 import edu.cmu.cs.in.hoop.editor.HoopEditorToolBar;
 import edu.cmu.cs.in.hoop.execute.HoopExecute;
 import edu.cmu.cs.in.hoop.execute.HoopExecutionMonitor;
-import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
-import edu.cmu.cs.in.hoop.hoops.base.HoopConnection;
 import edu.cmu.cs.in.hoop.project.HoopProject;
 import edu.cmu.cs.in.hoop.properties.HoopStoredProperties;
 import edu.cmu.cs.in.hoop.properties.types.HoopBooleanSerializable;
-import edu.cmu.cs.in.search.HoopDataSet;
 import edu.cmu.cs.in.search.HoopTextSearch;
+import edu.cmu.cs.in.stats.HoopPerformanceMeasure;
 import edu.cmu.cs.in.stats.HoopSampleDataSet;
 import edu.cmu.cs.in.stats.HoopSampleMeasure;
 import edu.cmu.cs.in.stats.HoopStatistics;
@@ -314,7 +316,10 @@ public class HoopLink extends HoopProperties
 		 							 "project.png",
 		 							 "splash_icon_word_balloon.gif",
 		 							 "run-cluster.png",
-		 							 "annotation.gif"
+		 							 "annotation.gif",
+		 							 "speed-1.png",
+		 							 "speed-2.png",
+		 							 "speed-3.png"
 		 							 };
 	
 	public static JFrame mainFrame=null;
@@ -371,10 +376,14 @@ public class HoopLink extends HoopProperties
 	
 	public static Integer hoopInstanceIndex=1;
 	
+	// VFSL support
+	
+	public static String PROJECTPATHMARKER="<PROJECTPATH>";
+	public static String PROJECTPATH="<PROJECTPATH>";
+	public static Stack<String> projectPathStack=null;
+	
 	public static ArrayList<HoopSampleMeasure> timeTakenByHoops;
 	
-	
-				
 	/**
 	 *
 	 */
@@ -413,10 +422,8 @@ public class HoopLink extends HoopProperties
 		
 		if (hoopGraphManager==null)
 			hoopGraphManager=new HoopGraphManager ();		
-		
 		if(timeTakenByHoops==null)
-			timeTakenByHoops = new ArrayList<HoopSampleMeasure>();
-		
+			timeTakenByHoops=new ArrayList<HoopSampleMeasure>();
     }  
     /**
      * 
@@ -705,59 +712,5 @@ public class HoopLink extends HoopProperties
 			return (null);
 		
 		return (HoopLink.project.getGraphConnections());
-	}	
-	/**
-	 * 
-	 */
-	public static String relativeToAbsolute (String aPath)
-	{		
-		if (HoopLink.project==null)
-			return (aPath); // Nothing to do
-
-		if (HoopLink.project.getVirginFile()==true)
-			return (aPath);
-		
-		if (aPath.indexOf("<PROJECTPATH>")==-1)
-			return (aPath); // Nothing to do
-				
-		StringBuffer formatted=new StringBuffer ();
-		
-		String lastPart=aPath.substring(13); // index of <PROJECTPATH> which is 13 long
-		
-		String projectPath=HoopLink.project.getBasePath();
-		
-		formatted.append (projectPath);
-		formatted.append("//");
-		formatted.append(lastPart);
-		
-		return (formatted.toString());
-	}
-	/**
-	 * 
-	 */
-	public static String absoluteToRelative (String aPath)
-	{				
-		if (HoopLink.project==null)
-			return (aPath);
-		
-		if (HoopLink.project.getVirginFile()==true)
-			return (aPath);
-		
-		String projectPath=HoopLink.project.getBasePath();
-		
-		if (aPath.indexOf(projectPath)==-1)
-			return (aPath);
-		
-		HoopRoot.debug ("HoopLink","Subtracting ["+HoopLink.project.getBasePath()+"] from path: " + aPath);
-		
-		String remainder=aPath.substring(HoopLink.project.getBasePath().length());
-		
-		StringBuffer formatted=new StringBuffer ();
-		
-		formatted.append("<PROJECTPATH>");
-		//formatted.append("/");
-		formatted.append(remainder);
-		
-		return (formatted.toString());
 	}	
 }

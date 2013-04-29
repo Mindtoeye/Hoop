@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hoopfile class="HoopGraphFile" instance="graph.xml">
+  <graph scale="1.0">
+    <hoops>
+      <hoop id="72a4e471-f499-4938-b156-9183735b38a0" class="HoopStart" name="64" active="true">
+        <visual x="20" y="20" width="150" height="100" />
+        <properties />
+      </hoop>
+      <hoop id="3ddbc1a1-2f3d-4185-be83-5bea30349eb5" class="HoopUIMACSE" name="65" active="true">
+        <visual x="210" y="180" width="150" height="100" />
+        <properties>
+          <serializable class="HoopURISerializable" instance="URI">
+            <value format="Text" type="URI" fileExtension=".yaml" dirsOnly="false">&lt;PROJECTPATH&gt;\resources\helloqa\helloqa.yaml</value>
+          </serializable>
+        </properties>
+      </hoop>
+    </hoops>
+    <connections>
+      <connection name="Edge" from="72a4e471-f499-4938-b156-9183735b38a0" to="3ddbc1a1-2f3d-4185-be83-5bea30349eb5" />
+    </connections>
+  </graph>
+</hoopfile>
+

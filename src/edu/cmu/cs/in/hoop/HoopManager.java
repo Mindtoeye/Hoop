@@ -47,6 +47,7 @@ import edu.cmu.cs.in.hoop.hoops.load.HoopFileLoadBase;
 import edu.cmu.cs.in.hoop.hoops.load.HoopMySQLReader;
 import edu.cmu.cs.in.hoop.hoops.load.HoopStdin;
 import edu.cmu.cs.in.hoop.hoops.load.HoopThreadReader;
+import edu.cmu.cs.in.hoop.hoops.load.HoopUIMAConfigurationLoadBase;
 import edu.cmu.cs.in.hoop.hoops.load.HoopURLReader;
 import edu.cmu.cs.in.hoop.hoops.load.HoopWikipediaAccess;
 import edu.cmu.cs.in.hoop.hoops.save.HoopArffWriter;
@@ -71,6 +72,7 @@ import edu.cmu.cs.in.hoop.hoops.transform.HoopColumnRenamer;
 import edu.cmu.cs.in.hoop.hoops.transform.HoopDocumentCreator;
 import edu.cmu.cs.in.hoop.hoops.transform.HoopFilterGarbage;
 import edu.cmu.cs.in.hoop.hoops.transform.HoopFilterStopWords;
+import edu.cmu.cs.in.hoop.hoops.transform.HoopKV2Cas;
 import edu.cmu.cs.in.hoop.hoops.transform.HoopKV2TXT;
 import edu.cmu.cs.in.hoop.hoops.transform.HoopKeySort;
 import edu.cmu.cs.in.hoop.hoops.transform.HoopLabelKV;
@@ -251,5 +253,7 @@ public class HoopManager extends HoopBase
     	addTemplate (new HoopRoomAnnotator ());
     	addTemplate (new HoopRoomAnnotatorHitesh ());
     	addTemplate (new HoopUIMACSE ());
+    	addTemplate (new HoopKV2Cas ());
+    	addTemplate (new HoopUIMAConfigurationLoadBase ());
     }
 }

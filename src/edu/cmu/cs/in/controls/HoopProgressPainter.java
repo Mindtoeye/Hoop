@@ -88,7 +88,7 @@ public class HoopProgressPainter extends HoopJPanel
 	 */
 	public void setLevels (int aCurrent,int aMax)
 	{
-		debug ("setLevels ("+aCurrent+","+aMax+","+this.getWidth()+")");
+		//debug ("setLevels ("+aCurrent+","+aMax+","+this.getWidth()+")");
 		
 		currentLevel=aCurrent;
 		maxLevel=aMax;
@@ -111,7 +111,7 @@ public class HoopProgressPainter extends HoopJPanel
 	@Override
 	protected void paintComponent(Graphics g)
 	{		
-		debug ("paintComponent ("+currentLevel+","+maxLevel+")");
+		//debug ("paintComponent ("+currentLevel+","+maxLevel+")");
 		
 		if (painting==true)
 			return;
@@ -136,7 +136,7 @@ public class HoopProgressPainter extends HoopJPanel
 	 */
 	protected void drawBarManual(Graphics g)
 	{		
-		debug ("drawBarManual ("+currentLevel+","+maxLevel+")");
+		//debug ("drawBarManual ("+currentLevel+","+maxLevel+")");
 						
 		if (progressVisualization==HoopProgressPainter.VIZ_FLAT)
 		{
@@ -179,7 +179,7 @@ public class HoopProgressPainter extends HoopJPanel
 	 */
 	protected void drawBarAuto(Graphics g)
 	{		
-		debug ("drawBarAuto ("+currentLevel+","+maxLevel+","+divver+")");
+		//debug ("drawBarAuto ("+currentLevel+","+maxLevel+","+divver+")");
 										
 		if (progressVisualization==HoopProgressPainter.VIZ_FLAT)
 		{						

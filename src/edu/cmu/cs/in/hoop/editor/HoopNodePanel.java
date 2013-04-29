@@ -1,3 +1,4 @@
+
 /** 
  * Author: Martin van Velsen <vvelsen@cs.cmu.edu>
  * 
@@ -29,9 +30,9 @@ import javax.swing.JPanel;
 import com.mxgraph.swing.mxGraphComponent;
 
 import edu.cmu.cs.in.base.HoopLink;
-import edu.cmu.cs.in.base.HoopProperties;
 import edu.cmu.cs.in.controls.HoopProgressPainter;
 import edu.cmu.cs.in.hoop.HoopTablePanel;
+import edu.cmu.cs.in.hoop.execute.HoopExecuteInEditor;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.properties.HoopInspectablePanel;
 import edu.cmu.cs.in.hoop.properties.HoopPropertyPanel;
@@ -104,6 +105,11 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 	public void propagateVisualProperties() 
 	{
 		debug ("propagateVisualProperties ()");
+		
+		HoopExecuteInEditor execution=(HoopExecuteInEditor) HoopLink.runner;
+		
+		if (execution.getExecuteSpeed ()==HoopExecuteInEditor.SPEED_FAST)
+			return;
 		
 		if (hoop!=null)
 		{
@@ -275,7 +281,7 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 		if (aState.equals("RUNNING")==true)
 		{
 			icon.setIcon(HoopLink.getImageByName("led-green.png"));
-			setBackground(Color.RED);
+			setBackground(Color.red);
 			setWaiting (true);
 		}		
 	}
@@ -331,3 +337,4 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 		return (progressPanel);
 	}
 }
+

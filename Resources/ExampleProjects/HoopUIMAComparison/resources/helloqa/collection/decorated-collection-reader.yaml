@@ -1,0 +1,4 @@
+class: helloqa.collection.keyterm-gs-decorator
+
+persistence-provider: |
+  inherit: helloqa.db.local-persistence-provider

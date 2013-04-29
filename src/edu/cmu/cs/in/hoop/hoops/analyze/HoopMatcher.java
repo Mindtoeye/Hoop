@@ -29,6 +29,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import edu.cmu.cs.in.base.HoopLink;
+import edu.cmu.cs.in.base.io.HoopVFSL;
 import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.base.kv.HoopKVString;
 import edu.cmu.cs.in.controls.HoopPatternEditor;
@@ -113,7 +114,7 @@ public class HoopMatcher extends HoopAnalyze implements HoopInterface, ActionLis
     	
     	debug ("Loading pattern file: " + aFile);
     	
-    	String text=HoopLink.fManager.loadContents(HoopLink.relativeToAbsolute(aFile));
+    	String text=HoopLink.fManager.loadContents(HoopVFSL.relativeToAbsolute(aFile));
     	
     	if (text==null)
     	{

@@ -116,13 +116,17 @@ public class HoopKVString extends HoopKV implements HoopKVInterface, Serializabl
 	/**
 	 *
 	 */
+	/*
 	public String getValueAsString(int anIndex) 
 	{
 		if (anIndex>values.size())
 			return ("0");
 		
-		return (String) (values.get(anIndex));
-	}		
+		Object transformer=values.get(anIndex);
+		
+		return (transformer.toString());
+	}
+	*/		
 	/**
 	 *
 	 */

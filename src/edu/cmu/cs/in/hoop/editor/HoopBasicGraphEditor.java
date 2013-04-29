@@ -1,3 +1,4 @@
+
 /** 
  * Author: Martin van Velsen <vvelsen@cs.cmu.edu>
  * 
@@ -31,7 +32,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
-import java.awt.geom.AffineTransform;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +49,7 @@ import javax.swing.JToggleButton;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
+//import org.pushingpixels.flamingo.api.bcb.JBreadcrumbBar;
 import org.pushingpixels.flamingo.api.bcb.core.BreadcrumbFileSelector;
 
 import com.mxgraph.layout.mxCircleLayout;
@@ -68,11 +69,11 @@ import com.mxgraph.swing.handler.mxRubberband;
 import com.mxgraph.swing.util.mxMorphing;
 import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
-import com.mxgraph.util.mxEventSource.mxIEventListener;
 import com.mxgraph.util.mxRectangle;
 import com.mxgraph.util.mxResources;
 import com.mxgraph.util.mxUndoManager;
 import com.mxgraph.util.mxUndoableEdit;
+import com.mxgraph.util.mxEventSource.mxIEventListener;
 import com.mxgraph.util.mxUndoableEdit.mxUndoableChange;
 import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxGraphSelectionModel;
@@ -82,6 +83,7 @@ import edu.cmu.cs.in.controls.HoopBreadCrumbBar;
 import edu.cmu.cs.in.controls.HoopButtonBox;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 import edu.cmu.cs.in.controls.base.HoopLockableJPanel;
+import edu.cmu.cs.in.hoop.execute.HoopExecuteInEditor;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.properties.HoopPropertyPanel;
 
@@ -99,6 +101,7 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 	protected JButton clearBreakPoints=null;
 	protected JButton zoomIn=null;
 	protected JButton zoomOut=null;
+	protected JButton speedButton=null;
 	protected HoopLockableJPanel graphContainer=null;
 	
 	protected HoopBreadCrumbBar phaseBreadCrumbBar=null;
@@ -236,6 +239,15 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 	    
 	    graphControls.addComponent(annotateToggle);
 	    
+	    speedButton=new JButton ();
+	    speedButton.setFont(new Font("Dialog", 1, 8));
+	    speedButton.setPreferredSize(new Dimension (36,20));
+	    speedButton.setMaximumSize(new Dimension (36,20));
+	    speedButton.setIcon(HoopLink.getImageByName("speed-1.png"));
+	    speedButton.addActionListener(this);
+	    
+		graphControls.addComponent(speedButton);
+			    	    
 	    clearBreakPoints=new JButton ();
 	    clearBreakPoints.setFont(new Font("Dialog", 1, 8));
 	    clearBreakPoints.setPreferredSize(new Dimension (20,20));
@@ -244,7 +256,7 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 	    clearBreakPoints.addActionListener(this);		
 	    
 	    graphControls.addComponent(clearBreakPoints);
-	    
+
 	    zoomIn=new JButton ();
 	    zoomIn.setFont(new Font("Dialog", 1, 8));
 	    zoomIn.setPreferredSize(new Dimension (20,20));
@@ -262,7 +274,9 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 	    zoomOut.addActionListener(this);		
 	    
 	    graphControls.addComponent(zoomOut);
-
+	    
+	    
+	    
 	    /*
 	    phaseBreadCrumbBar=new HoopBreadCrumbBar (null);
 	    phaseBreadCrumbBar.setMinimumSize(new Dimension (100,24));
@@ -274,8 +288,6 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 	    
 	    BreadcrumbFileSelector bar=new BreadcrumbFileSelector ();
 	    graphControls.addComponent(bar);
-	    
-	    
 	}
 	/**
 	 * 
@@ -937,6 +949,32 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 			}
 		}
 		
+		if (e.getSource ()==speedButton)
+		{
+			HoopExecuteInEditor execution=(HoopExecuteInEditor) HoopLink.runner;
+			
+			if (execution.getExecuteSpeed ()==HoopExecuteInEditor.SPEED_SLOW)
+			{
+				execution.setExecuteSpeed(HoopExecuteInEditor.SPEED_NORMAL);
+				speedButton.setIcon(HoopLink.getImageByName("speed-2.png"));
+				return;
+			}
+			
+			if (execution.getExecuteSpeed ()==HoopExecuteInEditor.SPEED_NORMAL)
+			{
+				execution.setExecuteSpeed(HoopExecuteInEditor.SPEED_FAST);
+				speedButton.setIcon(HoopLink.getImageByName("speed-3.png"));
+				return;
+			}
+			
+			if (execution.getExecuteSpeed ()==HoopExecuteInEditor.SPEED_FAST)
+			{
+				execution.setExecuteSpeed(HoopExecuteInEditor.SPEED_SLOW);
+				speedButton.setIcon(HoopLink.getImageByName("speed-1.png"));
+				return;
+			}			
+		}
+		
 		if (e.getSource()==clearBreakPoints)
 		{
 			debug ("Clearing breakpoints ...");
@@ -972,3 +1010,4 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 		}
 	}
 }
+

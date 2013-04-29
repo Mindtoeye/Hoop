@@ -18,22 +18,39 @@ package edu.cmu.lti.oaqa.ecd.impl;
 
 import java.util.Set;
 
-public final class DefaultExperimentPersistenceProvider extends AbstractExperimentPersistenceProvider {
-  
-  @Override
-  public void insertExperiment(String id, String name, String author,
-          String configuration, String resource) throws Exception {
-    // Do nothing
-  }
-
-  @Override
-  public void updateExperimentMeta(String experimentId, int size) {
-    // Do nothing
-  }
-
-  @Override
-  public void updateExperimentMeta(String experimentId, int size, Set<Integer> topics) {
-    // TODO Auto-generated method stub
-    
-  }
+/**
+ * We may have to implement our own persistence provider here to make sure it works within
+ * the Hoop environment and to make sure it works on a cluster running the Hoop assumptions
+ * for distributed KV/JCAS propagation
+ */
+public final class DefaultExperimentPersistenceProvider extends AbstractExperimentPersistenceProvider 
+{  
+	/**
+	 * 
+	 */
+	@Override
+	public void insertExperiment(String id,
+								 String name,
+								 String author,
+								 String configuration,
+								 String resource) throws Exception 
+	{
+		// Do nothing
+	}
+	/**
+	 * 
+	 */
+	@Override
+	public void updateExperimentMeta(String experimentId, int size) 
+	{
+		// Do nothing
+	}
+	/**
+	 * 
+	 */
+	@Override
+	public void updateExperimentMeta(String experimentId, int size, Set<Integer> topics) 
+	{
+		// TODO Auto-generated method stub    
+	}
 }

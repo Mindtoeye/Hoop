@@ -18,6 +18,7 @@
 
 package edu.cmu.cs.in.base.io;
 
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Writer;
 import java.util.ArrayList;
@@ -121,4 +122,9 @@ public interface HoopVFSLInterface
 	 * 
 	 */
 	public Long getFileTime (String aPath);
+	
+	/**
+	 * 
+	 */
+	public InputStream openInputStream (String aFileURI);
 }

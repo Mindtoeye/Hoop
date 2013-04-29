@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import edu.cmu.cs.in.base.HoopDataType;
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.io.HoopFileTools;
+import edu.cmu.cs.in.base.io.HoopVFSL;
 import edu.cmu.cs.in.base.kv.HoopKVString;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
@@ -126,7 +127,7 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 		{			
 			files=new ArrayList<String> ();
 			
-			ArrayList <String> tempList=HoopLink.fManager.listFiles(HoopLink.relativeToAbsolute(URI.getValue()));
+			ArrayList <String> tempList=HoopLink.fManager.listFiles(HoopVFSL.relativeToAbsolute(URI.getValue()));
 															
 			for (int i=0;i<tempList.size();i++)
 			{
@@ -166,7 +167,7 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 		{				
 			debug ("Processing single file ...");
 			
-			if (processSingleFile (HoopLink.relativeToAbsolute(URI.getValue()))==false)
+			if (processSingleFile (HoopVFSL.relativeToAbsolute(URI.getValue()))==false)
 				return (false);
 			else
 			{
@@ -223,7 +224,7 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 		
 		String nextFile=files.get(anIndex);
 		
-		if (processSingleFile (HoopLink.relativeToAbsolute(URI.getValue())+"/"+nextFile)==false)
+		if (processSingleFile (HoopVFSL.relativeToAbsolute(URI.getValue())+"/"+nextFile)==false)
 		{
 			return (false);
 		}		

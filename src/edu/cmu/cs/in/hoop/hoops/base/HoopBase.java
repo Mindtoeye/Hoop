@@ -26,6 +26,7 @@ import java.util.UUID;
 
 import javax.swing.JPanel;
 
+import org.apache.uima.jcas.JCas;
 import org.jdom.Element;
 
 import edu.cmu.cs.in.base.HoopLink;
@@ -34,6 +35,7 @@ import edu.cmu.cs.in.base.kv.HoopKVTable;
 import edu.cmu.cs.in.controls.HoopProgressPainter;
 import edu.cmu.cs.in.hoop.HoopStatisticsPanel;
 import edu.cmu.cs.in.hoop.editor.HoopVisualRepresentation;
+import edu.cmu.cs.in.hoop.execute.HoopExecuteInEditor;
 import edu.cmu.cs.in.hoop.properties.HoopVisualProperties;
 import edu.cmu.cs.in.hoop.properties.types.HoopSerializable;
 import edu.cmu.cs.in.stats.HoopPerformanceMeasure;
@@ -53,7 +55,6 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 	private Object graphCellReference=null;
 	
 	private Boolean active=true;
-	
 	
 	protected ArrayList <HoopBase> outHoops=null;	
 	private ArrayList <HoopKV> data=null;
@@ -83,9 +84,11 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 	
 	private Boolean breakBefore=false;
 	private Boolean breakAfter=false;
-
 	
+	//Cas code
+	private ArrayList <JCas> jCasList = null;
 	
+		
 	/**
 	 *
 	 */
@@ -102,6 +105,8 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 		outHoops=new ArrayList<HoopBase> ();
 		data=new ArrayList <HoopKV> ();
 		trash=new ArrayList <HoopKV> ();
+    	//initialize list of jCas
+    	jCasList = new ArrayList<JCas>();
 				
 		inPorts=new ArrayList<String> ();
 		outPorts=new ArrayList<String> ();
@@ -371,11 +376,15 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
     	
     	data=null;
     	trash=null;
+    	jCasList = null;
     	
     	gc();
     	
     	data=new ArrayList<HoopKV> ();
     	trash=new ArrayList<HoopKV> ();
+    
+    	//initialize list of jCas
+    	jCasList = new ArrayList<JCas>();
     }	
 	/**
 	 * 
@@ -408,6 +417,14 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
     	
     	//debug ("Data size: " + data.size());
     }  
+    
+    /**
+     * Add Cas
+     */
+    public void addCas (JCas tempJCas)
+    {    	
+    	jCasList.add(tempJCas);
+    }  
     /**
      * 
      */
@@ -416,7 +433,8 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
     	trash.add(aKV);
     }
     /**
-     * BE VERY CAREFUL WITH THIS ONE!
+     * BE VERY CAREFUL WITH THIS ONE! Currently only used by
+     * HoopPathChooser
      */
     public void setData (ArrayList<HoopKV> aList)
     {
@@ -429,6 +447,23 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 	{
 		return data;
 	}
+
+	/**
+	 * Get Cas List
+	 * @return
+	 */
+	public ArrayList<JCas> getjCasList() {
+		return jCasList;
+	}
+	
+    /**
+     * BE VERY CAREFUL WITH THIS ONE! Currently only used by
+     * HoopPathChooser
+     */
+	public void setjCasList(ArrayList<JCas> jCasList) {
+		this.jCasList = jCasList;
+	}
+	
 	/**
 	 *
 	 */    
@@ -556,47 +591,60 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 	public Boolean runHoopInternal (HoopBase inHoop)
 	{	
 		debug ("runHoopInternal ()");
+			
+		if ((inHoop==null) && (this.getClassName().equalsIgnoreCase("HoopStart")==true))
+		{
+			debug ("The incoming hoop is null but the hoop is the start state, so we're ok");
+			return (true);
+		}
 		
-				
+		HoopExecuteInEditor execution=(HoopExecuteInEditor) HoopLink.runner;
+		
     	performance.reset();		
 		performance.setMarker ("start");
-				
+		
+		debug ("Processing data from: " + inHoop.getClassName());
+		
 		// Assume we're done unless the child hoop says we're not
 		this.setDone(true); 
 		
 		if (inPortExists ("KV")==true)
 		{
-			if (inHoop==null)
-			{
-				setExecutionState ("ERROR");
-				this.setErrorString("Error: incoming hoop object is null!");
-				return (false);
-			}
+			ArrayList <HoopKV> inData=inHoop.getData();
+				
+			if (inData!=null)
+			{			
+				if ((inData.size()>0) && (execution!=null))
+				{					
+					if (execution.getExecuteSpeed ()==HoopExecuteInEditor.SPEED_SLOW)
+					{					
+						HoopVisualRepresentation viz=this.getVisualizer();
+					
+						HoopProgressPainter progress=viz.getProgressPainter();
+					
+						progress.setLevels(0,inData.size());
+					}	
+				}	
+			}	
 			else
 			{
-				ArrayList <HoopKV> inData=inHoop.getData();
-				
-				if (inData!=null)
-				{			
-					if (inData.size()==0)
-					{
-						this.setErrorString("Error: data size is 0");
-						return (false);
-					}
-					
-					HoopVisualRepresentation viz=this.getVisualizer();
-					
-					HoopProgressPainter progress=viz.getProgressPainter();
-					
-					progress.setLevels(0,inData.size());
-				}	
-				else
-				{
-					this.setErrorString("Error: no data found in incoming hoop");
-					return (false);
-				}					
-			}
+				this.setErrorString("Error: no data found in incoming hoop");
+				return (false);
+			}					
 		}	
+		
+		if (inPortExists ("CAS")==true)
+		{
+			ArrayList <JCas> inJCas=inHoop.getjCasList();
+			
+			if (inJCas!=null)
+			{			
+				if (inJCas.size()>0)
+				{
+					debug ("We have JCas data");
+				}
+			}	
+		}
 		
 		setExecutionState ("RUNNING");
 		
@@ -615,8 +663,6 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 		
 		performance.printMetrics ();
 		
-	//	HoopLink.timeTakenByHoops.put(this.getClassName(),(double)performance.getYValue());
-		
 		HoopSampleMeasure sm = new HoopSampleMeasure();
 		sm.setYValue(performance.getYValue());
 		sm.setXValue((long)executionCount);
@@ -631,9 +677,8 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 		}
 		HoopLink.addView ("Statistics",statsPanel,HoopLink.bottom);
     	statsPanel.appendString("\n"+getPerformanceMetrics().getMetrics());
-    	
-		propagateVisualProperties ();
 		
+		propagateVisualProperties ();
 		
 		//debug ("Hoop executed in: " + metric+"ms");
 				
@@ -683,7 +728,6 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 	/**
 	 * 
 	 */
-	@Override
 	public void fromXML(String aStream) 
 	{
 		debug ("fromXML ()");
@@ -692,7 +736,6 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 	/**
 	 * 
 	 */
-	@Override
 	public void fromXML(Element anElement) 
 	{
 		debug ("fromXML ()");
@@ -896,7 +939,7 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 	 */
 	protected void updateProgressStatus (int anIndex,int aTotal)
 	{
-		debug("updateProgressStatus ("+anIndex+","+aTotal+")");
+		//debug("updateProgressStatus ("+anIndex+","+aTotal+")");
 		
 		StringBuffer aStatus=new StringBuffer ();
 		

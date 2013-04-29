@@ -21,11 +21,25 @@ package edu.cmu.cs.in.stats;
 import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.HoopRoot;
-import edu.cmu.cs.in.base.HoopLink;
-import edu.cmu.cs.in.stats.HoopPerformanceMeasure;
 
 /**
+ * SS in ANOVA is the sum of squares of all observations. The term "sum of squares" means, 
+ * in this case, the "sum of squares of the differences from the mean", and the corresponding formula is
+ * SS = Σ (x - m(x))²
  * 
+ * In order to compute it, you have to
+ * - compute the mean m(x) of all observations
+ * - for each x, compute the difference x - m(x) and square it
+ * - sum all the squares
+ * 
+ * There is an alternative computation, that can be easier to perform, and is based on the equivalent formula
+ * SS = Σ x² - S²/N
+ * where S is the sum of all observations and N is the number of observatios.
+ * In this case, you have to
+ * - sum the squares of all observations, thus getting Σ x²
+ * - sum all observations, thus getting S
+ * - square S and divide by number of observations N
+ * - subtract S²/n from Σ x² 
  */
 public class HoopStatistics extends HoopRoot
 {    				

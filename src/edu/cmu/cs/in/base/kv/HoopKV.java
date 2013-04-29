@@ -22,6 +22,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import edu.cmu.cs.in.base.HoopDataType;
+//import edu.cmu.cs.in.base.HoopRoot;
 
 /**
 * Any data created by hoops (HoopBase) will use the KV object in some
@@ -148,7 +149,17 @@ public class HoopKV extends HoopDataType implements HoopKVInterface, Serializabl
 	@Override
 	public String getValueAsString(int anIndex) 
 	{
-		return (String) (values.get(anIndex));
+		//HoopRoot.debug ("HoopKV","getValueAsString ("+anIndex+","+values.size()+")");
+		
+		if (anIndex<0)
+			return ("NaS");
+		
+		if (anIndex>(values.size()-1))
+			return ("0");
+					
+		Object transformer=values.get(anIndex);
+			
+		return (transformer.toString());	
 	}
 	/**
 	 * Insert a new value and move all the other existing values down

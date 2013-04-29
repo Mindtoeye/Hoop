@@ -23,6 +23,8 @@ package edu.cmu.cs.in.hoop.hoops.base;
 */
 public class HoopControlBase extends HoopBase implements HoopInterface
 {    				
+	private static final long serialVersionUID = 5120541836988621769L;
+	
 	/**
 	 *
 	 */

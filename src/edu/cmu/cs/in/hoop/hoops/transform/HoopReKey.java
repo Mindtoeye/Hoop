@@ -66,7 +66,7 @@ public class HoopReKey extends HoopTransformBase implements HoopInterface
 		
 		Integer targetIndex=keyIndex.getPropValue();
 		
-		if (targetIndex<0)
+		if (targetIndex<1)
 		{
 			this.setErrorString("Please enter an index larger than 0");
 			return (false);

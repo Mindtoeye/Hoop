@@ -36,6 +36,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.TableCellRenderer;
 
 import edu.cmu.cs.in.base.HoopLink;
+import edu.cmu.cs.in.base.io.HoopVFSL;
 import edu.cmu.cs.in.controls.base.HoopJPanel;
 import edu.cmu.cs.in.hoop.properties.types.HoopSerializable;
 import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
@@ -128,7 +129,7 @@ class HoopSheetPathRenderer extends HoopJPanel implements TableCellRenderer, Act
 			return;
 		}
 		
-		String translated=HoopLink.absoluteToRelative(aPath);
+		String translated=HoopVFSL.absoluteToRelative(aPath);
 		
 		chosenPath.setText (translated);	
 		pathObject.setValue (translated);
@@ -201,13 +202,13 @@ class HoopSheetPathRenderer extends HoopJPanel implements TableCellRenderer, Act
 	@Override	
 	public void actionPerformed(ActionEvent arg0) 
 	{
-		debug ("actionPerformed ()");
+		debug ("actionPerformed ("+pathObject.getFileExtension()+")");
 		
 	    JFileChooser fc=new JFileChooser ();
 	    
 	    if (pathObject.getDirsOnly()==false)
 	    {
-			FileNameExtensionFilter filter=new FileNameExtensionFilter ("."+pathObject.getFileExtension()+" files", pathObject.getFileExtension());
+			FileNameExtensionFilter filter=new FileNameExtensionFilter (pathObject.getFileExtension()+" files", "." + pathObject.getFileExtension());
 			fc.setFileFilter(filter);
 			
 			int returnVal=fc.showOpenDialog (this);
