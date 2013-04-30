@@ -383,6 +383,8 @@ public class HoopLink extends HoopProperties
 	public static Stack<String> projectPathStack=null;
 	
 	public static ArrayList<HoopSampleMeasure> timeTakenByHoops;
+	public static ArrayList<String> dataSizeForHoop;
+	
 	
 	/**
 	 *
@@ -424,6 +426,8 @@ public class HoopLink extends HoopProperties
 			hoopGraphManager=new HoopGraphManager ();		
 		if(timeTakenByHoops==null)
 			timeTakenByHoops=new ArrayList<HoopSampleMeasure>();
+		if(dataSizeForHoop == null)
+			dataSizeForHoop = new ArrayList<String>();
     }  
     /**
      * 

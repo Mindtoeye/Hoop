@@ -677,8 +677,13 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 		}
 		HoopLink.addView ("Statistics",statsPanel,HoopLink.bottom);
     	statsPanel.appendString("\n"+getPerformanceMetrics().getMetrics());
+		int count =0;
 		
-		propagateVisualProperties ();
+    	for(int i =0;i<data.size();i++){
+    		count = count + data.get(i).getValueSize();
+    	}
+    	HoopLink.dataSizeForHoop.add(count+"");
+    	propagateVisualProperties ();
 		
 		//debug ("Hoop executed in: " + metric+"ms");
 				

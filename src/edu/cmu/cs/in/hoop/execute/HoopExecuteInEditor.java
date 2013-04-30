@@ -163,13 +163,12 @@ public class HoopExecuteInEditor extends HoopExecute implements ActionListener
 			statsPanel=new HoopStatisticsPanel ();
 		}
 		HoopLink.addView ("Statistics",statsPanel,HoopLink.bottom);
-    	statsPanel.appendString("\n"+"Hooooooooooooooooopppppppppppppppppppppppppp ended");
+    	statsPanel.appendString("\n"+"-------------------------------------------------------------------------------------------------------------------");
     	
     	HoopSampleDataSet sds = new HoopSampleDataSet("HOOPS");
     	sds.setDataSet(HoopLink.timeTakenByHoops);
     	
     	statsPanel.setData(sds);
-    	
     	
 		
 		/*
