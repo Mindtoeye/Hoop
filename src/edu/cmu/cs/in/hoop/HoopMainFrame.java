@@ -1503,7 +1503,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 		if (returnVal==HoopJFileChooser.APPROVE_OPTION) 
 		{
 			directoryName=new HoopGenericNameDialog (HoopGenericNameDialog.DIRECTORY,this,true);
-			directoryName.setDescription ("Please provide the subdirectory under which you want to import your files");
+			directoryName.setDescription ("Please provide the subdirectory under which you want to import your files. This folder will appear under your project's system directory.");
 			directoryName.setChosenName ("import");
 			directoryName.setVisible (true);
 			
