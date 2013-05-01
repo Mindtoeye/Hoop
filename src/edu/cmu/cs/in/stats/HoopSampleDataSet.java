@@ -69,6 +69,12 @@ public class HoopSampleDataSet extends HoopRoot
 	{
 		return (dataSet);
 	}
+	
+	public void setDataSet (ArrayList<HoopSampleMeasure> p_data)
+	{
+		dataSet = p_data;
+	}
+	
 	/**
 	 * 
 	 */

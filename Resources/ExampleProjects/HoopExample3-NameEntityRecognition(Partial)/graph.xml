@@ -21,6 +21,12 @@
           <serializable class="HoopStringSerializable" instance="splitRegEx">
             <value format="Text" type="STRING">[\r\n]+</value>
           </serializable>
+          <serializable class="HoopStringSerializable" instance="skipFirstLines">
+            <value format="Text" type="STRING">0</value>
+          </serializable>
+          <serializable class="HoopStringSerializable" instance="ignoreLastLines">
+            <value format="Text" type="STRING">0</value>
+          </serializable>
         </properties>
       </hoop>
       <hoop id="8bea9eb1-375f-448f-8297-41eccf861b67" class="HoopFileLoadBase" name="52" active="true">

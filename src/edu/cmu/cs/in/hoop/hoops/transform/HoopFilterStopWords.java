@@ -94,6 +94,7 @@ public class HoopFilterStopWords extends HoopTransformBase implements HoopInterf
 			{
 				HoopKV aKV=(HoopKV) inData.get(i);
 				
+				
 				Integer keyString=i;
 				
 				if (aKV.getValueSize()>1)

@@ -27,6 +27,7 @@ import java.awt.font.TextLayout;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 
+import edu.cmu.cs.in.base.HoopLink;
 //import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.controls.base.HoopJPanel;
 import edu.cmu.cs.in.stats.HoopSampleDataSet;
@@ -134,6 +135,11 @@ public class HoopScatterPlot extends HoopJPanel
 		g2.setColor (Color.black);
 		t1.draw (g2,0,this.getHeight()-2);		
 		
+		TextLayout t=new TextLayout ("Time",f,frc);		
+		g2.setColor (Color.black);
+		t.draw (g2,0,this.getHeight()/2);		
+		
+		
 		// Min
 		
 		String formatterB=String.format("%.2f",max/1000);
@@ -163,6 +169,7 @@ public class HoopScatterPlot extends HoopJPanel
     	
     	super.paint(g);
     	
+    	Graphics2D g2=(Graphics2D)g;
     	g.clearRect(2, 2,this.getWidth()-4,this.getHeight()-4);
     	
     	//debug ("paint ("+data.size()+")");
@@ -170,8 +177,10 @@ public class HoopScatterPlot extends HoopJPanel
     	int width=this.getWidth();
     	int height=this.getHeight();    	
     	
-    	if (dataSet==null)
+    	if (dataSet==null){
+    		debug("found data set nulll!!!!!!!!!!!!!!!!!!");
     		return;
+    	}
     	    	    
     	if (busy==true)
     		return;
@@ -210,6 +219,18 @@ public class HoopScatterPlot extends HoopJPanel
     	{    		
     		HoopSampleMeasure measure=data.get(i);
     		
+    		FontRenderContext frc=g2.getFontRenderContext();
+    		Font f = new Font("Courier",1,10);
+    		
+    		// Min
+    		
+    		
+    		String dataSize = HoopLink.dataSizeForHoop.get(i);
+    	
+    		TextLayout t1=new TextLayout (dataSize,f,frc);		
+    		g2.setColor (Color.black);
+    			
+    		
     		//if ((measure.isOpen()==false) && (measure.getLabel().equals("Main")==false))
     		if (measure.isOpen()==false)
     		{
@@ -218,9 +239,19 @@ public class HoopScatterPlot extends HoopJPanel
     			//debug ("Measure: "+ measure.getMeasure()+" yPlot: " + yPlot + " yDensity: " + yDensity + " at: " + xProgress);
     	    		
     			g.setColor (new Color (200,200,200));
+    		
     			
-    			if ((oldXPlot!=-1) && (oldYPlot!=-1))
+    			
+    			if ((oldXPlot!=-1) && (oldYPlot!=-1)){
+    		
+    				
+    					g.setColor (new Color (200,200,200));
+    				
     				g.drawLine(oldXPlot,oldYPlot,(int) xProgress+windowLeft,(int) yPlot);
+    				g.setColor(Color.black);
+    				t1.draw(g2, (int) xProgress+windowLeft,(int) yPlot-10);
+    				g.setColor (new Color (200,200,200));
+    			}
     			    			    			
     			if (visualN<this.getWidth())
     				g.draw3DRect((int) xProgress+windowLeft-1,(int) yPlot-1,3,3,true);
@@ -242,6 +273,8 @@ public class HoopScatterPlot extends HoopJPanel
     	
     	if (closedCounter>0)
     		paintLabels (g);
+    	
+    	
     	
     	busy=false;
     }

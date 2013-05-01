@@ -127,3 +127,4 @@ public class HoopText2Sentence extends HoopTransformBase implements HoopInterfac
 		return (new HoopText2Sentence ());
 	}		
 }
+

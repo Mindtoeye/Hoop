@@ -33,11 +33,13 @@ import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.base.kv.HoopKVTable;
 import edu.cmu.cs.in.controls.HoopProgressPainter;
+import edu.cmu.cs.in.hoop.HoopStatisticsPanel;
 import edu.cmu.cs.in.hoop.editor.HoopVisualRepresentation;
 import edu.cmu.cs.in.hoop.execute.HoopExecuteInEditor;
 import edu.cmu.cs.in.hoop.properties.HoopVisualProperties;
 import edu.cmu.cs.in.hoop.properties.types.HoopSerializable;
 import edu.cmu.cs.in.stats.HoopPerformanceMeasure;
+import edu.cmu.cs.in.stats.HoopSampleMeasure;
 import edu.cmu.cs.in.stats.HoopStatisticsMeasure;
 
 /**
@@ -661,7 +663,27 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 		
 		performance.printMetrics ();
 		
-		propagateVisualProperties ();
+		HoopSampleMeasure sm = new HoopSampleMeasure();
+		sm.setYValue(performance.getYValue());
+		sm.setXValue((long)executionCount);
+		sm.setOpen(false);
+		HoopLink.timeTakenByHoops.add(sm);
+		
+		HoopStatisticsPanel statsPanel;
+		if(HoopLink.getWindow("Statistics")!=null){
+			statsPanel=(HoopStatisticsPanel) HoopLink.getWindow("Statistics");
+		}else{
+			statsPanel=new HoopStatisticsPanel ();
+		}
+		HoopLink.addView ("Statistics",statsPanel,HoopLink.bottom);
+    	statsPanel.appendString("\n"+getPerformanceMetrics().getMetrics());
+		int count =0;
+		
+    	for(int i =0;i<data.size();i++){
+    		count = count + data.get(i).getValueSize();
+    	}
+    	HoopLink.dataSizeForHoop.add(count+"");
+    	propagateVisualProperties ();
 		
 		//debug ("Hoop executed in: " + metric+"ms");
 				

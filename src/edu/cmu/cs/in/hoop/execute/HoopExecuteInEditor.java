@@ -27,7 +27,9 @@ import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.hoop.HoopDocumentList;
 import edu.cmu.cs.in.hoop.HoopErrorPanel;
 import edu.cmu.cs.in.hoop.HoopProjectPanel;
+import edu.cmu.cs.in.hoop.HoopStatisticsPanel;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
+import edu.cmu.cs.in.stats.HoopSampleDataSet;
 
 /** 
  * 
@@ -102,13 +104,16 @@ public class HoopExecuteInEditor extends HoopExecute implements ActionListener
 	protected void startExecution ()
 	{
 		debug ("startExecution ()");
-		
-		if (HoopLink.executionMonitor!=null)
-		{
-			HoopLink.executionMonitor.reset ();
-			HoopLink.executionMonitor.start ();
+				
+		HoopStatisticsPanel statsPanel;
+		if(HoopLink.getWindow("Statistics")!=null){
+			statsPanel=(HoopStatisticsPanel) HoopLink.getWindow("Statistics");
+		}else{
+			statsPanel=new HoopStatisticsPanel ();
 		}
-		
+		statsPanel.clear();
+		HoopLink.addView ("Statistics",statsPanel,HoopLink.bottom);
+    			
 		HoopLink.runner=this;
 		
 		HoopExecuteProgressPanel executionMonitor=(HoopExecuteProgressPanel) HoopLink.getWindow("Execution Monitor");
@@ -116,30 +121,7 @@ public class HoopExecuteInEditor extends HoopExecute implements ActionListener
 		{
 			executionMonitor=new HoopExecuteProgressPanel ();
 			HoopLink.addView ("Execution Monitor",executionMonitor,HoopLink.bottom);
-		}
-		
-		/*
-		HoopGraphEditor editor=(HoopGraphEditor) HoopLink.getWindow("Hoop Editor");
-		
-		if (editor!=null)
-		{
-			editor.setLocked(true);
-		}	
-		
-		HoopTreeList hoopWindow=(HoopTreeList) HoopLink.getWindow("Hoop List");
-		
-		if (hoopWindow!=null)
-		{
-			hoopWindow.setLocked(true);
-		}
-		
-		HoopPropertyPanel propPanel= (HoopPropertyPanel) HoopLink.getWindow("Properties");
-		
-		if (propPanel!=null)
-		{
-			propPanel.setLocked(true);
-		}
-		*/
+		}		
 	}	
 	/**
 	 * 
@@ -148,11 +130,27 @@ public class HoopExecuteInEditor extends HoopExecute implements ActionListener
 	{
 		debug ("endExecution ()");
 		
-		if (HoopLink.executionMonitor!=null)
-		{	
-			HoopLink.executionMonitor.stop ();
+		HoopExecuteProgressPanel executionMonitor=(HoopExecuteProgressPanel) HoopLink.getWindow("Execution Monitor");
+		if (executionMonitor!=null)
+		{
+	
+			executionMonitor.stop ();
 		}
-		
+
+		HoopStatisticsPanel statsPanel;
+		if(HoopLink.getWindow("Statistics")!=null){
+			statsPanel=(HoopStatisticsPanel) HoopLink.getWindow("Statistics");
+		}else{
+			statsPanel=new HoopStatisticsPanel ();
+		}
+		HoopLink.addView ("Statistics",statsPanel,HoopLink.bottom);
+    	statsPanel.appendString("\n"+"-------------------------------------------------------------------------------------------------------------------");
+    	
+    	HoopSampleDataSet sds = new HoopSampleDataSet("HOOPS");
+    	sds.setDataSet(HoopLink.timeTakenByHoops);
+    	
+    	statsPanel.setData(sds);
+    			
 		/*
 		HoopGraphEditor editor=(HoopGraphEditor) HoopLink.getWindow("Hoop Editor");
 		

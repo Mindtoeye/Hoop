@@ -158,7 +158,7 @@ public class HoopStatisticsPanel extends HoopEmbeddedJPanel implements ActionLis
 								
 		console=new JTextArea ();
 		console.setEditable (false);
-	    console.setFont(new Font("Courier",1,8));
+	    console.setFont(new Font("Courier",1,15));
 		console.setMinimumSize(new Dimension (50,150));
 						
 		JScrollPane consoleContainer = new JScrollPane (console);
@@ -242,6 +242,10 @@ public class HoopStatisticsPanel extends HoopEmbeddedJPanel implements ActionLis
 			// Scroll to bottom
 			console.setCaretPosition(console.getDocument().getLength());
 		}	
+	}
+	
+	public void clear(){
+		console.setText("");
 	}
 	/**
 	 * 

@@ -49,10 +49,12 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 public class HoopVisualGraph extends mxGraph implements mxEventSource.mxIEventListener, Serializable
 {	
 	private static final long serialVersionUID = -6644679794406853442L;
+
 	public static final NumberFormat numberFormat = NumberFormat.getInstance();
 	
 	/// Holds the edge to be used as a template for inserting new edges.
 	protected Object edgeTemplate;
+
 	private Boolean hardReset=false;
 	
 	/**

@@ -1,3 +1,4 @@
+
 /** 
  * Author: Martin van Velsen <vvelsen@cs.cmu.edu>
  * 
@@ -18,6 +19,7 @@
 
 package edu.cmu.cs.in.hoop.editor;
 
+import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -258,24 +260,28 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 		if (aState.equals("ERROR")==true)
 		{
 			icon.setIcon(HoopLink.getImageByName("led-red.png"));
+			setBackground(null);
 			setWaiting (false);
 		}
 		
 		if (aState.equals("STOPPED")==true)
 		{
 			icon.setIcon(HoopLink.getImageByName("led-yellow.png"));
+			setBackground(null);
 			setWaiting (false);
 		}
 		
 		if (aState.equals("WAITING")==true)
 		{
 			icon.setIcon(HoopLink.getImageByName("led-yellow.png"));
+			setBackground(null);
 			setWaiting (false);
 		}
 		
 		if (aState.equals("RUNNING")==true)
 		{
 			icon.setIcon(HoopLink.getImageByName("led-green.png"));
+			setBackground(Color.red);
 			setWaiting (true);
 		}		
 	}
@@ -331,3 +337,4 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 		return (progressPanel);
 	}
 }
+

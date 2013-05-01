@@ -29,7 +29,9 @@ import edu.stanford.nlp.process.Tokenizer;
 
 import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.base.kv.HoopKVInteger;
+import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.HoopSimpleFeatureMaker;
+import edu.cmu.cs.in.hoop.HoopStatisticsPanel;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
 import edu.cmu.cs.in.hoop.hoops.base.HoopTransformBase;
@@ -70,6 +72,7 @@ public class HoopSentence2Tokens extends HoopTransformBase implements HoopInterf
 	 */
 	public Boolean runHoop (HoopBase inHoop)
 	{		
+		String result = "";
 		debug ("runHoop ()");
 		
 		TokenizerFactory<Word> factory = PTBTokenizerFactory.newTokenizerFactory();
@@ -80,6 +83,7 @@ public class HoopSentence2Tokens extends HoopTransformBase implements HoopInterf
 		{		
 			HoopSimpleFeatureMaker featureMaker=new HoopSimpleFeatureMaker ();
 			
+			result = "Number of sentences in input :: "+inData.size();
 			for (int i=0;i<inData.size();i++)
 			{
 				//HoopKVInteger aKV=(HoopKVInteger) inData.get(i);
@@ -273,7 +277,15 @@ public class HoopSentence2Tokens extends HoopTransformBase implements HoopInterf
 		}
 		else
 			return (false);
-				
+			
+		HoopStatisticsPanel statsPanel;
+		if(HoopLink.getWindow("Statistics")!=null){
+			statsPanel=(HoopStatisticsPanel) HoopLink.getWindow("Statistics");
+		}else{
+			statsPanel=new HoopStatisticsPanel ();
+		}
+		HoopLink.addView ("Statistics",statsPanel,HoopLink.bottom);
+    	statsPanel.appendString("\n"+result);
 		return (true);
 	}	
 	/**

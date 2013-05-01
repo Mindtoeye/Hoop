@@ -1,3 +1,4 @@
+
 /** 
  * Author: Martin van Velsen <vvelsen@cs.cmu.edu>
  * 
@@ -98,6 +99,8 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 	
 	protected JToggleButton annotateToggle=null;
 	protected JButton clearBreakPoints=null;
+	protected JButton zoomIn=null;
+	protected JButton zoomOut=null;
 	protected JButton speedButton=null;
 	protected HoopLockableJPanel graphContainer=null;
 	
@@ -254,6 +257,26 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 	    
 	    graphControls.addComponent(clearBreakPoints);
 
+	    zoomIn=new JButton ();
+	    zoomIn.setFont(new Font("Dialog", 1, 8));
+	    zoomIn.setPreferredSize(new Dimension (20,20));
+	    zoomIn.setMaximumSize(new Dimension (20,20));
+	    zoomIn.setIcon(HoopLink.getImageByName("zoomin.gif"));
+	    zoomIn.addActionListener(this);		
+	    
+	    graphControls.addComponent(zoomIn);
+	    
+	    zoomOut=new JButton ();
+	    zoomOut.setFont(new Font("Dialog", 1, 8));
+	    zoomOut.setPreferredSize(new Dimension (20,20));
+	    zoomOut.setMaximumSize(new Dimension (20,20));
+	    zoomOut.setIcon(HoopLink.getImageByName("zoomout.gif"));
+	    zoomOut.addActionListener(this);		
+	    
+	    graphControls.addComponent(zoomOut);
+	    
+	    
+	    
 	    /*
 	    phaseBreadCrumbBar=new HoopBreadCrumbBar (null);
 	    phaseBreadCrumbBar.setMinimumSize(new Dimension (100,24));
@@ -972,5 +995,19 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 			}
 			
 		}
+		
+		if (e.getSource()==zoomIn)
+		{
+			
+			graphComponent.zoomIn();
+			
+			
+		}
+		if (e.getSource()==zoomOut)
+		{
+			graphComponent.zoomOut();
+			
+		}
 	}
 }
+
