@@ -18,6 +18,7 @@
 
 package edu.cmu.cs.in.controls.dialogs;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -29,9 +30,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 
 import edu.cmu.cs.in.base.io.HoopFileTools;
 import edu.cmu.cs.in.controls.base.HoopJDialog;
+import edu.cmu.cs.in.controls.base.HoopJFrame;
 
 /**
  * 
@@ -54,7 +57,9 @@ public class HoopGenericNameDialog extends HoopJDialog implements ActionListener
      */
     public HoopGenericNameDialog (int aMode,JFrame frame, boolean modal) 
 	{
-		super (frame, modal,"Enter a Name");
+		super (HoopJDialog.OK,frame, modal,"Enter a Name");
+		
+		this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		
 		setClassName ("HoopGenericNameDialog");
 		debug ("HoopGenericNameDialog ()");
@@ -68,9 +73,10 @@ public class HoopGenericNameDialog extends HoopJDialog implements ActionListener
 		labelField=new JTextArea ();
 		labelField.setMinimumSize (new Dimension (200,75));
 		labelField.setPreferredSize (new Dimension (200,75));
-		labelField.setMaximumSize (new Dimension (400,75));
+		//labelField.setMaximumSize (new Dimension (400,75));
 		labelField.setFont(new Font("Dialog", 1, 10));
 		labelField.setEditable(false);
+		labelField.setLineWrap(true);
 		labelField.setWrapStyleWord(true);
 		
 		contentBox.add(labelField);
@@ -83,7 +89,9 @@ public class HoopGenericNameDialog extends HoopJDialog implements ActionListener
 		
 		contentBox.add(nameField);
 		
-		contentFrame.add (contentBox);			
+		contentFrame.add (contentBox);
+		
+        this.pack();
     }
     /**
      * 
@@ -159,12 +167,39 @@ public class HoopGenericNameDialog extends HoopJDialog implements ActionListener
     	
     	debug ("Name: " + chosenName);
     	    	    	
-		if (yesButton == e.getSource()) 
-			answer = true;
+    	if (e!=null)
+    	{
+    		if (yesButton == e.getSource()) 
+    			answer = true;
 
-		if (noButton == e.getSource()) 
-			answer = false;
+    		if (noButton == e.getSource()) 
+    			answer = false;
+    	}
+    	else
+    		answer=true;
 		
 		return (answer);
-    }	
+    }
+    /**
+     * 
+     * @param args
+     */
+    public static void main(String[] args) 
+    {       
+    	HoopJFrame f = new HoopJFrame("Dialog Test");
+        f.setSize(450, 400);
+        f.setLocation(300,200);
+        
+        JTextArea container=new JTextArea ();
+        
+        f.getContentPane().add(BorderLayout.CENTER,container);
+        f.centerWindow ();
+        f.setVisible(true);        
+        
+        HoopGenericNameDialog dialog=new HoopGenericNameDialog (HoopGenericNameDialog.REGULAR,f,true);
+                
+        dialog.setDescription ("Please provide the subdirectory under which you want to import your files");
+        dialog.setChosenName ("import");            
+        dialog.setVisible (true);       
+    }    
 }

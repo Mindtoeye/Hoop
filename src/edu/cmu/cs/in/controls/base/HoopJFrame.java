@@ -104,6 +104,15 @@ public class HoopJFrame extends JFrame
 	/**
 	 * 
 	 */
+	public void centerWindow ()
+	{
+		debug ("centerWindow ()");
+		
+		centerWindow (this);
+	}	
+	/**
+	 * 
+	 */
 	public void centerWindow (JFrame aWindow)
 	{
 		debug ("centerWindow ()");
@@ -118,7 +127,8 @@ public class HoopJFrame extends JFrame
 		int y = (dim.height-h)/2;
 		 
 		// Move the window
-		aWindow.setLocation(x, y);		
+				
+		aWindow.setLocation(x, y);
 	}	
 	/**
 	 * 

@@ -59,7 +59,6 @@ import edu.cmu.cs.in.hoop.properties.HoopVisualProperties;
 import edu.cmu.cs.in.hoop.visualizers.HoopBackingDBInspector;
 import edu.cmu.cs.in.hoop.visualizers.HoopCluster;
 import edu.cmu.cs.in.hoop.visualizers.HoopParseTreeViewer;
-//import edu.cmu.cs.in.hoop.visualizers.HoopScatterPlot;
 
 /** 
  *
@@ -68,14 +67,9 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 {
 	private static final long serialVersionUID = -1L;
 		    
-    //private HoopScatterPlot plotter=null;
 	private HoopConsole console=null;
-	//private HoopPropertyPanel propPanel=null;
-	
 	private Component compReference=null;
-	
-	//private	HoopExecuteInEditor runtime=null;
-	
+		
 	private ArrayList <HoopProjectExportInterface> exportPlugins=null;
 			
 	/**
@@ -493,7 +487,26 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     	    	addView ("Backing Database Viewer",dbViewPanel,HoopLink.center);    	    	
     		}
     	});      	
-    	    	    	
+    	
+    	
+    	JMenuItem executeViewItem=new JMenuItem("Execution Monitor");
+    	
+    	executeViewItem.addActionListener(new ActionListener() 
+    	{
+    		public void actionPerformed(ActionEvent e) 
+    		{
+    			HoopExecuteProgressPanel executionMonitor=(HoopExecuteProgressPanel) HoopLink.getWindow("Execution Monitor");
+    			
+    			if (executionMonitor==null)
+    			{
+    				executionMonitor=new HoopExecuteProgressPanel ();
+    				addView ("Execution Monitor",executionMonitor,HoopLink.bottom);
+    			}
+    			
+    			HoopLink.popWindow("Execution Monitor");
+    		}
+    	});    	
+    		    	    	    	
     	views.add (parseTreeItem);
     	views.add (sTextViewItem);
     	//views.add (documentItem);
@@ -506,6 +519,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     	views.add (propertiesItem);
     	views.add (sWallItem);
     	views.add (dbViewItem);
+    	views.add(executeViewItem);
 
     	views.add (new JSeparator());
     	
@@ -1507,24 +1521,9 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 			HoopLink.fManager.createDirectory(dirCreator);
 			
 			HoopGenericProgressdialog copyProcess=new HoopGenericProgressdialog (this.getContentPane());
-			copyProcess.copyFiles(fc.getCurrentDirectory ().getAbsolutePath(), dirCreator,files);
-			
-			/*
-			for (int i=0;i<files.length;i++)
-			{	       	
-				File file=files [i];
-				
-				String fromAbsolute=file.getAbsolutePath();
-	       	
-				String dirCreator=proj.getBasePath()+"/system/"+targetDir;
-	       	
-				HoopLink.fManager.createDirectory(dirCreator);
-	       	
-				String toRelative=dirCreator+"/"+file.getName();
-	      
-				HoopLink.fManager.copyFile(fromAbsolute, toRelative);	       	
-			}
-			*/			
+			copyProcess.copyFiles(fc.getCurrentDirectory ().getAbsolutePath(),
+								  dirCreator,
+								  files);						
 		}
 		
 		refreshProjectPane ();

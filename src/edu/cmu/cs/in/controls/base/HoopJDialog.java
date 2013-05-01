@@ -23,6 +23,8 @@ import javax.swing.JDialog;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -32,6 +34,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
+import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.HoopRoot;
 
 import java.awt.event.ActionEvent;
@@ -39,7 +42,7 @@ import java.awt.event.ActionEvent;
 /**
  * 
  */
-public class HoopJDialog extends JDialog implements ActionListener 
+public class HoopJDialog extends JDialog implements ActionListener, WindowListener 
 {
 	private static final long serialVersionUID = 9207892759985898888L;
 	
@@ -131,10 +134,12 @@ public class HoopJDialog extends JDialog implements ActionListener
 			yesButton.addActionListener(this);
 			myPanel.add(yesButton);			
 		}	
-		
+					
 		this.getContentPane().add(mainBox);
 						
-		this.resizeAndCenter(250,200);		
+		this.resizeAndCenter(HoopLink.dialogDefaultWidth,HoopLink.dialogDefaultHeight);
+		
+		this.addWindowListener(this);
     }	
     /**
      * 
@@ -157,10 +162,8 @@ public class HoopJDialog extends JDialog implements ActionListener
 		frame = new JPanel();
 		frame.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 		frame.setLayout(new BoxLayout (frame,BoxLayout.Y_AXIS));
-		//frame.setLayout(new BoxLayout (frame,BoxLayout.Y_AXIS));
 		frame.setBackground(new Color (220,220,220));
 		frame.setMinimumSize (new Dimension (100,100));
-		//frame.setMaximumSize (new Dimension (400,400));
 		mainBox.add(frame);
 		
 		myPanel = new JPanel();
@@ -177,7 +180,9 @@ public class HoopJDialog extends JDialog implements ActionListener
 		
 		this.getContentPane().add(mainBox);
 						
-		this.resizeAndCenter(250,200);		
+		this.resizeAndCenter(HoopLink.dialogDefaultWidth,HoopLink.dialogDefaultHeight);	
+		
+		this.addWindowListener(this);
     }
     /**
      * 
@@ -238,6 +243,9 @@ public class HoopJDialog extends JDialog implements ActionListener
     {
     	debug ("processDecision ()");
     	
+    	if (e==null)
+    		return (true);
+    	
 		if (yesButton == e.getSource()) 
 			answer = true;
 
@@ -263,6 +271,71 @@ public class HoopJDialog extends JDialog implements ActionListener
 		this.setSize(aWidth,aWidth);	    	
 		
 		setLocationRelativeTo(frame);
-
     }
+    /**
+     * 
+     */
+	@Override
+	public void windowActivated(WindowEvent arg0) 
+	{
+		debug ("windowActivated ()");
+		
+	}
+    /**
+     * 
+     */	
+	@Override
+	public void windowClosed(WindowEvent arg0) 
+	{
+		debug ("windowClosed ()");
+		
+	}
+    /**
+     * 
+     */	
+	@Override
+	public void windowClosing(WindowEvent arg0) 
+	{
+		debug ("windowClosing ()");
+				
+		processDecision (null);
+		
+		setVisible (false);
+	}
+    /**
+     * 
+     */	
+	@Override
+	public void windowDeactivated(WindowEvent arg0) 
+	{
+		debug ("windowDeactivated ()");
+		
+	}
+    /**
+     * 
+     */	
+	@Override
+	public void windowDeiconified(WindowEvent arg0) 
+	{
+		debug ("windowDeiconified ()");
+		
+	}
+    /**
+     * 
+     */	
+	@Override
+	public void windowIconified(WindowEvent arg0) 
+	{
+		debug ("windowIconified ()");
+		
+	}
+    /**
+     * 
+     */	
+	@Override
+	public void windowOpened(WindowEvent arg0) 
+	{
+		debug ("processWinwindowOpeneddowEvent ()");
+		
+	}
 }

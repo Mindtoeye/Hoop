@@ -42,4 +42,7 @@ public class HoopProperties extends HoopLangLink
 	// structure should be storable on disk
 	
 	public static HoopStoredProperties props=null;
+	
+	public static int dialogDefaultWidth=275;
+	public static int dialogDefaultHeight=120;
 }
