@@ -176,12 +176,12 @@ public class HoopMatcher extends HoopAnalyze implements HoopInterface, ActionLis
 		
 					newKV.setValue(value,1);
 								
-					debug ("Adding new match KV: " + value);
+					//debug ("Adding new match KV: " + value);
 	
 					addKV (newKV);					
 				}
-				else
-					debug ("Value " + value + " does not match");
+				//else
+				//	debug ("Value " + value + " does not match");
 
 				/*
 				else

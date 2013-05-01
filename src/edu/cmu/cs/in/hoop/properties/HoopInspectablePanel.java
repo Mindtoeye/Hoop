@@ -117,12 +117,14 @@ public class HoopInspectablePanel extends HoopJPanel implements ActionListener, 
 	/**
 	 * 
 	 */		
-	public HoopInspectablePanel (String aTitle)
+	public HoopInspectablePanel (HoopBase aHoop)
 	{		
     	setClassName ("HoopInspectablePanel");
     	debug ("HoopInspectablePanel ()");   
+    	
+    	hoop=aHoop;
 
-		panelTitle=aTitle;
+		panelTitle=aHoop.getHoopDescription() + " : " + aHoop.getClassName();
 		
     	create ();		
 	}

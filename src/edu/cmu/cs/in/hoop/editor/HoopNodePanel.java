@@ -49,7 +49,6 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 {
 	private static final long serialVersionUID = -1L;
 	private HoopPropertyPanel propPanel=null;
-	private HoopTablePanel tablePanel=null;
 	private HoopInspectablePanel propertiesPanel=null;
 	private double scale=1.0;
 	
@@ -64,17 +63,7 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 		debug ("HoopNodePanel ()");
 		
 		propPanel=(HoopPropertyPanel) HoopLink.getWindow("Properties");
-					
-		if (aHoop.getClassName().equals("StartHoop")==false)
-		{		
-			tablePanel=(HoopTablePanel) HoopLink.getWindow("Data View");
-			if (tablePanel==null)
-			{
-				HoopLink.addView("Data View",new HoopTablePanel (),"bottom");
-				tablePanel=(HoopTablePanel) HoopLink.getWindow("Data View");			
-			}
-		}	
-		
+							
 		setHoop (aHoop);
 				
 		//this.addMouseListener(this);
@@ -215,7 +204,7 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 		{	
 			if ((propPanel!=null) && (this.hoop.getClassName().equals("HoopStart")==false))
 			{
-				propertiesPanel=new HoopInspectablePanel (this.hoop.getHoopDescription());
+				propertiesPanel=new HoopInspectablePanel (this.hoop);
 
 				propPanel.addPropertyPanel (propertiesPanel);
 

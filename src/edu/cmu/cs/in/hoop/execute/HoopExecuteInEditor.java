@@ -149,30 +149,7 @@ public class HoopExecuteInEditor extends HoopExecute implements ActionListener
     	HoopSampleDataSet sds = new HoopSampleDataSet("HOOPS");
     	sds.setDataSet(HoopLink.timeTakenByHoops);
     	
-    	statsPanel.setData(sds);
-    			
-		/*
-		HoopGraphEditor editor=(HoopGraphEditor) HoopLink.getWindow("Hoop Editor");
-		
-		if (editor!=null)
-		{		
-			editor.setLocked(false);
-		}	
-				
-		HoopTreeList hoopWindow=(HoopTreeList) HoopLink.getWindow("Hoop List");
-		
-		if (hoopWindow!=null)
-		{		
-			hoopWindow.setLocked(false);
-		}	
-		
-		HoopPropertyPanel propPanel= (HoopPropertyPanel) HoopLink.getWindow("Properties");
-		
-		if (propPanel!=null)
-		{
-			propPanel.setLocked(false);
-		}
-		*/		
+    	statsPanel.setData(sds);    			
 	}		
 	/**
 	 * 

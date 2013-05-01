@@ -141,13 +141,45 @@ public class HoopPropertyPanel extends HoopEmbeddedJPanel implements ActionListe
 	/**
 	 * 
 	 */
+	public void popPanel (HoopBase aHoop)
+	{
+		HoopBase.debug ("HoopNodePanel","popPanel ()");
+		
+		if (aHoop==null)
+		{
+			debug ("Error no hoop object provided");
+			return;
+		}
+		
+		if (viewsLinked==false)
+		{
+			debug ("Views are not linked");
+			return;
+		}
+		
+		debug ("Showing panel for hoop: " + aHoop);
+		
+		foldAll ();
+		
+		HoopInspectablePanel aPanel=getHoopPanel (aHoop);
+		
+		if (aPanel!=null)
+			aPanel.foldOut();
+		else
+			debug ("Panel not found for hoop: " + aHoop.getClassName());
+		
+		highlightHoop (aHoop);		
+	}	
+	/**
+	 * 
+	 */
 	public static void popupPropertyPanel (HoopBase aHoop)
 	{
 		HoopBase.debug ("HoopNodePanel","popupPropertyPanel ()");
 		
 		if (aHoop==null)
 		{
-			HoopBase.debug ("HoopNodePanel","Error no hoop object available in node panel");
+			HoopBase.debug ("HoopNodePanel","Error no hoop object provded");
 			return;
 		}
 		
@@ -157,7 +189,7 @@ public class HoopPropertyPanel extends HoopEmbeddedJPanel implements ActionListe
 		{	
 			if ((propPanel!=null) && (aHoop.getClassName().equals("HoopStart")==false))
 			{
-				HoopInspectablePanel propertiesPanel=new HoopInspectablePanel (aHoop.getHoopDescription());
+				HoopInspectablePanel propertiesPanel=new HoopInspectablePanel (aHoop);
 
 				propPanel.addPropertyPanel (propertiesPanel);
 
@@ -245,15 +277,46 @@ public class HoopPropertyPanel extends HoopEmbeddedJPanel implements ActionListe
 		
 		for (int i=0;i<childList.length;i++)
 		{
-			HoopInspectablePanel tester=(HoopInspectablePanel) childList [i];
-		
-			if (tester.getHoop ()==aHoop)
+			Object checker=childList [i];
+			
+			if (checker instanceof HoopInspectablePanel)
 			{
-				tester.setHighlighted(true);
-			}
-			else
-				tester.setHighlighted(false);				
+				HoopInspectablePanel tester=(HoopInspectablePanel) checker;
+		
+				if (tester.getHoop ()==aHoop)
+				{
+					debug ("Hoop panel found, highlighting ...");
+					
+					tester.setHighlighted(true);
+				}
+				else
+					tester.setHighlighted(false);
+			}	
 		}			
+	}
+	/**
+	 * 
+	 */
+	public HoopInspectablePanel getHoopPanel (HoopBase aHoop)
+	{
+		Component [] childList=contentBox.getComponents();
+		
+		for (int i=0;i<childList.length;i++)
+		{
+			Object checker=childList [i];
+			
+			if (checker instanceof HoopInspectablePanel)
+			{			
+				HoopInspectablePanel tester=(HoopInspectablePanel) checker;
+		
+				if (tester.getHoop ()==aHoop)
+				{
+					return (tester);
+				}
+			}	
+		}			
+		
+		return (null);
 	}
 	/**
 	 * 
@@ -291,41 +354,13 @@ public class HoopPropertyPanel extends HoopEmbeddedJPanel implements ActionListe
 		}
 		
 		if (control==foldButton)
-		{
-			debug ("Folding all ...");
-			
-			Component [] childList=contentBox.getComponents();
-			
-			for (int i=0;i<childList.length;i++)
-			{
-				Object checker=childList [i];
-				
-				if (checker instanceof HoopInspectablePanel)
-				{
-					HoopInspectablePanel tester=(HoopInspectablePanel) checker;
-			
-					tester.foldIn();
-				}	
-			}				
+		{			
+			foldAll ();
 		}
 		
 		if (control==expandButton)
-		{
-			debug ("Expanding all ...");
-			
-			Component [] childList=contentBox.getComponents();
-			
-			for (int i=0;i<childList.length;i++)
-			{
-				Object checker=childList [i];
-				
-				if (checker instanceof HoopInspectablePanel)
-				{
-					HoopInspectablePanel tester=(HoopInspectablePanel) checker;
-			
-					tester.foldOut();
-				}
-			}					
+		{			
+			openAll ();
 		}
 	}
 	/**
@@ -357,5 +392,47 @@ public class HoopPropertyPanel extends HoopEmbeddedJPanel implements ActionListe
 			
 			debug ("Component " + i + " is a: " + test.toString());
 		} 
+	}
+	/**
+	 * 
+	 */
+	public void foldAll ()
+	{
+		debug ("foldAll ()");
+		
+		Component [] childList=contentBox.getComponents();
+		
+		for (int i=0;i<childList.length;i++)
+		{
+			Object checker=childList [i];
+			
+			if (checker instanceof HoopInspectablePanel)
+			{
+				HoopInspectablePanel tester=(HoopInspectablePanel) checker;
+		
+				tester.foldIn();
+			}	
+		}				
+	}
+	/**
+	 * 
+	 */
+	public void openAll ()
+	{
+		debug ("openAll ()");
+		
+		Component [] childList=contentBox.getComponents();
+		
+		for (int i=0;i<childList.length;i++)
+		{
+			Object checker=childList [i];
+			
+			if (checker instanceof HoopInspectablePanel)
+			{
+				HoopInspectablePanel tester=(HoopInspectablePanel) checker;
+		
+				tester.foldOut();
+			}
+		}			
 	}
 }

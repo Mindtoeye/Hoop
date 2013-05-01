@@ -1033,7 +1033,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 			    			
 		newProjectInternal (null);
 		
-		HoopLink.menuBar.create(editor);
+		//HoopLink.menuBar.create(editor);
 		
 		if (HoopLink.toolEditorBar==null)
 		{

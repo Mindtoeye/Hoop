@@ -172,9 +172,6 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 
 		undoManager.addListener(mxEvent.UNDO, undoHandler);
 		undoManager.addListener(mxEvent.REDO, undoHandler);
-
-		// Display some useful information about repaint events
-		installRepaintListener();
 						
 		createEditorGUI ();
 
@@ -274,9 +271,7 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 	    zoomOut.addActionListener(this);		
 	    
 	    graphControls.addComponent(zoomOut);
-	    
-	    
-	    
+	    	    	    
 	    /*
 	    phaseBreadCrumbBar=new HoopBreadCrumbBar (null);
 	    phaseBreadCrumbBar.setMinimumSize(new Dimension (100,24));
@@ -386,98 +381,8 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 	                }
 	            }
 	        }
-	    });
+	    });	       
 	}
-	/**
-	 * 
-	 */
-	protected void installRepaintListener()
-	{
-		debug ("installRepaintListener ()");
-		
-		graphComponent.getGraph().addListener(mxEvent.REPAINT,new mxIEventListener()
-		{
-			public void invoke(Object source, mxEventObject evt)
-			{
-				String buffer = (graphComponent.getTripleBuffer() != null) ? "" : " (unbuffered)";
-				mxRectangle dirty = (mxRectangle) evt.getProperty("region");
-
-				if (dirty == null)
-				{
-					status("Repaint all" + buffer);
-				}
-				else
-				{
-					status("Repaint: x=" + (int) (dirty.getX()) + " y="	+ (int) (dirty.getY()) + " w=" + (int) (dirty.getWidth()) + " h=" + (int) (dirty.getHeight()) + buffer);
-				}
-			}
-		});
-	}
-	/**
-	 * 
-	 */
-	/*
-	public HoopEditorPalette insertPalette(String title)
-	{
-		debug ("insertPalette ("+title+")");
-		
-		JTabbedPane libraryPane=getLibraryPane ();
-		
-		if (libraryPane==null)
-			return (null);
-		
-		final HoopEditorPalette palette = new HoopEditorPalette();
-		final JScrollPane scrollPane = new JScrollPane(palette);
-		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		libraryPane.addTab (title, HoopLink.getImageByName("gtk-file.png"),scrollPane,title);
-		//palette.setPreferredWidth(150);
-
-		// Updates the widths of the palettes if the container size changes
-		libraryPane.addComponentListener(new ComponentAdapter()
-		{
-			public void componentResized(ComponentEvent e)
-			{
-				int w = scrollPane.getWidth()-scrollPane.getVerticalScrollBar().getWidth();
-				palette.setPreferredWidth(w);
-			}
-
-		});
-
-		return palette;
-	}
-	*/
-	/**
-	 * 
-	 */
-	protected void processScale (double aScale)
-	{
-		debug ("processScale ("+aScale+")");
-		
-		// Implement in child class
-	}
-	/**
-	 * 
-	 */
-	protected void showGraphPopupMenu (MouseEvent e)
-	{
-		debug ("showGraphPopupMenu ()");
-		
-		Point pt = SwingUtilities.convertPoint(e.getComponent(), e.getPoint(),graphComponent);
-		HoopEditorPopupMenu menu = new HoopEditorPopupMenu(HoopBasicGraphEditor.this);
-		menu.show(graphComponent, pt.x, pt.y);
-
-		e.consume();
-	}
-	/**
-	 * 
-	 */
-	/*
-	protected void mouseLocationChanged(MouseEvent e)
-	{
-		status(e.getX() + ", " + e.getY());
-	}
-	*/
 	/**
 	 * 
 	 */
@@ -556,7 +461,90 @@ public class HoopBasicGraphEditor extends HoopEmbeddedJPanel implements MouseWhe
 			}
 		});
 		*/
+		
+		graphComponent.getGraph().addListener(mxEvent.REPAINT,new mxIEventListener()
+		{
+			public void invoke(Object source, mxEventObject evt)
+			{
+				String buffer = (graphComponent.getTripleBuffer() != null) ? "" : " (unbuffered)";
+				mxRectangle dirty = (mxRectangle) evt.getProperty("region");
+
+				if (dirty == null)
+				{
+					status("Repaint all" + buffer);
+				}
+				else
+				{
+					status("Repaint: x=" + (int) (dirty.getX()) + " y="	+ (int) (dirty.getY()) + " w=" + (int) (dirty.getWidth()) + " h=" + (int) (dirty.getHeight()) + buffer);
+				}
+			}
+		});			
+	}	
+	/**
+	 * 
+	 */
+	/*
+	public HoopEditorPalette insertPalette(String title)
+	{
+		debug ("insertPalette ("+title+")");
+		
+		JTabbedPane libraryPane=getLibraryPane ();
+		
+		if (libraryPane==null)
+			return (null);
+		
+		final HoopEditorPalette palette = new HoopEditorPalette();
+		final JScrollPane scrollPane = new JScrollPane(palette);
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		libraryPane.addTab (title, HoopLink.getImageByName("gtk-file.png"),scrollPane,title);
+		//palette.setPreferredWidth(150);
+
+		// Updates the widths of the palettes if the container size changes
+		libraryPane.addComponentListener(new ComponentAdapter()
+		{
+			public void componentResized(ComponentEvent e)
+			{
+				int w = scrollPane.getWidth()-scrollPane.getVerticalScrollBar().getWidth();
+				palette.setPreferredWidth(w);
+			}
+
+		});
+
+		return palette;
 	}
+	*/
+	/**
+	 * 
+	 */
+	protected void processScale (double aScale)
+	{
+		debug ("processScale ("+aScale+")");
+		
+		// Implement in child class
+	}
+	/**
+	 * 
+	 */
+	protected void showGraphPopupMenu (MouseEvent e)
+	{
+		debug ("showGraphPopupMenu ()");
+		
+		Point pt = SwingUtilities.convertPoint(e.getComponent(), e.getPoint(),graphComponent);
+		HoopEditorPopupMenu menu = new HoopEditorPopupMenu(HoopBasicGraphEditor.this);
+		menu.show(graphComponent, pt.x, pt.y);
+
+		e.consume();
+	}
+	/**
+	 * 
+	 */
+	/*
+	protected void mouseLocationChanged(MouseEvent e)
+	{
+		status(e.getX() + ", " + e.getY());
+	}
+	*/
 	/**
 	 * 
 	 */

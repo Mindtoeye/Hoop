@@ -23,7 +23,7 @@
           </serializable>
         </properties>
       </hoop>
-      <hoop id="94fd3a6b-6f50-4951-811c-abc41cfe7051" class="HoopText2Sentence" name="57" active="false">
+      <hoop id="94fd3a6b-6f50-4951-811c-abc41cfe7051" class="HoopText2Sentence" name="57" active="true">
         <visual x="370" y="50" width="150" height="100" />
         <properties>
           <serializable class="HoopIntegerSerializable" instance="batchSize">
@@ -166,7 +166,7 @@
           </serializable>
         </properties>
       </hoop>
-      <hoop id="ea8080af-7f28-497a-99aa-b0700e886d43" class="HoopKV2Cas" name="339" active="true">
+      <hoop id="ea8080af-7f28-497a-99aa-b0700e886d43" class="HoopKV2Cas" name="339" active="false">
         <visual x="360" y="420" width="150" height="100" />
         <properties>
           <serializable class="HoopIntegerSerializable" instance="batchSize">

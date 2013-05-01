@@ -20,8 +20,6 @@ package edu.cmu.cs.in.hoop.editor;
 
 import java.io.Serializable;
 import java.text.NumberFormat;
-//import java.util.Iterator;
-//import java.util.List;
 import java.util.Map;
 
 import javax.swing.JOptionPane;
@@ -33,7 +31,6 @@ import com.mxgraph.model.mxGeometry;
 import com.mxgraph.model.mxICell;
 import com.mxgraph.util.mxConstants;
 import com.mxgraph.util.mxEventObject;
-//import com.mxgraph.util.mxPoint;
 import com.mxgraph.view.mxCellState;
 import com.mxgraph.view.mxGraph;
 import com.mxgraph.util.mxEvent;
@@ -42,6 +39,7 @@ import com.mxgraph.util.mxEventSource;
 import edu.cmu.cs.in.base.HoopRoot;
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
+import edu.cmu.cs.in.hoop.properties.HoopPropertyPanel;
 
 /** 
  *
@@ -115,6 +113,32 @@ public class HoopVisualGraph extends mxGraph implements mxEventSource.mxIEventLi
 	public void setEdgeTemplate(Object template)
 	{
 		edgeTemplate = template;
+	}
+	/**
+	 * For now we prevent users from editing a node/hoop. Ideally we do this check
+	 * in a mouse handler so that we can fire other editing events, however at
+	 * this point it is not clear where that mouse event handler would be set.
+	 */
+	public boolean isCellEditable(Object cell)
+	{
+		debug ("isCellEditable ()");
+		
+		HoopBase testHoop=cellToHoop (cell);
+		
+		if (testHoop!=null)
+		{
+			debug ("No");
+			
+			HoopPropertyPanel panel=(HoopPropertyPanel) HoopLink.getWindow("Properties");
+			
+			panel.popPanel (testHoop);
+			
+			return (false);
+		}
+		
+		debug ("Yes");
+		
+		return (true);
 	}
 	/**
 	 * In order to avoid complete serialization of all the visual objects,

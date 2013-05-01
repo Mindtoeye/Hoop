@@ -113,6 +113,7 @@ public class HoopEditorMenuBar extends JMenuBar
 	/**
 	 * 
 	 */
+	/*
 	public void create (HoopBasicGraphEditor anEditor)
 	{		
 		debug ("create ()");
@@ -211,10 +212,6 @@ public class HoopEditorMenuBar extends JMenuBar
 						// Scrolls the view to the center
 						SwingUtilities.invokeLater(new Runnable()
 						{
-							/*
-							 * (non-Javadoc)
-							 * @see java.lang.Runnable#run()
-							 */
 							public void run()
 							{
 								graphComponent.scrollToCenter(true);
@@ -491,8 +488,9 @@ public class HoopEditorMenuBar extends JMenuBar
 		// Creates the help menu
 		menu = add(new JMenu(mxResources.get("help")));
 		
-		debug ("create () done");
+		debug ("create () done");		
 	}
+	*/
 	/**
 	 * Adds menu items to the given shape menu. This is factored out because
 	 * the shape menu appears in the menubar and also in the popupmenu.
