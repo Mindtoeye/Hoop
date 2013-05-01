@@ -111,6 +111,13 @@ public class HoopExecuteInEditor extends HoopExecute implements ActionListener
 		
 		HoopLink.runner=this;
 		
+		HoopExecuteProgressPanel executionMonitor=(HoopExecuteProgressPanel) HoopLink.getWindow("Execution Monitor");
+		if (executionMonitor==null)
+		{
+			executionMonitor=new HoopExecuteProgressPanel ();
+			HoopLink.addView ("Execution Monitor",executionMonitor,HoopLink.bottom);
+		}
+		
 		/*
 		HoopGraphEditor editor=(HoopGraphEditor) HoopLink.getWindow("Hoop Editor");
 		

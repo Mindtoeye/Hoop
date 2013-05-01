@@ -59,7 +59,7 @@ import edu.cmu.cs.in.hoop.properties.HoopVisualProperties;
 import edu.cmu.cs.in.hoop.visualizers.HoopBackingDBInspector;
 import edu.cmu.cs.in.hoop.visualizers.HoopCluster;
 import edu.cmu.cs.in.hoop.visualizers.HoopParseTreeViewer;
-import edu.cmu.cs.in.hoop.visualizers.HoopScatterPlot;
+//import edu.cmu.cs.in.hoop.visualizers.HoopScatterPlot;
 
 /** 
  *
@@ -68,7 +68,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 {
 	private static final long serialVersionUID = -1L;
 		    
-    private HoopScatterPlot plotter=null;
+    //private HoopScatterPlot plotter=null;
 	private HoopConsole console=null;
 	//private HoopPropertyPanel propPanel=null;
 	
@@ -985,19 +985,23 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 			addView ("Console",console,HoopLink.bottom);
 		}	
 		
+		/*
 		HoopExecuteProgressPanel executionMonitor=(HoopExecuteProgressPanel) HoopLink.getWindow("Execution Monitor");
 		if (executionMonitor==null)
 		{
 			executionMonitor=new HoopExecuteProgressPanel ();
 			addView ("Execution Monitor",executionMonitor,HoopLink.bottom);
-		}		
+		}
+		*/		
 		
+		/*
 		HoopDialogConsole userIO=(HoopDialogConsole) HoopLink.getWindow("User Dialog");
 		if (userIO==null)
 		{
 			HoopLink.addView ("User Dialog",new HoopDialogConsole (),HoopLink.bottom);
 			userIO=(HoopDialogConsole) HoopLink.getWindow("User Dialog");
-		}					
+		}
+		*/					
 		
     	HoopProjectPanel projectPanel=(HoopProjectPanel) HoopLink.getWindow("Project Explorer");
     	if (projectPanel==null)

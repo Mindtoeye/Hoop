@@ -49,12 +49,10 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 public class HoopVisualGraph extends mxGraph implements mxEventSource.mxIEventListener, Serializable
 {	
 	private static final long serialVersionUID = -6644679794406853442L;
-
 	public static final NumberFormat numberFormat = NumberFormat.getInstance();
 	
 	/// Holds the edge to be used as a template for inserting new edges.
 	protected Object edgeTemplate;
-
 	private Boolean hardReset=false;
 	
 	/**
@@ -71,7 +69,13 @@ public class HoopVisualGraph extends mxGraph implements mxEventSource.mxIEventLi
 		// Sets the default edge style
 		Map<String, Object> style = this.getStylesheet().getDefaultEdgeStyle();
 		style.put (mxConstants.STYLE_STROKECOLOR,"yellow");
-		
+		style.put (mxConstants.STYLE_STROKEWIDTH,"2");
+		//style.put (mxConstants.STYLE_EDGE, mxConstants.EDGESTYLE_ELBOW);
+		//style.put (mxConstants.STYLE_EDGE, mxConstants.EDGESTYLE_LOOP);
+		//style.put (mxConstants.STYLE_EDGE, mxConstants.EDGESTYLE_ENTITY_RELATION);
+		//style.put (mxConstants.STYLE_EDGE, mxConstants.EDGESTYLE_ORTHOGONAL);
+		//style.put (mxConstants.STYLE_EDGE, mxConstants.ENTITY_SEGMENT);
+								
 		this.addListener (mxEvent.CELLS_REMOVED,(mxIEventListener) this);				
 	}
 	/**
