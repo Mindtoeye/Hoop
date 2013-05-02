@@ -80,7 +80,7 @@ public class HoopCluster extends HoopEmbeddedJPanel implements ActionListener, H
 		Box controlBox=Box.createHorizontalBox();
 		
 		hostInput=new JTextField ();
-		hostInput.setText ("172.19.159.76");
+		hostInput.setText ("localhost");
 		hostInput.setFont(new Font("Dialog", 1, 10));
 		hostInput.setMinimumSize(new Dimension (120,20));
 		hostInput.setPreferredSize(new Dimension (120,20));
@@ -183,10 +183,17 @@ public class HoopCluster extends HoopEmbeddedJPanel implements ActionListener, H
 		debug (data);
 		
 		connectButton.setText("Disconnect");
+		hostInput.setEditable(false);
+		hostInput.setEnabled(false);
+		portInput.setEditable(false);
+		portInput.setEnabled(false);
 		
 		Element root=xmlHelper.fromXMLString(data);
 	
 		handler.handleIncomingXML(-1,root);
+		
+		driver.addNode("Broker");		
+		driver.updateUI();
 	}
 	/**
 	 *
@@ -196,5 +203,12 @@ public class HoopCluster extends HoopEmbeddedJPanel implements ActionListener, H
 	{
 		debug ("handleConnectionClosed ()");
 		connectButton.setText("Connect");
+		hostInput.setEditable(true);
+		hostInput.setEnabled(true);
+		portInput.setEditable(true);
+		portInput.setEnabled(true);		
+		
+		driver.removeNode("Broker");
+		driver.updateUI();
 	}		
 }

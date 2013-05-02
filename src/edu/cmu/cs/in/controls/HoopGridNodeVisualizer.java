@@ -120,6 +120,7 @@ public class HoopGridNodeVisualizer extends JPanel
 	public HoopGridNode addNode (String aMachine)
 	{
 		HoopGridNode test=findNode (aMachine);
+		
 		if (test==null)
 		{
 			test=new HoopGridNode ();
@@ -129,6 +130,18 @@ public class HoopGridNodeVisualizer extends JPanel
 		
 		return (test);
 	}
+	/**
+	 *
+	 */
+	public void removeNode (String aMachine)
+	{
+		HoopGridNode test=findNode (aMachine);
+		
+		if (test!=null)
+		{
+			nodes.remove(test);
+		}				
+	}	
 	/**
 	 *
 	 */

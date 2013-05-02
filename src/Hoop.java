@@ -20,6 +20,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 import javax.swing.*;
+import javax.swing.plaf.ColorUIResource;
 
 import edu.cmu.cs.in.HoopApplicationInstanceListener;
 import edu.cmu.cs.in.HoopApplicationManager;
@@ -204,6 +205,9 @@ public class Hoop
         	HoopRoot.debug ("HoopQueryTest","UIManager: setLookAndFeel, UnsupportedLookAndFeelException");
 			return;
 		}           
+          
+        UIDefaults defaults = UIManager.getLookAndFeelDefaults();  
+        defaults.put("Separator.foreground", new ColorUIResource(100,100,100));  
         
         frame=new HoopMainFrame ();
         frame.setResizable(true);

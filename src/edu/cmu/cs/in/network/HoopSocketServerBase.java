@@ -33,13 +33,13 @@ import edu.cmu.cs.in.hadoop.HoopHadoopReporter;
 *
 */
 public class HoopSocketServerBase extends HoopHadoopReporter implements Runnable
-{			
-	private HoopServerThread   clients []=new HoopServerThread [250]; // MAKE THIS DYNAMIC!!
-	private ServerSocket     server = null;
-	private Thread           thread = null;
-	private int              clientCount = 0;
-	private int              localPort=8080;
-	private HoopMessageHandler messageHandler=null; // Change to use interface instead
+{
+	private HoopServerThread   clients [] = new HoopServerThread [250]; // MAKE THIS DYNAMIC!!
+	private ServerSocket       server = null;
+	private Thread             thread = null;
+	private int                clientCount = 0;
+	private int                localPort = 8080;
+	private HoopMessageHandler messageHandler = null; // Change to use interface instead
 
 	/**
 	*
@@ -259,81 +259,84 @@ public class HoopSocketServerBase extends HoopHadoopReporter implements Runnable
 		Element root=helper.fromXMLString (input);
 		  
 		if (root!=null)
-			fromXML (ID,root,input);
+			fromStreamedXML (ID,root,input);
 		else
 			debug ("Error, unable to parse incoming data as XML");
 	}
 	/**
 	 * 
 	 */
-	 public Boolean fromXML (int ID,Element root,String rawXML)
-	 {
-		 debug ("fromXML ()");
+	public Boolean fromStreamedXML (int ID,Element root,String rawXML)
+	{
+		debug ("fromStreamedXML ()");
 	  	  
-		 if (messageHandler!=null)
-		 {
-			 debug ("Calling installed message handler ...");
-			 messageHandler.handleIncomingXML (ID,root);
-		 }
-		 
-		 // Or override this
-		 
-		 return (true);
-	 }
-	 /**
-	  *
-	  */	   
-	 public void shutdownService (int ID)
-	 {  
-		 debug ("shutdownService ("+ID+")");
-		 
-		 // Implement in child class!!
-	 }
-	 /**
-	  *
-	  */	   
-	 public synchronized void remove(int ID)
-	 {  
-		 debug ("remove ("+ID+")");
-		
-		 shutdownService (ID);
-		
-		 int pos = findClient(ID);
-		
-		 if (pos >= 0)
-		 {  
-			 HoopServerThread toTerminate = clients [pos];
-			 debug ("Removing client thread " + ID + " at " + pos);
-			
-			 if (pos < clientCount-1)
-			 {
-				 for (int i = pos+1; i < clientCount; i++)
-					 clients[i-1] = clients[i];
-			 }
+		if (messageHandler!=null)
+		{
+			debug ("Calling installed message handler ...");
 			 
-			 clientCount--;
-	         
-			 try
-			 {  
-				 toTerminate.close(); 
-			 }
-			 catch(IOException ioe)
-			 {  
-				 debug ("Error closing thread: " + ioe); 
-			 }
-	         
-			 toTerminate.stopThread(); 
-		 }
-	 }
-	 /**
-	  *
-	  */	   	
-	 private void addThread(Socket socket)
-	 {  
-		 debug ("addThread ()");
+			messageHandler.handleIncomingXML (ID,root);
+		}
+		else
+			debug ("No installed message handler, assuming there is a subclass to handle this");
+		 
+		// Or override this
+		 
+		return (true);
+	}
+	/**
+	 *
+	 */	   
+	public void shutdownService (int ID)
+	{  
+		debug ("shutdownService ("+ID+")");
+		 
+		// Implement in child class!!
+	}
+	/**
+	 *
+	 */	   
+	public synchronized void remove(int ID)
+	{  
+		debug ("remove ("+ID+")");
 		
-		 if (clientCount < clients.length)
-		 {  
+		shutdownService (ID);
+		
+		int pos = findClient(ID);
+		
+		if (pos >= 0)
+		{  
+			HoopServerThread toTerminate = clients [pos];
+			debug ("Removing client thread " + ID + " at " + pos);
+			
+			if (pos < clientCount-1)
+			{
+				for (int i = pos+1; i < clientCount; i++)
+					clients[i-1] = clients[i];
+			}
+			 
+			clientCount--;
+	         
+			try
+			{  
+				toTerminate.close(); 
+			}
+			catch(IOException ioe)
+			{  
+				debug ("Error closing thread: " + ioe); 
+			}
+	         
+			toTerminate.stopThread(); 
+		}
+	}
+	/**
+	 *
+	 */	   	
+	private void addThread(Socket socket)
+	{  
+		debug ("addThread ()");
+		
+		if (clientCount < clients.length)
+		{  
 			debug ("Client accepted: " + socket);
 			
 			clients[clientCount] = new HoopServerThread (this, socket);
