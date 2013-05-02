@@ -27,13 +27,9 @@ import org.apache.hadoop.mapred.*;
 import org.apache.hadoop.util.*;
 */
 
-import java.util.ArrayList;
+package edu.cmu.cs.in.network;
 
-/*
-import org.w3c.dom.Attr;
-import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
-*/
+import java.util.ArrayList;
 
 import org.jdom.Element;
 
@@ -49,9 +45,10 @@ import edu.cmu.cs.in.hadoop.HoopHadoopReporter;
  */
 public class HoopBroker extends HoopSocketServerBase
 {	
-	public static final String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss";
+	//public static final String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss";
 	private ArrayList <HoopMonitorConnection> monitorList=null;
 	private Boolean showConfig=false;
+	private String upTime="";
 	
 	/**
 	 *
@@ -223,6 +220,7 @@ public class HoopBroker extends HoopSocketServerBase
         dbg ("Starting system ...");
         
         HoopBroker broker=new HoopBroker ();
+        broker.setUpTime(HoopRoot.generateFileTimestamp ());
         
     	if (broker.parseArgs (args)==false)
     	{
@@ -231,5 +229,21 @@ public class HoopBroker extends HoopSocketServerBase
     	}        
         
         broker.runServer ();
+	}
+    /**
+     * 
+     * @return
+     */
+	public String getUpTime() 
+	{
+		return upTime;
+	}
+	/**
+	 * 
+	 * @param upTime
+	 */
+	public void setUpTime(String upTime) 
+	{
+		this.upTime = upTime;
 	}
 }

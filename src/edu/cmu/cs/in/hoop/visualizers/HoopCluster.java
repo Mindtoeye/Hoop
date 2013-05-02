@@ -46,6 +46,7 @@ import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.HoopXMLBase;
 import edu.cmu.cs.in.base.io.HoopMessageReceiver;
 import edu.cmu.cs.in.base.io.HoopStreamedSocket;
+import edu.cmu.cs.in.controls.HoopGridNode;
 import edu.cmu.cs.in.controls.HoopGridNodeVisualizer;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 
@@ -192,7 +193,8 @@ public class HoopCluster extends HoopEmbeddedJPanel implements ActionListener, H
 	
 		handler.handleIncomingXML(-1,root);
 		
-		driver.addNode("Broker");		
+		HoopGridNode loginNode=driver.addNode("Broker");
+		loginNode.setNodeType(HoopGridNode.NODE_LOGIN);
 		driver.updateUI();
 	}
 	/**

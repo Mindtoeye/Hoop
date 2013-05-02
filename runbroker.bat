@@ -8,5 +8,5 @@ set CLASSPATH=!CLASSPATH!"
 
 REM echo !CLASSPATH!
  
-REM java -cp Hoop.jar;lib HoopBroker -port 8080 >trace.log 2>&1
-java -cp Hoop.jar;!CLASSPATH! HoopBroker -port 8080
+REM java -cp Hoop.jar;lib edu.cmu.cs.in.network.HoopBroker -port 8080 >trace.log 2>&1
+java -cp Hoop.jar;!CLASSPATH! edu.cmu.cs.in.network.HoopBroker -port 8080
