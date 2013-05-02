@@ -120,6 +120,7 @@ public class HoopGridNodeVisualizer extends JPanel
 	public HoopGridNode addNode (String aMachine)
 	{
 		HoopGridNode test=findNode (aMachine);
+		
 		if (test==null)
 		{
 			test=new HoopGridNode ();
@@ -129,6 +130,18 @@ public class HoopGridNodeVisualizer extends JPanel
 		
 		return (test);
 	}
+	/**
+	 *
+	 */
+	public void removeNode (String aMachine)
+	{
+		HoopGridNode test=findNode (aMachine);
+		
+		if (test!=null)
+		{
+			nodes.remove(test);
+		}				
+	}	
 	/**
 	 *
 	 */
@@ -231,17 +244,26 @@ public class HoopGridNodeVisualizer extends JPanel
 
     		g2.setColor (Color.black);
     		
-    		TextLayout t1=new TextLayout ("Mr:"+node.getMapperCount(),f,frc);	
-    		t1.draw (g2,xPos+70,yPos+12);
+    		if ((node.getNodeType()==HoopGridNode.NODE_MAPPER) || (node.getNodeType()==HoopGridNode.NODE_MAPPER))
+    		{
+    			TextLayout t1=new TextLayout ("Mr:"+node.getMapperCount(),f,frc);	
+    			t1.draw (g2,xPos+70,yPos+12);
     		
-    		TextLayout t1A=new TextLayout ("Mt:"+node.getMapperCountTotal(),f,frc);	
-    		t1A.draw (g2,xPos+70,yPos+24);    		
+    			TextLayout t1A=new TextLayout ("Mt:"+node.getMapperCountTotal(),f,frc);	
+    			t1A.draw (g2,xPos+70,yPos+24);    		
     		
-    		TextLayout t2=new TextLayout ("Rr:"+node.getReducerCount(),f,frc);	
-    		t2.draw (g2,xPos+70,yPos+36);
+    			TextLayout t2=new TextLayout ("Rr:"+node.getReducerCount(),f,frc);	
+    			t2.draw (g2,xPos+70,yPos+36);
     		
-    		TextLayout t2A=new TextLayout ("Rt:"+node.getReducerCountTotal(),f,frc);	
-    		t2A.draw (g2,xPos+70,yPos+48);    		
+    			TextLayout t2A=new TextLayout ("Rt:"+node.getReducerCountTotal(),f,frc);	
+    			t2A.draw (g2,xPos+70,yPos+48);
+    		}	
+    		
+    		if (node.getNodeType()==HoopGridNode.NODE_LOGIN)
+    		{
+    			TextLayout t1=new TextLayout ("Jobs: ",f,frc);	
+    			t1.draw (g2,xPos+70,yPos+12);
+    		}
     		
     		StringBuffer nameFormat=new StringBuffer ();
     		

@@ -42,8 +42,9 @@ import javax.swing.JSeparator;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
-//import javax.swing.border.Border;
+import javax.swing.border.Border;
 
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.view.mxGraph;
@@ -52,7 +53,7 @@ import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.HoopProperties;
 import edu.cmu.cs.in.controls.HoopProgressPainter;
 import edu.cmu.cs.in.controls.HoopShadowBorder;
-import edu.cmu.cs.in.controls.base.HoopJComponent;
+import edu.cmu.cs.in.controls.base.HoopJPanel;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 
 /**
@@ -63,7 +64,7 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
  * Default index is 7 (bottom right). 
  * 
  */
-public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener, MouseMotionListener,*/ ActionListener, MouseListener
+public class HoopNodeRenderer extends HoopJPanel implements /*MouseListener, MouseMotionListener,*/ ActionListener, MouseListener
 {
 	private static final long serialVersionUID = -1L;
 
@@ -98,7 +99,13 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 	
 	protected HoopBase hoop=null;
 	private   HoopBase hoopTemplate=null;
-			
+	
+	protected Color backgrColor=HoopProperties.graphPanelColor;
+	
+	protected Border blackborder=null;
+	protected Border redborder=null;	
+	protected Border raisedRed=null;
+	
 	/**
 	 * 
 	 */
@@ -107,8 +114,9 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 		setClassName ("HoopNodeRenderer");
 		debug ("HoopNodeRenderer ()");
 		
-		//Border blackborder=BorderFactory.createLineBorder(Color.black);
-		//Border redborder=BorderFactory.createLineBorder(Color.red);
+		blackborder=BorderFactory.createLineBorder(Color.black);
+		redborder=BorderFactory.createLineBorder(Color.red);
+		raisedRed=BorderFactory.createBevelBorder(BevelBorder.RAISED,Color.red,Color.red);
 		
 		setupContextPopup ();
 		
@@ -116,13 +124,14 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 		this.graphContainer = graphContainer;
 		this.graph = graphContainer.getGraph();
 				
-		setBackground(HoopProperties.graphPanelColor);
 		setOpaque(true);
+		setBackground(backgrColor);
+		//setBorder (blackborder);
 		setLayout(new BorderLayout());
 		setBorder(BorderFactory.createCompoundBorder(HoopShadowBorder.getSharedInstance(), BorderFactory.createBevelBorder(BevelBorder.RAISED)));
 
 		titleBar = new JPanel();
-		titleBar.setBackground(HoopProperties.graphPanelColor);
+		titleBar.setBackground(backgrColor);
 		titleBar.setOpaque(true);
 		titleBar.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 1));
 		titleBar.setLayout(new BorderLayout());
@@ -132,14 +141,15 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 		titleBar.add(icon, BorderLayout.WEST);
 
 		titleLabel = new JLabel(String.valueOf(graph.getLabel(cell)));
-		titleLabel.setForeground(Color.WHITE);
+		//titleLabel.setForeground(Color.WHITE);
+		titleLabel.setForeground(Color.BLACK);
 		titleLabel.setFont(new Font("Dialog", 1, 10));
 		titleLabel.setBorder(BorderFactory.createEmptyBorder(0, 1, 0, 2));
 		titleBar.add(titleLabel, BorderLayout.CENTER);
 
 		toolBar = new JPanel();
 		toolBar.setLayout(new FlowLayout(FlowLayout.LEFT, 1, 2));
-		toolBar.setBackground(HoopProperties.graphPanelColor);
+		toolBar.setBackground(backgrColor);
 		toolBar.setOpaque(true);
 
 		/*
@@ -158,7 +168,7 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 		kvExamineButton.setPreferredSize(new Dimension(16, 16));
 		kvExamineButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 		kvExamineButton.setToolTipText("Collapse/Expand");
-		kvExamineButton.setBackground(HoopProperties.graphPanelColor);
+		kvExamineButton.setBackground(backgrColor);
 		kvExamineButton.setOpaque(true);
 		kvExamineButton.setBorder(null);
 		kvExamineButton.setMargin(new Insets (0,0,0,0));
@@ -170,7 +180,7 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 		hoopOptionButton.setPreferredSize(new Dimension(16, 16));
 		hoopOptionButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 		hoopOptionButton.setToolTipText("Hoop Runtime Configuration");
-		hoopOptionButton.setBackground(HoopProperties.graphPanelColor);
+		hoopOptionButton.setBackground(backgrColor);
 		hoopOptionButton.setOpaque(true);
 		hoopOptionButton.setBorder(null);
 		hoopOptionButton.setMargin(new Insets (0,0,0,0));
@@ -183,7 +193,7 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 		showHelpButton.setPreferredSize(new Dimension(16, 16));
 		showHelpButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 		showHelpButton.setToolTipText("Collapse/Expand");
-		showHelpButton.setBackground(HoopProperties.graphPanelColor);
+		showHelpButton.setBackground(backgrColor);
 		showHelpButton.setOpaque(true);
 		showHelpButton.setBorder(null);
 		showHelpButton.setMargin(new Insets (0,0,0,0));
@@ -193,7 +203,9 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 		titleBar.add(toolBar, BorderLayout.EAST);
 		add (titleBar, BorderLayout.NORTH);
 		
-		Box contentBox = new Box (BoxLayout.X_AXIS);	
+		Box centerFrame = new Box (BoxLayout.Y_AXIS);
+		
+		Box contentBox = new Box (BoxLayout.X_AXIS);
 		//contentBox.setBorder(redborder);
 		contentBox.setMinimumSize(new Dimension(50,50));
 		contentBox.setPreferredSize(new Dimension(100,100));
@@ -201,14 +213,14 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 		
 		leftPortBox = new Box (BoxLayout.Y_AXIS);
 		//leftPortBox.setAlignmentX(LEFT_ALIGNMENT);
-		leftPortBox.setBackground(HoopProperties.graphPanelColor);
+		leftPortBox.setBackground(backgrColor);
 		leftPortBox.setOpaque(true);
 		leftPortBox.setMinimumSize(new Dimension(50,20));
 		leftPortBox.setPreferredSize(new Dimension(50,100));
 		
 		rightPortBox = new Box (BoxLayout.Y_AXIS);		
 		//rightPortBox.setAlignmentX(RIGHT_ALIGNMENT);
-		rightPortBox.setBackground(HoopProperties.graphPanelColor);
+		rightPortBox.setBackground(backgrColor);
 		rightPortBox.setOpaque(true);
 		rightPortBox.setMinimumSize(new Dimension(50,20));		
 		rightPortBox.setPreferredSize(new Dimension(50,100));		
@@ -221,7 +233,17 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 		contentBox.add(Box.createHorizontalGlue());
 		contentBox.add(rightPortBox);
 		
-		add (contentBox, BorderLayout.CENTER);
+		JSeparator topSeparator=new JSeparator (SwingConstants.HORIZONTAL);
+		topSeparator.setBackground(new Color (0,0,0));
+		
+		JSeparator bottomSeparator=new JSeparator (SwingConstants.HORIZONTAL);
+		bottomSeparator.setBackground(new Color(0,0,0));
+		
+		centerFrame.add (topSeparator);
+		centerFrame.add (contentBox);
+		centerFrame.add (bottomSeparator);
+		
+		add (centerFrame, BorderLayout.CENTER);
 		
 		Box progressBox = new Box (BoxLayout.X_AXIS);	
 		progressBox.setMinimumSize(new Dimension(50,5));
@@ -239,19 +261,21 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 		statusLabel = new JLabel();
 		statusLabel.setText("Ex: ");
 		statusLabel.setFont(new Font("Dialog", 1, 10));
-		statusLabel.setForeground(Color.WHITE);
+		//statusLabel.setForeground(Color.WHITE);
+		statusLabel.setForeground(Color.BLACK);
 		
 		statusPanel = new JLabel();
 		statusPanel.setText(" R: ");
 		statusPanel.setFont(new Font("Dialog", 1, 10));
-		statusPanel.setForeground(Color.WHITE);		
+		//statusPanel.setForeground(Color.WHITE);
+		statusPanel.setForeground(Color.BLACK);
 		
 		label = new JLabel(HoopLink.getImageByName("resize.png"));
 		label.setCursor(new Cursor(Cursor.NW_RESIZE_CURSOR));
 
 		bottomPanel=new JPanel();
 		bottomPanel.setLayout(new BorderLayout());
-		bottomPanel.setBackground(HoopProperties.graphPanelColor);
+		bottomPanel.setBackground(backgrColor);
 		bottomPanel.setOpaque(true);
 		
 		bottomPanel.add(progressBox,BorderLayout.NORTH);
@@ -296,6 +320,8 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
         
         beforeCheck=new JCheckBoxMenuItem(new AbstractAction("Break Before") 
         {
+			private static final long serialVersionUID = 6156155928600672289L;
+
 			public void actionPerformed(ActionEvent e) 
             {
 				setBreakBefore ();
@@ -306,7 +332,9 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
         
         afterCheck=new JCheckBoxMenuItem(new AbstractAction("Break After") 
         {
-            public void actionPerformed(ActionEvent e) 
+			private static final long serialVersionUID = -2964750728898706499L;
+
+			public void actionPerformed(ActionEvent e) 
             {            	
             	setBreakAfter ();
             }
@@ -318,7 +346,9 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
         
         popup.add(new JMenuItem(new AbstractAction("Add Stats Probe") 
         {
-            public void actionPerformed(ActionEvent e) 
+			private static final long serialVersionUID = -3742710177419283015L;
+
+			public void actionPerformed(ActionEvent e) 
             {            	
             	addStatsProbe ();
             }
@@ -388,7 +418,8 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 		//aPortLabel.setBorder(bevel);
 		aPortLabel.setHorizontalAlignment (JLabel.RIGHT);
 		aPortLabel.setFont(new Font("Dialog", 1, 10));	
-		aPortLabel.setForeground(Color.WHITE);
+		//aPortLabel.setForeground(Color.WHITE);
+		aPortLabel.setForeground(Color.BLACK);
 		aPortLabel.setMinimumSize(new Dimension (50,20));
 		//aPortLabel.setPreferredSize(new Dimension (50,20));
 		
@@ -421,7 +452,8 @@ public class HoopNodeRenderer extends HoopJComponent implements /*MouseListener,
 		//aPortLabel.setBorder(bevel);
 		aPortLabel.setHorizontalAlignment (JLabel.LEFT);
 		aPortLabel.setFont(new Font("Dialog", 1, 10));
-		aPortLabel.setForeground(Color.WHITE);
+		//aPortLabel.setForeground(Color.WHITE);
+		aPortLabel.setForeground(Color.BLACK);
 		aPortLabel.setMinimumSize(new Dimension (50,20));
 		//aPortLabel.setPreferredSize(new Dimension (50,20));		
 

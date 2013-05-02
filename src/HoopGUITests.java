@@ -102,7 +102,7 @@ public class HoopGUITests
 			//	debug ("Unable to load image ("+loadPath+") icon from jar");    		
 		}
   	
-		HoopLink.icon=HoopLink.getImageByName("machine.jpg");
+		HoopLink.icon=HoopLink.getImageByName("machine.png");
 		HoopLink.linkIcon=HoopLink.getImageByName("link.jpg");
 		HoopLink.unlinkIcon=HoopLink.getImageByName("broken.jpg");
 	}  

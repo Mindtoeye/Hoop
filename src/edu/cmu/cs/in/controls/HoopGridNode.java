@@ -25,12 +25,21 @@ import edu.cmu.cs.in.base.HoopRoot;
  */
 public class HoopGridNode extends HoopRoot
 {
+	public static int NODE_MISC=0;
+	public static int NODE_LOGIN=1;
+	public static int NODE_MAPPER=2;
+	public static int NODE_REDUCER=3;
+	public static int NODE_HOOP=4;
+	public static int NODE_UIMA=5;
+	
 	private int mapperCount=0;
 	private int reducerCount=0;
 	private int mapperCountTotal=0;
 	private int reducerCountTotal=0;	
 	private String nodeName="";
 	private Boolean active=false;
+	
+	private int nodeType=NODE_MISC;
 	
 	/**
 	 *
@@ -139,6 +148,22 @@ public class HoopGridNode extends HoopRoot
 	public int getReducerCountTotal() 
 	{
 		return reducerCountTotal;
+	}
+	/**
+	 * 
+	 * @return
+	 */
+	public int getNodeType() 
+	{
+		return nodeType;
+	}
+	/**
+	 * 
+	 * @param nodeType
+	 */
+	public void setNodeType(int nodeType) 
+	{
+		this.nodeType = nodeType;
 	}
 }
 

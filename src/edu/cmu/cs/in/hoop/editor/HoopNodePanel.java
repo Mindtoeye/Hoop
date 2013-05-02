@@ -24,16 +24,24 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.JPanel;
+import javax.swing.border.BevelBorder;
 
 import com.mxgraph.swing.mxGraphComponent;
 
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.controls.HoopProgressPainter;
+import edu.cmu.cs.in.controls.HoopShadowBorder;
 import edu.cmu.cs.in.hoop.HoopTablePanel;
 import edu.cmu.cs.in.hoop.execute.HoopExecuteInEditor;
+import edu.cmu.cs.in.hoop.hoops.base.HoopAnalyze;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
+import edu.cmu.cs.in.hoop.hoops.base.HoopControlBase;
+import edu.cmu.cs.in.hoop.hoops.base.HoopLoadBase;
+import edu.cmu.cs.in.hoop.hoops.base.HoopSaveBase;
+import edu.cmu.cs.in.hoop.hoops.base.HoopTransformBase;
 import edu.cmu.cs.in.hoop.properties.HoopInspectablePanel;
 import edu.cmu.cs.in.hoop.properties.HoopPropertyPanel;
 import edu.cmu.cs.in.hoop.properties.HoopVisualProperties;
@@ -181,11 +189,55 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 
 			leftPortBox.add(Box.createVerticalGlue());
 			rightPortBox.add(Box.createVerticalGlue());
+			
+			colorHoop ();
 		}		
 
 		popupPropertyPanel ();
 
 		debug ("setHoop () done");
+	}
+	/**
+	 * 
+	 */
+	private void colorHoop ()
+	{
+		debug ("colorHoop ()");
+		
+		if (this.hoop instanceof HoopLoadBase)
+		{
+			backgrColor=new Color (255,255,218);	
+		}
+		
+		if (this.hoop instanceof HoopSaveBase)
+		{
+			backgrColor=new Color (129,158,68);
+		}
+		
+		if (this.hoop instanceof HoopControlBase)
+		{
+			//backgrColor=new Color (255,255,218);
+		}
+		
+		if (this.hoop instanceof HoopTransformBase)
+		{
+			backgrColor=new Color (165,111,58);
+		}
+		
+		if (this.hoop instanceof HoopAnalyze)
+		{
+			backgrColor=new Color (62,105,157);
+		}		
+		
+		setBackground(backgrColor);
+		titleBar.setBackground(backgrColor);
+		toolBar.setBackground(backgrColor);
+		kvExamineButton.setBackground(backgrColor);
+		hoopOptionButton.setBackground(backgrColor);
+		showHelpButton.setBackground(backgrColor);
+		leftPortBox.setBackground(backgrColor);
+		rightPortBox.setBackground(backgrColor);
+		bottomPanel.setBackground(backgrColor);
 	}
 	/**
 	 * 
@@ -249,28 +301,28 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 		if (aState.equals("ERROR")==true)
 		{
 			icon.setIcon(HoopLink.getImageByName("led-red.png"));
-			setBackground(null);
+			setBorder(BorderFactory.createCompoundBorder(HoopShadowBorder.getSharedInstance(), BorderFactory.createBevelBorder(BevelBorder.RAISED)));
 			setWaiting (false);
 		}
 		
 		if (aState.equals("STOPPED")==true)
 		{
 			icon.setIcon(HoopLink.getImageByName("led-yellow.png"));
-			setBackground(null);
+			setBorder(BorderFactory.createCompoundBorder(HoopShadowBorder.getSharedInstance(), BorderFactory.createBevelBorder(BevelBorder.RAISED)));
 			setWaiting (false);
 		}
 		
 		if (aState.equals("WAITING")==true)
 		{
 			icon.setIcon(HoopLink.getImageByName("led-yellow.png"));
-			setBackground(null);
+			setBorder(BorderFactory.createCompoundBorder(HoopShadowBorder.getSharedInstance(), BorderFactory.createBevelBorder(BevelBorder.RAISED)));
 			setWaiting (false);
 		}
 		
 		if (aState.equals("RUNNING")==true)
 		{
 			icon.setIcon(HoopLink.getImageByName("led-green.png"));
-			setBackground(Color.red);
+			setBorder(BorderFactory.createCompoundBorder(HoopShadowBorder.getSharedInstance(), raisedRed));
 			setWaiting (true);
 		}		
 	}

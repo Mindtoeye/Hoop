@@ -46,6 +46,7 @@ import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.HoopXMLBase;
 import edu.cmu.cs.in.base.io.HoopMessageReceiver;
 import edu.cmu.cs.in.base.io.HoopStreamedSocket;
+import edu.cmu.cs.in.controls.HoopGridNode;
 import edu.cmu.cs.in.controls.HoopGridNodeVisualizer;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 
@@ -80,7 +81,7 @@ public class HoopCluster extends HoopEmbeddedJPanel implements ActionListener, H
 		Box controlBox=Box.createHorizontalBox();
 		
 		hostInput=new JTextField ();
-		hostInput.setText ("172.19.159.76");
+		hostInput.setText ("localhost");
 		hostInput.setFont(new Font("Dialog", 1, 10));
 		hostInput.setMinimumSize(new Dimension (120,20));
 		hostInput.setPreferredSize(new Dimension (120,20));
@@ -183,10 +184,18 @@ public class HoopCluster extends HoopEmbeddedJPanel implements ActionListener, H
 		debug (data);
 		
 		connectButton.setText("Disconnect");
+		hostInput.setEditable(false);
+		hostInput.setEnabled(false);
+		portInput.setEditable(false);
+		portInput.setEnabled(false);
 		
 		Element root=xmlHelper.fromXMLString(data);
 	
 		handler.handleIncomingXML(-1,root);
+		
+		HoopGridNode loginNode=driver.addNode("Broker");
+		loginNode.setNodeType(HoopGridNode.NODE_LOGIN);
+		driver.updateUI();
 	}
 	/**
 	 *
@@ -196,5 +205,12 @@ public class HoopCluster extends HoopEmbeddedJPanel implements ActionListener, H
 	{
 		debug ("handleConnectionClosed ()");
 		connectButton.setText("Connect");
+		hostInput.setEditable(true);
+		hostInput.setEnabled(true);
+		portInput.setEditable(true);
+		portInput.setEnabled(true);		
+		
+		driver.removeNode("Broker");
+		driver.updateUI();
 	}		
 }
