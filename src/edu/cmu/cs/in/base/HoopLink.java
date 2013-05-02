@@ -511,9 +511,18 @@ public class HoopLink extends HoopProperties
 	/**
 	 *
 	 */
+   public static void removeWindow (String aWindow)
+   {
+   		HoopRoot.debug ("HoopLink","removeWindow (String)");
+   	
+   		removeWindow (HoopLink.getWindow(aWindow));
+   }    
+	/**
+	 *
+	 */
     public static void removeWindow (HoopEmbeddedJPanel aWindow)
     {
-    	HoopRoot.debug ("HoopLink","removeWindow ()");
+    	HoopRoot.debug ("HoopLink","removeWindow (HoopEmbeddedJPanel)");
     	
     	if (windows!=null)
     	{

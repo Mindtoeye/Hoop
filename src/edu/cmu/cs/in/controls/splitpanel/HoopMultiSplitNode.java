@@ -117,12 +117,16 @@ public class HoopMultiSplitNode extends HoopRoot
 	 */
 	public void setWeight(double weight) 
 	{
+		this.weight=0.0;
+		
+		/*
 	    if ((weight < 0.0)|| (weight > 1.0)) 
 	    {
 	    	throw new IllegalArgumentException("invalid weight");
 	    }
 	    
 	    this.weight = weight;
+	    */
 	}
 	/**
 	 * 

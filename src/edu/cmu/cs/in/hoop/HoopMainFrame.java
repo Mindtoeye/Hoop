@@ -92,8 +92,19 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
         buildMenus();       
         
         addButtons (this.getToolBar());
-                        
-        startEditor ();
+        
+        if (HoopLink.preferences.getBoolean("welcome",true)==true)
+        {
+    		HoopLink.left.setVisible(false);
+    		HoopLink.right.setVisible(false);
+    		HoopLink.bottom.setVisible(false);
+    		
+            addView ("Welcome",new HoopWelcomePane(),"center");
+        }
+        else
+        	startEditor ();             
+        
+       	processSplitDimensions ();
     }
     /**
      * 
@@ -985,11 +996,15 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 	 * assumptions on what panels the user would like to use but at this point it seems
 	 * there is enough space for all the panes and options required 
 	 */
-	private void startEditor ()
+	public void startEditor ()
 	{
 		debug ("startEditor ()");
 		
-	    addView ("Text Viewer",new HoopTextViewer (),HoopLink.center);
+		HoopLink.left.setVisible(true);		
+		HoopLink.right.setVisible(true);				
+		HoopLink.bottom.setVisible(true);
+		
+	    //addView ("Text Viewer",new HoopTextViewer (),HoopLink.center);
 	    
 	    addView ("Document List",new HoopDocumentList(),"right");
 					
@@ -998,25 +1013,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 			console=new HoopConsole();    	
 			addView ("Console",console,HoopLink.bottom);
 		}	
-		
-		/*
-		HoopExecuteProgressPanel executionMonitor=(HoopExecuteProgressPanel) HoopLink.getWindow("Execution Monitor");
-		if (executionMonitor==null)
-		{
-			executionMonitor=new HoopExecuteProgressPanel ();
-			addView ("Execution Monitor",executionMonitor,HoopLink.bottom);
-		}
-		*/		
-		
-		/*
-		HoopDialogConsole userIO=(HoopDialogConsole) HoopLink.getWindow("User Dialog");
-		if (userIO==null)
-		{
-			HoopLink.addView ("User Dialog",new HoopDialogConsole (),HoopLink.bottom);
-			userIO=(HoopDialogConsole) HoopLink.getWindow("User Dialog");
-		}
-		*/					
-		
+							
     	HoopProjectPanel projectPanel=(HoopProjectPanel) HoopLink.getWindow("Project Explorer");
     	if (projectPanel==null)
     	{

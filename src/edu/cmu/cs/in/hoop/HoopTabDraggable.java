@@ -22,6 +22,10 @@ import java.awt.*;
 import java.awt.datatransfer.*;
 import java.awt.dnd.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 //import java.awt.geom.*;
 import java.awt.image.*;
 import javax.swing.*;
@@ -33,7 +37,7 @@ import edu.cmu.cs.in.controls.base.HoopJPanel;
 import edu.cmu.cs.in.controls.templates.HoopAquaBarTabbedPaneUI;
 //import edu.cmu.cs.in.controls.templates.HoopCWTabbedPaneUI;
 
-public class HoopTabDraggable extends JTabbedPane implements ChangeListener 
+public class HoopTabDraggable extends JTabbedPane implements ChangeListener, WindowListener, ComponentListener
 {	
 	private static final long serialVersionUID = 1L;	
 	private static final int LHoopEWIDTH = 3;
@@ -198,6 +202,8 @@ public class HoopTabDraggable extends JTabbedPane implements ChangeListener
 	    new DropTarget(glassPane, DnDConstants.ACTION_COPY_OR_MOVE,new CDropTargetListener(), true);
 	    
 	    new DragSource().createDefaultDragGestureRecognizer(this, DnDConstants.ACTION_COPY_OR_MOVE, dgl);
+	    
+	    this.addComponentListener(this);
 	}
 	/**
 	 * 
@@ -673,5 +679,69 @@ public class HoopTabDraggable extends JTabbedPane implements ChangeListener
         		}
         	}	
         }
+	}
+	@Override
+	public void windowActivated(WindowEvent arg0) 
+	{
+		debug ("windowActivated ()");
+		
+	}
+	@Override
+	public void windowClosed(WindowEvent arg0) 
+	{
+		debug ("windowClosed ()");
+		
+	}
+	@Override
+	public void windowClosing(WindowEvent arg0) 
+	{
+		debug ("windowClosing ()");
+		
+	}
+	@Override
+	public void windowDeactivated(WindowEvent arg0) 
+	{
+		debug ("windowDeactivated ()");
+		
+	}
+	@Override
+	public void windowDeiconified(WindowEvent arg0) 
+	{
+		debug ("windowDeiconified ()");
+		
+	}
+	@Override
+	public void windowIconified(WindowEvent arg0) 
+	{
+		debug ("windowIconified ()");
+		
+	}
+	@Override
+	public void windowOpened(WindowEvent arg0) 
+	{
+		debug ("windowOpened ()");
+		
+	}
+	@Override
+	public void componentHidden(ComponentEvent arg0) 
+	{
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void componentMoved(ComponentEvent arg0) 
+	{
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void componentResized(ComponentEvent arg0) 
+	{
+		//debug ("componentResize ("+this.getWidth()+","+this.getHeight()+")");		
+	}
+	@Override
+	public void componentShown(ComponentEvent arg0) 
+	{
+			
 	}
 }

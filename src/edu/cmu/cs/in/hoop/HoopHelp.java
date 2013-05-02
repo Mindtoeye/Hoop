@@ -29,6 +29,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 
 import edu.cmu.cs.in.base.HoopLink;
+import edu.cmu.cs.in.controls.HoopButtonBox;
 import edu.cmu.cs.in.controls.HoopHTMLPane;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 
@@ -57,7 +58,12 @@ public class HoopHelp extends HoopEmbeddedJPanel implements ActionListener
 		
 		this.setLayout(new BoxLayout (this,BoxLayout.Y_AXIS));
 		
-	    Box buttonBox = new Box (BoxLayout.X_AXIS);
+		HoopButtonBox buttonBox=new HoopButtonBox ();
+	   	buttonBox.setMinimumSize(new Dimension (100,24));
+	   	buttonBox.setPreferredSize(new Dimension (200,24));
+	   	buttonBox.setMaximumSize(new Dimension (500,24));
+		
+	    //Box buttonBox = new Box (BoxLayout.X_AXIS);
 	    
 	    homeButton=new JButton ();
 	    homeButton.setIcon (HoopLink.getImageByName("gtk-home.png"));
@@ -80,18 +86,16 @@ public class HoopHelp extends HoopEmbeddedJPanel implements ActionListener
 	    forwardButton.setMaximumSize(new Dimension (20,20));	    	    
 	    forwardButton.addActionListener(this);	    
 	    
-	    buttonBox.add (homeButton);
-	    buttonBox.add (backButton);
-	    buttonBox.add (forwardButton);
-	    buttonBox.add (Box.createHorizontalGlue());
-		
-       	setBounds (200,25,400,400);
+	    buttonBox.addComponent (homeButton);
+	    buttonBox.addComponent (backButton);
+	    buttonBox.addComponent (forwardButton);
+
        	html=new HoopHTMLPane ();
        	
        	this.add (buttonBox);
        	this.add (html);
        	
-       	setContentPane(html);
+       	//setContentPane(html);
        	
        	history=new ArrayList<String> ();
        	

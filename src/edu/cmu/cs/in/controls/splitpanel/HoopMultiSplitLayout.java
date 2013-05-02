@@ -676,34 +676,41 @@ public class HoopMultiSplitLayout extends HoopRoot implements LayoutManager
     /* Second pass of the layout algorithm: branch to layoutGrow/Shrink
      * as needed.
      */
-   private void layout2(HoopMultiSplitNode root, Rectangle bounds) {
-	if (root instanceof HoopMultiSplitLeaf) {
-	    Component child = childForHoopMultiSplitNode(root);
-	    if (child != null) {
-		child.setBounds(bounds);
-	    }
-	    root.setBounds(bounds);
-	}
-	else if (root instanceof HoopMultiSplitDivider) {
-	    root.setBounds(bounds);
-	}
-	else if (root instanceof HoopMultiSplitSplitter) {
-		HoopMultiSplitSplitter split = (HoopMultiSplitSplitter)root;
-	    boolean grow = split.isRowLayout() 
-		? (split.getBounds().width <= bounds.width)
-		: (split.getBounds().height <= bounds.height);
-	    if (grow) {
-		layoutGrow(split, bounds);
-		root.setBounds(bounds);
-	    }
-	    else {
-		layoutShrink(split, bounds);
+   private void layout2(HoopMultiSplitNode root, Rectangle bounds) 
+   {
+	   //debug ("layout2 ()");
+	   
+	   if (root instanceof HoopMultiSplitLeaf) 
+	   {
+		   Component child = childForHoopMultiSplitNode(root);
+		   if (child != null) 
+		   {
+			   child.setBounds(bounds);
+		   }
+		   
+		   root.setBounds(bounds);
+	   }
+	   else if (root instanceof HoopMultiSplitDivider) 
+	   {
+		   root.setBounds(bounds);
+	   }
+	   else if (root instanceof HoopMultiSplitSplitter) 
+	   {
+		   HoopMultiSplitSplitter split = (HoopMultiSplitSplitter)root;
+		   boolean grow = split.isRowLayout() ? (split.getBounds().width <= bounds.width) : (split.getBounds().height <= bounds.height);
+		   
+		   if (grow) 
+		   {
+			   layoutGrow(split, bounds);
+			   root.setBounds(bounds);
+		   }
+		   else 
+		   {
+			   layoutShrink(split, bounds);
                 // split.setBounds() called in layoutShrink()
-	    }
-	}
+		   }
+	   }
     }
-
-
     /* First pass of the layout algorithm.
      * 
      * If the Dividers are "floating" then set the bounds of each
@@ -718,102 +725,129 @@ public class HoopMultiSplitLayout extends HoopRoot implements LayoutManager
      * (java.awt.Component) children.  That's done in the second pass,
      * see layoutGrow() and layoutShrink().
      */
-    private void layout1(HoopMultiSplitNode root, Rectangle bounds) {
-	if (root instanceof HoopMultiSplitLeaf) {
-	    root.setBounds(bounds);
-	}
-	else if (root instanceof HoopMultiSplitSplitter) {
-		HoopMultiSplitSplitter split = (HoopMultiSplitSplitter)root;
-	    Iterator<HoopMultiSplitNode> splitChildren = split.getChildren().iterator();
-	    Rectangle childBounds = null;
-	    int dividerSize = getDividerSize();
+    private void layout1(HoopMultiSplitNode root, Rectangle bounds) 
+    {
+    	//debug ("layout1 ()");
+    	
+    	if (root instanceof HoopMultiSplitLeaf) 
+    	{
+    		root.setBounds(bounds);
+    	}
+    	else if (root instanceof HoopMultiSplitSplitter) 
+    	{
+    		HoopMultiSplitSplitter split = (HoopMultiSplitSplitter)root;
+    		Iterator<HoopMultiSplitNode> splitChildren = split.getChildren().iterator();
+    		Rectangle childBounds = null;
+    		int dividerSize = getDividerSize();
 	    
-	    /* Layout the Split's child HoopMultiSplitNodes' along the X axis.  The bounds 
-	     * of each child will have the same y coordinate and height as the 
-	     * layout1() bounds argument.  
-	     * 
-	     * Note: the column layout code - that's the "else" clause below
-	     * this if, is identical to the X axis (rowLayout) code below.
-	     */
-	    if (split.isRowLayout()) {
-		double x = bounds.getX();
-		while(splitChildren.hasNext()) {
-		    HoopMultiSplitNode splitChild = splitChildren.next();
-		    HoopMultiSplitDivider dividerChild = 
-			(splitChildren.hasNext()) ? (HoopMultiSplitDivider)(splitChildren.next()) : null;
+    		/* Layout the Split's child HoopMultiSplitNodes' along the X axis.  The bounds 
+    		 * of each child will have the same y coordinate and height as the 
+    		 * layout1() bounds argument.  
+    		 * 
+    		 * Note: the column layout code - that's the "else" clause below
+    		 * this if, is identical to the X axis (rowLayout) code below.
+    		 */
+    		if (split.isRowLayout()) 
+    		{
+    			double x = bounds.getX();
+    			
+    			while(splitChildren.hasNext()) 
+    			{
+    				HoopMultiSplitNode splitChild = splitChildren.next();
+    				HoopMultiSplitDivider dividerChild =(splitChildren.hasNext()) ? (HoopMultiSplitDivider)(splitChildren.next()) : null;
 
-		    double childWidth = 0.0;
-		    if (getFloatingDividers()) {
-			childWidth = preferredHoopMultiSplitNodeSize(splitChild).getWidth();
-		    }
-		    else {
-			if (dividerChild != null) {
-			    childWidth = dividerChild.getBounds().getX() - x;
-			}
-			else {
-			    childWidth = split.getBounds().getMaxX() - x;
-			}
-		    }
-		    childBounds = boundsWithXandWidth(bounds, x, childWidth);
-		    layout1(splitChild, childBounds);
+    				double childWidth = 0.0;
+    				if (getFloatingDividers()) 
+    				{
+    					childWidth = preferredHoopMultiSplitNodeSize(splitChild).getWidth();
+    				}
+    				else 
+    				{
+    					if (dividerChild != null) 
+    					{
+    						childWidth = dividerChild.getBounds().getX() - x;
+    					}
+    					else 
+    					{
+    						childWidth = split.getBounds().getMaxX() - x;
+    					}
+    				}
+    				
+    				childBounds = boundsWithXandWidth(bounds, x, childWidth);
+    				layout1(splitChild, childBounds);
 
-		    if (getFloatingDividers() && (dividerChild != null)) {
-			double dividerX = childBounds.getMaxX();
-			Rectangle dividerBounds = boundsWithXandWidth(bounds, dividerX, dividerSize);
-			dividerChild.setBounds(dividerBounds);
-		    }
-		    if (dividerChild != null) {
-			x = dividerChild.getBounds().getMaxX();
-		    }
-		}
-	    }
+    				if (getFloatingDividers() && (dividerChild != null)) 
+    				{
+    					double dividerX = childBounds.getMaxX();
+    					Rectangle dividerBounds = boundsWithXandWidth(bounds, dividerX, dividerSize);
+    					dividerChild.setBounds(dividerBounds);
+    				}
+		    
+    				if (dividerChild != null) 
+    				{
+    					x = dividerChild.getBounds().getMaxX();
+    				}
+    			}
+    		}
 
-	    /* Layout the Split's child HoopMultiSplitNodes' along the Y axis.  The bounds 
-	     * of each child will have the same x coordinate and width as the 
-	     * layout1() bounds argument.  The algorithm is identical to what's
-	     * explained above, for the X axis case.
-	     */
-	    else {
-		double y = bounds.getY();
-		while(splitChildren.hasNext()) {
-		    HoopMultiSplitNode splitChild = splitChildren.next();
-		    HoopMultiSplitDivider dividerChild = 
-			(splitChildren.hasNext()) ? (HoopMultiSplitDivider)(splitChildren.next()) : null;
+    		/* Layout the Split's child HoopMultiSplitNodes' along the Y axis.  The bounds 
+    		 * of each child will have the same x coordinate and width as the 
+    		 * layout1() bounds argument.  The algorithm is identical to what's
+    		 * explained above, for the X axis case.
+    		 */
+    		else 
+    		{
+    			double y = bounds.getY();
+    			
+    			while(splitChildren.hasNext()) 
+    			{
+    				HoopMultiSplitNode splitChild = splitChildren.next();
+    				HoopMultiSplitDivider dividerChild = (splitChildren.hasNext()) ? (HoopMultiSplitDivider)(splitChildren.next()) : null;
 
-		    double childHeight = 0.0;
-		    if (getFloatingDividers()) {
-			childHeight = preferredHoopMultiSplitNodeSize(splitChild).getHeight();
-		    }
-		    else {
-			if (dividerChild != null) {
-			    childHeight = dividerChild.getBounds().getY() - y;
-			}
-			else {
-			    childHeight = split.getBounds().getMaxY() - y;
-			}
-		    }
-		    childBounds = boundsWithYandHeight(bounds, y, childHeight);
-		    layout1(splitChild, childBounds);
+    				double childHeight = 0.0;
+    				
+    				if (getFloatingDividers()) 
+    				{
+    					childHeight = preferredHoopMultiSplitNodeSize(splitChild).getHeight();
+    				}
+    				else 
+    				{
+    					if (dividerChild != null) 
+    					{
+    						childHeight = dividerChild.getBounds().getY() - y;
+    					}
+    					else 
+    					{
+    						childHeight = split.getBounds().getMaxY() - y;
+    					}
+    				}
+    				
+    				childBounds = boundsWithYandHeight(bounds, y, childHeight);
+    				layout1(splitChild, childBounds);
 
-		    if (getFloatingDividers() && (dividerChild != null)) {
-			double dividerY = childBounds.getMaxY();
-			Rectangle dividerBounds = boundsWithYandHeight(bounds, dividerY, dividerSize);
-			dividerChild.setBounds(dividerBounds);
-		    }
-		    if (dividerChild != null) {
-			y = dividerChild.getBounds().getMaxY();
-		    }
-		}
-	    }
-	    /* The bounds of the Split node root are set to be just
-	     * big enough to contain all of its children, but only
-	     * along the axis it's allocating space on.  That's 
-	     * X for rows, Y for columns.  The second pass of the 
-	     * layout algorithm - see layoutShrink()/layoutGrow() 
-	     * allocates extra space.
-	     */
-	    minimizeSplitBounds(split, bounds);
-	}
+    				if (getFloatingDividers() && (dividerChild != null)) 
+    				{
+    					double dividerY = childBounds.getMaxY();
+    					Rectangle dividerBounds = boundsWithYandHeight(bounds, dividerY, dividerSize);
+    					dividerChild.setBounds(dividerBounds);
+    				}
+    				if (dividerChild != null) 
+    				{
+    					y = dividerChild.getBounds().getMaxY();
+    				}
+    			}
+    		}
+    		
+    		/* The bounds of the Split node root are set to be just
+    		 * big enough to contain all of its children, but only
+    		 * along the axis it's allocating space on.  That's 
+    		 * X for rows, Y for columns.  The second pass of the 
+    		 * layout algorithm - see layoutShrink()/layoutGrow() 
+    		 * allocates extra space.
+    		 */
+    		
+    		minimizeSplitBounds(split, bounds);
+    	}
     }
 
     /** 
@@ -843,8 +877,16 @@ public class HoopMultiSplitLayout extends HoopRoot implements LayoutManager
     	throw new InvalidLayoutException(msg, node);
     }
 
+    /**
+     * This method checks to see if any of the weights in the current split
+     * add up to 1.0 or more.
+     * 
+     * @param root
+     */
     private void checkLayout(HoopMultiSplitNode root) 
     {
+    	//debug ("checkLayout ()");
+    	
     	if (root instanceof HoopMultiSplitSplitter) 
     	{
     		HoopMultiSplitSplitter split = (HoopMultiSplitSplitter)root;
@@ -852,26 +894,38 @@ public class HoopMultiSplitLayout extends HoopRoot implements LayoutManager
     		{
     			throwInvalidLayout("Split must have > 2 children", root);
     		}
-	    Iterator<HoopMultiSplitNode> splitChildren = split.getChildren().iterator();
-	    double weight = 0.0;
-	    while(splitChildren.hasNext()) {
-		HoopMultiSplitNode splitChild = splitChildren.next();
-		if (splitChild instanceof HoopMultiSplitDivider) {
-		    throwInvalidLayout("expected a Split or Leaf HoopMultiSplitNode", splitChild);
-		}
-		if (splitChildren.hasNext()) {
-		    HoopMultiSplitNode dividerChild = splitChildren.next();
-		    if (!(dividerChild instanceof HoopMultiSplitDivider)) {
-			throwInvalidLayout("expected a Divider HoopMultiSplitNode", dividerChild);
-		    }
-		}
-		weight += splitChild.getWeight();
-		checkLayout(splitChild);
-	    }
-	    if (weight > 1.0) {
-		throwInvalidLayout("Split children's total weight > 1.0", root);
-	    }
-	}
+    		
+    		Iterator<HoopMultiSplitNode> splitChildren = split.getChildren().iterator();
+    		double weight = 0.0;
+    		
+    		while(splitChildren.hasNext()) 
+    		{
+    			HoopMultiSplitNode splitChild = splitChildren.next();
+    			
+    			if (splitChild instanceof HoopMultiSplitDivider) 
+    			{
+    				throwInvalidLayout("expected a Split or Leaf HoopMultiSplitNode", splitChild);
+    			}
+    			
+    			if (splitChildren.hasNext()) 
+    			{
+    				HoopMultiSplitNode dividerChild = splitChildren.next();
+    				
+    				if (!(dividerChild instanceof HoopMultiSplitDivider)) 
+    				{
+    					throwInvalidLayout("expected a Divider HoopMultiSplitNode", dividerChild);
+    				}
+    			}
+    			
+    			weight += splitChild.getWeight();
+    			checkLayout(splitChild);
+    		}
+    		
+    		if (weight > 1.0) 
+    		{
+    			throwInvalidLayout("Split children's total weight > 1.0", root);
+    		}
+    	}
     }
 
     /** 
@@ -879,32 +933,52 @@ public class HoopMultiSplitLayout extends HoopRoot implements LayoutManager
      * the layout model, and then set the bounds of each child component
      * with a matching Leaf HoopMultiSplitNode.
      */
-    public void layoutContainer(Container parent) {
-	checkLayout(getModel());
-	Insets insets = parent.getInsets();
-	Dimension size = parent.getSize();
-	int width = size.width - (insets.left + insets.right);
-	int height = size.height - (insets.top + insets.bottom);
-	Rectangle bounds = new Rectangle(insets.left, insets.top, width, height);
-	layout1(getModel(), bounds); 
-	layout2(getModel(), bounds); 
+    public void layoutContainer(Container parent) 
+    {
+    	//debug ("layoutContainer ()");
+    	
+    	checkLayout(getModel());
+    	
+    	Insets insets = parent.getInsets();
+    	Dimension size = parent.getSize();
+    	int width = size.width - (insets.left + insets.right);
+    	int height = size.height - (insets.top + insets.bottom);
+    	
+    	debug ("Size: " + width + "," + height);
+    	
+    	Rectangle bounds = new Rectangle(insets.left, insets.top, width, height);
+    	
+    	layout1(getModel(), bounds);
+    	
+    	layout2(getModel(), bounds);    	
     }
-
-
-    private HoopMultiSplitDivider dividerAt(HoopMultiSplitNode root, int x, int y) {
-	if (root instanceof HoopMultiSplitDivider) {
-		HoopMultiSplitDivider divider = (HoopMultiSplitDivider)root;
-	    return (divider.getBounds().contains(x, y)) ? divider : null;
-	}
-	else if (root instanceof HoopMultiSplitSplitter) {
-		HoopMultiSplitSplitter split = (HoopMultiSplitSplitter)root;
-	    for(HoopMultiSplitNode child : split.getChildren()) {
-		if (child.getBounds().contains(x, y)) {
-		    return dividerAt(child, x, y);
-		}
-	    }
-	}
-	return null;
+    /**
+     * 
+     * @param root
+     * @param x
+     * @param y
+     * @return
+     */
+    private HoopMultiSplitDivider dividerAt(HoopMultiSplitNode root, int x, int y) 
+    {
+    	if (root instanceof HoopMultiSplitDivider) 
+    	{
+    		HoopMultiSplitDivider divider = (HoopMultiSplitDivider)root;
+    		return (divider.getBounds().contains(x, y)) ? divider : null;
+    	}
+    	else if (root instanceof HoopMultiSplitSplitter) 
+    	{
+    		HoopMultiSplitSplitter split = (HoopMultiSplitSplitter)root;
+    		for(HoopMultiSplitNode child : split.getChildren()) 
+    		{
+    			if (child.getBounds().contains(x, y)) 
+    			{
+    				return dividerAt(child, x, y);
+    			}
+    		}
+    	}
+    	
+    	return null;
     }
 
     /** 
@@ -915,35 +989,56 @@ public class HoopMultiSplitLayout extends HoopRoot implements LayoutManager
      * @param y y coordinate
      * @return the Divider at x,y
      */
-    public HoopMultiSplitDivider dividerAt(int x, int y) {
-	return dividerAt(getModel(), x, y);
+    public HoopMultiSplitDivider dividerAt(int x, int y) 
+    {
+    	return dividerAt(getModel(), x, y);
     }
-
-    private boolean nodeOverlapsRectangle(HoopMultiSplitNode node, Rectangle r2) {
-	Rectangle r1 = node.getBounds();
-	return 
+    /**
+     * 
+     * @param node
+     * @param r2
+     * @return
+     */
+    private boolean nodeOverlapsRectangle(HoopMultiSplitNode node, Rectangle r2) 
+    {
+    	Rectangle r1 = node.getBounds();
+    	
+    	return 
 	    (r1.x <= (r2.x + r2.width)) && ((r1.x + r1.width) >= r2.x) &&
 	    (r1.y <= (r2.y + r2.height)) && ((r1.y + r1.height) >= r2.y);
     }
-
-    private List<HoopMultiSplitDivider> dividersThatOverlap(HoopMultiSplitNode root, Rectangle r) {
-	if (nodeOverlapsRectangle(root, r) && (root instanceof HoopMultiSplitSplitter)) {
-	    List<HoopMultiSplitDivider> dividers = new ArrayList();
-	    for(HoopMultiSplitNode child : ((HoopMultiSplitSplitter)root).getChildren()) {
-		if (child instanceof HoopMultiSplitDivider) {
-		    if (nodeOverlapsRectangle(child, r)) {
-			dividers.add((HoopMultiSplitDivider)child);
-		    }
-		}
-		else if (child instanceof HoopMultiSplitSplitter) {
-		    dividers.addAll(dividersThatOverlap(child, r));
-		}
-	    }
+    /**
+     * 
+     * @param root
+     * @param r
+     * @return
+     */
+    private List<HoopMultiSplitDivider> dividersThatOverlap(HoopMultiSplitNode root, Rectangle r) 
+    {
+    	if (nodeOverlapsRectangle(root, r) && (root instanceof HoopMultiSplitSplitter)) 
+    	{
+    		List<HoopMultiSplitDivider> dividers = new ArrayList();
+    		
+    		for(HoopMultiSplitNode child : ((HoopMultiSplitSplitter)root).getChildren()) 
+    		{
+    			if (child instanceof HoopMultiSplitDivider) 
+    			{
+    				if (nodeOverlapsRectangle(child, r)) 
+    				{
+    					dividers.add((HoopMultiSplitDivider)child);
+    				}
+    			}
+    			else if (child instanceof HoopMultiSplitSplitter) 
+    			{
+    				dividers.addAll(dividersThatOverlap(child, r));
+    			}
+    		}
             return dividers;
-	}
-	else {
-	    return Collections.emptyList();
-	}
+    	}
+    	else 
+    	{
+    		return Collections.emptyList();
+    	}
     }
 
     /**
@@ -954,11 +1049,14 @@ public class HoopMultiSplitLayout extends HoopRoot implements LayoutManager
      * @return the Dividers that overlap r
      * @throws IllegalArgumentException if the Rectangle is null
      */
-    public List<HoopMultiSplitDivider> dividersThatOverlap(Rectangle r) {
-	if (r == null) {
-	    throw new IllegalArgumentException("null Rectangle");
-	}
-	return dividersThatOverlap(getModel(), r);
+    public List<HoopMultiSplitDivider> dividersThatOverlap(Rectangle r) 
+    {
+    	if (r == null) 
+    	{
+    		throw new IllegalArgumentException("null Rectangle");
+    	}
+    	
+    	return dividersThatOverlap(getModel(), r);
     }
 
     
@@ -968,40 +1066,53 @@ public class HoopMultiSplitLayout extends HoopRoot implements LayoutManager
     /**
      * 
      */
-    private static void throwParseException(StreamTokenizer st, String msg) throws Exception {
-	throw new Exception("HoopMultiSplitLayout.parseModel Error: " + msg);
+    private static void throwParseException(StreamTokenizer st, String msg) throws Exception 
+    {
+    	throw new Exception("HoopMultiSplitLayout.parseModel Error: " + msg);
     }
     /**
      * 
      */
-    private static void parseAttribute(String name, StreamTokenizer st, HoopMultiSplitNode node) throws Exception {
-	if ((st.nextToken() != '=')) {
-	    throwParseException(st, "expected '=' after " + name);
-	}
-	if (name.equalsIgnoreCase("WEIGHT")) {
-	    if (st.nextToken() == StreamTokenizer.TT_NUMBER) {
-		node.setWeight(st.nval);
-	    }
-	    else { 
-		throwParseException(st, "invalid weight");
-	    }
-	}
-	else if (name.equalsIgnoreCase("NAME")) {
-	    if (st.nextToken() == StreamTokenizer.TT_WORD) {
-		if (node instanceof HoopMultiSplitLeaf) {
-		    ((HoopMultiSplitLeaf)node).setName(st.sval);
-		}
-		else {
-		    throwParseException(st, "can't specify name for " + node);
-		}
-	    }
-	    else {
-		throwParseException(st, "invalid name");
-	    }
-	}
-	else {
-	    throwParseException(st, "unrecognized attribute \"" + name + "\"");
-	}
+    private static void parseAttribute(String name, StreamTokenizer st, HoopMultiSplitNode node) throws Exception 
+    {
+    	if ((st.nextToken() != '=')) 
+    	{
+    		throwParseException(st, "expected '=' after " + name);
+    	}
+    	
+    	if (name.equalsIgnoreCase("WEIGHT")) 
+    	{
+    		if (st.nextToken() == StreamTokenizer.TT_NUMBER) 
+    		{
+    			node.setWeight(st.nval);
+    		}
+    		else 
+    		{ 
+    			throwParseException(st, "invalid weight");
+    		}
+    	}
+    	else if (name.equalsIgnoreCase("NAME")) 
+    	{
+    		if (st.nextToken() == StreamTokenizer.TT_WORD) 
+    		{
+    			if (node instanceof HoopMultiSplitLeaf) 
+    			{
+    				((HoopMultiSplitLeaf)node).setName(st.sval);
+    			}
+    			else 
+    			{
+    				throwParseException(st, "can't specify name for " + node);
+    			}
+    		}
+    		else 
+    		{
+    			throwParseException(st, "invalid name");
+    		}
+    	}
+    	else 
+    	{
+    		throwParseException(st, "unrecognized attribute \"" + name + "\"");
+    	}
     }
     /**
      * 
@@ -1109,7 +1220,9 @@ public class HoopMultiSplitLayout extends HoopRoot implements LayoutManager
     	try 
     	{
     		HoopMultiSplitSplitter root = new HoopMultiSplitSplitter();
+    		
     		parseSplit(st, root);
+    		
     		return root.getChildren().get(0);
     	}
     	catch (Exception e) 

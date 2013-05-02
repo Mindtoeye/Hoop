@@ -32,6 +32,9 @@ import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 import javax.swing.text.Document;
 
+import edu.cmu.cs.in.base.HoopRoot;
+import edu.cmu.cs.in.hoop.HoopCommandProcessor;
+
 /*
  * 
  */
@@ -40,12 +43,16 @@ public class HoopHTMLPane extends JScrollPane implements HyperlinkListener
 	private static final long serialVersionUID = 5848133235678518042L;
 	
 	private JEditorPane html=null;
-
-    /*
+	
+	private HoopCommandProcessor commandProcessor=null;
+	
+    /**
      * 
      */    
     public HoopHTMLPane () 
     {    	
+    	debug ("HoopHTMLPane ()");
+    	
     	html = new JEditorPane();
     	html.setEditable(false);
     	html.addHyperlinkListener(this);
@@ -54,15 +61,25 @@ public class HoopHTMLPane extends JScrollPane implements HyperlinkListener
     	vp.add(html);	
     }
     /**
+     * 
+     */
+    private void debug (String aMessage)
+    {
+    	HoopRoot.debug("HoopHTMLPane",aMessage);
+    }
+    /**
      * Notification of a change relative to a hyperlink.
      */
     public void hyperlinkUpdate(HyperlinkEvent e) 
     {
-    	//debug ("hyperlinkUpdate ()");
+    	debug ("hyperlinkUpdate ()");
     	
     	if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) 
     	{
-    		linkActivated(e.getURL());
+    		if (e.getURL()!=null)
+    			linkActivated(e.getURL());
+    		else
+    			debug ("Error: no URL object in hyperlink event");
     	}
     }
     /**
@@ -79,6 +96,21 @@ public class HoopHTMLPane extends JScrollPane implements HyperlinkListener
      */
     protected void linkActivated(URL u) 
     {
+    	debug ("linkActivated ("+u.toString()+")");
+    	
+    	String tester=u.toString();
+    	
+    	int commandIndex=tester.indexOf("hoop_");
+    	
+    	if (commandIndex!=-1)
+    	{
+    		debug ("Processing internal hoop command ...");
+    		
+    		processHoopCommand (tester.substring(commandIndex+5));
+    		
+    		return;
+    	}
+    	
     	Cursor c = html.getCursor();
     	Cursor waitCursor = Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR);
     	html.setCursor(waitCursor);
@@ -143,5 +175,31 @@ public class HoopHTMLPane extends JScrollPane implements HyperlinkListener
     
     	linkActivated (url);
     }
+    /**
+     * 
+     */
+    private void processHoopCommand (String aCommand)
+    {
+    	debug ("processHoopCommand ("+aCommand+")");
+    	
+    	if (commandProcessor!=null)
+    		commandProcessor.processCommand(aCommand);
+    }
+    /**
+     * 
+     * @return
+     */
+	public HoopCommandProcessor getCommandProcessor() 
+	{
+		return commandProcessor;
+	}
+	/**
+	 * 
+	 * @param commandProcessor
+	 */
+	public void setCommandProcessor(HoopCommandProcessor commandProcessor) 
+	{
+		this.commandProcessor = commandProcessor;
+	}
 }
 
