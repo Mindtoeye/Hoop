@@ -207,7 +207,7 @@ public class Hoop
 		}           
           
         UIDefaults defaults = UIManager.getLookAndFeelDefaults();  
-        defaults.put("Separator.foreground", new ColorUIResource(100,100,100));  
+        defaults.put("Separator.foreground", new ColorUIResource(0,0,0));  
         
         frame=new HoopMainFrame ();
         frame.setResizable(true);

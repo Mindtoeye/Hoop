@@ -47,7 +47,7 @@ import org.apache.hadoop.util.*;
 import edu.cmu.cs.in.search.HoopDataSet;
 import edu.cmu.cs.in.base.HoopRoot;
 import edu.cmu.cs.in.base.HoopStringTools;
-import edu.cmu.cs.in.base.io.HoopFileManager;
+//import edu.cmu.cs.in.base.io.HoopFileManager;
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.stats.HoopPerformanceMeasure;
 import edu.cmu.cs.in.stats.HoopStatistics;

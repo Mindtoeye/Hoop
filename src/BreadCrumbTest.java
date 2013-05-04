@@ -47,10 +47,9 @@ import org.pushingpixels.flamingo.api.common.StringValuePair;
 
 public class BreadCrumbTest extends JFrame 
 {
+	private static final long serialVersionUID = -8486789898611546556L;
 	protected BreadcrumbFileSelector bar;
-
 	protected ExplorerFileViewPanel<File> filePanel;
-
 	protected JScrollPane fileListScrollPane;
 
 	public BreadCrumbTest() 

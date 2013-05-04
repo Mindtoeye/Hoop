@@ -39,6 +39,7 @@ import edu.cmu.cs.in.hoop.execute.HoopExecuteInEditor;
 import edu.cmu.cs.in.hoop.hoops.base.HoopAnalyze;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopControlBase;
+import edu.cmu.cs.in.hoop.hoops.base.HoopDisplayBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopLoadBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopSaveBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopTransformBase;
@@ -206,7 +207,7 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 		
 		if (this.hoop instanceof HoopLoadBase)
 		{
-			backgrColor=new Color (255,255,218);	
+			backgrColor=new Color (255,255,165);	
 		}
 		
 		if (this.hoop instanceof HoopSaveBase)
@@ -227,8 +228,13 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 		if (this.hoop instanceof HoopAnalyze)
 		{
 			backgrColor=new Color (62,105,157);
-		}		
+		}
 		
+		if (this.hoop instanceof HoopDisplayBase)
+		{
+			backgrColor=new Color (209,202,163);
+		}
+						
 		setBackground(backgrColor);
 		titleBar.setBackground(backgrColor);
 		toolBar.setBackground(backgrColor);
