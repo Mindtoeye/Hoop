@@ -44,6 +44,8 @@ public class HoopUIMAConfigurationLoadBase extends HoopLoadBase implements HoopI
 
 	public static String aePath;
 		
+	public static String typePath;
+	public static String typeFsPath;
 	/**
 	 *
 	 */
@@ -102,6 +104,8 @@ public class HoopUIMAConfigurationLoadBase extends HoopLoadBase implements HoopI
 		fs = uimaConfigurationFileScanner.next();
 		aedPath = uimaConfigurationFileScanner.next();
 		aePath = uimaConfigurationFileScanner.next();
+		typePath = uimaConfigurationFileScanner.next();
+		typeFsPath = uimaConfigurationFileScanner.next();
 	
 		try {
 			JCas jCas = createJCas();

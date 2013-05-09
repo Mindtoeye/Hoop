@@ -12,6 +12,7 @@ import org.apache.uima.analysis_engine.AnalysisEngine;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.resource.metadata.TypeSystemDescription;
 
+import edu.cmu.cs.in.base.io.HoopClassLoader;
 import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.base.kv.HoopKVString;
 import edu.cmu.cs.in.hoop.hoops.base.HoopAnalyze;
@@ -41,7 +42,9 @@ public class HoopGenericAnnotator extends HoopAnalyze implements HoopInterface{
 			jCas = createJCas(tsd);
 	        jCas.setDocumentText(inHoop.getjCasList().get(0).getDocumentText());        
 	        getjCasList().add(0, jCas);
-	        Class c = Class.forName(HoopUIMAConfigurationLoadBase.aePath);
+	        
+	        HoopClassLoader classLoader = new HoopClassLoader();
+	        Class c = classLoader.loadClass(HoopUIMAConfigurationLoadBase.aePath, null);
 	        AnalysisEngine analysisEngine = createPrimitive(c, tsd);
 	        analysisEngine.process(jCas);
 		} catch (UIMAException e) {

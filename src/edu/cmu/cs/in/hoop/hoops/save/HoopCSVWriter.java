@@ -18,136 +18,177 @@
 
 package edu.cmu.cs.in.hoop.hoops.save;
 
+import static org.uimafit.util.JCasUtil.select;
+
 import java.util.ArrayList;
 
+import org.apache.uima.jcas.JCas;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+import edu.cmu.cs.in.base.io.HoopClassLoader;
 import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.base.HoopDataType;
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
+import edu.cmu.cs.in.hoop.hoops.load.HoopUIMAConfigurationLoadBase;
 import edu.cmu.cs.in.hoop.properties.types.HoopBooleanSerializable;
 import edu.cmu.cs.in.hoop.properties.types.HoopEnumSerializable;
 
 /**
-* http://stackoverflow.com/questions/769621/dealing-with-commas-in-a-csv-file
-*/
-public class HoopCSVWriter extends HoopFileSaveBase
-{    				
+ * http://stackoverflow.com/questions/769621/dealing-with-commas-in-a-csv-file
+ */
+public class HoopCSVWriter extends HoopFileSaveBase {
 	private static final long serialVersionUID = -6882137805233073782L;
-	private HoopEnumSerializable writeMode=null; // APPEND, OVERWRITE	
-	private HoopEnumSerializable mode=null; // TAB,COMMA,DASH
-	private HoopBooleanSerializable includeHeader=null;
-	
+	private HoopEnumSerializable writeMode = null; // APPEND, OVERWRITE
+	private HoopEnumSerializable mode = null; // TAB,COMMA,DASH
+	private HoopBooleanSerializable includeHeader = null;
+
 	/**
 	 *
 	 */
-    public HoopCSVWriter () 
-    {
-		setClassName ("HoopCSVWriter");
-		debug ("HoopCSVWriter ()");
-				
-		setHoopDescription ("Save KVs in CSV format");
-		setFileExtension ("csv");
-				
-		writeMode=new HoopEnumSerializable (this,"writeMode","OVERWRITE,APPEND");
-		mode=new HoopEnumSerializable (this,"mode","COMMA,TAB,DASH,PIPE");
-		includeHeader=new HoopBooleanSerializable (this,"includeHeader",false);
-    }
-    /**
+	public HoopCSVWriter() {
+		setClassName("HoopCSVWriter");
+		debug("HoopCSVWriter ()");
+
+		setHoopDescription("Save KVs in CSV format");
+		setFileExtension("csv");
+
+		writeMode = new HoopEnumSerializable(this, "writeMode",
+				"OVERWRITE,APPEND");
+		mode = new HoopEnumSerializable(this, "mode", "COMMA,TAB,DASH,PIPE");
+		includeHeader = new HoopBooleanSerializable(this, "includeHeader",
+				false);
+	}
+
+	/**
      * 
      */
-    public String getSeparatorChar ()
-    {
-    	if (mode.getValue().equalsIgnoreCase("TAB")==true)
-    		return ("\t");
-    	
-    	if (mode.getValue().equalsIgnoreCase("COMMA")==true)
-    		return (",");
-    	
-    	if (mode.getValue().equalsIgnoreCase("DASH")==true)
-    		return ("-");
-    	
-    	if (mode.getValue().equalsIgnoreCase("PIPE")==true)
-    		return ("|");
-    	
-    	return (",");
-    }
+	public String getSeparatorChar() {
+		if (mode.getValue().equalsIgnoreCase("TAB") == true)
+			return ("\t");
+
+		if (mode.getValue().equalsIgnoreCase("COMMA") == true)
+			return (",");
+
+		if (mode.getValue().equalsIgnoreCase("DASH") == true)
+			return ("-");
+
+		if (mode.getValue().equalsIgnoreCase("PIPE") == true)
+			return ("|");
+
+		return (",");
+	}
+
 	/**
 	 *
 	 */
-	public Boolean runHoop (HoopBase inHoop)
-	{		
-		debug ("runHoop ()");
-		
-		String sepChar=getSeparatorChar ();
-		
-		debug ("Writing CSV file using separator: " + mode.getValue() + ": " + sepChar);
-		
-		StringBuffer formatted=new StringBuffer ();		
-		
-		if ((this.getExecutionCount()==0) && (includeHeader.getPropValue()==true))
-		{		
-			ArrayList <HoopDataType> types=inHoop.getTypes();
-						
-			for (int n=0;n<types.size();n++)
-			{
-				if (n>0)
-				{
+	public Boolean runHoop(HoopBase inHoop) {
+		debug("runHoop ()");
+
+		String sepChar = getSeparatorChar();
+
+		debug("Writing CSV file using separator: " + mode.getValue() + ": "
+				+ sepChar);
+
+		StringBuffer formatted = new StringBuffer();
+
+		if ((this.getExecutionCount() == 0)
+				&& (includeHeader.getPropValue() == true)) {
+			ArrayList<HoopDataType> types = inHoop.getTypes();
+
+			for (int n = 0; n < types.size(); n++) {
+				if (n > 0) {
 					formatted.append(sepChar);
-				}	
-			
-				HoopDataType aType=types.get(n);			
-				formatted.append (aType.getTypeValue());
+				}
+
+				HoopDataType aType = types.get(n);
+				formatted.append(aType.getTypeValue());
 				formatted.append("(");
 				formatted.append(aType.typeToString());
 				formatted.append(")");
 			}
-		
+
 			formatted.append("\n");
-		}	
-		
-		ArrayList <HoopKV> inData=inHoop.getData();
-							
-		if (inData!=null)
-		{			
-			for (int t=0;t<inData.size();t++)
-			{
-				HoopKV aKV=inData.get(t);
-								
-				formatted.append(aKV.getKeyString ());
-				
-				ArrayList<Object> vals=aKV.getValuesRaw();
-				
-				for (int i=0;i<vals.size();i++)
-				{
+		}
+
+		ArrayList<HoopKV> inData = inHoop.getData();
+		ArrayList<JCas> inJCasList = inHoop.getjCasList();
+
+		if (inData != null) {
+			for (int t = 0; t < inData.size(); t++) {
+				HoopKV aKV = inData.get(t);
+
+				formatted.append(aKV.getKeyString());
+
+				ArrayList<Object> vals = aKV.getValuesRaw();
+
+				for (int i = 0; i < vals.size(); i++) {
 					formatted.append(sepChar);
 					formatted.append(vals.get(i));
 				}
-				
+
 				formatted.append("\n");
-				
-				StringBuffer aStatus=new StringBuffer ();
-				
-				updateProgressStatus (t+1,inData.size());
+
+				StringBuffer aStatus = new StringBuffer();
+
+				updateProgressStatus(t + 1, inData.size());
 			}
-			
-			String filePath = URI.getValue() + "." + URI.getFileExtension();
-			if (writeMode.getValue().equals("OVERWRITE")==true)
-			{
-				HoopLink.fManager.saveContents (this.projectToFullPath(filePath),formatted.toString());
-			}
-			else
-			{
-				HoopLink.fManager.appendContents (this.projectToFullPath(filePath),formatted.toString());
-			}
-		}	
+
+			if (inJCasList != null) {
+		        HoopClassLoader classLoader = new HoopClassLoader();
+		        
+		        Class c, c1;
+				try {
+					c = classLoader.loadClass(HoopUIMAConfigurationLoadBase.typePath, null);
+			        Method m1 = c.getMethod("getCoveredText", null);
+
+			        for (Object o  : select(inHoop.getjCasList().get(0), c)) {						
+				        Object coveredText = m1.invoke(o, null);
+						System.out.println(coveredText.toString());
+
+						formatted.append(coveredText.toString());
 						
+						formatted.append("\n");
+					}
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (NoSuchMethodException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SecurityException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalAccessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalArgumentException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InvocationTargetException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}		
+			}
+			String filePath = URI.getValue() + "." + URI.getFileExtension();
+			if (writeMode.getValue().equals("OVERWRITE") == true) {
+				HoopLink.fManager.saveContents(
+						this.projectToFullPath(filePath), formatted.toString());
+			} else {
+				HoopLink.fManager.appendContents(
+						this.projectToFullPath(filePath), formatted.toString());
+			}
+		}
+
 		return (true);
-	}	
+	}
+
 	/**
 	 * 
 	 */
-	public HoopBase copy ()
-	{
-		return (new HoopCSVWriter ());
-	}	
+	public HoopBase copy() {
+		return (new HoopCSVWriter());
+	}
 }
