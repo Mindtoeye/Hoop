@@ -57,6 +57,7 @@ public class HoopBroker extends HoopSocketServerBase
     {
 		setClassName ("HoopBroker");
 		debug ("HoopBroker ()");
+
 		HoopRoot.debug ("Hoop","Running on: "+HoopHadoopReporter.getMachineName ());
 		
 		monitorList=new ArrayList<HoopMonitorConnection> ();
@@ -97,7 +98,7 @@ public class HoopBroker extends HoopSocketServerBase
     public Boolean parseArgs (String args [])
     {
     	dbg ("parseArgs ()");
-        	
+
         for (int i = 0; i < args.length; i++)
         {        	
         	if (args [i].compareTo ("-port")==0)

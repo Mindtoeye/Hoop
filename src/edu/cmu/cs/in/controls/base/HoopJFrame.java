@@ -127,7 +127,6 @@ public class HoopJFrame extends JFrame
 		int y = (dim.height-h)/2;
 		 
 		// Move the window
-				
 		aWindow.setLocation(x, y);
 	}	
 	/**

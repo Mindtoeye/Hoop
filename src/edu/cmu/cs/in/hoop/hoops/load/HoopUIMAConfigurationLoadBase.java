@@ -2,9 +2,12 @@ package edu.cmu.cs.in.hoop.hoops.load;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import javax.swing.JPanel;
 
+import org.apache.uima.UIMAException;
+import org.apache.uima.jcas.JCas;
 import org.jdom.Element;
 
 import edu.cmu.cs.in.base.HoopDataType;
@@ -16,6 +19,10 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
 import edu.cmu.cs.in.hoop.hoops.base.HoopLoadBase;
 import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
+import static org.uimafit.factory.AnalysisEngineFactory.createPrimitive;
+import static org.uimafit.factory.JCasFactory.createJCas;
+import static org.uimafit.factory.TypeSystemDescriptionFactory.createTypeSystemDescription;
+import static org.uimafit.util.JCasUtil.select;
 
 public class HoopUIMAConfigurationLoadBase extends HoopLoadBase implements HoopInterface {
 
@@ -24,7 +31,21 @@ public class HoopUIMAConfigurationLoadBase extends HoopLoadBase implements HoopI
 	public HoopURISerializable URI=null;
 	private HoopFileTools fTools=null;
 	private ArrayList <String> files=null;
+
+	public static Scanner uimaConfigurationFileScanner;
+
+	public static String tsdPath;
+
+	public static String type;
+
+	public static String fs;
+
+	public static String aedPath;
+
+	public static String aePath;
 		
+	public static String typePath;
+	public static String typeFsPath;
 	/**
 	 *
 	 */
@@ -77,25 +98,23 @@ public class HoopUIMAConfigurationLoadBase extends HoopLoadBase implements HoopI
 			return (false);
 		}
 		
-//		HoopKVString fileKV=new HoopKVString ();
-//	
-//		Long stringStamp=HoopLink.fManager.getFileTime(aPath);
-//		File namer=new File (aPath);
-//				
-//		fileKV.setKey (fTools.getFileTimeString(stringStamp));
-//		fileKV.setValue (contents);
-//		fileKV.add (HoopLink.fManager.getURI());	
-//		fileKV.add (namer.getName());
-//		fileKV.add (fTools.getFileTimeString(stringStamp)); // Created
-//		fileKV.add (fTools.getFileTimeString(stringStamp)); // Modified
-//		fileKV.add ("unknown"); // Owner
-//		
-//		/*
-//		UserPrincipal owner = Files.getOwner(path);
-//		String username = owner.getName();
-//		*/
-//							
-//		addKV (fileKV);
+		uimaConfigurationFileScanner = new Scanner(contents);
+		tsdPath = uimaConfigurationFileScanner.next();
+		type = uimaConfigurationFileScanner.next();
+		fs = uimaConfigurationFileScanner.next();
+		aedPath = uimaConfigurationFileScanner.next();
+		aePath = uimaConfigurationFileScanner.next();
+		typePath = uimaConfigurationFileScanner.next();
+		typeFsPath = uimaConfigurationFileScanner.next();
+	
+		try {
+			JCas jCas = createJCas();
+			addCas (jCas);
+		} catch (UIMAException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 		return (true);
 	}
@@ -135,10 +154,5 @@ public class HoopUIMAConfigurationLoadBase extends HoopLoadBase implements HoopI
 		return new HoopUIMAConfigurationLoadBase();
 	}
 
-	@Override
-	public JPanel getPropertiesPanel() 
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
+

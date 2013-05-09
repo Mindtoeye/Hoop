@@ -180,6 +180,7 @@ public class HoopPropertyPanel extends HoopEmbeddedJPanel implements ActionListe
 		if (aHoop==null)
 		{
 			HoopBase.debug ("HoopNodePanel","Error no hoop object provded");
+
 			return;
 		}
 		

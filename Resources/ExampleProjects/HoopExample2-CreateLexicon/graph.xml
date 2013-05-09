@@ -38,6 +38,12 @@
           <serializable class="HoopStringSerializable" instance="splitRegEx">
             <value format="Text" type="STRING">[\r\n]+</value>
           </serializable>
+          <serializable class="HoopStringSerializable" instance="skipFirstLines">
+            <value format="Text" type="STRING">0</value>
+          </serializable>
+          <serializable class="HoopStringSerializable" instance="ignoreLastLines">
+            <value format="Text" type="STRING">0</value>
+          </serializable>
         </properties>
       </hoop>
       <hoop id="a69ff061-97db-4e53-a829-12df2b38e4a9" class="HoopSentence2Tokens" name="60" active="true">

@@ -1059,10 +1059,6 @@ public class HoopMultiSplitLayout extends HoopRoot implements LayoutManager
     	return dividersThatOverlap(getModel(), r);
     }
 
-    
-    
-
-      
     /**
      * 
      */

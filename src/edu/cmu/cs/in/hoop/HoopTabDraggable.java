@@ -26,7 +26,6 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-//import java.awt.geom.*;
 import java.awt.image.*;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -35,7 +34,6 @@ import javax.swing.event.ChangeListener;
 import edu.cmu.cs.in.base.HoopRoot;
 import edu.cmu.cs.in.controls.base.HoopJPanel;
 import edu.cmu.cs.in.controls.templates.HoopAquaBarTabbedPaneUI;
-//import edu.cmu.cs.in.controls.templates.HoopCWTabbedPaneUI;
 
 public class HoopTabDraggable extends JTabbedPane implements ChangeListener, WindowListener, ComponentListener
 {	
@@ -202,7 +200,7 @@ public class HoopTabDraggable extends JTabbedPane implements ChangeListener, Win
 	    new DropTarget(glassPane, DnDConstants.ACTION_COPY_OR_MOVE,new CDropTargetListener(), true);
 	    
 	    new DragSource().createDefaultDragGestureRecognizer(this, DnDConstants.ACTION_COPY_OR_MOVE, dgl);
-	    
+
 	    this.addComponentListener(this);
 	}
 	/**

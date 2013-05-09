@@ -133,7 +133,6 @@ public class HoopExecuteInEditor extends HoopExecute implements ActionListener
 		HoopExecuteProgressPanel executionMonitor=(HoopExecuteProgressPanel) HoopLink.getWindow("Execution Monitor");
 		if (executionMonitor!=null)
 		{
-	
 			executionMonitor.stop ();
 		}
 

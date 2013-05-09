@@ -185,8 +185,6 @@ public class HoopMultiViewFrame extends HoopPreferencesJFrame
 		HoopLink.bottom=new HoopTabDraggable ();
 		HoopLink.bottom.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 		
-		//processSplitDimensions ();
-		
 		/*
  			(ROW weight=1.0 
  				(LEAF name=left weight=0.2) 
@@ -198,13 +196,13 @@ public class HoopMultiViewFrame extends HoopPreferencesJFrame
  			)
 		 */
 		
-        //String layoutDef = "(ROW weight=1.0 (LEAF name=left weight=0.2) (COLUMN weight=0.6 (LEAF name=middle weight=0.9) (LEAF name=bottom weight=0.1)) (LEAF name=right weight=0.2))";
         String layoutDef = "(ROW weight=1.0 (LEAF name=left weight=0.2) (COLUMN weight=0.6 (LEAF name=middle weight=0.9) (LEAF name=bottom weight=0.1)) (LEAF name=right weight=0.2))";
         HoopMultiSplitNode modelRoot=HoopMultiSplitLayout.parseModel(layoutDef);
 
         HoopMultiSplitPane multiSplitPane = new HoopMultiSplitPane();
         multiSplitPane.setAutoscrolls(false);
         //multiSplitPane.setContinuousLayout(false);
+
         multiSplitPane.setBackground(new Color (180,180,180));		
         multiSplitPane.setDividerSize(5);
         multiSplitPane.getMultiSplitLayout().setModel(modelRoot);
@@ -213,8 +211,7 @@ public class HoopMultiViewFrame extends HoopPreferencesJFrame
         multiSplitPane.add (HoopLink.center, "middle");
         multiSplitPane.add (HoopLink.bottom, "bottom");
        	       	
-       	cp.add (multiSplitPane, BorderLayout.CENTER);
-       	
+       	cp.add (multiSplitPane, BorderLayout.CENTER);       	
        	cp.add (HoopLink.statusBar, BorderLayout.CENTER);       	
     }
     /**

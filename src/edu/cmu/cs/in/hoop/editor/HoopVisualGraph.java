@@ -75,7 +75,6 @@ public class HoopVisualGraph extends mxGraph implements mxEventSource.mxIEventLi
 		//style.put (mxConstants.STYLE_EDGE, mxConstants.EDGESTYLE_ENTITY_RELATION);
 		//style.put (mxConstants.STYLE_EDGE, mxConstants.EDGESTYLE_ORTHOGONAL);
 		//style.put (mxConstants.STYLE_EDGE, mxConstants.ENTITY_SEGMENT);
-								
 		this.addListener (mxEvent.CELLS_REMOVED,(mxIEventListener) this);				
 	}
 	/**

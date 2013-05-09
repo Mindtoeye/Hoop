@@ -18,8 +18,13 @@
 
 package edu.cmu.cs.in.hoop.hoops.load;
 
+import static org.uimafit.factory.JCasFactory.createJCas;
+
 import java.io.File;
 import java.util.ArrayList;
+
+import org.apache.uima.UIMAException;
+import org.apache.uima.jcas.JCas;
 //import java.util.Random;
 
 import edu.cmu.cs.in.base.HoopDataType;
@@ -265,6 +270,16 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 		*/
 							
 		addKV (fileKV);
+		
+		//cas code
+		try {
+			JCas jCas = createJCas();
+			jCas.setDocumentText(contents);
+			addCas (jCas);
+		} catch (UIMAException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		return (true);
 	}
