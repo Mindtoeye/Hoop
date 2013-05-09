@@ -944,7 +944,7 @@ public class HoopMultiSplitLayout extends HoopRoot implements LayoutManager
     	int width = size.width - (insets.left + insets.right);
     	int height = size.height - (insets.top + insets.bottom);
     	
-    	debug ("Size: " + width + "," + height);
+    	//debug ("Size: " + width + "," + height);
     	
     	Rectangle bounds = new Rectangle(insets.left, insets.top, width, height);
     	
