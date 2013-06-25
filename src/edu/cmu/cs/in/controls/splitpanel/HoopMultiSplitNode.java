@@ -126,6 +126,7 @@ public class HoopMultiSplitNode extends HoopRoot
 	    }
 	    
 	    this.weight = weight;
+
 	    */
 	}
 	/**

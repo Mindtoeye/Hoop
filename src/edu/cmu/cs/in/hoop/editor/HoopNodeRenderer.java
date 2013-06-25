@@ -127,11 +127,14 @@ public class HoopNodeRenderer extends HoopJPanel implements /*MouseListener, Mou
 		setOpaque(true);
 		setBackground(backgrColor);
 		//setBorder (blackborder);
+
 		setLayout(new BorderLayout());
 		setBorder(BorderFactory.createCompoundBorder(HoopShadowBorder.getSharedInstance(), BorderFactory.createBevelBorder(BevelBorder.RAISED)));
 
 		titleBar = new JPanel();
+
 		titleBar.setBackground(backgrColor);
+
 		titleBar.setOpaque(true);
 		titleBar.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 1));
 		titleBar.setLayout(new BorderLayout());
@@ -141,6 +144,7 @@ public class HoopNodeRenderer extends HoopJPanel implements /*MouseListener, Mou
 		titleBar.add(icon, BorderLayout.WEST);
 
 		titleLabel = new JLabel(String.valueOf(graph.getLabel(cell)));
+
 		//titleLabel.setForeground(Color.WHITE);
 		titleLabel.setForeground(Color.BLACK);
 		titleLabel.setFont(new Font("Dialog", 1, 10));
@@ -206,6 +210,7 @@ public class HoopNodeRenderer extends HoopJPanel implements /*MouseListener, Mou
 		Box centerFrame = new Box (BoxLayout.Y_AXIS);
 		
 		Box contentBox = new Box (BoxLayout.X_AXIS);
+
 		//contentBox.setBorder(redborder);
 		contentBox.setMinimumSize(new Dimension(50,50));
 		contentBox.setPreferredSize(new Dimension(100,100));
@@ -214,6 +219,7 @@ public class HoopNodeRenderer extends HoopJPanel implements /*MouseListener, Mou
 		leftPortBox = new Box (BoxLayout.Y_AXIS);
 		//leftPortBox.setAlignmentX(LEFT_ALIGNMENT);
 		leftPortBox.setBackground(backgrColor);
+
 		leftPortBox.setOpaque(true);
 		leftPortBox.setMinimumSize(new Dimension(50,20));
 		leftPortBox.setPreferredSize(new Dimension(50,100));
@@ -221,6 +227,7 @@ public class HoopNodeRenderer extends HoopJPanel implements /*MouseListener, Mou
 		rightPortBox = new Box (BoxLayout.Y_AXIS);		
 		//rightPortBox.setAlignmentX(RIGHT_ALIGNMENT);
 		rightPortBox.setBackground(backgrColor);
+
 		rightPortBox.setOpaque(true);
 		rightPortBox.setMinimumSize(new Dimension(50,20));		
 		rightPortBox.setPreferredSize(new Dimension(50,100));		

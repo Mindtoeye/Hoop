@@ -205,7 +205,7 @@ public class Hoop
         	HoopRoot.debug ("HoopQueryTest","UIManager: setLookAndFeel, UnsupportedLookAndFeelException");
 			return;
 		}           
-          
+         
         UIDefaults defaults = UIManager.getLookAndFeelDefaults();  
         defaults.put("Separator.foreground", new ColorUIResource(0,0,0));  
         

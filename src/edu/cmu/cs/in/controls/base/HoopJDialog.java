@@ -25,7 +25,6 @@ import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -134,7 +133,7 @@ public class HoopJDialog extends JDialog implements ActionListener, WindowListen
 			yesButton.addActionListener(this);
 			myPanel.add(yesButton);			
 		}	
-					
+
 		this.getContentPane().add(mainBox);
 						
 		this.resizeAndCenter(HoopLink.dialogDefaultWidth,HoopLink.dialogDefaultHeight);
@@ -164,6 +163,7 @@ public class HoopJDialog extends JDialog implements ActionListener, WindowListen
 		frame.setLayout(new BoxLayout (frame,BoxLayout.Y_AXIS));
 		frame.setBackground(new Color (220,220,220));
 		frame.setMinimumSize (new Dimension (100,100));
+
 		mainBox.add(frame);
 		
 		myPanel = new JPanel();

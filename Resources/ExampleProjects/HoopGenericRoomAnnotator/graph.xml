@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hoopfile class="HoopGraphFile" instance="graph.xml">
+  <graph scale="1.0">
+    <hoops>
+      <hoop id="20c2145e-38cf-4fe4-ab31-c6fe29a8fbd4" class="HoopStart" name="67" active="true">
+        <visual x="20" y="20" width="150" height="100" />
+        <properties />
+      </hoop>
+      <hoop id="9d178e7e-03d3-4b63-b396-393a8f51b144" class="HoopUIMAConfigurationLoadBase" name="69" active="true">
+        <visual x="90" y="160" width="150" height="100" />
+        <properties>
+          <serializable class="HoopStringSerializable" instance="batchSize">
+            <value format="Text" type="STRING">100</value>
+          </serializable>
+          <serializable class="HoopStringSerializable" instance="queryMax">
+            <value format="Text" type="STRING" />
+          </serializable>
+          <serializable class="HoopEnumSerializable" instance="mode">
+            <value format="Text" type="ENUM" options="LINEAR,SAMPLE">LINEAR</value>
+          </serializable>
+          <serializable class="HoopURISerializable" instance="URI">
+            <value format="Text" type="URI" fileExtension="txt" dirsOnly="false">C:\Users\hitesh\Desktop\UIMA Configuration File.txt</value>
+          </serializable>
+        </properties>
+      </hoop>
+      <hoop id="72cd7a0d-fb33-4ad3-bda8-102867b1a7d3" class="HoopFileLoadBase" name="78" active="true">
+        <visual x="300" y="160" width="150" height="100" />
+        <properties>
+          <serializable class="HoopStringSerializable" instance="batchSize">
+            <value format="Text" type="STRING">100</value>
+          </serializable>
+          <serializable class="HoopStringSerializable" instance="queryMax">
+            <value format="Text" type="STRING" />
+          </serializable>
+          <serializable class="HoopEnumSerializable" instance="mode">
+            <value format="Text" type="ENUM" options="LINEAR,SAMPLE">LINEAR</value>
+          </serializable>
+          <serializable class="HoopURISerializable" instance="URI">
+            <value format="Text" type="URI" fileExtension="txt" dirsOnly="false">C:\Carnegie Mellon University\Temp projects\WatsonConferenceRooms.txt</value>
+          </serializable>
+        </properties>
+      </hoop>
+      <hoop id="595bc136-5f62-4a81-b757-3b87dfd46d4a" class="HoopGenericAnnotator" name="87" active="true">
+        <visual x="500" y="160" width="150" height="100" />
+        <properties>
+          <serializable class="HoopIntegerSerializable" instance="batchSize">
+            <value format="Text" type="INT">0</value>
+          </serializable>
+        </properties>
+      </hoop>
+      <hoop id="293b5805-cb81-45ac-bfc1-a4ea5f141302" class="HoopCSVWriter" name="90" active="true">
+        <visual x="660" y="30" width="150" height="100" />
+        <properties>
+          <serializable class="HoopURISerializable" instance="URI">
+            <value format="Text" type="URI" fileExtension="csv" dirsOnly="false">C:\Users\hitesh\Desktop\geenricannotation</value>
+          </serializable>
+          <serializable class="HoopEnumSerializable" instance="writeMode">
+            <value format="Text" type="ENUM" options="OVERWRITE,APPEND">OVERWRITE</value>
+          </serializable>
+          <serializable class="HoopEnumSerializable" instance="mode">
+            <value format="Text" type="ENUM" options="COMMA,TAB,DASH,PIPE">COMMA</value>
+          </serializable>
+          <serializable class="HoopBooleanSerializable" instance="includeHeader">
+            <value format="Text" type="BOOLEAN">FALSE</value>
+          </serializable>
+        </properties>
+      </hoop>
+    </hoops>
+    <connections>
+      <connection name="Edge" from="20c2145e-38cf-4fe4-ab31-c6fe29a8fbd4" to="9d178e7e-03d3-4b63-b396-393a8f51b144" />
+      <connection name="Edge" from="9d178e7e-03d3-4b63-b396-393a8f51b144" to="72cd7a0d-fb33-4ad3-bda8-102867b1a7d3" />
+      <connection name="Edge" from="72cd7a0d-fb33-4ad3-bda8-102867b1a7d3" to="595bc136-5f62-4a81-b757-3b87dfd46d4a" />
+      <connection name="Edge" from="595bc136-5f62-4a81-b757-3b87dfd46d4a" to="293b5805-cb81-45ac-bfc1-a4ea5f141302" />
+    </connections>
+  </graph>
+</hoopfile>
+

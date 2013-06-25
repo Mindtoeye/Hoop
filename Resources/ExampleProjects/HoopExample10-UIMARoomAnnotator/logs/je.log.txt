@@ -2,8 +2,8 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2013-04-14T11:54:47</date>
-  <millis>1365954887043</millis>
+  <date>2013-05-04T09:10:00</date>
+  <millis>1367673000532</millis>
   <sequence>0</sequence>
   <logger>com.sleepycat.je</logger>
   <level>INFO</level>

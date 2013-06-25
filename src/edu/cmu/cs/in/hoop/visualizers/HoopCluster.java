@@ -184,6 +184,7 @@ public class HoopCluster extends HoopEmbeddedJPanel implements ActionListener, H
 		debug (data);
 		
 		connectButton.setText("Disconnect");
+
 		hostInput.setEditable(false);
 		hostInput.setEnabled(false);
 		portInput.setEditable(false);
@@ -205,6 +206,7 @@ public class HoopCluster extends HoopEmbeddedJPanel implements ActionListener, H
 	{
 		debug ("handleConnectionClosed ()");
 		connectButton.setText("Connect");
+
 		hostInput.setEditable(true);
 		hostInput.setEnabled(true);
 		portInput.setEditable(true);

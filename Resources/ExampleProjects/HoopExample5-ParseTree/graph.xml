@@ -9,17 +9,17 @@
       <hoop id="e92a97f5-54f1-4042-83a4-e89d36366182" class="HoopFileLoadBase" name="54" active="true">
         <visual x="130" y="210" width="150" height="100" />
         <properties>
-          <serializable class="HoopURISerializable" instance="URI">
-            <value format="Text" type="URI" fileExtension="txt" dirsOnly="false">&lt;PROJECTPATH&gt;\system\import\trecgen06.txt</value>
+          <serializable class="HoopStringSerializable" instance="batchSize">
+            <value format="Text" type="STRING">1</value>
           </serializable>
-          <serializable class="HoopIntegerSerializable" instance="maxFiles">
-            <value format="Text" type="INT">1</value>
-          </serializable>
-          <serializable class="HoopIntegerSerializable" instance="batchSize">
-            <value format="Text" type="INT">1</value>
+          <serializable class="HoopStringSerializable" instance="queryMax">
+            <value format="Text" type="STRING" />
           </serializable>
           <serializable class="HoopEnumSerializable" instance="mode">
             <value format="Text" type="ENUM" options="LINEAR,SAMPLE">LINEAR</value>
+          </serializable>
+          <serializable class="HoopURISerializable" instance="URI">
+            <value format="Text" type="URI" fileExtension="txt" dirsOnly="false">&lt;PROJECTPATH&gt;\system\import\trecgen06.txt</value>
           </serializable>
         </properties>
       </hoop>
@@ -37,6 +37,12 @@
           </serializable>
           <serializable class="HoopStringSerializable" instance="splitRegEx">
             <value format="Text" type="STRING">[\r\n]+</value>
+          </serializable>
+          <serializable class="HoopStringSerializable" instance="skipFirstLines">
+            <value format="Text" type="STRING">0</value>
+          </serializable>
+          <serializable class="HoopStringSerializable" instance="ignoreLastLines">
+            <value format="Text" type="STRING">0</value>
           </serializable>
         </properties>
       </hoop>

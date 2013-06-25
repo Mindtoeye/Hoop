@@ -385,7 +385,6 @@ public class HoopLink extends HoopProperties
 	public static ArrayList<HoopSampleMeasure> timeTakenByHoops;
 	public static ArrayList<String> dataSizeForHoop;
 	
-	
 	/**
 	 *
 	 */
@@ -424,8 +423,10 @@ public class HoopLink extends HoopProperties
 		
 		if (hoopGraphManager==null)
 			hoopGraphManager=new HoopGraphManager ();		
+
 		if(timeTakenByHoops==null)
 			timeTakenByHoops=new ArrayList<HoopSampleMeasure>();
+		
 		if(dataSizeForHoop == null)
 			dataSizeForHoop = new ArrayList<String>();
     }  
@@ -511,12 +512,12 @@ public class HoopLink extends HoopProperties
 	/**
 	 *
 	 */
-   public static void removeWindow (String aWindow)
-   {
+    public static void removeWindow (String aWindow)
+    {
    		HoopRoot.debug ("HoopLink","removeWindow (String)");
    	
    		removeWindow (HoopLink.getWindow(aWindow));
-   }    
+    }    
 	/**
 	 *
 	 */

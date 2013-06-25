@@ -1,4 +1,3 @@
-
 /** 
  * Copyright (c) 1995, 2008, Oracle and/or its affiliates. All rights reserved.
  *
@@ -122,9 +121,7 @@ public class HoopTabPane extends HoopJPanel
         	button.setPreferredSize(new Dimension (20,20));
         	button.setBorder(BorderFactory.createEmptyBorder(0, 1, 0, 1));
                 
-        	this.add (button);
-        	
-        	
+        	this.add (button);        	
         }	
     }
     /**
@@ -232,4 +229,3 @@ public class HoopTabPane extends HoopJPanel
         }        
     };
 }
-
