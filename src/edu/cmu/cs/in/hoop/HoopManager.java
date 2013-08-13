@@ -24,6 +24,7 @@ import edu.cmu.cs.in.hoop.hoops.analyze.HoopCrossFold;
 import edu.cmu.cs.in.hoop.hoops.analyze.HoopCustomExperimentTest;
 import edu.cmu.cs.in.hoop.hoops.analyze.HoopDocumentTag;
 import edu.cmu.cs.in.hoop.hoops.analyze.HoopEvaluate;
+import edu.cmu.cs.in.hoop.hoops.analyze.HoopGenericAnnotator;
 import edu.cmu.cs.in.hoop.hoops.analyze.HoopKVStats;
 import edu.cmu.cs.in.hoop.hoops.analyze.HoopMatcher;
 import edu.cmu.cs.in.hoop.hoops.analyze.HoopNaiveBayes;
@@ -255,5 +256,6 @@ public class HoopManager extends HoopBase
     	addTemplate (new HoopUIMACSE ());
     	addTemplate (new HoopKV2Cas ());
     	addTemplate (new HoopUIMAConfigurationLoadBase ());
+    	addTemplate (new HoopGenericAnnotator ());
     }
 }

@@ -4,8 +4,8 @@ import static org.uimafit.factory.AnalysisEngineFactory.createPrimitive;
 import static org.uimafit.factory.JCasFactory.createJCas;
 import static org.uimafit.factory.TypeSystemDescriptionFactory.createTypeSystemDescription;
 
-import java.util.ArrayList;
-import java.util.regex.Matcher;
+//import java.util.ArrayList;
+//import java.util.regex.Matcher;
 
 import org.apache.uima.UIMAException;
 import org.apache.uima.analysis_engine.AnalysisEngine;
@@ -13,8 +13,8 @@ import org.apache.uima.jcas.JCas;
 import org.apache.uima.resource.metadata.TypeSystemDescription;
 
 import edu.cmu.cs.in.base.io.HoopClassLoader;
-import edu.cmu.cs.in.base.kv.HoopKV;
-import edu.cmu.cs.in.base.kv.HoopKVString;
+//import edu.cmu.cs.in.base.kv.HoopKV;
+//import edu.cmu.cs.in.base.kv.HoopKVString;
 import edu.cmu.cs.in.hoop.hoops.base.HoopAnalyze;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
@@ -22,7 +22,9 @@ import edu.cmu.cs.in.hoop.hoops.load.HoopUIMAConfigurationLoadBase;
 
 public class HoopGenericAnnotator extends HoopAnalyze implements HoopInterface{
 	
-    public HoopGenericAnnotator () 
+	private static final long serialVersionUID = -5592278513446875291L;
+	
+	public HoopGenericAnnotator () 
     {
 		setClassName ("HoopGenericAnnotator");
 		debug ("HoopGenericAnnotator ()");
