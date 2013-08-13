@@ -19,7 +19,7 @@
 
 package edu.cmu.cs.in.hoop.editor;
 
-import java.awt.Color;
+//import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -32,17 +32,18 @@ import javax.swing.border.BevelBorder;
 import com.mxgraph.swing.mxGraphComponent;
 
 import edu.cmu.cs.in.base.HoopLink;
+import edu.cmu.cs.in.base.HoopProperties;
 import edu.cmu.cs.in.controls.HoopProgressPainter;
 import edu.cmu.cs.in.controls.HoopShadowBorder;
 import edu.cmu.cs.in.hoop.HoopTablePanel;
 import edu.cmu.cs.in.hoop.execute.HoopExecuteInEditor;
-import edu.cmu.cs.in.hoop.hoops.base.HoopAnalyze;
+//import edu.cmu.cs.in.hoop.hoops.base.HoopAnalyze;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
-import edu.cmu.cs.in.hoop.hoops.base.HoopControlBase;
-import edu.cmu.cs.in.hoop.hoops.base.HoopDisplayBase;
-import edu.cmu.cs.in.hoop.hoops.base.HoopLoadBase;
-import edu.cmu.cs.in.hoop.hoops.base.HoopSaveBase;
-import edu.cmu.cs.in.hoop.hoops.base.HoopTransformBase;
+//import edu.cmu.cs.in.hoop.hoops.base.HoopControlBase;
+//import edu.cmu.cs.in.hoop.hoops.base.HoopDisplayBase;
+//import edu.cmu.cs.in.hoop.hoops.base.HoopLoadBase;
+//import edu.cmu.cs.in.hoop.hoops.base.HoopSaveBase;
+//import edu.cmu.cs.in.hoop.hoops.base.HoopTransformBase;
 import edu.cmu.cs.in.hoop.properties.HoopInspectablePanel;
 import edu.cmu.cs.in.hoop.properties.HoopPropertyPanel;
 import edu.cmu.cs.in.hoop.properties.HoopVisualProperties;
@@ -205,36 +206,8 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 	{
 		debug ("colorHoop ()");
 		
-		if (this.hoop instanceof HoopLoadBase)
-		{
-			backgrColor=new Color (255,255,165);	
-		}
-		
-		if (this.hoop instanceof HoopSaveBase)
-		{
-			backgrColor=new Color (129,158,68);
-		}
-		
-		if (this.hoop instanceof HoopControlBase)
-		{
-			//backgrColor=new Color (255,255,218);
-		}
-		
-		if (this.hoop instanceof HoopTransformBase)
-		{
-			backgrColor=new Color (165,111,58);
-		}
-		
-		if (this.hoop instanceof HoopAnalyze)
-		{
-			backgrColor=new Color (62,105,157);
-		}
-		
-		if (this.hoop instanceof HoopDisplayBase)
-		{
-			backgrColor=new Color (209,202,163);
-		}
-						
+		backgrColor=HoopProperties.getHoopColor(this.hoop);
+								
 		setBackground(backgrColor);
 		titleBar.setBackground(backgrColor);
 		toolBar.setBackground(backgrColor);

@@ -104,7 +104,15 @@ public class HoopExecuteInEditor extends HoopExecute implements ActionListener
 	protected void startExecution ()
 	{
 		debug ("startExecution ()");
+		
+		HoopStatisticsPanel statsPanel=(HoopStatisticsPanel) HoopLink.getWindow("Statistics");
+		
+		if (statsPanel!=null)
+		{
+			statsPanel.clear();
+		}
 				
+		/*
 		HoopStatisticsPanel statsPanel;
 		if(HoopLink.getWindow("Statistics")!=null){
 			statsPanel=(HoopStatisticsPanel) HoopLink.getWindow("Statistics");
@@ -113,15 +121,16 @@ public class HoopExecuteInEditor extends HoopExecute implements ActionListener
 		}
 		statsPanel.clear();
 		HoopLink.addView ("Statistics",statsPanel,HoopLink.bottom);
-    			
-		HoopLink.runner=this;
-		
+    					
 		HoopExecuteProgressPanel executionMonitor=(HoopExecuteProgressPanel) HoopLink.getWindow("Execution Monitor");
 		if (executionMonitor==null)
 		{
 			executionMonitor=new HoopExecuteProgressPanel ();
 			HoopLink.addView ("Execution Monitor",executionMonitor,HoopLink.bottom);
-		}		
+		}
+		*/		
+		
+		HoopLink.runner=this;
 	}	
 	/**
 	 * 

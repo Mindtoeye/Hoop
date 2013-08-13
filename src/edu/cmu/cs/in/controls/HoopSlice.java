@@ -16,44 +16,19 @@
  * 
  */
 
-package edu.cmu.cs.in.hoop.editor;
+package edu.cmu.cs.in.controls;
 
-import javax.swing.JLabel;
+import java.awt.Color;
 
-import edu.cmu.cs.in.controls.HoopProgressPainter;
-
-/**
- *
- */
-public interface HoopVisualRepresentation
+class HoopSlice 
 {
-	/**
-	 * 
-	 * @param aState
-	 */
-	public void setState (String aState);
-	
-	/**
-	 * 
-	 */
-	public JLabel getContentPanel ();
-	
-	
-	/**
-	 * 
-	 */
-	public void setExecutionInfo (String aMessage);
-		
-	/**
-	 * When a graph is saved it will go through each hoop and call this
-	 * method. This will in turn in the panel belonging to that hoop
-	 * call a method that sets all the visual properties back into the
-	 * hoop.
-	 */
-	public void propagateVisualProperties ();
-	
-	/**
-	 * 
-	 */
-	public HoopProgressPainter getProgressPainter ();
+   double value;
+   Color color;
+   
+   public HoopSlice(double value, Color color) 
+   {  
+      this.value = value;
+      this.color = color;
+   }	
 }
+
