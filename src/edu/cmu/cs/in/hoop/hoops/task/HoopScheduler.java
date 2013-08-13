@@ -21,11 +21,11 @@ package edu.cmu.cs.in.hoop.hoops.task;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javax.swing.JLabel;
+//import javax.swing.JLabel;
 
 import edu.cmu.cs.in.base.HoopRoot;
 import edu.cmu.cs.in.controls.HoopCircleCounter;
-import edu.cmu.cs.in.controls.HoopPieChart;
+//import edu.cmu.cs.in.controls.HoopPieChart;
 import edu.cmu.cs.in.hoop.editor.HoopNodeRenderer;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopControlBase;
@@ -49,9 +49,7 @@ public class HoopScheduler extends HoopControlBase implements HoopInterface
     private HoopCircleCounter countdown=null;
     
 	private class HoopTimerTask extends TimerTask 
-	{
-	    //private JLabel visualizer=null;
-	    
+	{	    
 	    private long tracking=0;
 	    private long trackingDuration=0;
 	    private long trackingResolution=0;
@@ -60,9 +58,7 @@ public class HoopScheduler extends HoopControlBase implements HoopInterface
 	     * 
 	     */
 	    public HoopTimerTask (long aDuration,long aResolution)
-	    {
-	    	//visualizer=aViz;
-	    	
+	    {	    	
 	    	trackingDuration=aDuration;
 	    	trackingResolution=aResolution;
 	    	
@@ -129,6 +125,8 @@ public class HoopScheduler extends HoopControlBase implements HoopInterface
 	public Boolean runHoop (HoopBase inHoop)
 	{		
 		debug ("runHoop ()");
+		
+		super.runHoop(inHoop); // This will do the right thing with the data
 		
 		if (replaced==false)
 		{

@@ -86,23 +86,44 @@ public class HoopCircleCounter extends HoopJComponent
 	{
 		//debug ("drawPie ("+area.x+","+area.y+","+area.width+","+area.height+")");
 				
+		int xOffset=0;
+		int yOffset=0;
 		int effectiveDiam=area.height;
 		
 		if (area.height<area.width)
 		{
 			effectiveDiam=area.height;
+			
+			xOffset=(int) ((area.width-area.height)/2);
 		}
 		else
+		{
 			effectiveDiam=area.width;
+			
+			yOffset=(int) ((area.height-area.width)/2);
+		}
             
 		double curValue = 0.0D;
 		int startAngle = 0;
 		
 		startAngle = (int) (curValue * 360 / total);
 		int arcAngle = (int) (slice * 360 / total);
-
-		g.setColor(Color.white);
-		g.fillArc(area.x, area.y, effectiveDiam, effectiveDiam, startAngle, arcAngle);				
+		
+		g.setColor (new Color (220,220,220));
+		g.fillArc (xOffset+area.x,
+				   yOffset+area.y,
+				   effectiveDiam,
+				   effectiveDiam,
+				   startAngle,
+				   arcAngle);
+		
+		g.setColor (new Color (0,0,0));
+		g.drawArc (xOffset+area.x, 
+				   yOffset+area.y,
+				   effectiveDiam,
+				   effectiveDiam,
+				   startAngle,
+				   arcAngle);		
 	}
 	/**
 	 * 
@@ -122,7 +143,7 @@ public class HoopCircleCounter extends HoopJComponent
 	    Container content = f.getContentPane();
 	    content.setBackground(Color.white);
 	    content.setLayout(new FlowLayout()); 
-	    content.add(new HoopPieChart ());
+	    content.add(new HoopCircleCounter ());
 	    f.setVisible(true);
 	}	
 }
