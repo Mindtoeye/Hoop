@@ -31,7 +31,15 @@ import edu.cmu.cs.in.hoop.editor.HoopVisualRepresentation;
  */
 public class HoopExecute extends HoopRoot implements Runnable 
 {
+	public static int EXEC_STOPPED=0;
+	public static int EXEC_RUNNING=1;
+	public static int EXEC_SUSPENDED=2;	
+	public static int EXEC_KILLED=3;
+	
+	private int executionState=EXEC_RUNNING;
+	
 	private HoopBase root=null;
+	
 	/// -1 = forever, 1 = once, >1 = run N times
 	private int loopCount=-1; 
 	private Boolean loopExecuting=false;
@@ -338,6 +346,8 @@ public class HoopExecute extends HoopRoot implements Runnable
 			return;
 		}
 		
+		executionState=HoopExecute.EXEC_RUNNING;
+		
 		startExecution ();
 				
 		showHoopTree (null,root);
@@ -377,6 +387,8 @@ public class HoopExecute extends HoopRoot implements Runnable
 		loopExecuting=false;
 		
 		endExecution ();
+		
+		executionState=HoopExecute.EXEC_STOPPED;
 	}
 	/**
 	 * 
@@ -428,5 +440,50 @@ public class HoopExecute extends HoopRoot implements Runnable
 				setSubTreeDone (current,aValue);
 			}				
 		}								
+	}
+	/**
+	 * 
+	 */	
+	public int getExecutionState() 
+	{
+		return executionState;
+	}
+	/**
+	 * 
+	 */	
+	public void setExecutionState(int executionState) 
+	{
+		this.executionState = executionState;
 	}	
+	/**
+	 * 
+	 */
+	public Boolean suspend ()
+	{
+		executionState=HoopExecute.EXEC_SUSPENDED;
+		
+		return (true);		
+	}
+	/**
+	 * 
+	 */
+	public Boolean resume ()
+	{
+		executionState=HoopExecute.EXEC_RUNNING;
+		
+		return (true);		
+	}
+	/**
+	 * This will do an immediate low level kill of a running graph. It
+	 * should:
+	 * 1. Kill any threads running in an individual Hoop
+	 * 2. Collect any outstanding data
+	 * 3. Kill the main thread 
+	 */
+	public Boolean kill ()
+	{
+		executionState=HoopExecute.EXEC_KILLED;
+		
+		return (true);
+	}
 }

@@ -26,7 +26,7 @@ package edu.cmu.cs.in.hoop;
 import java.util.ArrayList;
 import java.util.Enumeration;
 
-import java.awt.Color;
+//import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -63,11 +63,12 @@ import com.mxgraph.util.mxEventSource;
 import com.mxgraph.util.mxRectangle;
 
 import edu.cmu.cs.in.base.HoopLink;
-import edu.cmu.cs.in.base.HoopProperties;
+//import edu.cmu.cs.in.base.HoopProperties;
 import edu.cmu.cs.in.base.HoopStringTools;
 import edu.cmu.cs.in.controls.HoopButtonBox;
 //import edu.cmu.cs.in.controls.HoopShadowBorder;
 import edu.cmu.cs.in.controls.HoopJTreeHoopRenderer;
+import edu.cmu.cs.in.controls.HoopThreadView;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 
@@ -88,6 +89,8 @@ public class HoopTreeList extends HoopEmbeddedJPanel implements MouseListener, A
     private JButton foldButton=null;
     private JButton inverseButton=null;
     private JButton selectedButton=null;		
+    
+    private HoopThreadView threadView=null;
 	
 	/**
 	 * 
@@ -234,8 +237,16 @@ public class HoopTreeList extends HoopEmbeddedJPanel implements MouseListener, A
 	        }			
 		});				
 		
+		//>----------------------------------------------------------------------------
+		
+		threadView=new HoopThreadView ();
+		threadView.setMinimumSize(new Dimension (50,100));
+				
+		//>----------------------------------------------------------------------------		
+		
 		mainBox.add(buttonBox);
-		mainBox.add(scrollPane);
+		mainBox.add(scrollPane);			
+		mainBox.add (threadView);
 		
 		setContentPane (mainBox);			
     }
