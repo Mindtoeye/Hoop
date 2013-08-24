@@ -8,7 +8,17 @@
       </hoop>
       <hoop id="16c14c06-7245-4f35-9b2b-3e9cb3d1e914" class="HoopStdin" name="47" active="true">
         <visual x="240" y="90" width="150" height="100" />
-        <properties />
+        <properties>
+          <serializable class="HoopStringSerializable" instance="batchSize">
+            <value format="Text" type="STRING">100</value>
+          </serializable>
+          <serializable class="HoopStringSerializable" instance="queryMax">
+            <value format="Text" type="STRING" />
+          </serializable>
+          <serializable class="HoopEnumSerializable" instance="mode">
+            <value format="Text" type="ENUM" options="LINEAR,SAMPLE">LINEAR</value>
+          </serializable>
+        </properties>
       </hoop>
       <hoop id="17bb890d-f0cb-439d-a60f-26af13ea7d8b" class="HoopSentence2Tokens" name="49" active="true">
         <visual x="490" y="90" width="150" height="100" />
@@ -22,14 +32,17 @@
           <serializable class="HoopEnumSerializable" instance="changeKeyType">
             <value format="Text" type="ENUM" options="keep the same,CLASS,INT,LONG,STRING,FLOAT,BOOLEAN,ENUM,TABLE,DOCUMENT">keep the same</value>
           </serializable>
+          <serializable class="HoopEnumSerializable" instance="targetTokenizer">
+            <value format="Text" type="ENUM" options="RegEx,Stanford,SplitOnCharacter">RegEx</value>
+          </serializable>
           <serializable class="HoopBooleanSerializable" instance="removePunctuation">
             <value format="Text" type="BOOLEAN">true</value>
           </serializable>
           <serializable class="HoopStringSerializable" instance="splitRegEx">
             <value format="Text" type="STRING">\W</value>
           </serializable>
-          <serializable class="HoopEnumSerializable" instance="targetTokenizer">
-            <value format="Text" type="ENUM" options="RegEx,Stanford">RegEx</value>
+          <serializable class="HoopStringSerializable" instance="splitCharacter">
+            <value format="Text" type="STRING">|</value>
           </serializable>
           <serializable class="HoopEnumSerializable" instance="generateMode">
             <value format="Text" type="ENUM" options="Add,New">New</value>

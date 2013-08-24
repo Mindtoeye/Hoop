@@ -24,7 +24,9 @@ import edu.cmu.cs.in.base.HoopRoot;
 
 /**
  * SS in ANOVA is the sum of squares of all observations. The term "sum of squares" means, 
- * in this case, the "sum of squares of the differences from the mean", and the corresponding formula is
+ * in this case, the "sum of squares of the differences from the mean", and the 
+ * corresponding formula is:
+ * 
  * SS = Σ (x - m(x))²
  * 
  * In order to compute it, you have to
@@ -32,10 +34,14 @@ import edu.cmu.cs.in.base.HoopRoot;
  * - for each x, compute the difference x - m(x) and square it
  * - sum all the squares
  * 
- * There is an alternative computation, that can be easier to perform, and is based on the equivalent formula
+ * There is an alternative computation, that can be easier to perform, and is based on 
+ * the equivalent formula:
+ * 
  * SS = Σ x² - S²/N
- * where S is the sum of all observations and N is the number of observatios.
- * In this case, you have to
+ * 
+ * where S is the sum of all observations and N is the number of observations. In this 
+ * case, you have to:
+ * 
  * - sum the squares of all observations, thus getting Σ x²
  * - sum all observations, thus getting S
  * - square S and divide by number of observations N
@@ -65,7 +71,7 @@ public class HoopStatistics extends HoopRoot
     	
     	ArrayList <HoopSampleMeasure> list=aSet.getDataSet();
     	
-    	if (list.size()==0)
+    	if (list.size()<2) // 1 is also bad for now
     		return;
     	
     	for (int i=0;i<list.size();i++)
@@ -85,16 +91,15 @@ public class HoopStatistics extends HoopRoot
     	aSet.setMax(max);
     	aSet.setMean(total/list.size());
     	
-    	double ss=0;
+    	double ss=0; // sum of the squares
     	
     	for (int j=0;j<list.size();j++)
     	{
     		HoopSampleMeasure aMeasure=list.get(j);
     		
-    		double raw=aMeasure.getMeasure()-aSet.getMean();
+    		double sq=aMeasure.getMeasure()-aSet.getMean();
     		
-    		ss+=(raw*raw);
-    		
+    		ss+=(sq*sq);    		
     	}
     	
     	// Calculate basic stats ...
@@ -129,76 +134,3 @@ public class HoopStatistics extends HoopRoot
     	return (results.toString());
     }
 }
-
-/*
-$mean  =0;
-$stddev=0;
-$stderr=0;
-
-function get_mean ()
-{
- global $mean;
- return round ($mean,2);
-}
-
-function get_stddev ()
-{
- global $stddev;
- return round ($stddev,2);
-}
-
-function get_stderr ()
-{
- global $stderr;
- return round ($stderr,2);
-}
-
-function get_stats ($data)
-{
- global $mean,$stddev,$stderr;
- 
- $tempdata=array ();
- $results="";
- $total=0;
- $ss   =0;
- $count=0;
- 
- $min  =500000;
- $max  =0;
- 
- foreach ($data as $entry)
- {
-  $tempdata [$count]=array ();
-  $tempdata [$count][0]=$entry;
-  $tempdata [$count][1]=$entry;
-  
-  $total+=$entry;
-  $count++;
-  
-  if ($entry>$max)
-   $max=$entry;
-  
-  if ($entry<$min)
-   $min=$entry;
- }
- 
- $mean=$total/$count;
- 
- $count=0;
- 
- foreach ($tempdata as $entry)
- {
-  $raw=$tempdata [$count][1]-$mean;
-  $tempdata [$count][1]=($raw*$raw);
-  $ss+=$tempdata [$count][1]; 
-  $count++;
- } 
- 
- $stddev=sqrt ($ss/($count-1));
- $stderr=$stddev/sqrt ($count);
- 
- $results="Moments:<br> <ul><li>Minimum: ".number_format ($min,2)."</li><li>Mean: ".number_format ($mean,2)."</li><li>Std Dev: ".number_format ($stddev,2)."</li><li>Std Err Mean: ".number_format ($stderr,2)."</li><li>Max: ".number_format ($max,2)."</li><li>N: ".$count."</li></ul>";
- 
- return $results;
-}
-*/

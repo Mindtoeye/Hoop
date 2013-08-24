@@ -39,12 +39,17 @@ public class HoopControlBase extends HoopBase implements HoopInterface
 		removeInPort ("KV");
     }
 	/**
-	 *
+	 * For developers this should be a nice fallback super method. All it
+	 * does is pass the data through so that it can be picked up by the
+	 * next Hoop.
 	 */
 	public Boolean runHoop (HoopBase inHoop)
 	{		
 		debug ("runHoop ()");
 						
+		this.setData(inHoop.getData()); // Should work as a pass-through
+		this.setjCasList(inHoop.getjCasList()); // Should work as a pass-through		
+		
 		return (true);
 	}	 
 	/**

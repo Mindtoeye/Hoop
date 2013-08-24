@@ -26,6 +26,7 @@ package edu.cmu.cs.in.hoop;
 import java.util.ArrayList;
 import java.util.Enumeration;
 
+//import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -62,10 +63,12 @@ import com.mxgraph.util.mxEventSource;
 import com.mxgraph.util.mxRectangle;
 
 import edu.cmu.cs.in.base.HoopLink;
+//import edu.cmu.cs.in.base.HoopProperties;
 import edu.cmu.cs.in.base.HoopStringTools;
 import edu.cmu.cs.in.controls.HoopButtonBox;
 //import edu.cmu.cs.in.controls.HoopShadowBorder;
 import edu.cmu.cs.in.controls.HoopJTreeHoopRenderer;
+import edu.cmu.cs.in.controls.HoopThreadView;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 
@@ -86,6 +89,8 @@ public class HoopTreeList extends HoopEmbeddedJPanel implements MouseListener, A
     private JButton foldButton=null;
     private JButton inverseButton=null;
     private JButton selectedButton=null;		
+    
+    private HoopThreadView threadView=null;
 	
 	/**
 	 * 
@@ -96,7 +101,7 @@ public class HoopTreeList extends HoopEmbeddedJPanel implements MouseListener, A
 		debug ("HoopTreeList ()");    	
 		
 		this.setSingleInstance(true);
-		
+				
 		Box mainBox = new Box (BoxLayout.Y_AXIS);
 					    
 	    //Box buttonBox = new Box (BoxLayout.X_AXIS);
@@ -155,6 +160,7 @@ public class HoopTreeList extends HoopEmbeddedJPanel implements MouseListener, A
 				
 		tree=new JTree(toTreeModel ());
 		tree.setFont(new Font("Dialog", 1, 10)); // overwritten by cellrenderer?
+		//tree.setBackground(HoopProperties.graphBackgroundColor);
 		tree.setCellRenderer (treeHoopRenderer);
 		tree.getSelectionModel().setSelectionMode (TreeSelectionModel.SINGLE_TREE_SELECTION);
 		tree.setRootVisible(false);
@@ -231,8 +237,16 @@ public class HoopTreeList extends HoopEmbeddedJPanel implements MouseListener, A
 	        }			
 		});				
 		
+		//>----------------------------------------------------------------------------
+		
+		threadView=new HoopThreadView ();
+		threadView.setMinimumSize(new Dimension (50,100));
+				
+		//>----------------------------------------------------------------------------		
+		
 		mainBox.add(buttonBox);
-		mainBox.add(scrollPane);
+		mainBox.add(scrollPane);			
+		mainBox.add (threadView);
 		
 		setContentPane (mainBox);			
     }
@@ -356,37 +370,6 @@ public class HoopTreeList extends HoopEmbeddedJPanel implements MouseListener, A
     	
     	return (root);
     }
-	/**
-	 * 
-	 */
-	/*
-	private void initTreeDnD ()
-	{
-		debug ("initTreeDnD ()");
-		
-		mxCell cell = new mxCell (treeHoopRenderer,new mxGeometry (0,0,100,100),"label;image=/assets/images/gear.png");
-		cell.setVertex (true);
-		
-		mxRectangle bounds = (mxGeometry) cell.getGeometry().clone();
-		
-		transferable = new mxGraphTransferable (new Object[] { cell }, bounds);
-				
-		// Install the handler for dragging nodes into a graph
-
-		DragGestureListener dragGestureListener = new DragGestureListener()
-		{
-			public void dragGestureRecognized(DragGestureEvent e)
-			{
-				debug ("dragGestureRecognized");
-				
-				e.startDrag (null,mxSwingConstants.EMPTY_IMAGE,new Point(),transferable, null);
-			}
-		};
-		
-		DragSource dragSource = DragSource.getDefaultDragSource();
-		//dragSource.createDefaultDragGestureRecognizer (tree,DnDConstants.ACTION_COPY, dragGestureListener);
-	}
-	*/
 	@Override
 	public void mouseClicked(MouseEvent arg0) 
 	{

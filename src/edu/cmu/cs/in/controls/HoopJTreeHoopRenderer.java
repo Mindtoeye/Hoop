@@ -30,6 +30,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeCellRenderer;
 
 import edu.cmu.cs.in.base.HoopLink;
+import edu.cmu.cs.in.base.HoopProperties;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.project.HoopFile;
 import edu.cmu.cs.in.hoop.project.HoopProject;
@@ -52,7 +53,7 @@ public class HoopJTreeHoopRenderer extends JLabel implements TreeCellRenderer
 		border = BorderFactory.createEmptyBorder (1,1,1,2);
 		
 		this.setFont(new Font("Dialog", 1, 10));
-		this.setOpaque(true);
+		this.setOpaque(false);
 		this.setBorder (border);
 	}
 	/**
@@ -77,7 +78,7 @@ public class HoopJTreeHoopRenderer extends JLabel implements TreeCellRenderer
 		return (tree);
 	}	
 	/**
-	 * 
+	 * http://www.leepoint.net/notes-java/GUI/components/10labels/12labelfontcolor.html
 	 */
     public Component getTreeCellRendererComponent (JTree tree,
     											   Object value,
@@ -92,7 +93,9 @@ public class HoopJTreeHoopRenderer extends JLabel implements TreeCellRenderer
     	DefaultMutableTreeNode node=(DefaultMutableTreeNode) value;
     	    	
     	Object userObject=node.getUserObject();
-    	    	
+    	    
+    	this.setForeground(Color.black);
+    	
     	if (userObject!=null)
     	{
     		//debug ("We have a userObject");
@@ -109,6 +112,27 @@ public class HoopJTreeHoopRenderer extends JLabel implements TreeCellRenderer
     			Boolean found=false;
     			
     			//>-----------------------------------------------------------------
+    			/*
+    			 * class BitmapFieldDemoScreen extends MainScreen 
+    			 * {    
+    			 *     Bitmap bitmapRed = Bitmap.getBitmapResource("red.png");
+    			 *     Bitmap bitmapBG = Bitmap.getBitmapResource("background.png");
+
+    			 *     public BitmapFieldDemoScreen () 
+    			 *     {
+    			 *         setTitle("Bitmap Field Demo");        
+
+    			 *         // draw the bitmapRed on top of bitmapBG        
+    			 *         Graphics grahpicsBg = Graphics.create(bitmapBG);
+    			 *         grahpicsBg.drawBitmap(50, 50, bitmapRed.getWidth(), bitmapRed.getHeight(), bitmapRed, 0, 0);
+
+    			 *         // now bitmapBg is changed        
+
+    			 *         BitmapField fieldDemo = new BitmapField(bitmapBG);             
+    			 *         add(fieldDemo);
+    			 *     }
+    			 * }
+    			 */
     			
     			if ((userObject instanceof HoopBase) && (found==false))
     			{
@@ -117,6 +141,11 @@ public class HoopJTreeHoopRenderer extends JLabel implements TreeCellRenderer
     				HoopBase hoop=(HoopBase) userObject;
     				setText (hoop.getHoopDescription());
     				setIcon (HoopLink.getImageByName("hoop.png"));
+    				
+    				/*
+    				Color hoopIndicatorColor=HoopProperties.getHoopColor(hoop);    				
+    				this.setForeground(hoopIndicatorColor);
+    				*/
     				
     				found=true;
     			}

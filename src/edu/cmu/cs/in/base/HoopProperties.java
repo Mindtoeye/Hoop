@@ -20,6 +20,13 @@ package edu.cmu.cs.in.base;
 
 import java.awt.Color;
 
+import edu.cmu.cs.in.hoop.hoops.base.HoopAnalyze;
+import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
+import edu.cmu.cs.in.hoop.hoops.base.HoopControlBase;
+import edu.cmu.cs.in.hoop.hoops.base.HoopDisplayBase;
+import edu.cmu.cs.in.hoop.hoops.base.HoopLoadBase;
+import edu.cmu.cs.in.hoop.hoops.base.HoopSaveBase;
+import edu.cmu.cs.in.hoop.hoops.base.HoopTransformBase;
 import edu.cmu.cs.in.hoop.properties.HoopStoredProperties;
 
 /**
@@ -45,4 +52,39 @@ public class HoopProperties extends HoopLangLink
 	
 	public static int dialogDefaultWidth=275;
 	public static int dialogDefaultHeight=120;
+	
+	public static Color getHoopColor (HoopBase aHoop)
+	{
+		if (aHoop instanceof HoopLoadBase)
+		{
+			return (new Color (255,255,165));	
+		}
+		
+		if (aHoop instanceof HoopSaveBase)
+		{
+			return (new Color (129,158,68));
+		}
+		
+		if (aHoop instanceof HoopControlBase)
+		{
+			//backgrColor=new Color (255,255,218);
+		}
+		
+		if (aHoop instanceof HoopTransformBase)
+		{
+			return (new Color (165,111,58));
+		}
+		
+		if (aHoop instanceof HoopAnalyze)
+		{
+			return (new Color (62,105,157));
+		}
+		
+		if (aHoop instanceof HoopDisplayBase)
+		{
+			return (new Color (209,202,163));
+		}
+		
+		return (new Color (165,111,58));
+	}
 }

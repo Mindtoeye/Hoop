@@ -319,7 +319,8 @@ public class HoopLink extends HoopProperties
 		 							 "annotation.gif",
 		 							 "speed-1.png",
 		 							 "speed-2.png",
-		 							 "speed-3.png"
+		 							 "speed-3.png",
+		 							 "clock.png"
 		 							 };
 	
 	public static JFrame mainFrame=null;

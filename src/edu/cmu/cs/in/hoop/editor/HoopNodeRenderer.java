@@ -36,6 +36,7 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JComponent;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JSeparator;
@@ -105,6 +106,8 @@ public class HoopNodeRenderer extends HoopJPanel implements /*MouseListener, Mou
 	protected Border blackborder=null;
 	protected Border redborder=null;	
 	protected Border raisedRed=null;
+	
+	protected Box contentBox=null;
 	
 	/**
 	 * 
@@ -209,12 +212,12 @@ public class HoopNodeRenderer extends HoopJPanel implements /*MouseListener, Mou
 		
 		Box centerFrame = new Box (BoxLayout.Y_AXIS);
 		
-		Box contentBox = new Box (BoxLayout.X_AXIS);
+		contentBox = new Box (BoxLayout.X_AXIS);
 
 		//contentBox.setBorder(redborder);
 		contentBox.setMinimumSize(new Dimension(50,50));
 		contentBox.setPreferredSize(new Dimension(100,100));
-		contentBox.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
+		contentBox.setBorder(BorderFactory.createEmptyBorder(1,1,1,1));
 		
 		leftPortBox = new Box (BoxLayout.Y_AXIS);
 		//leftPortBox.setAlignmentX(LEFT_ALIGNMENT);
@@ -235,7 +238,12 @@ public class HoopNodeRenderer extends HoopJPanel implements /*MouseListener, Mou
 		contentArea=new JLabel ();
 		contentArea.setOpaque(false);
 				
+		leftPortBox.setBorder(redborder);
+		contentArea.setBorder(redborder);
+		rightPortBox.setBorder(redborder);
+		
 		contentBox.add(leftPortBox);
+		contentBox.add(Box.createHorizontalGlue());		
 		contentBox.add(contentArea);
 		contentBox.add(Box.createHorizontalGlue());
 		contentBox.add(rightPortBox);
@@ -297,6 +305,30 @@ public class HoopNodeRenderer extends HoopJPanel implements /*MouseListener, Mou
 		setTitle ("Hoop Node");
 		
 		initPanel ();
+	}
+	/**
+	 * 
+	 */
+	public JLabel getContentPanel ()
+	{
+		return (contentArea);
+	}
+	/**
+	 * 
+	 */
+	public void replaceContentArea (JComponent newPanel)
+	{
+		debug ("replaceContentArea ()");
+		
+		if (newPanel==null)
+		{
+			debug ("Error: can't replace with a null object");
+			return;
+		}
+		
+		contentBox.remove(2);
+		
+		contentBox.add(newPanel,2);
 	}
 	/**
 	 * 
