@@ -25,6 +25,8 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JComponent;
 import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
 
 import edu.cmu.cs.in.controls.base.HoopJPanel;
 
@@ -125,5 +127,14 @@ public class HoopButtonBox extends HoopJPanel
 			buttonBox.add (Box.createRigidArea(new Dimension(2,0)),buttonBox.getComponents().length-1);
 		else
 			buttonBox.add (Box.createRigidArea(new Dimension(0,2)),buttonBox.getComponents().length-1);		
+	}
+	/**
+	 * 
+	 */
+	public void addSeparator ()
+	{
+	    JSeparator sep=new JSeparator(SwingConstants.VERTICAL);
+	    sep.setMaximumSize(new Dimension (5,22));	    
+	    addComponent (sep);		
 	}
 }

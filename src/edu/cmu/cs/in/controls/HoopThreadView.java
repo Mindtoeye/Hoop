@@ -81,6 +81,7 @@ public class HoopThreadView extends HoopJPanel implements ActionListener
 		this.setLayout(new BoxLayout (this,BoxLayout.Y_AXIS));
 		
 		tree=new JTree ();
+		tree.setFont(new Font("Dialog", 1, 9));
 		
 		HoopButtonBox buttonBox=new HoopButtonBox ();
 	   	buttonBox.setMinimumSize(new Dimension (100,24));

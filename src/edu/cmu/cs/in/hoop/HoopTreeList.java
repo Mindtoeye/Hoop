@@ -90,7 +90,7 @@ public class HoopTreeList extends HoopEmbeddedJPanel implements MouseListener, A
     private JButton inverseButton=null;
     private JButton selectedButton=null;		
     
-    private HoopThreadView threadView=null;
+    //private HoopThreadView threadView=null;
 	
 	/**
 	 * 
@@ -239,14 +239,16 @@ public class HoopTreeList extends HoopEmbeddedJPanel implements MouseListener, A
 		
 		//>----------------------------------------------------------------------------
 		
+		/*
 		threadView=new HoopThreadView ();
 		threadView.setMinimumSize(new Dimension (50,100));
+		*/
 				
 		//>----------------------------------------------------------------------------		
 		
 		mainBox.add(buttonBox);
 		mainBox.add(scrollPane);			
-		mainBox.add (threadView);
+		//mainBox.add (threadView);
 		
 		setContentPane (mainBox);			
     }
