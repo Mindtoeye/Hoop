@@ -29,6 +29,7 @@ import java.util.TimerTask;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JToggleButton;
 import javax.swing.JTree;
@@ -54,6 +55,8 @@ public class HoopThreadView extends HoopJPanel implements ActionListener
 	private Border border=null;
 	private JButton refreshButton=null;
 	private JToggleButton autoRefresh=null;
+    private JLabel threadIndicator=null; 
+    private JLabel interruptedIndicator=null;
 	
 	private Timer timer;
 	
@@ -62,8 +65,6 @@ public class HoopThreadView extends HoopJPanel implements ActionListener
         public void run() 
         {
         	showThreads ();
-        	
-            //timer.cancel(); //Terminate the timer thread
         }
 	}    
 
@@ -102,13 +103,34 @@ public class HoopThreadView extends HoopJPanel implements ActionListener
 	    autoRefresh.setIcon(HoopLink.getImageByName("clock.png"));
 	    autoRefresh.addActionListener(this);	    
 	    
+		//buttonBox.addSeparator ();
+	    
+		threadIndicator=new JLabel ();
+		threadIndicator.setText("Active Count: ");
+		threadIndicator.setFont(new Font("Dialog", 1, 9));
+		threadIndicator.setMinimumSize(new Dimension (75,23));
+		threadIndicator.setPreferredSize(new Dimension (75,23));
+		threadIndicator.setMaximumSize(new Dimension (75,23));
+		threadIndicator.setHorizontalTextPosition(JLabel.LEFT);
+		
+		interruptedIndicator=new JLabel ();
+		interruptedIndicator.setText("Interrupted: ");
+		interruptedIndicator.setFont(new Font("Dialog", 1, 9));
+		interruptedIndicator.setMinimumSize(new Dimension (75,23));
+		interruptedIndicator.setPreferredSize(new Dimension (75,23));
+		interruptedIndicator.setMaximumSize(new Dimension (75,23));
+		interruptedIndicator.setHorizontalTextPosition(JLabel.LEFT);		
+	    	   	    
 	    buttonBox.addComponent(refreshButton);
 	    buttonBox.addComponent(autoRefresh);
+		buttonBox.addComponent(threadIndicator);	    
+		buttonBox.addComponent(interruptedIndicator);
 	    
 	    //>----------------------------------------------------
 	    
 		JScrollPane threadScrollPane=new JScrollPane(tree);
-		threadScrollPane.setBorder(BorderFactory.createEmptyBorder(4,4,4,4));	    
+		threadScrollPane.setMinimumSize(new Dimension (100,100));
+		threadScrollPane.setBorder(BorderFactory.createEmptyBorder(2,2,2,2));	    
 	    
 	    //>----------------------------------------------------
 	    
@@ -130,6 +152,9 @@ public class HoopThreadView extends HoopJPanel implements ActionListener
 		
 		Thread[] threadArray = threadSet.toArray(new Thread[threadSet.size()]);
 		
+		threadIndicator.setText("Active Count: " + Thread.activeCount());
+		interruptedIndicator.setText("Interrupted: "+ Thread.interrupted());
+		
 		for (int i=0;i<threadArray.length;i++)
 		{
 			Thread visThread=threadArray [i];
@@ -139,13 +164,7 @@ public class HoopThreadView extends HoopJPanel implements ActionListener
 			root.add(catNode);
 			
 			DefaultMutableTreeNode subNode = null;
-		
-			/*
-			subNode = new DefaultMutableTreeNode(visThread);
-			subNode.setUserObject(new String ("Active Count: " + visThread.activeCount()));
-			catNode.add(subNode);
-			*/
-			
+					
 			subNode = new DefaultMutableTreeNode(visThread);
 			subNode.setUserObject(new String ("Priority: " + visThread.getPriority()));
 			catNode.add(subNode);
@@ -153,12 +172,7 @@ public class HoopThreadView extends HoopJPanel implements ActionListener
 			subNode = new DefaultMutableTreeNode(visThread);
 			subNode.setUserObject(new String ("Is Alive: " + visThread.isAlive()));
 			catNode.add(subNode);
-			
-			/*
-			subNode = new DefaultMutableTreeNode(visThread);
-			subNode.setUserObject(new String ("Interrupted: " + visThread.interrupted()));
-			*/
-			
+
 			subNode = new DefaultMutableTreeNode(visThread);
 			subNode.setUserObject(new String ("Is Deamon: " + visThread.isDaemon()));
 			catNode.add(subNode);

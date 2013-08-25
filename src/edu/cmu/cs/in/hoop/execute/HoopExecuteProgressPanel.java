@@ -34,6 +34,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
+//import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
@@ -72,12 +73,18 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
     private Timer displayTimer=null;
     private Long timeCounter=(long) 0;
     
-    private JLabel experiment=null;    
+    private JLabel experiment=null;
+    
+    private JSplitPane splitPane=null;
     
     private int executionResolution=1000;
     
     private Boolean calculating=false;
 	
+    private HoopThreadView threadView=null;
+    
+    // private Boolean sizeSet=false;
+    
 	/**
 	 * 
 	 */	
@@ -86,14 +93,18 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 		setClassName ("HoopExecuteProgressPanel");
 		debug ("HoopExecuteProgressPanel ()");
 		
+		this.setBorder (BorderFactory.createLineBorder(Color.red));
+		
 		Box mainBox = new Box (BoxLayout.Y_AXIS);
 		
 		// Create controls first
 		
 		HoopButtonBox buttonBox=new HoopButtonBox ();
-	   	buttonBox.setMinimumSize(new Dimension (100,24));
-	   	buttonBox.setPreferredSize(new Dimension (200,24));
-	   	buttonBox.setMaximumSize(new Dimension (2000,24));	
+		/*
+	   	buttonBox.setMinimumSize(new Dimension (100,22));
+	   	buttonBox.setPreferredSize(new Dimension (200,22));
+	   	buttonBox.setMaximumSize(new Dimension (2000,22));
+	   	*/	
 		
 		statusButton = HoopControlTools.makeNavigationButton ("run","Run",HoopLink.getImageByName("run-running.png"));
 		statusButton.setEnabled(false);
@@ -118,21 +129,19 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 	    
 		buttonBox.addSeparator ();
 	    
-	    buttonBox.add(showLinear);
-	    buttonBox.add(showStaggered);	
+	    buttonBox.addComponent(showLinear);
+	    buttonBox.addComponent(showStaggered);	
 	    
 		buttonBox.addSeparator ();
 	    
 	    showAverage = new JRadioButton();
 	    showAverage.setText("Show Average Time");
-	    //showAverage.setIcon(HoopLink.getImageByName("data.gif"));
 	    showAverage.setSelected(true);
 	    showAverage.setFont(new Font("Dialog", 1, 10));
 	    showAverage.addActionListener(this);
 	    
 	    showLatest = new JRadioButton();
 	    showLatest.setText("Show Latest Time");
-	    //showLatest.setIcon(HoopLink.getImageByName("delete.png"));
 	    showLatest.setFont(new Font("Dialog", 1, 10));
 	    showLatest.addActionListener(this);
 	    
@@ -141,8 +150,8 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 	    group2.add (showAverage);
 	    group2.add (showLatest);	    
 		
-	    buttonBox.add(showAverage);
-	    buttonBox.add(showLatest);	
+	    buttonBox.addComponent(showAverage);
+	    buttonBox.addComponent(showLatest);	
 	    
 		buttonBox.addSeparator ();
 	    
@@ -154,7 +163,7 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 		timeIndicator.setMaximumSize(new Dimension (100,23));
 		timeIndicator.setHorizontalTextPosition(JLabel.CENTER);
 	    
-		buttonBox.add(timeIndicator);
+		buttonBox.addComponent(timeIndicator);
 		
 		buttonBox.addSeparator ();
 	    
@@ -166,14 +175,14 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 		traceLabel.setMaximumSize(new Dimension (100,23));
 		traceLabel.setHorizontalTextPosition(JLabel.CENTER);
 	    
-		buttonBox.add(traceLabel);
+		buttonBox.addComponent(traceLabel);
 	    	    
 		traceChooser = new JComboBox<String>();
 		traceChooser.setFont(new Font("Dialog",1,10));
 		traceChooser.setPreferredSize(new Dimension (50,20));
 		traceChooser.setMaximumSize(new Dimension (50,20));	    
 		
-		buttonBox.add(traceChooser);
+		buttonBox.addComponent(traceChooser);
 		buttonBox.addSeparator ();
 			    
 		experiment=new JLabel ();
@@ -184,7 +193,7 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 		experiment.setMaximumSize(new Dimension (200,23));
 		experiment.setHorizontalTextPosition(JLabel.LEFT);
 		
-		buttonBox.add(experiment);
+		buttonBox.addComponent(experiment);
 				
 		// Add the actual progress controls ...
 								
@@ -201,40 +210,69 @@ public class HoopExecuteProgressPanel extends HoopEmbeddedJPanel implements Hoop
 		traceContainer.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
 		traceContainer.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		
-		HoopThreadView threadView=new HoopThreadView ();
+		threadView=new HoopThreadView ();
 		
-		//Create a split pane with the two scroll panes in it.
-		JSplitPane splitPane = new JSplitPane (JSplitPane.HORIZONTAL_SPLIT,
-									traceContainer, 
-									threadView);
-		splitPane.setOneTouchExpandable(true);
-		splitPane.setDividerLocation(150);
-		splitPane.setBorder (BorderFactory.createLineBorder(Color.red));
-		
-		//Provide minimum sizes for the two components in the split pane
 		/*
-		Dimension minimumSize = new Dimension(100, 50);
-		traceContainer.setMinimumSize(minimumSize);
-		threadView.setMinimumSize(minimumSize);
+		JPanel panelA=new JPanel ();
+		panelA.setBorder (BorderFactory.createLineBorder(Color.red));
+		panelA.setMinimumSize(new Dimension (100,20));
+		panelA.setPreferredSize(new Dimension (100,20));
+		
+		JPanel panelB=new JPanel ();
+		panelB.setBorder (BorderFactory.createLineBorder(Color.red));
+		panelB.setMinimumSize(new Dimension (100,20));
+		panelB.setPreferredSize(new Dimension (100,20));
 		*/
+						
+		//splitPane = new JSplitPane (JSplitPane.HORIZONTAL_SPLIT,panelA,panelB);
+		splitPane = new JSplitPane (JSplitPane.HORIZONTAL_SPLIT,traceContainer,threadView);
 		
-		// Wrap it all up ...
-		
+		splitPane.setMinimumSize(new Dimension (100,20));
+		splitPane.setPreferredSize(new Dimension (100,20));	
+		splitPane.setOneTouchExpandable(true);
+		splitPane.setResizeWeight(0.75);
+		splitPane.setDividerLocation(0.75);
+		splitPane.setBorder (BorderFactory.createLineBorder(Color.yellow));
+											
 		Box lowerBox = new Box (BoxLayout.X_AXIS);
+		lowerBox.setMinimumSize(new Dimension (100,20));
+		lowerBox.setPreferredSize(new Dimension (100,20));	
 		lowerBox.add(splitPane);
 		
 		mainBox.add(buttonBox);
 		mainBox.add(lowerBox);
-		
-		//this.setBorder(BorderFactory.createEmptyBorder(2,2,2,2));
-		
+				
 		setContentPane (mainBox);
 		
 		HoopLink.executionMonitor=this;
 		
-		displayTimer = new Timer(executionResolution,this);
+		displayTimer=new Timer(executionResolution,this);
 		displayTimer.setInitialDelay(0);
+		
+		threadView.setMinimumSize(new Dimension (150,200));
+		threadView.setPreferredSize(new Dimension (150,200));
+		//threadView.setMaximumSize(new Dimension (150,200));
+		
+		this.revalidate();
 	}
+	/**
+	 *
+	 */	
+	/*
+	public void updateSize() 
+	{
+		//debug ("updateSize ()");
+		
+		if (sizeSet==false)
+		{
+			debug ("updateSize ()");
+			
+			splitPane.setDividerLocation(0.5);
+			
+			sizeSet=true;
+		}
+	}
+	*/			
 	/**
 	 * 
 	 */
