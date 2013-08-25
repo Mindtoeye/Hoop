@@ -47,6 +47,7 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.properties.HoopInspectablePanel;
 import edu.cmu.cs.in.hoop.properties.HoopPropertyPanel;
 import edu.cmu.cs.in.hoop.properties.HoopVisualProperties;
+import edu.cmu.cs.in.hoop.visualizers.HoopParseTreeViewer;
 
 /**   
  * An easy access class to the panel that represents a node in the Hoop graph.
@@ -263,11 +264,13 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 				
 		HoopTablePanel panel=(HoopTablePanel) HoopLink.getWindow("Data View");
 		
-		if (panel!=null)
+		if (panel==null)
 		{
-			HoopLink.popWindow("Data View");
-			panel.showHoop(hoop);			
-		}		
+			HoopLink.addView ("Data View",new HoopTablePanel(),"bottom");
+		}
+		
+		HoopLink.popWindow("Data View");
+		panel.showHoop(hoop);					
 	}
 	/**
 	 * One of: STOPPED, WAITING, RUNNING, PAUSED, ERROR

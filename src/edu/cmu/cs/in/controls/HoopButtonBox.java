@@ -25,6 +25,8 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JComponent;
 import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
 
 import edu.cmu.cs.in.controls.base.HoopJPanel;
 
@@ -51,15 +53,18 @@ public class HoopButtonBox extends HoopJPanel
 		setClassName ("HoopButtonBox");
 		debug ("HoopButtonBox ()");
 		
-		//this.setBorder (BorderFactory.createLineBorder(Color.red));		
+		//this.setBorder (BorderFactory.createRaisedBevelBorder());		
 		this.setLayout(new BoxLayout (this,BoxLayout.X_AXIS));
-		
+	   	this.setMinimumSize(new Dimension (100,22));
+	   	this.setPreferredSize(new Dimension (200,22));
+	   	this.setMaximumSize(new Dimension (2000,22));	
+	   	
 		buttonBox=new Box (BoxLayout.X_AXIS);
 		buttonBox.add (Box.createHorizontalGlue());
 		
 		scroller=new JScrollPane (buttonBox);
 		//scroller.setBorder (BorderFactory.createLineBorder(Color.black));
-		scroller.setBorder(BorderFactory.createEmptyBorder());
+		scroller.setBorder(BorderFactory.createEmptyBorder (1,1,1,1));
 		scroller.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
 		
@@ -125,5 +130,15 @@ public class HoopButtonBox extends HoopJPanel
 			buttonBox.add (Box.createRigidArea(new Dimension(2,0)),buttonBox.getComponents().length-1);
 		else
 			buttonBox.add (Box.createRigidArea(new Dimension(0,2)),buttonBox.getComponents().length-1);		
+	}
+	/**
+	 * 
+	 */
+	public void addSeparator ()
+	{
+	    JSeparator sep=new JSeparator(SwingConstants.VERTICAL);
+	    sep.setMaximumSize(new Dimension (5,22));	    
+	    
+	    buttonBox.add(sep,buttonBox.getComponents().length-1);	
 	}
 }

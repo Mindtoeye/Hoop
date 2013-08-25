@@ -483,7 +483,7 @@ public class HoopExecute extends HoopRoot implements Runnable
 	public Boolean kill ()
 	{
 		executionState=HoopExecute.EXEC_KILLED;
-		
+				
 		return (true);
 	}
 }
