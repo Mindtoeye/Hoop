@@ -72,7 +72,7 @@ public class HoopThreadView extends HoopJPanel implements ActionListener
 		setClassName ("HoopThreadView");
 		debug ("HoopThreadView ()");
 
-		border = BorderFactory.createEmptyBorder (1,1,1,2);
+		border = BorderFactory.createEmptyBorder (0,0,0,0);
 		
 		this.setFont(new Font("Dialog", 1, 10));
 		this.setOpaque(false);
@@ -81,6 +81,9 @@ public class HoopThreadView extends HoopJPanel implements ActionListener
 		this.setLayout(new BoxLayout (this,BoxLayout.Y_AXIS));
 		
 		tree=new JTree ();
+		tree.setFont(new Font("Dialog", 1, 10));
+		//tree.setOpaque(false);
+		tree.setBorder (border);
 		
 		HoopButtonBox buttonBox=new HoopButtonBox ();
 	   	buttonBox.setMinimumSize(new Dimension (100,24));
@@ -107,7 +110,7 @@ public class HoopThreadView extends HoopJPanel implements ActionListener
 	    //>----------------------------------------------------
 	    
 		JScrollPane threadScrollPane=new JScrollPane(tree);
-		threadScrollPane.setBorder(BorderFactory.createEmptyBorder(4,4,4,4));	    
+		threadScrollPane.setBorder(BorderFactory.createEmptyBorder(1,1,1,1));	    
 	    
 	    //>----------------------------------------------------
 	    
