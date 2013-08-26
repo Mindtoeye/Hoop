@@ -19,7 +19,7 @@
 package edu.cmu.cs.in.base;
 
 import java.awt.Dimension;
-import java.io.File;
+//import java.io.File;
 import java.util.ArrayList;
 import java.util.Stack;
 import java.util.prefs.Preferences;
@@ -52,7 +52,7 @@ import edu.cmu.cs.in.hoop.project.HoopProject;
 import edu.cmu.cs.in.hoop.properties.HoopStoredProperties;
 import edu.cmu.cs.in.hoop.properties.types.HoopBooleanSerializable;
 import edu.cmu.cs.in.search.HoopTextSearch;
-import edu.cmu.cs.in.stats.HoopPerformanceMeasure;
+//import edu.cmu.cs.in.stats.HoopPerformanceMeasure;
 import edu.cmu.cs.in.stats.HoopSampleDataSet;
 import edu.cmu.cs.in.stats.HoopSampleMeasure;
 import edu.cmu.cs.in.stats.HoopStatistics;

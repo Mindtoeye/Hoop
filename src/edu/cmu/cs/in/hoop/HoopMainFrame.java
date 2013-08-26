@@ -516,6 +516,24 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     			
     			HoopLink.popWindow("Execution Monitor");
     		}
+    	});
+    	
+    	JMenuItem scriptEditorViewItem=new JMenuItem("Script Editor");
+    	
+    	scriptEditorViewItem.addActionListener(new ActionListener() 
+    	{
+    		public void actionPerformed(ActionEvent e) 
+    		{
+    			HoopScriptEditor scriptEditor=(HoopScriptEditor) HoopLink.getWindow("Script Editor");
+    			
+    			if (scriptEditor==null)
+    			{
+    				scriptEditor=new HoopScriptEditor ();
+    				addView ("Script Editor",scriptEditor,HoopLink.center);
+    			}
+    			
+    			HoopLink.popWindow("Script Editor");
+    		}
     	});    	
     		    	    	    	
     	views.add (parseTreeItem);
@@ -531,6 +549,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     	views.add (sWallItem);
     	views.add (dbViewItem);
     	views.add(executeViewItem);
+    	views.add(scriptEditorViewItem);
 
     	views.add (new JSeparator());
     	

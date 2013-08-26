@@ -24,7 +24,7 @@ import edu.cmu.cs.in.base.HoopRoot;
 
 public class HoopStatisticsMeasure extends HoopRoot
 {    			
-	private static final long serialVersionUID = 1L;
+	//private static final long serialVersionUID = 1L;
 	
 	private float N=0;
 	private float value=0;

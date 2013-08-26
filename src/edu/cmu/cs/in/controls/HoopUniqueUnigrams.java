@@ -46,7 +46,7 @@ import org.w3c.dom.NodeList;
 import edu.cmu.cs.in.base.HoopDataCollection;
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.HoopRoot;
-import edu.cmu.cs.in.base.HoopXMLBase;
+//import edu.cmu.cs.in.base.HoopXMLBase;
 import edu.cmu.cs.in.base.io.HoopVFSL;
 
 @SuppressWarnings("serial")
@@ -270,7 +270,7 @@ public class HoopUniqueUnigrams extends JPanel implements ActionListener
 	/**
 	 *
 	 */
-    private void fromXML (Element anElement)
+    public void fromXML (Element anElement)
     {
     	debug ("fromXML ("+anElement.getNodeName ()+")");
     	    	    	

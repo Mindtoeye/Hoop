@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.cmu.cs.in.base.io.HoopFileTools;
-import edu.cmu.cs.in.base.io.HoopVFSL;
+//import edu.cmu.cs.in.base.io.HoopVFSL;
 import edu.cmu.cs.in.base.kv.HoopKVDocument;
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.HoopRoot;
@@ -38,6 +38,8 @@ import edu.cmu.cs.in.ling.HoopPorterStemmerOriginal;
 */
 public class HoopDocument extends HoopKVDocument
 {		
+	private static final long serialVersionUID = -1148465692335811934L;
+	
 	private HoopPorterStemmerOriginal stemmer=null;	
 	private List<String> tokens=null;
 	private Boolean includePositions=false;

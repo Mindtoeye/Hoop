@@ -24,7 +24,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Paint;
 
-import edu.cmu.cs.in.base.HoopProperties;
+//import edu.cmu.cs.in.base.HoopProperties;
 import edu.cmu.cs.in.controls.base.HoopJPanel;
 
 /**

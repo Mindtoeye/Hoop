@@ -30,7 +30,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeCellRenderer;
 
 import edu.cmu.cs.in.base.HoopLink;
-import edu.cmu.cs.in.base.HoopProperties;
+//import edu.cmu.cs.in.base.HoopProperties;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.project.HoopFile;
 import edu.cmu.cs.in.hoop.project.HoopProject;

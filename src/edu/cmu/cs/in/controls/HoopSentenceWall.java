@@ -39,7 +39,7 @@ public class HoopSentenceWall extends HoopEmbeddedJPanel implements HoopVisualFe
 	private static final long serialVersionUID = -1L;
 	
 	public ArrayList <HoopVisualSentence> texts=null;	
-	private JList sentenceList=null;
+	private JList<HoopVisualSentence> sentenceList=null;
 		
 	/**
 	 *
@@ -51,7 +51,7 @@ public class HoopSentenceWall extends HoopEmbeddedJPanel implements HoopVisualFe
 				
 		Box mainBox = new Box (BoxLayout.Y_AXIS);
 			
-	    sentenceList=new JList ();
+	    sentenceList=new JList<HoopVisualSentence> ();
 	    JScrollPane sentenceScrollList = new JScrollPane (sentenceList);
 	    sentenceScrollList.setMinimumSize (new Dimension(100, 80));
 	    
@@ -80,7 +80,7 @@ public class HoopSentenceWall extends HoopEmbeddedJPanel implements HoopVisualFe
 		
 		texts=aData;
 		
-        DefaultListModel model=new DefaultListModel();
+        DefaultListModel<HoopVisualSentence> model=new DefaultListModel<HoopVisualSentence>();
         
         for (int i=0;i<texts.size();i++)
         {
