@@ -21,6 +21,7 @@ package edu.cmu.cs.in.hoop.hoops.task;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopControlBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
+import edu.cmu.cs.in.hoop.properties.types.HoopIntegerSerializable;
 
 /**
 * 
@@ -28,6 +29,8 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
 public class HoopDummyTimeWaster extends HoopControlBase implements HoopInterface
 {    						
 	private static final long serialVersionUID = -47342639836020148L;
+	
+	public HoopIntegerSerializable waste=null;
 	
 	/**
 	 *
@@ -37,7 +40,9 @@ public class HoopDummyTimeWaster extends HoopControlBase implements HoopInterfac
 		setClassName ("HoopDummyTimeWaster");
 		debug ("HoopDummyTimeWaster ()");
 										
-		setHoopDescription ("Gremlin hoop that wastes time");		
+		setHoopDescription ("Gremlin hoop that wastes time");	
+		
+		waste=new HoopIntegerSerializable (this,"waste",5); // 5 seconds default
     }
 	/**
 	 *
@@ -50,7 +55,7 @@ public class HoopDummyTimeWaster extends HoopControlBase implements HoopInterfac
 				
 		try 
 		{
-			Thread.sleep(5000);
+			Thread.sleep(waste.getPropValue());
 		} 
 		catch (InterruptedException e) 
 		{		
