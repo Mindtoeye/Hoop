@@ -39,7 +39,6 @@ import javax.swing.JTextField;
 import edu.cmu.cs.in.base.HoopFixedSizeQueue;
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
-//import edu.cmu.cs.in.controls.base.HoopJInternalFrame;
 
 /** 
  * @author vvelsen
@@ -64,7 +63,7 @@ public class HoopConsole extends HoopEmbeddedJPanel implements HoopConsoleInterf
 	private JButton silentButton=null;
 	
 	private JCheckBox filterClassCheck=null;
-	private JComboBox filterClass=null;
+	private JComboBox<String> filterClass=null;
 	private JButton updateClasses=null;
 	
 	private int fontSize=8;
@@ -157,7 +156,7 @@ public class HoopConsole extends HoopEmbeddedJPanel implements HoopConsoleInterf
 		filterClassCheck.setPreferredSize(new Dimension (150,20));
 		filterClassCheck.setMaximumSize(new Dimension (150,20));		
 		
-		filterClass = new JComboBox();
+		filterClass = new JComboBox<String>();
 		filterClass.setFont(new Font("Courier",1,9));
 		filterClass.setPreferredSize(new Dimension (150,20));
 		filterClass.setMaximumSize(new Dimension (150,20));

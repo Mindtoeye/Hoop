@@ -19,18 +19,13 @@
 package edu.cmu.cs.in.hoop.hoops.task;
 
 import java.awt.Dimension;
-import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-import org.apache.uima.jcas.JCas;
-
-import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.hoop.HoopPathOrderEditor;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopControlBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
-import edu.cmu.cs.in.hoop.properties.types.HoopStringSerializable;
 
 /**
 * 

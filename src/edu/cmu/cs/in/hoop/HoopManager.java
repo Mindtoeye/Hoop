@@ -65,6 +65,7 @@ import edu.cmu.cs.in.hoop.hoops.save.HoopStdout;
 import edu.cmu.cs.in.hoop.hoops.save.HoopTextFileSave;
 import edu.cmu.cs.in.hoop.hoops.save.HoopXMLDocumentWriter;
 import edu.cmu.cs.in.hoop.hoops.save.HoopXMLWriter;
+import edu.cmu.cs.in.hoop.hoops.task.HoopDummyTimeWaster;
 import edu.cmu.cs.in.hoop.hoops.task.HoopPathChooser;
 import edu.cmu.cs.in.hoop.hoops.task.HoopScheduler;
 import edu.cmu.cs.in.hoop.hoops.task.HoopStart;
@@ -258,5 +259,6 @@ public class HoopManager extends HoopBase
     	addTemplate (new HoopKV2Cas ());
     	addTemplate (new HoopUIMAConfigurationLoadBase ());
     	addTemplate (new HoopGenericAnnotator ());
+    	addTemplate (new HoopDummyTimeWaster ());
     }
 }

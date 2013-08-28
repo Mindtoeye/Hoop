@@ -36,11 +36,12 @@ import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
+
 //import edu.cmu.cs.in.base.HoopDateTools;
 import edu.cmu.cs.in.base.kv.HoopKVDocument;
 import edu.cmu.cs.in.controls.base.HoopJPanel;
   
-public class HoopDocumentListRenderer extends HoopJPanel implements ListCellRenderer
+public class HoopDocumentListRenderer extends HoopJPanel implements ListCellRenderer<Object>
 {
 	private static final long serialVersionUID = 1L;
 	

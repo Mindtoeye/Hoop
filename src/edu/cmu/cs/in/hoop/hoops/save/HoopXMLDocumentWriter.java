@@ -36,28 +36,20 @@ import edu.cmu.cs.in.hoop.properties.types.HoopStringSerializable;
 */
 public class HoopXMLDocumentWriter extends HoopXMLWriter
 {    			
-	@SuppressWarnings("unused")
-	private HoopStringSerializable author=null;
-	@SuppressWarnings("unused")
-	private HoopStringSerializable title=null;
-	@SuppressWarnings("unused")
-	private HoopStringSerializable abstr=null;
-	@SuppressWarnings("unused")
-	private HoopStringSerializable dateFormat=null;	
-	@SuppressWarnings("unused")
-	private HoopStringSerializable createDate=null;
-	@SuppressWarnings("unused")
-	private HoopStringSerializable modifiedDate=null;	
-	@SuppressWarnings("unused")
-	private HoopStringSerializable description=null;
-	@SuppressWarnings("unused")
-	private HoopStringSerializable text=null;
-	@SuppressWarnings("unused")
-	private HoopStringSerializable keywords=null;
-	@SuppressWarnings("unused")
-	private HoopStringSerializable url=null;	
+	private static final long serialVersionUID = -2523818761305871296L;
 	
-	private int abstrSize=50; // 50 characters for now, CHANGE THIS TO WHOLE TERMS!
+	public HoopStringSerializable author=null;	
+	public HoopStringSerializable title=null;
+	public HoopStringSerializable abstr=null;
+	public HoopStringSerializable dateFormat=null;	
+	public HoopStringSerializable createDate=null;
+	public HoopStringSerializable modifiedDate=null;	
+	public HoopStringSerializable description=null;
+	public HoopStringSerializable text=null;
+	public HoopStringSerializable keywords=null;
+	public HoopStringSerializable url=null;	
+	
+	//private int abstrSize=50; // 50 characters for now, CHANGE THIS TO WHOLE TERMS!
 	
 	/**
 	 *

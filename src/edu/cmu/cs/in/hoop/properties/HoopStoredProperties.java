@@ -24,7 +24,6 @@ import java.util.List;
 import org.jdom.Element;
 
 import edu.cmu.cs.in.base.HoopXMLBase;
-import edu.cmu.cs.in.hoop.hoops.base.HoopBaseTyped;
 import edu.cmu.cs.in.hoop.hoops.base.HoopPropertyContainer;
 import edu.cmu.cs.in.hoop.properties.types.HoopSerializable;
 

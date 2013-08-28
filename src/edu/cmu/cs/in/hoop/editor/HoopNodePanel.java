@@ -19,7 +19,6 @@
 
 package edu.cmu.cs.in.hoop.editor;
 
-//import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -37,17 +36,10 @@ import edu.cmu.cs.in.controls.HoopProgressPainter;
 import edu.cmu.cs.in.controls.HoopShadowBorder;
 import edu.cmu.cs.in.hoop.HoopTablePanel;
 import edu.cmu.cs.in.hoop.execute.HoopExecuteInEditor;
-//import edu.cmu.cs.in.hoop.hoops.base.HoopAnalyze;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
-//import edu.cmu.cs.in.hoop.hoops.base.HoopControlBase;
-//import edu.cmu.cs.in.hoop.hoops.base.HoopDisplayBase;
-//import edu.cmu.cs.in.hoop.hoops.base.HoopLoadBase;
-//import edu.cmu.cs.in.hoop.hoops.base.HoopSaveBase;
-//import edu.cmu.cs.in.hoop.hoops.base.HoopTransformBase;
 import edu.cmu.cs.in.hoop.properties.HoopInspectablePanel;
 import edu.cmu.cs.in.hoop.properties.HoopPropertyPanel;
 import edu.cmu.cs.in.hoop.properties.HoopVisualProperties;
-import edu.cmu.cs.in.hoop.visualizers.HoopParseTreeViewer;
 
 /**   
  * An easy access class to the panel that represents a node in the Hoop graph.
@@ -62,7 +54,7 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 	private HoopPropertyPanel propPanel=null;
 	private HoopInspectablePanel propertiesPanel=null;
 	private double scale=1.0;
-	
+
 	/**
 	 * 
 	 */
@@ -266,9 +258,10 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 		
 		if (panel==null)
 		{
-			HoopLink.addView ("Data View",new HoopTablePanel(),"bottom");
+			panel=new HoopTablePanel();
+			HoopLink.addView ("Data View",panel,"bottom");
 		}
-		
+		 
 		HoopLink.popWindow("Data View");
 		panel.showHoop(hoop);					
 	}

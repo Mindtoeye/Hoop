@@ -18,7 +18,7 @@
 
 package edu.cmu.cs.in.hoop.hoops.base;
 
-import edu.cmu.cs.in.controls.HoopSentenceWall;
+//import edu.cmu.cs.in.controls.HoopSentenceWall;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 
 /**
@@ -30,7 +30,7 @@ public class HoopDisplayBase extends HoopBase implements HoopInterface
 
 	private HoopEmbeddedJPanel viewer=null;
 	
-	private HoopSentenceWall wall=null;
+	//private HoopSentenceWall wall=null;
 	
 	/**
 	 *

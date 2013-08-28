@@ -52,7 +52,71 @@ public class HoopExecute extends HoopRoot implements Runnable
 	
 	private int location=LOCAL;
 			
-    private String experimentID=UUID.randomUUID().toString();   
+    private String experimentID=UUID.randomUUID().toString();
+    
+    private class HoopExecuteTask extends Thread
+    {
+    	@Override
+    	public void run() 
+    	{	
+    		debug ("run ()");
+    		
+    		loopExecuting=true;
+    		currentRunner=null;
+    				
+    		if (root==null)
+    		{
+    			debug ("Error: no graph root available");
+    			return;
+    		}
+    		
+    		executionState=HoopExecute.EXEC_RUNNING;
+    		
+    		startExecution ();
+    				
+    		showHoopTree (null,root);
+    		
+    		prepareHoops (root);
+    		
+    		showHoopTree (null,root);
+    		
+    		loopExecuting=true;
+    		
+    		if (loopCount==-1)
+    		{
+    			while (loopExecuting==true)
+    			{
+    				if (execute (null,root)==true)
+    				{
+    					updateDependencies ();
+    				}
+    			}	
+    		}	
+    		else
+    		{
+    			if (loopCount>0)
+    			{
+    				for (int i=0;i<loopCount;i++)
+    				{
+    					if (execute (null,root)==true)
+    					{
+    						updateDependencies ();
+    					}	
+    				}
+    			}
+    			else
+    				debug ("Error: loop count can't be 0");
+    		}
+    		
+    		loopExecuting=false;
+    		
+    		endExecution ();
+    		
+    		executionState=HoopExecute.EXEC_STOPPED;
+    	}    	
+    }
+    
+    private HoopExecuteTask runTask=null;
 	
 	/**
 	 *
@@ -337,6 +401,11 @@ public class HoopExecute extends HoopRoot implements Runnable
 	{	
 		debug ("run ()");
 		
+		runTask=new HoopExecuteTask ();
+		runTask.setName("Hoop Execution Main");
+		runTask.run();
+		
+		/*
 		loopExecuting=true;
 		currentRunner=null;
 				
@@ -389,6 +458,7 @@ public class HoopExecute extends HoopRoot implements Runnable
 		endExecution ();
 		
 		executionState=HoopExecute.EXEC_STOPPED;
+		*/
 	}
 	/**
 	 * 
@@ -461,6 +531,11 @@ public class HoopExecute extends HoopRoot implements Runnable
 	public Boolean suspend ()
 	{
 		executionState=HoopExecute.EXEC_SUSPENDED;
+		
+		if (runTask!=null)
+		{
+			runTask.interrupt();
+		}
 		
 		return (true);		
 	}

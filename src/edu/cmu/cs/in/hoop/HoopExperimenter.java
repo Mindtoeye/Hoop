@@ -66,7 +66,7 @@ public class HoopExperimenter extends HoopEmbeddedJPanel implements ActionListen
 	private JLabel filePath=null;
 	private JLabel queryStats=null;	
 	private mxGraph graph=null;	
-	private JList searchList=null;
+	private JList<String> searchList=null;
 	
 	public HoopExperimenter ()  
     {
@@ -131,7 +131,7 @@ public class HoopExperimenter extends HoopEmbeddedJPanel implements ActionListen
 		graphComponent.setPreferredSize(new Dimension (5000,5000));
 		graphComponent.setMaximumSize(new Dimension (5000,5000));	
 		
-		searchList=new JList ();
+		searchList=new JList<String> ();
 		searchList.setFont(new Font("Dialog", 1, 10));
 		searchList.setMinimumSize(new Dimension (50,25));
 		searchList.setPreferredSize(new Dimension (150,5000));
@@ -236,7 +236,7 @@ public class HoopExperimenter extends HoopEmbeddedJPanel implements ActionListen
 			metrics.setMarker ("Query Experiment");
 			HoopLink.metrics.getDataSet().add(metrics);
 			
-			DefaultListModel mdl=new DefaultListModel ();
+			DefaultListModel<String> mdl=new DefaultListModel<String> ();
 			
 			searchList.setModel (mdl);
 									

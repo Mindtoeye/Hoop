@@ -20,7 +20,7 @@ package edu.cmu.cs.in.hoop.hoops.base;
 
 import javax.swing.JPanel;
 
-import org.jdom.Element;
+//import org.jdom.Element;
 
 /**
 * Here we have the basis for all the hoops. It manages incoming and

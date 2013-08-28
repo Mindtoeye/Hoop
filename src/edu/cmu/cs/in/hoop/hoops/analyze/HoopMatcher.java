@@ -40,7 +40,7 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
 import edu.cmu.cs.in.hoop.properties.HoopVisualProperties;
 import edu.cmu.cs.in.hoop.properties.types.HoopBooleanSerializable;
 import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
-import edu.cmu.cs.in.ling.HoopPatternMatch;
+//import edu.cmu.cs.in.ling.HoopPatternMatch;
 import edu.cmu.cs.in.ling.HoopPatternMatcher;
 
 /**
@@ -50,14 +50,14 @@ public class HoopMatcher extends HoopAnalyze implements HoopInterface, ActionLis
 {    						
 	private static final long serialVersionUID = -6162931325565067936L;
 	
-	public  HoopURISerializable patternFile=null;
-	public  HoopBooleanSerializable allowOverlap=null;		
-	private Boolean patternsLoaded=false;		
-	private HoopPatternMatcher matcher=null;
+	public    HoopURISerializable patternFile=null;
+	public    HoopBooleanSerializable allowOverlap=null;		
+	protected Boolean patternsLoaded=false;		
+	private   HoopPatternMatcher matcher=null;
 	
-	private JPanel editorPanel=null;
-	private JButton editorButton=null;	
-	private HoopPatternEditor editor=null;
+	private   JPanel editorPanel=null;
+	private   JButton editorButton=null;	
+	private   HoopPatternEditor editor=null;
 	
 	private static final String stubPatternMain ="[A-Z]+-*[A-Z]*[0-9]*"; //alpha-numeric uppercase
 	private static final String stubPatternSecondary ="[a-zA-Z]+-[0-9]*"; //alpha-numeric uppercase
@@ -106,7 +106,7 @@ public class HoopMatcher extends HoopAnalyze implements HoopInterface, ActionLis
     /**
      * 
      */
-    private Boolean loadPatterns ()
+    protected Boolean loadPatterns ()
     {
     	debug ("loadPatterns ()");
     	

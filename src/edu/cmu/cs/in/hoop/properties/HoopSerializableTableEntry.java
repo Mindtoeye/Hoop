@@ -23,6 +23,8 @@ import edu.cmu.cs.in.hoop.properties.types.HoopSerializable;
 
 public class HoopSerializableTableEntry extends HoopBase
 {	
+	private static final long serialVersionUID = -6588741535353177996L;
+	
 	private HoopSerializable entry=null;	
 	private HoopBase component=null;
 	private String value="";

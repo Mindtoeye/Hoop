@@ -63,6 +63,13 @@ public class HoopIntegerSerializable extends HoopSerializable
 		
 		this.propValue=Integer.parseInt(aValue);
 	}
+	/**
+	 *
+	 */
+	public String getValue ()
+	{
+		return (propValue.toString());
+	} 	
     /** 
      * @param propValue
      */

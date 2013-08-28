@@ -25,7 +25,6 @@ import javax.swing.JPanel;
 
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.kv.HoopKV;
-import edu.cmu.cs.in.base.kv.HoopKVInteger;
 import edu.cmu.cs.in.base.kv.HoopKVTools;
 import edu.cmu.cs.in.hoop.HoopProjectPanel;
 import edu.cmu.cs.in.hoop.HoopStopWordEditor;
@@ -45,7 +44,7 @@ public class HoopFilterStopWords extends HoopTransformBase implements HoopInterf
 	private HoopStopWordEditor propPanel=null;
 	private HoopStopWords vocab=null;
 	
-	private HoopURISerializable URI=null;
+	public HoopURISerializable URI=null;
 	
 	/**
 	 *

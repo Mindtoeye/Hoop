@@ -25,7 +25,6 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.io.HoopVFSL;
 import edu.cmu.cs.in.controls.base.HoopJPanel;
 import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;

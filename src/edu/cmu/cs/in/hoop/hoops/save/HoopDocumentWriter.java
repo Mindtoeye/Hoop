@@ -386,7 +386,7 @@ public class HoopDocumentWriter extends HoopDocumentIndexer
 	/**
 	 * 
 	 */
-	@SuppressWarnings("unused")
+	//@SuppressWarnings("unused")
 	private void showThreadDB ()
 	{
 		debug ("showThreadDB ()");

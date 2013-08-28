@@ -35,6 +35,8 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopTransformBase;
 */
 public class HoopUniqueTerms extends HoopTransformBase implements HoopInterface
 {    				
+	private static final long serialVersionUID = 401832479343628105L;
+	
 	/**
 	 *
 	 */

@@ -43,6 +43,8 @@ import edu.cmu.cs.in.hoop.properties.types.HoopStringSerializable;
 */
 public class HoopXML2Features extends HoopTransformBase implements HoopInterface
 {    	
+	private static final long serialVersionUID = -3153758968460781524L;
+
 	private ArrayList <HoopStringSerializable>features=null;
 	
 	private HoopXPathFeatureEditor featureEditor=null;

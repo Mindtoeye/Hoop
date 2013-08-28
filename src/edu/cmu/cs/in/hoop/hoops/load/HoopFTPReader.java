@@ -92,7 +92,7 @@ public class HoopFTPReader extends HoopLoadBase
 		File translator=new File (urlObject.getFile());
 		
 		String localFileName="<PROJECTPATH>/tmp/download/"+translator.getName();
-		String serverPath=urlObject.getPath();
+		//String serverPath=urlObject.getPath();
 	 			
 		OutputStream fileStream=null;
 		

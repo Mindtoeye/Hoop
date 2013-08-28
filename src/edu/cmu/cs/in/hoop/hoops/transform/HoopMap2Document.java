@@ -32,6 +32,8 @@ import edu.cmu.cs.in.hoop.properties.types.HoopStringSerializable;
 */
 public class HoopMap2Document extends HoopTransformBase implements HoopInterface
 {    					
+	private static final long serialVersionUID = -6156264929823123568L;
+	
 	@SuppressWarnings("unused")
 	private HoopStringSerializable author=null;
 	@SuppressWarnings("unused")
@@ -105,7 +107,7 @@ public class HoopMap2Document extends HoopTransformBase implements HoopInterface
 	/**
 	 * 
 	 */
-	private String mapType (String aTypeName)
+	public String mapType (String aTypeName)
 	{
 		ArrayList <HoopSerializable> props=getProperties ();
 		

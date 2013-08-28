@@ -1,36 +1,26 @@
 package edu.cmu.cs.in.hoop.hoops.load;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.Scanner;
-
-import javax.swing.JPanel;
 
 import org.apache.uima.UIMAException;
 import org.apache.uima.jcas.JCas;
-import org.jdom.Element;
 
-import edu.cmu.cs.in.base.HoopDataType;
 import edu.cmu.cs.in.base.HoopLink;
-import edu.cmu.cs.in.base.io.HoopFileTools;
 import edu.cmu.cs.in.base.io.HoopVFSL;
-import edu.cmu.cs.in.base.kv.HoopKVString;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
 import edu.cmu.cs.in.hoop.hoops.base.HoopLoadBase;
 import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
-import static org.uimafit.factory.AnalysisEngineFactory.createPrimitive;
+
 import static org.uimafit.factory.JCasFactory.createJCas;
-import static org.uimafit.factory.TypeSystemDescriptionFactory.createTypeSystemDescription;
-import static org.uimafit.util.JCasUtil.select;
 
 public class HoopUIMAConfigurationLoadBase extends HoopLoadBase implements HoopInterface {
 
 	private static final long serialVersionUID = -3882301282248283204L;
 	
 	public HoopURISerializable URI=null;
-	private HoopFileTools fTools=null;
-	private ArrayList <String> files=null;
+	//private HoopFileTools fTools=null;
+	//private ArrayList <String> files=null;
 
 	public static Scanner uimaConfigurationFileScanner;
 
@@ -58,7 +48,7 @@ public class HoopUIMAConfigurationLoadBase extends HoopLoadBase implements HoopI
 					
 		URI=new HoopURISerializable (this,"URI","");
 		
-		fTools=new HoopFileTools ();
+		//fTools=new HoopFileTools ();
     }
 	/**
 	 * 
@@ -83,7 +73,7 @@ public class HoopUIMAConfigurationLoadBase extends HoopLoadBase implements HoopI
     
     	super.reset ();
     	
-    	files=null;
+    	//files=null;
     }	
 
 	private Boolean processSingleFile (String aPath)

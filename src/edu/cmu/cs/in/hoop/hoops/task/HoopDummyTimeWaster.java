@@ -16,35 +16,28 @@
  * 
  */
 
-package edu.cmu.cs.in.hoop.hoops.transform;
+package edu.cmu.cs.in.hoop.hoops.task;
 
-import java.util.ArrayList;
-
-import edu.cmu.cs.in.base.kv.HoopKV;
-import edu.cmu.cs.in.base.kv.HoopKVInteger;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
-import edu.cmu.cs.in.hoop.hoops.base.HoopTransformBase;
+import edu.cmu.cs.in.hoop.hoops.base.HoopControlBase;
+import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
 
 /**
 * 
 */
-public class HoopKV2TXT extends HoopTransformBase
-{    	
-	private static final long serialVersionUID = -7468435107016102433L;
-	
-	private StringBuffer textRepresentation=null;
+public class HoopDummyTimeWaster extends HoopControlBase implements HoopInterface
+{    						
+	private static final long serialVersionUID = -47342639836020148L;
 	
 	/**
 	 *
 	 */
-    public HoopKV2TXT () 
+    public HoopDummyTimeWaster () 
     {
-		setClassName ("HoopKV2TXT");
-		debug ("HoopKV2TXT ()");
-											
-		setHoopDescription ("Generate text from KV values");
-		
-		addOutPort ("TXT");		
+		setClassName ("HoopDummyTimeWaster");
+		debug ("HoopDummyTimeWaster ()");
+										
+		setHoopDescription ("Gremlin hoop that wastes time");		
     }
 	/**
 	 *
@@ -52,20 +45,19 @@ public class HoopKV2TXT extends HoopTransformBase
 	public Boolean runHoop (HoopBase inHoop)
 	{		
 		debug ("runHoop ()");
+		
+		super.runHoop(inHoop); // This will do the right thing with the data
 				
-		textRepresentation=new StringBuffer ();
-		
-		ArrayList <HoopKV> inData=inHoop.getData();
-		
-		for (int i=0;i<inData.size();i++)
+		try 
 		{
-			HoopKVInteger aKV=(HoopKVInteger) inData.get(i);
-			
-			textRepresentation.append(aKV.getKeyString()+" : " + aKV.getValue() + "\n");
-			
-			updateProgressStatus (i,inData.size());
-		}		
-				
+			Thread.sleep(5000);
+		} 
+		catch (InterruptedException e) 
+		{		
+			e.printStackTrace();
+			return (false);
+		}
+		
 		return (true);
 	}	
 	/**
@@ -73,6 +65,6 @@ public class HoopKV2TXT extends HoopTransformBase
 	 */
 	public HoopBase copy ()
 	{
-		return (new HoopKV2TXT ());
-	}		
+		return (new HoopDummyTimeWaster ());
+	}
 }

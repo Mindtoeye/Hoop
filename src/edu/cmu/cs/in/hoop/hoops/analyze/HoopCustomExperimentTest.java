@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.base.kv.HoopKVDocument;
-import edu.cmu.cs.in.base.kv.HoopKVInteger;
 import edu.cmu.cs.in.base.kv.HoopKVString;
 import edu.cmu.cs.in.hoop.hoops.base.HoopAnalyze;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;

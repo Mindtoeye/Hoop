@@ -21,15 +21,14 @@ package edu.cmu.cs.in.hoop.hoops.task;
 import java.util.Timer;
 import java.util.TimerTask;
 
-//import javax.swing.JLabel;
-
 import edu.cmu.cs.in.base.HoopRoot;
 import edu.cmu.cs.in.controls.HoopCircleCounter;
-//import edu.cmu.cs.in.controls.HoopPieChart;
 import edu.cmu.cs.in.hoop.editor.HoopNodeRenderer;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopControlBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
+import edu.cmu.cs.in.hoop.properties.types.HoopBooleanSerializable;
+import edu.cmu.cs.in.hoop.properties.types.HoopIntegerSerializable;
 
 /**
 * 
@@ -39,15 +38,22 @@ public class HoopScheduler extends HoopControlBase implements HoopInterface
 	private static final long serialVersionUID = 5343404003031040810L;
 	
 	private long cycles=-1; // forever
-	private long cycleCount=0;
+	//private long cycleCount=0;
 	
-	private long duration=5000;
-    private long resolution=500;
+	//private long duration=5000;
+    //private long resolution=500;
     
     private Boolean replaced=false;
 	
     private HoopCircleCounter countdown=null;
     
+	public HoopBooleanSerializable isAsynchronous=null;
+	public HoopIntegerSerializable timeoutValue=null;
+	public HoopIntegerSerializable timesValue=null;
+	
+    /**
+     * 
+     */
 	private class HoopTimerTask extends TimerTask 
 	{	    
 	    private long tracking=0;
@@ -118,6 +124,17 @@ public class HoopScheduler extends HoopControlBase implements HoopInterface
 		debug ("HoopScheduler ()");
 										
 		setHoopDescription ("Schedules or times Hoops downstream");
+		
+		isAsynchronous=new HoopBooleanSerializable (this,"isAsynchronous",false);
+		timeoutValue=new HoopIntegerSerializable (this,"timeoutValue",30); // 30 seconds default
+		timesValue=new HoopIntegerSerializable (this,"timesValue",-1); // Forever
+    }
+    /**
+     * 
+     */
+    public void reset ()
+    {
+    	cycles=timesValue.getPropValue();
     }
 	/**
 	 *
@@ -148,7 +165,7 @@ public class HoopScheduler extends HoopControlBase implements HoopInterface
     	//JLabel aPanel=this.getVisualizer().getContentPanel ();
         
         //2- Creating an instance of class contains your repeated method.
-        HoopTimerTask task = new HoopTimerTask(duration,resolution);
+        HoopTimerTask task = new HoopTimerTask(timesValue.getPropValue(),Math.round(timeoutValue.getPropValue()*1000));
  
  
         // HoopTimerTask is a class implements Runnable interface so
@@ -160,15 +177,14 @@ public class HoopScheduler extends HoopControlBase implements HoopInterface
         // Third Parameter is the specified the Period between consecutive
         // calling for the method.
  
-        timer.schedule(task,0,resolution);		
+        timer.schedule(task,0,timesValue.getPropValue());		
 		
 		try 
 		{
-			Thread.sleep(duration);
+			Thread.sleep(Math.round(timeoutValue.getPropValue()*1000));
 		} 
 		catch (InterruptedException e) 
-		{
-		
+		{		
 			e.printStackTrace();
 			return (true);
 		}
@@ -187,7 +203,7 @@ public class HoopScheduler extends HoopControlBase implements HoopInterface
 		
 		cycles++;
 		
-		if (cycles>=cycleCount)
+		if (cycles>=timesValue.getPropValue())
 		{
 			this.setDone(true);
 			return (true);

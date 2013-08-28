@@ -126,7 +126,7 @@ public class HoopCSVWriter extends HoopFileSaveBase
 				
 				formatted.append("\n");
 				
-				StringBuffer aStatus=new StringBuffer ();
+				//StringBuffer aStatus=new StringBuffer ();
 				
 				updateProgressStatus (t+1,inData.size());
 			}

@@ -9,6 +9,8 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
 
 public class HoopRoomAnnotatorHitesh extends HoopAnalyze implements HoopInterface{
 
+	private static final long serialVersionUID = -6414595933663887050L;
+
 	public HoopRoomAnnotatorHitesh(){
 		setClassName ("HoopRoomAnnotatorHitesh");
 		setHoopDescription ("Room Annotator Hitesh");				

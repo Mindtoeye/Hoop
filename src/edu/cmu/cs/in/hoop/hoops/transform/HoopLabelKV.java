@@ -31,6 +31,8 @@ import edu.cmu.cs.in.hoop.properties.types.HoopStringSerializable;
 */
 public class HoopLabelKV extends HoopTransformBase implements HoopInterface
 {    	
+	private static final long serialVersionUID = -511462384437732180L;
+	
 	//@SuppressWarnings("unused")
 	private HoopStringSerializable keyLabel=null;
 	//@SuppressWarnings("unused")

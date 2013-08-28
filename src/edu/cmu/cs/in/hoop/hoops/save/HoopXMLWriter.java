@@ -37,6 +37,8 @@ import edu.cmu.cs.in.hoop.properties.types.HoopEnumSerializable;
 */
 public class HoopXMLWriter extends HoopFileSaveBase
 {    		
+	private static final long serialVersionUID = 6799317477379568218L;
+	
 	private HoopEnumSerializable writeMode=null; // APPEND, OVERWRITE
 	private HoopBooleanSerializable includeIndex=null;
 	
