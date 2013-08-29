@@ -18,6 +18,10 @@
 
 package edu.cmu.cs.in.math;
 
+import java.util.Random;
+
+import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
+
 /**
  * 
  */
@@ -26,31 +30,102 @@ public class HoopMatrixOperations
 	/**
 	 * 
 	 */
-	public HoopMatrix outterProduct (HoopMatrix A,HoopMatrix B)
+	protected void debug (String aMessage)
+	{
+		HoopBase.debug("HoopMatrix3X3Operations",aMessage);
+	}
+	/**
+	 * 
+	 */
+	public HoopMatrix3X3 mult (HoopMatrix3X3 A,double multiplier)
+	{
+		HoopMatrix3X3 result=new HoopMatrix3X3 ();
+		
+		for (int i=0;i<9;i++)
+		{
+			result.entries [i]=A.entries [i]*multiplier;
+		}
+		
+		return (result);
+	}
+	/**
+	 * 
+	 */
+	public HoopMatrix3X3 add (HoopMatrix3X3 A,double adder)
+	{
+		HoopMatrix3X3 result=new HoopMatrix3X3 ();
+		
+		for (int i=0;i<9;i++)
+		{
+			result.entries [i]=A.entries [i]+adder;
+		}
+		
+		return (result);
+	}	
+	/**
+	 * 
+	 */
+	public HoopMatrix3X3 outterProduct (HoopMatrix3X3 A,HoopMatrix3X3 B)
 	{
 		return (A);
 	}
 	/**
 	 * 
 	 */
-	public HoopMatrix innerProduct (HoopMatrix A,HoopMatrix B)
+	public HoopMatrix3X3 innerProduct (HoopMatrix3X3 A,HoopMatrix3X3 B)
 	{
 		return (A);
 	}	
 	/**
 	 * 
 	 */
-	public HoopMatrix identity (HoopMatrix A)
+	public HoopMatrix3X3 identity (HoopMatrix3X3 A)
 	{
 		return (A);
 	}
 	/**
 	 * 
 	 */
-	public double[] eigenValue (HoopMatrix A)
+	public double[] eigenValue (HoopMatrix3X3 A)
 	{
 		double [] eigen={0,0,0};
 		
 		return (eigen);
-	}	
+	}
+	/**
+	 * 
+	 */
+	/*
+	public void displayMatrix (HoopMatrix3X3 target)
+	{
+		System.out.println ("Matrix: \n");
+		System.out.println (target.getEntry(1, 1) + " , " + target.getEntry(1, 2) + " , " + target.getEntry(3, 3));
+		System.out.println (target.getEntry(2, 1) + " , " + target.getEntry(2, 2) + " , " + target.getEntry(2, 3));
+		System.out.println (target.getEntry(3, 1) + " , " + target.getEntry(3, 2) + " , " + target.getEntry(3, 3));
+	}
+	*/	
+	/**
+	 * 
+	 */
+	public void displayMatrix (HoopMatrix3X3 target)
+	{
+		System.out.println ("Matrix: \n" + target.entries [0] +" , " + target.entries [1] +" , " + target.entries [2] +"\n"
+				 					     + target.entries [3] +" , " + target.entries [4] +" , " + target.entries [5] +"\n"
+				 					     + target.entries [6] +" , " + target.entries [7] +" , " + target.entries [8] +"\n");
+	}		
+	/**
+	 * 
+	 */
+  	public static void main(String[] args) 
+  	{
+  		Random generator = new Random();
+  		
+  		HoopMatrix3X3 A=new HoopMatrix3X3 (generator.nextInt(10),generator.nextInt(10),generator.nextInt(10),
+  									 	   generator.nextInt(10),generator.nextInt(10),generator.nextInt(10),
+  									 	   generator.nextInt(10),generator.nextInt(10),generator.nextInt(10));
+  		
+  		HoopMatrixOperations operations=new HoopMatrixOperations ();
+  		
+  		operations.displayMatrix(A);  		
+  	}	
 }

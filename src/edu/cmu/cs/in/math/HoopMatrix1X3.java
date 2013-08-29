@@ -18,32 +18,59 @@
 
 package edu.cmu.cs.in.math;
 
+import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
+
 /**
  * 
  */
-public class HoopMatrix
+public class HoopMatrix1X3
 {
-	public double [] entries={0,0,0,0,0,0,0,0,0};
+	public double [] entries={0,0,0};
 	
 	/**
 	 * 
 	 */
-	public HoopMatrix ()
+	protected void debug (String aMessage)
 	{
+		HoopBase.debug("HoopMatrix",aMessage);
+	}
+	/**
+	 * 
+	 */
+	public HoopMatrix1X3 (double e1,double e2,double e3)
+	{
+		entries [0]=e1;
+		entries [1]=e2;
+		entries [2]=e3;
+	}	
+	/**
+	 * 
+	 */
+	public void setEntry (int col,double value)
+	{		
+		int colTrans=col-1;
 		
+		if (colTrans<0)
+		{
+			debug ("Index out of range: (col) " + colTrans);
+			return;
+		}
+				
+		entries[colTrans]=value;
 	}
 	/**
 	 * 
 	 */
-	public void setEntry (int col,int row,double value)
-	{
-		entries [(col*row)+row]=value;
-	}
-	/**
-	 * 
-	 */
-	public double getEntry (int col,int row)
-	{
-		return (entries[(col*row)+row]);
+	public double getEntry (int col)
+	{				
+		int colTrans=col-1;
+				
+		if (colTrans<0)
+		{
+			debug ("Index out of range: (col) " + colTrans);
+			return (0);
+		}
+						
+		return (entries[colTrans]);
 	}
 }
