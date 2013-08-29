@@ -186,6 +186,7 @@ public class HoopExecuteInEditor extends HoopExecute implements ActionListener
 			runner.start();
 		}
 		
+		/*
 		if (act.equalsIgnoreCase("runN")==true)
 		{
 			setRoot(HoopLink.hoopGraphManager.getRoot());
@@ -204,7 +205,8 @@ public class HoopExecuteInEditor extends HoopExecute implements ActionListener
 			Thread runner=new Thread (this);
 			runner.setUncaughtExceptionHandler(new HoopExecuteExceptionHandler ());    			
 			runner.start();
-		}				
+		}
+		*/				
 	}	
 	/**
 	 * 

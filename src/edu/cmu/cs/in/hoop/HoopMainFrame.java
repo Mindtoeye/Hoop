@@ -807,130 +807,22 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     	
     	JMenuItem runOnceItem = new JMenuItem("Run");
     	runOnceItem.setIcon(HoopLink.getImageByName("run.png"));
+    	runOnceItem.addActionListener(new HoopActionListener("run")); 
     	
     	JMenuItem runClusterItem = new JMenuItem("Run on Cluster");
-    	runClusterItem.setIcon(HoopLink.getImageByName("run-cluster.png"));
-    	
-    	/*
-    	JMenuItem runNTimesItem = new JMenuItem("Run N Times");
-    	runNTimesItem.setIcon(HoopLink.getImageByName("run-n.png"));
-    	
-    	JMenuItem runForeverItem = new JMenuItem("Run Until Stopped");
-    	runForeverItem.setIcon(HoopLink.getImageByName("run-forever.png"));
-    	*/
+    	runClusterItem.setIcon(HoopLink.getImageByName("run-cluster.png"));    	    	    	
+    	runClusterItem.addActionListener(new HoopActionListener("runcluster")); 
     	    	
-    	runOnceItem.addActionListener(new ActionListener() 
-    	{
-    		public void actionPerformed(ActionEvent e) 
-    		{
-    			debug ("Run ...");
-    			
-    			HoopExecuteProgressPanel executionMonitor=(HoopExecuteProgressPanel) HoopLink.getWindow("Execution Monitor");
-    			if (executionMonitor==null)
-    			{
-    				executionMonitor=new HoopExecuteProgressPanel ();
-    				addView ("Execution Monitor",executionMonitor,HoopLink.bottom);
-    			}
-    			
-    			HoopLink.popWindow("Execution Monitor");
-    			
-    			HoopLink.runner.setRoot(HoopLink.hoopGraphManager.getRoot());
-    			HoopLink.runner.setLoopCount(1);
-    			HoopLink.runner.setLocation (HoopExecute.LOCAL);
-    			    			
-    			Thread runner=new Thread (HoopLink.runner);
-    			runner.setUncaughtExceptionHandler(new HoopExecuteExceptionHandler ());    			
-    			runner.start();
-    		}
-    	});
-    	
-    	runClusterItem.addActionListener(new ActionListener() 
-    	{
-    		public void actionPerformed(ActionEvent e) 
-    		{
-    			debug ("Run on Cluster ...");
-    			
-    			HoopExecuteProgressPanel executionMonitor=(HoopExecuteProgressPanel) HoopLink.getWindow("Execution Monitor");
-    			if (executionMonitor==null)
-    			{
-    				executionMonitor=new HoopExecuteProgressPanel ();
-    				addView ("Execution Monitor",executionMonitor,HoopLink.bottom);
-    			}
-    			
-    			HoopLink.popWindow("Execution Monitor");
-    			
-    			HoopCluster clusterMonitor=(HoopCluster) HoopLink.getWindow("Cluster Monitor");
-    			if (clusterMonitor==null)
-    			{
-    				clusterMonitor=new HoopCluster ();
-    				addView ("Cluster Monitor",clusterMonitor,HoopLink.center);
-    			}
-    			
-    			HoopLink.popWindow("Cluster Monitor");
-    			
-    			HoopLink.runner.setRoot(HoopLink.hoopGraphManager.getRoot());
-    			HoopLink.runner.setLoopCount(1);
-    			HoopLink.runner.setLocation (HoopExecute.CLUSTER);
-    			    			
-    			Thread runner=new Thread (HoopLink.runner);
-    			runner.setUncaughtExceptionHandler(new HoopExecuteExceptionHandler ());    			
-    			runner.start();
-    		}
-    	});    	
-    	
-    	/*
-    	runNTimesItem.addActionListener(new ActionListener() 
-    	{
-    		public void actionPerformed(ActionEvent e) 
-    		{
-    			debug ("Run N Times ...");
-    			
-    			runtime.setRoot(HoopLink.hoopGraphManager.getRoot());
-    			runtime.setLoopCount(10);
-    			
-    			Thread runner=new Thread (runtime);
-    			runner.setUncaughtExceptionHandler(new HoopExecuteExceptionHandler ());    			
-    			runner.start();   			
-    		}
-    	});
-    	*/
-    	
-    	/*
-    	runForeverItem.addActionListener(new ActionListener() 
-    	{
-    		public void actionPerformed(ActionEvent e) 
-    		{
-    			debug ("Run Forever ...");
-    			    			
-    			runtime.setRoot(HoopLink.hoopGraphManager.getRoot());
-    			runtime.setLoopCount(-1);
-    			
-    			Thread runner=new Thread (runtime);
-    			runner.setUncaughtExceptionHandler(new HoopExecuteExceptionHandler ());    			
-    			runner.start();   			
-    		}
-    	});
-    	*/ 
-    	
     	JMenuItem debugItem = new JMenuItem("Debug");
     	debugItem.setIcon(HoopLink.getImageByName("debug.png"));
+    	debugItem.addActionListener(new HoopActionListener("debug"));
+    	    
+    	runMenu.add (runOnceItem);
+    	runMenu.add (runClusterItem);
+    	runMenu.add (new JSeparator());
+    	runMenu.add (debugItem);
 
-    	debugItem.addActionListener(new ActionListener() 
-    	{
-    		public void actionPerformed(ActionEvent e) 
-    		{
-    			debug ("Debug ...");
-    		}
-    	});
-
-       runMenu.add (runOnceItem);
-       runMenu.add (runClusterItem);
-       //runMenu.add (runNTimesItem);
-       //runMenu.add (runForeverItem);
-       runMenu.add (new JSeparator());
-       runMenu.add (debugItem);
-
-       return runMenu;
+    	return runMenu;
     }    
 	/**
 	 *
@@ -940,14 +832,17 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     	debug ("addButtons ()");
     	
         JButton runButton = HoopControlTools.makeNavigationButton ("run","Run",HoopLink.getImageByName("run.png"));
-        runButton.addActionListener((HoopExecuteInEditor) HoopLink.runner);
+        //runButton.addActionListener((HoopExecuteInEditor) HoopLink.runner);
+        runButton.addActionListener(new HoopActionListener ("run"));
         
         JButton runClusterButton = HoopControlTools.makeNavigationButton ("runCluster","Run on Cluster",HoopLink.getImageByName("run-cluster.png"));
-        runClusterButton.addActionListener((HoopExecuteInEditor) HoopLink.runner);        
+        //runClusterButton.addActionListener((HoopExecuteInEditor) HoopLink.runner);
+        runClusterButton.addActionListener(new HoopActionListener ("runcluster"));
         
         JButton debugButton = HoopControlTools.makeNavigationButton ("debug","Debug",HoopLink.getImageByName("debug.png"));
-        debugButton.addActionListener((HoopExecuteInEditor) HoopLink.runner);
-        
+        //debugButton.addActionListener((HoopExecuteInEditor) HoopLink.runner);
+        debugButton.addActionListener(new HoopActionListener ("debug"));
+                
         /*
         JButton runNButton = HoopControlTools.makeNavigationButton ("runN","Run N Times",HoopLink.getImageByName("run-n.png"));
         runNButton.addActionListener(runtime);
