@@ -856,7 +856,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
         sep.setMaximumSize(new Dimension (5,50));
         
         JButton stopButton = HoopControlTools.makeNavigationButton ("Stop","Stop",HoopLink.getImageByName("run-stopped.png"));
-        stopButton.addActionListener((HoopExecuteInEditor) HoopLink.runner);
+        stopButton.addActionListener(new HoopActionListener ("stop"));
         
         toolBar.add (runButton);
         toolBar.add (Box.createRigidArea(new Dimension(2,0)));
@@ -867,13 +867,6 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
         toolBar.add (debugButton);        
         toolBar.add (Box.createRigidArea(new Dimension(2,0)));
                         
-        /*
-        toolBar.add (runNButton);
-        toolBar.add (Box.createRigidArea(new Dimension(2,0)));
-        
-        toolBar.add (runForeverButton);
-        */
-
         toolBar.add (sep);
         toolBar.add (stopButton);                                
     }     

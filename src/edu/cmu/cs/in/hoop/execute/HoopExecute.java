@@ -558,6 +558,11 @@ public class HoopExecute extends HoopRoot implements Runnable
 	public Boolean kill ()
 	{
 		executionState=HoopExecute.EXEC_KILLED;
+		
+		if (runTask!=null)
+		{
+			runTask.interrupt();
+		}		
 				
 		return (true);
 	}

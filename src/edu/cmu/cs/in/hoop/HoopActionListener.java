@@ -100,5 +100,19 @@ public class HoopActionListener extends HoopBase implements ActionListener
 			runner.setUncaughtExceptionHandler(new HoopExecuteExceptionHandler ());    			
 			runner.start();			
 		}
+		
+		//>--------------------------------------------------------------------
+		
+		if (this.getInstanceName().equalsIgnoreCase("debug")==true)
+		{
+			
+		}
+		
+		//>--------------------------------------------------------------------
+		
+		if (this.getInstanceName().equalsIgnoreCase("stop")==true)
+		{
+			HoopLink.runner.kill();
+		}
 	}
 }
