@@ -112,10 +112,12 @@ public class HoopScatterPlot extends HoopJPanel
     			visualN++;
     		}	
     		
-    		//debug ("data: " +test.getMeasure()+" min: " + min + " max: " + max);    		
+    		debug ("data ("+j+"): " +test.getMeasure()+" min: " + min + " max: " + max);    		
     	}			
 		
 		dataPrep=true;
+		
+		debug ("prepData () Done");
 	}
 	/**
 	 *
@@ -211,9 +213,7 @@ public class HoopScatterPlot extends HoopJPanel
     	
     	int closedCounter=0;
     	
-    	//debug ("xDensity: " + xDensity + " divver:" + divver + " max: " + max +" min: " + min + " width: " +winWidth);
-    	    	
-    	
+    	//debug ("xDensity: " + xDensity + " divver:" + divver + " max: " + max +" min: " + min + " width: " +winWidth);   	
     	
     	for (int i=0;i<data.size();i++)
     	{    		
@@ -224,13 +224,11 @@ public class HoopScatterPlot extends HoopJPanel
     		
     		// Min
     		
-    		
     		String dataSize = HoopLink.dataSizeForHoop.get(i);
-    	
+    		    	
     		TextLayout t1=new TextLayout (dataSize,f,frc);		
     		g2.setColor (Color.black);
-    			
-    		
+    			    		
     		//if ((measure.isOpen()==false) && (measure.getLabel().equals("Main")==false))
     		if (measure.isOpen()==false)
     		{
@@ -239,13 +237,10 @@ public class HoopScatterPlot extends HoopJPanel
     			//debug ("Measure: "+ measure.getMeasure()+" yPlot: " + yPlot + " yDensity: " + yDensity + " at: " + xProgress);
     	    		
     			g.setColor (new Color (200,200,200));
-    		
-    			
-    			
-    			if ((oldXPlot!=-1) && (oldYPlot!=-1)){
-    		
-    				
-    					g.setColor (new Color (200,200,200));
+ 	    			    			
+    			if ((oldXPlot!=-1) && (oldYPlot!=-1))
+    			{
+   					g.setColor (new Color (200,200,200));
     				
     				g.drawLine(oldXPlot,oldYPlot,(int) xProgress+windowLeft,(int) yPlot);
     				g.setColor(Color.black);
@@ -273,9 +268,7 @@ public class HoopScatterPlot extends HoopJPanel
     	
     	if (closedCounter>0)
     		paintLabels (g);
-    	
-    	
-    	
+    	    	    	
     	busy=false;
     }
 	/**
@@ -288,4 +281,3 @@ public class HoopScatterPlot extends HoopJPanel
 		//this.setData(HoopLink.metrics);
 	}	    
 }
-

@@ -44,8 +44,6 @@ import edu.cmu.cs.in.controls.dialogs.HoopEnvironmentInspector;
 import edu.cmu.cs.in.controls.dialogs.HoopPreferencesDialog;
 import edu.cmu.cs.in.hoop.builder.HoopAppBuilder;
 import edu.cmu.cs.in.hoop.editor.HoopEditorToolBar;
-import edu.cmu.cs.in.hoop.execute.HoopExecute;
-import edu.cmu.cs.in.hoop.execute.HoopExecuteExceptionHandler;
 import edu.cmu.cs.in.hoop.execute.HoopExecuteInEditor;
 import edu.cmu.cs.in.hoop.execute.HoopExecuteProgressPanel;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;

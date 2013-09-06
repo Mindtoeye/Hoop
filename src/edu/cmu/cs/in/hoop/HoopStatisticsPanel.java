@@ -76,7 +76,7 @@ public class HoopStatisticsPanel extends HoopEmbeddedJPanel implements ActionLis
 	
 	private HoopScatterPlot plotter=null;
 	
-	private int fontSize=8;
+	private int fontSize=6;
 	
     private JComboBox <String>datasetChooser=null;
     

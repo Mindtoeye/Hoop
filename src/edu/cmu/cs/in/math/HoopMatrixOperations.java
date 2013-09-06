@@ -37,25 +37,52 @@ public class HoopMatrixOperations
 	/**
 	 * 
 	 */
-	public HoopMatrix3X3 mult (HoopMatrix3X3 A,double multiplier)
-	{
-		HoopMatrix3X3 result=new HoopMatrix3X3 ();
-		
-		for (int i=0;i<9;i++)
+	public static HoopMatrixBase createInstance (HoopMatrixBase anInstance)
+	{		
+		if (anInstance.getMatrixType()==HoopMatrixBase.MATRIX1X2)
 		{
-			result.entries [i]=A.entries [i]*multiplier;
+			return (new HoopMatrix1X2 ());
+		}	
+		
+		if (anInstance.getMatrixType()==HoopMatrixBase.MATRIX1X3)
+		{
+			return (new HoopMatrix1X3 ());			
 		}
 		
-		return (result);
+		if (anInstance.getMatrixType()==HoopMatrixBase.MATRIX3X3)
+		{
+			return (new HoopMatrix3X3 ());			
+		}
+		
+		if (anInstance.getMatrixType()==HoopMatrixBase.MATRIX4X4)
+		{
+			return (new HoopMatrix4X4 ());			
+		}
+		
+		return (null);
 	}
 	/**
 	 * 
 	 */
-	public HoopMatrix3X3 add (HoopMatrix3X3 A,double adder)
-	{
-		HoopMatrix3X3 result=new HoopMatrix3X3 ();
+	public HoopMatrixBase mult (HoopMatrixBase A,double multiplier)
+	{		
+		HoopMatrixBase newInstance=HoopMatrixOperations.createInstance (A);
 		
-		for (int i=0;i<9;i++)
+		for (int i=0;i<A.entries.length;i++)
+		{
+			newInstance.entries [i]=A.entries [i]*multiplier;
+		}
+		
+		return (newInstance);
+	}
+	/**
+	 * 
+	 */
+	public HoopMatrixBase add (HoopMatrixBase A,double adder)
+	{
+		HoopMatrixBase result=HoopMatrixOperations.createInstance(A);
+		
+		for (int i=0;i<A.entries.length;i++)
 		{
 			result.entries [i]=A.entries [i]+adder;
 		}
@@ -63,24 +90,50 @@ public class HoopMatrixOperations
 		return (result);
 	}	
 	/**
-	 * 
+	 * http://en.wikipedia.org/wiki/Outer_product
 	 */
-	public HoopMatrix3X3 outterProduct (HoopMatrix3X3 A,HoopMatrix3X3 B)
+	public HoopMatrixBase outterProduct (HoopMatrixBase A,HoopMatrixBase B)
 	{
-		return (A);
+		if (A.getMatrixType()!=B.getMatrixType())
+		{
+			debug ("Error: currently no code to do matrix reductions or transformations");
+			
+			return (null);
+		}
+		
+		HoopMatrixBase result=HoopMatrixOperations.createInstance(A);
+		
+		
+		
+		return (result);
 	}
 	/**
-	 * 
+	 * http://en.wikipedia.org/wiki/Dot_product#Inner_product
 	 */
-	public HoopMatrix3X3 innerProduct (HoopMatrix3X3 A,HoopMatrix3X3 B)
+	public double innerProduct (HoopMatrixBase A,HoopMatrixBase B)
 	{
-		return (A);
+		if (A.getMatrixType()!=B.getMatrixType())
+		{
+			debug ("Error: currently no code to do matrix reductions or transformations");
+			
+			return (0);
+		}
+				
+		double inner=0;
+		
+		for (int i=0;i<A.entries.length;i++)
+		{
+			inner+=(A.entries [i]*B.entries [i]);
+		}
+		
+		return (inner);
 	}	
 	/**
 	 * 
 	 */
-	public HoopMatrix3X3 identity (HoopMatrix3X3 A)
+	public HoopMatrixBase identity (HoopMatrixBase A)
 	{
+		
 		return (A);
 	}
 	/**
@@ -92,18 +145,6 @@ public class HoopMatrixOperations
 		
 		return (eigen);
 	}
-	/**
-	 * 
-	 */
-	/*
-	public void displayMatrix (HoopMatrix3X3 target)
-	{
-		System.out.println ("Matrix: \n");
-		System.out.println (target.getEntry(1, 1) + " , " + target.getEntry(1, 2) + " , " + target.getEntry(3, 3));
-		System.out.println (target.getEntry(2, 1) + " , " + target.getEntry(2, 2) + " , " + target.getEntry(2, 3));
-		System.out.println (target.getEntry(3, 1) + " , " + target.getEntry(3, 2) + " , " + target.getEntry(3, 3));
-	}
-	*/	
 	/**
 	 * 
 	 */

@@ -18,21 +18,19 @@
 
 package edu.cmu.cs.in.math;
 
-import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
-
 /**
  * 
  */
-public class HoopMatrix3X3
-{
-	public double [] entries={0,0,0,0,0,0,0,0,0};
-	
+public class HoopMatrix3X3 extends HoopMatrixBase
+{	
 	/**
 	 * 
 	 */
 	public HoopMatrix3X3 ()
 	{
+		setMatrixType (HoopMatrixBase.MATRIX3X3);
 		
+		entries=new double[3*3];
 	}
 	/**
 	 * 
@@ -41,6 +39,10 @@ public class HoopMatrix3X3
 					   	  double e4,double e5,double e6,
 					      double e7,double e8,double e9)
 	{
+		setMatrixType (HoopMatrixBase.MATRIX3X3);
+		
+		entries=new double[3*3];
+		
 		entries [0]=e1;
 		entries [1]=e2;
 		entries [2]=e3;
@@ -49,14 +51,14 @@ public class HoopMatrix3X3
 		entries [5]=e6;
 		entries [6]=e7;
 		entries [7]=e8;
-		entries [8]=e9;
-	}
+		entries [8]=e9;		
+	}	
 	/**
 	 * 
 	 */
-	protected void debug (String aMessage)
+	public int getMatrixSize ()
 	{
-		HoopBase.debug("HoopMatrix",aMessage);
+		return (entries.length);
 	}	
 	/**
 	 * Ex:
@@ -92,9 +94,7 @@ public class HoopMatrix3X3
 	 * 
 	 */
 	public double getEntry (int row,int col)
-	{		
-		//debug ("getEntry ("+row+","+col+")");
-		
+	{				
 		int colTrans=col-1;
 				
 		if (colTrans<0)
@@ -110,11 +110,7 @@ public class HoopMatrix3X3
 			debug ("Index out of range: (row) " + rowTrans);
 			return (0);
 		}			
-		
-		//debug ("getEntry* ("+colTrans+","+rowTrans+")");
-		
-		//debug ("getEntry+ ("+colTrans+"+"+rowTrans*3+")");
-				
+						
 		return (entries[(3*rowTrans)+colTrans]);
 	}
 }

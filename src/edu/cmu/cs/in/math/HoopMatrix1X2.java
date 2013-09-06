@@ -21,31 +21,28 @@ package edu.cmu.cs.in.math;
 /**
  * 
  */
-public class HoopMatrix1X3 extends HoopMatrixBase
+public class HoopMatrix1X2 extends HoopMatrixBase
 {
 	/**
 	 * 
 	 */
-	public HoopMatrix1X3 ()
+	public HoopMatrix1X2 ()
 	{		
-		setMatrixType (HoopMatrixBase.MATRIX1X3);
+		setMatrixType (HoopMatrixBase.MATRIX1X2);
 		
-		entries=new double[3];
+		entries=new double[2];
 	}	
 	/**
 	 * 
 	 */
-	public HoopMatrix1X3 (double e1,double e2,double e3)
+	public HoopMatrix1X2 (double e1,double e2)
 	{
-		entries=new double[3];
+		entries=new double[2];
 		
 		entries [0]=e1;
 		entries [1]=e2;
-		entries [2]=e3;
 		
-		setMatrixType (HoopMatrixBase.MATRIX1X3);
-		
-		
+		setMatrixType (HoopMatrixBase.MATRIX1X2);
 	}	
 	/**
 	 * 

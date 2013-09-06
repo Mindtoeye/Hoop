@@ -21,31 +21,39 @@ package edu.cmu.cs.in.math;
 /**
  * 
  */
-public class HoopMatrix1X3 extends HoopMatrixBase
+public class HoopMatrix4X4 extends HoopMatrixBase
 {
+	public double [] entries={0,0,0,0,0,0,0,0,0};
+	
 	/**
 	 * 
 	 */
-	public HoopMatrix1X3 ()
-	{		
-		setMatrixType (HoopMatrixBase.MATRIX1X3);
-		
-		entries=new double[3];
-	}	
-	/**
-	 * 
-	 */
-	public HoopMatrix1X3 (double e1,double e2,double e3)
+	public HoopMatrix4X4 ()
 	{
-		entries=new double[3];
+		setMatrixType (HoopMatrixBase.MATRIX4X4);
+		
+		entries=new double[4*4];
+	}
+	/**
+	 * 
+	 */
+	public HoopMatrix4X4 (double e1,double e2,double e3,
+					   	  double e4,double e5,double e6,
+					      double e7,double e8,double e9)
+	{
+		setMatrixType (HoopMatrixBase.MATRIX4X4);
+		
+		entries=new double[4*4];
 		
 		entries [0]=e1;
 		entries [1]=e2;
 		entries [2]=e3;
-		
-		setMatrixType (HoopMatrixBase.MATRIX1X3);
-		
-		
+		entries [3]=e4;
+		entries [4]=e5;
+		entries [5]=e6;
+		entries [6]=e7;
+		entries [7]=e8;
+		entries [8]=e9;
 	}	
 	/**
 	 * 
@@ -55,9 +63,16 @@ public class HoopMatrix1X3 extends HoopMatrixBase
 		return (entries.length);
 	}	
 	/**
+	 * Ex:
 	 * 
+	 * 1,2,3
+	 * 4,5,6
+	 * 7,8,9
+	 * 
+	 * ent(col,row)
+	 * ent(2,3) -> 6 
 	 */
-	public void setEntry (int col,double value)
+	public void setEntry (int row,int col,double value)
 	{		
 		int colTrans=col-1;
 		
@@ -66,13 +81,21 @@ public class HoopMatrix1X3 extends HoopMatrixBase
 			debug ("Index out of range: (col) " + colTrans);
 			return;
 		}
-				
-		entries[colTrans]=value;
+		
+		int rowTrans=row-1;
+		
+		if (rowTrans<0)
+		{
+			debug ("Index out of range: (row) " + rowTrans);
+			return;
+		}			
+		
+		entries[(3*rowTrans)+colTrans]=value;
 	}
 	/**
 	 * 
 	 */
-	public double getEntry (int col)
+	public double getEntry (int row,int col)
 	{				
 		int colTrans=col-1;
 				
@@ -81,7 +104,15 @@ public class HoopMatrix1X3 extends HoopMatrixBase
 			debug ("Index out of range: (col) " + colTrans);
 			return (0);
 		}
+		
+		int rowTrans=row-1;
+		
+		if (rowTrans<0)
+		{
+			debug ("Index out of range: (row) " + rowTrans);
+			return (0);
+		}			
 						
-		return (entries[colTrans]);
+		return (entries[(3*rowTrans)+colTrans]);
 	}
 }
