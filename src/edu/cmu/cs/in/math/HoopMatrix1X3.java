@@ -31,29 +31,24 @@ public class HoopMatrix1X3 extends HoopMatrixBase
 		setMatrixType (HoopMatrixBase.MATRIX1X3);
 		
 		entries=new double[3];
+		
+		entries [0]=1;
+		entries [1]=1;
+		entries [2]=1;
 	}	
 	/**
 	 * 
 	 */
 	public HoopMatrix1X3 (double e1,double e2,double e3)
 	{
+		setMatrixType (HoopMatrixBase.MATRIX1X3);
+		
 		entries=new double[3];
 		
 		entries [0]=e1;
 		entries [1]=e2;
-		entries [2]=e3;
-		
-		setMatrixType (HoopMatrixBase.MATRIX1X3);
-		
-		
-	}	
-	/**
-	 * 
-	 */
-	public int getMatrixSize ()
-	{
-		return (entries.length);
-	}	
+		entries [2]=e3;					
+	}		
 	/**
 	 * 
 	 */

@@ -21,39 +21,36 @@ package edu.cmu.cs.in.math;
 /**
  * 
  */
-public class HoopMatrix4X4 extends HoopMatrixBase
-{
-	public double [] entries={0,0,0,0,0,0,0,0,0};
-	
+public class HoopMatrix2X2 extends HoopMatrixBase
+{	
 	/**
 	 * 
 	 */
-	public HoopMatrix4X4 ()
+	public HoopMatrix2X2 ()
 	{
-		setMatrixType (HoopMatrixBase.MATRIX4X4);
+		setMatrixType (HoopMatrixBase.MATRIX2X2);
 		
-		entries=new double[4*4];
+		entries=new double[2*2];
+		
+		entries [0]=1;
+		entries [1]=0;
+		entries [2]=1;
+		entries [3]=0;	
 	}
 	/**
 	 * 
 	 */
-	public HoopMatrix4X4 (double e1,double e2,double e3,
-					   	  double e4,double e5,double e6,
-					      double e7,double e8,double e9)
+	public HoopMatrix2X2 (double e1,double e2,
+					   	  double e3,double e4)
 	{
-		setMatrixType (HoopMatrixBase.MATRIX4X4);
+		setMatrixType (HoopMatrixBase.MATRIX2X2);
 		
-		entries=new double[4*4];
+		entries=new double[2*2];
 		
 		entries [0]=e1;
 		entries [1]=e2;
 		entries [2]=e3;
-		entries [3]=e4;
-		entries [4]=e5;
-		entries [5]=e6;
-		entries [6]=e7;
-		entries [7]=e8;
-		entries [8]=e9;
+		entries [3]=e4;		
 	}		
 	/**
 	 * Ex:
@@ -62,7 +59,7 @@ public class HoopMatrix4X4 extends HoopMatrixBase
 	 * 4,5,6
 	 * 7,8,9
 	 * 
-	 * ent(row,col)
+	 * ent(col,row)
 	 * ent(2,3) -> 6 
 	 */
 	public void setEntry (int row,int col,double value)

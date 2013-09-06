@@ -42,7 +42,12 @@ public class HoopMatrixOperations
 		if (anInstance.getMatrixType()==HoopMatrixBase.MATRIX1X2)
 		{
 			return (new HoopMatrix1X2 ());
-		}	
+		}
+		
+		if (anInstance.getMatrixType()==HoopMatrixBase.MATRIX2X2)
+		{
+			return (new HoopMatrix2X2 ());
+		}
 		
 		if (anInstance.getMatrixType()==HoopMatrixBase.MATRIX1X3)
 		{
@@ -133,11 +138,35 @@ public class HoopMatrixOperations
 	 */
 	public HoopMatrixBase identity (HoopMatrixBase A)
 	{
+		if (A.getMatrixType()==HoopMatrixBase.MATRIX1X2)
+		{
+			return (new HoopMatrix1X2 ().identity());
+		}
+		
+		if (A.getMatrixType()==HoopMatrixBase.MATRIX2X2)
+		{
+			return (new HoopMatrix2X2 ().identity());
+		}
+		
+		if (A.getMatrixType()==HoopMatrixBase.MATRIX1X3)
+		{
+			return (new HoopMatrix1X3 ().identity());			
+		}
+		
+		if (A.getMatrixType()==HoopMatrixBase.MATRIX3X3)
+		{
+			return (new HoopMatrix3X3 ().identity());
+		}
+		
+		if (A.getMatrixType()==HoopMatrixBase.MATRIX4X4)
+		{
+			return (new HoopMatrix4X4 ().identity());
+		}
 		
 		return (A);
 	}
 	/**
-	 * 
+	 * http://en.wikipedia.org/wiki/Eigenvalues_and_eigenvectors
 	 */
 	public double[] eigenValue (HoopMatrix3X3 A)
 	{

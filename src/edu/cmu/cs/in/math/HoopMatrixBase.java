@@ -26,9 +26,10 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 public class HoopMatrixBase
 {	
 	public static int MATRIX1X2=0;
-	public static int MATRIX1X3=1;
-	public static int MATRIX3X3=2;
-	public static int MATRIX4X4=3;
+	public static int MATRIX2X2=1;
+	public static int MATRIX1X3=2;
+	public static int MATRIX3X3=3;
+	public static int MATRIX4X4=4;
 	
 	private int matrixType=MATRIX1X3;
 	
@@ -60,6 +61,13 @@ public class HoopMatrixBase
 	 */
 	public int getMatrixSize ()
 	{
-		return (0);
+		return (entries.length);
+	}
+	/**
+	 * http://en.wikipedia.org/wiki/Identity_matrix
+	 */
+	public HoopMatrixBase identity ()
+	{
+		return (this);
 	}
 }

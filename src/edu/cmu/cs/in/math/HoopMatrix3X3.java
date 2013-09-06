@@ -31,6 +31,16 @@ public class HoopMatrix3X3 extends HoopMatrixBase
 		setMatrixType (HoopMatrixBase.MATRIX3X3);
 		
 		entries=new double[3*3];
+		
+		entries [0]=1;
+		entries [1]=0;
+		entries [2]=0;
+		entries [3]=0;
+		entries [4]=1;
+		entries [5]=0;
+		entries [6]=0;
+		entries [7]=0;
+		entries [8]=1;	
 	}
 	/**
 	 * 
@@ -52,14 +62,7 @@ public class HoopMatrix3X3 extends HoopMatrixBase
 		entries [6]=e7;
 		entries [7]=e8;
 		entries [8]=e9;		
-	}	
-	/**
-	 * 
-	 */
-	public int getMatrixSize ()
-	{
-		return (entries.length);
-	}	
+	}		
 	/**
 	 * Ex:
 	 * 

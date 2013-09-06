@@ -31,6 +31,9 @@ public class HoopMatrix1X2 extends HoopMatrixBase
 		setMatrixType (HoopMatrixBase.MATRIX1X2);
 		
 		entries=new double[2];
+		
+		entries [0]=1;
+		entries [1]=1;
 	}	
 	/**
 	 * 
@@ -43,14 +46,7 @@ public class HoopMatrix1X2 extends HoopMatrixBase
 		entries [1]=e2;
 		
 		setMatrixType (HoopMatrixBase.MATRIX1X2);
-	}	
-	/**
-	 * 
-	 */
-	public int getMatrixSize ()
-	{
-		return (entries.length);
-	}	
+	}		
 	/**
 	 * 
 	 */
