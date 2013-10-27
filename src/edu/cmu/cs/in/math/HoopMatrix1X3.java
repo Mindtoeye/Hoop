@@ -79,4 +79,11 @@ public class HoopMatrix1X3 extends HoopMatrixBase
 						
 		return (entries[colTrans]);
 	}
+	/**
+	 * http://en.wikipedia.org/wiki/Identity_matrix
+	 */
+	public HoopMatrixBase identity ()
+	{
+		return (new HoopMatrix1X3 ());
+	}		
 }

@@ -70,4 +70,11 @@ public class HoopMatrixBase
 	{
 		return (this);
 	}
+	/**
+	 * http://en.wikipedia.org/wiki/Transpose
+	 */
+	public HoopMatrixBase transpose ()
+	{
+		return (this);
+	}	
 }

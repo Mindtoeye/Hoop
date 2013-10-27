@@ -116,4 +116,42 @@ public class HoopMatrix3X3 extends HoopMatrixBase
 						
 		return (entries[(3*rowTrans)+colTrans]);
 	}
+	/**
+	 * http://en.wikipedia.org/wiki/Identity_matrix
+	 */
+	public HoopMatrixBase identity ()
+	{
+		return (new HoopMatrix3X3 ());
+	}
+	/**
+	 * http://en.wikipedia.org/wiki/Transpose
+	 * 
+	 * [0][1][2]
+	 * [3][4][5]
+	 * [6][7][8]
+	 * 
+	 * =
+	 * 
+	 * [0][3][6]
+	 * [1][4][7]
+	 * [2][5][8] 
+	 */
+	public HoopMatrixBase transpose ()
+	{
+		HoopMatrix3X3 transposed=new HoopMatrix3X3 ();
+		
+		transposed.entries [3]=this.entries[1];
+		transposed.entries [6]=this.entries[2];
+		transposed.entries [7]=this.entries[5];
+		
+		transposed.entries [0]=this.entries[0];
+		transposed.entries [4]=this.entries[4];
+		transposed.entries [8]=this.entries[8];		
+		
+		transposed.entries [1]=this.entries[3];
+		transposed.entries [2]=this.entries[6];
+		transposed.entries [5]=this.entries[7];		
+		
+		return (transposed);
+	}	
 }

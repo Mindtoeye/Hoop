@@ -105,4 +105,11 @@ public class HoopMatrix2X2 extends HoopMatrixBase
 						
 		return (entries[(3*rowTrans)+colTrans]);
 	}
+	/**
+	 * http://en.wikipedia.org/wiki/Identity_matrix
+	 */
+	public HoopMatrixBase identity ()
+	{
+		return (new HoopMatrix2X2 ());
+	}	
 }

@@ -95,6 +95,17 @@ public class HoopMatrixOperations
 		return (result);
 	}	
 	/**
+	 * 
+	 */
+	public HoopMatrixBase inverse (HoopMatrixBase A)
+	{
+		HoopMatrixBase result=HoopMatrixOperations.createInstance(A);
+		
+		// TBD
+		
+		return (result);
+	}	
+	/**
 	 * http://en.wikipedia.org/wiki/Outer_product
 	 */
 	public HoopMatrixBase outterProduct (HoopMatrixBase A,HoopMatrixBase B)
@@ -168,20 +179,55 @@ public class HoopMatrixOperations
 	/**
 	 * http://en.wikipedia.org/wiki/Eigenvalues_and_eigenvectors
 	 */
-	public double[] eigenValue (HoopMatrix3X3 A)
+	public double eigenValue (HoopMatrix3X3 A)
+	{
+		
+		return (0);
+	}
+	/**
+	 * http://en.wikipedia.org/wiki/Eigenvalues_and_eigenvectors
+	 */
+	public double[] eigenVector (HoopMatrix3X3 A)
 	{
 		double [] eigen={0,0,0};
 		
 		return (eigen);
-	}
+	}	
 	/**
 	 * 
 	 */
-	public void displayMatrix (HoopMatrix3X3 target)
+	public void displayMatrix (HoopMatrixBase target)
 	{
-		System.out.println ("Matrix: \n" + target.entries [0] +" , " + target.entries [1] +" , " + target.entries [2] +"\n"
-				 					     + target.entries [3] +" , " + target.entries [4] +" , " + target.entries [5] +"\n"
-				 					     + target.entries [6] +" , " + target.entries [7] +" , " + target.entries [8] +"\n");
+		if (target.getMatrixType()==HoopMatrixBase.MATRIX1X2)
+		{
+			System.out.println ("Matrix: \n" + target.entries [0] +" , " + target.entries [1] +"\n");
+		}		
+		
+		if (target.getMatrixType()==HoopMatrixBase.MATRIX2X2)
+		{
+			System.out.println ("Matrix: \n" + target.entries [0] +" , " + target.entries [1] +"\n");
+			System.out.println ("Matrix: \n" + target.entries [2] +" , " + target.entries [3] +"\n");
+		}
+		
+		if (target.getMatrixType()==HoopMatrixBase.MATRIX1X3)
+		{
+			System.out.println ("Matrix: \n" + target.entries [0] +" , " + target.entries [1] + " , " + target.entries [2] +"\n");
+		}		
+		
+		if (target.getMatrixType()==HoopMatrixBase.MATRIX3X3)
+		{
+			System.out.println ("Matrix: \n" + target.entries [0] +" , " + target.entries [1] + " , " + target.entries [2] +"\n"
+											 + target.entries [3] +" , " + target.entries [4] + " , " + target.entries [5] +"\n"
+											 + target.entries [6] +" , " + target.entries [7] + " , " + target.entries [8] +"\n");
+		}
+		
+		if (target.getMatrixType()==HoopMatrixBase.MATRIX4X4)
+		{
+			System.out.println ("Matrix: \n" + target.entries [0] +" , " + target.entries [1] + " , " + target.entries [2] + " , " + target.entries [3] +"\n"
+											 + target.entries [4] +" , " + target.entries [5] + " , " + target.entries [6] + " , " + target.entries [7] +"\n"
+											 + target.entries [8] +" , " + target.entries [9] + " , " + target.entries [10] + " , " + target.entries [11] +"\n"
+			 								 + target.entries [12] +" , " + target.entries [13] + " , " + target.entries [14] + " , " + target.entries [15] +"\n");
+		}		
 	}		
 	/**
 	 * 
@@ -196,6 +242,24 @@ public class HoopMatrixOperations
   		
   		HoopMatrixOperations operations=new HoopMatrixOperations ();
   		
-  		operations.displayMatrix(A);  		
+  		System.out.println ("Random (3X3)");
+  		
+  		operations.displayMatrix(A);
+  		
+  		System.out.println ("Mult (2.5)");
+  		
+  		operations.displayMatrix(operations.mult(A,2.5));
+  		
+  		System.out.println ("Add (2.5)");  		
+  		
+  		operations.displayMatrix(operations.add(A,2.5));
+  		
+  		System.out.println ("Identity");
+  		
+  		operations.displayMatrix(A.identity());
+  		
+  		System.out.println ("Transpose");  		
+  		
+  		operations.displayMatrix(A.transpose());
   	}	
 }
