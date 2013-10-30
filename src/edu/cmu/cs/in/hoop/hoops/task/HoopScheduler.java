@@ -21,12 +21,18 @@ package edu.cmu.cs.in.hoop.hoops.task;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.swing.JPanel;
+
+import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.HoopRoot;
 import edu.cmu.cs.in.controls.HoopCircleCounter;
 import edu.cmu.cs.in.hoop.editor.HoopNodeRenderer;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopControlBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
+import edu.cmu.cs.in.hoop.hoops.task.HoopCalendarControls.DateLookPanel;
+import edu.cmu.cs.in.hoop.hoops.task.HoopCalendarControls.EventMemory;
+//import edu.cmu.cs.in.hoop.hoops.task.HoopCalendarControls.HoopCalendarTaskDialog;
 import edu.cmu.cs.in.hoop.properties.types.HoopBooleanSerializable;
 import edu.cmu.cs.in.hoop.properties.types.HoopIntegerSerializable;
 
@@ -51,6 +57,9 @@ public class HoopScheduler extends HoopControlBase implements HoopInterface
 	public HoopIntegerSerializable timeoutValue=null;
 	public HoopIntegerSerializable timesValue=null;
 	
+	DateLookPanel date_look_panel = null;
+	EventMemory event_memory = null;
+		
     /**
      * 
      */
@@ -211,6 +220,25 @@ public class HoopScheduler extends HoopControlBase implements HoopInterface
 		
 		this.setDone(false);
 		return (true);
+	}	
+	/**
+	 * 
+	 */
+	@Override
+	public JPanel getPropertiesPanel() 
+	{
+		if (HoopLink.project.getVirginFile()==true)
+		{
+			alert ("Error: please save your project first before opening the scheduler");
+			return (null);
+		}
+		
+		date_look_panel = new DateLookPanel();
+		event_memory = new EventMemory(date_look_panel);
+		event_memory.read_data_file();     // read dates from file and store in memory
+		date_look_panel.set_event_memory(event_memory);		
+		
+		return (date_look_panel);
 	}	
 	/**
 	 * 

@@ -320,7 +320,14 @@ public class HoopLink extends HoopProperties
 		 							 "speed-1.png",
 		 							 "speed-2.png",
 		 							 "speed-3.png",
-		 							 "clock.png"
+		 							 "clock.png",
+		 							 "default.gif",
+		 							 "default_day.gif",
+		 							 "dl.png",
+		 							 "move.gif",
+		 							 "move_copy.gif",
+		 							 "move_day.gif",
+		 							 "move_day_copy.gif"		 							 
 		 							 };
 	
 	public static JFrame mainFrame=null;
@@ -436,7 +443,8 @@ public class HoopLink extends HoopProperties
      */
     private void setupProperties ()
     {
-    	HoopBooleanSerializable tmp=new HoopBooleanSerializable (props,"logtodisk",true);
+    	@SuppressWarnings("unused")
+		HoopBooleanSerializable tmp=new HoopBooleanSerializable (props,"logtodisk",true);
     }
     /**
      * 

@@ -86,17 +86,16 @@ public abstract class HoopCustomJPanel extends HoopJPanel implements KeyListener
    *                            false - no resizing.
    *
    */
-  public HoopCustomJPanel (Window pw, boolean rr) 
+  public HoopCustomJPanel (boolean rr) 
   {
     super();
     
-	setClassName ("RPanel");
-	debug ("RPanel ()");    
+	setClassName ("HoopCustomJPanel");
+	debug ("HoopCustomJPanel ()");    
     
     me = this;
     resizing_required = rr;
     first_draw = true;
-    parent_window = pw;
     this.setLayout(null);
     enableEvents(AWTEvent.COMPONENT_EVENT_MASK);
     font_antialiasing = true;
@@ -107,20 +106,27 @@ public abstract class HoopCustomJPanel extends HoopJPanel implements KeyListener
     this.addMouseWheelListener(this);
     this.addKeyListener(this);
     
-    if (resizing_required) {  // if true then create timer that controls the resizing
-      resize_timer = new javax.swing.Timer(500,
-        new ActionListener() {
-          public void actionPerformed(ActionEvent evt) {
+    if (resizing_required) 
+    {  
+    	// if true then create timer that controls the resizing
+    	resize_timer = new javax.swing.Timer(500,
+        new ActionListener() 
+    	{
+          public void actionPerformed(ActionEvent evt) 
+          {
             int h = me.getHeight();
             int w = me.getWidth();
             
-            if (h * initial_width < w * initial_heigth) { // if true then components are overlapping
-              int ph = parent_window.getHeight();
-              int pw = parent_window.getWidth();
+            if (h * initial_width < w * initial_heigth) 
+            { 
+            	// if true then components are overlapping
+            	int ph = parent_window.getHeight();
+            	int pw = parent_window.getWidth();
               
-              parent_window.setSize(pw, (w * initial_heigth) / initial_width + ph - h);
-              parent_window.paintAll(parent_window.getGraphics());
+            	parent_window.setSize(pw, (w * initial_heigth) / initial_width + ph - h);
+            	parent_window.paintAll(parent_window.getGraphics());
             }
+            
             resize_timer.stop();
           }
         });
