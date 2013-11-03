@@ -70,10 +70,10 @@ public class DescriptionEditorFrame extends HoopJFrame
     try {
       contentPane = (JPanel) this.getContentPane();
       setIconImage(HoopLink.getImageByName("dl.png").getImage());
-      this.setSize(new Dimension(28 * DateLookPanel.slot_height + DateLookPanel.frame_decor_width,
-          15 * DateLookPanel.slot_height + DateLookPanel.frame_decor_height));
+      this.setSize(new Dimension(28 * HoopDateLookPanel.slot_height + HoopDateLookPanel.frame_decor_width,
+          15 * HoopDateLookPanel.slot_height + HoopDateLookPanel.frame_decor_height));
       this.setTitle("DateLook DescriptionEditor");
-      int h = DateLookPanel.slot_height;
+      int h = HoopDateLookPanel.slot_height;
 
       editor_pane = new JEditorPane("text/plain", description.toString());
       editor_pane.setFont(new Font("SansSerif", Font.PLAIN, h * 2 / 3));
@@ -84,7 +84,7 @@ public class DescriptionEditorFrame extends HoopJFrame
       split_pane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, button_panel, scrollPane);
       split_pane.setResizeWeight(0);
       split_pane.setDividerSize(4);
-      split_pane.setDividerLocation((int) DateLookPanel.slot_height * 3 / 2);
+      split_pane.setDividerLocation((int) HoopDateLookPanel.slot_height * 3 / 2);
       contentPane.add(split_pane);
     }
     catch (Exception e) {

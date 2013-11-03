@@ -25,7 +25,7 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 /**
  *  Checks for all events in the event memory whether an alarm is to be given now.
  */
-public class AlarmHandler extends TimerTask 
+public class HoopAlarmHandler extends TimerTask 
 {
 	private EventMemory event_memory;
 
@@ -34,7 +34,7 @@ public class AlarmHandler extends TimerTask
 	 *
 	 * @param  tm  event memory, storing the local database
 	 */
-	public AlarmHandler(EventMemory tm) 
+	public HoopAlarmHandler(EventMemory tm) 
 	{
 		event_memory = tm;
 	}
@@ -52,6 +52,8 @@ public class AlarmHandler extends TimerTask
 	 */
 	public void run() 
 	{
+		debug ("tick ()");
+		
 		long now_ms = new GregorianCalendar().getTime().getTime();
     
 		int open_alarm_frame_counter = 0;

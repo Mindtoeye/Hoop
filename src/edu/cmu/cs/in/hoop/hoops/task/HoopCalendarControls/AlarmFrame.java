@@ -52,7 +52,7 @@ public class AlarmFrame extends HoopJFrame
 			alarm_panel = new AlarmPanel(t, this);
 			contentPane = (JPanel) this.getContentPane();
 			setIconImage(HoopLink.getImageByName("dl.png").getImage());
-			this.setSize(17 * DateLookPanel.slot_height + DateLookPanel.frame_decor_width,(9 * DateLookPanel.slot_height) / 2 + DateLookPanel.frame_decor_height);
+			this.setSize(17 * HoopDateLookPanel.slot_height + HoopDateLookPanel.frame_decor_width,(9 * HoopDateLookPanel.slot_height) / 2 + HoopDateLookPanel.frame_decor_height);
 			this.setTitle("DateLook Alarm");
 			contentPane.add(alarm_panel);
 			this.addKeyListener(alarm_panel);

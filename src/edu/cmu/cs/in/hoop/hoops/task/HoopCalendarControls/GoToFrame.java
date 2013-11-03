@@ -56,7 +56,7 @@ public class GoToFrame extends HoopJFrame
 	
 	JPanel contentPane;
 	private GoToPanel go_to_panel;
-	private DateLookPanel date_look_panel;
+	private HoopDateLookPanel date_look_panel;
 
 
   /**
@@ -64,7 +64,7 @@ public class GoToFrame extends HoopJFrame
    *
    * @param  dp  Description of the Parameter
    */
-  public GoToFrame(DateLookPanel dp) 
+  public GoToFrame(HoopDateLookPanel dp) 
   {
 		setClassName ("GoToFrame");
 		debug ("GoToFrame ()");	  
@@ -76,7 +76,7 @@ public class GoToFrame extends HoopJFrame
 			go_to_panel = new GoToPanel(dp, this);
 			contentPane = (JPanel) this.getContentPane();
 			setIconImage(HoopLink.getImageByName("dl.png").getImage());
-			this.setSize(8 * DateLookPanel.slot_height + DateLookPanel.frame_decor_width, 3 * DateLookPanel.slot_height + DateLookPanel.frame_decor_height);
+			this.setSize(8 * HoopDateLookPanel.slot_height + HoopDateLookPanel.frame_decor_width, 3 * HoopDateLookPanel.slot_height + HoopDateLookPanel.frame_decor_height);
 			this.setTitle("DateLook GoTo");
 			contentPane.add(go_to_panel);
 			this.addKeyListener(go_to_panel);
@@ -108,7 +108,7 @@ public class GoToFrame extends HoopJFrame
   {
 	private static final long serialVersionUID = -8779971939199366249L;
 	
-	private DateLookPanel date_look_panel;
+	private HoopDateLookPanel date_look_panel;
     private HoopCustomJComponent day_field;
     private HoopCustomJComponent month_field;
     private HoopCustomJComponent year_field;
@@ -122,7 +122,7 @@ public class GoToFrame extends HoopJFrame
      * @param  dp  Description of the Parameter
      * @param  pw  parent window
      */
-    public GoToPanel(DateLookPanel dp, Window pw) {
+    public GoToPanel(HoopDateLookPanel dp, Window pw) {
       super(true);
       date_look_panel = dp;
 

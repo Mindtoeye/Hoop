@@ -40,7 +40,7 @@ import java.awt.geom.*;
 import edu.cmu.cs.in.controls.base.HoopCustomRenderer;
 
 /**
- *  renders events on the DateLookPanel
+ *  renders events on the HoopDateLookPanel
  */
 public class EventRenderer extends HoopCustomRenderer
 {
@@ -69,9 +69,9 @@ public class EventRenderer extends HoopCustomRenderer
    *  Constructor for the EventRenderer object
    *
    * @param  t  event
-   * @param  p  the DateLookPanel, on it the event is to be rendered
+   * @param  p  the HoopDateLookPanel, on it the event is to be rendered
    */
-  public EventRenderer(HoopCalendarEvent t, DateLookPanel p) 
+  public EventRenderer(HoopCalendarEvent t, HoopDateLookPanel p) 
   {
     super(p);
     event = t;
@@ -79,7 +79,7 @@ public class EventRenderer extends HoopCustomRenderer
 
 
   /**
-   *  Draw the event on the DateLookPanel.
+   *  Draw the event on the HoopDateLookPanel.
    *
    * @param  g2              graphics object
    * @param  paint_rect      if true draw the rectangle to the events display
@@ -94,7 +94,7 @@ public class EventRenderer extends HoopCustomRenderer
       return true;
     }
     int drawn_period_counter = (int) Math.min(Math.max(((    //preset value to prevent many while-loops
-        (((DateLookPanel) panel).get_first_rendered_hour_UTC_ms() + ((DateLookPanel) panel).get_number_of_rendered_hours() * 60L * 60L * 1000L) -
+        (((HoopDateLookPanel) panel).get_first_rendered_hour_UTC_ms() + ((HoopDateLookPanel) panel).get_number_of_rendered_hours() * 60L * 60L * 1000L) -
         event.get_begin_UTC_ms()) /
         Converter.period2ms(event.get_period(), event.get_period_multiplier())) + 2, 0), (long) event.get_number_of_periods() - 1);
     g2.setColor(event.get_renderer_color());
@@ -105,12 +105,12 @@ public class EventRenderer extends HoopCustomRenderer
         return ret_val;   // all visible cyclic occurrences painted
       }
       
-      else if (x_pos < ((DateLookPanel) panel).getWidth()) {
+      else if (x_pos < ((HoopDateLookPanel) panel).getWidth()) {
         ret_val = true;
         if (paint_rect) {
-          g2.fillRect(x_pos, (5 + event.get_renderer_group()) * DateLookPanel.slot_height, width, DateLookPanel.slot_height);
+          g2.fillRect(x_pos, (5 + event.get_renderer_group()) * HoopDateLookPanel.slot_height, width, HoopDateLookPanel.slot_height);
           if (focus) {
-            g2.drawRect(x_pos - 2, (5 + event.get_renderer_group()) * DateLookPanel.slot_height - 2, width + 3, DateLookPanel.slot_height + 4);
+            g2.drawRect(x_pos - 2, (5 + event.get_renderer_group()) * HoopDateLookPanel.slot_height - 2, width + 3, HoopDateLookPanel.slot_height + 4);
           }
         }
 
@@ -119,14 +119,14 @@ public class EventRenderer extends HoopCustomRenderer
 
           // determine place of description and font
           if (!summary_already_drawn) {
-            space = DateLookPanel.slot_height / 5;
-            height = DateLookPanel.slot_height;
+            space = HoopDateLookPanel.slot_height / 5;
+            height = HoopDateLookPanel.slot_height;
             f = new Font("SansSerif", Font.PLAIN, height * 2 / 3);
             s = "";
             String hm = Converter.ms2hm(event.get_begin_UTC_ms());
             // if event starts at 00:00 or a renderer day is smaller then 16 pix then
             // show begin date instead of begin time
-            if (!(panel.getWidth() * 24 / ((DateLookPanel) panel).get_number_of_rendered_hours() > 16) |
+            if (!(panel.getWidth() * 24 / ((HoopDateLookPanel) panel).get_number_of_rendered_hours() > 16) |
                 hm.equals("00:00")) {
               if (event.get_period() == HoopCalendarEvent.None) {
                 s = Converter.ms2dmy(Converter.UTCplusPeriod2UTC(
@@ -147,8 +147,8 @@ public class EventRenderer extends HoopCustomRenderer
             ascent = (int) -bounds.getY();
 
             // get location on panel, where summary has to be drawn
-            x_summary = ((DateLookPanel) super.panel).get_free_space_X(Math.max(x_pos, 5), text_width + space * 2);
-            y_summary = ((DateLookPanel) super.panel).get_free_space_Y();
+            x_summary = ((HoopDateLookPanel) super.panel).get_free_space_X(Math.max(x_pos, 5), text_width + space * 2);
+            y_summary = ((HoopDateLookPanel) super.panel).get_free_space_Y();
           }
 
           // paint summary to main window below Calendar
@@ -193,14 +193,14 @@ public class EventRenderer extends HoopCustomRenderer
    * @param  yi  y coordinate of mouse pointer
    */
   public void draw_mouse_over_description(Graphics2D g2, int xi, int yi) {
-    space = DateLookPanel.slot_height / 5;
-    height = DateLookPanel.slot_height;
+    space = HoopDateLookPanel.slot_height / 5;
+    height = HoopDateLookPanel.slot_height;
     f = new Font("SansSerif", Font.PLAIN, height * 2 / 3);
     String s = "";
     // if event starts at 00:00 or a renderer day is smaller then 16 pix then
     // show begin date instead of begin time
     String hm = Converter.ms2hm(event.get_begin_UTC_ms());
-    if (!(panel.getWidth() * 24 / ((DateLookPanel) panel).get_number_of_rendered_hours() > 16) |
+    if (!(panel.getWidth() * 24 / ((HoopDateLookPanel) panel).get_number_of_rendered_hours() > 16) |
         hm.equals("00:00")) {
       s = Converter.ms2dmy(
           Converter.UTCplusPeriod2UTC(event.get_begin_UTC_ms(), event.get_period(),
@@ -216,7 +216,7 @@ public class EventRenderer extends HoopCustomRenderer
     ascent = (int) -bounds.getY();
 
     int y = Math.max(Math.min(yi - height, 9 * height), 4 * height);
-    int x = Math.max(Math.min(xi, ((DateLookPanel) super.panel).getWidth() - text_width - 2 * space), 0);
+    int x = Math.max(Math.min(xi, ((HoopDateLookPanel) super.panel).getWidth() - text_width - 2 * space), 0);
 
     g2.setColor(event.get_renderer_color());
     g2.fillRect(x, y, text_width + space * 2, height);
@@ -237,10 +237,10 @@ public class EventRenderer extends HoopCustomRenderer
    *            false - mouse is not over
    */
   public boolean clicked(int x, int y) {
-    if (y > (5 + event.get_renderer_group()) * DateLookPanel.slot_height &&
-        y < (6 + event.get_renderer_group()) * DateLookPanel.slot_height) {
+    if (y > (5 + event.get_renderer_group()) * HoopDateLookPanel.slot_height &&
+        y < (6 + event.get_renderer_group()) * HoopDateLookPanel.slot_height) {
       period_counter = (int) Math.max((  // preset value to prevent many while-loops
-          ((DateLookPanel) panel).get_first_rendered_hour_UTC_ms() - event.get_end_UTC_ms()) /
+          ((HoopDateLookPanel) panel).get_first_rendered_hour_UTC_ms() - event.get_end_UTC_ms()) /
           Converter.period2ms(event.get_period(), event.get_period_multiplier()) - 1, 0);
       while (true) {
         if (period_counter + 1 > event.get_number_of_periods()) {
@@ -312,7 +312,7 @@ public class EventRenderer extends HoopCustomRenderer
    */
   public void set_focus(boolean b) {
     focus = b;
-    ((DateLookPanel) panel).repaint();
+    ((HoopDateLookPanel) panel).repaint();
   }
 
 
@@ -333,14 +333,14 @@ public class EventRenderer extends HoopCustomRenderer
    */
   private void set_rect(int period) {
     float panel_width = (float) panel.getWidth();
-    float panel_time_width = (float) ((DateLookPanel) panel).get_number_of_rendered_hours() * 60 * 60 * 1000;
+    float panel_time_width = (float) ((HoopDateLookPanel) panel).get_number_of_rendered_hours() * 60 * 60 * 1000;
     long begin_UTC_of_period =
         Converter.UTCplusPeriod2UTC(event.get_begin_UTC_ms(), event.get_period(), period, event.get_period_multiplier());
     width = (int) Math.round(
         (float) ((Converter.UTCplusPeriod2UTC(event.get_end_UTC_ms(), event.get_period(), period, event.get_period_multiplier()) -
         begin_UTC_of_period) * panel_width / panel_time_width));
     width = Math.max(width, 5);
-    x_pos = (int) Math.round((float) (begin_UTC_of_period - ((DateLookPanel) panel).get_first_rendered_hour_UTC_ms()) *
+    x_pos = (int) Math.round((float) (begin_UTC_of_period - ((HoopDateLookPanel) panel).get_first_rendered_hour_UTC_ms()) *
         panel_width / panel_time_width);
     return;
   }
@@ -350,8 +350,8 @@ public class EventRenderer extends HoopCustomRenderer
    *  Delete itself
    */
   public void delete() {
-    ((DateLookPanel) panel).rebuilt_visible_event_renderer_list();
-    ((DateLookPanel) panel).repaint();
+    ((HoopDateLookPanel) panel).rebuilt_visible_event_renderer_list();
+    ((HoopDateLookPanel) panel).repaint();
   }
 
 
@@ -359,7 +359,7 @@ public class EventRenderer extends HoopCustomRenderer
    *  Changed, called to indicate that the event has been changed.
    */
   public void changed() {
-    ((DateLookPanel) panel).changed();
+    ((HoopDateLookPanel) panel).changed();
   }
 }
 

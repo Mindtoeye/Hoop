@@ -33,7 +33,7 @@ import java.awt.print.*;
 /**
  *  Description of the Class
  */
-public class DateLookPanel extends HoopCustomJPanel implements Printable 
+public class HoopDateLookPanel extends HoopCustomJPanel implements Printable 
 {
 	private static final long serialVersionUID = 3340184454444054029L;
 	
@@ -118,16 +118,16 @@ public class DateLookPanel extends HoopCustomJPanel implements Printable
 
   
   /**
-   *  Constructor for the DateLookPanel object
+   *  Constructor for the HoopDateLookPanel object
    *
    * @param  mf  Description of the Parameter
    */
-  public DateLookPanel() 
+  public HoopDateLookPanel() 
   {
     super(false);
     
-	setClassName ("DateLookPanel");
-	debug ("DateLookPanel ()");        
+	setClassName ("HoopDateLookPanel");
+	debug ("HoopDateLookPanel ()");        
     
     this.setBackground(Color.white);
     this.setCursor(default_cursor);
@@ -378,7 +378,7 @@ public class DateLookPanel extends HoopCustomJPanel implements Printable
     }
     my_calendar.draw(g2);
     g2.setColor(Color.white);
-    g2.fillRect(-100, 0, 100, DateLookPanel.slot_height * 30);   // prevent faulty print left from x=0
+    g2.fillRect(-100, 0, 100, HoopDateLookPanel.slot_height * 30);   // prevent faulty print left from x=0
     g2.setColor(Color.black);
     g2.drawRect(0, 0, this.getWidth(), 10 * slot_height + 15 * descriptions_slot_height);   // print a frame
     return Printable.PAGE_EXISTS;
@@ -934,7 +934,7 @@ public class DateLookPanel extends HoopCustomJPanel implements Printable
 
 
   /**
-   *  Gets the first_rendered_hour_UTC_ms attribute of the DateLookPanel object
+   *  Gets the first_rendered_hour_UTC_ms attribute of the HoopDateLookPanel object
    *
    * @return    The first_rendered_hour_UTC_ms value
    */
@@ -959,7 +959,7 @@ public class DateLookPanel extends HoopCustomJPanel implements Printable
 
 
   /**
-   *  Gets the number_of_rendered_hours attribute of the DateLookPanel object
+   *  Gets the number_of_rendered_hours attribute of the HoopDateLookPanel object
    *
    * @return    The number_of_rendered_hours value
    */
@@ -983,7 +983,7 @@ public class DateLookPanel extends HoopCustomJPanel implements Printable
 
 
   /**
-   *  Sets the event_memory attribute of the DateLookPanel object
+   *  Sets the event_memory attribute of the HoopDateLookPanel object
    *
    * @param  tm  The new event_memory value
    */
@@ -993,7 +993,7 @@ public class DateLookPanel extends HoopCustomJPanel implements Printable
 
 
   /**
-   *  Sets the go_to_frame attribute of the DateLookPanel object
+   *  Sets the go_to_frame attribute of the HoopDateLookPanel object
    *
    * @param  gt  The new go_to_frame value
    */
@@ -1003,7 +1003,7 @@ public class DateLookPanel extends HoopCustomJPanel implements Printable
 
 
   /**
-   *  Sets the colour_frame attribute of the DateLookPanel object
+   *  Sets the colour_frame attribute of the HoopDateLookPanel object
    *
    * @param  cf  The new colour_frame value
    */
@@ -1089,7 +1089,7 @@ public class DateLookPanel extends HoopCustomJPanel implements Printable
 
 
   /**
-   *  Indicate to the DateLookPanel that at least one event has been changed.<br>
+   *  Indicate to the HoopDateLookPanel that at least one event has been changed.<br>
    *  The panel will be repainted and the visible_event_renderer_list will be rebuilt.
    */
   public void changed() {
@@ -1102,7 +1102,7 @@ public class DateLookPanel extends HoopCustomJPanel implements Printable
 
 
   /**
-   *  Gets the main_frame attribute of the DateLookPanel object
+   *  Gets the main_frame attribute of the HoopDateLookPanel object
    *
    * @return    The main_frame value
    */
@@ -1156,7 +1156,7 @@ public class DateLookPanel extends HoopCustomJPanel implements Printable
 
 
   /**
-   *  Gets the free_space_Y attribute of the DateLookPanel object
+   *  Gets the free_space_Y attribute of the HoopDateLookPanel object
    *
    * @return    The free_space_Y value
    */
@@ -1195,7 +1195,7 @@ public class DateLookPanel extends HoopCustomJPanel implements Printable
      *
      * @param  p  Description of the Parameter
      */
-    public ZoomPointer(DateLookPanel p) {
+    public ZoomPointer(HoopDateLookPanel p) {
       super(p);
     }
 
@@ -1277,7 +1277,8 @@ public class DateLookPanel extends HoopCustomJPanel implements Printable
      *
      * @param  p  Description of the Parameter
      */
-    public ShiftPointer(DateLookPanel p) {
+    public ShiftPointer(HoopDateLookPanel p) 
+    {
       super(p);
     }
 

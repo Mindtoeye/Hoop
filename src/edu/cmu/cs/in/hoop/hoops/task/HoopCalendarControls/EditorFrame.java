@@ -91,7 +91,7 @@ public class EditorFrame extends HoopJFrame
 			editor_panel = new EditorPanel(t, ot, this, new_event, show_goto_button);
 			contentPane = (JPanel) this.getContentPane();
 			setIconImage(HoopLink.getImageByName("dl.png").getImage());
-			this.setSize(14 * DateLookPanel.slot_height + DateLookPanel.frame_decor_width,(9 * DateLookPanel.slot_height) + DateLookPanel.frame_decor_height);
+			this.setSize(14 * HoopDateLookPanel.slot_height + HoopDateLookPanel.frame_decor_width,(9 * HoopDateLookPanel.slot_height) + HoopDateLookPanel.frame_decor_height);
 			this.setTitle("DateLook Editor");
 			contentPane.add(editor_panel);
 			this.addKeyListener(editor_panel);
@@ -546,7 +546,7 @@ public class EditorFrame extends HoopJFrame
 			{
 				if (this.write_event()) 
 				{
-					DateLookPanel dl = (DateLookPanel) event.get_event_renderer().get_panel();
+					HoopDateLookPanel dl = (HoopDateLookPanel) event.get_event_renderer().get_panel();
 					GregorianCalendar gc = Converter.ms2gc(event.get_begin_UTC_ms());
 					gc.set(GregorianCalendar.HOUR_OF_DAY, 0);
 					gc.set(GregorianCalendar.MINUTE, 0);

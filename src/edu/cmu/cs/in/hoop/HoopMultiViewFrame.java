@@ -53,7 +53,7 @@ public class HoopMultiViewFrame extends HoopPreferencesJFrame
     	
 		this.setTitle ("Hoop");
                 	    
-	    loadImageIcons ();
+		// loadImageIcons ();
 		
 		HoopLink.fManager=new HoopVFSL ();
 		HoopLink.posFiles=new ArrayList<String> ();
@@ -97,36 +97,6 @@ public class HoopMultiViewFrame extends HoopPreferencesJFrame
     protected HoopStatusBar getStatusBar ()
     {
     	return (HoopLink.statusBar);
-    }
-	/**
-	 *
-	 */    
-    private void loadImageIcons ()
-    {
-    	debug ("loadImageIcons ()");
-    	
-    	java.net.URL imgURL=null;
-    	String loadPath="";
-      		        	
-    	HoopLink.imageIcons=new ImageIcon [HoopLink.imgURLs.length];
-    	
-    	for (int i=0;i<HoopLink.imgURLs.length;i++)
-    	{
-    		loadPath="/assets/images/"+HoopLink.imgURLs [i];
-    	    imgURL=getClass().getResource(loadPath);
-
-    	    if (imgURL!=null) 
-    	    {
-    	    	HoopLink.imageIcons [i]=new ImageIcon(imgURL,HoopLink.imgURLs [i]);
-    	    	//debug ("Loaded: " + loadPath);
-    	    } 
-    	    else 
-    	    	debug ("Unable to load image ("+loadPath+") icon from jar");    		
-    	}
-    	
-    	HoopLink.icon=HoopLink.getImageByName("machine.png");
-    	HoopLink.linkIcon=HoopLink.getImageByName("link.jpg");
-    	HoopLink.unlinkIcon=HoopLink.getImageByName("broken.jpg");
     }  
     /**
      * 

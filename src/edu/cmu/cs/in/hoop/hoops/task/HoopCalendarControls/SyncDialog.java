@@ -76,8 +76,8 @@ public class SyncDialog extends HoopJDialog
     
     try {
       contentPane = (JPanel) this.getContentPane();
-      this.setSize(14 * DateLookPanel.slot_height + DateLookPanel.frame_decor_width,
-          (7 * DateLookPanel.slot_height) + DateLookPanel.frame_decor_height);
+      this.setSize(14 * HoopDateLookPanel.slot_height + HoopDateLookPanel.frame_decor_width,
+          (7 * HoopDateLookPanel.slot_height) + HoopDateLookPanel.frame_decor_height);
       this.setTitle("DateLook Synchroniser");
       sync_panel = new SyncPanel(tm, this);
       contentPane.add(sync_panel);

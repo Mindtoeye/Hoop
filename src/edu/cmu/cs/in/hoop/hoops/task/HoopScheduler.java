@@ -18,112 +18,31 @@
 
 package edu.cmu.cs.in.hoop.hoops.task;
 
+import java.util.GregorianCalendar;
 import java.util.Timer;
-import java.util.TimerTask;
 
 import javax.swing.JPanel;
 
 import edu.cmu.cs.in.base.HoopLink;
-import edu.cmu.cs.in.base.HoopRoot;
-import edu.cmu.cs.in.controls.HoopCircleCounter;
-import edu.cmu.cs.in.hoop.editor.HoopNodeRenderer;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopControlBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
-import edu.cmu.cs.in.hoop.hoops.task.HoopCalendarControls.DateLookPanel;
+import edu.cmu.cs.in.hoop.hoops.task.HoopCalendarControls.HoopAlarmHandler;
+import edu.cmu.cs.in.hoop.hoops.task.HoopCalendarControls.HoopDateLookPanel;
 import edu.cmu.cs.in.hoop.hoops.task.HoopCalendarControls.EventMemory;
-//import edu.cmu.cs.in.hoop.hoops.task.HoopCalendarControls.HoopCalendarTaskDialog;
-import edu.cmu.cs.in.hoop.properties.types.HoopBooleanSerializable;
-import edu.cmu.cs.in.hoop.properties.types.HoopIntegerSerializable;
 
 /**
 * 
 */
 public class HoopScheduler extends HoopControlBase implements HoopInterface
 {    					
-	private static final long serialVersionUID = 5343404003031040810L;
+	private static final long serialVersionUID = -6588901457817911066L;
 	
-	private long cycles=-1; // forever
-	//private long cycleCount=0;
-	
-	//private long duration=5000;
-    //private long resolution=500;
-    
-    private Boolean replaced=false;
-	
-    private HoopCircleCounter countdown=null;
-    
-	public HoopBooleanSerializable isAsynchronous=null;
-	public HoopIntegerSerializable timeoutValue=null;
-	public HoopIntegerSerializable timesValue=null;
-	
-	DateLookPanel date_look_panel = null;
-	EventMemory event_memory = null;
+	private HoopDateLookPanel date_look_panel = null;	
+	private EventMemory event_memory =null;
+	private HoopAlarmHandler alarm_handler =null;
+	private Timer alarm_checker = null;	
 		
-    /**
-     * 
-     */
-	private class HoopTimerTask extends TimerTask 
-	{	    
-	    private long tracking=0;
-	    private long trackingDuration=0;
-	    private long trackingResolution=0;
-	    
-	    /**
-	     * 
-	     */
-	    public HoopTimerTask (long aDuration,long aResolution)
-	    {	    	
-	    	trackingDuration=aDuration;
-	    	trackingResolution=aResolution;
-	    	
-	    	updateVisuals ();
-	    }
-	 	
-	    /**
-	     * 
-	     * @param aMessage
-	     */
-	    private void debug (String aMessage)
-	    {
-	    	HoopRoot.debug("HoopTimerTask",aMessage);
-	    }
-	    
-	    /**
-	     * 
-	     */
-	    public void run() 
-	    {	        
-	        if (tracking <= trackingDuration) 
-	        {	            
-	            updateVisuals ();
-	        } 
-	        else 
-	        {
-	            debug ("Stopping timer ...");
-
-	            this.cancel();
-	        }
-	        
-	    	tracking+=trackingResolution;
-	    }
-	    /**
-	     * 
-	     */
-	    private void updateVisuals ()
-	    {
-	    	debug ("updateVisuals ()");
-	    	
-            if (countdown!=null)
-            {
-            	//Long formatter=(trackingDuration-tracking);
-            	
-            	countdown.setValues((int) trackingDuration,(int) (trackingDuration-tracking));
-            	//visualizer.setText(formatter.toString());
-            }
-	    }
-	}
-	
 	/**
 	 *
 	 */
@@ -131,19 +50,27 @@ public class HoopScheduler extends HoopControlBase implements HoopInterface
     {
 		setClassName ("HoopScheduler");
 		debug ("HoopScheduler ()");
-										
-		setHoopDescription ("Schedules or times Hoops downstream");
+
+		long timer_rate = 5 * 1000;   // check every 5 second
 		
-		isAsynchronous=new HoopBooleanSerializable (this,"isAsynchronous",false);
-		timeoutValue=new HoopIntegerSerializable (this,"timeoutValue",30); // 30 seconds default
-		timesValue=new HoopIntegerSerializable (this,"timesValue",-1); // Forever
+		date_look_panel = new HoopDateLookPanel();	
+		event_memory = new EventMemory(date_look_panel);
+		
+		alarm_handler = new HoopAlarmHandler(event_memory);
+
+		alarm_checker = new Timer();
+		alarm_checker.scheduleAtFixedRate (alarm_handler,
+										   (long) (timer_rate - Math.IEEEremainder((new GregorianCalendar()).getTime().getTime(),timer_rate)),
+										   timer_rate);	   		
+										
+		setHoopDescription ("Schedules or Hoops via a calendar");	
     }
     /**
      * 
      */
     public void reset ()
     {
-    	cycles=timesValue.getPropValue();
+    	
     }
 	/**
 	 *
@@ -153,72 +80,17 @@ public class HoopScheduler extends HoopControlBase implements HoopInterface
 		debug ("runHoop ()");
 		
 		super.runHoop(inHoop); // This will do the right thing with the data
-		
-		if (replaced==false)
-		{
-			if ((HoopNodeRenderer) this.getVisualizer()!=null)
-			{
-				HoopNodeRenderer renderer=(HoopNodeRenderer) this.getVisualizer();
 
-				countdown=new HoopCircleCounter ();
-			
-				renderer.replaceContentArea(countdown);
-			}
-			
-			replaced=true;
-		}
-		
-        //1- Creating an instance of Timer class.
-        Timer timer = new Timer ("Printer");
-                
-    	//JLabel aPanel=this.getVisualizer().getContentPanel ();
-        
-        //2- Creating an instance of class contains your repeated method.
-        HoopTimerTask task = new HoopTimerTask(timesValue.getPropValue(),Math.round(timeoutValue.getPropValue()*1000));
- 
- 
-        // HoopTimerTask is a class implements Runnable interface so
-        // You have to override run method with your certain code black
- 
-        // Second Parameter is the specified the Starting Time for your timer in
-        // MilliSeconds or Date
- 
-        // Third Parameter is the specified the Period between consecutive
-        // calling for the method.
- 
-        timer.schedule(task,0,timesValue.getPropValue());		
-		
-		try 
+		if (HoopLink.project.getVirginFile()==true)
 		{
-			Thread.sleep(Math.round(timeoutValue.getPropValue()*1000));
-		} 
-		catch (InterruptedException e) 
-		{		
-			e.printStackTrace();
+			alert ("Error: please save your project first before running the scheduler");
 			return (true);
-		}
-
-		timer.cancel();
+		}		
 		
-		debug ("All done, returning control to scheduler ...");
-		
-		if (cycles==-1)
-		{
-			debug ("The Never Ending Story ...");
-			
-			this.setDone(false);
-			return (true);
-		}
-		
-		cycles++;
-		
-		if (cycles>=timesValue.getPropValue())
-		{
-			this.setDone(true);
-			return (true);
-		}
+		event_memory.read_data_file();
 		
 		this.setDone(false);
+		
 		return (true);
 	}	
 	/**
@@ -232,10 +104,8 @@ public class HoopScheduler extends HoopControlBase implements HoopInterface
 			alert ("Error: please save your project first before opening the scheduler");
 			return (null);
 		}
-		
-		date_look_panel = new DateLookPanel();
-		event_memory = new EventMemory(date_look_panel);
-		event_memory.read_data_file();     // read dates from file and store in memory
+				
+		event_memory.read_data_file();
 		date_look_panel.set_event_memory(event_memory);		
 		
 		return (date_look_panel);

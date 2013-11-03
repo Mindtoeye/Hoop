@@ -46,7 +46,7 @@ public class ColourFrame extends HoopJFrame
 	private JPanel contentPane;
 	private EditorFrame my_editor_frame;
 	private ColourPanel colour_panel;
-	private DateLookPanel datelook_panel;
+	private HoopDateLookPanel datelook_panel;
 
 
   /**
@@ -56,7 +56,7 @@ public class ColourFrame extends HoopJFrame
    * @param  ef   editor frame if created from this or null
    * @param  c    if opened from ef the current colour of the event otherwise null
    */
-  public ColourFrame(DateLookPanel dlp, EditorFrame ef, Color c) 
+  public ColourFrame(HoopDateLookPanel dlp, EditorFrame ef, Color c) 
   {
 		setClassName ("ColourFrame");
 		debug ("ColourFrame ()");
@@ -68,8 +68,8 @@ public class ColourFrame extends HoopJFrame
     try {
       contentPane = (JPanel) this.getContentPane();
       setIconImage(HoopLink.getImageByName("dl.png").getImage());
-      this.setSize(new Dimension(14 * DateLookPanel.slot_height + DateLookPanel.frame_decor_width,
-          9 * DateLookPanel.slot_height + DateLookPanel.frame_decor_height));
+      this.setSize(new Dimension(14 * HoopDateLookPanel.slot_height + HoopDateLookPanel.frame_decor_width,
+          9 * HoopDateLookPanel.slot_height + HoopDateLookPanel.frame_decor_height));
       if (my_editor_frame == null) {
         this.setTitle("PredefColourEditor");
       }

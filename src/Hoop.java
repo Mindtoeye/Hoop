@@ -49,7 +49,7 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 public class Hoop 
 {
 	public static JFrame frame=null;
-	
+			
 	/**
 	 * 
 	 */
@@ -166,7 +166,7 @@ public class Hoop
     	// run the HoopLink constructor; We need this to have a global settings registry
     	@SuppressWarnings("unused")
 		HoopLink link = new HoopLink();
-   	
+
     	loadPlugins ();
     	
     	//System.exit(1);

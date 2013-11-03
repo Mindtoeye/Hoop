@@ -96,10 +96,10 @@ public class EventTableFrame extends HoopJFrame
       event_table = new JTable(event_table_model);
       contentPane = (JPanel) this.getContentPane();
       setIconImage(HoopLink.getImageByName("dl.png").getImage());
-      this.setSize(new Dimension(32 * DateLookPanel.slot_height + DateLookPanel.frame_decor_width,
-          15 * DateLookPanel.slot_height + DateLookPanel.frame_decor_height));
+      this.setSize(new Dimension(32 * HoopDateLookPanel.slot_height + HoopDateLookPanel.frame_decor_width,
+          15 * HoopDateLookPanel.slot_height + HoopDateLookPanel.frame_decor_height));
       this.setTitle("EventManager");
-      int h = DateLookPanel.slot_height;
+      int h = HoopDateLookPanel.slot_height;
       event_table.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
       event_table.getColumnModel().getColumn(0).setPreferredWidth(h * 5);
       event_table.getColumnModel().getColumn(1).setPreferredWidth(h * 3);
@@ -143,7 +143,7 @@ public class EventTableFrame extends HoopJFrame
       split_pane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, search_panel, scrollPane);
       split_pane.setResizeWeight(0);
       split_pane.setDividerSize(4);
-      split_pane.setDividerLocation((int) DateLookPanel.slot_height * 3 / 2);
+      split_pane.setDividerLocation((int) HoopDateLookPanel.slot_height * 3 / 2);
       contentPane.add(split_pane);
       this.addKeyListener(search_panel);
       //srcoll to bottom
@@ -572,7 +572,7 @@ public class EventTableFrame extends HoopJFrame
       show_sure_button = false;
       button_timer.stop();
       result_text = "";
-      event_table.setRowHeight(DateLookPanel.slot_height);
+      event_table.setRowHeight(HoopDateLookPanel.slot_height);
       this.repaint();
     }
 

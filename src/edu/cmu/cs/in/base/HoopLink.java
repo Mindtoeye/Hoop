@@ -405,6 +405,13 @@ public class HoopLink extends HoopProperties
 		
 		setupProperties ();
 		
+		/**
+		 * We want to make sure all images we might need are loaded because for example
+		 * some Hoops created below in the HoopManager might use visual resources. Of
+		 * course this will have to completely change for cluster usage.
+		 */
+    	HoopLink.loadImageIcons ();		
+		
 		//whitespace=Pattern.compile("["  + whitespace_chars + "]");
 		//Matcher matcher = whitespace.matcher ("test");
 				
@@ -735,5 +742,37 @@ public class HoopLink extends HoopProperties
 			return (null);
 		
 		return (HoopLink.project.getGraphConnections());
+	}	
+	/**
+	 *
+	 */    
+	public static void loadImageIcons ()
+	{
+		HoopRoot.debug ("HoopLink","loadImageIcons ()");
+  	
+		HoopBase classReferece=new HoopBase ();
+		
+		java.net.URL imgURL=null;
+		String loadPath="";
+    		        	
+		HoopLink.imageIcons=new ImageIcon [HoopLink.imgURLs.length];
+  			
+		for (int i=0;i<HoopLink.imgURLs.length;i++)
+		{
+			loadPath="/assets/images/"+HoopLink.imgURLs [i];
+			imgURL=classReferece.getClass().getResource(loadPath);
+
+			if (imgURL!=null) 
+			{
+				HoopLink.imageIcons [i]=new ImageIcon(imgURL,HoopLink.imgURLs [i]);
+  	    	//	debug ("Loaded: " + loadPath);
+			} 
+			else 
+				HoopRoot.debug ("HoopLink","Unable to load image ("+loadPath+") icon from jar");    		
+		}
+  	
+		HoopLink.icon=HoopLink.getImageByName("machine.png");
+		HoopLink.linkIcon=HoopLink.getImageByName("link.jpg");
+		HoopLink.unlinkIcon=HoopLink.getImageByName("broken.jpg");
 	}	
 }
