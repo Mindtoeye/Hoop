@@ -18,9 +18,14 @@
 
 package edu.cmu.cs.in.hoop.hoops.task;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.GregorianCalendar;
 import java.util.Timer;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import edu.cmu.cs.in.base.HoopLink;
@@ -30,11 +35,12 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
 import edu.cmu.cs.in.hoop.hoops.task.HoopCalendarControls.HoopAlarmHandler;
 import edu.cmu.cs.in.hoop.hoops.task.HoopCalendarControls.HoopDateLookPanel;
 import edu.cmu.cs.in.hoop.hoops.task.HoopCalendarControls.EventMemory;
+import edu.cmu.cs.in.hoop.properties.HoopVisualProperties;
 
 /**
 * 
 */
-public class HoopScheduler extends HoopControlBase implements HoopInterface
+public class HoopScheduler extends HoopControlBase implements HoopInterface, ActionListener
 {    					
 	private static final long serialVersionUID = -6588901457817911066L;
 	
@@ -42,6 +48,9 @@ public class HoopScheduler extends HoopControlBase implements HoopInterface
 	private EventMemory event_memory =null;
 	private HoopAlarmHandler alarm_handler =null;
 	private Timer alarm_checker = null;	
+	
+	private   JPanel editorPanel=null;
+	private   JButton editorButton=null;	
 		
 	/**
 	 *
@@ -64,6 +73,21 @@ public class HoopScheduler extends HoopControlBase implements HoopInterface
 										   timer_rate);	   		
 										
 		setHoopDescription ("Schedules or Hoops via a calendar");	
+		
+    	editorPanel=new JPanel ();    	
+    	editorPanel.setLayout (new BorderLayout(2,2));
+    	
+		editorPanel.setPreferredSize(new Dimension (150,25)); 
+		
+    	editorButton=new JButton ();
+    	editorButton.setText("Edit Patterns");
+    	editorButton.addActionListener(this);
+    	
+    	editorPanel.add (editorButton,BorderLayout.CENTER);
+    	
+    	HoopVisualProperties vizProps=this.getVisualProperties();
+    	
+    	vizProps.preferredPanelHeight=50;		
     }
     /**
      * 
@@ -92,10 +116,21 @@ public class HoopScheduler extends HoopControlBase implements HoopInterface
 		this.setDone(false);
 		
 		return (true);
-	}	
+	}
 	/**
 	 * 
 	 */
+	@Override
+	public JPanel getPropertiesPanel() 
+	{
+		debug ("getPropertiesPanel ()");
+		
+		return (editorPanel);		
+	}			
+	/**
+	 * 
+	 */
+	/*
 	@Override
 	public JPanel getPropertiesPanel() 
 	{
@@ -109,12 +144,39 @@ public class HoopScheduler extends HoopControlBase implements HoopInterface
 		date_look_panel.set_event_memory(event_memory);		
 		
 		return (date_look_panel);
-	}	
+	}*/	
 	/**
 	 * 
 	 */
 	public HoopBase copy ()
 	{
 		return (new HoopScheduler ());
+	}
+	/**
+	 * 
+	 */
+	@Override
+	public void actionPerformed(ActionEvent e)
+	{
+		debug ("actionPerformed ()");
+		
+		if (HoopLink.project.getVirginFile()==true)
+		{
+			alert ("Error: please save your project first before opening the scheduler");
+			return;
+		}		
+		
+		/*
+		if (editor==null)
+		{
+			editor=new HoopPatternEditor (HoopLink.mainFrame,true);
+			editor.resizeAndCenter(450,400);		
+			editor.setVisible(true);
+			
+			debug ("Cleaning up editor ...");
+			
+			editor=null;
+		}
+		*/
 	}	
 }
