@@ -30,10 +30,10 @@ import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.io.CopyStreamException;
 
 import edu.cmu.cs.in.base.HoopLink;
-//import edu.cmu.cs.in.base.io.HoopHTTPReader;
 import edu.cmu.cs.in.base.kv.HoopKVString;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopLoadBase;
+import edu.cmu.cs.in.hoop.properties.types.HoopEnumSerializable;
 import edu.cmu.cs.in.hoop.properties.types.HoopStringSerializable;
 
 /**
@@ -43,8 +43,8 @@ public class HoopFTPReader extends HoopLoadBase
 {	
 	private static final long serialVersionUID = -1130808397513723791L;
 	
-	public	HoopStringSerializable URL=null;
-	//private HoopHTTPReader reader=null;
+	public HoopStringSerializable URL=null;
+	public HoopEnumSerializable fileSource=null;
 	
 	/**
 	 *
@@ -57,8 +57,7 @@ public class HoopFTPReader extends HoopLoadBase
 		setHoopDescription ("Load file through FTP");	
 	
 		URL=new HoopStringSerializable (this,"URL","ftp://localhost/robots.txt");
-		
-		//reader=new HoopHTTPReader ();
+		fileSource=new HoopEnumSerializable (this,"fileSource","As-Is,KV,CAS");
 	}
 	/**
 	 * 
@@ -92,7 +91,6 @@ public class HoopFTPReader extends HoopLoadBase
 		File translator=new File (urlObject.getFile());
 		
 		String localFileName="<PROJECTPATH>/tmp/download/"+translator.getName();
-		//String serverPath=urlObject.getPath();
 	 			
 		OutputStream fileStream=null;
 		
@@ -246,36 +244,50 @@ public class HoopFTPReader extends HoopLoadBase
 			alert ("Error: please save your project first before running the ftp hoop");
 			return (false);
 		}		
+			
+		//>------------------------------------------------------------------
 		
-		if (URL.getValue().isEmpty()==true)
-		{
-			this.setErrorString("Please provide a url");
-			return (false);
-		}
+		if (fileSource.getValue().equalsIgnoreCase("as-is")==true)
+		{			
+			if (URL.getValue().isEmpty()==true)
+			{
+				this.setErrorString("Please provide a url");
+				return (false);
+			}
+			
+			if (URL.getValue().toLowerCase().indexOf("ftp://")==-1)
+			{
+				this.setErrorString("Error: the url does not start with http://");
+				return (false);
+			}	
+			
+			HoopKVString newData=new HoopKVString ();
 		
-		if (URL.getValue().toLowerCase().indexOf("ftp://")==-1)
-		{
-			this.setErrorString("Error: the url does not start with http://");
-			return (false);
-		}		
+			newData.setKey(URL.getValue());
 		
-		HoopKVString newData=new HoopKVString ();
-		
-		newData.setKey(URL.getValue());
-		
-		String aResult="";
+			String aResult="";
 				
-		aResult=retrieveFTP (URL.getValue());
+			aResult=retrieveFTP (URL.getValue());
 		
-		if (aResult==null)
-		{
-			this.setErrorString ("FTP routine returned null data");
-			return (false);
+			if (aResult==null)
+			{
+				this.setErrorString ("FTP routine returned null data");
+				return (false);
+			}
+		
+			newData.setValue (aResult);
+		
+			this.addKV (newData);
 		}
 		
-		newData.setValue (aResult);
+		//>------------------------------------------------------------------
 		
-		this.addKV (newData);
+		if (fileSource.getValue().equalsIgnoreCase("kv")==true)
+		{
+			
+		}
+		
+		//>------------------------------------------------------------------		
 		
 		return (true);
 	}	
