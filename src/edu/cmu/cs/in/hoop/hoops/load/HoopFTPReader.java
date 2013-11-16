@@ -73,7 +73,7 @@ public class HoopFTPReader extends HoopLoadBase
 	private String retrieveFTP (String aURL)
 	{
 		debug ("retrieveFTP ("+aURL+")");
-
+		
 		URL urlObject=null;
 
 		try 
@@ -151,17 +151,20 @@ public class HoopFTPReader extends HoopLoadBase
 				debug ("Logged in");
 
 				boolean rep=true;
-		      
-				rep=ftp.changeWorkingDirectory (translator.getParent());
+								
+				String pathFixed=translator.getParent().replace("\\", "/");
+						      
+				rep=ftp.changeWorkingDirectory (pathFixed);
 				if (rep==false)
 				{
-					debug ("Unable to change working directory to: " + translator.getParent());
+					debug ("Unable to change working directory to: " + pathFixed);
 					return (null);
 				}
 				else
 				{
-					debug ("Current working directory: " + translator.getParent());
-					debug ("Retrieving file ...");
+					debug ("Current working directory: " + pathFixed);
+					
+					debug ("Retrieving file " + urlObject.getFile() + " ...");
 					
 					try
 					{
@@ -185,6 +188,8 @@ public class HoopFTPReader extends HoopLoadBase
 						ioEx.printStackTrace();
 						return (null);				  				    		  
 					}
+					
+					debug ("File retrieved");
 				}
 	      
 				ftp.logout();
@@ -200,17 +205,21 @@ public class HoopFTPReader extends HoopLoadBase
 	  	{
 	  		if (ftp.isConnected()) 
 	  		{
+	  			debug ("Closing ftp connection ...");
+	  			
 	  			try 
 	  			{
 	  				ftp.disconnect();
 	  			} 
 	  			catch(IOException ioe) 
 	  			{
-	  				// do nothing
+	  				debug ("Exception closing ftp connection");
 	  			}
 	  		}
 	  	}	
 	  	
+		debug ("Closing local file stream ...");
+		
 		try 
 		{
 			fileStream.close();
@@ -231,7 +240,13 @@ public class HoopFTPReader extends HoopLoadBase
 	public Boolean runHoop (HoopBase inHoop)
 	{		
 		debug ("runHoop ()");
-				
+
+		if (HoopLink.project.getVirginFile()==true)
+		{
+			alert ("Error: please save your project first before running the ftp hoop");
+			return (false);
+		}		
+		
 		if (URL.getValue().isEmpty()==true)
 		{
 			this.setErrorString("Please provide a url");
