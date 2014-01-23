@@ -19,26 +19,36 @@
 package edu.cmu.cs.in.controls.wizard;
 
 import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
+import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import edu.cmu.cs.in.base.HoopFixedSizeQueue;
 import edu.cmu.cs.in.base.HoopRoot;
 
 /** 
- * @author vvelsen
  *
  */
 public class HoopWizardFinishPage extends JPanel
 {
 	private static final long serialVersionUID = -4193982654107790562L;
 	
-	JProgressBar progress=null;
+	private JProgressBar progress=null;
+	
+	private JTextArea console=null;
+	private JScrollPane consoleContainer=null;
+	private int consoleSize=200; // Only show 200 lines
+	private HoopFixedSizeQueue <String>consoleData=null;	
 	
 	/**
 	 *
@@ -59,8 +69,25 @@ public class HoopWizardFinishPage extends JPanel
     	HoopWizardBase.progress=this.progress;
     	
     	this.add(explanationMessage);
+    	
 		this.add(new JSeparator(SwingConstants.HORIZONTAL));
+		
 		this.add(progress);
+		
+		this.add(new JSeparator(SwingConstants.HORIZONTAL));
+		
+		console=new JTextArea ();
+	    console.setFont(new Font("Courier",1,12));
+	    //console.setHorizontalAlignment(JTextField.LEFT);
+	    //console.setVerticalAlignment(JTextField.TOP);
+		console.setMinimumSize(new Dimension (50,150));
+		console.setPreferredSize(new Dimension (50,150));
+		
+		consoleContainer = new JScrollPane (console);
+		consoleContainer.setMinimumSize(new Dimension (50,150));
+		consoleContainer.setPreferredSize(new Dimension (50,150));		
+		
+		this.add(consoleContainer);
     }
     /**
      * 
@@ -77,4 +104,31 @@ public class HoopWizardFinishPage extends JPanel
     {
     	HoopRoot.debug("HoopWizardFinishPage",aMessage);
     }
+    /**
+     * 
+     */
+    public void reset ()
+    {
+		consoleData=new HoopFixedSizeQueue<String>(consoleSize);
+		
+		console.setText(""); // Reset
+    }
+	/**
+	 * 
+	 */
+	public void showFinishOutput (String aMessage)
+	{
+		debug (aMessage);
+		
+		consoleData.add (aMessage);
+		
+		if (console!=null)
+		{	
+			console.setText(consoleData.toConsoleString ());
+			
+			// Scroll to bottom			
+			JScrollBar vertical = consoleContainer.getVerticalScrollBar();
+			vertical.setValue( vertical.getMaximum() );
+		}	
+	}
 }

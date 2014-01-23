@@ -46,7 +46,24 @@ public class HoopFixedSizeQueue<E> extends LinkedList<E>
         { 
         	super.remove(); 
         }
+        
         return true;
+    }
+    /**
+     * 
+     */
+    public String toConsoleString ()
+    {
+    	StringBuffer formatted=new StringBuffer ();
+    	
+		for (int i=0;i<this.size();i++)
+		{			
+			String aString=(String) this.get(i);
+			formatted.append(aString);
+			formatted.append("\n");
+		}    	
+		
+		return (formatted.toString());
     }
 }
 

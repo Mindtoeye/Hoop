@@ -21,6 +21,7 @@ package edu.cmu.cs.in.controls.wizard;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -53,11 +54,14 @@ public class HoopWizardBase extends HoopRoot implements ActionListener
 {
 	// Settings
 
+	private Boolean quitOnFinish=true;
+	private int pageIndex=0;
 	private int stepListWidth=125;
 
 	// Panels, Frames and Controls ...
 
 	protected JFrame frame; //will hold the mainPane, and any message dialogs
+	protected JPanel mainPane=null; 
 	
 	private JLabel titleLabel=null;
 	
@@ -77,32 +81,31 @@ public class HoopWizardBase extends HoopRoot implements ActionListener
 	private JList pageList=null;
 	private ArrayList<HoopWizardPanelDescription> pages=new ArrayList<HoopWizardPanelDescription> ();
 	
-	private DefaultListModel<String> listModel = new DefaultListModel<String>();
-	
-	private int pageIndex=0;
-	
+	private DefaultListModel<String> listModel = new DefaultListModel<String>();	
 	public static JProgressBar progress=null;
 	
-	/**
-	 *
-	 */
-	public HoopWizardBase (String aName) 
-	{
-		setClassName ("HoopWizardBase");
-		debug ("HoopWizardBase ("+aName+")");
-		
-		init (aName);
-	}
 	/**
 	 *
 	 */
     public HoopWizardBase () 
     {
     	setClassName ("HoopWizardBase");
-    	debug ("HoopWizardBase ()");
-    	
-    	init ("Hoop Wizard");
+    	debug ("HoopWizardBase ()");    	
     }
+    /**
+     * 
+     */    
+	public Boolean getQuitOnFinish() 
+	{
+		return quitOnFinish;
+	}
+    /**
+     * 
+     */	
+	public void setQuitOnFinish(Boolean quitOnFinish) 
+	{
+		this.quitOnFinish = quitOnFinish;
+	}    
     /**
      * 
      */
@@ -110,9 +113,10 @@ public class HoopWizardBase extends HoopRoot implements ActionListener
     {
     	debug ("init ()");
     	
-	    JPanel mainPane = new JPanel();
+	    mainPane = new JPanel();
     	mainPane.setLayout(new BoxLayout (mainPane,BoxLayout.Y_AXIS));
     	mainPane.setBorder(new EmptyBorder(5,5,5,5));
+    	//mainPane.getLayout().setHorizontalAlignment (SwingConstants.LEFT);
     	
 		Box centerBox = new Box (BoxLayout.X_AXIS);
 		centerBox.setBorder(new EmptyBorder(5,5,5,5));
@@ -147,7 +151,7 @@ public class HoopWizardBase extends HoopRoot implements ActionListener
         
         rightBox.add(titleLabel);
         rightBox.add(new JSeparator(SwingConstants.HORIZONTAL));
-        
+
         centerBox.add(rightBox);
         
         substitute=createWizardJPanel ();
@@ -302,11 +306,13 @@ public class HoopWizardBase extends HoopRoot implements ActionListener
     	if (test!=null)
     	{
     		for (int i=0;i<pages.size();i++)
-    		{
+    		{    	    			
     			HoopWizardPanelDescription testPanel=pages.get(i);
     			
     			if (testPanel.getPanelContent()==test)
     			{
+    				pageList.setSelectedIndex(i);
+    				
     				titleLabel.setText(testPanel.getPanelLabel()+" - Page ( "+(i+1)+" of " + pages.size() + ")");
     				
     				return;
@@ -368,6 +374,8 @@ public class HoopWizardBase extends HoopRoot implements ActionListener
 	{
 		debug ("actionPerformed ()");
 		
+		mainPane.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+		
 		Object comp=arg0.getSource();
 		
 		if (comp==cancelButton)
@@ -385,10 +393,13 @@ public class HoopWizardBase extends HoopRoot implements ActionListener
 		{
 			if (processFinish ()==true)
 			{
-				cleanup ();
+				if (getQuitOnFinish()==true)
+				{
+					cleanup ();
 				
-				frame.setVisible(false);
-				frame.dispose();
+					frame.setVisible(false);
+					frame.dispose();
+				}	
 			}	
 		}
 		
@@ -397,7 +408,8 @@ public class HoopWizardBase extends HoopRoot implements ActionListener
 			pageIndex--;
 			
 			previousButton.setEnabled(true);
-			nextButton.setEnabled(true);			
+			nextButton.setEnabled(true);
+			quitButton.setEnabled(false);
 			
 			if (pageIndex<=0)
 			{
@@ -439,6 +451,8 @@ public class HoopWizardBase extends HoopRoot implements ActionListener
 			
 			updateState ();
 		}
+		
+		mainPane.setCursor(Cursor.getDefaultCursor());
 	}	
 	/**
 	 * 
@@ -467,6 +481,34 @@ public class HoopWizardBase extends HoopRoot implements ActionListener
 	public JPanel getCurrentPanel ()
 	{
 		return (pages.get(pageIndex).getPanelContent());
+	}
+	/**
+	 * 
+	 */
+	public void showFinishOutput (String aString)
+	{
+		JPanel fPanel=getCurrentPanel ();
+		
+		if (fPanel instanceof HoopWizardFinishPage)
+		{
+			HoopWizardFinishPage finishPage=(HoopWizardFinishPage) fPanel;
+			
+			finishPage.showFinishOutput(aString);
+		}
+	}
+	/**
+	 * 
+	 */
+	public void resetFinish ()
+	{
+		JPanel fPanel=getCurrentPanel ();
+		
+		if (fPanel instanceof HoopWizardFinishPage)
+		{
+			HoopWizardFinishPage finishPage=(HoopWizardFinishPage) fPanel;
+			
+			finishPage.reset ();
+		}		
 	}
     /**
      * 

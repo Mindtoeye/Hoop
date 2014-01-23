@@ -58,13 +58,13 @@ public class HoopWizardPageListRenderer extends JLabel implements ListCellRender
      
         if (cellHasFocus==true)
         {
-        	setBackground(new Color (49,106,197));
+        	setBackground(new Color (136,207,255));
         }
         else
         {
         	if (isSelected==true)
         	{
-        		setBackground (new Color (49,106,197));
+        		setBackground (new Color (136,207,255));
         	}
         	else
         	{
