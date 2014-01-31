@@ -165,7 +165,8 @@ public class HoopWizardBase extends HoopRoot implements ActionListener
 		buttonBox.setBorder(new EmptyBorder(5,5,5,0));
 		
 		restoreButton = new JButton("Restore default settings");
-				
+		restoreButton.setEnabled(false);		
+		
 		buttonBox.add(restoreButton);
 		
 		buttonBox.add(Box.createHorizontalGlue());
@@ -192,6 +193,7 @@ public class HoopWizardBase extends HoopRoot implements ActionListener
 		buttonBox.add(Box.createRigidArea(new Dimension(5,0)));
 		
 		cancelButton = new JButton("Cancel");
+		cancelButton.setEnabled (false);
 		cancelButton.addActionListener(this);
 		
 		buttonBox.add(cancelButton);
@@ -206,6 +208,34 @@ public class HoopWizardBase extends HoopRoot implements ActionListener
 		frame.setLocationRelativeTo(null); //umm should this be relative to something else??
 		//frame.pack();
 		frame.setResizable(false);
+    }
+    /**
+     * 
+     */
+    public JButton getPreviousButton ()
+    {
+    	return (previousButton);
+    }    
+    /**
+     * 
+     */
+    public JButton getNextButton ()
+    {
+    	return (nextButton);
+    }    
+    /**
+     * 
+     */
+    public JButton getFinishButton ()
+    {
+    	return (quitButton);
+    }    
+    /**
+     * 
+     */
+    public JButton getOkButton ()
+    {
+    	return (cancelButton);
     }
     /**
      * 
@@ -245,9 +275,10 @@ public class HoopWizardBase extends HoopRoot implements ActionListener
     	debug ("createWizardJPanel ()");
     	
 		JPanel wizardPane=new JPanel ();
-		wizardPane.setLayout (new BoxLayout (wizardPane,BoxLayout.Y_AXIS));
+		BoxLayout layout=new BoxLayout (wizardPane,BoxLayout.Y_AXIS);
+		wizardPane.setLayout (layout);
 		wizardPane.setBorder(new EmptyBorder(5,5,5,5));
-		wizardPane.setAlignmentX(Component.LEFT_ALIGNMENT);
+		wizardPane.setAlignmentX (Component.LEFT_ALIGNMENT);
 		
 		return (wizardPane);
     }    
@@ -441,7 +472,11 @@ public class HoopWizardBase extends HoopRoot implements ActionListener
 								
 				if (checkReadyToFinish ()==true)
 				{
-					quitButton.setEnabled(true);									
+					/**
+					 * Let the user do this instead
+					 */
+					
+					//quitButton.setEnabled(true);									
 				}
 			}
 			else
