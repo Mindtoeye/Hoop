@@ -22,15 +22,16 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
+//import javax.swing.JSeparator;
 import javax.swing.JTextArea;
-import javax.swing.SwingConstants;
+//import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import edu.cmu.cs.in.base.HoopFixedSizeQueue;
@@ -57,36 +58,40 @@ public class HoopWizardFinishPage extends JPanel
     {
     	debug ("HoopWizardFinishPage ()");
     	
+		//>---------------------------------------------------------------------------    	
+    	
 		this.setLayout (new BoxLayout (this,BoxLayout.Y_AXIS));
 		this.setBorder(new EmptyBorder(5,5,5,5));
 		this.setAlignmentX(Component.LEFT_ALIGNMENT);    	
     	
     	JLabel explanationMessage=new JLabel ();
-    	explanationMessage.setText ("<html>Please click Finish to complete the wizard.<br><br><br></html>");
+    	explanationMessage.setText ("Please click Finish to complete the wizard.");
+    	explanationMessage.setAlignmentX(Component.LEFT_ALIGNMENT);
     	
     	progress=new JProgressBar ();
+    	progress.setAlignmentX(Component.LEFT_ALIGNMENT);
     	
     	HoopWizardBase.progress=this.progress;
-    	
-    	this.add(explanationMessage);
-    	
-		this.add(new JSeparator(SwingConstants.HORIZONTAL));
-		
-		this.add(progress);
-		
-		this.add(new JSeparator(SwingConstants.HORIZONTAL));
-		
+    			
 		console=new JTextArea ();
 	    console.setFont(new Font("Courier",1,12));
-	    //console.setHorizontalAlignment(JTextField.LEFT);
-	    //console.setVerticalAlignment(JTextField.TOP);
 		console.setMinimumSize(new Dimension (50,150));
 		console.setPreferredSize(new Dimension (50,150));
 		
 		consoleContainer = new JScrollPane (console);
 		consoleContainer.setMinimumSize(new Dimension (50,150));
-		consoleContainer.setPreferredSize(new Dimension (50,150));		
+		//consoleContainer.setPreferredSize(new Dimension (50,150));
+		consoleContainer.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
+		//>---------------------------------------------------------------------------		
+		
+    	this.add(explanationMessage);
+		    	    	
+		this.add(progress);
+		
+		//this.add(Box.createVerticalGlue());
+		this.add(Box.createRigidArea(new Dimension(0,10)));
+				
 		this.add(consoleContainer);
     }
     /**

@@ -21,6 +21,7 @@ package edu.cmu.cs.in.controls.wizard;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.ComponentOrientation;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -45,6 +46,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import edu.cmu.cs.in.base.HoopRoot;
+import edu.cmu.cs.in.controls.base.HoopJPanel;
 
 /** 
  * @author vvelsen
@@ -84,6 +86,8 @@ public class HoopWizardBase extends HoopRoot implements ActionListener
 	private DefaultListModel<String> listModel = new DefaultListModel<String>();	
 	public static JProgressBar progress=null;
 	
+	private Box customControlBox=null;
+	
 	/**
 	 *
 	 */
@@ -91,6 +95,20 @@ public class HoopWizardBase extends HoopRoot implements ActionListener
     {
     	setClassName ("HoopWizardBase");
     	debug ("HoopWizardBase ()");    	
+    }
+    /**
+     *  
+     */
+    public JFrame getMainFrame ()
+    {
+    	return (frame);
+    }
+    /**
+     * 
+     */
+    public Box getCustomControlBox ()
+    {
+    	return (customControlBox);
     }
     /**
      * 
@@ -116,7 +134,6 @@ public class HoopWizardBase extends HoopRoot implements ActionListener
 	    mainPane = new JPanel();
     	mainPane.setLayout(new BoxLayout (mainPane,BoxLayout.Y_AXIS));
     	mainPane.setBorder(new EmptyBorder(5,5,5,5));
-    	//mainPane.getLayout().setHorizontalAlignment (SwingConstants.LEFT);
     	
 		Box centerBox = new Box (BoxLayout.X_AXIS);
 		centerBox.setBorder(new EmptyBorder(5,5,5,5));
@@ -162,12 +179,18 @@ public class HoopWizardBase extends HoopRoot implements ActionListener
 		mainPane.add (centerBox);
 		
 		Box buttonBox = new Box (BoxLayout.X_AXIS);
-		buttonBox.setBorder(new EmptyBorder(5,5,5,0));
+		buttonBox.setBorder(new EmptyBorder(5,2,2,0));
+		//buttonBox.setBorder(BorderFactory.createLineBorder(new Color (100,100,100)));
 		
+		/*
 		restoreButton = new JButton("Restore default settings");
 		restoreButton.setEnabled(false);		
 		
 		buttonBox.add(restoreButton);
+		*/
+		
+		customControlBox=new Box (BoxLayout.X_AXIS);
+		buttonBox.add(customControlBox);
 		
 		buttonBox.add(Box.createHorizontalGlue());
 		
@@ -206,7 +229,8 @@ public class HoopWizardBase extends HoopRoot implements ActionListener
 		frame.setContentPane(mainPane);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setLocationRelativeTo(null); //umm should this be relative to something else??
-		//frame.pack();
+		frame.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		//frame.pack(); // definitely don't call this
 		frame.setResizable(false);
     }
     /**
@@ -274,10 +298,10 @@ public class HoopWizardBase extends HoopRoot implements ActionListener
     {
     	debug ("createWizardJPanel ()");
     	
-		JPanel wizardPane=new JPanel ();
+		JPanel wizardPane=new HoopJPanel ();
 		BoxLayout layout=new BoxLayout (wizardPane,BoxLayout.Y_AXIS);
 		wizardPane.setLayout (layout);
-		wizardPane.setBorder(new EmptyBorder(5,5,5,5));
+		wizardPane.setBorder(new EmptyBorder(2,2,2,2));
 		wizardPane.setAlignmentX (Component.LEFT_ALIGNMENT);
 		
 		return (wizardPane);
@@ -344,7 +368,7 @@ public class HoopWizardBase extends HoopRoot implements ActionListener
     			{
     				pageList.setSelectedIndex(i);
     				
-    				titleLabel.setText(testPanel.getPanelLabel()+" - Page ( "+(i+1)+" of " + pages.size() + ")");
+    				titleLabel.setText(testPanel.getPanelLabel()+" - Page ("+(i+1)+" of " + pages.size() + ")");
     				
     				return;
     			}
@@ -476,7 +500,7 @@ public class HoopWizardBase extends HoopRoot implements ActionListener
 					 * Let the user do this instead
 					 */
 					
-					//quitButton.setEnabled(true);									
+					quitButton.setEnabled(true);									
 				}
 			}
 			else
