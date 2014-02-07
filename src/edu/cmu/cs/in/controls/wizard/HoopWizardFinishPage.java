@@ -21,25 +21,30 @@ package edu.cmu.cs.in.controls.wizard;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
+//import javax.swing.JSeparator;
 import javax.swing.JTextArea;
-import javax.swing.SwingConstants;
+//import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import edu.cmu.cs.in.base.HoopFixedSizeQueue;
+import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.HoopRoot;
 
 /** 
  *
  */
-public class HoopWizardFinishPage extends JPanel
+public class HoopWizardFinishPage extends JPanel implements ActionListener
 {
 	private static final long serialVersionUID = -4193982654107790562L;
 	
@@ -50,6 +55,8 @@ public class HoopWizardFinishPage extends JPanel
 	private int consoleSize=200; // Only show 200 lines
 	private HoopFixedSizeQueue <String>consoleData=null;	
 	
+    private JCheckBox showDebugLines = null;	
+	
 	/**
 	 *
 	 */
@@ -57,37 +64,44 @@ public class HoopWizardFinishPage extends JPanel
     {
     	debug ("HoopWizardFinishPage ()");
     	
+		//>---------------------------------------------------------------------------    	
+    	
 		this.setLayout (new BoxLayout (this,BoxLayout.Y_AXIS));
 		this.setBorder(new EmptyBorder(5,5,5,5));
 		this.setAlignmentX(Component.LEFT_ALIGNMENT);    	
     	
     	JLabel explanationMessage=new JLabel ();
-    	explanationMessage.setText ("<html>Please click Finish to complete the wizard.<br><br><br></html>");
+    	explanationMessage.setText ("Please click Finish to complete the wizard.");
+    	explanationMessage.setAlignmentX(Component.LEFT_ALIGNMENT);
     	
     	progress=new JProgressBar ();
+    	progress.setAlignmentX(Component.LEFT_ALIGNMENT);
     	
     	HoopWizardBase.progress=this.progress;
-    	
-    	this.add(explanationMessage);
-    	
-		this.add(new JSeparator(SwingConstants.HORIZONTAL));
-		
-		this.add(progress);
-		
-		this.add(new JSeparator(SwingConstants.HORIZONTAL));
-		
+    			
 		console=new JTextArea ();
 	    console.setFont(new Font("Courier",1,12));
-	    //console.setHorizontalAlignment(JTextField.LEFT);
-	    //console.setVerticalAlignment(JTextField.TOP);
 		console.setMinimumSize(new Dimension (50,150));
 		console.setPreferredSize(new Dimension (50,150));
 		
 		consoleContainer = new JScrollPane (console);
-		consoleContainer.setMinimumSize(new Dimension (50,150));
-		consoleContainer.setPreferredSize(new Dimension (50,150));		
+		consoleContainer.setMinimumSize(new Dimension (50,145));
 		
+		//>---------------------------------------------------------------------------		
+		
+    	this.add(explanationMessage);
+		    	    	
+		this.add(progress);
+		
+		this.add(Box.createRigidArea(new Dimension(0,5)));
+				
 		this.add(consoleContainer);
+		
+		showDebugLines = new JCheckBox("Show detailed debugging"); 
+		showDebugLines.setSelected(false);
+		showDebugLines.addActionListener(this);
+		
+		this.add(showDebugLines);
     }
     /**
      * 
@@ -130,5 +144,16 @@ public class HoopWizardFinishPage extends JPanel
 			JScrollBar vertical = consoleContainer.getVerticalScrollBar();
 			vertical.setValue( vertical.getMaximum() );
 		}	
+	}
+	/**
+	 * 
+	 */
+	@Override
+	public void actionPerformed(ActionEvent arg0) 
+	{
+		if (showDebugLines.isSelected()==true)
+			HoopLink.nodebug=false;
+		else
+			HoopLink.nodebug=true;
 	}
 }

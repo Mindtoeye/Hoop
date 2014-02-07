@@ -191,6 +191,22 @@ public class HoopXMLBase extends HoopRoot
         return (xmlString);
 	}
 	/**
+	 * 
+	 */
+	public String toXMLString (Element root)
+	{
+		debug ("toXMLString (Element)");
+		
+		Document document = new Document();
+				
+		document.setContent(root);
+		
+		XMLOutputter outputter = new XMLOutputter(Format.getPrettyFormat());
+        String xmlString = outputter.outputString(document);
+        
+        return (xmlString);
+	}	
+	/**
 	*	
 	*/	    
     protected String getAttributeValue (Element aNode,String anAttribute)
