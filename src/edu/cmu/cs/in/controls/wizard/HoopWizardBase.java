@@ -472,11 +472,7 @@ public class HoopWizardBase extends HoopRoot implements ActionListener
 								
 				if (checkReadyToFinish ()==true)
 				{
-					/**
-					 * Let the user do this instead
-					 */
-					
-					//quitButton.setEnabled(true);									
+					quitButton.setEnabled(true);									
 				}
 			}
 			else
