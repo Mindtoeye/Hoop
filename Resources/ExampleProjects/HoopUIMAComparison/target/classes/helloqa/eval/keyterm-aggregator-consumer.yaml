@@ -1,5 +1,0 @@
-class: edu.cmu.lti.oaqa.framework.eval.keyterm.KeytermEvalConsumer
-name: keyterm-evaluator  
-
-aggregators: |
-  - inherit: helloqa.eval.keyterm-aggregator

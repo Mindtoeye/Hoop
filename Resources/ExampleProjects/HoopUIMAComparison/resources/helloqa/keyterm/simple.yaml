@@ -1,4 +1,0 @@
-class: helloqa.eval.keyterm.SimpleKeytermExtractor
-
-persistence-provider: |
-  inherit: ecd.default-log-persistence-provider

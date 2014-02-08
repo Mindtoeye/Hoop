@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<styleMap>
-<rule>
-<pattern>src.org.uimafit.examples.tutorial.type.RoomNumber</pattern>
-<label>RoomNumber</label>
-<style>color:black; background:lightblue;</style>
-</rule>
-</styleMap>
-
