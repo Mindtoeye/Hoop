@@ -209,7 +209,7 @@ public class HoopWizardBase extends HoopRoot implements ActionListener
 		buttonBox.add(Box.createRigidArea(new Dimension(5,0)));
 
 		quitButton = new JButton("Finish");
-		quitButton.setEnabled(false);
+		//quitButton.setEnabled(false);
 		quitButton.addActionListener(this);
 		
 		buttonBox.add(quitButton);
@@ -464,7 +464,7 @@ public class HoopWizardBase extends HoopRoot implements ActionListener
 			
 			previousButton.setEnabled(true);
 			nextButton.setEnabled(true);
-			quitButton.setEnabled(false);
+			//quitButton.setEnabled(false);
 			
 			if (pageIndex<=0)
 			{
