@@ -427,7 +427,7 @@ public class HoopWizardBase extends HoopRoot implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent arg0) 
 	{
-		debug ("actionPerformed ()");
+		//debug ("actionPerformed ()");
 		
 		mainPane.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 		
@@ -496,10 +496,6 @@ public class HoopWizardBase extends HoopRoot implements ActionListener
 								
 				if (checkReadyToFinish ()==true)
 				{
-					/**
-					 * Let the user do this instead
-					 */
-					
 					quitButton.setEnabled(true);									
 				}
 			}
@@ -518,7 +514,7 @@ public class HoopWizardBase extends HoopRoot implements ActionListener
 	 */
 	private void updatePageContent ()
 	{
-		debug ("updatePageContent ()");
+		//debug ("updatePageContent ()");
 		
     	Component test=rightBox.getComponent(2);
     	

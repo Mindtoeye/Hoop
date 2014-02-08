@@ -21,9 +21,12 @@ package edu.cmu.cs.in.controls.wizard;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
@@ -35,12 +38,13 @@ import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
 import edu.cmu.cs.in.base.HoopFixedSizeQueue;
+import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.HoopRoot;
 
 /** 
  *
  */
-public class HoopWizardFinishPage extends JPanel
+public class HoopWizardFinishPage extends JPanel implements ActionListener
 {
 	private static final long serialVersionUID = -4193982654107790562L;
 	
@@ -50,6 +54,8 @@ public class HoopWizardFinishPage extends JPanel
 	private JScrollPane consoleContainer=null;
 	private int consoleSize=200; // Only show 200 lines
 	private HoopFixedSizeQueue <String>consoleData=null;	
+	
+    private JCheckBox showDebugLines = null;	
 	
 	/**
 	 *
@@ -79,9 +85,7 @@ public class HoopWizardFinishPage extends JPanel
 		console.setPreferredSize(new Dimension (50,150));
 		
 		consoleContainer = new JScrollPane (console);
-		consoleContainer.setMinimumSize(new Dimension (50,150));
-		//consoleContainer.setPreferredSize(new Dimension (50,150));
-		consoleContainer.setAlignmentX(Component.LEFT_ALIGNMENT);
+		consoleContainer.setMinimumSize(new Dimension (50,145));
 		
 		//>---------------------------------------------------------------------------		
 		
@@ -89,10 +93,15 @@ public class HoopWizardFinishPage extends JPanel
 		    	    	
 		this.add(progress);
 		
-		//this.add(Box.createVerticalGlue());
-		this.add(Box.createRigidArea(new Dimension(0,10)));
+		this.add(Box.createRigidArea(new Dimension(0,5)));
 				
 		this.add(consoleContainer);
+		
+		showDebugLines = new JCheckBox("Show detailed debugging"); 
+		showDebugLines.setSelected(false);
+		showDebugLines.addActionListener(this);
+		
+		this.add(showDebugLines);
     }
     /**
      * 
@@ -135,5 +144,16 @@ public class HoopWizardFinishPage extends JPanel
 			JScrollBar vertical = consoleContainer.getVerticalScrollBar();
 			vertical.setValue( vertical.getMaximum() );
 		}	
+	}
+	/**
+	 * 
+	 */
+	@Override
+	public void actionPerformed(ActionEvent arg0) 
+	{
+		if (showDebugLines.isSelected()==true)
+			HoopLink.nodebug=false;
+		else
+			HoopLink.nodebug=true;
 	}
 }
