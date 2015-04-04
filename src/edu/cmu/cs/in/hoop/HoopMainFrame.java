@@ -69,7 +69,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
 	private Component compReference=null;
 		
 	private ArrayList <HoopProjectExportInterface> exportPlugins=null;
-			
+	
 	/**
 	 *
 	 */	
@@ -100,7 +100,9 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
             addView ("Welcome",new HoopWelcomePane(),"center");
         }
         else
-        	startEditor ();             
+        {	
+        	startEditor ();
+        }	
         
        	processSplitDimensions ();
     }
@@ -829,17 +831,17 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     {
     	debug ("addButtons ()");
     	
-        JButton runButton = HoopControlTools.makeNavigationButton ("run","Run",HoopLink.getImageByName("run.png"));
+        HoopLink.runner.runButton = HoopControlTools.makeNavigationButton ("run","Run",HoopLink.getImageByName("run.png"));
         //runButton.addActionListener((HoopExecuteInEditor) HoopLink.runner);
-        runButton.addActionListener(new HoopActionListener ("run"));
+        HoopLink.runner.runButton.addActionListener(new HoopActionListener ("run"));
         
-        JButton runClusterButton = HoopControlTools.makeNavigationButton ("runCluster","Run on Cluster",HoopLink.getImageByName("run-cluster.png"));
+        HoopLink.runner.runClusterButton = HoopControlTools.makeNavigationButton ("runCluster","Run on Cluster",HoopLink.getImageByName("run-cluster.png"));
         //runClusterButton.addActionListener((HoopExecuteInEditor) HoopLink.runner);
-        runClusterButton.addActionListener(new HoopActionListener ("runcluster"));
+        HoopLink.runner.runClusterButton.addActionListener(new HoopActionListener ("runcluster"));
         
-        JButton debugButton = HoopControlTools.makeNavigationButton ("debug","Debug",HoopLink.getImageByName("debug.png"));
+        HoopLink.runner.debugButton = HoopControlTools.makeNavigationButton ("debug","Debug",HoopLink.getImageByName("debug.png"));
         //debugButton.addActionListener((HoopExecuteInEditor) HoopLink.runner);
-        debugButton.addActionListener(new HoopActionListener ("debug"));
+        HoopLink.runner.debugButton.addActionListener(new HoopActionListener ("debug"));
                 
         /*
         JButton runNButton = HoopControlTools.makeNavigationButton ("runN","Run N Times",HoopLink.getImageByName("run-n.png"));
@@ -853,20 +855,21 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
         sep.setMinimumSize(new Dimension (5,5));
         sep.setMaximumSize(new Dimension (5,50));
         
-        JButton stopButton = HoopControlTools.makeNavigationButton ("Stop","Stop",HoopLink.getImageByName("run-stopped.png"));
-        stopButton.addActionListener(new HoopActionListener ("stop"));
+        HoopLink.runner.stopButton = HoopControlTools.makeNavigationButton ("Stop","Stop",HoopLink.getImageByName("run-running.png"));
+        HoopLink.runner.stopButton.addActionListener(new HoopActionListener ("stop"));
+        HoopLink.runner.stopButton.setEnabled(false);
         
-        toolBar.add (runButton);
+        toolBar.add (HoopLink.runner.runButton);
         toolBar.add (Box.createRigidArea(new Dimension(2,0)));
         
-        toolBar.add (runClusterButton);
+        toolBar.add (HoopLink.runner.runClusterButton);
         toolBar.add (Box.createRigidArea(new Dimension(2,0)));
         
-        toolBar.add (debugButton);        
+        toolBar.add (HoopLink.runner.debugButton);
         toolBar.add (Box.createRigidArea(new Dimension(2,0)));
                         
         toolBar.add (sep);
-        toolBar.add (stopButton);                                
+        toolBar.add (HoopLink.runner.stopButton);
     }     
 	/**
 	 *

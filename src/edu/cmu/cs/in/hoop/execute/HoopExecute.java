@@ -21,6 +21,8 @@ package edu.cmu.cs.in.hoop.execute;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import javax.swing.JButton;
+
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.HoopRoot;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
@@ -54,6 +56,18 @@ public class HoopExecute extends HoopRoot implements Runnable
 			
     private String experimentID=UUID.randomUUID().toString();
     
+    // Pointers to GUI controls we need to keep informed of state
+    
+    public JButton runButton = null;    
+    public JButton runClusterButton = null;    
+    public JButton debugButton = null;
+    public JButton stopButton = null;
+    
+    /**
+     * 
+     * @author vvelsen
+     *
+     */
     private class HoopExecuteTask extends Thread
     {
     	@Override
@@ -339,6 +353,27 @@ public class HoopExecute extends HoopRoot implements Runnable
 	public void stopExecution ()
 	{
 		loopExecuting=false;
+		
+		// First kill the process
+				
+		this.kill();
+				
+		// Then call stop on all Hoops ...
+		
+		if (root==null)
+		{
+			debug ("Error: no graph root available");
+			return;
+		}		
+		
+		ArrayList<HoopBase> outHoops=root.getOutHoops();		
+		
+		for (int i=0;i<outHoops.size();i++)
+		{
+			HoopBase current=outHoops.get(i);
+
+			current.stop();
+		}			
 	}
 	/**
 	 * 

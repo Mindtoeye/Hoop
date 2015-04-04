@@ -600,7 +600,7 @@ public class HoopLink extends HoopProperties
   				
   				if (pane!=null)
   				{
-  					pane.setSelectedComponent (aWindow);
+  					//pane.setSelectedComponent (aWindow);
   				}
   				else
   					HoopRoot.debug ("HoopLink","Error unable to find window with title: " + aTitle);

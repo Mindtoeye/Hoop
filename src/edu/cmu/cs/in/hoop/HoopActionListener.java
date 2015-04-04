@@ -64,6 +64,9 @@ public class HoopActionListener extends HoopBase implements ActionListener
 			HoopLink.runner.setRoot(HoopLink.hoopGraphManager.getRoot());
 			HoopLink.runner.setLoopCount(1);
 			HoopLink.runner.setLocation (HoopExecute.LOCAL);
+			HoopLink.runner.runButton.setEnabled(false);
+			HoopLink.runner.runClusterButton.setEnabled(false);
+			HoopLink.runner.stopButton.setEnabled(true);
 		    			
 			Thread runner=new Thread (HoopLink.runner);
 			runner.setUncaughtExceptionHandler(new HoopExecuteExceptionHandler ());    			
@@ -95,6 +98,9 @@ public class HoopActionListener extends HoopBase implements ActionListener
 			HoopLink.runner.setRoot(HoopLink.hoopGraphManager.getRoot());
 			HoopLink.runner.setLoopCount(1);
 			HoopLink.runner.setLocation (HoopExecute.CLUSTER);
+			HoopLink.runner.runButton.setEnabled(false);
+			HoopLink.runner.runClusterButton.setEnabled(false);
+			HoopLink.runner.stopButton.setEnabled(true);			
 			    			
 			Thread runner=new Thread (HoopLink.runner);
 			runner.setUncaughtExceptionHandler(new HoopExecuteExceptionHandler ());    			
@@ -112,7 +118,11 @@ public class HoopActionListener extends HoopBase implements ActionListener
 		
 		if (this.getInstanceName().equalsIgnoreCase("stop")==true)
 		{
-			HoopLink.runner.kill();
+			HoopLink.runner.runButton.setEnabled(true);
+			HoopLink.runner.runClusterButton.setEnabled(true);
+			HoopLink.runner.stopButton.setEnabled(false);
+			
+			HoopLink.runner.stopExecution ();
 		}
 	}
 }

@@ -18,14 +18,12 @@
 
 package edu.cmu.cs.in.controls.wizard;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
@@ -65,21 +63,11 @@ public class HoopWizardFinishPage extends JPanel implements ActionListener
     public HoopWizardFinishPage () 
     {
     	debug ("HoopWizardFinishPage ()");
-    	    	
-    	init ();
-    }
-    /**
-     * 
-     */
-    public void init ()
-    {
-    	debug ("init ()");
     	
 		//>---------------------------------------------------------------------------    	
     	
 		this.setLayout (new BoxLayout (this,BoxLayout.Y_AXIS));
-		//this.setBorder(new EmptyBorder(5,5,5,5));
-		//this.setBorder(BorderFactory.createLineBorder(new Color (100,100,100)));
+		this.setBorder(new EmptyBorder(5,5,5,5));
 		this.setAlignmentX(Component.LEFT_ALIGNMENT);    	
     	
     	JLabel explanationMessage=new JLabel ();
@@ -92,14 +80,12 @@ public class HoopWizardFinishPage extends JPanel implements ActionListener
     	HoopWizardBase.progress=this.progress;
     			
 		console=new JTextArea ();
-	    console.setFont(new Font("Courier",1,10));
-		console.setMinimumSize(new Dimension (50,180));
-		//console.setPreferredSize(new Dimension (50,150));
+	    console.setFont(new Font("Courier",1,12));
+		console.setMinimumSize(new Dimension (50,150));
+		console.setPreferredSize(new Dimension (50,150));
 		
 		consoleContainer = new JScrollPane (console);
-		consoleContainer.setMinimumSize(new Dimension (50,160));
-		consoleContainer.setPreferredSize(new Dimension (50,160));
-		consoleContainer.setBorder(BorderFactory.createLineBorder(new Color (100,100,100)));
+		consoleContainer.setMinimumSize(new Dimension (50,145));
 		
 		//>---------------------------------------------------------------------------		
 		
@@ -115,7 +101,7 @@ public class HoopWizardFinishPage extends JPanel implements ActionListener
 		showDebugLines.setSelected(false);
 		showDebugLines.addActionListener(this);
 		
-		this.add(showDebugLines);    	
+		this.add(showDebugLines);
     }
     /**
      * 
@@ -157,9 +143,7 @@ public class HoopWizardFinishPage extends JPanel implements ActionListener
 			// Scroll to bottom			
 			JScrollBar vertical = consoleContainer.getVerticalScrollBar();
 			vertical.setValue( vertical.getMaximum() );
-		}
-		
-		debug ("Done");
+		}	
 	}
 	/**
 	 * 

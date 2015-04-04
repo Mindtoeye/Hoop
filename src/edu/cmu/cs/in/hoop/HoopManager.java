@@ -46,9 +46,12 @@ import edu.cmu.cs.in.hoop.hoops.load.HoopDocumentReader;
 import edu.cmu.cs.in.hoop.hoops.load.HoopDocumentThreadReader;
 import edu.cmu.cs.in.hoop.hoops.load.HoopFTPReader;
 import edu.cmu.cs.in.hoop.hoops.load.HoopFileLoadBase;
+import edu.cmu.cs.in.hoop.hoops.load.HoopIRCReader;
 import edu.cmu.cs.in.hoop.hoops.load.HoopMySQLReader;
+import edu.cmu.cs.in.hoop.hoops.load.HoopRSSReader;
 import edu.cmu.cs.in.hoop.hoops.load.HoopStdin;
 import edu.cmu.cs.in.hoop.hoops.load.HoopThreadReader;
+import edu.cmu.cs.in.hoop.hoops.load.HoopTwitterReader;
 import edu.cmu.cs.in.hoop.hoops.load.HoopUIMAConfigurationLoadBase;
 import edu.cmu.cs.in.hoop.hoops.load.HoopURLReader;
 import edu.cmu.cs.in.hoop.hoops.load.HoopWikipediaAccess;
@@ -262,5 +265,8 @@ public class HoopManager extends HoopBase
     	addTemplate (new HoopGenericAnnotator ());
     	addTemplate (new HoopDummyTimeWaster ());
     	addTemplate (new HoopTimer ());		
+    	addTemplate (new HoopTwitterReader ());	
+    	addTemplate (new HoopIRCReader ());
+    	addTemplate (new HoopRSSReader ());
     }
 }

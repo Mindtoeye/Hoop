@@ -16,45 +16,31 @@
  * 
  */
 
-package edu.cmu.cs.in.hoop.hoops.base;
+package edu.cmu.cs.in.hoop.hoops.load;
 
-import javax.swing.JPanel;
+import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
+import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
+import edu.cmu.cs.in.hoop.hoops.base.HoopLoadBase;
 
-/**
-* Here we have the basis for all the hoops. It manages incoming and
-* outgoing links to other hoops. Please keep in mind that even
-* though the API allows more than one incoming hoop, we currently
-* restrict the functionality to only one.
-*/
-public interface HoopInterface
-{    			
+public class HoopTwitterReader  extends HoopLoadBase implements HoopInterface 
+{
+	private static final long serialVersionUID = -2120054745412045610L;
+
 	/**
 	 *
 	 */
-	public Boolean runHoop (HoopBase inHoop);
-
+	public HoopTwitterReader () 
+	{
+		setClassName ("HoopTwitterReader");
+		debug ("HoopTwitterReader ()");
+		
+		setHoopDescription ("Get Twitter feeds through streaming API");
+	}
 	/**
 	 * 
 	 */
-	public HoopBase copy ();
-	
-	/**
-	 * 
-	 */
-	public JPanel getPropertiesPanel ();
-	
-	/**
-	 * 
-	 */
-    public void resetData ();
-
-    /**
-     * 
-     */
-    public void reset ();
-    
-    /**
-     * 
-     */
-    public void stop ();
+	public HoopBase copy ()
+	{
+		return (new HoopTwitterReader ());
+	}		
 }

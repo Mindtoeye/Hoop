@@ -399,6 +399,33 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
     	setExecutionCount(0);
     	setExecutionState ("STOPPED");
     }
+	/**
+	 *
+	 */
+	public Boolean runHoop (HoopBase inHoop)
+	{		
+		debug ("runHoop ()");
+		
+		// Implement in child class!
+				
+		return (true);
+	}
+	/**
+	 * 
+	 */
+	public void stop ()
+	{
+		debug ("stop ()");
+		
+		// Implement in child class!
+	}
+	/**
+	 * 
+	 */
+	public HoopBase copy ()
+	{
+		return (new HoopBase ());
+	}    
     /**
      * 
      */
@@ -690,22 +717,6 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 		debug ("runHoopInternal () Done");
 		
 		return (result);
-	}	
-	/**
-	 *
-	 */
-	public Boolean runHoop (HoopBase inHoop)
-	{		
-		// Implement in child class!
-				
-		return (true);
-	}
-	/**
-	 * 
-	 */
-	public HoopBase copy ()
-	{
-		return (new HoopBase ());
 	}
 	/**
 	 * 

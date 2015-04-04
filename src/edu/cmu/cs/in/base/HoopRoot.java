@@ -153,6 +153,26 @@ public class HoopRoot extends HoopDataType
 	/**
 	 *
 	 */		
+	public static void consoleOut(String s) 
+	{
+		StringBuffer buffer=new StringBuffer ();
+					
+		buffer.append(String.format ("[%s] [%d] %s\n", generateFileTimestamp (), ++HoopLink.debugLine, s));
+
+		System.out.print (buffer.toString());
+		
+		if (HoopLink.console!=null)
+		{
+			HoopLink.console.appendString (buffer.toString ());		
+		}
+		else
+		{
+			System.out.println ("Error: trying to write to NULL console");
+		}
+	}    	
+	/**
+	 *
+	 */		
 	public static void debug(String aClass,String s) 
 	{
 		if (HoopLink.nodebug==true)
@@ -164,10 +184,12 @@ public class HoopRoot extends HoopDataType
 
 		System.out.print (buffer.toString());
 		
+		/*
 		if (HoopLink.console!=null)
 		{
 			HoopLink.console.appendString (buffer.toString ());		
 		}
+		*/
 		
 		if (HoopRoot.logToDisk==true)
 		{
@@ -191,10 +213,12 @@ public class HoopRoot extends HoopDataType
 
 		System.out.print (buffer.toString());
 		
+		/*
 		if (HoopLink.console!=null)
 		{
 			HoopLink.console.appendString (buffer.toString ());
 		}
+		*/
 		
 		if (HoopRoot.logToDisk==true)
 		{
