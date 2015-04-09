@@ -16,49 +16,20 @@
  * 
  */
 
-package edu.cmu.cs.in.hoop.editor;
+package edu.cmu.cs.in.stats;
 
-import javax.swing.JLabel;
-
-import edu.cmu.cs.in.controls.HoopProgressPainter;
-
-/**
- *
- */
-public interface HoopVisualRepresentation
+public class HoopEmission 
 {
-	/**
-	 * 
-	 * @param aState
-	 */
-	public void setState (String aState);
+	public double hK=1.0;
+	public double hErr=0.0;
+	public double hConf=1.0;
 	
-	/**
-	 * 
-	 */
-	public JLabel getContentPanel ();
+	public HoopEmission () {}
 	
-	
-	/**
-	 * 
-	 */
-	public void setExecutionInfo (String aMessage);
-		
-	/**
-	 * When a graph is saved it will go through each hoop and call this
-	 * method. This will in turn in the panel belonging to that hoop
-	 * call a method that sets all the visual properties back into the
-	 * hoop.
-	 */
-	public void propagateVisualProperties ();
-	
-	/**
-	 * 
-	 */
-	public HoopProgressPainter getProgressPainter ();
-	
-	/**
-	 * 
-	 */
-	public void blink ();
+	public HoopEmission (double aK,double anErr,double aConf)
+	{
+		hK=aK;
+		hErr=anErr;
+		hConf=aConf;
+	}
 }

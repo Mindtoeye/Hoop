@@ -20,6 +20,8 @@ package edu.cmu.cs.in.hoop.hoops.base;
 
 import javax.swing.JPanel;
 
+import edu.cmu.cs.in.stats.HoopEmission;
+
 /**
 * Here we have the basis for all the hoops. It manages incoming and
 * outgoing links to other hoops. Please keep in mind that even
@@ -57,4 +59,14 @@ public interface HoopInterface
      * 
      */
     public void stop ();
+    
+    /**
+     * 
+     */
+    public void blink ();
+    
+    /**
+     * 
+     */
+    public HoopEmission emit ();
 }

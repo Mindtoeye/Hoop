@@ -29,6 +29,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+
 //import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -38,6 +39,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JToggleButton;
 //import javax.swing.border.Border;
+
 
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.base.HoopLink;
@@ -74,7 +76,7 @@ public class HoopPropertyPanel extends HoopEmbeddedJPanel implements ActionListe
 						
 		hoopPropertyBox=new Box (BoxLayout.Y_AXIS);
 		hoopPropertyBox.setMinimumSize(new Dimension (20,20));
-		hoopPropertyBox.setPreferredSize(new Dimension (200,300));
+		hoopPropertyBox.setPreferredSize(new Dimension (200,HoopInspectablePanel.fixedHeight));
 		
 		linkButton=new JToggleButton ();
 		linkButton.setIcon(HoopLink.getImageByName("link-views.png"));		

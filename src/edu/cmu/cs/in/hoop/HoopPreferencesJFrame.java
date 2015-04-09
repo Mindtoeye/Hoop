@@ -86,6 +86,14 @@ public class HoopPreferencesJFrame extends HoopJFrame
 	 */
 	protected void quit ()
 	{
+		debug ("quit ()");
+		
+		// We want to be very careful here
+		if (HoopLink.runner!=null)
+		{
+			HoopLink.runner.stopExecution();
+		}
+		
 		if (HoopLink.project!=null)
 		{
 			if (HoopLink.project.getVirginFile()==false)

@@ -71,8 +71,8 @@ public class HoopInspectablePanel extends HoopJPanel implements ActionListener, 
 	private Boolean folded=false;
 	private Boolean highlighted=false;
 	
-    private int fixedWidth=200;
-    private int fixedHeight=300;	
+    public static int fixedWidth=200;
+    public static int fixedHeight=300;	
 	    
 	JPanel parameterPanel=null;
 		
@@ -175,7 +175,7 @@ public class HoopInspectablePanel extends HoopJPanel implements ActionListener, 
                                 
         parameterScrollList=new JScrollPane (parameterTable);
         parameterScrollList.setMinimumSize(new Dimension (10,10));
-        parameterScrollList.setPreferredSize(new Dimension (100,100));   
+        parameterScrollList.setPreferredSize(new Dimension (100,HoopInspectablePanel.fixedHeight));   
         parameterScrollList.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);        
         parameterScrollList.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         
@@ -222,14 +222,14 @@ public class HoopInspectablePanel extends HoopJPanel implements ActionListener, 
 	 */	
 	public void setFixedWidth(int fixedWidth) 
 	{
-		this.fixedWidth = fixedWidth;
+		HoopInspectablePanel.fixedHeight = fixedWidth;
 	}
 	/**
 	 * 
 	 */	
 	public int getFixedWidth() 
 	{
-		return fixedWidth;
+		return HoopInspectablePanel.fixedWidth;
 	}
 	/**
 	 * 
@@ -250,7 +250,7 @@ public class HoopInspectablePanel extends HoopJPanel implements ActionListener, 
 	 */	
 	public int getFixedHeight() 
 	{
-		return fixedHeight;
+		return HoopInspectablePanel.fixedHeight;
 	}	
 	/**
 	 * 
@@ -292,7 +292,7 @@ public class HoopInspectablePanel extends HoopJPanel implements ActionListener, 
 	 */	
 	public void foldOut ()
 	{
-		debug ("foldOut ("+this.fixedWidth+","+this.fixedHeight+")");
+		debug ("foldOut ("+HoopInspectablePanel.fixedWidth+","+HoopInspectablePanel.fixedHeight+")");
 		
 		if (foldButton!=null)
 			foldButton.setIcon(close);
@@ -338,11 +338,11 @@ public class HoopInspectablePanel extends HoopJPanel implements ActionListener, 
 		{
 			if (vizProps.preferredPanelHeight!=-1)
 			{
-				fixedHeight=vizProps.preferredPanelHeight;
+				HoopInspectablePanel.fixedHeight=vizProps.preferredPanelHeight;
 				
-				debug ("Setting panel height to: " + fixedHeight);
+				debug ("Setting panel height to: " + HoopInspectablePanel.fixedHeight);
 				
-				this.setPreferredSize(new Dimension (fixedWidth,fixedHeight));
+				this.setPreferredSize(new Dimension (HoopInspectablePanel.fixedWidth,HoopInspectablePanel.fixedHeight));
 			}	
 		}
 				
@@ -445,11 +445,11 @@ public class HoopInspectablePanel extends HoopJPanel implements ActionListener, 
 		{
 			if (vizProps.preferredPanelHeight!=-1)
 			{
-				fixedHeight=vizProps.preferredPanelHeight;
+				HoopInspectablePanel.fixedHeight=vizProps.preferredPanelHeight;
 				
-				debug ("Setting panel height to: " + fixedHeight);
+				debug ("Setting panel height to: " + HoopInspectablePanel.fixedHeight);
 				
-				this.setPreferredSize(new Dimension (fixedWidth,fixedHeight));
+				this.setPreferredSize(new Dimension (HoopInspectablePanel.fixedWidth,HoopInspectablePanel.fixedHeight));
 			}	
 		}
 		

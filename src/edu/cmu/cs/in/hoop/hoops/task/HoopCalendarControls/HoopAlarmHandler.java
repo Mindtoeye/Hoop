@@ -44,7 +44,7 @@ public class HoopAlarmHandler extends TimerTask
 	 */
 	private void debug (String aMessage)
 	{
-		HoopBase.debug ("AlarmHandler",aMessage);
+		HoopBase.debug ("HoopAlarmHandler",aMessage);
 	}
 	
 	/**
@@ -52,7 +52,7 @@ public class HoopAlarmHandler extends TimerTask
 	 */
 	public void run() 
 	{
-		debug ("tick ()");
+		//debug ("tick ()");
 		
 		long now_ms = new GregorianCalendar().getTime().getTime();
     

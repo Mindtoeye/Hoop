@@ -19,6 +19,8 @@
 
 package edu.cmu.cs.in.hoop.editor;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -27,6 +29,7 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
+import javax.swing.Timer;
 
 import com.mxgraph.swing.mxGraphComponent;
 
@@ -48,12 +51,15 @@ import edu.cmu.cs.in.hoop.properties.HoopVisualProperties;
  * with UI components. See the HoopNodeRenderer class if you feel inclined
  * to subject yourself to Swing GUI management.
  */
-public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualRepresentation, MouseListener
+public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualRepresentation, MouseListener, ActionListener
 {
 	private static final long serialVersionUID = -1L;
 	private HoopPropertyPanel propPanel=null;
 	private HoopInspectablePanel propertiesPanel=null;
 	private double scale=1.0;
+	
+	private Timer blinker=null;	
+	private boolean blinking=false;
 
 	/**
 	 * 
@@ -237,6 +243,7 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 				if (hoopPanel!=null)
 				{
 					propertiesPanel.setPanelContent (hoopPanel,this.hoop);
+					//hoopPanel.setPreferredSize(propertiesPanel.getCurrentDimensions ());
 					hoopPanel.setPreferredSize(propertiesPanel.getCurrentDimensions ());
 				}
 				else
@@ -266,6 +273,26 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 		panel.showHoop(hoop);					
 	}
 	/**
+	 * 
+	 */
+	public void blink ()
+	{
+		debug ("blink ()");
+		
+		if (blinking==true)
+		{
+			return;
+		}
+		
+		icon.setIcon(HoopLink.getImageByName("led-green.png"));
+		
+		blinker=new Timer(200,this);
+
+		blinker.start();
+		
+		blinking=true;
+	}
+	/**
 	 * One of: STOPPED, WAITING, RUNNING, PAUSED, ERROR
 	 */
 	@Override
@@ -278,6 +305,7 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 			icon.setIcon(HoopLink.getImageByName("led-red.png"));
 			setBorder(BorderFactory.createCompoundBorder(HoopShadowBorder.getSharedInstance(), BorderFactory.createBevelBorder(BevelBorder.RAISED)));
 			setWaiting (false);
+			return;
 		}
 		
 		if (aState.equals("STOPPED")==true)
@@ -285,13 +313,15 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 			icon.setIcon(HoopLink.getImageByName("led-yellow.png"));
 			setBorder(BorderFactory.createCompoundBorder(HoopShadowBorder.getSharedInstance(), BorderFactory.createBevelBorder(BevelBorder.RAISED)));
 			setWaiting (false);
+			return;			
 		}
 		
 		if (aState.equals("WAITING")==true)
 		{
 			icon.setIcon(HoopLink.getImageByName("led-yellow.png"));
 			setBorder(BorderFactory.createCompoundBorder(HoopShadowBorder.getSharedInstance(), BorderFactory.createBevelBorder(BevelBorder.RAISED)));
-			setWaiting (false);
+			setWaiting (false);			
+			return;			
 		}
 		
 		if (aState.equals("RUNNING")==true)
@@ -299,7 +329,14 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 			icon.setIcon(HoopLink.getImageByName("led-green.png"));
 			setBorder(BorderFactory.createCompoundBorder(HoopShadowBorder.getSharedInstance(), raisedRed));
 			setWaiting (true);
+			return;			
 		}		
+		
+		// If we get an undefined state, fall back to STOPPED ...
+		
+		icon.setIcon(HoopLink.getImageByName("led-yellow.png"));
+		setBorder(BorderFactory.createCompoundBorder(HoopShadowBorder.getSharedInstance(), BorderFactory.createBevelBorder(BevelBorder.RAISED)));
+		setWaiting (false);		
 	}
 	/**
 	 * 
@@ -352,5 +389,28 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 	{
 		return (progressPanel);
 	}
+	/**
+	 * 
+	 */
+	@Override
+	public void actionPerformed(ActionEvent event) 
+	{
+		debug ("actionPerformed ("+event.getSource().getClass().getSimpleName()+")");
+		
+		if (event.getSource().equals(blinker)==false)
+		{
+			super.actionPerformed(event);
+			return;
+		}	
+		
+		icon.setIcon(HoopLink.getImageByName("led-yellow.png"));
+		
+		blinker.stop();
+		blinker=null;
+		
+		setState ("STOPPED");
+		
+		blinking=false;
+	}	
 }
 

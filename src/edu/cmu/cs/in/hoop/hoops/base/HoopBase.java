@@ -38,6 +38,7 @@ import edu.cmu.cs.in.hoop.editor.HoopVisualRepresentation;
 import edu.cmu.cs.in.hoop.execute.HoopExecuteInEditor;
 import edu.cmu.cs.in.hoop.properties.HoopVisualProperties;
 import edu.cmu.cs.in.hoop.properties.types.HoopSerializable;
+import edu.cmu.cs.in.stats.HoopEmission;
 import edu.cmu.cs.in.stats.HoopPerformanceMeasure;
 import edu.cmu.cs.in.stats.HoopSampleMeasure;
 import edu.cmu.cs.in.stats.HoopStatisticsMeasure;
@@ -324,6 +325,23 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 	{
 		return executionState;
 	}
+	/**
+	 * 
+	 */
+	public void blink ()
+	{
+		if (visualizer!=null)
+		{
+			visualizer.blink();
+		}
+	}
+    /**
+     * 
+     */
+    public HoopEmission emit ()
+    {
+    	return (new HoopEmission (1.0,0.0,1.0));
+    }
 	/**
 	 * 
 	 */	

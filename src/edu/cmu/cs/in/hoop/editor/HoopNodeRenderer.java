@@ -85,6 +85,7 @@ public class HoopNodeRenderer extends HoopJPanel implements /*MouseListener, Mou
 	protected JPanel toolBar=null;
 	protected JPanel bottomPanel=null;
 	protected HoopProgressPainter progressPanel=null;
+	protected JButton consoleButton=null;
 	protected JButton kvExamineButton=null;
 	protected JButton hoopOptionButton=null;
 	protected JButton showHelpButton=null;
@@ -169,6 +170,18 @@ public class HoopNodeRenderer extends HoopJPanel implements /*MouseListener, Mou
 		nodeSelectCheckbox.addActionListener(this);
 		toolBar.add(nodeSelectCheckbox);
 		*/		
+		
+		consoleButton=new JButton ();
+		consoleButton.setIcon(HoopLink.getImageByName("icon-console-16.png"));
+		consoleButton.setPreferredSize(new Dimension(16, 16));
+		consoleButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+		consoleButton.setToolTipText("Collapse/Expand");
+		consoleButton.setBackground(backgrColor);
+		consoleButton.setOpaque(true);
+		consoleButton.setBorder(null);
+		consoleButton.setMargin(new Insets (0,0,0,0));
+		consoleButton.addActionListener(this);
+		toolBar.add(consoleButton);		
 		
 		kvExamineButton=new JButton ();
 		kvExamineButton.setIcon(HoopLink.getImageByName("zoom.png"));
@@ -639,8 +652,13 @@ public class HoopNodeRenderer extends HoopJPanel implements /*MouseListener, Mou
     	    	    	    	
 		if (button==kvExamineButton) 
 		{		
-			examineData ();							
+			examineData ();
 		}	
+		
+		if (button==consoleButton) 
+		{
+		
+		}
 		
 		/*
 		if (button==hoopOptionButton)
@@ -652,7 +670,9 @@ public class HoopNodeRenderer extends HoopJPanel implements /*MouseListener, Mou
 		if (button==showHelpButton)
 		{
 			if (hoop!=null)
+			{	
 				hoop.showHelp();
+			}	
 		}
 	}
 	/**

@@ -20,13 +20,7 @@ package edu.cmu.cs.in.base;
 
 import java.awt.Color;
 
-import edu.cmu.cs.in.hoop.hoops.base.HoopAnalyze;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
-import edu.cmu.cs.in.hoop.hoops.base.HoopControlBase;
-import edu.cmu.cs.in.hoop.hoops.base.HoopDisplayBase;
-import edu.cmu.cs.in.hoop.hoops.base.HoopLoadBase;
-import edu.cmu.cs.in.hoop.hoops.base.HoopSaveBase;
-import edu.cmu.cs.in.hoop.hoops.base.HoopTransformBase;
 import edu.cmu.cs.in.hoop.properties.HoopStoredProperties;
 
 /**
@@ -55,6 +49,7 @@ public class HoopProperties extends HoopLangLink
 	
 	public static Color getHoopColor (HoopBase aHoop)
 	{
+		/*
 		if (aHoop instanceof HoopLoadBase)
 		{
 			return (new Color (255,255,165));	
@@ -84,7 +79,8 @@ public class HoopProperties extends HoopLangLink
 		{
 			return (new Color (209,202,163));
 		}
+		*/
 		
-		return (new Color (165,111,58));
+		return (new Color (209,202,163));
 	}
 }

@@ -21,6 +21,7 @@ package edu.cmu.cs.in.hoop.hoops.load;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
 import edu.cmu.cs.in.hoop.hoops.base.HoopLoadBase;
+import edu.cmu.cs.in.hoop.properties.types.HoopIntegerSerializable;
 import edu.cmu.cs.in.hoop.properties.types.HoopStringSerializable;
 import edu.cmu.cs.in.network.HoopIRCDialog;
 
@@ -34,7 +35,8 @@ public class HoopIRCReader extends HoopLoadBase implements HoopInterface
 	private HoopStringSerializable ircOwner=null;
 	private HoopStringSerializable ircURL=null;	
 	private HoopStringSerializable ircAuth=null;	
-	private HoopStringSerializable ircChannel=null;	
+	private HoopStringSerializable ircChannel=null;
+	private HoopIntegerSerializable ircPort=null;
 	
 	private HoopIRCDialog bot=null;
 	
@@ -52,6 +54,7 @@ public class HoopIRCReader extends HoopLoadBase implements HoopInterface
 		ircURL=new HoopStringSerializable (this,"twitchURLBase","irc.twitch.tv");
 		ircAuth=new HoopStringSerializable (this,"ircAuth","xxxxxx");
 		ircChannel=new HoopStringSerializable (this,"ircChannel","giantwaffle");
+		ircPort=new HoopIntegerSerializable (this,"ircPort",6667);
 	}
 	/**
 	 * 
@@ -80,13 +83,14 @@ public class HoopIRCReader extends HoopLoadBase implements HoopInterface
 		{
 			debug ("Instantiating bot ...");
 			bot=new HoopIRCDialog (ircOwner.getValue());
+			bot.setCharge(this);
 		}
 			
 		if (bot.getExecuting ()==false)
 		{
 			debug ("Executing ...");
 			
-			bot.execute(ircURL.getValue(),ircAuth.getValue(),ircChannel.getValue());
+			bot.execute(ircURL.getValue(),ircAuth.getValue(),ircChannel.getValue(),ircPort.getPropValue());
 		}
 		else
 		{

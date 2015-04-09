@@ -26,6 +26,7 @@ import java.io.IOException;
 import org.jibble.pircbot.*;
 
 import edu.cmu.cs.in.base.HoopRoot;
+import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
 
 /** 
  * @author vvelsen
@@ -33,6 +34,7 @@ import edu.cmu.cs.in.base.HoopRoot;
 public class HoopIRCDialog extends PircBot
 {
 	private Boolean executing=false;
+	private HoopInterface charge=null;
 	
     public HoopIRCDialog(String anOWner) 
     {
@@ -45,19 +47,33 @@ public class HoopIRCDialog extends PircBot
 	protected void debug (String aMessage)
 	{
 		HoopRoot.debug("HoopIRCDialogBase",aMessage);
+	}	
+	/**
+	 * 
+	 */	
+	public HoopInterface getCharge() 
+	{
+		return charge;
+	}
+	/**
+	 * 
+	 */	
+	public void setCharge(HoopInterface charge) 
+	{
+		this.charge = charge;
 	}		
 	/**
 	 * 
 	 */
-	public void execute (String ircURL,String auth,String aChannel)
+	public void execute (String ircURL,String auth,String aChannel,Integer aPort)
 	{
 		debug ("execute ()");
 				
-        setVerbose(false);
+        setVerbose(true);
 
         try 
         {
-        	connect(ircURL,6667,auth);
+        	connect(ircURL,aPort,auth);
 		} 
         catch (NickAlreadyInUseException e) 
         {
@@ -94,6 +110,26 @@ public class HoopIRCDialog extends PircBot
 	/**
 	 * 
 	 */
+	/*
+	protected void handleLine(String line)
+	{
+		debug ("handleLine ()");
+		
+		HoopRoot.consoleOut ("Line: " + line);
+	}
+	*/
+	/**
+	 * 
+	 */
+    public void onNotice(String sourceNick, String sourceLogin, String sourceHostname, String target, String notice) 
+    {
+    	debug ("onNotice ()");
+    	
+    	HoopRoot.consoleOut ("("+sourceNick+") " + notice);
+    }	
+	/**
+	 * 
+	 */
     public void onMessage(String channel,
     					  String sender,
     					  String login, 
@@ -115,6 +151,11 @@ public class HoopIRCDialog extends PircBot
     	*/
     	
     	HoopRoot.consoleOut ("["+channel+"] "+sender + ": " + message);
+    	
+    	if (charge!=null)
+    	{
+    		charge.blink ();
+    	}
     }
 	/**
 	 * 
@@ -139,6 +180,6 @@ public class HoopIRCDialog extends PircBot
 	public static void main(String[] args) 
 	{
 		HoopIRCDialog bot=new HoopIRCDialog ("MindtoEye");
-		bot.execute("irc.twitch.tv","xxxxxx","tehmorag");
-	}	
+		bot.execute("irc.twitch.tv","xxxxxx","tehmorag",6667);
+	}
 }

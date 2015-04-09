@@ -327,7 +327,8 @@ public class HoopLink extends HoopProperties
 		 							 "move.gif",
 		 							 "move_copy.gif",
 		 							 "move_day.gif",
-		 							 "move_day_copy.gif"		 							 
+		 							 "move_day_copy.gif",
+		 							 "icon-console-16.png"
 		 							 };
 	
 	public static JFrame mainFrame=null;
