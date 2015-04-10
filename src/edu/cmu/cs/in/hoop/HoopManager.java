@@ -73,7 +73,6 @@ import edu.cmu.cs.in.hoop.hoops.task.HoopPathChooser;
 import edu.cmu.cs.in.hoop.hoops.task.HoopScheduler;
 import edu.cmu.cs.in.hoop.hoops.task.HoopStart;
 import edu.cmu.cs.in.hoop.hoops.task.HoopTimer;
-import edu.cmu.cs.in.hoop.hoops.task.HoopUIMACSE;
 import edu.cmu.cs.in.hoop.hoops.transform.HoopCleanTokens;
 import edu.cmu.cs.in.hoop.hoops.transform.HoopColumnRenamer;
 import edu.cmu.cs.in.hoop.hoops.transform.HoopDocumentCreator;
@@ -259,7 +258,6 @@ public class HoopManager extends HoopBase
     	addTemplate (new HoopWekaML ());
     	addTemplate (new HoopRoomAnnotator ());
     	addTemplate (new HoopRoomAnnotatorHitesh ());
-    	addTemplate (new HoopUIMACSE ());
     	addTemplate (new HoopKV2Cas ());
     	addTemplate (new HoopUIMAConfigurationLoadBase ());
     	addTemplate (new HoopGenericAnnotator ());
