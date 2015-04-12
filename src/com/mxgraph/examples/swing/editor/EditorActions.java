@@ -1,22 +1,7 @@
-/** 
- * Author: Martin van Velsen <vvelsen@cs.cmu.edu>
- * 
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU Lesser General Public License as 
- *  published by the Free Software Foundation, either version 3 of the 
- *  License, or (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
+/*
+ * Copyright (c) 2001-2012, JGraph Ltd
  */
-
-package edu.cmu.cs.in.hoop.editor;
+package com.mxgraph.examples.swing.editor;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -50,8 +35,8 @@ import javax.swing.JComponent;
 import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-//import javax.swing.JSplitPane;
-//import javax.swing.SwingUtilities;
+import javax.swing.JSplitPane;
+import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.text.html.HTML;
 import javax.swing.text.html.HTMLDocument;
@@ -66,13 +51,12 @@ import com.mxgraph.canvas.mxICanvas;
 import com.mxgraph.canvas.mxSvgCanvas;
 import com.mxgraph.io.mxCodec;
 import com.mxgraph.io.mxGdCodec;
-//import com.mxgraph.io.gd.mxGdDocument;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGraphModel;
 import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.shape.mxStencilShape;
 import com.mxgraph.swing.mxGraphComponent;
-//import com.mxgraph.swing.mxGraphOutline;
+import com.mxgraph.swing.mxGraphOutline;
 import com.mxgraph.swing.handler.mxConnectionHandler;
 import com.mxgraph.swing.util.mxGraphActions;
 import com.mxgraph.swing.view.mxCellEditor;
@@ -88,35 +72,76 @@ import com.mxgraph.util.png.mxPngImageEncoder;
 import com.mxgraph.util.png.mxPngTextDecoder;
 import com.mxgraph.view.mxGraph;
 
-import edu.cmu.cs.in.base.io.HoopDefaultFileFilter;
-
 /**
  *
  */
-public class HoopEditorActions
+public class EditorActions
 {
 	/**
 	 * 
 	 * @param e
 	 * @return Returns the graph for the given action event.
 	 */
-	public static final HoopBasicGraphEditor getEditor(ActionEvent e)
+	public static final BasicGraphEditor getEditor(ActionEvent e)
 	{
 		if (e.getSource() instanceof Component)
 		{
 			Component component = (Component) e.getSource();
 
-			while ((component != null) && (!(component instanceof HoopBasicGraphEditor)))
+			while (component != null
+					&& !(component instanceof BasicGraphEditor))
 			{
 				component = component.getParent();
 			}
 
-			return (HoopBasicGraphEditor) component;
+			return (BasicGraphEditor) component;
 		}
 
 		return null;
 	}
 
+	/**
+	 *
+	 */
+	@SuppressWarnings("serial")
+	public static class ToggleRulersItem extends JCheckBoxMenuItem
+	{
+		/**
+		 * 
+		 */
+		public ToggleRulersItem(final BasicGraphEditor editor, String name)
+		{
+			super(name);
+			setSelected(editor.getGraphComponent().getColumnHeader() != null);
+
+			addActionListener(new ActionListener()
+			{
+				/**
+				 * 
+				 */
+				public void actionPerformed(ActionEvent e)
+				{
+					mxGraphComponent graphComponent = editor
+							.getGraphComponent();
+
+					if (graphComponent.getColumnHeader() != null)
+					{
+						graphComponent.setColumnHeader(null);
+						graphComponent.setRowHeader(null);
+					}
+					else
+					{
+						graphComponent.setColumnHeaderView(new EditorRuler(
+								graphComponent,
+								EditorRuler.ORIENTATION_HORIZONTAL));
+						graphComponent.setRowHeaderView(new EditorRuler(
+								graphComponent,
+								EditorRuler.ORIENTATION_VERTICAL));
+					}
+				}
+			});
+		}
+	}
 
 	/**
 	 *
@@ -127,7 +152,7 @@ public class HoopEditorActions
 		/**
 		 * 
 		 */
-		public ToggleGridItem(final HoopBasicGraphEditor editor, String name)
+		public ToggleGridItem(final BasicGraphEditor editor, String name)
 		{
 			super(name);
 			setSelected(true);
@@ -139,7 +164,8 @@ public class HoopEditorActions
 				 */
 				public void actionPerformed(ActionEvent e)
 				{
-					mxGraphComponent graphComponent = editor.getGraphComponent();
+					mxGraphComponent graphComponent = editor
+							.getGraphComponent();
 					mxGraph graph = graphComponent.getGraph();
 					boolean enabled = !graph.isGridEnabled();
 
@@ -151,21 +177,102 @@ public class HoopEditorActions
 			});
 		}
 	}
+
+	/**
+	 *
+	 */
+	@SuppressWarnings("serial")
+	public static class ToggleOutlineItem extends JCheckBoxMenuItem
+	{
+		/**
+		 * 
+		 */
+		public ToggleOutlineItem(final BasicGraphEditor editor, String name)
+		{
+			super(name);
+			setSelected(true);
+
+			addActionListener(new ActionListener()
+			{
+				/**
+				 * 
+				 */
+				public void actionPerformed(ActionEvent e)
+				{
+					final mxGraphOutline outline = editor.getGraphOutline();
+					outline.setVisible(!outline.isVisible());
+					outline.revalidate();
+
+					SwingUtilities.invokeLater(new Runnable()
+					{
+						/*
+						 * (non-Javadoc)
+						 * @see java.lang.Runnable#run()
+						 */
+						public void run()
+						{
+							if (outline.getParent() instanceof JSplitPane)
+							{
+								if (outline.isVisible())
+								{
+									((JSplitPane) outline.getParent())
+											.setDividerLocation(editor
+													.getHeight() - 300);
+									((JSplitPane) outline.getParent())
+											.setDividerSize(6);
+								}
+								else
+								{
+									((JSplitPane) outline.getParent())
+											.setDividerSize(0);
+								}
+							}
+						}
+					});
+				}
+			});
+		}
+	}
+
+	/**
+	 *
+	 */
+	@SuppressWarnings("serial")
+	public static class ExitAction extends AbstractAction
+	{
+		/**
+		 * 
+		 */
+		public void actionPerformed(ActionEvent e)
+		{
+			BasicGraphEditor editor = getEditor(e);
+
+			if (editor != null)
+			{
+				editor.exit();
+			}
+		}
+	}
+
 	/**
 	 *
 	 */
 	@SuppressWarnings("serial")
 	public static class StylesheetAction extends AbstractAction
 	{
+		/**
+		 * 
+		 */
 		protected String stylesheet;
 
-		/** 
-		 * @param stylesheet
+		/**
+		 * 
 		 */
 		public StylesheetAction(String stylesheet)
 		{
 			this.stylesheet = stylesheet;
 		}
+
 		/**
 		 * 
 		 */
@@ -173,14 +280,17 @@ public class HoopEditorActions
 		{
 			if (e.getSource() instanceof mxGraphComponent)
 			{
-				mxGraphComponent graphComponent=(mxGraphComponent) e.getSource();
+				mxGraphComponent graphComponent = (mxGraphComponent) e
+						.getSource();
 				mxGraph graph = graphComponent.getGraph();
 				mxCodec codec = new mxCodec();
-				Document doc = mxUtils.loadDocument(HoopEditorActions.class.getResource (stylesheet).toString());
+				Document doc = mxUtils.loadDocument(EditorActions.class
+						.getResource(stylesheet).toString());
 
 				if (doc != null)
 				{
-					codec.decode(doc.getDocumentElement(),graph.getStylesheet());
+					codec.decode(doc.getDocumentElement(),
+							graph.getStylesheet());
 					graph.refresh();
 				}
 			}
@@ -213,7 +323,8 @@ public class HoopEditorActions
 		{
 			if (e.getSource() instanceof mxGraphComponent)
 			{
-				mxGraphComponent graphComponent = (mxGraphComponent) e.getSource();
+				mxGraphComponent graphComponent = (mxGraphComponent) e
+						.getSource();
 				graphComponent.setPageVisible(true);
 				graphComponent.setZoomPolicy(zoomPolicy);
 			}
@@ -246,7 +357,8 @@ public class HoopEditorActions
 		{
 			if (e.getSource() instanceof mxGraphComponent)
 			{
-				mxGraphComponent graphComponent = (mxGraphComponent) e.getSource();
+				mxGraphComponent graphComponent = (mxGraphComponent) e
+						.getSource();
 				graphComponent.setGridStyle(style);
 				graphComponent.repaint();
 			}
@@ -307,7 +419,8 @@ public class HoopEditorActions
 		{
 			if (e.getSource() instanceof mxGraphComponent)
 			{
-				mxGraphComponent graphComponent = (mxGraphComponent) e.getSource();
+				mxGraphComponent graphComponent = (mxGraphComponent) e
+						.getSource();
 				double scale = this.scale;
 
 				if (scale == 0)
@@ -426,7 +539,7 @@ public class HoopEditorActions
 		/**
 		 * Saves XML+PNG format.
 		 */
-		protected void saveXmlPng(HoopBasicGraphEditor editor, String filename,
+		protected void saveXmlPng(BasicGraphEditor editor, String filename,
 				Color bg) throws IOException
 		{
 			mxGraphComponent graphComponent = editor.getGraphComponent();
@@ -477,15 +590,17 @@ public class HoopEditorActions
 		 */
 		public void actionPerformed(ActionEvent e)
 		{
-			HoopBasicGraphEditor editor = getEditor(e);
+			BasicGraphEditor editor = getEditor(e);
 
 			if (editor != null)
 			{
 				mxGraphComponent graphComponent = editor.getGraphComponent();
 				mxGraph graph = graphComponent.getGraph();
 				FileFilter selectedFilter = null;
-				HoopDefaultFileFilter xmlPngFilter = new HoopDefaultFileFilter(".png","PNG+XML " + mxResources.get("file") + " (.png)");
-				FileFilter vmlFileFilter = new HoopDefaultFileFilter(".html",	"VML " + mxResources.get("file") + " (.html)");
+				DefaultFileFilter xmlPngFilter = new DefaultFileFilter(".png",
+						"PNG+XML " + mxResources.get("file") + " (.png)");
+				FileFilter vmlFileFilter = new DefaultFileFilter(".html",
+						"VML " + mxResources.get("file") + " (.html)");
 				String filename = null;
 				boolean dialogShown = false;
 
@@ -513,11 +628,17 @@ public class HoopEditorActions
 					fc.addChoosableFileFilter(defaultFilter);
 
 					// Adds special vector graphics formats and HTML
-					fc.addChoosableFileFilter(new HoopDefaultFileFilter (".mxe", "mxGraph Editor " + mxResources.get("file")	+ " (.mxe)"));
-					fc.addChoosableFileFilter(new HoopDefaultFileFilter (".txt",	"Graph Drawing " + mxResources.get("file")	+ " (.txt)"));
-					fc.addChoosableFileFilter(new HoopDefaultFileFilter(".svg",	"SVG " + mxResources.get("file") + " (.svg)"));
+					fc.addChoosableFileFilter(new DefaultFileFilter(".mxe",
+							"mxGraph Editor " + mxResources.get("file")
+									+ " (.mxe)"));
+					fc.addChoosableFileFilter(new DefaultFileFilter(".txt",
+							"Graph Drawing " + mxResources.get("file")
+									+ " (.txt)"));
+					fc.addChoosableFileFilter(new DefaultFileFilter(".svg",
+							"SVG " + mxResources.get("file") + " (.svg)"));
 					fc.addChoosableFileFilter(vmlFileFilter);
-					fc.addChoosableFileFilter(new HoopDefaultFileFilter(".html", "HTML " + mxResources.get("file") + " (.html)"));
+					fc.addChoosableFileFilter(new DefaultFileFilter(".html",
+							"HTML " + mxResources.get("file") + " (.html)"));
 
 					// Adds a filter for each supported image format
 					Object[] imageFormats = ImageIO.getReaderFormatNames();
@@ -536,11 +657,14 @@ public class HoopEditorActions
 					for (int i = 0; i < imageFormats.length; i++)
 					{
 						String ext = imageFormats[i].toString();
-						fc.addChoosableFileFilter(new HoopDefaultFileFilter("."	+ ext, ext.toUpperCase() + " " + mxResources.get("file") + " (." + ext + ")"));
+						fc.addChoosableFileFilter(new DefaultFileFilter("."
+								+ ext, ext.toUpperCase() + " "
+								+ mxResources.get("file") + " (." + ext + ")"));
 					}
 
 					// Adds filter that accepts all supported image formats
-					fc.addChoosableFileFilter(new HoopDefaultFileFilter.ImageFileFilter(mxResources.get("allImages")));
+					fc.addChoosableFileFilter(new DefaultFileFilter.ImageFileFilter(
+							mxResources.get("allImages")));
 					fc.setFileFilter(defaultFilter);
 					int rc = fc.showDialog(null, mxResources.get("save"));
 					dialogShown = true;
@@ -557,9 +681,9 @@ public class HoopEditorActions
 					filename = fc.getSelectedFile().getAbsolutePath();
 					selectedFilter = fc.getFileFilter();
 
-					if (selectedFilter instanceof HoopDefaultFileFilter)
+					if (selectedFilter instanceof DefaultFileFilter)
 					{
-						String ext = ((HoopDefaultFileFilter) selectedFilter)
+						String ext = ((DefaultFileFilter) selectedFilter)
 								.getExtension();
 
 						if (!filename.toLowerCase().endsWith(ext))
@@ -631,15 +755,12 @@ public class HoopEditorActions
 						editor.setModified(false);
 						editor.setCurrentFile(new File(filename));
 					}
-					/*
 					else if (ext.equalsIgnoreCase("txt"))
 					{
-						String content = mxGdCodec.encode(graph)
-								.getDocumentString();
+						String content = mxGdCodec.encode(graph);
 
 						mxUtils.writeFile(content, filename);
 					}
-					*/
 					else
 					{
 						Color bg = null;
@@ -867,7 +988,7 @@ public class HoopEditorActions
 		/**
 		 * 
 		 */
-		public ToggleCreateTargetItem(final HoopBasicGraphEditor editor, String name)
+		public ToggleCreateTargetItem(final BasicGraphEditor editor, String name)
 		{
 			super(name);
 			setSelected(true);
@@ -1154,7 +1275,7 @@ public class HoopEditorActions
 		 */
 		public void actionPerformed(ActionEvent e)
 		{
-			HoopBasicGraphEditor editor = getEditor(e);
+			BasicGraphEditor editor = getEditor(e);
 
 			if (editor != null)
 			{
@@ -1304,7 +1425,7 @@ public class HoopEditorActions
 		 */
 		public void actionPerformed(ActionEvent e)
 		{
-			HoopBasicGraphEditor editor = getEditor(e);
+			BasicGraphEditor editor = getEditor(e);
 
 			if (editor != null)
 			{
@@ -1346,7 +1467,8 @@ public class HoopEditorActions
 		 * @param path The path to the directory the shape exists in
 		 * @return the string name of the shape
 		 */
-		public static String addStencilShape(HoopEditorPalette palette,	String nodeXml, String path)
+		public static String addStencilShape(EditorPalette palette,
+				String nodeXml, String path)
 		{
 
 			// Some editors place a 3 byte BOM at the start of files
@@ -1379,7 +1501,7 @@ public class HoopEditorActions
 		 */
 		public void actionPerformed(ActionEvent e)
 		{
-			HoopBasicGraphEditor editor = getEditor(e);
+			BasicGraphEditor editor = getEditor(e);
 
 			if (editor != null)
 			{
@@ -1391,7 +1513,8 @@ public class HoopEditorActions
 				fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 
 				// Adds file filter for Dia shape import
-				fc.addChoosableFileFilter(new HoopDefaultFileFilter(".shape", 	"Dia Shape " + mxResources.get("file") + " (.shape)"));
+				fc.addChoosableFileFilter(new DefaultFileFilter(".shape",
+						"Dia Shape " + mxResources.get("file") + " (.shape)"));
 
 				int rc = fc.showDialog(null, mxResources.get("importStencil"));
 
@@ -1403,8 +1526,8 @@ public class HoopEditorActions
 					{
 						if (fc.getSelectedFile().isDirectory())
 						{
-							/*
-							HoopEditorPalette palette = editor.insertPalette(fc.getSelectedFile().getName());
+							EditorPalette palette = editor.insertPalette(fc
+									.getSelectedFile().getName());
 
 							for (File f : fc.getSelectedFile().listFiles(
 									new FilenameFilter()
@@ -1417,17 +1540,20 @@ public class HoopEditorActions
 										}
 									}))
 							{
-								String nodeXml = mxUtils.readFile(f.getAbsolutePath());
-								addStencilShape(palette, nodeXml, f.getParent()	+ File.separator);
+								String nodeXml = mxUtils.readFile(f
+										.getAbsolutePath());
+								addStencilShape(palette, nodeXml, f.getParent()
+										+ File.separator);
 							}
 
-							JComponent scrollPane = (JComponent) palette.getParent().getParent();
-							editor.getLibraryPane().setSelectedComponent(scrollPane);
+							JComponent scrollPane = (JComponent) palette
+									.getParent().getParent();
+							editor.getLibraryPane().setSelectedComponent(
+									scrollPane);
 
 							// FIXME: Need to update the size of the palette to force a layout
 							// update. Re/in/validate of palette or parent does not work.
 							//editor.getLibraryPane().revalidate();
-							 */
 						}
 						else
 						{
@@ -1463,7 +1589,7 @@ public class HoopEditorActions
 		/**
 		 * 
 		 */
-		protected void resetEditor(HoopBasicGraphEditor editor)
+		protected void resetEditor(BasicGraphEditor editor)
 		{
 			editor.setModified(false);
 			editor.getUndoManager().clear();
@@ -1473,7 +1599,7 @@ public class HoopEditorActions
 		/**
 		 * Reads XML+PNG format.
 		 */
-		protected void openXmlPng(HoopBasicGraphEditor editor, File file)
+		protected void openXmlPng(BasicGraphEditor editor, File file)
 				throws IOException
 		{
 			Map<String, String> text = mxPngTextDecoder
@@ -1505,8 +1631,8 @@ public class HoopEditorActions
 		 * @throws IOException
 		 *
 		 */
-		/*
-		protected void openGD(HoopBasicGraphEditor editor, File file, mxGdDocument document)
+		protected void openGD(BasicGraphEditor editor, File file,
+				String gdText)
 		{
 			mxGraph graph = editor.getGraphComponent().getGraph();
 
@@ -1522,18 +1648,17 @@ public class HoopEditorActions
 			}
 
 			((mxGraphModel) graph.getModel()).clear();
-			mxGdCodec.decode(document, graph);
+			mxGdCodec.decode(gdText, graph);
 			editor.getGraphComponent().zoomAndCenter();
 			editor.setCurrentFile(new File(lastDir + "/" + filename));
 		}
-		*/
 
 		/**
 		 * 
 		 */
 		public void actionPerformed(ActionEvent e)
 		{
-			HoopBasicGraphEditor editor = getEditor(e);
+			BasicGraphEditor editor = getEditor(e);
 
 			if (editor != null)
 			{
@@ -1551,8 +1676,11 @@ public class HoopEditorActions
 						JFileChooser fc = new JFileChooser(wd);
 
 						// Adds file filter for supported file format
-						HoopDefaultFileFilter defaultFilter = new HoopDefaultFileFilter(".mxe", mxResources.get("allSupportedFormats")	+ " (.mxe, .png, .vdx)")
+						DefaultFileFilter defaultFilter = new DefaultFileFilter(
+								".mxe", mxResources.get("allSupportedFormats")
+										+ " (.mxe, .png, .vdx)")
 						{
+
 							public boolean accept(File file)
 							{
 								String lcase = file.getName().toLowerCase();
@@ -1562,17 +1690,24 @@ public class HoopEditorActions
 										|| lcase.endsWith(".vdx");
 							}
 						};
-						
 						fc.addChoosableFileFilter(defaultFilter);
 
-						fc.addChoosableFileFilter(new HoopDefaultFileFilter(".mxe","mxGraph Editor " + mxResources.get("file")	+ " (.mxe)"));
-						fc.addChoosableFileFilter(new HoopDefaultFileFilter(".png","PNG+XML  " + mxResources.get("file") + " (.png)"));
+						fc.addChoosableFileFilter(new DefaultFileFilter(".mxe",
+								"mxGraph Editor " + mxResources.get("file")
+										+ " (.mxe)"));
+						fc.addChoosableFileFilter(new DefaultFileFilter(".png",
+								"PNG+XML  " + mxResources.get("file")
+										+ " (.png)"));
 
 						// Adds file filter for VDX import
-						fc.addChoosableFileFilter(new HoopDefaultFileFilter(".vdx","XML Drawing  " + mxResources.get("file")	+ " (.vdx)"));
+						fc.addChoosableFileFilter(new DefaultFileFilter(".vdx",
+								"XML Drawing  " + mxResources.get("file")
+										+ " (.vdx)"));
 
 						// Adds file filter for GD import
-						fc.addChoosableFileFilter(new HoopDefaultFileFilter(".txt",	"Graph Drawing  " + mxResources.get("file")	+ " (.txt)"));
+						fc.addChoosableFileFilter(new DefaultFileFilter(".txt",
+								"Graph Drawing  " + mxResources.get("file")
+										+ " (.txt)"));
 
 						fc.setFileFilter(defaultFilter);
 
@@ -1590,18 +1725,14 @@ public class HoopEditorActions
 								{
 									openXmlPng(editor, fc.getSelectedFile());
 								}
-								/*
 								else if (fc.getSelectedFile().getAbsolutePath()
 										.toLowerCase().endsWith(".txt"))
 								{
-									mxGdDocument document = new mxGdDocument();
-									document.parse(mxUtils.readFile(fc
-											.getSelectedFile()
-											.getAbsolutePath()));
 									openGD(editor, fc.getSelectedFile(),
-											document);
+											mxUtils.readFile(fc
+													.getSelectedFile()
+													.getAbsolutePath()));
 								}
-								*/
 								else
 								{
 									Document document = mxXmlUtils
@@ -1968,12 +2099,14 @@ public class HoopEditorActions
 		{
 			if (e.getSource() instanceof mxGraphComponent)
 			{
-				mxGraphComponent graphComponent = (mxGraphComponent) e.getSource();
+				mxGraphComponent graphComponent = (mxGraphComponent) e
+						.getSource();
 				mxGraph graph = graphComponent.getGraph();
 
 				if (!graph.isSelectionEmpty())
 				{
-					Color newColor = JColorChooser.showDialog(graphComponent,name, null);
+					Color newColor = JColorChooser.showDialog(graphComponent,
+							name, null);
 
 					if (newColor != null)
 					{

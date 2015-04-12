@@ -49,6 +49,8 @@ public class HoopIRCReader extends HoopLoadBase implements HoopInterface
 		debug ("HoopIRCReader ()");
 		
 		setHoopDescription ("Connect to IRC services and stream text data in");
+		
+		addInPort ("KV");
 				
 		ircOwner=new HoopStringSerializable (this,"ircOwner","MindtoEye");
 		ircURL=new HoopStringSerializable (this,"twitchURLBase","irc.twitch.tv");
