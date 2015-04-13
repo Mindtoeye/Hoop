@@ -459,12 +459,24 @@ public class HoopLink extends HoopProperties
      */
     public static ImageIcon getImageByName (String aName)
     {
+    	if (imageIcons==null)
+    	{
+    		return (null);
+    	}
+    	
+    	if (imageIcons.length==0)
+    	{
+    		return (null);
+    	}
+    	
     	for (int i=0;i<imgURLs.length;i++)
     	{
     		String test=imgURLs [i];
     		
     		if (test.toLowerCase().equals(aName.toLowerCase())==true)
     		{
+    			//HoopRoot.debug ("HoopLink",test.toLowerCase() +" <-> " + aName.toLowerCase());
+    			
     			ImageIcon target=imageIcons [i];
     			
     			return (target);

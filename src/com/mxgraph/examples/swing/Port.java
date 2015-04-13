@@ -13,23 +13,24 @@ import com.mxgraph.util.mxRectangle;
 import com.mxgraph.view.mxEdgeStyle;
 import com.mxgraph.view.mxGraph;
 
+/**
+ * 
+ */
 public class Port extends JFrame
 {
+	private static final long serialVersionUID = -464235672367772404L;
+	final int PORT_DIAMETER = 10;
+	final int PORT_RADIUS = PORT_DIAMETER / 2;
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -464235672367772404L;
-
-	final int PORT_DIAMETER = 20;
-
-	final int PORT_RADIUS = PORT_DIAMETER / 2;
-
 	public Port()
 	{
-		super("Hello, World!");
+		super ("Hello, World!");
 
-		mxGraph graph = new mxGraph() {
-			
+		mxGraph graph = new mxGraph() 
+		{
 			// Ports are not used as terminals for edges, they are
 			// only used to compute the graphical connection point
 			public boolean isPort(Object cell)
@@ -66,38 +67,50 @@ public class Port extends JFrame
 		Object parent = graph.getDefaultParent();
 
 		graph.getModel().beginUpdate();
+		
 		try
 		{
-			mxCell v1 = (mxCell) graph.insertVertex(parent, null, "Hello", 20,
-					20, 100, 100, "");
+			mxCell v1 = (mxCell) graph.insertVertex(parent, null, "Hello", 20,20, 100, 100, "");
 			v1.setConnectable(false);
 			mxGeometry geo = graph.getModel().getGeometry(v1);
 			// The size of the rectangle when the minus sign is clicked
 			geo.setAlternateBounds(new mxRectangle(20, 20, 100, 50));
 
-			mxGeometry geo1 = new mxGeometry(0, 0.5, PORT_DIAMETER,
-					PORT_DIAMETER);
+			//>-------------------------------------------------------------------------
+			
+			mxGeometry geo1 = new mxGeometry(0.1, 0.5, PORT_DIAMETER,	PORT_DIAMETER);
 			// Because the origin is at upper left corner, need to translate to
 			// position the center of port correctly
 			geo1.setOffset(new mxPoint(-PORT_RADIUS, -PORT_RADIUS));
 			geo1.setRelative(true);
 
-			mxCell port1 = new mxCell(null, geo1,
-					"shape=ellipse;perimter=ellipsePerimeter");
+			mxCell port1 = new mxCell(null, geo1,"shape=ellipse;perimter=ellipsePerimeter");
 			port1.setVertex(true);
 
-			mxGeometry geo2 = new mxGeometry(1.0, 0.5, PORT_DIAMETER,
-					PORT_DIAMETER);
+			//>-------------------------------------------------------------------------
+			
+			mxGeometry geo2 = new mxGeometry(0.9, 0.3, PORT_DIAMETER,PORT_DIAMETER);
 			geo2.setOffset(new mxPoint(-PORT_RADIUS, -PORT_RADIUS));
 			geo2.setRelative(true);
 
-			mxCell port2 = new mxCell(null, geo2,
-					"shape=ellipse;perimter=ellipsePerimeter");
+			mxCell port2 = new mxCell(null, geo2,"shape=ellipse;perimter=ellipsePerimeter");
 			port2.setVertex(true);
+			
+			//>-------------------------------------------------------------------------
+			
+			mxGeometry geo3 = new mxGeometry(0.9, 0.6, PORT_DIAMETER,PORT_DIAMETER);
+			geo3.setOffset(new mxPoint(-PORT_RADIUS, -PORT_RADIUS));
+			geo3.setRelative(true);
 
-			graph.addCell(port1, v1);
-			graph.addCell(port2, v1);
+			mxCell port3 = new mxCell(null, geo3,"shape=ellipse;perimter=ellipsePerimeter");
+			port3.setVertex(true);			
 
+			graph.addCell (port1,v1);
+			graph.addCell (port2,v1);
+			graph.addCell (port3,v1);
+
+			//>-------------------------------------------------------------------------
+			
 			Object v2 = graph.insertVertex(parent, null, "World!", 240, 150, 80, 30);
 			
 			graph.insertEdge(parent, null, "Edge", port2, v2);
@@ -112,6 +125,10 @@ public class Port extends JFrame
 		graphComponent.setToolTips(true);
 	}
 
+	/**
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args)
 	{
 		Port frame = new Port();
@@ -119,5 +136,4 @@ public class Port extends JFrame
 		frame.setSize(400, 320);
 		frame.setVisible(true);
 	}
-
 }

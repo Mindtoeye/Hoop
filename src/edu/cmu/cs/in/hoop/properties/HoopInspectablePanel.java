@@ -71,8 +71,10 @@ public class HoopInspectablePanel extends HoopJPanel implements ActionListener, 
 	private Boolean folded=false;
 	private Boolean highlighted=false;
 	
-    public static int fixedWidth=200;
-    public static int fixedHeight=300;	
+    public static int fixedWidth=150;
+    public static int fixedHeight=300;
+    public static int rowHeight=48;
+    public static int rowMultiplier=16;
 	    
 	JPanel parameterPanel=null;
 		
@@ -154,9 +156,10 @@ public class HoopInspectablePanel extends HoopJPanel implements ActionListener, 
         foldButton.setMargin(new Insets (0,0,0,0));
         foldButton.setFont(new Font("Dialog", 1, 10));
         foldButton.setMinimumSize(new Dimension (20,20));
-        foldButton.setPreferredSize(new Dimension (200,20));
-        foldButton.setMaximumSize(new Dimension (200,20));
+        //foldButton.setPreferredSize(new Dimension (fixedWidth,20));
+        //foldButton.setMaximumSize(new Dimension (200,20));
         foldButton.setHorizontalAlignment(SwingConstants.LEFT);
+        //foldButton.setBorder(BorderFactory.createLineBorder(Color.red));
         foldButton.addActionListener (this);
 
         controlBox.add (foldButton);
@@ -176,7 +179,8 @@ public class HoopInspectablePanel extends HoopJPanel implements ActionListener, 
         parameterScrollList=new JScrollPane (parameterTable);
         parameterScrollList.setMinimumSize(new Dimension (10,10));
         parameterScrollList.setPreferredSize(new Dimension (100,HoopInspectablePanel.fixedHeight));   
-        parameterScrollList.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);        
+        //parameterScrollList.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        parameterScrollList.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER );
         parameterScrollList.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         
         BorderLayout configBox=new BorderLayout();
@@ -194,7 +198,9 @@ public class HoopInspectablePanel extends HoopJPanel implements ActionListener, 
 	public void setTitle (String aTitle)
 	{
 		if (foldButton!=null)
+		{	
 			foldButton.setText(aTitle);
+		}	
 	}
 	/**
 	 * 
@@ -250,7 +256,7 @@ public class HoopInspectablePanel extends HoopJPanel implements ActionListener, 
 	 */	
 	public int getFixedHeight() 
 	{
-		return HoopInspectablePanel.fixedHeight;
+		return (calcHeight ());		
 	}	
 	/**
 	 * 
@@ -292,7 +298,7 @@ public class HoopInspectablePanel extends HoopJPanel implements ActionListener, 
 	 */	
 	public void foldOut ()
 	{
-		debug ("foldOut ("+HoopInspectablePanel.fixedWidth+","+HoopInspectablePanel.fixedHeight+")");
+		debug ("foldOut ("+HoopInspectablePanel.fixedWidth+","+calcHeight ()+")");
 		
 		if (foldButton!=null)
 			foldButton.setIcon(close);
@@ -301,7 +307,7 @@ public class HoopInspectablePanel extends HoopJPanel implements ActionListener, 
 			parameterPanel.setVisible(true);
 						
 		this.setMinimumSize(new Dimension (50,26));
-		this.setPreferredSize(new Dimension (this.getWidth (),getFixedHeight()));
+		this.setPreferredSize(new Dimension (this.getWidth (),calcHeight ()));
 		//this.setMaximumSize(new Dimension (5000,getFixedHeight()));
 		
 		folded=false;		
@@ -332,6 +338,7 @@ public class HoopInspectablePanel extends HoopJPanel implements ActionListener, 
 		
 		this.hoop=aHoop;
 		
+		/*
 		HoopVisualProperties vizProps=aHoop.getVisualProperties();
 		
 		if (hoop!=null)
@@ -345,8 +352,40 @@ public class HoopInspectablePanel extends HoopJPanel implements ActionListener, 
 				this.setPreferredSize(new Dimension (HoopInspectablePanel.fixedWidth,HoopInspectablePanel.fixedHeight));
 			}	
 		}
+		*/
+		
+		if (hoop!=null)
+		{
+			ArrayList<HoopSerializable> props=hoop.getProperties();
+		
+			debug ("Setting panel height to: " + props.size() + " * " + HoopInspectablePanel.rowMultiplier);
+			
+			this.setPreferredSize(new Dimension (HoopInspectablePanel.fixedWidth,calcHeight ()));						
+		}	
+		else
+		{
+			debug ("No hoop specified, can't calculate panel height from properties");
+		}		
 				
 		configComponentPanel ();
+	}
+	/**
+	 * 
+	 */
+	private int calcHeight ()
+	{
+		debug ("calcHeight ()");
+		
+		if (hoop==null)
+		{
+			return HoopInspectablePanel.fixedHeight;
+		}
+		
+		ArrayList<HoopSerializable> props=hoop.getProperties();
+		
+		debug ("calcHeight: " + props.size() + " * "+HoopInspectablePanel.rowMultiplier+", plus: " + HoopInspectablePanel.rowHeight);
+		
+		return ((props.size()*HoopInspectablePanel.rowMultiplier)+HoopInspectablePanel.rowHeight);		
 	}
 	/**
 	 * 
@@ -439,6 +478,7 @@ public class HoopInspectablePanel extends HoopJPanel implements ActionListener, 
 			return;
 		}
 		
+		/*
 		HoopVisualProperties vizProps=aHoop.getVisualProperties();
 		
 		if (aHoop!=null)
@@ -450,8 +490,18 @@ public class HoopInspectablePanel extends HoopJPanel implements ActionListener, 
 				debug ("Setting panel height to: " + HoopInspectablePanel.fixedHeight);
 				
 				this.setPreferredSize(new Dimension (HoopInspectablePanel.fixedWidth,HoopInspectablePanel.fixedHeight));
-			}	
+			}			
 		}
+		*/
+
+		if (aHoop!=null)
+		{
+			ArrayList<HoopSerializable> props=aHoop.getProperties();
+		
+			debug ("Setting panel height to: " + props.size() + " * " + HoopInspectablePanel.rowMultiplier);
+			
+			this.setPreferredSize(new Dimension (HoopInspectablePanel.fixedWidth,calcHeight ()));						
+		}	
 		
 		//parameterScrollList.removeAll();
 		parameterScrollList.setViewportView (aContent);

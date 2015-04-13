@@ -126,7 +126,10 @@ public class HoopNodeRenderer extends HoopJPanel implements /*MouseListener, Mou
 		
 		this.cell = cell;
 		this.graphContainer = graphContainer;
-		this.graph = graphContainer.getGraph();
+		if (this.graph!=null)
+		{
+			this.graph = graphContainer.getGraph();
+		}	
 				
 		setOpaque(true);
 		setBackground(backgrColor);
@@ -143,11 +146,26 @@ public class HoopNodeRenderer extends HoopJPanel implements /*MouseListener, Mou
 		titleBar.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 1));
 		titleBar.setLayout(new BorderLayout());
 
-		icon = new JLabel(HoopLink.getImageByName("led-yellow.png"));
+		if (HoopLink.getImageByName("led-yellow.png")!=null)
+		{
+			icon = new JLabel(HoopLink.getImageByName("led-yellow.png"));
+		}
+		else
+		{
+			icon = new JLabel("I");
+		}
+		
 		icon.setBorder(BorderFactory.createEmptyBorder(0, 2, 0, 1));
 		titleBar.add(icon, BorderLayout.WEST);
 
-		titleLabel = new JLabel(String.valueOf(graph.getLabel(cell)));
+		if (graph!=null)
+		{
+			titleLabel = new JLabel(String.valueOf(graph.getLabel(cell)));
+		}	
+		else
+		{
+			titleLabel = new JLabel("Anon");
+		}
 
 		//titleLabel.setForeground(Color.WHITE);
 		titleLabel.setForeground(Color.BLACK);
