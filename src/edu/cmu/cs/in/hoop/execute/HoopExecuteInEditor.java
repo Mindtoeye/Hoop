@@ -179,11 +179,15 @@ public class HoopExecuteInEditor extends HoopExecute implements ActionListener
 		if (act.equalsIgnoreCase("run")==true)
 		{
 			setRoot(HoopLink.hoopGraphManager.getRoot());
-			setLoopCount(1);
-			
+			//setLoopCount(1);
+		
+			/*
 			Thread runner=new Thread (this);
 			runner.setUncaughtExceptionHandler(new HoopExecuteExceptionHandler ());    			
 			runner.start();
+			*/
+			
+			this.run();
 		}
 		
 		/*

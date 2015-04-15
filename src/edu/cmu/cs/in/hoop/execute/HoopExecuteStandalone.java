@@ -65,10 +65,12 @@ public class HoopExecuteStandalone extends HoopExecute
 				HoopLink.nodebug=true;
 			}
 			
+			/*
 			if (args [i].equals("-execute")==true)
 			{
 				this.setLoopCount(Integer.parseInt(args [i+1]));
-			}			
+			}
+			*/			
 		}
 	}
 	/**
@@ -94,8 +96,10 @@ public class HoopExecuteStandalone extends HoopExecute
     	HoopExecuteStandalone runtime=new HoopExecuteStandalone ();
 		
 		runtime.parseArgs(args);
+			
+		//new Thread(runtime).start();
 		
-		new Thread(runtime).start(); 
+		runtime.run ();
 	}
 }
 

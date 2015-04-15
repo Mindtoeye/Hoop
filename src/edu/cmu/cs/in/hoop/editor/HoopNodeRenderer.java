@@ -269,9 +269,9 @@ public class HoopNodeRenderer extends HoopJPanel implements /*MouseListener, Mou
 		contentArea=new JLabel ();
 		contentArea.setOpaque(false);
 				
-		leftPortBox.setBorder(redborder);
-		contentArea.setBorder(redborder);
-		rightPortBox.setBorder(redborder);
+		//leftPortBox.setBorder(redborder);
+		//contentArea.setBorder(redborder);
+		//rightPortBox.setBorder(redborder);
 		
 		contentBox.add(leftPortBox);
 		contentBox.add(Box.createHorizontalGlue());		

@@ -32,7 +32,7 @@ import edu.cmu.cs.in.hoop.editor.HoopVisualRepresentation;
 /** 
  *
  */
-public class HoopExecute extends HoopRoot
+public class HoopExecute extends HoopRoot implements Runnable 
 {
 	public static int EXEC_STOPPED=0;
 	public static int EXEC_RUNNING=1;
@@ -61,6 +61,52 @@ public class HoopExecute extends HoopRoot
     public JButton runClusterButton = null;    
     public JButton debugButton = null;
     public JButton stopButton = null;
+    
+    /**
+     * 
+     */
+    private class HoopExecuteTask extends Thread
+    {
+    	@Override
+    	public void run() 
+    	{	
+    		debug ("run ()");
+    		
+    		loopExecuting=true;
+    		currentRunner=null;
+    				
+    		if (root==null)
+    		{
+    			debug ("Error: no graph root available");
+    			return;
+    		}
+    		
+    		executionState=HoopExecute.EXEC_RUNNING;
+    		
+    		startExecution ();
+    				
+    		showHoopTree (null,root);
+    		
+    		prepareHoops (root);
+    		
+    		showHoopTree (null,root);
+    		
+    		loopExecuting=true;
+    		
+    		if (execute (null,root)==true)
+			{
+				updateDependencies ();
+			}
+    		
+    		loopExecuting=false;
+    		
+    		endExecution ();
+    		
+    		executionState=HoopExecute.EXEC_STOPPED;
+    	}    	
+    }
+    
+    private HoopExecuteTask runTask=null;
 	
 	/**
 	 *
@@ -145,8 +191,6 @@ public class HoopExecute extends HoopRoot
 		for (int i=0;i<outHoops.size();i++)
 		{
 			HoopBase current=outHoops.get(i);
-			
-			current.prep ();
 		
 			prepareHoops (current);
 		}
@@ -155,56 +199,23 @@ public class HoopExecute extends HoopRoot
 	 * 
 	 * @param aSource
 	 */
-	public Boolean dataReady (HoopThreadBase aSource)
+	public void dataReady (HoopThreadBase aSource)
 	{
-		debug ("dataReady ("+aSource.getClassName()+")");
+		debug ("dataReady ("+aSource.getName()+")");
 		
 		HoopBase upCast=(HoopBase) aSource;
 		
-		// Iterate through all the connected Hoops and call execute ...
 		
-		ArrayList<HoopBase> outHoops=upCast.getOutHoops();
-	
-		if (outHoops.size()>0)
-		{
-			debug ("Executing " + outHoops.size() + " sub hoops for " + upCast.getClassName() + " ...");
-	
-			for (int i=0;i<outHoops.size();i++)
-			{
-				debug ("Running sub hoop: " + i);
-			
-				HoopBase current=outHoops.get(i);
-											
-				if (execute (upCast,current)==false)
-				{
-					endHoopExecution (upCast);
-					return (false);
-				}
-			}
-			
-			debug ("Done executing sub hoops");
-		}
-		else
-			debug ("No sub hoops, all done");
-		
-		debug ("dataReady ("+aSource.getClassName()+") Done");
-		
-		return (true);
 	}
 	/**
 	 * 
 	 */
 	protected Boolean execute (HoopBase aParent,HoopBase aRoot)
 	{
-		debug ("execute ()");
+		debug ("execute () push");
 							
-		/*
 		if (loopExecuting==false)
-		{
-			debug ("loopExecuting==false");
 			return (true);
-		}
-		*/	
 					
 		// Execution phase of the current Hoop ...
 		
@@ -226,10 +237,7 @@ public class HoopExecute extends HoopRoot
 		
 		aRoot.resetData();
 		
-		debug ("Check, aRoot.getDone(): " + aRoot.getDone());
-		
-		//while ((aRoot.getDone()==false) && (loopExecuting==true))
-		while (aRoot.getDone()==false)
+		while ((aRoot.getDone()==false) && (loopExecuting==true))
 		{							
 			debug ("Hoop "+aRoot.getInstanceName()+" with class " + aRoot.getClassName()+ " is not done yet");
 			
@@ -258,7 +266,6 @@ public class HoopExecute extends HoopRoot
 															
 				return (false);
 			}
-			/*
 			else
 			{
 				if (loopExecuting==false)
@@ -267,7 +274,6 @@ public class HoopExecute extends HoopRoot
 					return (true);
 				}
 			}
-			*/
 			
 			currentRunner=null;
 		
@@ -320,8 +326,12 @@ public class HoopExecute extends HoopRoot
 	 */
 	public void stopExecution ()
 	{
-		//loopExecuting=false;
-						
+		loopExecuting=false;
+		
+		// First kill the process
+				
+		this.kill();
+				
 		// Then call stop on all Hoops ...
 		
 		if (root==null)
@@ -395,49 +405,14 @@ public class HoopExecute extends HoopRoot
 	/**
 	 * 
 	 */
+	@Override
 	public void run() 
 	{	
 		debug ("run ()");
 		
-		/*
 		runTask=new HoopExecuteTask ();
 		runTask.setName("Hoop Execution Main");
 		runTask.run();
-		*/
-		
-		debug ("run ()");
-		
-		loopExecuting=true;
-		currentRunner=null;
-				
-		if (root==null)
-		{
-			debug ("Error: no graph root available");
-			return;
-		}
-		
-		executionState=HoopExecute.EXEC_RUNNING;
-		
-		startExecution ();
-				
-		showHoopTree (null,root);
-		
-		prepareHoops (root);
-		
-		showHoopTree (null,root);
-		
-		loopExecuting=true;
-		
-		if (execute (null,root)==true)
-		{
-			updateDependencies ();
-		}
-		
-		loopExecuting=false;
-		
-		endExecution ();
-		
-		executionState=HoopExecute.EXEC_STOPPED;		
 	}
 	/**
 	 * 
@@ -503,5 +478,46 @@ public class HoopExecute extends HoopRoot
 	public void setExecutionState(int executionState) 
 	{
 		this.executionState = executionState;
+	}	
+	/**
+	 * 
+	 */
+	public Boolean suspend ()
+	{
+		executionState=HoopExecute.EXEC_SUSPENDED;
+		
+		if (runTask!=null)
+		{
+			runTask.interrupt();
+		}
+		
+		return (true);		
+	}
+	/**
+	 * 
+	 */
+	public Boolean resume ()
+	{
+		executionState=HoopExecute.EXEC_RUNNING;
+		
+		return (true);		
+	}
+	/**
+	 * This will do an immediate low level kill of a running graph. It
+	 * should:
+	 * 1. Kill any threads running in an individual Hoop
+	 * 2. Collect any outstanding data
+	 * 3. Kill the main thread 
+	 */
+	public Boolean kill ()
+	{
+		executionState=HoopExecute.EXEC_KILLED;
+		
+		if (runTask!=null)
+		{
+			runTask.interrupt();
+		}		
+				
+		return (true);
 	}
 }

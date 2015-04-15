@@ -38,6 +38,7 @@ import edu.cmu.cs.in.hoop.editor.HoopVisualRepresentation;
 import edu.cmu.cs.in.hoop.execute.HoopExecuteInEditor;
 import edu.cmu.cs.in.hoop.properties.HoopVisualProperties;
 import edu.cmu.cs.in.hoop.properties.types.HoopSerializable;
+import edu.cmu.cs.in.hoop.properties.types.HoopStringSerializable;
 import edu.cmu.cs.in.stats.HoopEmission;
 import edu.cmu.cs.in.stats.HoopPerformanceMeasure;
 import edu.cmu.cs.in.stats.HoopSampleMeasure;
@@ -49,10 +50,13 @@ import edu.cmu.cs.in.stats.HoopStatisticsMeasure;
 * though the API allows more than one incoming hoop, we currently
 * restrict the functionality to only one.
 */
-public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializable
+public class HoopBase extends HoopThreadBase implements HoopInterface, Serializable
 {    			
 	private static final long serialVersionUID = 6430720253230678737L;
 
+    public HoopStringSerializable batchSize=null; 
+    protected Integer bSize=-1;
+	
 	private Object graphCellReference=null;
 	
 	private Boolean active=true;
@@ -62,7 +66,7 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 	private ArrayList <HoopKV> trash=null;
 	private HoopKVTable model=null;	
 	
-	/// Either one of display,load,save,transform 
+	/// Either one of display,load,save,transform,task,visualize 
 	protected StringBuffer hoopCategory=null; 
 	protected String hoopDescription="Undefined";
 	
@@ -97,6 +101,8 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
     {
 		setClassName ("HoopBase");
 		debug ("HoopBase ()");
+				
+    	batchSize=new HoopStringSerializable (this,"batchSize","1");  
 
 		hoopID=UUID.randomUUID().toString();
 		
@@ -124,6 +130,36 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 		addOutPort ("CAS");
 		//addOutPort ("Model");
     }
+    /**
+     * 
+     */
+	@Override
+	public void prep() 
+	{
+		debug ("prep ()");
+
+		if (batchSize.getPropValue().isEmpty()==true)
+		{
+			bSize=1;
+		}
+		else
+			bSize=Integer.parseInt(batchSize.getPropValue());		
+	}    
+	/**
+	 * 
+	 */
+    public void reset ()
+    {
+    	debug ("reset ()");
+    	    	
+    	//bSize=-1;
+    	
+    	resetData ();
+    	
+    	setDone (false);
+    	setExecutionCount(0);
+    	setExecutionState ("STOPPED");
+    }	
     /**
      * 
      */
@@ -403,19 +439,6 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
     
     	//initialize list of jCas
     	jCasList = new ArrayList<JCas>();
-    }	
-	/**
-	 * 
-	 */
-    public void reset ()
-    {
-    	debug ("reset ()");
-    	    	
-    	resetData ();
-    	
-    	setDone (false);
-    	setExecutionCount(0);
-    	setExecutionState ("STOPPED");
     }
 	/**
 	 *
@@ -450,8 +473,27 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
     protected void persistData ()
     {
     	debug ("persistData ()");
+    	    	
+    }
+    /**
+     * 
+     */
+    public void processKV (HoopKV aKV)
+    {
+    	debug ("processKV ("+(data.size()+1)+" -> "+bSize+")");
+    
+    	addKV (aKV);
     	
+    	blink ();
     	
+    	propagateVisualProperties ();
+    	
+    	if (data.size()>=bSize)
+    	{
+    		HoopLink.runner.dataReady(this);
+    		
+    		resetData();
+    	}
     }
     /**
      * 
@@ -698,7 +740,9 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 		Boolean result=runHoop (inHoop);
 		
 		if (result==true)
+		{	
 			incExecutionCount ();
+		}	
 		
 		setExecutionState ("STOPPED");
 				
@@ -715,20 +759,28 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 		HoopLink.timeTakenByHoops.add(sm);
 		
 		HoopStatisticsPanel statsPanel;
-		if(HoopLink.getWindow("Statistics")!=null){
+		
+		if(HoopLink.getWindow("Statistics")!=null)
+		{
 			statsPanel=(HoopStatisticsPanel) HoopLink.getWindow("Statistics");
-		}else{
+		}
+		else
+		{
 			statsPanel=new HoopStatisticsPanel ();
 		}
+		
 		HoopLink.addView ("Statistics",statsPanel,HoopLink.bottom);
     	statsPanel.appendString("\n"+getPerformanceMetrics().getMetrics());
 		int count =0;
 		
-    	for(int i =0;i<data.size();i++){
+    	for(int i =0;i<data.size();i++)
+    	{
     		count = count + data.get(i).getValueSize();
     	}
+    	
     	HoopLink.dataSizeForHoop.add(count+"");
-    	propagateVisualProperties ();
+    	
+    	//propagateVisualProperties ();
 		
 		//debug ("Hoop executed in: " + metric+"ms");
 				
@@ -950,7 +1002,9 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 		debug ("propagateVisualProperties ()");
 		
 		if (visualizer!=null)
+		{	
 			visualizer.propagateVisualProperties();
+		}	
 	}
 	/**
 	 * 
@@ -1019,5 +1073,5 @@ public class HoopBase extends HoopBaseTyped implements HoopInterface, Serializab
 	public void setBreakAfter(Boolean breakAfter) 
 	{
 		this.breakAfter = breakAfter;
-	}		
+	}
 }

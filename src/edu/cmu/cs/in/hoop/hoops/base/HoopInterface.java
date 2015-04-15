@@ -20,6 +20,7 @@ package edu.cmu.cs.in.hoop.hoops.base;
 
 import javax.swing.JPanel;
 
+import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.stats.HoopEmission;
 
 /**
@@ -69,4 +70,14 @@ public interface HoopInterface
      * 
      */
     public HoopEmission emit ();
+    
+    /**
+     * 
+     */
+    public void processKV (HoopKV aKV);
+    
+    /**
+     * 
+     */
+    public void prep ();
 }

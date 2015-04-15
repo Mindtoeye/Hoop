@@ -107,7 +107,9 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 		HoopExecuteInEditor execution=(HoopExecuteInEditor) HoopLink.runner;
 		
 		if (execution.getExecuteSpeed ()==HoopExecuteInEditor.SPEED_FAST)
+		{
 			return;
+		}	
 		
 		if (hoop!=null)
 		{
@@ -119,6 +121,8 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 			vizProps.setHeight(this.getHeight());
 			
 			setStatus ("Ex: " + hoop.getExecutionCount());
+			
+			examineData ();
 		}
 	}	
 	/**
@@ -267,9 +271,9 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 		{
 			panel=new HoopTablePanel();
 			HoopLink.addView ("Data View",panel,"bottom");
+			HoopLink.popWindow("Data View");
 		}
 		 
-		HoopLink.popWindow("Data View");
 		panel.showHoop(hoop);					
 	}
 	/**

@@ -100,7 +100,7 @@ public class HoopIRCReader extends HoopLoadBase implements HoopInterface
 		}
 	
 		return (true);
-	}
+	}	
 	/**
 	 * 
 	 */

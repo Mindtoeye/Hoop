@@ -26,6 +26,7 @@ import java.io.IOException;
 import org.jibble.pircbot.*;
 
 import edu.cmu.cs.in.base.HoopRoot;
+import edu.cmu.cs.in.base.kv.HoopKVString;
 import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
 
 /** 
@@ -152,10 +153,14 @@ public class HoopIRCDialog extends PircBot
     	
     	HoopRoot.consoleOut ("["+channel+"] "+sender + ": " + message);
     	
+    	/*
     	if (charge!=null)
     	{
     		charge.blink ();
     	}
+    	*/
+    	
+    	charge.processKV (new HoopKVString (sender,message));
     }
 	/**
 	 * 

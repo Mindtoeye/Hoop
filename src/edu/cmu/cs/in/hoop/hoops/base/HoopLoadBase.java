@@ -30,12 +30,10 @@ public class HoopLoadBase extends HoopIOBase implements HoopInterface
 {
 	private static final long serialVersionUID = 4117447861954274834L;
 	private String content=null;
-	
-    public HoopStringSerializable batchSize=null;    
+	   
     public HoopStringSerializable queryMax=null;
 	public HoopEnumSerializable mode=null; // LINEAR,SAMPLE
 	
-    protected Integer bSize=-1;
     protected Integer bCount=0;
     protected Integer loadMax=100;
     protected Integer loadIndex=0;
@@ -53,8 +51,7 @@ public class HoopLoadBase extends HoopIOBase implements HoopInterface
 		setHoopDescription ("Abstract Hoop Loader");
 		
 		removeInPort ("KV");
-		
-    	batchSize=new HoopStringSerializable (this,"batchSize","100");    	
+  	
     	queryMax=new HoopStringSerializable (this,"queryMax","");
 		mode=new HoopEnumSerializable (this,"mode","LINEAR,SAMPLE");
     }
@@ -67,7 +64,6 @@ public class HoopLoadBase extends HoopIOBase implements HoopInterface
 		
 		super.reset ();
 		
-		bSize=-1;
 		bCount=0;		
 	    loadMax=100;
 	    loadIndex=0;			
@@ -108,14 +104,7 @@ public class HoopLoadBase extends HoopIOBase implements HoopInterface
 		if (bSize==-1)
 		{
 			debug ("Prepping indexing variables ...");
-			
-			if (batchSize.getPropValue().isEmpty()==true)
-			{
-				bSize=1;
-			}
-			else
-				bSize=Integer.parseInt(batchSize.getPropValue());
-			
+						
 			if (queryMax.getPropValue().isEmpty()==true)
 			{
 				loadMax=0;
