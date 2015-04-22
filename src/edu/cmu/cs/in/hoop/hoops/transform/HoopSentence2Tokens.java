@@ -278,6 +278,7 @@ public class HoopSentence2Tokens extends HoopTransformBase implements HoopInterf
 		else
 			return (false);
 			
+		/*
 		HoopStatisticsPanel statsPanel;
 		if(HoopLink.getWindow("Statistics")!=null){
 			statsPanel=(HoopStatisticsPanel) HoopLink.getWindow("Statistics");
@@ -286,6 +287,7 @@ public class HoopSentence2Tokens extends HoopTransformBase implements HoopInterf
 		}
 		HoopLink.addView ("Statistics",statsPanel,HoopLink.bottom);
     	statsPanel.appendString("\n"+result);
+    	*/
 		return (true);
 	}	
 	/**

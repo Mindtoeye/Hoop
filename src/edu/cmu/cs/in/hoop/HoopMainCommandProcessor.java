@@ -38,6 +38,8 @@ public class HoopMainCommandProcessor extends HoopRoot implements HoopCommandPro
 	{
 		debug ("processCommand ("+aCommand+")");
 		
+		//>-------------------------------------------------------------
+		
 		if (aCommand.equalsIgnoreCase("startEditing")==true)
 		{
 			HoopLink.preferences.putBoolean("welcome",false);
@@ -46,8 +48,12 @@ public class HoopMainCommandProcessor extends HoopRoot implements HoopCommandPro
 			
 			HoopLink.removeWindow("Welcome");
 			
-			if (mFrame!=null)				
-				mFrame.startEditor ();			
+			if (mFrame!=null)
+			{
+				mFrame.startEditor ();
+			}	
 		}
+		
+		//>-------------------------------------------------------------
 	}
 }

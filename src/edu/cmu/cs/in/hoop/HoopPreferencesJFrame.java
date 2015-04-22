@@ -91,7 +91,7 @@ public class HoopPreferencesJFrame extends HoopJFrame
 		// We want to be very careful here
 		if (HoopLink.runner!=null)
 		{
-			HoopLink.runner.stopExecution();
+			HoopLink.runner.stop();
 		}
 		
 		if (HoopLink.project!=null)

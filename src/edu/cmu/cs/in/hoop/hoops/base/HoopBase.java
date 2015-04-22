@@ -758,7 +758,10 @@ public class HoopBase extends HoopThreadBase implements HoopInterface, Serializa
 		sm.setOpen(false);
 		HoopLink.timeTakenByHoops.add(sm);
 		
-		HoopStatisticsPanel statsPanel;
+		//>-----------------------------------------------------------
+		
+		/*
+		HoopStatisticsPanel statsPanel=null;
 		
 		if(HoopLink.getWindow("Statistics")!=null)
 		{
@@ -767,10 +770,14 @@ public class HoopBase extends HoopThreadBase implements HoopInterface, Serializa
 		else
 		{
 			statsPanel=new HoopStatisticsPanel ();
+			HoopLink.addView ("Statistics",statsPanel,HoopLink.bottom);
 		}
-		
-		HoopLink.addView ("Statistics",statsPanel,HoopLink.bottom);
+				
     	statsPanel.appendString("\n"+getPerformanceMetrics().getMetrics());
+    	*/
+    	
+    	//>-----------------------------------------------------------
+    	
 		int count =0;
 		
     	for(int i =0;i<data.size();i++)

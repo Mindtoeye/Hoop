@@ -1,4 +1,3 @@
-
 /** 
  * Author: Martin van Velsen <vvelsen@cs.cmu.edu>
  * 
@@ -159,7 +158,9 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 		icon.setIcon(HoopLink.getImageByName("led-yellow.png"));
 		
 		if (hoop!=null)
+		{
 			hoop.reset ();
+		}	
 	}
 	/**
 	 * 
@@ -281,7 +282,7 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 	 */
 	public void blink ()
 	{
-		debug ("blink ()");
+		//debug ("blink ()");
 		
 		if (blinking==true)
 		{

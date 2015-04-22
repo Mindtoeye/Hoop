@@ -172,7 +172,7 @@ public class HoopExecuteInEditor extends HoopExecute implements ActionListener
 		if (act.equalsIgnoreCase("stop")==true)
 		{
 			JButton button = (JButton)event.getSource();
-			stopExecution ();
+			stopExecution (root);
 			button.setEnabled(false);
 		}
 		

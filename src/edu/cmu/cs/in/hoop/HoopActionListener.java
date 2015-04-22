@@ -23,7 +23,7 @@ import java.awt.event.ActionListener;
 
 import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.hoop.execute.HoopExecute;
-import edu.cmu.cs.in.hoop.execute.HoopExecuteExceptionHandler;
+//import edu.cmu.cs.in.hoop.execute.HoopExecuteExceptionHandler;
 import edu.cmu.cs.in.hoop.execute.HoopExecuteProgressPanel;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.visualizers.HoopCluster;
@@ -66,6 +66,7 @@ public class HoopActionListener extends HoopBase implements ActionListener
 			HoopLink.runner.setLocation (HoopExecute.LOCAL);
 			HoopLink.runner.runButton.setEnabled(false);
 			HoopLink.runner.runClusterButton.setEnabled(false);
+			HoopLink.runner.debugButton.setEnabled(false);
 			HoopLink.runner.stopButton.setEnabled(true);
 		    			
 			/*
@@ -104,6 +105,7 @@ public class HoopActionListener extends HoopBase implements ActionListener
 			HoopLink.runner.setLocation (HoopExecute.CLUSTER);
 			HoopLink.runner.runButton.setEnabled(false);
 			HoopLink.runner.runClusterButton.setEnabled(false);
+			HoopLink.runner.debugButton.setEnabled(false);
 			HoopLink.runner.stopButton.setEnabled(true);			
 			    			
 			/*
@@ -128,9 +130,12 @@ public class HoopActionListener extends HoopBase implements ActionListener
 		{
 			HoopLink.runner.runButton.setEnabled(true);
 			HoopLink.runner.runClusterButton.setEnabled(true);
+			HoopLink.runner.debugButton.setEnabled(true);
 			HoopLink.runner.stopButton.setEnabled(false);
 			
-			HoopLink.runner.stopExecution ();
+			HoopLink.runner.stop ();
 		}
+		
+		//>--------------------------------------------------------------------
 	}
 }

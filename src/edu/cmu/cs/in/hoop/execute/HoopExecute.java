@@ -41,9 +41,9 @@ public class HoopExecute extends HoopRoot
 	
 	private int executionState=EXEC_RUNNING;
 	
-	private HoopBase root=null;
+	protected HoopBase root=null;
 	 
-	private Boolean loopExecuting=false;
+	//private Boolean loopExecuting=false;
 	private Boolean inEditor=false;
 	
 	static public int LOCAL=0;
@@ -177,7 +177,6 @@ public class HoopExecute extends HoopRoot
 											
 				if (execute (upCast,current)==false)
 				{
-					endHoopExecution (upCast);
 					return (false);
 				}
 			}
@@ -194,149 +193,122 @@ public class HoopExecute extends HoopRoot
 	/**
 	 * 
 	 */
-	protected Boolean execute (HoopBase aParent,HoopBase aRoot)
+	protected Boolean execute (HoopBase aParent,HoopBase aCurrent)
 	{
 		debug ("execute ()");
-							
-		/*
-		if (loopExecuting==false)
-		{
-			debug ("loopExecuting==false");
-			return (true);
-		}
-		*/	
-					
-		// Execution phase of the current Hoop ...
+
+		startHoopExecution (aCurrent);
 		
-		if (aRoot.getActive()==false)
-		{
-			debug ("This hoop is not active, skipping execution of connected hoops as well");
-			return (true);
-		}
-		
-		experimentID=UUID.randomUUID().toString();
-		
-		startHoopExecution (aRoot);
-		
-		if (aRoot.getBreakBefore()==true)
+		if (aCurrent.getBreakBefore()==true)
 		{
 			debug ("Stopping execution!");
 			return (true);
 		}
 		
-		aRoot.resetData();
+		aCurrent.resetData();
+
+		currentRunner=aCurrent;
 		
-		debug ("Check, aRoot.getDone(): " + aRoot.getDone());
-		
-		//while ((aRoot.getDone()==false) && (loopExecuting==true))
-		while (aRoot.getDone()==false)
-		{							
-			debug ("Hoop "+aRoot.getInstanceName()+" with class " + aRoot.getClassName()+ " is not done yet");
-			
-			aRoot.setDone(true);
-			
-			setSubTreeDone (aRoot,false);
-			
-			currentRunner=aRoot;
-			
-			if (aRoot.runHoopInternal(aParent)==false)
-			{
-				currentRunner=null;
-				
-				debug ("Unable to run hoop: " + aRoot.getErrorString());
-				
-				HoopVisualRepresentation panel=aRoot.getVisualizer();
-			
-				if (panel!=null)
-					panel.setState("ERROR");
-				else
-					debug ("No visual representation present to show error result!");
-			
-				showError (aRoot.getClassName(),aRoot.getErrorString());
-				
-				endHoopExecution (aRoot);
-															
-				return (false);
-			}
-			/*
-			else
-			{
-				if (loopExecuting==false)
-				{
-					endHoopExecution (aRoot);
-					return (true);
-				}
-			}
-			*/
-			
+		if (aCurrent.runHoopInternal(aParent)==false)
+		{
 			currentRunner=null;
+			
+			debug ("Unable to run hoop: " + aCurrent.getErrorString());
+			
+			HoopVisualRepresentation panel=aCurrent.getVisualizer();
 		
-			/// One of: STOPPED, WAITING, RUNNING, PAUSED, ERROR
-			aRoot.setExecutionState("STOPPED");		
-		
-			// Iterate through all the connected Hoops and call execute ...
-		
-			ArrayList<HoopBase> outHoops=aRoot.getOutHoops();
-		
-			if (outHoops.size()>0)
-			{
-				debug ("Executing " + outHoops.size() + " sub hoops for " + aRoot.getClassName() + " ...");
-		
-				for (int i=0;i<outHoops.size();i++)
-				{
-					debug ("Running sub hoop: " + i);
-				
-					HoopBase current=outHoops.get(i);
-												
-					if (execute (aRoot,current)==false)
-					{
-						endHoopExecution (aRoot);
-						return (false);
-					}
-				}
-				
-				debug ("Done executing sub hoops");
-			}
+			if (panel!=null)
+				panel.setState("ERROR");
 			else
-				debug ("No sub hoops, all done");
+				debug ("No visual representation present to show error result!");
+		
+			showError (aCurrent.getClassName(),aCurrent.getErrorString());
+			
+			endHoopExecution (aCurrent);
+														
+			return (false);
 		}
+				
+		currentRunner=null;
+	
+		/// One of: STOPPED, WAITING, RUNNING, PAUSED, ERROR
+		aCurrent.setExecutionState("STOPPED");		
+	
+		// Iterate through all the connected Hoops and call execute ...
+	
+		ArrayList<HoopBase> outHoops=aCurrent.getOutHoops();
+	
+		if (outHoops.size()>0)
+		{
+			debug ("Executing " + outHoops.size() + " sub hoops for " + aCurrent.getClassName() + " ...");
+	
+			for (int i=0;i<outHoops.size();i++)
+			{
+				debug ("Running sub hoop: " + i);
+			
+				HoopBase current=outHoops.get(i);
+											
+				if (execute (aCurrent,current)==false)
+				{
+					endHoopExecution (aCurrent);
+					return (false);
+				}
+			}
+			
+			debug ("Done executing sub hoops");
+		}
+		else
+			debug ("No sub hoops, all done");
 		
 		// All done, really done
 		
 		debug ("execute () pop");
 		
-		if (aRoot.getBreakAfter()==true)
+		if (aCurrent.getBreakAfter()==true)
 		{
 			debug ("Stopping execution!");
 			return (true);
 		}
 		
-		endHoopExecution (aRoot);
+		endHoopExecution (aCurrent);
 				
 		return (true);
 	}	
 	/**
 	 * 
 	 */
-	public void stopExecution ()
+	public void stop ()
 	{
+		debug ("stop ()");
+		
+		stopExecution (root);
+	}
+	/**
+	 * 
+	 */
+	public void stopExecution (HoopBase aRoot)
+	{
+		debug ("stopExecution ()");
+		
 		//loopExecuting=false;
 						
 		// Then call stop on all Hoops ...
 		
-		if (root==null)
+		if (aRoot==null)
 		{
 			debug ("Error: no graph root available");
 			return;
-		}		
+		}
 		
-		ArrayList<HoopBase> outHoops=root.getOutHoops();		
+		aRoot.stop();
+		
+		ArrayList<HoopBase> outHoops=aRoot.getOutHoops();		
 		
 		for (int i=0;i<outHoops.size();i++)
 		{
 			HoopBase current=outHoops.get(i);
 
-			current.stop();
+			stopExecution (current);
 		}			
 	}
 	/**
@@ -344,7 +316,7 @@ public class HoopExecute extends HoopRoot
 	 */
 	public void stopError ()
 	{
-		stopExecution ();
+		stopExecution (root);
 		
 		if (currentRunner!=null)
 		{
@@ -398,16 +370,9 @@ public class HoopExecute extends HoopRoot
 	public void run() 
 	{	
 		debug ("run ()");
+						
+		experimentID=UUID.randomUUID().toString();
 		
-		/*
-		runTask=new HoopExecuteTask ();
-		runTask.setName("Hoop Execution Main");
-		runTask.run();
-		*/
-		
-		debug ("run ()");
-		
-		loopExecuting=true;
 		currentRunner=null;
 				
 		if (root==null)
@@ -420,20 +385,16 @@ public class HoopExecute extends HoopRoot
 		
 		startExecution ();
 				
-		showHoopTree (null,root);
+		//showHoopTree (null,root);
 		
 		prepareHoops (root);
 		
-		showHoopTree (null,root);
-		
-		loopExecuting=true;
-		
+		//showHoopTree (null,root);
+				
 		if (execute (null,root)==true)
 		{
 			updateDependencies ();
 		}
-		
-		loopExecuting=false;
 		
 		endExecution ();
 		
