@@ -41,6 +41,7 @@ public class HoopEmbeddedJPanel extends HoopLockableJPanel implements HoopViewIn
 	private Boolean singleInstance=true;
 	
 	private JTabbedPane host=null;
+	private int tabIndex=-1;
 			
 	private ImageIcon icon=null;
 	
@@ -49,7 +50,7 @@ public class HoopEmbeddedJPanel extends HoopLockableJPanel implements HoopViewIn
 	private String windowDescription="Generic Window";
 	
 	protected HoopLink privateLink=null;
-	
+		
 	/**
 	 * 
 	 */	
@@ -60,7 +61,7 @@ public class HoopEmbeddedJPanel extends HoopLockableJPanel implements HoopViewIn
 				
 		if (privateLink!=null)
 		{
-			icon=privateLink.imageIcons [5];
+			icon=HoopLink.imageIcons [5];
 		}	
 	}	
 	/**
@@ -73,7 +74,7 @@ public class HoopEmbeddedJPanel extends HoopLockableJPanel implements HoopViewIn
 		
 		privateLink=aLink;
 				
-		icon=privateLink.imageIcons [5];		
+		icon=HoopLink.imageIcons [5];		
 	}		
 	/**
 	 * 
@@ -159,10 +160,10 @@ public class HoopEmbeddedJPanel extends HoopLockableJPanel implements HoopViewIn
 	{
 		handleCloseEvent ();
 		
-		if (privateLink!=null)
-		{			
-			privateLink.removeWindowInternal (this);
-		}	
+		//if (privateLink!=null)
+		//{			
+			HoopLink.removeWindowInternal (this);
+		//}	
 	}
 	/**
 	 * 
@@ -210,9 +211,38 @@ public class HoopEmbeddedJPanel extends HoopLockableJPanel implements HoopViewIn
 	{
 		this.viewType = viewType;
 	}
+	/**
+	 * 
+	 */
 	@Override
 	public HoopEmbeddedJPanel getPanel() 
 	{
 		return (this);
-	}	
+	}
+	/**
+	 * 
+	 * @return
+	 */
+	public int getTabIndex() 
+	{
+		return tabIndex;
+	}
+	/**
+	 * 
+	 * @param tabIndex
+	 */
+	public void setTabIndex(int tabIndex) 
+	{
+		this.tabIndex = tabIndex;
+	}
+	/**
+	 * 
+	 */
+	public void setTitle (String aTitle)
+	{
+		if (host!=null)
+		{
+			host.setTitleAt(tabIndex,this.getDescription() + " - " + aTitle);
+		}	
+	}
 }

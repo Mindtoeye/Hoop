@@ -241,7 +241,7 @@ public class HoopExecute extends HoopRoot
 		if (outHoops.size()>0)
 		{
 			debug ("Executing " + outHoops.size() + " sub hoops for " + aCurrent.getClassName() + " ...");
-	
+
 			for (int i=0;i<outHoops.size();i++)
 			{
 				debug ("Running sub hoop: " + i);

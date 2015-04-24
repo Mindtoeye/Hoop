@@ -34,6 +34,7 @@ import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.base.kv.HoopKVTable;
 import edu.cmu.cs.in.controls.HoopProgressPainter;
 import edu.cmu.cs.in.hoop.HoopStatisticsPanel;
+import edu.cmu.cs.in.hoop.editor.HoopProbe;
 import edu.cmu.cs.in.hoop.editor.HoopVisualRepresentation;
 import edu.cmu.cs.in.hoop.execute.HoopExecuteInEditor;
 import edu.cmu.cs.in.hoop.properties.HoopVisualProperties;
@@ -93,6 +94,10 @@ public class HoopBase extends HoopThreadBase implements HoopInterface, Serializa
 	//Cas code
 	private ArrayList <JCas> jCasList = null;
 	
+	// Probe support
+	
+	private ArrayList<HoopProbe> probeList=new ArrayList<HoopProbe> ();
+	
 		
 	/**
 	 *
@@ -129,6 +134,43 @@ public class HoopBase extends HoopThreadBase implements HoopInterface, Serializa
 		addOutPort ("KV");
 		addOutPort ("CAS");
 		//addOutPort ("Model");
+    }
+    /**
+     * 
+     */
+    public void clearProbes ()
+    {
+    	probeList=new ArrayList<HoopProbe> ();
+    }
+    /**
+     * 
+     */
+    public void addProbe (HoopProbe aProbe)
+    {
+    	debug ("addProbe ()");
+    	
+    	probeList.add(aProbe);
+    }
+    /**
+     * 
+     */
+    public void removeProbe (HoopProbe aProbe)
+    {
+    	debug ("removeProbe ()");
+    	
+    	probeList.remove(aProbe);
+    }
+    /**
+     * 
+     */
+    public void updateProbes ()
+    {
+    	for (int i=0;i<probeList.size();i++)
+    	{
+    		HoopProbe aProbe=probeList.get(i);
+    		
+    		aProbe.update(this);
+    	}
     }
     /**
      * 

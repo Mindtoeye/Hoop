@@ -681,8 +681,8 @@ public class HoopLink extends HoopProperties
    		aPane.addTab(aTitle,
    					 aContent.getIcon(),
    					 aContent,
-   					 "New Panel");
-   		int index=aPane.indexOfComponent (aContent);
+   					 aTitle);
+   		int index=aPane.indexOfComponent (aContent);   		
    		HoopTabPane pane=new HoopTabPane (aPane);
    		aPane.setTabComponentAt(index,pane);
    	
@@ -710,6 +710,8 @@ public class HoopLink extends HoopProperties
    		pane.update();
    		
    		aContent.setHost(aPane);
+   		aContent.setTabIndex (index);
+   		aContent.setDescription(aTitle);
 
    		aPane.setSelectedComponent (aContent);   		
    	}

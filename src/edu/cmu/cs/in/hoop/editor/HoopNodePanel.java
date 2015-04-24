@@ -36,7 +36,7 @@ import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.HoopProperties;
 import edu.cmu.cs.in.controls.HoopProgressPainter;
 import edu.cmu.cs.in.controls.HoopShadowBorder;
-import edu.cmu.cs.in.hoop.HoopTablePanel;
+//import edu.cmu.cs.in.hoop.HoopTablePanel;
 import edu.cmu.cs.in.hoop.execute.HoopExecuteInEditor;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.properties.HoopInspectablePanel;
@@ -121,7 +121,9 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 			
 			setStatus ("Ex: " + hoop.getExecutionCount());
 			
-			examineData ();
+			//examineData ();
+			
+			hoop.updateProbes ();
 		}
 	}	
 	/**
@@ -265,17 +267,11 @@ public class HoopNodePanel extends HoopNodeRenderer implements HoopVisualReprese
 	protected void examineData ()
 	{
 		debug ("examineData ()");
-				
-		HoopTablePanel panel=(HoopTablePanel) HoopLink.getWindow("Data View");
 		
-		if (panel==null)
+		if (hoop!=null)
 		{
-			panel=new HoopTablePanel();
-			HoopLink.addView ("Data View",panel,"bottom");
-			HoopLink.popWindow("Data View");
-		}
-		 
-		panel.showHoop(hoop);					
+			hoop.updateProbes ();			
+		}			
 	}
 	/**
 	 * 

@@ -28,6 +28,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
 
+
 //import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -50,13 +51,14 @@ import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.base.kv.HoopKVDocument;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 import edu.cmu.cs.in.controls.base.HoopJTable;
+import edu.cmu.cs.in.hoop.editor.HoopProbe;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 
 /** 
  * @author vvelsen
  *
  */
-public class HoopTablePanel extends HoopEmbeddedJPanel implements ActionListener, ItemListener
+public class HoopTablePanel extends HoopEmbeddedJPanel implements ActionListener, ItemListener, HoopProbe
 {	
 	private static final long serialVersionUID = 1L;
 			
@@ -99,7 +101,7 @@ public class HoopTablePanel extends HoopEmbeddedJPanel implements ActionListener
 		autoUpdate=new JCheckBox ();
 		autoUpdate.setText("Auto Update");
 		autoUpdate.setFont(new Font("Dialog",1,10));
-		autoUpdate.setPreferredSize(new Dimension (100,20));
+		autoUpdate.setPreferredSize(new Dimension (85,20));
 		autoUpdate.addItemListener(this);	
 		controlBox.add(autoUpdate);
 		
@@ -123,26 +125,26 @@ public class HoopTablePanel extends HoopEmbeddedJPanel implements ActionListener
 	    setRange.setMargin(new Insets(1,1,1,1));
 	    setRange.setText("Set");
 	    setRange.setFont(new Font("Dialog", 1, 10));
-	    setRange.setMinimumSize(new Dimension (60,20));
-	    setRange.setPreferredSize(new Dimension (60,20));
+	    setRange.setMinimumSize(new Dimension (40,18));
+	    setRange.setPreferredSize(new Dimension (40,18));
 	    setRange.addActionListener(this);
 	    controlBox.add(setRange);	    
 	    
 	    previousSet=new JButton ();
 	    previousSet.setMargin(new Insets(1,1,1,1));
-	    previousSet.setText("Previous");
+	    previousSet.setText("<<");
 	    previousSet.setFont(new Font("Dialog", 1, 10));
-	    previousSet.setMinimumSize(new Dimension (60,20));
-	    previousSet.setPreferredSize(new Dimension (60,20));
+	    previousSet.setMinimumSize(new Dimension (40,18));
+	    previousSet.setPreferredSize(new Dimension (40,18));
 	    previousSet.addActionListener(this);
 	    controlBox.add(previousSet);
 	    
 	    nextSet=new JButton ();
 	    nextSet.setMargin(new Insets(1,1,1,1));  
-	    nextSet.setText("Next");
+	    nextSet.setText(">>");
 	    nextSet.setFont(new Font("Dialog", 1, 10));
-	    nextSet.setMinimumSize(new Dimension (60,20));
-	    nextSet.setPreferredSize(new Dimension (60,20));
+	    nextSet.setMinimumSize(new Dimension (40,18));
+	    nextSet.setPreferredSize(new Dimension (40,18));
 	    nextSet.addActionListener(this);
 	    controlBox.add(nextSet);	    
 	    
@@ -169,8 +171,8 @@ public class HoopTablePanel extends HoopEmbeddedJPanel implements ActionListener
 	    controlBox.add(showData);
 	    controlBox.add(showTrash);
 	    
-		controlBox.setMinimumSize(new Dimension (100,24));
-		controlBox.setPreferredSize(new Dimension (100,24));		
+		controlBox.setMinimumSize(new Dimension (100,18));
+		controlBox.setPreferredSize(new Dimension (100,18));		
 
 	    controlBox.add(new JSeparator(SwingConstants.VERTICAL));
 
@@ -179,8 +181,8 @@ public class HoopTablePanel extends HoopEmbeddedJPanel implements ActionListener
 	    status.setEditable(false);
 	    //status.setBorder(border);
 	    status.setFont(new Font("Dialog", 1, 10));
-	    status.setMinimumSize(new Dimension (20,20));
-	    status.setPreferredSize(new Dimension (100,20));
+	    status.setMinimumSize(new Dimension (20,18));
+	    status.setPreferredSize(new Dimension (100,18));
 	    controlBox.add(status);	    
 		
 		// We need some empty data because Java crashes when you provide a null parameter in the constructor
@@ -214,6 +216,8 @@ public class HoopTablePanel extends HoopEmbeddedJPanel implements ActionListener
 		
 		hoop=aHoop;
 		
+		this.setTitle(hoop.getClassName());
+		
 		updateContents ();
 	}
 	/**
@@ -230,6 +234,17 @@ public class HoopTablePanel extends HoopEmbeddedJPanel implements ActionListener
 	{
 		debug ("handleCloseEvent ()");
 		
+	}
+	/**
+	 * 
+	 */
+	public void reset ()
+	{
+		debug ("reset ()");
+		
+		DefaultTableModel model=new DefaultTableModel (null,columnNames);
+
+		table.setModel(model);
 	}
 	/**
 	 *
@@ -254,6 +269,11 @@ public class HoopTablePanel extends HoopEmbeddedJPanel implements ActionListener
 			content=hoop.getTrash();
 		
 		Integer totalSize=content.size();
+		
+		if(totalSize==0) // just simply clear the table to show we have no data
+		{
+			return;
+		}
 		
 		maxRange.setText(totalSize.toString());
 		status.setText(totalSize.toString() + " entries loaded");
@@ -372,7 +392,7 @@ public class HoopTablePanel extends HoopEmbeddedJPanel implements ActionListener
 	 */	
 	public void updateSize() 
 	{
-		debug ("updateSize ()");
+		//debug ("updateSize ()");
 		
 		super.updateSize();
 		
@@ -381,7 +401,7 @@ public class HoopTablePanel extends HoopEmbeddedJPanel implements ActionListener
 	 
 		this.setVisible(true);
 		
-		debug ("Total width: " + this.getWidth());
+		//debug ("Total width: " + this.getWidth());
 		
 		TableColumn col2 = table.getColumnModel().getColumn(1);
 		col2.setPreferredWidth(this.getWidth()-primColWidth);		
@@ -394,5 +414,12 @@ public class HoopTablePanel extends HoopEmbeddedJPanel implements ActionListener
 	{
 		
 		
+	}
+	@Override
+	public void update(HoopBase aSource) 
+	{
+		debug ("update ()");
+		
+		showHoop (aSource);
 	}	
 }

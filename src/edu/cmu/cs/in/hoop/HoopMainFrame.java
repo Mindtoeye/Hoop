@@ -406,6 +406,19 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     		}
     	});    	
     	
+    	JMenuItem dataViewItem=new JMenuItem("Data Table (Key/Value)");    	
+    	
+    	dataViewItem.addActionListener(new ActionListener() 
+    	{
+    		public void actionPerformed(ActionEvent e) 
+    		{
+    	    	HoopTablePanel dataView=new HoopTablePanel ();
+    	    	
+				HoopLink.addView ("Data View",dataView,"bottom");
+				//HoopLink.popWindow ("Data View");    	    	
+    		}
+    	});    	
+    	
     	/*
     	JMenuItem plotterItem=new JMenuItem("Main Data Plotter");    	
     	
@@ -543,6 +556,7 @@ public class HoopMainFrame extends HoopMultiViewFrame implements ActionListener,
     	views.add (consoleItem);
     	views.add (errorItem);
     	views.add (statsItem);
+    	views.add (dataViewItem);
     	//views.add (plotterItem);
     	views.add (new JSeparator());
     	views.add (propertiesItem);

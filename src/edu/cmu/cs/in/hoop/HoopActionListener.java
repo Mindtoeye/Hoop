@@ -51,6 +51,7 @@ public class HoopActionListener extends HoopBase implements ActionListener
 		
 		if (this.getInstanceName().equalsIgnoreCase("run")==true)
 		{
+			/*
 			HoopExecuteProgressPanel executionMonitor=(HoopExecuteProgressPanel) HoopLink.getWindow("Execution Monitor");
 		
 			if (executionMonitor==null)
@@ -60,6 +61,7 @@ public class HoopActionListener extends HoopBase implements ActionListener
 			}
 		
 			HoopLink.popWindow("Execution Monitor");
+			*/
 		
 			HoopLink.runner.setRoot(HoopLink.hoopGraphManager.getRoot());
 			//HoopLink.runner.setLoopCount(1);
@@ -82,6 +84,7 @@ public class HoopActionListener extends HoopBase implements ActionListener
 		
 		if (this.getInstanceName().equalsIgnoreCase("runcluster")==true)
 		{
+			/*
 			HoopExecuteProgressPanel executionMonitor=(HoopExecuteProgressPanel) HoopLink.getWindow("Execution Monitor");
 			if (executionMonitor==null)
 			{
@@ -90,6 +93,7 @@ public class HoopActionListener extends HoopBase implements ActionListener
 			}
 			
 			HoopLink.popWindow("Execution Monitor");
+			*/
 			
 			HoopCluster clusterMonitor=(HoopCluster) HoopLink.getWindow("Cluster Monitor");
 			if (clusterMonitor==null)

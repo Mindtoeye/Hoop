@@ -55,6 +55,7 @@ import edu.cmu.cs.in.base.HoopProperties;
 import edu.cmu.cs.in.controls.HoopProgressPainter;
 import edu.cmu.cs.in.controls.HoopShadowBorder;
 import edu.cmu.cs.in.controls.base.HoopJPanel;
+import edu.cmu.cs.in.hoop.HoopTablePanel;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 
 /**
@@ -670,7 +671,23 @@ public class HoopNodeRenderer extends HoopJPanel implements /*MouseListener, Mou
     	    	    	    	
 		if (button==kvExamineButton) 
 		{		
-			examineData ();
+			if (hoop!=null)
+			{
+				hoop.clearProbes ();
+				
+				HoopTablePanel panel=(HoopTablePanel) HoopLink.getWindow("Data View");
+				
+				if (panel==null)
+				{
+					panel=new HoopTablePanel();
+					HoopLink.addView ("Data View",panel,"bottom");
+					HoopLink.popWindow("Data View");
+				}
+				
+				hoop.addProbe(panel);
+				 				
+				examineData ();
+			}		
 		}	
 		
 		if (button==consoleButton) 
