@@ -36,7 +36,6 @@ import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.HoopProperties;
 import edu.cmu.cs.in.controls.HoopProgressPainter;
 import edu.cmu.cs.in.controls.HoopShadowBorder;
-//import edu.cmu.cs.in.hoop.HoopTablePanel;
 import edu.cmu.cs.in.hoop.execute.HoopExecuteInEditor;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.properties.HoopInspectablePanel;

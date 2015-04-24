@@ -29,9 +29,9 @@ import edu.stanford.nlp.process.Tokenizer;
 
 import edu.cmu.cs.in.base.kv.HoopKV;
 //import edu.cmu.cs.in.base.kv.HoopKVInteger;
-import edu.cmu.cs.in.base.HoopLink;
+//import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.HoopSimpleFeatureMaker;
-import edu.cmu.cs.in.hoop.HoopStatisticsPanel;
+//import edu.cmu.cs.in.hoop.HoopStatisticsPanel;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
 import edu.cmu.cs.in.hoop.hoops.base.HoopTransformBase;

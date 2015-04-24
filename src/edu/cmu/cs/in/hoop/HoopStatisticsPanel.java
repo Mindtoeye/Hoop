@@ -20,7 +20,7 @@ package edu.cmu.cs.in.hoop;
 
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Insets;
+//import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -47,7 +47,7 @@ import edu.cmu.cs.in.controls.HoopJFileChooser;
 import edu.cmu.cs.in.controls.base.HoopEmbeddedJPanel;
 import edu.cmu.cs.in.hoop.visualizers.HoopScatterPlot;
 //import edu.cmu.cs.in.controls.base.HoopJInternalFrame;
-import edu.cmu.cs.in.stats.HoopPerformanceMeasure;
+//import edu.cmu.cs.in.stats.HoopPerformanceMeasure;
 import edu.cmu.cs.in.stats.HoopSampleDataSet;
 import edu.cmu.cs.in.stats.HoopSampleMeasure;
 import edu.cmu.cs.in.stats.HoopStatistics;

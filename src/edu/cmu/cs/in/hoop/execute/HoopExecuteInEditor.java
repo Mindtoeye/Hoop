@@ -145,6 +145,7 @@ public class HoopExecuteInEditor extends HoopExecute implements ActionListener
 			executionMonitor.stop ();
 		}
 
+		/*
 		HoopStatisticsPanel statsPanel;
 		if(HoopLink.getWindow("Statistics")!=null){
 			statsPanel=(HoopStatisticsPanel) HoopLink.getWindow("Statistics");
@@ -153,11 +154,16 @@ public class HoopExecuteInEditor extends HoopExecute implements ActionListener
 		}
 		HoopLink.addView ("Statistics",statsPanel,HoopLink.bottom);
     	statsPanel.appendString("\n"+"-------------------------------------------------------------------------------------------------------------------");
+    	*/
     	
     	HoopSampleDataSet sds = new HoopSampleDataSet("HOOPS");
     	sds.setDataSet(HoopLink.timeTakenByHoops);
     	
-    	statsPanel.setData(sds);    			
+    	HoopStatisticsPanel statsPanel=(HoopStatisticsPanel) HoopLink.getWindow("Statistics");
+    	if (statsPanel!=null)
+    	{
+    		statsPanel.setData(sds);
+    	}	
 	}		
 	/**
 	 * 

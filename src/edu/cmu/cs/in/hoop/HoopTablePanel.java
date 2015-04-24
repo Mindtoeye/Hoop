@@ -18,7 +18,6 @@
 
 package edu.cmu.cs.in.hoop;
 
-//import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Insets;
@@ -28,8 +27,6 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
 
-
-//import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -41,7 +38,6 @@ import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-//import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
@@ -55,7 +51,6 @@ import edu.cmu.cs.in.hoop.editor.HoopProbe;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 
 /** 
- * @author vvelsen
  *
  */
 public class HoopTablePanel extends HoopEmbeddedJPanel implements ActionListener, ItemListener, HoopProbe
@@ -415,6 +410,9 @@ public class HoopTablePanel extends HoopEmbeddedJPanel implements ActionListener
 		
 		
 	}
+	/**
+	 * 
+	 */
 	@Override
 	public void update(HoopBase aSource) 
 	{
