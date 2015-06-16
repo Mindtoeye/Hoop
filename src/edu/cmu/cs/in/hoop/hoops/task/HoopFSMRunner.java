@@ -27,7 +27,9 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
 import java.util.ArrayList;
 
 import com.alexmerz.graphviz.Parser;
+import com.alexmerz.graphviz.objects.Edge;
 import com.alexmerz.graphviz.objects.Graph;
+import com.alexmerz.graphviz.objects.Node;
 
 /**
 * Note: This hoop uses: http://www.alexander-merz.com/graphviz/
@@ -75,18 +77,41 @@ public class HoopFSMRunner extends HoopControlBase implements HoopInterface
 		        try 
 		        {
 		            Parser p = new Parser();
-		            Boolean b = p.parse(aKV.getValue());
-		            
-		            ArrayList<Graph> al =p.getGraphs();
-		            
-		            for(int i=0; i<al.size();i++) 
+		            if (p.parse(aKV.getValue())==true)
 		            {
-		            	debug (al.get(i).toString());
-		            }                                       
+			            ArrayList<Graph> al =p.getGraphs();
+			            
+			            for(int i=0; i<al.size();i++) 
+			            {
+			            	//debug (al.get(i).toString());
+			            	
+			            	Graph aGraph=al.get(i);
+			            	
+			            	Node startNode=aGraph.getStartNode ();
+			            	
+			            	if (startNode!=null)
+			            	{
+			            		debug ("Found start node: " + startNode.getId().getId());
+			            		
+			            		ArrayList<String> options=getOptions (aGraph,startNode);
+			            		
+			            		showOptions (options);
+			            	}
+			            	else
+			            	{
+			            		debug ("Error: unable to find start node");
+			            	}
+			            }
+		            }
+		            else
+		            {
+		            	this.setErrorString("Error parsing FSM graph");
+		            	return (false);
+		            }
 		        } 
 		        catch (Exception e) 
 		        {
-		            e.printStackTrace();
+		        	this.setErrorString("Error parsing FSM graph: " + e.getMessage());
 		            return (false);
 		        }
 		        
@@ -106,5 +131,51 @@ public class HoopFSMRunner extends HoopControlBase implements HoopInterface
 	public HoopBase copy ()
 	{
 		return (new HoopFSMRunner ());
+	}
+	/**
+	 * 
+	 */
+	public ArrayList<String> getOptions (Graph aGraph,Node aNode)
+	{
+		debug ("getOptions ()");
+		
+		ArrayList<String> results=new ArrayList ();
+		
+		ArrayList<Edge> edges=aGraph.getEdges();
+		
+		for (int i=0;i<edges.size();i++)
+		{
+			Edge anEdge=edges.get(i);
+			
+			if (anEdge.getSource().getNode().getId()==aNode.getId())
+			{
+				debug ("Found source for edge: " + anEdge.toString());
+			}
+		}
+		
+		return (results);		
+	}
+	/**
+	 * 
+	 */
+	public ArrayList<String> processInput (String anInput)
+	{
+		debug ("processInput ()");
+		
+		ArrayList<String> results=new ArrayList ();
+		
+		return (results);
+	}
+	/**
+	 * 
+	 */
+	public void showOptions (ArrayList<String> anOptionList)
+	{
+		debug ("showOptions ()");
+		
+		for (int i=0;i<anOptionList.size();i++)
+		{
+			debug ("Option ["+i+"]: " + anOptionList.get(i));
+		}		
 	}
 }

@@ -23,6 +23,8 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
+import edu.cmu.cs.in.base.HoopRoot;
+
 /**
  * This class represents a graph.
  * 
@@ -32,7 +34,8 @@ import java.util.Hashtable;
  * @version $Id: Graph.java,v 1.5 2006/04/05 22:39:23 Alexander Exp $
  *
  */
-public class Graph {
+public class Graph extends HoopRoot 
+{
 
 	/* Constants */
 	/**
@@ -456,6 +459,27 @@ public class Graph {
 			}
 			return n;
 		}
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public Node getStartNode ()
+	{
+		debug ("getStartNode ()");
+		
+		for (int j=0;j<this.nodes.size();j++)
+		{
+			Node aNode=this.nodes.get(j);
+				
+			if (aNode.getId().getId().equalsIgnoreCase("start")==true)
+			{
+				return (aNode);
+			}
+		}
+		
+		return (null);
 	}
 	
 	/**
