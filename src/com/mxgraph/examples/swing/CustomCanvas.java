@@ -1,32 +1,27 @@
 package com.mxgraph.examples.swing;
 
+import javax.swing.BorderFactory;
+import javax.swing.CellRendererPane;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.border.BevelBorder;
 
 import com.mxgraph.canvas.mxICanvas;
 import com.mxgraph.canvas.mxImageCanvas;
-import com.mxgraph.model.mxCell;
-import com.mxgraph.model.mxGeometry;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.swing.handler.mxRubberband;
 import com.mxgraph.swing.view.mxInteractiveCanvas;
-import com.mxgraph.util.mxPoint;
-import com.mxgraph.util.mxRectangle;
 import com.mxgraph.view.mxCellState;
 import com.mxgraph.view.mxGraph;
 
-/**
- * 
- */
 public class CustomCanvas extends JFrame
 {
-	private static final long serialVersionUID = -844106998814982739L;
-	
-	final int PORT_DIAMETER = 10;
-	final int PORT_RADIUS = PORT_DIAMETER / 2;	
 
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = -844106998814982739L;
+
 	public CustomCanvas()
 	{
 		super("Custom Canvas");
@@ -37,7 +32,8 @@ public class CustomCanvas extends JFrame
 
 		mxGraph graph = new mxGraph()
 		{
-			public void drawState(mxICanvas canvas, mxCellState state,boolean drawLabel)
+			public void drawState(mxICanvas canvas, mxCellState state,
+					boolean drawLabel)
 			{
 				String label = (drawLabel) ? state.getLabel() : "";
 
@@ -45,14 +41,14 @@ public class CustomCanvas extends JFrame
 				// the preview image when cells are dragged)
 				if (getModel().isVertex(state.getCell())
 						&& canvas instanceof mxImageCanvas
-						&& ((mxImageCanvas) canvas).getGraphicsCanvas() instanceof HoopJGraphPanel)
+						&& ((mxImageCanvas) canvas).getGraphicsCanvas() instanceof SwingCanvas)
 				{
-					((HoopJGraphPanel) ((mxImageCanvas) canvas).getGraphicsCanvas()).drawVertex(state, label);
+					((SwingCanvas) ((mxImageCanvas) canvas).getGraphicsCanvas()).drawVertex(state, label);
 				}
 				// Redirection of drawing vertices in SwingCanvas
-				else if (getModel().isVertex(state.getCell()) && canvas instanceof HoopJGraphPanel)
+				else if (getModel().isVertex(state.getCell()) && canvas instanceof SwingCanvas)
 				{
-					((HoopJGraphPanel) canvas).drawVertex(state, label);
+					((SwingCanvas) canvas).drawVertex(state, label);
 				}
 				else
 				{
@@ -61,56 +57,18 @@ public class CustomCanvas extends JFrame
 			}
 		};
 
+		graph.setAllowDanglingEdges(false);
+		graph.setAllowLoops(false);		
+		
 		Object parent = graph.getDefaultParent();
 
 		graph.getModel().beginUpdate();
 		
 		try
 		{
-			mxCell v1 = (mxCell) graph.insertVertex(parent, null, "Hello", 20,20, 100, 100, "");
-			v1.setConnectable(false);
-			mxGeometry geo = graph.getModel().getGeometry(v1);
-			// The size of the rectangle when the minus sign is clicked
-			geo.setAlternateBounds(new mxRectangle(20, 20, 100, 50));
-
-			//>-------------------------------------------------------------------------
-			
-			mxGeometry geo1 = new mxGeometry(0.1, 0.5, PORT_DIAMETER,	PORT_DIAMETER);
-			// Because the origin is at upper left corner, need to translate to
-			// position the center of port correctly
-			geo1.setOffset(new mxPoint(-PORT_RADIUS, -PORT_RADIUS));
-			geo1.setRelative(true);
-
-			mxCell port1 = new mxCell(null, geo1,"shape=ellipse;perimter=ellipsePerimeter");
-			port1.setVertex(true);
-
-			//>-------------------------------------------------------------------------
-			
-			mxGeometry geo2 = new mxGeometry(0.9, 0.3, PORT_DIAMETER,PORT_DIAMETER);
-			geo2.setOffset(new mxPoint(-PORT_RADIUS, -PORT_RADIUS));
-			geo2.setRelative(true);
-
-			mxCell port2 = new mxCell(null, geo2,"shape=ellipse;perimter=ellipsePerimeter");
-			port2.setVertex(true);
-			
-			//>-------------------------------------------------------------------------
-			
-			mxGeometry geo3 = new mxGeometry(0.9, 0.6, PORT_DIAMETER,PORT_DIAMETER);
-			geo3.setOffset(new mxPoint(-PORT_RADIUS, -PORT_RADIUS));
-			geo3.setRelative(true);
-
-			mxCell port3 = new mxCell(null, geo3,"shape=ellipse;perimter=ellipsePerimeter");
-			port3.setVertex(true);			
-
-			graph.addCell (port1,v1);
-			graph.addCell (port2,v1);
-			graph.addCell (port3,v1);
-
-			//>-------------------------------------------------------------------------
-			
+			Object v1 = graph.insertVertex(parent, null, "Hello", 20, 20, 80, 30);
 			Object v2 = graph.insertVertex(parent, null, "World!", 240, 150, 80, 30);
-			
-			graph.insertEdge(parent, null, "Edge", port2, v2);
+			graph.insertEdge(parent, null, "Edge", v1, v2);
 		}
 		finally
 		{
@@ -119,11 +77,14 @@ public class CustomCanvas extends JFrame
 
 		mxGraphComponent graphComponent = new mxGraphComponent(graph)
 		{
+			/**
+			 * 
+			 */
 			private static final long serialVersionUID = 4683716829748931448L;
 
 			public mxInteractiveCanvas createCanvas()
 			{
-				return new HoopJGraphPanel(this);
+				return new SwingCanvas(this);
 			}
 		};
 
@@ -132,10 +93,43 @@ public class CustomCanvas extends JFrame
 		// Adds rubberband selection
 		new mxRubberband(graphComponent);
 	}
-	/**
-	 * 
-	 * @param args
-	 */
+
+	public class SwingCanvas extends mxInteractiveCanvas
+	{
+		protected CellRendererPane rendererPane = new CellRendererPane();
+
+		protected JLabel vertexRenderer = new JLabel();
+
+		protected mxGraphComponent graphComponent;
+
+		public SwingCanvas(mxGraphComponent graphComponent)
+		{
+			this.graphComponent = graphComponent;
+
+			vertexRenderer.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+			vertexRenderer.setHorizontalAlignment(JLabel.CENTER);
+			vertexRenderer.setBackground(graphComponent.getBackground().darker());
+			vertexRenderer.setOpaque(true);
+		}
+
+		public void drawVertex(mxCellState state, String label)
+		{
+			vertexRenderer.setText(label);
+			
+			// TODO: Configure other properties...
+
+			rendererPane.paintComponent(g, 
+										vertexRenderer, 
+										graphComponent,
+										(int) state.getX() + translate.x, 
+										(int) state.getY() + translate.y, 
+										(int) state.getWidth(),
+										(int) state.getHeight(), 
+										true);
+		}
+
+	}
+
 	public static void main(String[] args)
 	{
 		CustomCanvas frame = new CustomCanvas();

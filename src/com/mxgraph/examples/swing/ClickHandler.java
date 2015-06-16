@@ -26,10 +26,8 @@ public class ClickHandler extends JFrame
 		graph.getModel().beginUpdate();
 		try
 		{
-		   Object v1 = graph.insertVertex(parent, null, "Hello", 20, 20, 80,
-		         30);
-		   Object v2 = graph.insertVertex(parent, null, "World!",
-		         240, 150, 80, 30);
+		   Object v1 = graph.insertVertex(parent, null, "Hello", 20, 20, 80, 30);
+		   Object v2 = graph.insertVertex(parent, null, "World!", 240, 150, 80, 30);
 		   graph.insertEdge(parent, null, "Edge", v1, v2);
 		}
 		finally
@@ -41,8 +39,7 @@ public class ClickHandler extends JFrame
 		getContentPane().add(graphComponent);
 		
 		graphComponent.getGraphControl().addMouseListener(new MouseAdapter()
-		{
-		
+		{		
 			public void mouseReleased(MouseEvent e)
 			{
 				Object cell = graphComponent.getCellAt(e.getX(), e.getY());

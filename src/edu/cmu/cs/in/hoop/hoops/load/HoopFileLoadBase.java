@@ -215,7 +215,9 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 			updateProgressStatus (loadIndex,loadMax);
 			
 			if (checkDone ()==false)
-				this.setDone(false);			
+			{
+				this.setDone(false);
+			}	
 		}
 		
 		return (true);

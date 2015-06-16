@@ -69,6 +69,7 @@ import edu.cmu.cs.in.hoop.hoops.save.HoopTextFileSave;
 import edu.cmu.cs.in.hoop.hoops.save.HoopXMLDocumentWriter;
 import edu.cmu.cs.in.hoop.hoops.save.HoopXMLWriter;
 import edu.cmu.cs.in.hoop.hoops.task.HoopDummyTimeWaster;
+import edu.cmu.cs.in.hoop.hoops.task.HoopFSMRunner;
 import edu.cmu.cs.in.hoop.hoops.task.HoopPathChooser;
 import edu.cmu.cs.in.hoop.hoops.task.HoopScheduler;
 import edu.cmu.cs.in.hoop.hoops.task.HoopStart;
@@ -266,5 +267,6 @@ public class HoopManager extends HoopBase
     	addTemplate (new HoopTwitterReader ());	
     	addTemplate (new HoopIRCReader ());
     	addTemplate (new HoopRSSReader ());
+    	addTemplate (new HoopFSMRunner ());
     }
 }

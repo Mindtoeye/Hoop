@@ -33,7 +33,7 @@ import edu.cmu.cs.in.base.HoopLink;
 import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.base.kv.HoopKVTable;
 import edu.cmu.cs.in.controls.HoopProgressPainter;
-import edu.cmu.cs.in.hoop.HoopStatisticsPanel;
+//import edu.cmu.cs.in.hoop.HoopStatisticsPanel;
 import edu.cmu.cs.in.hoop.editor.HoopProbe;
 import edu.cmu.cs.in.hoop.editor.HoopVisualRepresentation;
 import edu.cmu.cs.in.hoop.execute.HoopExecuteInEditor;

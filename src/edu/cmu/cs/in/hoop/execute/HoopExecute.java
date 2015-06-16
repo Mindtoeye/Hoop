@@ -413,7 +413,7 @@ public class HoopExecute extends HoopRoot
 	/**
 	 * 
 	 */
-	private void showHoopTree (HoopBase aParent,HoopBase aRoot)
+	protected void showHoopTree (HoopBase aParent,HoopBase aRoot)
 	{									
 		if (aParent!=null)
 			debug ("+ "+aParent.getInstanceName()+" with class " + aParent.getClassName() + " -> " + aRoot.getInstanceName() + " with class " + aRoot.getClassName());
@@ -435,7 +435,7 @@ public class HoopExecute extends HoopRoot
 	/**
 	 * 
 	 */
-	private void setSubTreeDone (HoopBase aParent,Boolean aValue)
+	protected void setSubTreeDone (HoopBase aParent,Boolean aValue)
 	{																									
 		ArrayList<HoopBase> outHoops=aParent.getOutHoops();
 		

@@ -332,7 +332,7 @@ public class HoopNodeRenderer extends HoopJPanel implements /*MouseListener, Mou
 
 		add(bottomPanel, BorderLayout.SOUTH);
 		
-		setMinimumSize(new Dimension(20, 30));
+		setMinimumSize(new Dimension(HoopProperties.hoopDefaultWidth, HoopProperties.hoopDefaultHeight));
 		
 		setTitle ("Hoop Node");
 		

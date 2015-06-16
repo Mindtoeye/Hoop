@@ -47,39 +47,45 @@ public class HoopProperties extends HoopLangLink
 	public static int dialogDefaultWidth=275;
 	public static int dialogDefaultHeight=120;
 	
+	public static int hoopDefaultWidth=148;
+	public static int hoopDefaultHeight=98;	
+	
 	public static Color getHoopColor (HoopBase aHoop)
 	{
-		/*
-		if (aHoop instanceof HoopLoadBase)
+		if (aHoop!=null)
 		{
-			return (new Color (255,255,165));	
-		}
-		
-		if (aHoop instanceof HoopSaveBase)
-		{
-			return (new Color (129,158,68));
-		}
-		
-		if (aHoop instanceof HoopControlBase)
-		{
-			//backgrColor=new Color (255,255,218);
-		}
-		
-		if (aHoop instanceof HoopTransformBase)
-		{
-			return (new Color (165,111,58));
-		}
-		
-		if (aHoop instanceof HoopAnalyze)
-		{
-			return (new Color (62,105,157));
-		}
-		
-		if (aHoop instanceof HoopDisplayBase)
-		{
-			return (new Color (209,202,163));
-		}
-		*/
+			/*
+			if (aHoop instanceof HoopLoadBase)
+			{
+				return (new Color (255,255,165));	
+			}
+			
+			if (aHoop instanceof HoopSaveBase)
+			{
+				return (new Color (129,158,68));
+			}
+			
+			if (aHoop instanceof HoopControlBase)
+			{
+				//backgrColor=new Color (255,255,218);
+			}
+			
+			if (aHoop instanceof HoopTransformBase)
+			{
+				return (new Color (165,111,58));
+			}
+			
+			if (aHoop instanceof HoopAnalyze)
+			{
+				return (new Color (62,105,157));
+			}
+			
+			if (aHoop instanceof HoopDisplayBase)
+			{
+				return (new Color (209,202,163));
+			}
+			*/
+		}	
 		
 		return (new Color (209,202,163));
 	}
