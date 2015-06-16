@@ -152,6 +152,8 @@ public class HoopFSMRunner extends HoopControlBase implements HoopInterface
 			if (anEdge.getSource().getNode().getId()==aNode.getId())
 			{
 				debug ("Found source for edge: " + anEdge.toString());
+				
+				results.add(anEdge.getAttribute("label"));
 			}
 		}
 		
