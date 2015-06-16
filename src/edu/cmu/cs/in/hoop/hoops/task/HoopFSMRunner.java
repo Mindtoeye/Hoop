@@ -96,6 +96,8 @@ public class HoopFSMRunner extends HoopControlBase implements HoopInterface
 			            		ArrayList<String> options=getOptions (aGraph,startNode);
 			            		
 			            		showOptions (options);
+			            		
+			            		processInput (aGraph,"yes",options);
 			            	}
 			            	else
 			            	{
@@ -158,13 +160,23 @@ public class HoopFSMRunner extends HoopControlBase implements HoopInterface
 	/**
 	 * 
 	 */
-	public ArrayList<String> processInput (String anInput)
+	public Node processInput (Graph aGraph,String anInput,ArrayList<String> anEdgeList)
 	{
 		debug ("processInput ()");
 		
-		ArrayList<String> results=new ArrayList ();
+		for (int i=0;i<anEdgeList.size();i++)
+		{
+			//debug ("Option ["+i+"]: " + anEdgeList.get(i));
+			
+			String anEdge=anEdgeList.get(i);
+			
+			if (anEdge.equalsIgnoreCase(anInput)==true)
+			{
+				debug ("Choosing edge: " + anEdge);
+			}
+		}		
 		
-		return (results);
+		return (null);
 	}
 	/**
 	 * 
