@@ -18,11 +18,14 @@
 
 package edu.cmu.cs.in.hoop.hoops.task;
 
+import edu.cmu.cs.in.base.HoopLink;
+import edu.cmu.cs.in.base.io.HoopVFSL;
 import edu.cmu.cs.in.base.kv.HoopKV;
 import edu.cmu.cs.in.base.kv.HoopKVString;
 import edu.cmu.cs.in.hoop.hoops.base.HoopBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopControlBase;
 import edu.cmu.cs.in.hoop.hoops.base.HoopInterface;
+import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
 
 import java.util.ArrayList;
 
@@ -37,6 +40,8 @@ import com.alexmerz.graphviz.objects.Node;
 public class HoopFSMRunner extends HoopControlBase implements HoopInterface
 {    							
 	private static final long serialVersionUID = 4601746504647293496L;
+		
+	public HoopURISerializable URI=null;
 	
 	/**
 	 *
@@ -46,7 +51,10 @@ public class HoopFSMRunner extends HoopControlBase implements HoopInterface
 		setClassName ("HoopFSMRunner");
 		debug ("HoopFSMRunner ()");
 		
-		setHoopDescription ("Load and run an FSM defined in a GraphViz file/stream");		
+		setHoopDescription ("Load and run an FSM defined in a GraphViz file/stream");
+		
+		URI=new HoopURISerializable (this,"URI","");
+		URI.setFileExtension(".viz");	
     }
     /**
      * 
@@ -63,6 +71,53 @@ public class HoopFSMRunner extends HoopControlBase implements HoopInterface
 		debug ("runHoop ()");
 		
 		this.setMaxValues(1);
+				
+		String contents=HoopLink.fManager.loadContents(HoopVFSL.relativeToAbsolute(URI.getValue()));
+		
+		if (contents==null)
+		{
+			this.setErrorString(HoopLink.fManager.getErrorString());
+			return (false);
+		}
+		
+		Graph aGraph=null;
+		Node startNode=null;
+		
+        try 
+        {
+            Parser p = new Parser();
+            if (p.parse(contents)==true)
+            {
+	            ArrayList<Graph> al =p.getGraphs();
+	            
+	            for(int i=0; i<al.size();i++) 
+	            {	            	
+	            	aGraph=al.get(i);
+	            	
+	            	startNode=aGraph.getStartNode ();
+	            	
+	            	if (startNode!=null)
+	            	{
+	            		debug ("Found start node: " + startNode.getId().getId());	            		            			            		
+	            	}
+	            	else
+	            	{
+	            		this.setErrorString ("Error: unable to find start node");
+	                	return (false);
+	            	}
+	            }
+            }
+            else
+            {
+            	this.setErrorString("Error parsing FSM graph");
+            	return (false);
+            }
+        } 
+        catch (Exception e) 
+        {
+        	this.setErrorString("Error parsing FSM graph: " + e.getMessage());
+            return (false);
+        }		
 		
 		ArrayList <HoopKV> inData=inHoop.getData();
 		
@@ -73,49 +128,12 @@ public class HoopFSMRunner extends HoopControlBase implements HoopInterface
 			for (int t=0;t<inData.size();t++)
 			{
 				HoopKVString aKV=(HoopKVString) inData.get(t);		
+				
+        		ArrayList<String> options=getOptions (aGraph,startNode);
+        		
+        		showOptions (options);					
 		
-		        try 
-		        {
-		            Parser p = new Parser();
-		            if (p.parse(aKV.getValue())==true)
-		            {
-			            ArrayList<Graph> al =p.getGraphs();
-			            
-			            for(int i=0; i<al.size();i++) 
-			            {
-			            	//debug (al.get(i).toString());
-			            	
-			            	Graph aGraph=al.get(i);
-			            	
-			            	Node startNode=aGraph.getStartNode ();
-			            	
-			            	if (startNode!=null)
-			            	{
-			            		debug ("Found start node: " + startNode.getId().getId());
-			            		
-			            		ArrayList<String> options=getOptions (aGraph,startNode);
-			            		
-			            		showOptions (options);
-			            		
-			            		processInput (aGraph,"yes",options);
-			            	}
-			            	else
-			            	{
-			            		debug ("Error: unable to find start node");
-			            	}
-			            }
-		            }
-		            else
-		            {
-		            	this.setErrorString("Error parsing FSM graph");
-		            	return (false);
-		            }
-		        } 
-		        catch (Exception e) 
-		        {
-		        	this.setErrorString("Error parsing FSM graph: " + e.getMessage());
-		            return (false);
-		        }
+				processInput (aGraph,aKV.getValue(),options);
 		        
 				updateProgressStatus (t,inData.size());
 			}
@@ -141,7 +159,7 @@ public class HoopFSMRunner extends HoopControlBase implements HoopInterface
 	{
 		debug ("getOptions ()");
 		
-		ArrayList<String> results=new ArrayList ();
+		ArrayList<String> results=new ArrayList<String> ();
 		
 		ArrayList<Edge> edges=aGraph.getEdges();
 		

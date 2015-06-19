@@ -30,7 +30,7 @@ import edu.cmu.cs.in.hoop.hoops.base.HoopPropertyContainer;
 */
 public class HoopURISerializable extends HoopSerializable
 {
-	private String fileExtension="txt";
+	private String fileExtension=".txt";
 	private Boolean dirsOnly=false;
 	
 	/**

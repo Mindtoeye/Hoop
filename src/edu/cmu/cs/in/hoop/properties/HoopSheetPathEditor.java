@@ -23,8 +23,10 @@ import java.awt.event.ActionListener;
 import java.io.File;
 
 import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import edu.cmu.cs.in.base.io.HoopFileFilter;
 import edu.cmu.cs.in.base.io.HoopVFSL;
 import edu.cmu.cs.in.controls.base.HoopJPanel;
 import edu.cmu.cs.in.hoop.properties.types.HoopURISerializable;
@@ -36,7 +38,7 @@ class HoopSheetPathEditor extends HoopJPanel implements ActionListener
 {
 	private static final long serialVersionUID = 1L;		
 	private HoopURISerializable pathObject=null;
-	
+		
 	/**
 	 * 
 	 */
@@ -95,8 +97,8 @@ class HoopSheetPathEditor extends HoopJPanel implements ActionListener
 	    
 	    if (pathObject.getDirsOnly()==false)
 	    {
-			FileNameExtensionFilter filter=new FileNameExtensionFilter (pathObject.getFileExtension()+" files", pathObject.getFileExtension());
-			fc.setFileFilter(filter);
+			//FileNameExtensionFilter filter=new FileNameExtensionFilter (pathObject.getFileExtension()+" files", pathObject.getFileExtension());
+			fc.setFileFilter(new HoopFileFilter(pathObject.getFileExtension()));
 			
 			int returnVal=fc.showOpenDialog (this);
 

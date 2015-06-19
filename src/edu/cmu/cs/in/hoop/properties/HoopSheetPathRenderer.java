@@ -32,10 +32,12 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.TableCellRenderer;
 
 import edu.cmu.cs.in.base.HoopLink;
+import edu.cmu.cs.in.base.io.HoopFileFilter;
 import edu.cmu.cs.in.base.io.HoopVFSL;
 import edu.cmu.cs.in.controls.base.HoopJPanel;
 import edu.cmu.cs.in.hoop.properties.types.HoopSerializable;
@@ -53,7 +55,7 @@ class HoopSheetPathRenderer extends HoopJPanel implements TableCellRenderer, Act
 	private JTextField chosenPath;
 		
 	private HoopURISerializable pathObject=null;
-	
+		
 	/**
 	 *
 	 */  
@@ -208,8 +210,8 @@ class HoopSheetPathRenderer extends HoopJPanel implements TableCellRenderer, Act
 	    
 	    if (pathObject.getDirsOnly()==false)
 	    {
-			FileNameExtensionFilter filter=new FileNameExtensionFilter (pathObject.getFileExtension()+" files", "." + pathObject.getFileExtension());
-			fc.setFileFilter(filter);
+			//FileNameExtensionFilter filter=new FileNameExtensionFilter (pathObject.getFileExtension()+" files", pathObject.getFileExtension());
+			fc.setFileFilter(new HoopFileFilter(pathObject.getFileExtension()));
 			
 			int returnVal=fc.showOpenDialog (this);
 

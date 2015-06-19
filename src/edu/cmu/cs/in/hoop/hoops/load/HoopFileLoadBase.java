@@ -74,7 +74,7 @@ public class HoopFileLoadBase extends HoopLoadBase implements HoopInterface
 	 */	
 	public void setFileExtension(String fileExtension) 
 	{
-		this.setFileExtension(fileExtension);
+		URI.setFileExtension(fileExtension);
 	}    
 	/**
 	 * 

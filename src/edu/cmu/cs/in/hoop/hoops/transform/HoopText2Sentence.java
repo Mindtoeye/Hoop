@@ -86,7 +86,7 @@ public class HoopText2Sentence extends HoopTransformBase implements HoopInterfac
 				
 					for (int i=0;i<lines.length;i++)
 					{
-						if (((i+1)>skipLines) && ((i+1)<(lines.length-ignoreLines)))
+						if ((i>=skipLines) && (i<(lines.length-ignoreLines)))
 						{													
 							HoopKV sentenceKV=createKV (aKV);
 						
